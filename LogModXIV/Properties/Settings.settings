@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LogModXIV.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LM_TS_Color" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF800080</Value>
+    </Setting>
+    <Setting Name="B_Color" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="LM_Font" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,1097 @@
+﻿<Window x:Class="ParseModXIV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ParseModXIV" Icon="/ParseModXIV;component/ParseModXIV.ico" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" ResizeMode="NoResize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        SizeToContent="WidthAndHeight" MinWidth="355" MinHeight="220">
+    <Window.Resources>
+        <!--<Monitors:DamageMonitor x:Key="DamageMonitor" />-->
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="23" />
+            <RowDefinition Height="23" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Height="23" Name="guiMainMenu" IsMainMenu="True">
+            <MenuItem Header="_File" Name="guiFileMenu" >
+                <MenuItem Header="_Exit" Name="guiExit" Click="guiExit_Click" />
+            </MenuItem>
+            <MenuItem Header="_Log Tools" Name="guiToolsMenu">
+                <MenuItem Header="_Options" Name="guiOptionsMenu">
+                    <MenuItem Header="_Pause Logging" Name="guiPauseLogging" IsCheckable="True" />
+                </MenuItem>
+                <MenuItem Header="_Interface Language" Name="guiLanguage">
+                    <MenuItem Header="_" Name="guiLAlbanian" Click="guiLAlbanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLArabic" Click="guiLArabic_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLBulgarian" Click="guiLBulgarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCatalan" Click="guiLCatalan_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCSimplified" Click="guiLCSimplified_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCTraditional" Click="guiLCTraditional_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCroatian" Click="guiLCroatian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCzech" Click="guiLCzech_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDanish" Click="guiLDanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDutch" Click="guiLDutch_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_English" Name="guiLEnglish" Click="guiLEnglish_Click" />
+                    <MenuItem Header="_" Name="guiLEstonian" Click="guiLEstonian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFilipino" Click="guiLFilipino_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFinnish" Click="guiLFinnish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFrench" Click="guiLFrench_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGalician" Click="guiLGalician_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGerman" Click="guiLGerman_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGreek" Click="guiLGreek_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHebrew" Click="guiLHebrew_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHindi" Click="guiLHindi_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHungarian" Click="guiLHungarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLIndonesian" Click="guiLIndonesian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLItalian" Click="guiLItalian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_日本" Name="guiLJapanese" Click="guiLJapanese_Click" />
+                    <MenuItem Header="_" Name="guiLKorean" Click="guiLKorean_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLatvian" Click="guiLLatvian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLithuanian" Click="guiLLithuanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLMaltese" Click="guiLMaltese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLNorwegian" Click="guiLNorwegian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPolish" Click="guiLPolish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPortuguese" Click="guiLPortuguese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRomanian" Click="guiLRomanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRussian" Click="guiLRussian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSerbian" Click="guiLSerbian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovak" Click="guiLSlovak_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovenian" Click="guiLSlovenian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSpanish" Click="guiLSpanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSwedish" Click="guiLSwedish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLThai" Click="guiLThai_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLTurkish" Click="guiLTurkish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLUkrainian" Click="guiLUkrainian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLVietnamese" Click="guiLVietnamese_Click" Visibility="Collapsed" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help" Name="guiHelpMenu">
+                <MenuItem Header="_About" Name="guiAbout" Click="guiAbout_Click" />
+            </MenuItem>
+            <MenuItem Header="_Character" Name="guiCharMenu" Visibility="Visible" IsEnabled="False">
+                <ComboBox Name="guiPIDSelect" />
+                <MenuItem Header="_Set Process" Name="guiSetProcess" Click="guiSetProcess_Click" />
+                <MenuItem Header="_Refresh List" Name="guiRefreshList" Click="guiRefreshList_Click" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1" Grid.Column="0" Name="guiMainControl" Margin="2" Padding="5">
+            <TabItem Header="Damage Parser" Name="guiMelee">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid Name="MeleeInformation">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                        <Expander Header="Detailed Party Stats" Grid.Row="0" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                            <Grid Name="DetailedStats">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Expander Header="Damage Summary" Grid.Row="0" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E7">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+										
+										<DataGrid Name="Data_Summary" DataContext="" Grid.Row="0" Width="Auto">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Width="Auto" />
+                                                <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Damage %" Width="Auto"/>
+                                                <DataGridTextColumn Header="Melee Dmg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Ability Dmg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Spell Dmg" Width="Auto"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </Expander>
+
+                                <Expander Header="Melee Damage" Grid.Row="1" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <DataGrid Name="Melee_Damage" DataContext="" Grid.Row="0" Width="Auto">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Name" Width="Auto" />
+                                                <DataGridTextColumn Header="Melee Dmg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Melee %" Width="Auto"/>
+                                                <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                <DataGridTextColumn Header="M. Acc %" Width="Auto"/>
+                                                <DataGridTextColumn Header="M. Low/Hi" Width="Auto"/>
+                                                <DataGridTextColumn Header="M. Avg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Crits" Width="Auto"/>
+                                                <DataGridTextColumn Header="C. Low/Hi" Width="Auto"/>
+                                                <DataGridTextColumn Header="C. Avg" Width="Auto"/>
+                                                <DataGridTextColumn Header="Crit %" Width="Auto"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                    </Grid>
+                                </Expander>
+
+                                <Expander Header="Ability Damage" Grid.Row="2" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <GroupBox Grid.Row="0"  Name="AD_Name_1" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_1" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="1"  Name="AD_Name_2" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_2" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="2"  Name="AD_Name_3" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_3" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="3"  Name="AD_Name_4" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_4" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="4"  Name="AD_Name_5" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_5" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="5"  Name="AD_Name_6" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_6" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="6"  Name="AD_Name_7" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_7" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="7"  Name="AD_Name_8" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="AD_8" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>
+                                </Expander>
+
+                                <Expander Header="Spell Damage" Grid.Row="3" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <GroupBox Grid.Row="0"  Name="SD_Name_1" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_1" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="1"  Name="SD_Name_2" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_2" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="2"  Name="SD_Name_3" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_3" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="3"  Name="SD_Name_4" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_4" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="4"  Name="SD_Name_5" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_5" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="5"  Name="SD_Name_6" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_6" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="6"  Name="SD_Name_7" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_7" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+
+                                        <GroupBox Grid.Row="7"  Name="SD_Name_8" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" Width="Auto" Height="Auto" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <DataGrid Name="SD_8" DataContext="" Grid.Row="0" Width="Auto" FontSize="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Ability" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Hit/Miss" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Acc %" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Low/Hi" Width="Auto"/>
+                                                        <DataGridTextColumn Header="Ability Avg" Width="Auto"/>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.RowStyle>
+                                                        <Style TargetType="DataGridRow">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.RowStyle>
+                                                </DataGrid>
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>
+                                </Expander>
+
+                            </Grid>
+                        </Expander>
+                        <Grid Name="ActiveParty" Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Name="PM_1" Grid.Row="1" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_1_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Visible">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_1_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
+                                        <Label Name="PM_1_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_1_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_1_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_1_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_1_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_1_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_2" Grid.Row="2" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_2_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_2_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_2_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_2_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_2_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_2_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_2_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_2_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_3" Grid.Row="3" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_3_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_3_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_3_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_3_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_3_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_3_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_3_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_3_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_4" Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_4_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_4_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_4_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_4_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_4_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_4_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_4_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_4_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_5" Grid.Row="2" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_5_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_5_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_5_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_5_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_5_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_5_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_5_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_5_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_6" Grid.Row="3" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_6_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_6_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_6_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_6_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_6_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_6_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_6_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_6_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_7" Grid.Row="4" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_7_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_7_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_7_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_7_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_7_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_7_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_7_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_7_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Name="PM_8" Grid.Row="8" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Name="PM_8_Name" Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Collapsed">
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="22"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="85" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Name="PM_8_Image" Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Label Name="PM_8_DamP" Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_8_AccP" Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_8_DPS" Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                        <Label Name="PM_8_DamP_Value" Grid.Row="1" Grid.Column="1" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_8_AccP_Value" Grid.Row="1" Grid.Column="2" Content="0.00 %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                        <Label Name="PM_8_DPS_Value" Grid.Row="1" Grid.Column="3" Content="0" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                    </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="_Log" Name="guiLogTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <RichTextBox Name="guiLog" VerticalScrollBarVisibility="Auto" Width="575" MaxHeight="220" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <RichTextBox.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0.5"/>
+                            </Style>
+                        </RichTextBox.Resources>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Height="23" Name="guiYourFName" Width="75" Text="FirstName" GotFocus="guiYourFName_GotFocus" />
+            <TextBox Grid.Row="0" Grid.Column="1" Height="23" Name="guiYourLName" Width="75" Text="LastName" GotFocus="guiYourLName_GotFocus" />
+            <ComboBox Grid.Row="0" Grid.Column="2" Name="guiServerName" SelectedIndex="0">
+                <ComboBoxItem Content="Select Server"/>
+                <ComboBoxItem Content="Cornelia"/>
+                <ComboBoxItem Content="Kashuan"/>
+                <ComboBoxItem Content="Gysahl"/>
+                <ComboBoxItem Content="Mysidia"/>
+                <ComboBoxItem Content="Istory"/>
+                <ComboBoxItem Content="Figaro"/>
+                <ComboBoxItem Content="Wutai"/>
+                <ComboBoxItem Content="Trabia"/>
+                <ComboBoxItem Content="Lindblum"/>
+                <ComboBoxItem Content="Besaid"/>
+                <ComboBoxItem Content="Selbina"/>
+                <ComboBoxItem Content="Rabanastre"/>
+                <ComboBoxItem Content="Bodhum"/>
+                <ComboBoxItem Content="Melmond"/>
+                <ComboBoxItem Content="Palamecia"/>
+                <ComboBoxItem Content="Saronia"/>
+                <ComboBoxItem Content="Fabul"/>
+                <ComboBoxItem Content="Karnak"/>
+            </ComboBox>
+            <Button Grid.Row="0" Grid.Column="3" Content="Start Logging" Width="100" Name="guiStart" Click="guiStart_Click" HorizontalAlignment="Left"></Button>
+        </Grid>
+
+        <StatusBar Grid.Row="3" Grid.Column="0" Height="23" Name="guiStatusBar" VerticalAlignment="Bottom">
+            <TextBlock Name="guiMyStatus" Text="ParseModXIV" />
+        </StatusBar>
+    </Grid>
+</Window>
