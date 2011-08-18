@@ -46,8 +46,6 @@ namespace ParseModXIV
         AppModXIV.AutomaticUpdates autoUpdates = new AppModXIV.AutomaticUpdates();
         List<EventMonitor> monitors = new List<EventMonitor>();
 
-        public XElement CCodes = XElement.Load("Resources/ChatCodes.xml");
-
         string SettingsStr = "Resources/Settings_Parse.xml";
         Boolean Started = false;
         public static MainWindow myWindow;
