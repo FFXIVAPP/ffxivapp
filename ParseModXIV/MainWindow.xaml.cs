@@ -136,8 +136,7 @@ namespace ParseModXIV
             monitors.Add(damageMonitor);
             //monitors.Add(new LogBoxEventMonitor() { output = guiLog });
 
-            damageMonitor.OnDPSChange += OnDPSChange;
-            damageMonitor.OnStatChanged += delegate(object src, StatChangedEvent e) { };
+            damageMonitor.OnStatChanged += delegate { };
 
             EventParser.Instance.OnUnknownLogEvent += OnUnknownEvent;
 

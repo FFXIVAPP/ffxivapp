@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -6,44 +7,55 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Concurrent;
 
 namespace ParseModXIV.Stats
 {
-    public interface IStatContainer
+    public interface IStatContainer : ICollection<Stat<Decimal>>, INotifyPropertyChanged, INotifyCollectionChanged
     {
         String Name
         {
             get;
             set;
         }
-        ObservableCollection<NumericStat> Stats
-        {
-            get;
-        }
 
         Boolean HasStat(string name);
-        NumericStat GetStat(string name);
+        Stat<Decimal> GetStat(string name);
         Boolean TryGetStat(string name, out object result);
         Decimal SetOrAddStat(String name, Decimal v);
         Decimal GetStatValue(string name);
-        void AddStat(NumericStat s);
-        void AddStats(params NumericStat[] stats);
+        void AddStats(params Stat<Decimal>[] stats);
     }
 
-    public abstract class StatContainer : IStatContainer, IDynamicMetaObjectProvider, INotifyCollectionChanged, INotifyPropertyChanged
+    public class StatContainer : IStatContainer, IDynamicMetaObjectProvider
     {
+        private readonly ConcurrentDictionary<String, Stat<Decimal>> statDict = new ConcurrentDictionary<String, Stat<Decimal>>();
+        private String _name;
         public String Name
         {
-            get;
-            set;
+            get { return _name; }
+            set
+            {
+                _name = value;
+                DoPropertyChanged("Name");
+            }
         }
-        public abstract ObservableCollection<NumericStat> Stats { get; }
 
-        public abstract Boolean HasStat(string name);
-        public abstract NumericStat GetStat(string name);
+        public Boolean HasStat(string name)
+        {
+            return statDict.ContainsKey(name);
+        }
+
+        public Stat<Decimal> GetStat(string name)
+        {
+            Stat<Decimal> result=null;
+            statDict.TryGetValue(name, out result);
+            return result;
+        }
+        
         public Boolean TryGetStat(string name, out object result)
         {
-            if (HasStat(name))
+            if(HasStat(name))
             {
                 result = GetStat(name);
                 return true;
@@ -54,31 +66,36 @@ namespace ParseModXIV.Stats
 
         public Decimal SetOrAddStat(string name, Decimal value)
         {
-            NumericStat stat = null;
-            if (HasStat(name))
+            Stat<Decimal> stat = null;
+            if(HasStat(name))
             {
                 stat = GetStat(name);
-            }
-            else
+            } else
             {
-                stat = new NumericStat(name, value);
-                AddStat(stat);
+                 stat = new NumericStat(name, value);
+                 Add(stat);
             }
             return stat.Value;
         }
 
         public Decimal GetStatValue(string name)
         {
-            /*if(HasStat(name))*/
             return GetStat(name).Value;
-            //return 0;
         }
 
-        public void AddStat(NumericStat s)
+        public void AddStats(params Stat<Decimal>[] stats)
         {
-            AddStats(s);
+            foreach(var s in stats)
+            {
+                Add(s);
+            }
         }
-        public abstract void AddStats(params NumericStat[] stats);
+
+        protected virtual void HandleStatValueChanged(object sender, StatChangedEvent e)
+        {
+            var s = (NumericStat)sender;
+            DoPropertyChanged(s.Name);
+        }
 
         public DynamicMetaObject GetMetaObject(Expression parameter)
         {
@@ -116,28 +133,32 @@ namespace ParseModXIV.Stats
                 args[0] = Expression.Constant(binder.Name);
                 var self = Expression.Convert(Expression, LimitType);
                 var methodCall = Expression.Call(self, typeof(IStatContainer).GetMethod(methodName), args);
-                return new DynamicMetaObject(Expression.Convert(methodCall, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
+                return new DynamicMetaObject(Expression.Convert(methodCall,binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
             }
 
             public override IEnumerable<string> GetDynamicMemberNames()
             {
                 var statContainer = (IStatContainer)Value;
-                return from stat in statContainer.Stats select stat.Name;
+                return from stat in statContainer select stat.Name;
             }
         }
 
-        protected virtual void DoCollectionChanged()
+        protected virtual void DoCollectionChanged(NotifyCollectionChangedAction action, Stat<decimal> whichStat)
         {
             var handler = CollectionChanged;
-            if (handler != null)
+            if(handler != null)
             {
-                handler(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, this));
+                handler(this, new NotifyCollectionChangedEventArgs(action, whichStat));
             }
         }
 
-        protected virtual void DoPropertyChanged()
+        protected virtual void DoPropertyChanged(string whichProp)
         {
-
+            var handler = PropertyChanged;
+            if(handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(whichProp));
+            }
         }
 
         #region Implementation of INotifyCollectionChanged
@@ -149,6 +170,74 @@ namespace ParseModXIV.Stats
         #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Implementation of IEnumerable
+
+        public IEnumerator<Stat<Decimal>> GetEnumerator()
+        {
+            return statDict.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion
+
+        #region Implementation of ICollection<NumericStat>
+
+        public void Add(Stat<Decimal> item)
+        {
+            if(statDict.TryAdd(item.Name, item))
+            {
+                DoCollectionChanged(NotifyCollectionChangedAction.Add, item);
+            }
+        }
+
+        public void Clear()
+        {
+            foreach(var s in statDict.Values)
+            {
+                s.OnValueChanged -= HandleStatValueChanged;
+            }
+            statDict.Clear();
+            DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
+        }
+
+        public bool Contains(Stat<Decimal> item)
+        {
+            return statDict.ContainsKey(item.Name);
+        }
+
+        public void CopyTo(Stat<Decimal>[] array, int arrayIndex)
+        {
+            statDict.Values.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(Stat<Decimal> item)
+        {
+            Stat<Decimal> removed;
+            if(statDict.TryRemove(item.Name, out removed))
+            {
+                removed.OnValueChanged -= HandleStatValueChanged;
+                DoCollectionChanged(NotifyCollectionChangedAction.Remove, removed);
+                return true;
+            }
+            return false;
+        }
+
+        public int Count
+        {
+            get { return statDict.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
 
         #endregion
     }

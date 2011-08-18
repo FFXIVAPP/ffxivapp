@@ -1,27 +1,34 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Dynamic;
 using System.Linq.Expressions;
 
 namespace ParseModXIV.Stats
 {
-    public class StatGroup : StatContainer
+    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged
     {
-        public readonly ConcurrentDictionary<string, IStatContainer> Children = new ConcurrentDictionary<string, IStatContainer>();
-        private readonly ConcurrentDictionary<string, NumericStat> stats = new ConcurrentDictionary<string, NumericStat>();
-
-        public override ObservableCollection<NumericStat> Stats
+        protected readonly ConcurrentDictionary<string, StatGroup> Children = new ConcurrentDictionary<string, StatGroup>();
+        private readonly ConcurrentDictionary<string, Stat<Decimal>> stats = new ConcurrentDictionary<string, Stat<Decimal>>();
+        private readonly StatContainer statList = new StatContainer();
+        public String Name
         {
-            get { return new ObservableCollection<NumericStat>(stats.Values); }
+            get; set; 
+        }
+
+        public StatContainer Stats
+        {
+            get { return statList; }
         }
 
         public StatGroup(string Name, params StatGroup[] children)
         {
             this.Name = Name;
-            this.Children = new ConcurrentDictionary<string, IStatContainer>(from c in children select new KeyValuePair<string, IStatContainer>(c.Name, c));
+            this.Children = new ConcurrentDictionary<string, StatGroup>(from c in children select new KeyValuePair<string, StatGroup>(c.Name,c));
         }
 
         public StatGroup(string Name)
@@ -31,7 +38,7 @@ namespace ParseModXIV.Stats
 
         public void AddGroup(StatGroup child)
         {
-            Children.TryAdd(child.Name, child);
+            if(Children.TryAdd(child.Name, child)) DoCollectionChanged(NotifyCollectionChangedAction.Add, child);
         }
 
         public Boolean HasGroup(string name)
@@ -47,48 +54,107 @@ namespace ParseModXIV.Stats
 
         public Boolean TryGetGroup(string name, out StatGroup result)
         {
-            IStatContainer g;
-            if (Children.TryGetValue(name, out g))
+            StatGroup g;
+            if(Children.TryGetValue(name, out g))
             {
-                result = (StatGroup)g;
+                result = (StatGroup) g;
                 return true;
             }
             result = null;
             return false;
         }
 
-        //public Boolean TryGet(string path, out IStatValue<object> result)
-        //{
-        //    var pathComponents = path.Split(StatContainer.PATH_SEPERATOR.ToCharArray());
-        //    if (pathComponents.Length == 1)
-        //    {
-        //        return stats.TryGetValue(pathComponents.First(), out result);
-        //    }
-        //    IStatContainer nextGroup;
-        //    if (Children.TryGetValue(pathComponents.First(), out nextGroup))
-        //    {
-        //        return nextGroup.TryGet(String.Join(StatContainer.PATH_SEPERATOR, pathComponents, 1, pathComponents.Length - 1), out result);
-        //    }
-        //    result = null;
-        //    return false;
-        //}
-
-        public override bool HasStat(string name)
+        public void AddNewSubGroup(String name)
         {
-            return stats.ContainsKey(name);
-        }
-
-        public override NumericStat GetStat(string name)
-        {
-            NumericStat value;
-            return stats.TryGetValue(name, out value) ? value : null;
-        }
-
-        public override void AddStats(params NumericStat[] toAdd)
-        {
-            foreach (var s in toAdd)
+            var sub = new StatGroup(name);
+            foreach(var s in Stats)
             {
-                stats.TryAdd(s.Name, s);
+                if (!(s is LinkedStat)) continue;
+                var stat = (LinkedStat) s;
+                var constructorInfo = stat.GetType().GetConstructor(new Type[] { typeof(String) });
+                if (constructorInfo == null) continue;
+                // XXX: Need to actually make a Stat method that allows for a type-specific clone
+                var subStat = (NumericStat)constructorInfo.Invoke(new[] { stat.Name });
+                if (subStat == null) continue;
+                stat.AddDependency(subStat);
+                sub.Stats.Add(subStat);
+            }
+            if(sub.Stats.Any()) AddGroup(sub);
+        }
+
+
+        #region Implementation of IEnumerable
+
+        public IEnumerator<StatGroup> GetEnumerator()
+        {
+            return Children.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        #endregion
+
+        #region Implementation of ICollection<StatGroup>
+
+        public void Add(StatGroup item)
+        {
+            AddGroup(item);
+        }
+
+        public void Clear()
+        {
+            Children.Clear();
+            DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
+        }
+
+        public bool Contains(StatGroup item)
+        {
+            return Children.ContainsKey(item.Name);
+        }
+
+        public void CopyTo(StatGroup[] array, int arrayIndex)
+        {
+            Children.Values.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(StatGroup item)
+        {
+            StatGroup result;
+            if(Children.TryRemove(item.Name, out result))
+            {
+                DoCollectionChanged(NotifyCollectionChangedAction.Remove, result);
+                return true;
+            }
+            return false;
+        }
+
+        public int Count
+        {
+            get { return Children.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        #endregion
+
+        #region Implementation of INotifyCollectionChanged
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        #endregion
+
+        protected virtual void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup whichGroup)
+        {
+            var handler = CollectionChanged;
+            if (handler != null)
+            {
+                handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
             }
         }
     }

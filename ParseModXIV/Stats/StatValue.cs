@@ -31,7 +31,7 @@ namespace ParseModXIV.Stats
     //    //    }
     //    //}
     //}
-
+    
     //public class NumericStatValue : IStatValue<UInt64>
     //{
     //    public NumericStatValue(UInt64 value) : base(value)
@@ -46,12 +46,12 @@ namespace ParseModXIV.Stats
 
     //    public CounterStatValue(UInt64 value) : base(value)
     //    {
-
+            
     //    }
 
     //    public CounterStatValue() : base(0)
     //    {
-
+            
     //    }
 
     //    public virtual UInt64 Increment()
@@ -114,7 +114,7 @@ namespace ParseModXIV.Stats
     //        get { return _max; }
     //        protected set { if(value > _max) _max = value;  }
     //    }
-
+    
     //    public TimedCalculatedStatValue()
     //    {
     //        StartTime = DateTime.Now;
