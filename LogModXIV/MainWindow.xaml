@@ -8,7 +8,6 @@
                 <Menu Height="23" Name="guiMainMenu" IsMainMenu="True" VerticalAlignment="Top">
                     <MenuItem Header="_File" Name="guiFileMenu" >
                         <MenuItem Header="_Exit" Name="guiExit" Click="guiExit_Click" />
-                        <MenuItem Header="_Exit2" Name="guiExit2" Click="guiExit2_Click" />
                     </MenuItem>
                     <MenuItem Header="_Log Tools" Name="guiToolsMenu">
                         <MenuItem Header="_Auto Save Logs (XML)" Name="guiSaveLogs" IsCheckable="True" IsChecked="True" />
