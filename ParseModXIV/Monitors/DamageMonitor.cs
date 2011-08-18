@@ -13,9 +13,7 @@ namespace ParseModXIV.Monitors
         private readonly Regex name1Regex = new Regex(@"(^[a-zA-Z\s]*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex name2Regex = new Regex(@"Your", RegexOptions.Compiled);
         private CounterStat critStat, totalStat, missStat, hitStat;
-        
-        public event EventHandler<Event> OnDPSChange;
-        
+                
         public DamageMonitor()
             : base("DPS")
         {
@@ -27,13 +25,16 @@ namespace ParseModXIV.Monitors
             critStat = new CounterStat("Criticals");
             missStat = new CounterStat("Misses");
             hitStat = new CounterStat("Hits");
-            totalStat = new CounterStat("Total");
+            totalStat = new CounterStat("Total", 20);
             Stats.AddStats(totalStat,
                      new AccuracyStat("Accuracy", hitStat, missStat),
                      new AccuracyStat("Critical %", critStat, hitStat),
                      critStat, missStat, hitStat,
                      new MaxStat("Max Damage", totalStat),
                      new MinStat("Min Damage", totalStat));
+            var grp = new StatGroup("SubGroup1");
+            grp.Stats.Add(new CounterStat("Total",50));
+            AddGroup(grp);
             base.InitStats();
         }
 
@@ -65,11 +66,6 @@ namespace ParseModXIV.Monitors
             }
             else if (missReg.Success) missStat.Increment();
 
-            EventHandler<Event> onTotal = OnDPSChange;
-            if (onTotal != null)
-            {
-                onTotal(this, e);
-            }
         }
     }
 }
