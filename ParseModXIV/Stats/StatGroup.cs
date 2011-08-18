@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace ParseModXIV.Stats
 {
-    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged
+    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider
     {
         protected readonly ConcurrentDictionary<string, StatGroup> Children = new ConcurrentDictionary<string, StatGroup>();
         private readonly ConcurrentDictionary<string, Stat<Decimal>> stats = new ConcurrentDictionary<string, Stat<Decimal>>();
@@ -34,6 +34,11 @@ namespace ParseModXIV.Stats
         public StatGroup(string Name)
         {
             this.Name = Name;
+        }
+
+        public Decimal GetStatValue(string name)
+        {
+            return Stats.GetStatValue(name);
         }
 
         public void AddGroup(StatGroup child)
@@ -82,6 +87,52 @@ namespace ParseModXIV.Stats
             if(sub.Stats.Any()) AddGroup(sub);
         }
 
+        public DynamicMetaObject GetMetaObject(Expression parameter)
+        {
+            return new StatGroupMetaObject(parameter, this);
+        }
+
+        protected internal class StatGroupMetaObject : DynamicMetaObject
+        {
+            internal StatGroupMetaObject(Expression expression, BindingRestrictions restrictions)
+                : base(expression, restrictions)
+            {
+            }
+
+            internal StatGroupMetaObject(Expression expression, StatGroup value)
+                : base(expression, BindingRestrictions.Empty, value)
+            {
+            }
+
+            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
+            {
+                var restrictions = BindingRestrictions.GetTypeRestriction(Expression, LimitType);
+                const string methodName = "SetOrAddStat";
+                var args = new Expression[2];
+                args[0] = Expression.Constant(binder.Name);
+                args[1] = Expression.Convert(value.Expression, typeof(Decimal));
+                var self = Expression.Convert(Expression, LimitType);
+                var methodCall = Expression.Call(self, typeof(IStatContainer).GetMethod(methodName), args);
+                return new DynamicMetaObject(methodCall, restrictions);
+            }
+
+            public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
+            {
+                const string methodName = "GetStatValue";
+                var args = new Expression[1];
+                args[0] = Expression.Constant(binder.Name);
+                var self = Expression.Convert(Expression, LimitType);
+                var methodCall = Expression.Call(self, typeof(StatGroup).GetMethod(methodName), args);
+                return new DynamicMetaObject(Expression.Convert(methodCall, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
+            }
+
+            public override IEnumerable<string> GetDynamicMemberNames()
+            {
+                var statContainer = ((StatGroup)Value).Stats;
+                return from stat in statContainer
+                       select stat.Name;
+            }
+        }
 
         #region Implementation of IEnumerable
 
