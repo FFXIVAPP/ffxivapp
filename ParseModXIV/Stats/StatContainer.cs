@@ -117,7 +117,7 @@ namespace ParseModXIV.Stats
             public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
             {
                 var restrictions = BindingRestrictions.GetTypeRestriction(Expression, LimitType);
-                const string methodName = "SetOrUpdateStat";
+                const string methodName = "SetOrAddStat";
                 var args = new Expression[2];
                 args[0] = Expression.Constant(binder.Name);
                 args[1] = Expression.Convert(value.Expression, typeof(Decimal));
@@ -128,11 +128,11 @@ namespace ParseModXIV.Stats
 
             public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
             {
-                const string methodName = "GetStat";
+                const string methodName = "GetStatValue";
                 var args = new Expression[1];
                 args[0] = Expression.Constant(binder.Name);
                 var self = Expression.Convert(Expression, LimitType);
-                var methodCall = Expression.Call(self, typeof(IStatContainer).GetMethod(methodName), args);
+                var methodCall = Expression.Call(self, typeof(Decimal).GetMethod(methodName), args);
                 return new DynamicMetaObject(Expression.Convert(methodCall,binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
             }
 

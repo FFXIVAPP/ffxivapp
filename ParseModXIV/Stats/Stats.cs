@@ -23,9 +23,10 @@ namespace ParseModXIV.Stats
         }
     }
 
-    public abstract class Stat<T>
+    public abstract class Stat<T> : INotifyPropertyChanged
     {
         private T _value;
+        private String _name;
         public virtual T Value
         {
             get { return _value;  }
@@ -43,7 +44,8 @@ namespace ParseModXIV.Stats
 
         public String Name
         {
-            get; set; 
+            get { return _name; }
+            set { _name = value; DoPropertyChanged("Name"); }
         }
 
         public virtual event EventHandler<StatChangedEvent> OnValueChanged;
@@ -70,7 +72,23 @@ namespace ParseModXIV.Stats
         {
             var changedEvent = OnValueChanged;
             if (changedEvent != null) changedEvent(this, new StatChangedEvent(this, oldValue, newValue));
+            var propChangedEvent = PropertyChanged;
+            if (propChangedEvent != null) DoPropertyChanged("Value");
         }
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void DoPropertyChanged(string whichProp)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(whichProp));
+            }
+        }
+        #endregion
     }
 
     public interface ILinkedStat
@@ -96,6 +114,15 @@ namespace ParseModXIV.Stats
 
         protected LinkedStat(String name) : base(name, 0)
         {
+        }
+
+        protected virtual IEnumerable<Stat<decimal>> CloneDependentStats()
+        {
+            foreach(var d in GetDependencies())
+            {
+                
+            }
+            return GetDependencies();
         }
 
         public event EventHandler<StatChangedEvent> OnDependencyValueChanged;
