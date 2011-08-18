@@ -42,10 +42,10 @@ namespace ParseModXIV.Monitors
             var missReg = missRegex.Match(e.RawLine);
             String cname = String.Empty;
 
-//            if (name2Reg.Success)
-//            {
-//                cname = MainWindow.myWindow.guiYourFName.Text + " " + MainWindow.myWindow.guiYourLName.Text;
-//            }
+            if (name2Reg.Success)
+            {
+                cname = MainWindow.myWindow.guiYourFName.Text + " " + MainWindow.myWindow.guiYourLName.Text;
+            }
             if (name1Reg.Success)
             {
                 cname = name1Reg.Groups[1].Captures[0].Value;
