@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="Resources\Themes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppModXIV\AppModXIV.csproj">

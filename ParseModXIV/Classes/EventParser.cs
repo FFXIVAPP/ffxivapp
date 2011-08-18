@@ -240,7 +240,7 @@ namespace ParseModXIV.Classes
         #region "Initialization"
         private EventParser()
         {
-            loadCodes(XElement.Load(@"Resources/ChatCodes.xml"));
+            loadCodes(XElement.Load("./Resources/ChatCodes.xml"));
         }
 
         public EventParser(String xml)
