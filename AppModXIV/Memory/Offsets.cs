@@ -58,7 +58,7 @@ namespace AppModXIV.Memory
                 //Locations.Add("NPCMAPPOINTER", new MemoryHandler(_proc, (uint)FindByteString("0000803F0000803F000040C000004040") + 608).GetUInt32());
                 // Locations.Add("NAMELOC", (uint)FindByteString("015C636C69656E745C737177745C636F6D6D6F6E5C64656661756C742E77696E33322E677465780001004F445F636F6E6669675F646F7771") + 513);
                 //Locations.Add("CRAFTPOINTER", (uint)FindByteString("507265766965774D6F7573655269676874427574746F6E5570") + 11479);
-                Locations.Add("CHATPOINTER", (uint)FindByteString("810000005C5FF0") + 20);
+                Locations.Add("CHATPOINTER", (uint)FindByteString("81000000445FF0") + 20);
                 _memDump = null;
             }
 
