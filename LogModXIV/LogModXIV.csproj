@@ -118,6 +118,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\ChatCodes.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppModXIV\AppModXIV.csproj">
@@ -127,6 +130,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="LogModXIV.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ATCodes.xml" />
+    <Resource Include="Resources\ChatCodes.xml" />
+    <Resource Include="Resources\Interface_Log.xml" />
+    <Resource Include="Resources\Settings_Log.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Themes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
