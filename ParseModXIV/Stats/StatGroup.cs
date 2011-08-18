@@ -87,7 +87,10 @@ namespace ParseModXIV.Stats
 
         public IEnumerator<StatGroup> GetEnumerator()
         {
-            return Children.Values.GetEnumerator();
+            var list = new List<StatGroup>();
+            list.Add(this);
+            list.AddRange(Children.Values);
+            return list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
