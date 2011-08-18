@@ -1793,10 +1793,6 @@ namespace LogModXIV
 
         #endregion
 
-        private void guiExit2_Click(object sender, RoutedEventArgs e)
-        {
-            stopLogging();
-        }
     }
 
     public class xValuePair
