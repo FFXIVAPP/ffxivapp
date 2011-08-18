@@ -32,9 +32,6 @@ namespace ParseModXIV.Monitors
                      critStat, missStat, hitStat,
                      new MaxStat("Max Damage", totalStat),
                      new MinStat("Min Damage", totalStat));
-            var grp = new StatGroup("SubGroup1");
-            grp.Stats.Add(new CounterStat("Total",50));
-            AddGroup(grp);
             base.InitStats();
         }
 

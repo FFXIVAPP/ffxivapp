@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppModXIV.cs" />
+    <Compile Include="Dynamics\DynamicDictionary.cs" />
+    <Compile Include="Dynamics\DynamicExtensions.cs" />
+    <Compile Include="Dynamics\DynamicKeyValuePair.cs" />
     <Compile Include="Memory\ChatWorker.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\MemoryStructures.cs" />
