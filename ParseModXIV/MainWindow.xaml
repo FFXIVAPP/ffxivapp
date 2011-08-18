@@ -1,11 +1,11 @@
 ﻿<Window x:Class="ParseModXIV.MainWindow"
-        xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ParseModXIV" Icon="/ParseModXIV;component/ParseModXIV.ico" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
         SizeToContent="WidthAndHeight" MinWidth="355" MinHeight="220">
     <Window.Resources>
-        <!--<Monitors:DamageMonitor x:Key="DamageMonitor" />-->
+        <Monitors:DamageMonitor x:Key="DamageMonitor" />
     </Window.Resources>
     
     <Grid>
@@ -113,12 +113,11 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-										
-										<DataGrid Name="Data_Summary" DataContext="" Grid.Row="0" Width="Auto">
+										<DataGrid Name="Data_Summary" HeadersVisibility="All" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" ItemsSource="{Binding}">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Name" Width="Auto" />
-                                                <DataGridTextColumn Header="Total Dmg" Width="Auto"/>
-                                                <DataGridTextColumn Header="Damage %" Width="Auto"/>
+                                                <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Path=Name}"/>
+                                                <DataGridTextColumn Header="Total Dmg" Width="Auto" Binding="{Binding Path=Total}"/>
+                                                <DataGridTextColumn Header="Damage %" Width="Auto" />
                                                 <DataGridTextColumn Header="Melee Dmg" Width="Auto"/>
                                                 <DataGridTextColumn Header="Ability Dmg" Width="Auto"/>
                                                 <DataGridTextColumn Header="Spell Dmg" Width="Auto"/>

@@ -125,6 +125,7 @@
     <AppDesigner Include="Properties\" />
     <None Include="Resources\ChatCodes.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -137,10 +138,18 @@
     <Resource Include="ParseModXIV.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ATCodes.xml" />
-    <Resource Include="Resources\ChatCodes.xml" />
-    <Resource Include="Resources\Interface_Parse.xml" />
-    <Resource Include="Resources\Settings_Parse.xml" />
+    <None Include="Resources\ATCodes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\ChatCodes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Interface_Parse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Settings_Parse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

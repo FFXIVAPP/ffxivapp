@@ -4,16 +4,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Dynamic;
 using System.Linq.Expressions;
 
 namespace ParseModXIV.Stats
 {
-    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider
+    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider, INotifyPropertyChanged
     {
         protected readonly ConcurrentDictionary<string, StatGroup> Children = new ConcurrentDictionary<string, StatGroup>();
-        private readonly ConcurrentDictionary<string, Stat<Decimal>> stats = new ConcurrentDictionary<string, Stat<Decimal>>();
         private readonly StatContainer statList = new StatContainer();
         public String Name
         {
@@ -25,15 +25,21 @@ namespace ParseModXIV.Stats
             get { return statList; }
         }
 
-        public StatGroup(string Name, params StatGroup[] children)
+        public StatGroup(string name, params StatGroup[] children)
         {
-            this.Name = Name;
             this.Children = new ConcurrentDictionary<string, StatGroup>(from c in children select new KeyValuePair<string, StatGroup>(c.Name,c));
+            DoInit(name);
         }
 
-        public StatGroup(string Name)
+        public StatGroup(string name)
         {
-            this.Name = Name;
+            DoInit(name);
+        }
+
+        private void DoInit(string name)
+        {
+            Name = name;
+            statList.PropertyChanged += (sender, e) => DoPropertyChanged(e.PropertyName);
         }
 
         public Decimal GetStatValue(string name)
@@ -211,5 +217,16 @@ namespace ParseModXIV.Stats
                 handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
             }
         }
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void DoPropertyChanged(string name)
+        {
+            var propChanged = PropertyChanged;
+            if(propChanged != null) propChanged(this, new PropertyChangedEventArgs(name));
+        }
+        #endregion
     }
 }
