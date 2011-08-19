@@ -11,7 +11,7 @@ using System.Collections.Concurrent;
 
 namespace ParseModXIV.Stats
 {
-    public interface IStatContainer : ICollection<Stat<Decimal>>, INotifyPropertyChanged, INotifyCollectionChanged
+    public interface IStatContainer : ICollection<Stat<Decimal>>, INotifyPropertyChanged, INotifyCollectionChanged, IDynamicMetaObjectProvider
     {
         String Name
         {
@@ -27,7 +27,7 @@ namespace ParseModXIV.Stats
         void AddStats(params Stat<Decimal>[] stats);
     }
 
-    public class StatContainer : IStatContainer, IDynamicMetaObjectProvider
+    public class StatContainer : IStatContainer
     {
         private readonly ConcurrentDictionary<String, Stat<Decimal>> statDict = new ConcurrentDictionary<String, Stat<Decimal>>();
         private String _name;
@@ -128,7 +128,7 @@ namespace ParseModXIV.Stats
 
             public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
             {
-                const string methodName = "GetStat";
+                const string methodName = "GetStatValue";
                 var args = new Expression[1];
                 args[0] = Expression.Constant(binder.Name);
                 var self = Expression.Convert(Expression, LimitType);
