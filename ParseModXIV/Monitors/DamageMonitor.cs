@@ -15,7 +15,7 @@ namespace ParseModXIV.Monitors
         private CounterStat critStat, totalStat, missStat, hitStat;
                 
         public DamageMonitor()
-            : base("Totals")
+            : base("Party Total")
         {
             Filter = ((UInt16)EventDirection.By | (UInt16)EventSubject.You | (UInt16)EventSubject.Party | (UInt16)EventType.Attack);
             EventParser.Instance.OnPartyChanged += (object src, PartyEventArgs e) => UpdatePartyList(e);

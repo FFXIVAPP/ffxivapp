@@ -113,14 +113,17 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-										<DataGrid Name="Data_Summary" HeadersVisibility="All" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" ItemsSource="{Binding}">
+                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" ItemsSource="{Binding}" AutoGenerateColumns="False">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Path=Name}"/>
-                                                <DataGridTextColumn Header="Total Dmg" Width="Auto" Binding="{Binding Path=Total}"/>
-                                                <DataGridTextColumn Header="Damage %" Width="Auto" />
-                                                <DataGridTextColumn Header="Melee Dmg" Width="Auto"/>
-                                                <DataGridTextColumn Header="Ability Dmg" Width="Auto"/>
-                                                <DataGridTextColumn Header="Spell Dmg" Width="Auto"/>
+                                                <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
+                                                <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=Accuracy}" Header="Accuracy" />
+                                                <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" />
+                                                <DataGridTextColumn Binding="{Binding Path=Min Damage}" Header="Min Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=Hits}" Header="Hits" />
+                                                <DataGridTextColumn Binding="{Binding Path=Critical %}" Header="Critical %" />
+                                                <DataGridTextColumn Binding="{Binding Path=Misses}" Header="Misses" />
+                                                <DataGridTextColumn Binding="{Binding Path=Criticals}" Header="Criticals" />
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </Grid>

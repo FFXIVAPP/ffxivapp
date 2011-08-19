@@ -290,6 +290,7 @@ namespace ParseModXIV.Classes
         private EventParser()
         {
             InParty = false;
+            //loadCodes(XElement.Load(@"C:/Users/Icehunter/Documents/Visual Studio 2010/Projects/CSharp/AppModXIV/Release/Resources/ChatCodes.xml"));
             loadCodes(XElement.Load("Resources/ChatCodes.xml"));
         }
 
