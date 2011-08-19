@@ -452,6 +452,9 @@ namespace ParseModXIV
                     System.Windows.Documents.Run run = new System.Windows.Documents.Run(mText + "\n", mBox.Selection.End);
                     TextRange tr = new TextRange(run.ContentStart, run.ContentEnd);
                     tr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(mColor));
+                    var para = new Paragraph();
+                    para.Inlines.Add(run);
+                    mBox.Document.Blocks.Add(para);
                     mBox.Selection.Select(run.ContentStart, run.ContentEnd);
                     mBox.ScrollToEnd();
                     return null;
@@ -933,10 +936,18 @@ namespace ParseModXIV
             {
                 var items = from item in XDocument.Load("Resources/Sample.xml").Descendants("Line")
                             select new xValuePair { Key = (string)item.Attribute("Key"), Value = (string)item.Attribute("Value") };
-
+                
                 foreach (var item in items)
                 {
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(item.Key, 16), item.Value);
+                    var code = Convert.ToUInt16(item.Key, 16);
+                    var line = item.Value;
+                    Func<bool> d = delegate()
+                        {
+                            EventParser.Instance.ParseAndPublish(code, line);
+                            return true;
+                        };
+                    d.BeginInvoke(null, null);
+                   //EventParser.Instance.ParseAndPublish(Convert.ToUInt16(item.Key, 16), item.Value);
                 }
             }
             else
