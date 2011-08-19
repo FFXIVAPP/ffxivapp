@@ -240,6 +240,7 @@ namespace ParseModXIV.Classes
         #region "Initialization"
         private EventParser()
         {
+            //loadCodes(XElement.Load(@"C:/Users/Icehunter/Documents/Visual Studio 2010/Projects/CSharp/AppModXIV/Release/Resources/ChatCodes.xml"));
             loadCodes(XElement.Load("Resources/ChatCodes.xml"));
         }
 

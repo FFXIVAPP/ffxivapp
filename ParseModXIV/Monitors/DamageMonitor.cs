@@ -15,7 +15,7 @@ namespace ParseModXIV.Monitors
         private CounterStat critStat, totalStat, missStat, hitStat;
                 
         public DamageMonitor()
-            : base("DPS")
+            : base("Party Total")
         {
             Filter = (UInt16)((UInt16)EventDirection.By | (UInt16)EventSubject.You | (UInt16)EventSubject.Party | (UInt16)EventType.Attack);
         }
@@ -25,7 +25,7 @@ namespace ParseModXIV.Monitors
             critStat = new CounterStat("Criticals");
             missStat = new CounterStat("Misses");
             hitStat = new CounterStat("Hits");
-            totalStat = new CounterStat("Total", 20);
+            totalStat = new CounterStat("Total");
             Stats.AddStats(totalStat,
                      new AccuracyStat("Accuracy", hitStat, missStat),
                      new AccuracyStat("Critical %", critStat, hitStat),

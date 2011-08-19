@@ -41,10 +41,16 @@ namespace ParseModXIV
     public partial class MainWindow : Window
     {
 
+        Boolean DebugChat = true;
+
         #region " VARIABLES "
 
         AppModXIV.AutomaticUpdates autoUpdates = new AppModXIV.AutomaticUpdates();
         List<EventMonitor> monitors = new List<EventMonitor>();
+
+        HttpWebRequest HttpWReq;
+        HttpWebResponse HttpWResp;
+        Encoding resEncoding;
 
         string SettingsStr = "Resources/Settings_Parse.xml";
         Boolean Started = false;
@@ -923,34 +929,43 @@ namespace ParseModXIV
 
         private void guiStart_Click(object sender, RoutedEventArgs e)
         {
-            if (guiStart.Content.ToString() == "Start Logging")
+            if (DebugChat)
             {
-                guiStart.Content = "Stop Logging";
+                var items = from item in XDocument.Load("Resources/Sample.xml").Descendants("Line")
+                            select new xValuePair { Key = (string)item.Attribute("Key"), Value = (string)item.Attribute("Value") };
 
-                if (!Started)
+                foreach (var item in items)
                 {
-                    Started = true;
-                    GetPID();
+                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(item.Key, 16), item.Value);
                 }
-                else
-                {
-                    SetPID();
-                }
-
-                guiCharMenu.IsEnabled = true;
             }
             else
             {
-                guiStart.Content = "Start Logging";
-                guiCharMenu.IsEnabled = false;
+                if (guiStart.Content.ToString() == "Start Logging")
+                {
+                    guiStart.Content = "Stop Logging";
 
-                stopLogging();
+                    if (!Started)
+                    {
+                        Started = true;
+                        GetPID();
+                    }
+                    else
+                    {
+                        SetPID();
+                    }
+
+                    guiCharMenu.IsEnabled = true;
+                }
+                else
+                {
+                    guiStart.Content = "Start Logging";
+                    guiCharMenu.IsEnabled = false;
+
+                    stopLogging();
+                }
             }
         }
-
-        HttpWebRequest HttpWReq;
-        HttpWebResponse HttpWResp;
-        Encoding resEncoding;
 
         public void GetAvatars(string FirstName, string LastName, string WorldNum, Image MyImage, GroupBox MyName)
         {
