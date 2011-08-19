@@ -113,7 +113,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" ItemsSource="{Binding Mode=OneWay, Source={StaticResource DamageMonitor}}" AutoGenerateColumns="False">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
                                                 <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
