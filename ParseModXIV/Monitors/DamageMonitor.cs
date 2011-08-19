@@ -9,9 +9,7 @@ namespace ParseModXIV.Monitors
 {
     public class DamageMonitor : EventMonitor
     {
-        private readonly Regex critRegex = new Regex(@"Critical!", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private readonly Regex missRegex = new Regex(@"misses", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private readonly Regex damageAmountRegex = new Regex(@"\A(?<crit>Critical! )?(?<whoHit>Your|\w+\s\w+)[^ ]* (?<ability>[\w\s]+) (hits|misses) (?<target>(\w+\s?){1,2})[^ ]* (?<bodyPart>[\w\s]+)? for (?<amount>\d+) points of damage.*\Z", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private readonly Regex damageAmountRegex = new Regex(@"\A(?<crit>Critical! )?(?<whoHit>Your|\w+\s\w+)[^ ]* (?<ability>[\w\s]+) (?<didHit>hits|misses)\s(?<target>\w+\s\w+)('s)?( (?<bodypart>(from the left|right|rear|front)|\w+(\s\w+)?))?(\.| for (?<amount>\d+) points of damage)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly Regex name2Regex = new Regex(@"Your", RegexOptions.Compiled);
         protected readonly String[] statNames = {"Total", "C Total", "C Hits", "Hits", "Misses"};
         private readonly TotalStat partyDamage = new TotalStat("Overall Damage");
@@ -79,38 +77,43 @@ namespace ParseModXIV.Monitors
         protected override void HandleEvent(Event e)
         {
             Match mReg = damageAmountRegex.Match(e.RawLine);
-            var missReg = missRegex.Match(e.RawLine);
-     
-            if (mReg.Success)
+
+            if (!mReg.Success) return;
+            var didHit = Convert.ToString(mReg.Groups["didHit"].Value) == "hits";            
+            var whoHit = Convert.ToString(mReg.Groups["whoHit"].Value);
+
+            StatGroup target = null;
+            if (whoHit == "Your") target = this;
+            else
+            {
+                if(HasGroup(whoHit))
+                {
+                    target = GetGroup(whoHit);
+                }/* else
+                {
+                    var stats = NewStatList();
+                    target = new StatGroup(whoHit);
+                    target.Stats.AddStats(stats);
+                    Add(target);
+                }*/
+            }
+            if (target == null) return;
+            if(didHit)
             {
                 var damage = Convert.ToDecimal(mReg.Groups["amount"].Value);
-                var whoHit = Convert.ToString(mReg.Groups["whoHit"].Value);
-                StatGroup target = null;
-                if (whoHit == "Your") target = this;
-                else
-                {
-                    if(HasGroup(whoHit))
-                    {
-                        
-                    } else
-                    {
-                        var stats = NewStatList();
-                        target = new StatGroup(whoHit);
-                        target.Stats.AddStats(stats);
-                        Add(target);
-                    }
-                }
-                if (target == null) return;
-                var critReg = critRegex.Match(e.RawLine);
+                var didCrit = Convert.ToString(mReg.Groups["crit"].Value) != String.Empty;
                 target.Stats.GetStat("Total").Value += damage;
                 target.Stats.GetStat("Hits").Value += 1;
-                if (critReg.Success)
+                if (didCrit)
                 {
                     target.Stats.GetStat("C Total").Value += damage;
                     target.Stats.GetStat("C Hits").Value += 1;
-                }
+                }                
             }
-            else if (missReg.Success) Stats.GetStat("Misses").Value += 1;
+            else
+            {
+                target.Stats.GetStat("Misses").Value += 1;
+            }
         }
     }
 }

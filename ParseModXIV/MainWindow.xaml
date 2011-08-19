@@ -116,6 +116,7 @@
                                         <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" ItemsSource="{Binding Mode=OneWay,IsAsync=True, Source={StaticResource DamageMonitor}}" AutoGenerateColumns="False">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
+                                                <DataGridTextColumn Binding="{Binding Path=Damage %}" Header="Damage %" />
                                                 <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
                                                 <DataGridTextColumn Binding="{Binding Path=Accuracy}" Header="Accuracy" />
                                                 <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" />
