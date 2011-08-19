@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Windows.Threading;
 using ParseModXIV.Classes;
 using ParseModXIV.Stats;
 
@@ -60,7 +61,18 @@ namespace ParseModXIV.Monitors
             
             if (MainWindow.myWindow != null && name2Reg.Success)
             {
-                cname = MainWindow.myWindow.guiYourFName.Text + " " + MainWindow.myWindow.guiYourLName.Text;
+                try
+                {
+                    MainWindow.myWindow.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new DispatcherOperationCallback(delegate
+                {
+                    cname = MainWindow.myWindow.guiYourFName.Text + " " + MainWindow.myWindow.guiYourLName.Text;                    
+                    return null;
+                }), null);
+                } catch(Exception)
+                {
+                    cname = String.Empty;
+                }
             }
             if (name1Reg.Success)
             {
