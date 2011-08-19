@@ -165,6 +165,64 @@ namespace ParseModTests
             };
         }
 
+		void describe_timeline() {
+			PartyEventArgs eventArgs = null;
+			bool gotEvent = false;
+		    EventParser parser = null;
+            context["given a parser instance"] = () => {
+				before = () => {
+					gotEvent = false;
+					eventArgs = null;
+					parser = new EventParser(
+@"<?xml version='1.0' standalone='yes'?>
+<ChatCodes xmlns:xivapp='http://ffxiv-app.com/schemas/ChatCodes.xsd'>
+  <Group name='Notices' type='Notice' subject='You' direction='On'>
+	<ChatCode Desc='System Messages' id='0020' />
+  </Group>
+  <Group name='Group1' type='Attack'>
+    <ChatCode Desc='Testing chatcode in group1' id='0001' />
+    <ChatCode Desc='Testing second chatcode in group1' id='0002' />
+    <Group name='Subgroup1' subject='You' direction='By'>
+        <Group name='Subgroup2' direction='On'>
+            <ChatCode Desc='Testing a chatcode in a nested subgroup' id='0003' />
+        </Group>
+        <ChatCode Desc='Testing a chatcode in a subgroup' id='0004' />
+    </Group>
+  </Group>
+  <Group name='Group2'>
+    <ChatCode Desc='Testing Group2' id='BEEF' />
+  </Group>
+</ChatCodes>");
+					parser.OnPartyChanged += (object src, PartyEventArgs e) => {
+						eventArgs = e;
+						gotEvent = true;
+					};
+				};
+				context["when the parser is notified of a party join"] = () => {
+					before = () => parser.DoPartyChanged(this, new PartyEventArgs(PartyEventArgs.PartyEventType.Join, "You"));
+					it["should update its InParty property"] = () => parser.InParty.should_be_true();
+					it["should publish an OnPartyChanged event"] = () => gotEvent.should_be_true();
+				};
+				context["when the parser is notified of a party disband"] = () => {
+					before = () => parser.DoPartyChanged(this, new PartyEventArgs(PartyEventArgs.PartyEventType.Disband, null));
+					it["should update its InParty property"] = () => parser.InParty.should_be_false();
+					it["should publish an OnPartyChanged event"] = () => gotEvent.should_be_true();
+				};
+				context["when the parser is notified of a party leave event"] = () => {
+					context["and the person involved is NOT you"] = () => {
+						before = () => parser.DoPartyChanged(this, new PartyEventArgs(PartyEventArgs.PartyEventType.Leave, "Some Guy"));
+						it["should still think a party is active"] = () => parser.InParty.should_be_true();
+						it["should publish an OnPartyChanged event"] = () => gotEvent.should_be_true();
+					};
+					context["and the person involved IS you"] = () => {
+						before = () => parser.DoPartyChanged(this, new PartyEventArgs(PartyEventArgs.PartyEventType.Leave, "You"));
+						it["should not think you're in a party anymore"] = () => parser.InParty.should_be_false();
+						it["should publish an OnPartyChanged event"] = () => gotEvent.should_be_true();
+					};
+				};
+			};
+		}
+		
         /* This one generates a really long list of tests, so to avoid clutter and reconfiguring the test runner, commenting it out for normal usage */
         /*
         void describe_event_masks()

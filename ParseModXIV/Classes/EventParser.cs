@@ -9,7 +9,7 @@ namespace ParseModXIV.Classes
 {
     public enum EventDirection { Unknown = 0x0000, On = 0x0001, By = 0x0002 }
     public enum EventSubject { Unknown = 0x0000, You = 0x0004, Party = 0x0008, Enemy = 0x0010, Other = 0x0020 }
-    public enum EventType { Unknown = 0x0000, Attack = 0x0040, Heal = 0x0080, Buff = 0x0100, Debuff = 0x0200, SkillPoints = 0x0400, Crafting = 0x0800, Gathering = 0x1000, Chat = 0x2000 }
+    public enum EventType { Unknown = 0x0000, Attack = 0x0040, Heal = 0x0080, Buff = 0x0100, Debuff = 0x0200, SkillPoints = 0x0400, Crafting = 0x0800, Gathering = 0x1000, Chat = 0x2000, Notice=0x4000 }
 
     public class EventGroup
     {
@@ -217,19 +217,43 @@ namespace ParseModXIV.Classes
         }
     }
 
+    public class PartyEventArgs : EventArgs
+    {
+        public enum PartyEventType
+        {
+            Join,
+            Leave,
+            Disband
+        };
+
+        public PartyEventType EventType
+        {
+            get; set;
+        }
+
+        public String Info
+        {
+            get; set;
+        }
+
+        public PartyEventArgs(PartyEventType t, String info)
+        {
+            EventType = t;
+            Info = info;
+        }
+    }
+
     public class EventParser
     {
         public static UInt16 DIRECTION_MASK = 0x0003;
         public static UInt16 SUBJECT_MASK = 0x003C;
-        public static UInt16 TYPE_MASK = 0x3FC0;
+        public static UInt16 TYPE_MASK = 0x7FC0;
         public static UInt16 ALL_EVENTS = 0xFFFF;
         public static UInt16 UNKNOWN_EVENT = 0x0000;
-
-        public event EventHandler<Event> OnLogEvent;
-        public event EventHandler<Event> OnUnknownLogEvent;
+        public Boolean InParty { get; set; }
 
         private static EventParser instance;
-        private SortedDictionary<UInt16, EventCode> eventCodes = new SortedDictionary<UInt16, EventCode>();
+        private readonly SortedDictionary<UInt16, EventCode> eventCodes = new SortedDictionary<UInt16, EventCode>();
         public SortedDictionary<UInt16, EventCode> EventCodes
         {
             get
@@ -237,9 +261,35 @@ namespace ParseModXIV.Classes
                 return eventCodes;
             }
         }
+
+        #region "Events"
+        public event EventHandler<Event> OnLogEvent;
+        public event EventHandler<Event> OnUnknownLogEvent;
+        public event EventHandler<PartyEventArgs> OnPartyChanged;
+
+        public virtual void DoPartyChanged(object src, PartyEventArgs e)
+        {
+            switch(e.EventType)
+            {
+                case PartyEventArgs.PartyEventType.Disband:
+                    InParty = false;
+                    break;
+                case PartyEventArgs.PartyEventType.Join:
+                    InParty = true;
+                    break;
+                case PartyEventArgs.PartyEventType.Leave:
+                    InParty = e.Info.ToLower() != "you";
+                    break;
+            }
+            var partyChanged = OnPartyChanged;
+            if (partyChanged != null) partyChanged(src, e);
+        }
+        #endregion
+
         #region "Initialization"
         private EventParser()
         {
+            InParty = false;
             loadCodes(XElement.Load("Resources/ChatCodes.xml"));
         }
 
@@ -286,6 +336,9 @@ namespace ParseModXIV.Classes
                     case "Crafting": thisGroup.Type = EventType.Crafting; break;
                     case "Gathering": thisGroup.Type = EventType.Gathering; break;
                     case "Chat": thisGroup.Type = EventType.Chat; break;
+                    case "Notice":
+                        thisGroup.Type = EventType.Notice;
+                        break;
                 }
             }
             if (subject != null)

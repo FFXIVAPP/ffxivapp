@@ -1,5 +1,9 @@
 <?xml version="1.0" standalone="yes"?>
 <ChatCodes xmlns:xivapp="http://ffxiv-app.com/schemas/ChatCodes.xsd">
+  <Group name="Notices" type="Notice" subject="You" direction="On">
+    <ChatCode Desc="System Messages" id="0020"/>
+    <ChatCode Desc="Error Messages" id="0021"/>
+  </Group>
   <Group name="Chat" type="Chat">
     <Group name="By You" subject="You" direction="On">
       <ChatCode Desc="Say" id="0001"/>
@@ -23,8 +27,6 @@
       <ChatCode Desc="Linkshell (8)" id="000C"/>
       <ChatCode Desc="Standard Emotes" id="001B"/>
       <ChatCode Desc="Custom Emotes" id="0019"/>
-      <ChatCode Desc="System Messages" id="0020"/>
-      <ChatCode Desc="Error Messages" id="0021"/>
       <ChatCode Desc="NPC Say" id="0023"/>
       <ChatCode Desc="NPC Tell" id="0027"/>
       <ChatCode Desc="Tell (Out)" id="0003"/>

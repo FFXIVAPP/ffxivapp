@@ -35,7 +35,7 @@ namespace ParseModXIV.Stats
                 _value = value;
                 var converter = TypeDescriptor.GetConverter(typeof (T));
                 if (converter == null) return;
-                if(converter.ConvertToString(oldVal) != converter.ConvertToString(_value))
+                if((converter.ConvertToString(oldVal) != converter.ConvertToString(_value)))
                 {
                     DoValueChanged(this,oldVal,Value);
                 }

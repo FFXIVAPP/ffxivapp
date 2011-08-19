@@ -15,9 +15,10 @@ namespace ParseModXIV.Monitors
         private CounterStat critStat, totalStat, missStat, hitStat;
                 
         public DamageMonitor()
-            : base("DPS")
+            : base("Totals")
         {
-            Filter = (UInt16)((UInt16)EventDirection.By | (UInt16)EventSubject.You | (UInt16)EventSubject.Party | (UInt16)EventType.Attack);
+            Filter = ((UInt16)EventDirection.By | (UInt16)EventSubject.You | (UInt16)EventSubject.Party | (UInt16)EventType.Attack);
+            EventParser.Instance.OnPartyChanged += (object src, PartyEventArgs e) => UpdatePartyList(e);
         }
 
         protected override void InitStats()
@@ -25,7 +26,7 @@ namespace ParseModXIV.Monitors
             critStat = new CounterStat("Criticals");
             missStat = new CounterStat("Misses");
             hitStat = new CounterStat("Hits");
-            totalStat = new CounterStat("Total", 20);
+            totalStat = new CounterStat("Total");
             Stats.AddStats(totalStat,
                      new AccuracyStat("Accuracy", hitStat, missStat),
                      new AccuracyStat("Critical %", critStat, hitStat),
@@ -33,6 +34,19 @@ namespace ParseModXIV.Monitors
                      new MaxStat("Max Damage", totalStat),
                      new MinStat("Min Damage", totalStat));
             base.InitStats();
+        }
+
+        protected void UpdatePartyList(PartyEventArgs e)
+        {
+            switch(e.EventType)
+            {
+                case PartyEventArgs.PartyEventType.Disband:
+                    break;
+                case PartyEventArgs.PartyEventType.Join:
+                    break;
+                case PartyEventArgs.PartyEventType.Leave:
+                    break;
+            }
         }
 
         protected override void HandleEvent(Event e)
@@ -44,7 +58,7 @@ namespace ParseModXIV.Monitors
             String cname = String.Empty;
 
             
-            if (name2Reg.Success)
+            if (MainWindow.myWindow != null && name2Reg.Success)
             {
                 cname = MainWindow.myWindow.guiYourFName.Text + " " + MainWindow.myWindow.guiYourLName.Text;
             }
