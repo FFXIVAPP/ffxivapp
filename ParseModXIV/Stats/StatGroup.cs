@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Dynamic;
 using System.Linq.Expressions;
+using System.Windows.Threading;
 
 namespace ParseModXIV.Stats
 {
@@ -229,7 +230,15 @@ namespace ParseModXIV.Stats
             var handler = CollectionChanged;
             if (handler != null)
             {
-                handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
+                MainWindow.myWindow.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+                                                           new DispatcherOperationCallback(delegate
+                                                                                               {
+                                                                                                   handler(this,
+                                                                                                           new NotifyCollectionChangedEventArgs
+                                                                                                               (action,
+                                                                                                                whichGroup));
+                                                                                                   return null;
+                                                                                               }), null);
             }
         }
 
@@ -241,7 +250,6 @@ namespace ParseModXIV.Stats
         {
             var propChanged = PropertyChanged;
             if(propChanged != null) propChanged(this, new PropertyChangedEventArgs(name));
-            CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, Stats.GetStat(name)));
         }
         #endregion
 

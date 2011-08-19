@@ -80,7 +80,7 @@ namespace ParseModXIV.Stats
 
         public Decimal GetStatValue(string name)
         {
-            return GetStat(name).Value;
+            return HasStat(name) ? GetStat(name).Value : -1;
         }
 
         public void AddStats(params Stat<Decimal>[] stats)
@@ -93,7 +93,7 @@ namespace ParseModXIV.Stats
 
         protected virtual void HandleStatValueChanged(object sender, StatChangedEvent e)
         {
-            var s = (NumericStat)sender;
+            var s = (Stat<Decimal>)sender;
             DoPropertyChanged(s.Name);
         }
 
@@ -193,6 +193,7 @@ namespace ParseModXIV.Stats
         {
             if(statDict.TryAdd(item.Name, item))
             {
+                item.OnValueChanged += HandleStatValueChanged;
                 DoCollectionChanged(NotifyCollectionChangedAction.Add, item);
             }
         }
