@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Stats\StatContainer.cs" />
     <Compile Include="Stats\StatGroup.cs" />
+    <Compile Include="Stats\StatGroupTypeDescriptor.cs" />
     <Compile Include="Stats\Stats.cs" />
     <Compile Include="Stats\StatValue.cs" />
     <Page Include="MainWindow.xaml">

@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace ParseModXIV.Stats
 {
-    public class StatGroup : ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider, INotifyPropertyChanged
+    public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider, INotifyPropertyChanged
     {
         protected readonly ConcurrentDictionary<string, StatGroup> Children = new ConcurrentDictionary<string, StatGroup>();
         private readonly StatContainer statList = new StatContainer();
@@ -38,12 +38,17 @@ namespace ParseModXIV.Stats
 
         private void DoInit(string name)
         {
+            statGroup = this;
             Name = name;
             statList.PropertyChanged += (sender, e) => DoPropertyChanged(e.PropertyName);
         }
 
-        public Decimal GetStatValue(string name)
+        public object GetStatValue(string name)
         {
+            if(name.ToLower() == "name")
+            {
+                return Name;
+            }
             return Stats.GetStatValue(name);
         }
 
@@ -73,6 +78,11 @@ namespace ParseModXIV.Stats
             }
             result = null;
             return false;
+        }
+
+        public String GetName()
+        {
+            return Name;
         }
 
         public void AddNewSubGroup(String name)
@@ -124,10 +134,15 @@ namespace ParseModXIV.Stats
 
             public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
             {
+                var self = Expression.Convert(Expression, LimitType);
+                /*if(binder.Name.ToLower() == "name")
+                {
+                    var prop = Expression.PropertyOrField(self, binder.Name);
+                    return new DynamicMetaObject(Expression.Convert(prop, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
+                }*/
                 const string methodName = "GetStatValue";
                 var args = new Expression[1];
                 args[0] = Expression.Constant(binder.Name);
-                var self = Expression.Convert(Expression, LimitType);
                 var methodCall = Expression.Call(self, typeof(StatGroup).GetMethod(methodName), args);
                 return new DynamicMetaObject(Expression.Convert(methodCall, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
             }
@@ -226,7 +241,9 @@ namespace ParseModXIV.Stats
         {
             var propChanged = PropertyChanged;
             if(propChanged != null) propChanged(this, new PropertyChangedEventArgs(name));
+            CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, Stats.GetStat(name)));
         }
         #endregion
+
     }
 }
