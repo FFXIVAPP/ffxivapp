@@ -138,11 +138,10 @@ namespace ParseModXIV
             InitializeComponent();
 
             Monitors.DamageMonitor damageMonitor = new Monitors.DamageMonitor();
+            var timelineMonitor = new Monitors.TimelineMonitor();
 
             monitors.Add(damageMonitor);
             //monitors.Add(new LogBoxEventMonitor() { output = guiLog });
-
-            damageMonitor.OnStatChanged += delegate { };
 
             EventParser.Instance.OnUnknownLogEvent += OnUnknownEvent;
 

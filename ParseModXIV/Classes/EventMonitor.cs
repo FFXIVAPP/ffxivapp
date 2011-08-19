@@ -9,12 +9,10 @@ namespace ParseModXIV.Classes
 {
     public class EventMonitor : StatGroup
     {
-        public String name { get; set; }
         protected DateTime lastEventReceived { get; set; }
         public UInt16 Filter { get; set; }
 
         public EventMonitor(String name) : base(name) {
-            this.name = name;
             doInit();
             EventParser.Instance.OnLogEvent += FilterEvent;
         }

@@ -113,7 +113,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" ItemsSource="{Binding Mode=OneWay, Source={StaticResource DamageMonitor}}" AutoGenerateColumns="False">
+                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" ItemsSource="{Binding Mode=OneWay,IsAsync=True, Source={StaticResource DamageMonitor}}" AutoGenerateColumns="False">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
                                                 <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
@@ -121,9 +121,10 @@
                                                 <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" />
                                                 <DataGridTextColumn Binding="{Binding Path=Min Damage}" Header="Min Damage" />
                                                 <DataGridTextColumn Binding="{Binding Path=Hits}" Header="Hits" />
+                                                <DataGridTextColumn Binding="{Binding Path=Misses}" Header="Misses" />
                                                 <DataGridTextColumn Binding="{Binding Path=Critical %}" Header="Critical %" />
                                                 <DataGridTextColumn Binding="{Binding Path=Misses}" Header="Misses" />
-                                                <DataGridTextColumn Binding="{Binding Path=Criticals}" Header="Criticals" />
+                                                <DataGridTextColumn Binding="{Binding Path=C Hits}" Header="C Hits" />
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </Grid>

@@ -126,6 +126,7 @@ namespace ParseModXIV.Stats
         }
 
         public event EventHandler<StatChangedEvent> OnDependencyValueChanged;
+        private string p;
 
         public void AddDependency(Stat<Decimal> dependency)
         {
@@ -207,7 +208,7 @@ namespace ParseModXIV.Stats
 
     public class MaxStat : LinkedStat
     {
-        public MaxStat(string name, NumericStat dependency) : base(name,0)
+        public MaxStat(string name, Stat<decimal> dependency) : base(name,0)
         {
             AddDependency(dependency);
         }
@@ -224,7 +225,7 @@ namespace ParseModXIV.Stats
     public class MinStat : LinkedStat
     {
         private Boolean gotValue;
-        public MinStat(string name, NumericStat dependency) : base(name,0)
+        public MinStat(string name, Stat<decimal> dependency) : base(name,0)
         {
             AddDependency(dependency);
             gotValue = false;
@@ -249,13 +250,13 @@ namespace ParseModXIV.Stats
         public DateTime LastEventReceived { get; set; }
         protected Decimal total = 0;
 
-        public PerSecondAverageStat(string name, decimal value, NumericStat dependency) : base(name, value)
+        public PerSecondAverageStat(string name, decimal value, Stat<Decimal> dependency) : base(name, value)
         {
             FirstEventReceived = DateTime.Now;
             AddDependency(dependency);
         }
 
-        public PerSecondAverageStat(string name, NumericStat dependency) : base(name,0)
+        public PerSecondAverageStat(string name, Stat<Decimal> dependency) : base(name,0)
         {
             FirstEventReceived = DateTime.Now;
             AddDependency(dependency);
@@ -276,16 +277,16 @@ namespace ParseModXIV.Stats
 
     public class AccuracyStat : LinkedStat
     {
-        public NumericStat HitStat
+        public Stat<Decimal> HitStat
         {
             get; set;
         }
-        public NumericStat MissStat
+        public Stat<Decimal> MissStat
         {
             get; set;
         }
 
-        public AccuracyStat(string name, NumericStat hitStat, NumericStat missStat) : base(name, 0)
+        public AccuracyStat(string name, Stat<decimal> hitStat, Stat<decimal> missStat) : base(name, 0)
         {
             HitStat = hitStat;
             MissStat = missStat;
