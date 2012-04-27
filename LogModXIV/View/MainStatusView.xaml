@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="LogModXIV.View.MainStatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogModXIV.ViewModel"
+             xmlns:me="clr-namespace:LogModXIV"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:MainStatusViewModel x:Key="MainStatusViewModelDataSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource MainStatusViewModelDataSource}}">
+        <Grid.Resources>
+            <x:Array x:Key="LanguageStrings" Type="sys:String">
+                <sys:String>Albanian</sys:String>
+                <sys:String>Arabic</sys:String>
+                <sys:String>Bulgarian</sys:String>
+                <sys:String>Catalan</sys:String>
+                <sys:String>Chinese (Simplified)</sys:String>
+                <sys:String>Chinese (Traditional)</sys:String>
+                <sys:String>Croatian</sys:String>
+                <sys:String>Czech</sys:String>
+                <sys:String>Danish</sys:String>
+                <sys:String>Dutch</sys:String>
+                <sys:String>English</sys:String>
+                <sys:String>Estonian</sys:String>
+                <sys:String>Filipino</sys:String>
+                <sys:String>Finnish</sys:String>
+                <sys:String>French</sys:String>
+                <sys:String>Galician</sys:String>
+                <sys:String>German</sys:String>
+                <sys:String>Greek</sys:String>
+                <sys:String>Hebrew</sys:String>
+                <sys:String>Hindi</sys:String>
+                <sys:String>Hungarian</sys:String>
+                <sys:String>Indonesian</sys:String>
+                <sys:String>Italian</sys:String>
+                <sys:String>Japanese</sys:String>
+                <sys:String>Korean</sys:String>
+                <sys:String>Latvian</sys:String>
+                <sys:String>Lithuanian</sys:String>
+                <sys:String>Maltese</sys:String>
+                <sys:String>Norwegian</sys:String>
+                <sys:String>Polish</sys:String>
+                <sys:String>Portuguese</sys:String>
+                <sys:String>Romanian</sys:String>
+                <sys:String>Russian</sys:String>
+                <sys:String>Serbian</sys:String>
+                <sys:String>Slovak</sys:String>
+                <sys:String>Slovenian</sys:String>
+                <sys:String>Spanish</sys:String>
+                <sys:String>Swedish</sys:String>
+                <sys:String>Thai</sys:String>
+                <sys:String>Turkish</sys:String>
+                <sys:String>Ukrainian</sys:String>
+                <sys:String>Vietnamese</sys:String>
+            </x:Array>
+        </Grid.Resources>
+        <DockPanel LastChildFill="True">
+            <DockPanel.Effect>
+                <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="3" />
+            </DockPanel.Effect>
+            <StatusBar Background="WhiteSmoke" >
+                <StatusBarItem>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource LanguageStrings}}" SelectedValue="{Binding Source={x:Static me:Settings.Default}, Path=Gui_ManualTranslate, Mode=TwoWay}" x:Name="Gui_ManualTranslate"/>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBox x:Name="gui_ChatToSend" Margin="3,3,3,3" Text="/p " GotFocus="gui_ChatToSend_GotFocus" />
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBox x:Name="gui_Chatter"
+                             Margin="3,3,3,3"
+                             HorizontalAlignment="Stretch"
+                             Width="{Binding RelativeSource={RelativeSource FindAncestor,
+                        AncestorType={x:Type StatusBar}},
+                        Path=ActualWidth}"
+                             VerticalContentAlignment="Center"
+                             KeyUp="Chatter_KeyUp" GotFocus="gui_Chatter_GotFocus" />
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
+    </Grid>
+</UserControl>

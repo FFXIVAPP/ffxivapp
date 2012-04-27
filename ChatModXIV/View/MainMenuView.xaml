@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ChatModXIV.View.MainMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChatModXIV.ViewModel"
+             xmlns:me="clr-namespace:ChatModXIV"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <local:MainMenuViewModel x:Key="MainMenuViewModelDataSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource MainMenuViewModelDataSource}}">
+        <DockPanel>
+            <DockPanel.Effect>
+                <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="3" />
+            </DockPanel.Effect>
+            <Menu Height="23" IsMainMenu="True" Background="WhiteSmoke">
+                <MenuItem Header="File">
+                    <MenuItem Header="Default Settings" Name="gui_DefaultSettings"
+                              Command="{Binding Path=DefaultSettingsCommand}" />
+                    <MenuItem Header="Exit" Name="gui_Exit"
+                              Command="{Binding Path=ExitCommand}" />
+                </MenuItem>
+                <MenuItem Header="Log Tools">
+                    <MenuItem Header="Connect" Name="gui_ConnectToogle"
+                              Command="{Binding Path=ConnectToggleCommand}" />
+                    <Separator/>
+                    <MenuItem Header="Stop Logging" Name="gui_StopLogging"
+                              Command="{Binding Path=StopLoggingCommand}" />
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="About" Name="gui_About"
+                              Command="{Binding Path=AboutCommand}" />
+                </MenuItem>
+                <MenuItem Header="Character">
+                    <ComboBox Name="gui_PIDSelect" />
+                    <MenuItem Header="Set Process" Name="gui_SetProcess"
+                              Command="{Binding Path=SetProcessCommand}" />
+                    <MenuItem Header="Refresh List" Name="gui_RefreshList"
+                              Command="{Binding Path=RefreshListCommand}" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+    </Grid>
+</UserControl>
