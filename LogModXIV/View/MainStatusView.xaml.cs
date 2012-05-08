@@ -25,7 +25,7 @@ namespace LogModXIV.View
             View = this;
         }
 
-        private void Chatter_KeyUp(object sender, KeyEventArgs e)
+        private void gui_Chatter_Key_Up(object sender, KeyEventArgs e)
         {
             var tmsg = gui_Chatter.Text.Replace(" ", "");
             if ((e.Key == Key.Enter || e.Key == Key.Return) && tmsg.Length > 0)

@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{937b649c-381d-44c6-a4d8-ed0ba32e4918}" Version="2.0">
+<SmartAssemblyProject ProjectId="{12c66aa3-a582-415f-9146-653d263f4265}" Version="2.0">
     <MainAssemblyFileName>..\Release\ParseModXIV.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>

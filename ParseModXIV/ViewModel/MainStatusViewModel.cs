@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: MainStatusViewModel.cs
-// 
+﻿// ParseModXIV
+// MainStatusViewModel.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -78,7 +78,7 @@ namespace ParseModXIV.ViewModel
 
         #region " GUI FUNCTIONS "
 
-        private void ToggleLogging()
+        public static void ToggleLogging()
         {
             if (ParseMod.Instance.IsLogging)
             {
@@ -90,7 +90,12 @@ namespace ParseModXIV.ViewModel
             }
         }
 
-        private static void ResetStats()
+        public static void ResetStats()
+        {
+            ClearStats();
+        }
+
+        private static void ClearStats()
         {
             if (App.MArgs == null)
             {
@@ -98,7 +103,9 @@ namespace ParseModXIV.ViewModel
                 {
                     if (ChatWorkerDelegate.XmlWriteLog.LineCount > 1)
                     {
-                        ChatWorkerDelegate.XmlWriteLog.WriteToDisk(MainWindow.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
+                        ChatWorkerDelegate.XmlWriteLog.WriteToDisk(MainWindow.View.Lpath +
+                                                                   DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") +
+                                                                   "_Log.xml");
                         ChatWorkerDelegate.XmlWriteLog.ClearXml();
                     }
                 }
@@ -119,18 +126,21 @@ namespace ParseModXIV.ViewModel
             var myHandle = new WindowInteropHelper(MainWindow.View).Handle;
             if (myTab != null)
             {
-                ScreenCapture.CaptureWindowToFile(myHandle, MainWindow.View.Ipath + DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss_") + myTab.Header.ToString().Replace(" ", "") + ".jpg", ImageFormat.Jpeg);
+                ScreenCapture.CaptureWindowToFile(myHandle,
+                                                  MainWindow.View.Ipath + DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss_") +
+                                                  myTab.Header.ToString().Replace(" ", "") + ".jpg", ImageFormat.Jpeg);
             }
         }
 
         private static void CopyStats()
         {
             var myTab = MainTabControlView.View.gui_TabControl.SelectedItem as TabItem;
-            if (myTab != null)
+            if (myTab == null)
             {
-                var statName = myTab.Header.ToString().Replace(" ", "").ToLower().Replace("stats", "");
-                Clipboard.SetText(StatGroupToChat.ExportPartyStats(statName));
+                return;
             }
+            var statName = myTab.Header.ToString().Replace(" ", "").ToLower().Replace("stats", "");
+            Clipboard.SetText(StatGroupToChat.ExportPartyStats(statName));
         }
 
         #endregion
@@ -169,7 +179,8 @@ namespace ParseModXIV.ViewModel
 
         private static bool SubmitData(string insert, string message)
         {
-            var url = string.Format("http://ffxiv-app.com/battles/insert/?insert={0}&q={1}", insert, HttpUtility.UrlEncode(message));
+            var url = string.Format("http://ffxiv-app.com/battles/insert/?insert={0}&q={1}", insert,
+                                    HttpUtility.UrlEncode(message));
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Method = "POST";

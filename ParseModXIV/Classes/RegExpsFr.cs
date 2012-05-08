@@ -12,7 +12,7 @@ namespace ParseModXIV.Classes
     {
         private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture;
 
-        public static readonly Regex Damage = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l\w?'? ?)?(?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w?'? ?)?(?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts (au|à) (l\w?'? ?)?(?<mob>.+(?=\.$)))", DefaultOptions);
+        public static readonly Regex Damage = new Regex(@"((?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l\w?'? ?)?(?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w?'? ?)?(?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts (au|à) (l\w?'? ?)?(?<mob>.+(?=\.$))))|(?<whoHit>\w+\s\w+) util\w+ (une? )?(?<ability>.+(?= sur)) sur (l\w?'? ?)? (?<mob>.+(?= mais)) (?<didHit>mais échoue)!$", DefaultOptions);
 
         public static readonly Regex DamageToPlayer = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(L\w?'? ?)?(?<whoHit>.+(?= util)) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) (?<player>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", DefaultOptions);
 
@@ -25,7 +25,7 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex UseOnParty = new Regex(@"^(?<whoDid>\w+\s\w+) util\w+ (?<ability>.+(?= sur)) sur (?<castOn>\w+\s\w+)\. ?\w+\s\w+\s?(?<recLoss>récupère?|lose(s)?) (?<amount>\d+) (?<type>\w+)\.$", DefaultOptions);
 
-        public static readonly Regex Resists = new Regex(@"^(?<whoMissed>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<ability>.+(?= sur)) sur (l\w?'? ?)?(?<whoEvaded>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\. .+subit (?<amount>\d+).+$", DefaultOptions);
+        public static readonly Regex Resists = new Regex(@"^(?<whoHit>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<ability>.+(?= sur)) (?<didHit>sur) (l\w?'? ?)?(?<whoEvaded>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\..+subit (?<amount>\d+).+$", DefaultOptions);
 
         public static readonly Regex JoinParty = new Regex(@"^(?<whoJoined>Vous|\w+\s\w+) rejoint l'équipe.$", DefaultOptions);
 

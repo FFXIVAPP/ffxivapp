@@ -101,19 +101,15 @@ namespace AppModXIV.Classes
             {
                 return false;
             }
-            if (lmajor > cmajor)
+            if (lmajor <= cmajor)
             {
+                if (lminor <= cminor)
+                {
+                    return lbuild > cbuild;
+                }
                 return true;
             }
-            if (lminor > cminor)
-            {
-                return true;
-            }
-            if (lbuild > cbuild)
-            {
-                return true;
-            }
-            return lrevision > crevision;
+            return true;
         }
     }
 }

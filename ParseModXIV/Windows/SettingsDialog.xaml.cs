@@ -37,6 +37,7 @@ namespace ParseModXIV.Windows
         /// <param name="e"></param>
         private void gui_OK_Click(object sender, RoutedEventArgs e)
         {
+            UpdateCharacter();
             DialogResult = true;
         }
 
@@ -57,6 +58,7 @@ namespace ParseModXIV.Windows
         /// <param name="e"></param>
         private void gui_GetCICUID_Click(object sender, RoutedEventArgs e)
         {
+            UpdateCharacter();
             if (Settings.Default.CharacterName.Replace(" ", "") == "" || Settings.Default.ServerName == "")
             {
                 return;
@@ -91,6 +93,23 @@ namespace ParseModXIV.Windows
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void UpdateCharacter()
+        {
+            try
+            {
+                Settings.Default.CharacterName = gui_FirstName.Text + " " + gui_LastName.Text;
+                Settings.Default.ServerName = ParseMod.ServerName[Settings.Default.Server];
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Character Data!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            
         }
     }
 }

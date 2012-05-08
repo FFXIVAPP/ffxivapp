@@ -77,7 +77,7 @@
                         AncestorType={x:Type StatusBar}},
                         Path=ActualWidth}"
                              VerticalContentAlignment="Center"
-                             KeyUp="Chatter_KeyUp" GotFocus="gui_Chatter_GotFocus" />
+                             KeyUp="gui_Chatter_Key_Up" GotFocus="gui_Chatter_GotFocus" />
                 </StatusBarItem>
             </StatusBar>
         </DockPanel>

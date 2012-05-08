@@ -11,11 +11,6 @@ namespace ParseModXIV
 {
     internal sealed partial class Settings
     {
-        public string CharacterName
-        {
-            get { return FirstName + " " + LastName; }
-        }
-
         /// <summary>
         /// Initialization
         /// </summary>
@@ -62,13 +57,9 @@ namespace ParseModXIV
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private static void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != "FirstName" && e.PropertyName != "LastName")
-            {
-                return;
-            }
-            OnPropertyChanged(this, new PropertyChangedEventArgs("CharacterName"));
+            //throw new NotImplementedException();
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿// Project: ParseModXIV
-// File: StatMonitor.cs
-// 
+﻿// ParseModXIV
+// StatMonitor.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 using AppModXIV.Classes;
@@ -29,6 +29,9 @@ namespace ParseModXIV.Monitors
         private readonly TotalStat _partyTotalCTaken = new TotalStat("Crit Taken");
         private static readonly Hashtable Offsets = GetJob();
 
+        public readonly Dictionary<string, string> TotalD = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> TotalH = new Dictionary<string, string>();
+
         /// <summary>
         /// 
         /// </summary>
@@ -36,7 +39,8 @@ namespace ParseModXIV.Monitors
         public StatMonitor(ParseMod parseModInstance) : base("Stat Monitor", parseModInstance)
         {
             IncludeSelf = false;
-            Filter = ((UInt16) EventDirection.By | (UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventType.Attack | (UInt16) EventType.Heal | (UInt16) EventDirection.On);
+            Filter = ((UInt16) EventDirection.By | (UInt16) EventSubject.You | (UInt16) EventSubject.Party |
+                      (UInt16) EventType.Attack | (UInt16) EventType.Heal | (UInt16) EventDirection.On);
             ParseModInstance.Timeline.OnTimelineEvent += (src, e) => UpdatePartyList(e);
         }
 
@@ -78,7 +82,7 @@ namespace ParseModXIV.Monitors
             {
                 var playerStats = ParseModInstance.Timeline.PlayerStats;
                 // Extra linkage for "You in a party" stats
-                foreach (var statName in new String[] { })
+                foreach (var statName in new String[] {})
                 {
                     var playerStat = (TotalStat) playerStats.Stats.GetStat(statName);
                     playerStat.AddDependency(playerGroup.Stats.GetStat(statName));
@@ -100,6 +104,8 @@ namespace ParseModXIV.Monitors
             _partyTotalTaken.Reset();
             _partyTotalRTaken.Reset();
             _partyTotalCTaken.Reset();
+            TotalD.Clear();
+            TotalH.Clear();
             foreach (var g in this)
             {
                 MoveToInactive(g.Name);
@@ -265,7 +271,14 @@ namespace ParseModXIV.Monitors
             var dpsStat = new PerSecondAverageStat("DPS", totalStat);
             var hpsStat = new PerSecondAverageStat("HPS", healTotalStat);
             var dtpsStat = new PerSecondAverageStat("DTPS", totalDtStat);
-            return new Stat<decimal>[] { totalStat, regularTotalStat, critTotalStat, healTotalStat, hitStat, cHitStat, missStat, accuracyStat, evadeStat, damagePctStat, cDamagePctStat, critPctStat, healingPctStat, minStat, maxStat, minCStat, maxCStat, minHStat, maxHStat, avgDamageStat, avgCDamageStat, avgHealingStat, dpsStat, hpsStat, totalDtStat, totalDtrStat, totalDtcStat, dtHitStat, dtcHitStat, damageDtPctStat, cDamageDtPctStat, minDtStat, maxDtStat, minDtcStat, maxDtcStat, avgDtDamageStat, avgDtcDamageStat, dtpsStat };
+            return new Stat<decimal>[]
+                   {
+                       totalStat, regularTotalStat, critTotalStat, healTotalStat, hitStat, cHitStat, missStat, accuracyStat
+                       , evadeStat, damagePctStat, cDamagePctStat, critPctStat, healingPctStat, minStat, maxStat, minCStat,
+                       maxCStat, minHStat, maxHStat, avgDamageStat, avgCDamageStat, avgHealingStat, dpsStat, hpsStat,
+                       totalDtStat, totalDtrStat, totalDtcStat, dtHitStat, dtcHitStat, damageDtPctStat, cDamageDtPctStat,
+                       minDtStat, maxDtStat, minDtcStat, maxDtcStat, avgDtDamageStat, avgDtcDamageStat, dtpsStat
+                   };
         }
 
         /// <summary>
@@ -303,7 +316,8 @@ namespace ParseModXIV.Monitors
                         //logger.Trace("Matched ResistsOrEvades regex");
                     }
                     var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "hits");
-                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
+                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) &&
+                                 mReg.Groups["resist"].Value != "evades";
                     var direction = ParseMod.TitleCase(Convert.ToString(mReg.Groups["direction"].Value), true);
                     var whoHit = Convert.ToString(mReg.Groups["whoHit"].Value);
                     var ability = Convert.ToString(mReg.Groups["ability"].Value);
@@ -326,7 +340,9 @@ namespace ParseModXIV.Monitors
                     if (Regex.IsMatch(whoHit, @"^[Yy]our?$"))
                     {
                         whoHit = Settings.Default.CharacterName;
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -383,17 +399,27 @@ namespace ParseModXIV.Monitors
                     }
                     if (resist)
                     {
-                        ParseModInstance.Timeline.GetOrAddStatsForMob(whoEvaded).AddAbilityStats(ability, damage, true, false, false);
+                        ParseModInstance.Timeline.GetOrAddStatsForMob(whoEvaded).AddAbilityStats(ability, damage, true,
+                                                                                                 false, false);
                         didHit = true;
                     }
                     else
                     {
                         if (!String.IsNullOrWhiteSpace(mob))
                         {
-                            ParseModInstance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false, false, didCrit);
+                            ParseModInstance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false,
+                                                                                               false, didCrit);
                         }
                     }
                     UpdateAbilities(target, damage, didHit, didCrit, ability, resist);
+                    if (TotalD.ContainsKey(target.Name))
+                    {
+                        TotalD[target.Name] = target.GetStatValue("Total").ToString();
+                    }
+                    else
+                    {
+                        TotalD[target.Name] = target.GetStatValue("Total").ToString();
+                    }
                     //var critical = "0";
                     //if (didCrit) critical = "1";
                     //string job;
@@ -452,8 +478,10 @@ namespace ParseModXIV.Monitors
                         //logger.Trace("Matched ResistsOrEvades regex");
                     }
                     var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "hits");
-                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
-                    var block = !(String.IsNullOrWhiteSpace(mReg.Groups["block"].Value)) && mReg.Groups["block"].Value != "evades";
+                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) &&
+                                 mReg.Groups["resist"].Value != "evades";
+                    var block = !(String.IsNullOrWhiteSpace(mReg.Groups["block"].Value)) &&
+                                mReg.Groups["block"].Value != "evades";
                     var mob = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoHit"].Value), true);
                     var ability = Convert.ToString(mReg.Groups["ability"].Value);
                     var player = Convert.ToString(mReg.Groups["player"].Value);
@@ -478,7 +506,9 @@ namespace ParseModXIV.Monitors
                     StatGroup target;
                     if (Regex.IsMatch(player, @"^[Yy]our?$"))
                     {
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -580,7 +610,9 @@ namespace ParseModXIV.Monitors
                     StatGroup target;
                     if (Regex.IsMatch(whoDid, @"^[Yy]our?$"))
                     {
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -641,6 +673,14 @@ namespace ParseModXIV.Monitors
                         //    }, null);
                         //}
                     }
+                    if (TotalH.ContainsKey(target.Name))
+                    {
+                        TotalH[target.Name] = target.GetStatValue("H Total").ToString();
+                    }
+                    else
+                    {
+                        TotalH[target.Name] = target.GetStatValue("H Total").ToString();
+                    }
                     ////********** Commented until I find a cheaper host.
                     //if (App.MArgs == null)
                     //{
@@ -672,8 +712,10 @@ namespace ParseModXIV.Monitors
                         }
                         //logger.Trace("Matched Resists regex");
                     }
-                    var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") || (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
-                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
+                    var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") ||
+                                 (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
+                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) &&
+                                 mReg.Groups["resist"].Value != "evades";
                     var direction = ParseMod.TitleCase(Convert.ToString(mReg.Groups["direction"].Value), true);
                     var whoHit = Convert.ToString(mReg.Groups["whoHit"].Value);
                     var ability = Convert.ToString(mReg.Groups["ability"].Value);
@@ -689,7 +731,9 @@ namespace ParseModXIV.Monitors
                     StatGroup target;
                     if (whoHit == Settings.Default.CharacterName)
                     {
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -747,16 +791,26 @@ namespace ParseModXIV.Monitors
 
                     if (resist)
                     {
-                        ParseModInstance.Timeline.GetOrAddStatsForMob(whoEvaded).AddAbilityStats(ability, damage, resist, false, false);
+                        ParseModInstance.Timeline.GetOrAddStatsForMob(whoEvaded).AddAbilityStats(ability, damage, resist,
+                                                                                                 false, false);
                     }
                     else
                     {
                         if (!String.IsNullOrWhiteSpace(mob))
                         {
-                            ParseModInstance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false, false, didCrit);
+                            ParseModInstance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false,
+                                                                                               false, didCrit);
                         }
                     }
                     UpdateAbilities(target, damage, didHit, didCrit, ability, resist);
+                    if (TotalD.ContainsKey(target.Name))
+                    {
+                        TotalD[target.Name] = target.GetStatValue("Total").ToString();
+                    }
+                    else
+                    {
+                        TotalD[target.Name] = target.GetStatValue("Total").ToString();
+                    }
                 }
 
                 #endregion
@@ -775,8 +829,10 @@ namespace ParseModXIV.Monitors
                             return;
                         }
                     }
-                    var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") || (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
-                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
+                    var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") ||
+                                 (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
+                    var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) &&
+                                 mReg.Groups["resist"].Value != "evades";
                     var mob = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoHit"].Value), true);
                     var whoEvaded = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoEvaded"]), true);
                     var ability = Convert.ToString(mReg.Groups["ability"].Value);
@@ -797,7 +853,9 @@ namespace ParseModXIV.Monitors
                     StatGroup target;
                     if (player == Settings.Default.CharacterName)
                     {
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -876,7 +934,9 @@ namespace ParseModXIV.Monitors
                     StatGroup target;
                     if (whoDid == Settings.Default.CharacterName)
                     {
-                        target = ParseModInstance.Timeline.PlayerInParty ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName) : ParseModInstance.Timeline.PlayerStats;
+                        target = ParseModInstance.Timeline.PlayerInParty
+                                     ? ParseModInstance.Timeline.PartyStats.GetGroup(Settings.Default.CharacterName)
+                                     : ParseModInstance.Timeline.PlayerStats;
                         if (target == null && ParseModInstance.Timeline.PlayerInParty)
                         {
                             target = CreatePlayerStatGroup(Settings.Default.CharacterName);
@@ -915,6 +975,14 @@ namespace ParseModXIV.Monitors
                         target.Stats.GetStat("H Total").Value += healing;
                         UpdateHealing(target, amount, ability);
                     }
+                    if (TotalH.ContainsKey(target.Name))
+                    {
+                        TotalH[target.Name] = target.GetStatValue("H Total").ToString();
+                    }
+                    else
+                    {
+                        TotalH[target.Name] = target.GetStatValue("H Total").ToString();
+                    }
                 }
 
                 #endregion
@@ -926,7 +994,7 @@ namespace ParseModXIV.Monitors
 
             if (Settings.Default.Gui_SaveLog && App.MArgs == null)
             {
-                ChatWorkerDelegate.XmlWriteLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                ChatWorkerDelegate.XmlWriteLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
             }
 
             #endregion
@@ -941,7 +1009,8 @@ namespace ParseModXIV.Monitors
         /// <param name="didCrit"></param>
         /// <param name="ability"></param>
         /// <param name="resisted"></param>
-        private void UpdateAbilities(StatGroup characterStats, Decimal damageAmount, bool didHit, bool didCrit, string ability, bool resisted)
+        private void UpdateAbilities(StatGroup characterStats, Decimal damageAmount, bool didHit, bool didCrit,
+                                     string ability, bool resisted)
         {
             StatGroupAbilities abilities;
             ability = ParseMod.TitleCase(ability, true);
@@ -995,7 +1064,8 @@ namespace ParseModXIV.Monitors
         /// <param name="didCrit"></param>
         /// <param name="ability"></param>
         /// <param name="blocked"></param>
-        private void UpdateDTaken(StatGroup characterStats, Decimal damageAmount, bool didHit, bool didCrit, string ability, bool blocked)
+        private void UpdateDTaken(StatGroup characterStats, Decimal damageAmount, bool didHit, bool didCrit,
+                                  string ability, bool blocked)
         {
             StatGroupDamage damage;
             ability = ParseMod.TitleCase(ability, true);
@@ -1070,7 +1140,8 @@ namespace ParseModXIV.Monitors
         /// <returns></returns>
         public static bool SubmitData(string insert, string message)
         {
-            var url = string.Format("http://ffxiv-app.com/battles/insert/?insert={0}&q={1}", insert, HttpUtility.UrlEncode(message));
+            var url = string.Format("http://ffxiv-app.com/battles/insert/?insert={0}&q={1}", insert,
+                                    HttpUtility.UrlEncode(message));
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Method = "POST";
@@ -1087,7 +1158,38 @@ namespace ParseModXIV.Monitors
 
         private static Hashtable GetJob()
         {
-            var offsets = new Hashtable { { "phalanx", "gladiator" }, { "aegis boon", "gladiator" }, { "riot blade", "gladiator" }, { "war drum", "gladiator" }, { "tempered will", "gladiator" }, { "rage of halone", "gladiator" }, { "goring blade", "gladiator" }, { "cover", "paladin" }, { "divine veil", "paladin" }, { "hallowed ground", "paladin" }, { "holy succor", "paladin" }, { "spirits within", "paladin" }, { "pounce", "puglist" }, { "haymaker", "puglist" }, { "fists of earth", "puglist" }, { "fists of fire", "puglist" }, { "aura pulse", "puglist" }, { "taunt", "puglist" }, { "howling fist", "puglist" }, { "simian thrash", "puglist" }, { "shoulder tackle", "monk" }, { "spinning heal", "monk" }, { "fists of wind", "monk" }, { "dragon kick", "monk" }, { "hundred fists", "monk" }, { "fracture", "marauder" }, { "berserk", "marauder" }, { "rampage", "marauder" }, { "path of the storm", "marauder" }, { "enduring march", "marauder" }, { "whirlwind", "marauder" }, { "godsbane", "marauder" }, { "vengeance", "warrior" }, { "antagonize", "warrior" }, { "collusion", "warrior" }, { "mighty strikes", "warrior" }, { "steel cyclone", "warrior" }, { "life surge", "lancer" }, { "power surge", "lancer" }, { "full thrust", "lancer" }, { "dread spike", "lancer" }, { "doom spike", "lancer" }, { "chaos thrust", "lancer" }, { "jump", "dragoon" }, { "elusive jump", "dragoon" }, { "dragonfire dive", "dragoon" }, { "disembowel", "dragoon" }, { "ring of talons", "dragoon" }, { "light shot", "archer" }, { "raging strike", "archer" }, { "shadowbind", "archer" }, { "swiftsong", "archer" }, { "barrage", "archer" }, { "quick nock", "archer" }, { "bloodletter", "archer" }, { "wide volley", "archer" }, { "battle voice", "bard" }, { "rain of death", "bard" }, { "ballad of magi", "bard" }, { "paeon of war", "bard" }, { "minuet of rigor", "bard" }, { "cleric stance", "conjurer" }, { "blissful mind", "conjurer" }, { "stonera", "conjurer" }, { "cura", "conjurer" }, { "shroud of saints", "conjurer" }, { "aerora", "conjurer" }, { "curaga", "conjurer" }, { "repose", "conjurer" }, { "presence of mind", "white mage" }, { "benediction", "white mage" }, { "esuna", "white mage" }, { "regen", "white mage" }, { "holy", "white mage" }, { "parsimony", "thaumaturgy" }, { "blizzard", "thaumaturgy" }, { "thundara", "thaumaturgy" }, { "blizzara", "thaumaturgy" }, { "excruciate", "thaumaturgy" }, { "sleep", "thaumaturgy" }, { "thundaga", "thaumaturgy" }, { "firaga", "thaumaturgy" }, { "convert", "black mage" }, { "burst", "black mage" }, { "sleepga", "black mage" }, { "flare", "black mage" }, { "freeze", "black mage" } };
+            var offsets = new Hashtable
+                          {
+                              {"phalanx", "gladiator"}, {"aegis boon", "gladiator"}, {"riot blade", "gladiator"},
+                              {"war drum", "gladiator"}, {"tempered will", "gladiator"}, {"rage of halone", "gladiator"},
+                              {"goring blade", "gladiator"}, {"cover", "paladin"}, {"divine veil", "paladin"},
+                              {"hallowed ground", "paladin"}, {"holy succor", "paladin"}, {"spirits within", "paladin"},
+                              {"pounce", "puglist"}, {"haymaker", "puglist"}, {"fists of earth", "puglist"},
+                              {"fists of fire", "puglist"}, {"aura pulse", "puglist"}, {"taunt", "puglist"},
+                              {"howling fist", "puglist"}, {"simian thrash", "puglist"}, {"shoulder tackle", "monk"},
+                              {"spinning heal", "monk"}, {"fists of wind", "monk"}, {"dragon kick", "monk"},
+                              {"hundred fists", "monk"}, {"fracture", "marauder"}, {"berserk", "marauder"},
+                              {"rampage", "marauder"}, {"path of the storm", "marauder"}, {"enduring march", "marauder"},
+                              {"whirlwind", "marauder"}, {"godsbane", "marauder"}, {"vengeance", "warrior"},
+                              {"antagonize", "warrior"}, {"collusion", "warrior"}, {"mighty strikes", "warrior"},
+                              {"steel cyclone", "warrior"}, {"life surge", "lancer"}, {"power surge", "lancer"},
+                              {"full thrust", "lancer"}, {"dread spike", "lancer"}, {"doom spike", "lancer"},
+                              {"chaos thrust", "lancer"}, {"jump", "dragoon"}, {"elusive jump", "dragoon"},
+                              {"dragonfire dive", "dragoon"}, {"disembowel", "dragoon"}, {"ring of talons", "dragoon"},
+                              {"light shot", "archer"}, {"raging strike", "archer"}, {"shadowbind", "archer"},
+                              {"swiftsong", "archer"}, {"barrage", "archer"}, {"quick nock", "archer"},
+                              {"bloodletter", "archer"}, {"wide volley", "archer"}, {"battle voice", "bard"},
+                              {"rain of death", "bard"}, {"ballad of magi", "bard"}, {"paeon of war", "bard"},
+                              {"minuet of rigor", "bard"}, {"cleric stance", "conjurer"}, {"blissful mind", "conjurer"},
+                              {"stonera", "conjurer"}, {"cura", "conjurer"}, {"shroud of saints", "conjurer"},
+                              {"aerora", "conjurer"}, {"curaga", "conjurer"}, {"repose", "conjurer"},
+                              {"presence of mind", "white mage"}, {"benediction", "white mage"}, {"esuna", "white mage"},
+                              {"regen", "white mage"}, {"holy", "white mage"}, {"parsimony", "thaumaturgy"},
+                              {"blizzard", "thaumaturgy"}, {"thundara", "thaumaturgy"}, {"blizzara", "thaumaturgy"},
+                              {"excruciate", "thaumaturgy"}, {"sleep", "thaumaturgy"}, {"thundaga", "thaumaturgy"},
+                              {"firaga", "thaumaturgy"}, {"convert", "black mage"}, {"burst", "black mage"},
+                              {"sleepga", "black mage"}, {"flare", "black mage"}, {"freeze", "black mage"}
+                          };
             return offsets;
         }
 

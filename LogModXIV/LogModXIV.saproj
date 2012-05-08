@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{8070eba5-384d-444a-90fe-0ed8cf3ac3a3}" Version="2.0">
+<SmartAssemblyProject ProjectId="{0e3c23b8-70f1-4531-b737-16e774797101}" Version="2.0">
     <MainAssemblyFileName>..\Release\LogModXIV.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>

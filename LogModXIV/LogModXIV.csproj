@@ -136,7 +136,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="app.config" />
+    <None Include="LogModXIV.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="app.manifest" />
     <AppDesigner Include="Properties\" />
     <None Include="LogModXIV.saproj" />
@@ -170,10 +172,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="LogModXIV.saproj" input="$(OutDir)LogModXIV.exe" output="$(OutDir)LogModXIV.exe" OverwriteAssembly="true" />
-  </Target>
+  </Target>-->
 </Project>

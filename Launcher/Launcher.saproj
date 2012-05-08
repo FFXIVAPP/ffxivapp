@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{083b1a75-ae16-4111-b1f3-18ab6b8c009b}" Version="2.0">
+<SmartAssemblyProject ProjectId="{49ebc8f2-7733-4c14-89eb-24379e42e0a4}" Version="2.0">
     <MainAssemblyFileName>..\Release\Launcher.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>

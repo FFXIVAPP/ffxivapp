@@ -43,7 +43,7 @@ namespace AppModXIV.Classes
         /// <param name="bytes"></param>
         public static void SendNotify(IEnumerable<byte> bytes)
         {
-            KeyPressNotify(Keys.Escape);
+            //KeyPressNotify(Keys.Escape);
             foreach (var b in bytes)
             {
                 UnsafeNativeMethods.SendNotifyMessageW(Constants.PHandle, WindowsMessageEvents.Char, b, 0);

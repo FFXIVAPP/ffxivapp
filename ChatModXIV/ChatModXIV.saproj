@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{d4fe5ac3-0396-4e91-8e9c-1fd4bf0d3842}" Version="2.0">
+<SmartAssemblyProject ProjectId="{b16fa150-7f03-4161-a5d1-c3318c5dbb55}" Version="2.0">
     <MainAssemblyFileName>..\Release\ChatModXIV.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>

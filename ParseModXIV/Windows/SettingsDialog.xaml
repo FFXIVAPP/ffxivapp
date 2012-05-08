@@ -21,7 +21,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="10 0 10 5" x:Name="gui_GetCICUID" Click="gui_GetCICUID_Click">Get Lodestone CICUID</Button>
                 </StackPanel>
-                <TextBox IsReadOnly="True" Margin="10 0 10 0" Text="{Binding CICUID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" MaxLength="64" MinWidth="70" AutoWordSelection="True" Name="gui_CICUID" />
+                <TextBox IsReadOnly="True" Margin="10 0 10 0" Text="{Binding CICUID, Mode=OneWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" MaxLength="64" MinWidth="70" AutoWordSelection="True" Name="gui_CICUID" />
             </StackPanel>
         </GroupBox>
             <GroupBox Header="About Your Character" Margin="5,0,5,5">

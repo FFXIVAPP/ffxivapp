@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{d321e701-ff0e-4173-b79a-cbfb12681fd4}" Version="2.0">
+<SmartAssemblyProject ProjectId="{c3244954-4300-40c2-a480-412f94da3231}" Version="2.0">
     <MainAssemblyFileName>..\Release\AppModXIV.dll</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>

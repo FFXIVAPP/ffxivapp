@@ -13,6 +13,7 @@ namespace ParseModXIV.Classes
         private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture;
         public static readonly Regex Romans = new Regex(@"(?<roman>\b[IVXLCDM]+\b)", DefaultOptions);
         public static readonly Regex Cicuid = new Regex(@".+=(?<cicuid>\d+)", DefaultOptions);
-        public static readonly string[] Mobbies = new[] { "Miser's Mistress", "Dodore's Minion" };
+        public static readonly Regex Commands = new Regex((@"com:(?<cmd>\w+) (?<sub>\w+)"), DefaultOptions);
+        public static readonly string[] Mobbies = new[] {"Miser's Mistress", "Dodore's Minion"};
     }
 }
