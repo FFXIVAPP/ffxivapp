@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: StatGroup.cs
-// 
+// ParseModXIV
+// StatGroup.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -120,6 +120,11 @@ namespace ParseModXIV.Stats
         public StatGroup GetGroup(string name)
         {
             StatGroup result;
+            TryGetGroup(name, out result);
+            if (result == null)
+            {
+                AddGroup(new StatGroup(name) {IncludeSelf = false});
+            }
             return TryGetGroup(name, out result) ? result : null;
         }
 
@@ -164,13 +169,13 @@ namespace ParseModXIV.Stats
                 {
                     continue;
                 }
-                var constructorInfo = stat.GetType().GetConstructor(new[] { typeof (String) });
+                var constructorInfo = stat.GetType().GetConstructor(new[] {typeof (String)});
                 if (constructorInfo == null)
                 {
                     continue;
                 }
                 // XXX: Need to actually make a Stat method that allows for a type-specific clone
-                var subStat = (NumericStat) constructorInfo.Invoke(new[] { stat.Name });
+                var subStat = (NumericStat) constructorInfo.Invoke(new[] {stat.Name});
                 if (subStat == null)
                 {
                     continue;
@@ -378,10 +383,10 @@ namespace ParseModXIV.Stats
             if (handler != null)
             {
                 MainWindow.View.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                                                                                                                      {
-                                                                                                                          handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
-                                                                                                                          return null;
-                                                                                                                      }), null);
+                                                                                                                  {
+                                                                                                                      handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
+                                                                                                                      return null;
+                                                                                                                  }), null);
             }
         }
 

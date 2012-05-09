@@ -1,6 +1,6 @@
-﻿// Project: LogModXIV
-// File: ChatWorkerDelegate.cs
-// 
+﻿// LogModXIV
+// ChatWorkerDelegate.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -99,7 +99,7 @@ namespace LogModXIV.Classes
 
                 if (Settings.Default.Gui_SaveLog)
                 {
-                    XmlWriteLog.AddChatLine(new[] { mMessage, mCode, mTimeStamp, "#" + LmSettings.XColor[mCode] });
+                    XmlWriteLog.AddChatLine(new[] {mMessage, mCode, mTimeStamp, "#" + LmSettings.XColor[mCode]});
                 }
             }
             if (!Settings.Default.Gui_Translate)
@@ -224,8 +224,8 @@ namespace LogModXIV.Classes
         {
             _bc = new BrushConverter();
             _pgraph = new Paragraph();
-            _tStamp = new Span(new Run(time)) { Foreground = (Brush) _bc.ConvertFrom("#" + Settings.Default.Color_TimeStamp.ToString().Substring(3)), FontWeight = FontWeights.Bold };
-            _tMessage = new Span(new Run(message)) { Foreground = (Brush) _bc.ConvertFrom(color) };
+            _tStamp = new Span(new Run(time)) {Foreground = (Brush) _bc.ConvertFrom("#" + Settings.Default.Color_TimeStamp.ToString().Substring(3)), FontWeight = FontWeights.Bold};
+            _tMessage = new Span(new Run(message)) {Foreground = (Brush) _bc.ConvertFrom(color)};
             _pgraph.Inlines.Add(_tStamp);
             _pgraph.Inlines.Add(_tMessage);
             flow.Document.Blocks.Add(_pgraph);

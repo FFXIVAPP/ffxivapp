@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: AverageStat.cs
-// 
+// ParseModXIV
+// AverageStat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -48,7 +48,7 @@ namespace ParseModXIV.Stats
         public override void DoDependencyValueChanged(object sender, object o, object n)
         {
             var newValue = (Decimal) n;
-            Value = newValue / ++_numUpdates;
+            Value = newValue/++_numUpdates;
         }
     }
 }

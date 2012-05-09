@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: EventParser.cs
-// 
+﻿// ParseModXIV
+// EventParser.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -168,7 +168,7 @@ namespace ParseModXIV.Model
             {
                 LoadGroups(group, thisGroup);
             }
-            var codes = from e in root.Elements("ChatCode") select new EventCode { Description = (string) e.Attribute("Desc"), Code = Convert.ToUInt16((string) e.Attribute("id"), 16), Group = thisGroup };
+            var codes = from e in root.Elements("ChatCode") select new EventCode {Description = (string) e.Attribute("Desc"), Code = Convert.ToUInt16((string) e.Attribute("id"), 16), Group = thisGroup};
             foreach (var c in codes)
             {
                 _eventCodes.Add(c.Code, c);
@@ -192,7 +192,7 @@ namespace ParseModXIV.Model
             {
                 return new Event(ec, line);
             }
-            var unknownEventCode = new EventCode { Code = code };
+            var unknownEventCode = new EventCode {Code = code};
             return new Event(unknownEventCode, line);
         }
 

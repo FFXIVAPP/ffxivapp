@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: StatGroupToXml.cs
-// 
+﻿// ParseModXIV
+// StatGroupToXml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -28,7 +28,7 @@ namespace ParseModXIV.Classes
         /// <summary>
         /// 
         /// </summary>
-        public static void ExportPartyStats()
+        public static void ExportParty()
         {
             XmlSettings.Indent = true;
             XmlSettings.IndentChars = "	";
@@ -37,7 +37,7 @@ namespace ParseModXIV.Classes
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("party");
-                using (var aEnum = ParseMod.Instance.Timeline.PartyStats.GetEnumerator())
+                using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
                 {
                     while (aEnum.MoveNext()) //name of player
                     {
@@ -147,7 +147,7 @@ namespace ParseModXIV.Classes
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("monster");
-                using (var aEnum = ParseMod.Instance.Timeline.MobStats.GetEnumerator())
+                using (var aEnum = ParseMod.Instance.Timeline.Monster.GetEnumerator())
                 {
                     while (aEnum.MoveNext()) //name of monster
                     {

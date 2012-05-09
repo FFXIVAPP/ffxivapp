@@ -1,11 +1,10 @@
-﻿// Project: ParseModXIV
-// File: TimelineMonitor.cs
-// 
+﻿// ParseModXIV
+// TimelineMonitor.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using ParseModXIV.Classes;
 using ParseModXIV.Model;
@@ -47,68 +46,60 @@ namespace ParseModXIV.Monitors
             switch (Settings.Default.Language)
             {
                 case "English":
+                {
+                    var matches = RegExpsEn.Defeated.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsEn.Defeated.Match(line);
-                        if (matches.Success)
+                        ParseMod.DeathCount++;
+                        var whatDefeated = matches.Groups["whatDefeated"];
+                        var whoDefeated = matches.Groups["whoDefeated"];
+                        if (!whatDefeated.Success)
                         {
-                            ParseMod.DeathCount++;
-                            var whatDefeated = matches.Groups["whatDefeated"];
-                            var whoDefeated = matches.Groups["whoDefeated"];
-                            if (!whatDefeated.Success)
-                            {
-                                //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
-                                return;
-                            }
-                            if (ParseModInstance.Timeline.PartyStats.HasGroup(whatDefeated.Value))
-                            {
-                                return;
-                            }
-                            if (ParseModInstance.Timeline.InactivePartyStats.HasGroup(whatDefeated.Value))
-                            {
-                                return;
-                            }
-                            if (Regex.IsMatch(whatDefeated.Value, @"^[Yy]our?$"))
-                            {
-                                return;
-                            }
-                            var what = ParseMod.TitleCase(whatDefeated.Value, true);
-                            var who = ParseMod.TitleCase(whoDefeated.Value, true);
-                            //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
+                            //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
+                            return;
                         }
+                        if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
+                        {
+                            return;
+                        }
+                        if (Regex.IsMatch(whatDefeated.Value, @"^[Yy]our?$"))
+                        {
+                            return;
+                        }
+                        var what = ParseMod.TitleCase(whatDefeated.Value, true);
+                        var who = ParseMod.TitleCase(whoDefeated.Value, true);
+                        //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
                     }
+                }
                     break;
                 case "French":
+                {
+                    var matches = RegExpsFr.Defeated.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsFr.Defeated.Match(line);
-                        if (matches.Success)
+                        ParseMod.DeathCount++;
+                        var whatDefeated = matches.Groups["whatDefeated"];
+                        var whoDefeated = matches.Groups["whoDefeated"];
+                        if (!whatDefeated.Success)
                         {
-                            ParseMod.DeathCount++;
-                            var whatDefeated = matches.Groups["whatDefeated"];
-                            var whoDefeated = matches.Groups["whoDefeated"];
-                            if (!whatDefeated.Success)
-                            {
-                                //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
-                                return;
-                            }
-                            if (ParseModInstance.Timeline.PartyStats.HasGroup(whatDefeated.Value))
-                            {
-                                return;
-                            }
-                            if (ParseModInstance.Timeline.InactivePartyStats.HasGroup(whatDefeated.Value))
-                            {
-                                return;
-                            }
-                            if (whatDefeated.Value == Settings.Default.CharacterName)
-                            {
-                                return;
-                            }
-                            var what = ParseMod.TitleCase(whatDefeated.Value, true);
-                            var who = ParseMod.TitleCase(whoDefeated.Value, true);
-                            //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
+                            //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
+                            return;
                         }
+                        if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
+                        {
+                            return;
+                        }
+                        if (whatDefeated.Value == Settings.Default.CharacterName)
+                        {
+                            return;
+                        }
+                        var what = ParseMod.TitleCase(whatDefeated.Value, true);
+                        var who = ParseMod.TitleCase(whoDefeated.Value, true);
+                        //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
                     }
+                }
                     break;
             }
         }
@@ -122,24 +113,24 @@ namespace ParseModXIV.Monitors
             switch (Settings.Default.Language)
             {
                 case "English":
+                {
+                    var matches = RegExpsEn.Obtains.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsEn.Obtains.Match(line);
-                        if (matches.Success)
-                        {
-                            var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true);
-                            AddDrop(thing);
-                        }
+                        var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true);
+                        AddDrop(thing);
                     }
+                }
                     break;
                 case "French":
+                {
+                    var matches = RegExpsFr.Obtains.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsFr.Obtains.Match(line);
-                        if (matches.Success)
-                        {
-                            var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true);
-                            AddDrop(thing);
-                        }
+                        var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true);
+                        AddDrop(thing);
                     }
+                }
                     break;
             }
         }
@@ -182,56 +173,56 @@ namespace ParseModXIV.Monitors
             switch (Settings.Default.Language)
             {
                 case "English":
+                {
+                    var matches = RegExpsEn.JoinParty.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsEn.JoinParty.Match(line);
-                        if (matches.Success)
+                        var whoJoined = matches.Groups["whoJoined"].Value;
+                        //logger.Trace("Party Join Event : {0}", whoJoined);
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
+                    }
+                    else if (RegExpsEn.DisbandParty.Match(line).Success)
+                    {
+                        //logger.Trace("Party Disband Event");
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
+                    }
+                    else
+                    {
+                        var leftParty = RegExpsEn.LeaveParty.Match(line);
+                        if (leftParty.Success)
                         {
-                            var whoJoined = matches.Groups["whoJoined"].Value;
-                            //logger.Trace("Party Join Event : {0}", whoJoined);
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
-                        }
-                        else if (RegExpsEn.DisbandParty.Match(line).Success)
-                        {
-                            //logger.Trace("Party Disband Event");
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
-                        }
-                        else
-                        {
-                            var leftParty = RegExpsEn.LeaveParty.Match(line);
-                            if (leftParty.Success)
-                            {
-                                var whoLeft = leftParty.Groups["whoLeft"].Value;
-                                //logger.Trace("Party leave event : {0}", whoLeft);
-                                ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
-                            }
+                            var whoLeft = leftParty.Groups["whoLeft"].Value;
+                            //logger.Trace("Party leave event : {0}", whoLeft);
+                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }
+                }
                     break;
                 case "French":
+                {
+                    var matches = RegExpsFr.JoinParty.Match(line);
+                    if (matches.Success)
                     {
-                        var matches = RegExpsFr.JoinParty.Match(line);
-                        if (matches.Success)
+                        var whoJoined = matches.Groups["whoJoined"].Value;
+                        //logger.Trace("Party Join Event : {0}", whoJoined);
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
+                    }
+                    else if (RegExpsFr.DisbandParty.Match(line).Success)
+                    {
+                        //logger.Trace("Party Disband Event");
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
+                    }
+                    else
+                    {
+                        var leftParty = RegExpsFr.LeaveParty.Match(line);
+                        if (leftParty.Success)
                         {
-                            var whoJoined = matches.Groups["whoJoined"].Value;
-                            //logger.Trace("Party Join Event : {0}", whoJoined);
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
-                        }
-                        else if (RegExpsFr.DisbandParty.Match(line).Success)
-                        {
-                            //logger.Trace("Party Disband Event");
-                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
-                        }
-                        else
-                        {
-                            var leftParty = RegExpsFr.LeaveParty.Match(line);
-                            if (leftParty.Success)
-                            {
-                                var whoLeft = leftParty.Groups["whoLeft"].Value;
-                                //logger.Trace("Party leave event : {0}", whoLeft);
-                                ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
-                            }
+                            var whoLeft = leftParty.Groups["whoLeft"].Value;
+                            //logger.Trace("Party leave event : {0}", whoLeft);
+                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }
+                }
                     break;
             }
         }

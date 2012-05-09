@@ -178,11 +178,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  
+  -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="ChatModXIV.saproj" input="$(OutDir)ChatModXIV.exe" output="$(OutDir)ChatModXIV.exe" OverwriteAssembly="true" />
-  </Target>-->
+  </Target>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

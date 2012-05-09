@@ -1,6 +1,6 @@
-﻿// Project: LogModXIV
-// File: MainWindow.xaml.cs
-// 
+﻿// LogModXIV
+// MainWindow.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -68,7 +68,7 @@ namespace LogModXIV
         /// </summary>
         public MainWindow()
         {
-            var rd = new ResourceDictionary { Source = new Uri("pack://application:,,,/LogModXIV;component/LogModXIV.xaml") };
+            var rd = new ResourceDictionary {Source = new Uri("pack://application:,,,/LogModXIV;component/LogModXIV.xaml")};
             Resources.MergedDictionaries.Add(rd);
             if (File.Exists("./Resources/Themes/LogModXIV.xaml"))
             {
@@ -97,25 +97,25 @@ namespace LogModXIV
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("LogModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
+                                     {
+                                         if (checkUpdates.EndInvoke(appresult))
                                          {
-                                             if (checkUpdates.EndInvoke(appresult))
+                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                                             if (msgbox == MessageBoxResult.Yes)
                                              {
-                                                 var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                                 if (msgbox == MessageBoxResult.Yes)
-                                                 {
-                                                     Process.Start("http://ffxiv-app.com/products/");
-                                                 }
-                                                 var proc = Process.GetProcessesByName("LogModXIV");
-                                                 foreach (var p in proc)
-                                                 {
-                                                     p.Kill();
-                                                 }
+                                                 Process.Start("http://ffxiv-app.com/products/");
                                              }
-                                             else
+                                             var proc = Process.GetProcessesByName("LogModXIV");
+                                             foreach (var p in proc)
                                              {
-                                                 checkLibrary.BeginInvoke(libresult => { }, null);
+                                                 p.Kill();
                                              }
-                                         }, null);
+                                         }
+                                         else
+                                         {
+                                             checkLibrary.BeginInvoke(libresult => { }, null);
+                                         }
+                                     }, null);
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -194,7 +194,7 @@ namespace LogModXIV
         /// </summary>
         private void LoadXml()
         {
-            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
             foreach (var item in items)
             {
                 Constants.XAtCodes.Add(item.Key, item.Value);
@@ -236,7 +236,7 @@ namespace LogModXIV
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon { Icon = new Icon(iconStream) };
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "LogModXIV - Minimized";
                     var myNotify = new ContextMenu();
@@ -267,7 +267,7 @@ namespace LogModXIV
         {
             _expTimer.Interval = TimeSpan.FromMilliseconds(1000);
             _timeElapsed = DateTime.Now - _startTime;
-            var expPHour = Convert.ToInt32(TotalExp / (_timeElapsed.TotalMinutes / 60));
+            var expPHour = Convert.ToInt32(TotalExp/(_timeElapsed.TotalMinutes/60));
             if (LogMod.Instance.IsLogging)
             {
                 View.Title = "LogModXIV ~ Exp: " + TotalExp.ToString(CultureInfo.InvariantCulture) + "   Exp/H: " + expPHour.ToString(CultureInfo.InvariantCulture);
@@ -320,7 +320,7 @@ namespace LogModXIV
         {
             _tsColor = Settings.Default.Color_TimeStamp;
             _bColor = Settings.Default.Color_ChatlogBackground;
-            var tColor = new SolidColorBrush { Color = _bColor };
+            var tColor = new SolidColorBrush {Color = _bColor};
             MainTabControlView.All_FLOW.Background = tColor;
             MainTabControlView.Translated_FLOW.Background = tColor;
             MainTabControlView.Debug_FLOW.Background = tColor;

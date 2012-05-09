@@ -11,7 +11,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:my="clr-namespace:ParseModXIV.Model"
              mc:Ignorable="d"
-             MinWidth="280"
+             MinWidth="280" MinHeight="110"
              >
     <UserControl.Resources>
         <my:AsyncNameToAvatarConverter x:Key="AsyncNameToAvatarConverter" />
@@ -31,7 +31,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
             </Setter>
         </Style>
         <Style x:Key="CommaNumberStyle" BasedOn="{StaticResource StatLabelStyle}">
-            <Setter Property="Label.ContentStringFormat" Value="{}{0:F0}"/>
+            <Setter Property="Label.ContentStringFormat" Value="{}{0:N0}"/>
         </Style>
         <Style x:Key="PercentStyle" BasedOn="{StaticResource StatLabelStyle}">
             <Setter Property="Label.ContentStringFormat" Value="{}{0:P}"/>
@@ -63,7 +63,8 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                     </Image>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Right">
-                    <Label Style="{StaticResource CommaNumberStyle}"  Content="{Binding DPS}" FontSize="22" />
+                    <Label Style="{StaticResource CommaNumberStyle}" Padding="0" Content="{Binding DPS}" FontSize="22" />
+                    <Label VerticalAlignment="Bottom" Margin="5" Padding="0">DPS</Label>
                 </DockPanel>
                 <DockPanel>
                     <Label VerticalAlignment="Center" Content="{Binding Name}" Margin="5, 2, 5, 3"/>
@@ -76,6 +77,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                     <StackPanel Name="StatNamesPanel" Grid.Column="0" HorizontalAlignment="Left">
                         <Label Style="{StaticResource StatLabelStyle}">Overall Damage:</Label>
                         <Label Style="{StaticResource StatLabelStyle}">Accuracy:</Label>
+                        <Label Style="{StaticResource StatLabelStyle}">Crit %:</Label>
                     </StackPanel>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Right">
@@ -85,6 +87,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                     <StackPanel Height="Auto" Grid.Column="1" HorizontalAlignment="Right">
                         <Label Style="{StaticResource CommaNumberStyle}" Content="{Binding Total}"/>
                         <Label Style="{StaticResource PercentStyle}" Content="{Binding Acc}" />
+                        <Label Style="{StaticResource PercentStyle}" Content="{Binding Crit %}" />
                     </StackPanel>
                 </DockPanel>
             </DockPanel>

@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: MainTabControlView.xaml.cs
-// 
+﻿// ParseModXIV
+// MainTabControlView.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

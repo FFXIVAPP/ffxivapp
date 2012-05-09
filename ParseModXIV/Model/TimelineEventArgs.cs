@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: TimelineEventArgs.cs
-// 
+// ParseModXIV
+// TimelineEventArgs.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

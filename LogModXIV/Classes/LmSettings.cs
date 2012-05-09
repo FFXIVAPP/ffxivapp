@@ -1,6 +1,6 @@
-// Project: LogModXIV
-// File: LmSettings.cs
-// 
+// LogModXIV
+// LmSettings.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -15,7 +15,7 @@ namespace LogModXIV.Classes
     public static class LmSettings
     {
         private const String DefaultSettingsPath = "./Resources/Settings_Log.xml";
-        private static readonly string[] RSettings = { "Tab", "Color" };
+        private static readonly string[] RSettings = {"Tab", "Color"};
         public static readonly Dictionary<string, string> XColor = new Dictionary<string, string>();
         public static readonly Dictionary<string, string> XTab = new Dictionary<string, string>();
         private static XDocument _settingsXml;
@@ -47,7 +47,7 @@ namespace LogModXIV.Classes
         /// <param name="setting"></param>
         private static void LoadSettingsXml(string setting)
         {
-            var items = from item in _settingsXml.Descendants(setting) select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            var items = from item in _settingsXml.Descendants(setting) select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
             foreach (var item in items)
             {
                 switch (setting)

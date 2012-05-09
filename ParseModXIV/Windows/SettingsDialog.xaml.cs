@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: SettingsDialog.xaml.cs
-// 
+﻿// ParseModXIV
+// SettingsDialog.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -109,7 +109,6 @@ namespace ParseModXIV.Windows
             {
                 MessageBox.Show("Invalid Character Data!", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
         }
     }
 }

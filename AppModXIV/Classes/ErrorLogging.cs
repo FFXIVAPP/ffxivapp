@@ -1,6 +1,6 @@
-// Project: AppModXIV
-// File: ErrorLogging.cs
-// 
+// AppModXIV
+// ErrorLogging.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -30,8 +30,7 @@ namespace AppModXIV.Classes
                     {
                         line = reader.ReadLine();
                         data.Add(line);
-                    }
-                    while (line != null);
+                    } while (line != null);
                 }
             }
             var writeStart = 0;

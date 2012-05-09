@@ -32,8 +32,8 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 <MenuItem Header="View">
                     <MenuItem Header="Mob Ability (Chat)" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MobAbility, Mode=TwoWay}" Name="Gui_MobAbility"
                               Command="{Binding ToggleMobAbilityCommand}"/>
-                    <MenuItem Header="Party Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_PartyStats, Mode=TwoWay}" Name="Gui_PartyStats"
-                              Command="{Binding TogglePartyStatsCommand}"/>
+                    <MenuItem Header="Party Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_Party, Mode=TwoWay}" Name="Gui_Party"
+                              Command="{Binding TogglePartyCommand}"/>
                     <MenuItem Header="Healing Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_HealingStats, Mode=TwoWay}" Name="Gui_HealingStats"
                               Command="{Binding ToggleHealingStatsCommand}"/>
                     <MenuItem Header="Damage Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DamageStats, Mode=TwoWay}" Name="Gui_DamageStats"

@@ -1,6 +1,6 @@
-﻿// Project: LogModXIV
-// File: GoogleTranslate.cs
-// 
+﻿// LogModXIV
+// GoogleTranslate.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -163,7 +163,7 @@ namespace LogModXIV.Classes
         /// <returns></returns>
         private static Hashtable GetLanguage()
         {
-            var offsets = new Hashtable { { "Albanian", "sq" }, { "Arabic", "ar" }, { "Bulgarian", "bg" }, { "Catalan", "ca" }, { "Chinese (Simplified)", "zh-CN" }, { "Chinese (Traditional)", "zh-TW" }, { "Croatian", "hr" }, { "Czech", "cs" }, { "Danish", "da" }, { "Dutch", "nl" }, { "English", "en" }, { "Estonian", "et" }, { "Filipino", "tl" }, { "Finnish", "fi" }, { "French", "fr" }, { "Galician", "gl" }, { "German", "de" }, { "Greek", "el" }, { "Hebrew", "iw" }, { "Hindi", "hi" }, { "Hungarian", "hu" }, { "Indonesian", "id" }, { "Italian", "it" }, { "Japanese", "ja" }, { "Korean", "ko" }, { "Latvian", "lv" }, { "Lithuanian", "lt" }, { "Maltese", "mt" }, { "Norwegian", "no" }, { "Polish", "pl" }, { "Portuguese", "pt" }, { "Romanian", "ro" }, { "Russian", "ru" }, { "Serbian", "sr" }, { "Slovak", "sk" }, { "Slovenian", "sl" }, { "Spanish", "es" }, { "Swedish", "sv" }, { "Thai", "th" }, { "Turkish", "tr" }, { "Ukrainian", "uk" }, { "Vietnamese", "vi" } };
+            var offsets = new Hashtable {{"Albanian", "sq"}, {"Arabic", "ar"}, {"Bulgarian", "bg"}, {"Catalan", "ca"}, {"Chinese (Simplified)", "zh-CN"}, {"Chinese (Traditional)", "zh-TW"}, {"Croatian", "hr"}, {"Czech", "cs"}, {"Danish", "da"}, {"Dutch", "nl"}, {"English", "en"}, {"Estonian", "et"}, {"Filipino", "tl"}, {"Finnish", "fi"}, {"French", "fr"}, {"Galician", "gl"}, {"German", "de"}, {"Greek", "el"}, {"Hebrew", "iw"}, {"Hindi", "hi"}, {"Hungarian", "hu"}, {"Indonesian", "id"}, {"Italian", "it"}, {"Japanese", "ja"}, {"Korean", "ko"}, {"Latvian", "lv"}, {"Lithuanian", "lt"}, {"Maltese", "mt"}, {"Norwegian", "no"}, {"Polish", "pl"}, {"Portuguese", "pt"}, {"Romanian", "ro"}, {"Russian", "ru"}, {"Serbian", "sr"}, {"Slovak", "sk"}, {"Slovenian", "sl"}, {"Spanish", "es"}, {"Swedish", "sv"}, {"Thai", "th"}, {"Turkish", "tr"}, {"Ukrainian", "uk"}, {"Vietnamese", "vi"}};
             return offsets;
         }
 

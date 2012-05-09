@@ -1,6 +1,6 @@
-﻿// Project: AppModXIV
-// File: UnsafeNativeMethods.cs
-// 
+﻿// AppModXIV
+// UnsafeNativeMethods.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -104,7 +104,7 @@ namespace AppModXIV.Memory
         /// <param name="lpNumberOfBytesWritten"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll")]
-        public static extern Boolean WriteProcessMemory([In, Out] IntPtr hProcess, [In, Out] IntPtr lpBaseAddress, [In, Out] byte[] lpBuffer, [In, Out] UIntPtr nSize, [In, Out] ref IntPtr lpNumberOfBytesWritten);
+        public static extern Boolean WriteProcessMemory([In] [Out] IntPtr hProcess, [In] [Out] IntPtr lpBaseAddress, [In] [Out] byte[] lpBuffer, [In] [Out] UIntPtr nSize, [In] [Out] ref IntPtr lpNumberOfBytesWritten);
 
         /// <summary>
         /// 

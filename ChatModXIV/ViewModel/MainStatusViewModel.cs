@@ -1,6 +1,6 @@
-﻿// Project: ChatModXIV
-// File: MainStatusViewModel.cs
-// 
+﻿// ChatModXIV
+// MainStatusViewModel.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

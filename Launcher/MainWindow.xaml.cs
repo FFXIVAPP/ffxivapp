@@ -1,6 +1,6 @@
-﻿// Project: Launcher
-// File: MainWindow.xaml.cs
-// 
+﻿// Launcher
+// MainWindow.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -56,7 +56,7 @@ namespace Launcher
         /// </summary>
         public MainWindow()
         {
-            var rd = new ResourceDictionary { Source = new Uri("pack://application:,,,/Launcher;component/Launcher.xaml") };
+            var rd = new ResourceDictionary {Source = new Uri("pack://application:,,,/Launcher;component/Launcher.xaml")};
             Resources.MergedDictionaries.Add(rd);
 
             if (File.Exists("./Resources/Themes/Launcher.xaml"))
@@ -88,46 +88,46 @@ namespace Launcher
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             Func<bool> checkHook = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
+                                     {
+                                         if (checkUpdates.EndInvoke(appresult))
                                          {
-                                             if (checkUpdates.EndInvoke(appresult))
+                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                                             if (msgbox == MessageBoxResult.Yes)
                                              {
-                                                 var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                                 if (msgbox == MessageBoxResult.Yes)
-                                                 {
-                                                     Process.Start("http://ffxiv-app.com/products/");
-                                                 }
-                                                 var proc = Process.GetProcessesByName("Launcher");
-                                                 foreach (var p in proc)
-                                                 {
-                                                     p.Kill();
-                                                 }
+                                                 Process.Start("http://ffxiv-app.com/products/");
                                              }
-                                             else
+                                             var proc = Process.GetProcessesByName("Launcher");
+                                             foreach (var p in proc)
                                              {
-                                                 checkLibrary.BeginInvoke(libresult =>
-                                                                              {
-                                                                                  if (!checkLibrary.EndInvoke(libresult))
-                                                                                  {
-                                                                                      checkHook.BeginInvoke(hookresult =>
-                                                                                                                {
-                                                                                                                    if (checkHook.EndInvoke(hookresult))
-                                                                                                                    {
-                                                                                                                        var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                                                                                                        if (msgbox == MessageBoxResult.Yes)
-                                                                                                                        {
-                                                                                                                            Process.Start("http://ffxiv-app.com/products/");
-                                                                                                                        }
-                                                                                                                        var proc = Process.GetProcessesByName("Launcher");
-                                                                                                                        foreach (var p in proc)
-                                                                                                                        {
-                                                                                                                            p.Kill();
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }, null);
-                                                                                  }
-                                                                              }, null);
+                                                 p.Kill();
                                              }
-                                         }, null);
+                                         }
+                                         else
+                                         {
+                                             checkLibrary.BeginInvoke(libresult =>
+                                                                      {
+                                                                          if (!checkLibrary.EndInvoke(libresult))
+                                                                          {
+                                                                              checkHook.BeginInvoke(hookresult =>
+                                                                                                    {
+                                                                                                        if (checkHook.EndInvoke(hookresult))
+                                                                                                        {
+                                                                                                            var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                                                                                                            if (msgbox == MessageBoxResult.Yes)
+                                                                                                            {
+                                                                                                                Process.Start("http://ffxiv-app.com/products/");
+                                                                                                            }
+                                                                                                            var proc = Process.GetProcessesByName("Launcher");
+                                                                                                            foreach (var p in proc)
+                                                                                                            {
+                                                                                                                p.Kill();
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }, null);
+                                                                          }
+                                                                      }, null);
+                                         }
+                                     }, null);
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -209,7 +209,7 @@ namespace Launcher
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon { Icon = new Icon(iconStream) };
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "Launcher - Minimized";
                     var myNotify = new ContextMenu();
@@ -359,7 +359,7 @@ namespace Launcher
             {
                 return;
             }
-            var m = new Process { StartInfo = { FileName = Settings.Default.Launch } };
+            var m = new Process {StartInfo = {FileName = Settings.Default.Launch}};
             try
             {
                 m.Start();
@@ -386,7 +386,7 @@ namespace Launcher
                 _processById = Process.GetProcessById(_proc[0].Id);
                 var mainWindowHandle = _processById.MainWindowHandle;
                 Globals.GetWindowRect((int) mainWindowHandle, ref _orig);
-                _gBorder = (_orig.Right - _orig.Left - _targetMap.maxx) / 2;
+                _gBorder = (_orig.Right - _orig.Left - _targetMap.maxx)/2;
                 _gTop = (_orig.Bottom - _orig.Top) - _targetMap.maxy - _gBorder;
                 _gHor = _targetMap.maxx;
                 _gVer = _targetMap.maxy;
@@ -435,7 +435,7 @@ namespace Launcher
                 const int nIndex = -16;
                 var mainWindowHandle = _processById.MainWindowHandle;
                 Globals.SetWindowLongPtr(mainWindowHandle, nIndex, (IntPtr) styles);
-                var h = (_gBorder * 2) + _gHor;
+                var h = (_gBorder*2) + _gHor;
                 var v = _gBorder + _gVer + _gTop;
                 Globals.MoveWindow(mainWindowHandle, _targetMap.initx + 10, _targetMap.inity + 10, h, v, true);
             }

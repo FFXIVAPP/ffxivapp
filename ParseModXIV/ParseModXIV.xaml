@@ -12,6 +12,21 @@
     mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
 
+    <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="AlternatingRowBackground" Value="Beige" />
+    </Style>
+
+    <Style x:Key="DataGridDemoRowStyle" TargetType="{x:Type DataGridRow}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource SelectedRowBackgroundBrush}" />
+            </Trigger>
+            <DataTrigger Binding="{Binding BondType}" Value="P">
+                <Setter Property="Background" Value="Pink"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- Color Palette -->
     <SolidColorBrush x:Key="OutsideFontColor" Color="#FF000000"/>
     <SolidColorBrush x:Key="ButtonFontColor" Color="#FF042271"/>

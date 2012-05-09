@@ -1,6 +1,6 @@
-// Project: Launcher
-// File: Globals.cs
-// 
+// Launcher
+// Globals.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: ILinkedStat.cs
-// 
+// ParseModXIV
+// ILinkedStat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: AccuracyStat.cs
-// 
+// ParseModXIV
+// AccuracyStat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -63,7 +63,7 @@ namespace ParseModXIV.Stats
                 return;
             }
             var total = Convert.ToDouble(HitStat.Value + MissStat.Value);
-            Value = Convert.ToDecimal((Convert.ToDouble(HitStat.Value) / total));
+            Value = Convert.ToDecimal((Convert.ToDouble(HitStat.Value)/total));
         }
     }
 }

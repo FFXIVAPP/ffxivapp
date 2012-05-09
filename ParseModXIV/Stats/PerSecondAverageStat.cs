@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: PerSecondAverageStat.cs
-// 
+// ParseModXIV
+// PerSecondAverageStat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -63,7 +63,7 @@ namespace ParseModXIV.Stats
             var timeDiff = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived).TotalSeconds);
             if (timeDiff >= 1)
             {
-                Value = newValue / timeDiff;
+                Value = newValue/timeDiff;
             }
         }
     }

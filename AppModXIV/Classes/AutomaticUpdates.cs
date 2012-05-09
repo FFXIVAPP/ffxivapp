@@ -1,6 +1,6 @@
-// Project: AppModXIV
-// File: AutomaticUpdates.cs
-// 
+// AppModXIV
+// AutomaticUpdates.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -45,8 +45,8 @@ namespace AppModXIV.Classes
         /// <returns></returns>
         public bool CheckUpdates(string filename)
         {
-            var lver = new string[] { };
-            var cver = new string[] { };
+            var lver = new string[] {};
+            var cver = new string[] {};
             try
             {
                 var req = (HttpWebRequest) WebRequest.Create(string.Format("http://ffxiv-app.com/appv/?q={0}", filename));

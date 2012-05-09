@@ -1,10 +1,9 @@
-// Project: ChatModXIV
-// File: Message.cs
-// 
+// ChatModXIV
+// Message.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
-using System.Reflection;
 using Newtonsoft.Json;
 
 namespace ChatModXIV.Classes

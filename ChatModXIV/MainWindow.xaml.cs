@@ -1,6 +1,6 @@
-﻿// Project: ChatModXIV
-// File: MainWindow.xaml.cs
-// 
+﻿// ChatModXIV
+// MainWindow.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -50,7 +50,7 @@ namespace ChatModXIV
         /// </summary>
         public MainWindow()
         {
-            var rd = new ResourceDictionary { Source = new Uri("pack://application:,,,/ChatModXIV;component/ChatModXIV.xaml") };
+            var rd = new ResourceDictionary {Source = new Uri("pack://application:,,,/ChatModXIV;component/ChatModXIV.xaml")};
             Resources.MergedDictionaries.Add(rd);
             if (File.Exists("./Resources/Themes/ChatModXIV.xaml"))
             {
@@ -68,25 +68,25 @@ namespace ChatModXIV
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ChatModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
+                                     {
+                                         if (checkUpdates.EndInvoke(appresult))
                                          {
-                                             if (checkUpdates.EndInvoke(appresult))
+                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                                             if (msgbox == MessageBoxResult.Yes)
                                              {
-                                                 var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                                 if (msgbox == MessageBoxResult.Yes)
-                                                 {
-                                                     Process.Start("http://ffxiv-app.com/products/");
-                                                 }
-                                                 var proc = Process.GetProcessesByName("ChatModXIV");
-                                                 foreach (var p in proc)
-                                                 {
-                                                     p.Kill();
-                                                 }
+                                                 Process.Start("http://ffxiv-app.com/products/");
                                              }
-                                             else
+                                             var proc = Process.GetProcessesByName("ChatModXIV");
+                                             foreach (var p in proc)
                                              {
-                                                 checkLibrary.BeginInvoke(libresult => { }, null);
+                                                 p.Kill();
                                              }
-                                         }, null);
+                                         }
+                                         else
+                                         {
+                                             checkLibrary.BeginInvoke(libresult => { }, null);
+                                         }
+                                     }, null);
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -142,7 +142,7 @@ namespace ChatModXIV
                     var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss]");
                     var mCode = key;
                     var mMessage = value;
-                    SendMessage("message", new Message { Type = "Global", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage });
+                    SendMessage("message", new Message {Type = "Global", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
                     value = key = time = "";
                 }
             }
@@ -195,7 +195,7 @@ namespace ChatModXIV
         /// </summary>
         private void LoadXml()
         {
-            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
             foreach (var item in items)
             {
                 Constants.XAtCodes.Add(item.Key, item.Value);
@@ -212,7 +212,7 @@ namespace ChatModXIV
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon { Icon = new Icon(iconStream) };
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "ChatModXIV - Minimized";
                     var myNotify = new ContextMenu();
@@ -300,15 +300,15 @@ namespace ChatModXIV
                 Socket.SocketConnectionClosed += SocketConnectionClosed;
                 Socket.Error += SocketError;
                 Socket.On("welcome", data =>
-                                         {
-                                             var message = data.Json.GetFirstArgAs<Message>();
-                                             Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
-                                         });
+                                     {
+                                         var message = data.Json.GetFirstArgAs<Message>();
+                                         Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
+                                     });
                 Socket.On("message", data =>
-                                         {
-                                             var message = data.Json.GetFirstArgAs<Message>();
-                                             Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
-                                         });
+                                     {
+                                         var message = data.Json.GetFirstArgAs<Message>();
+                                         Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
+                                     });
                 Socket.Connect();
             }
             catch (Exception se)
@@ -397,7 +397,7 @@ namespace ChatModXIV
                     switch (line.Data)
                     {
                         case "Hello":
-                            SendMessage("login", new Login { Source = "PC", Name = Settings.Default.SiteName, Api = Settings.Default.APIKey });
+                            SendMessage("login", new Login {Source = "PC", Name = Settings.Default.SiteName, Api = Settings.Default.APIKey});
                             break;
                         case "Login Success":
                             UpdateControls(true);

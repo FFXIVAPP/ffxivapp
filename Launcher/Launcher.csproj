@@ -143,10 +143,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  
+  -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="Launcher.saproj" input="$(OutDir)Launcher.exe" output="$(OutDir)Launcher.exe" OverwriteAssembly="true" />
-  </Target>-->
+  </Target>
 </Project>

@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: PercentStat.cs
-// 
+﻿// ParseModXIV
+// PercentStat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -64,7 +64,7 @@ namespace ParseModXIV.Stats
                 Value = 0m;
                 return;
             }
-            Value = (_numerator.Value / _denominator.Value);
+            Value = (_numerator.Value/_denominator.Value);
         }
     }
 }

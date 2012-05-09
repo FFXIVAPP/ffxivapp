@@ -1,6 +1,6 @@
-// Project: ParseModXIV
-// File: RegExpsEn.cs
-// 
+// ParseModXIV
+// RegExpsEn.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -52,7 +52,7 @@ namespace ParseModXIV.Classes
         //    @"(?<player>You|\w+\s\w+(?= (partially|parry|parries))) (((?<parry>partially)) parr(y|ies) (the )?(?<mob>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<parry>parr(y|ies)) (the )?(?<mob>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<parry>parry) (?<mob>.+(?='s))('s)? (?<ability>.+(?=\.))\.$)"
         //    , DefaultOptions);
 
-        public static readonly Regex Blocks = new Regex(@"(?<player>You|\w+\s\w+(?= (partially|block|blocks))) (((?<block>partially)) block(s)? (the )?(?<mob>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<block>block(s)?) (the )?(?<mob>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<block>block(s)?) (?<mob>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+)|(?<ability>.+(?=\.)\.$)))", DefaultOptions);
+        public static readonly Regex Blocks = new Regex(@"(?<player>You|\w+\s\w+(?= (partially|block|blocks))) (((?<block>partially)) block(s)? (the )?(?<whoHit>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<block>block(s)?) (the )?(?<whoHit>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+), taking (?<amount>\d+).+\.$|(?<ability>.+(?=,)), taking (?<amount>\d+).+\.$)|(?<block>block(s)?) (?<whoHit>.+(?='s))('s)? ((?<ability>.+(?= from)) from the (?<direction>\w+)|(?<ability>.+(?=\.)\.$)))", DefaultOptions);
 
         //public static readonly Regex GrantsEffect = new Regex(
         //    @"^(?<whoDid>Your|\w+\s\w+)('s)? (?<ability>.+(?= grants)) grants (?<whoGot>you|\w+\s\w+) the effect of (?<effect>.+(?=\.))\.$"

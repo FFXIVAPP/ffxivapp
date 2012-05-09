@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: Timeline.cs
-// 
+﻿// ParseModXIV
+// Timeline.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -16,7 +16,6 @@ namespace ParseModXIV.Model
     public sealed class Timeline : INotifyPropertyChanged
     {
         private Boolean _fightingRightNow;
-        private Boolean _playerInParty;
         private Logger Logger { get; set; }
 
         /// <summary>
@@ -35,42 +34,17 @@ namespace ParseModXIV.Model
         /// <summary>
         /// 
         /// </summary>
-        public Boolean PlayerInParty
-        {
-            //get { return _playerInParty;  }
-            get { return true; }
-            set
-            {
-                //_playerInParty = value;
-                _playerInParty = true;
-                DoPropertyChanged("PlayerInParty");
-            }
-        }
+        public StatGroup Overall { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public StatGroup OverallStats { get; internal set; }
+        public StatGroup Party { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public StatGroup PlayerStats { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StatGroup PartyStats { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StatGroup InactivePartyStats { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StatGroup MobStats { get; internal set; }
+        public StatGroup Monster { get; internal set; }
 
         /// <summary>
         /// 
@@ -86,27 +60,10 @@ namespace ParseModXIV.Model
         {
             Logger = LogManager.GetCurrentClassLogger();
             FightingRightNow = false;
-            PlayerInParty = false;
             Fights = new FightList();
-            OverallStats = new StatGroup("Overall");
-            PlayerStats = new StatGroup(Settings.Default.CharacterName);
-            Settings.Default.PropertyChanged += (src, e) =>
-                                                    {
-                                                        if (e.PropertyName != "CharacterName")
-                                                        {
-                                                            return;
-                                                        }
-                                                        var oldName = PlayerStats.Name;
-                                                        PlayerStats.Name = Settings.Default.CharacterName;
-                                                        StatGroup playerPartyGroup;
-                                                        if (PartyStats.TryGetGroup(oldName, out playerPartyGroup))
-                                                        {
-                                                            playerPartyGroup.Name = Settings.Default.CharacterName;
-                                                        }
-                                                    };
-            PartyStats = new StatGroup("Party") { IncludeSelf = false };
-            InactivePartyStats = new StatGroup("Inactive Party Members") { IncludeSelf = false };
-            MobStats = new StatGroup("Mobs") { IncludeSelf = false };
+            Overall = new StatGroup("Overall");
+            Party = new StatGroup("Party") {IncludeSelf = false};
+            Monster = new StatGroup("Monster") {IncludeSelf = false};
         }
 
         /// <summary>
@@ -114,16 +71,35 @@ namespace ParseModXIV.Model
         /// </summary>
         /// <param name="mobName"></param>
         /// <returns></returns>
-        public StatGroupMob GetOrAddStatsForMob(string mobName)
+        public StatGroupMonster GetOrAddStatsForMob(string mobName)
         {
             StatGroup g;
-            if (!MobStats.TryGetGroup(mobName, out g))
+            if (!Monster.TryGetGroup(mobName, out g))
             {
                 //logger.Trace("Adding new stat group for mob : {0}", mobName);
-                g = new StatGroupMob(mobName);
-                MobStats.AddGroup(g);
+                g = new StatGroupMonster(mobName);
+                Monster.AddGroup(g);
             }
-            return (StatGroupMob) g;
+            return (StatGroupMonster) g;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerName"></param>
+        /// <param name="overallDamage"></param>
+        /// <param name="overallHealing"></param>
+        /// <param name="overallDamageTaken"></param>
+        /// <returns></returns>
+        public StatGroupPlayer GetOrAddStatsForParty(string playerName, Stat<Decimal> overallDamage, Stat<Decimal> overallHealing, Stat<Decimal> overallDamageTaken)
+        {
+            StatGroup g;
+            if (!Party.TryGetGroup(playerName, out g))
+            {
+                g = new StatGroupPlayer(playerName, overallDamage, overallHealing, overallDamageTaken);
+                Party.AddGroup(g);
+            }
+            return (StatGroupPlayer) g;
         }
 
         /// <summary>
@@ -142,20 +118,11 @@ namespace ParseModXIV.Model
                     {
                         args[0] = Settings.Default.CharacterName;
                     }
-                    if (!PlayerInParty)
-                    {
-                        PlayerInParty = true;
-                    }
                     break;
                 case TimelineEventType.PartyDisband:
-                    PlayerInParty = false;
                     break;
                 case TimelineEventType.PartyLeave:
                     var whoLeft = args.Any() ? args.First() as String : String.Empty;
-                    if (!String.IsNullOrWhiteSpace(whoLeft) && whoLeft == Settings.Default.CharacterName)
-                    {
-                        PlayerInParty = false;
-                    }
                     break;
                 case TimelineEventType.MobFighting:
                     if (mobName != null && (mobName.ToLower().Contains("target") || mobName == ""))
@@ -198,11 +165,9 @@ namespace ParseModXIV.Model
         public static void Clear()
         {
             ParseMod.Instance.Timeline.Fights.Clear();
-            ParseMod.Instance.Timeline.InactivePartyStats.Clear();
-            ParseMod.Instance.Timeline.MobStats.Clear();
-            ParseMod.Instance.Timeline.OverallStats.Clear();
-            ParseMod.Instance.Timeline.PartyStats.Clear();
-            ParseMod.Instance.Timeline.PlayerStats.Clear();
+            ParseMod.Instance.Timeline.Monster.Clear();
+            ParseMod.Instance.Timeline.Overall.Clear();
+            ParseMod.Instance.Timeline.Party.Clear();
         }
 
         #region Implementation of INotifyPropertyChanged

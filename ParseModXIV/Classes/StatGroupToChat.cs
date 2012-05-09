@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: StatGroupToChat.cs
-// 
+﻿// ParseModXIV
+// StatGroupToChat.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -27,30 +27,30 @@ namespace ParseModXIV.Classes
         /// </summary>
         /// <param name="statName"></param>
         /// <returns></returns>
-        public static string ExportPartyStats(string statName)
+        public static string ExportParty(string statName)
         {
             var toClipboard = "";
             var playerName = "";
             if (statName == "party")
             {
                 statName = "Abilities";
-                playerName = MainTabControlView.View.gui_CAbilityName.Text;
+                playerName = MainTabControlView.View.gui_AbilityName.Text;
             }
             if (statName == "healing")
             {
                 statName = "Healing";
-                playerName = MainTabControlView.View.gui_CHealingName.Text;
+                playerName = MainTabControlView.View.gui_HealingName.Text;
             }
             if (statName == "damage")
             {
                 statName = "Damage";
-                playerName = MainTabControlView.View.gui_CDamageName.Text;
+                playerName = MainTabControlView.View.gui_DamageName.Text;
             }
             if (Regex.IsMatch(statName, "^Abilities$|^Healing$|^Damage$"))
             {
                 if (playerName != "")
                 {
-                    using (var aEnum = ParseMod.Instance.Timeline.PartyStats.GetEnumerator())
+                    using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
                     {
                         while (aEnum.MoveNext()) //name of player
                         {

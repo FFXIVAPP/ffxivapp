@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: AsyncNameToAvatarConverter.cs
-// 
+﻿// ParseModXIV
+// AsyncNameToAvatarConverter.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -83,34 +83,34 @@ namespace ParseModXIV.Model
             }
             var src = new BitmapImage(new Uri(DefaultAvatar));
             ThreadPool.QueueUserWorkItem(delegate
+                                         {
+                                             var request = (HttpWebRequest) WebRequest.Create(String.Format(LodestoneUrl, Uri.EscapeUriString(name), Uri.EscapeUriString(Settings.Default.ServerName)));
+                                             request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                                             var response = (HttpWebResponse) request.GetResponse();
+                                             var s = response.GetResponseStream();
+                                             if (response.StatusCode != HttpStatusCode.OK || s == null)
                                              {
-                                                 var request = (HttpWebRequest) WebRequest.Create(String.Format(LodestoneUrl, Uri.EscapeUriString(name), Uri.EscapeUriString(Settings.Default.ServerName)));
-                                                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                                                 var response = (HttpWebResponse) request.GetResponse();
-                                                 var s = response.GetResponseStream();
-                                                 if (response.StatusCode != HttpStatusCode.OK || s == null)
-                                                 {
-                                                 }
-                                                 else
-                                                 {
-                                                     var doc = new HtmlDocument();
-                                                     doc.Load(s);
-                                                     var iconNode = doc.DocumentNode.SelectSingleNode(String.Format("//*[node()='{0}']//img[@class='character-icon']", name));
+                                             }
+                                             else
+                                             {
+                                                 var doc = new HtmlDocument();
+                                                 doc.Load(s);
+                                                 var iconNode = doc.DocumentNode.SelectSingleNode(String.Format("//*[node()='{0}']//img[@class='character-icon']", name));
 
-                                                     if (iconNode != null)
-                                                     {
-                                                         image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
-                                                                                                                              {
-                                                                                                                                  var imageUri = iconNode.GetAttributeValue("src", DefaultAvatar);
-                                                                                                                                  if (imageUri != DefaultAvatar)
-                                                                                                                                  {
-                                                                                                                                      imageUri = _cachingEnabled ? SaveToCache(name, new Uri(imageUri)) : imageUri;
-                                                                                                                                  }
-                                                                                                                                  image.Source = new BitmapImage(new Uri(imageUri));
-                                                                                                                              });
-                                                     }
+                                                 if (iconNode != null)
+                                                 {
+                                                     image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
+                                                                                                                      {
+                                                                                                                          var imageUri = iconNode.GetAttributeValue("src", DefaultAvatar);
+                                                                                                                          if (imageUri != DefaultAvatar)
+                                                                                                                          {
+                                                                                                                              imageUri = _cachingEnabled ? SaveToCache(name, new Uri(imageUri)) : imageUri;
+                                                                                                                          }
+                                                                                                                          image.Source = new BitmapImage(new Uri(imageUri));
+                                                                                                                      });
                                                  }
-                                             });
+                                             }
+                                         });
             return src;
         }
 

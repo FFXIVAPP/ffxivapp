@@ -1,6 +1,6 @@
-// Project: AppModXIV
-// File: XmlCleaner.cs
-// 
+// AppModXIV
+// XmlCleaner.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

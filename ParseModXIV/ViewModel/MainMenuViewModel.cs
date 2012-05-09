@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: MainMenuViewModel.cs
-// 
+﻿// ParseModXIV
+// MainMenuViewModel.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -153,12 +153,12 @@ namespace ParseModXIV.ViewModel
             }
         }
 
-        public ICommand TogglePartyStatsCommand
+        public ICommand TogglePartyCommand
         {
             get
             {
                 _command = null;
-                _command = new DelegateCommand(TogglePartyStats);
+                _command = new DelegateCommand(ToggleParty);
 
                 return _command;
             }
@@ -297,16 +297,16 @@ namespace ParseModXIV.ViewModel
             }
         }
 
-        private static void TogglePartyStats()
+        private static void ToggleParty()
         {
-            Settings.Default.Gui_PartyStats = !Settings.Default.Gui_PartyStats;
-            if (Settings.Default.Gui_PartyStats)
+            Settings.Default.Gui_Party = !Settings.Default.Gui_Party;
+            if (Settings.Default.Gui_Party)
             {
-                Settings.Default.Gui_PartyStatsVisibility = Visibility.Visible;
+                Settings.Default.Gui_PartyVisibility = Visibility.Visible;
             }
             else
             {
-                Settings.Default.Gui_PartyStatsVisibility = Visibility.Collapsed;
+                Settings.Default.Gui_PartyVisibility = Visibility.Collapsed;
                 if (MainTabControlView.View.gui_TabControl.SelectedIndex == 2)
                 {
                     MainTabControlView.View.gui_TabControl.SelectedIndex = 0;

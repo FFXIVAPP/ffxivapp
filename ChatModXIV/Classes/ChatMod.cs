@@ -1,6 +1,6 @@
-﻿// Project: ChatModXIV
-// File: ChatMod.cs
-// 
+﻿// ChatModXIV
+// ChatMod.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

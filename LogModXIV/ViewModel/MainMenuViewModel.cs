@@ -1,6 +1,6 @@
-﻿// Project: LogModXIV
-// File: MainMenuViewModel.cs
-// 
+﻿// LogModXIV
+// MainMenuViewModel.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 

@@ -1,11 +1,12 @@
-﻿// Project: ParseModXIV
-// File: MainTabControlViewModel.cs
-// 
+﻿// ParseModXIV
+// MainTabControlViewModel.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
 using ParseModXIV.View;
@@ -15,63 +16,37 @@ namespace ParseModXIV.ViewModel
     internal class MainTabControlViewModel : INotifyPropertyChanged
     {
         private DelegateCommand _command;
-        private Boolean _isHostileExpanded;
-        private Boolean _isHealingExpanded;
-        private Boolean _isDamageExpanded;
-        private Boolean _isMobExpanded;
 
         #region " COMMAND FUNCTIONS "
 
-        public ICommand ToggleHostileExpandedCommand
+        public ICommand AbilityPlayerDetailCommand
         {
             get
             {
                 _command = null;
-                _command = new DelegateCommand(ToggleHostileExpanded);
+                _command = new DelegateCommand(AbilityPlayerDetail);
 
                 return _command;
             }
         }
 
-        public ICommand ToggleHealingExpandedCommand
+        public ICommand AbilityPlayerMonsterCommand
         {
             get
             {
                 _command = null;
-                _command = new DelegateCommand(ToggleHealingExpanded);
+                _command = new DelegateCommand(AbilityPlayerMonster);
 
                 return _command;
             }
         }
 
-        public ICommand ToggleDamageExpandedCommand
+        public ICommand AbilityPlayerMonsterDetailsCommand
         {
             get
             {
                 _command = null;
-                _command = new DelegateCommand(ToggleDamageExpanded);
-
-                return _command;
-            }
-        }
-
-        public ICommand ToggleMobExpandedCommand
-        {
-            get
-            {
-                _command = null;
-                _command = new DelegateCommand(ToggleMobExpanded);
-
-                return _command;
-            }
-        }
-
-        public ICommand ToggleDropsExpandedCommand
-        {
-            get
-            {
-                _command = null;
-                _command = new DelegateCommand(ToggleDropsExpanded);
+                _command = new DelegateCommand(AbilityPlayerMonsterDetails);
 
                 return _command;
             }
@@ -81,84 +56,19 @@ namespace ParseModXIV.ViewModel
 
         #region " GUI FUNCTIONS "
 
-        private void ToggleHealingExpanded()
+        private void AbilityPlayerDetail()
         {
-            if (_isHealingExpanded)
-            {
-                MainTabControlView.View.gui_ToggleHealingList.Content = "Increase Size";
-                MainTabControlView.View.gui_DetailHealing.Height = 150;
-                _isHealingExpanded = false;
-            }
-            else
-            {
-                MainTabControlView.View.gui_ToggleHealingList.Content = "Decrease Size";
-                MainTabControlView.View.gui_DetailHealing.Height = Double.NaN;
-                _isHealingExpanded = true;
-            }
+            MainTabControlView.View.AbilityPlayerDetail.Visibility = (MainTabControlView.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void ToggleHostileExpanded()
+        private void AbilityPlayerMonster()
         {
-            if (_isHostileExpanded)
-            {
-                MainTabControlView.View.gui_ToggleHostileList.Content = "Increase Size";
-                MainTabControlView.View.gui_DetailHostile.Height = 150;
-                _isHostileExpanded = false;
-            }
-            else
-            {
-                MainTabControlView.View.gui_ToggleHostileList.Content = "Decrease Size";
-                MainTabControlView.View.gui_DetailHostile.Height = Double.NaN;
-                _isHostileExpanded = true;
-            }
+            MainTabControlView.View.AbilityPlayerMonster.Visibility = (MainTabControlView.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void ToggleDamageExpanded()
+        private void AbilityPlayerMonsterDetails()
         {
-            if (_isDamageExpanded)
-            {
-                MainTabControlView.View.gui_ToggleDamageList.Content = "Increase Size";
-                MainTabControlView.View.gui_DetailDamage.Height = 150;
-                _isDamageExpanded = false;
-            }
-            else
-            {
-                MainTabControlView.View.gui_ToggleDamageList.Content = "Decrease Size";
-                MainTabControlView.View.gui_DetailDamage.Height = Double.NaN;
-                _isDamageExpanded = true;
-            }
-        }
-
-        private void ToggleMobExpanded()
-        {
-            if (_isMobExpanded)
-            {
-                MainTabControlView.View.gui_ToggleMobList.Content = "Increase Size";
-                MainTabControlView.View.gui_DetailMob.Height = 150;
-                _isMobExpanded = false;
-            }
-            else
-            {
-                MainTabControlView.View.gui_ToggleMobList.Content = "Decrease Size";
-                MainTabControlView.View.gui_DetailMob.Height = Double.NaN;
-                _isMobExpanded = true;
-            }
-        }
-
-        private void ToggleDropsExpanded()
-        {
-            if (_isMobExpanded)
-            {
-                MainTabControlView.View.gui_ToggleDropList.Content = "Increase Size";
-                MainTabControlView.View.gui_DetailDrops.Height = 150;
-                _isMobExpanded = false;
-            }
-            else
-            {
-                MainTabControlView.View.gui_ToggleDropList.Content = "Decrease Size";
-                MainTabControlView.View.gui_DetailDrops.Height = Double.NaN;
-                _isMobExpanded = true;
-            }
+            MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility = (MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion

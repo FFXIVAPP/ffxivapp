@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: ParseMod.cs
-// 
+﻿// ParseModXIV
+// ParseMod.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using AppModXIV.Classes;
 using AppModXIV.Memory;
 using ParseModXIV.Model;

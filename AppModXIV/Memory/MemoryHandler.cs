@@ -1,6 +1,6 @@
-﻿// Project: AppModXIV
-// File: MemoryHandler.cs
-// 
+﻿// AppModXIV
+// MemoryHandler.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -216,7 +216,7 @@ namespace AppModXIV.Memory
         {
             var counter = new UnsafeNativeMethods.ProcessMemoryCounters();
             UnsafeNativeMethods.GetProcessMemoryInfo(proc.Handle, out counter, Marshal.SizeOf(counter));
-            var block = new MemoryBlock { Start = proc.MainModule.BaseAddress.ToInt64(), Length = counter.PagefileUsage };
+            var block = new MemoryBlock {Start = proc.MainModule.BaseAddress.ToInt64(), Length = counter.PagefileUsage};
             return block;
         }
 

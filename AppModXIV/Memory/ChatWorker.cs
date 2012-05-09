@@ -1,6 +1,6 @@
-﻿// Project: AppModXIV
-// File: ChatWorker.cs
-// 
+﻿// AppModXIV
+// ChatWorker.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -42,7 +42,7 @@ namespace AppModXIV.Memory
         private Boolean _colorFound;
         private List<byte> _nList, _aList, _cList;
         private string _cleaned;
-        private readonly string[] _checks = new[] { "0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C" };
+        private readonly string[] _checks = new[] {"0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C"};
 
         /// <summary>
         /// 
@@ -149,7 +149,7 @@ namespace AppModXIV.Memory
             _isScanning = true;
             _handler.Address = _o.Locations["CHAT_POINTER"];
             var cp = _handler.GetStructure<ChatPointers>();
-            var count = (int) (cp.OffsetArrayStop - cp.OffsetArrayStart) / 4 - 1;
+            var count = (int) (cp.OffsetArrayStop - cp.OffsetArrayStart)/4 - 1;
             if (_lastCount == 0)
             {
                 _lastCount = (int) cp.LineCount;
@@ -166,7 +166,7 @@ namespace AppModXIV.Memory
                     {
                         break;
                     }
-                    _handler.Address = cp.OffsetArrayStart + (uint) ((i - 1) * 4);
+                    _handler.Address = cp.OffsetArrayStart + (uint) ((i - 1)*4);
                     _spots.Insert(0, cp.LogStart + (uint) _handler.GetInt32());
                 }
                 try

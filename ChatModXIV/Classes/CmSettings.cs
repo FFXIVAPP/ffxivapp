@@ -1,6 +1,6 @@
-// Project: ChatModXIV
-// File: CmSettings.cs
-// 
+// ChatModXIV
+// CmSettings.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -15,7 +15,7 @@ namespace ChatModXIV.Classes
     public static class CmSettings
     {
         private const String DefaultSettingsPath = "./Resources/Settings_Chat.xml";
-        private static readonly string[] RSettings = { "Color" };
+        private static readonly string[] RSettings = {"Color"};
         private static readonly Dictionary<string, string> XColor = new Dictionary<string, string>();
         public static String ServerName = String.Empty;
         private static XDocument _settingsXml;
@@ -47,7 +47,7 @@ namespace ChatModXIV.Classes
         /// <param name="setting"></param>
         private static void LoadSettingsXml(string setting)
         {
-            var items = from item in _settingsXml.Descendants(setting) select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            var items = from item in _settingsXml.Descendants(setting) select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
 
             foreach (var item in items)
             {

@@ -1,6 +1,6 @@
-﻿// Project: ParseModXIV
-// File: MainWindow.xaml.cs
-// 
+﻿// ParseModXIV
+// MainWindow.xaml.cs
+//  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
@@ -59,7 +59,7 @@ namespace ParseModXIV
         /// </summary>
         public MainWindow()
         {
-            var rd = new ResourceDictionary { Source = new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.xaml") };
+            var rd = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.xaml")};
             Resources.MergedDictionaries.Add(rd);
             if (File.Exists("./Resources/Themes/ParseModXIV.xaml"))
             {
@@ -84,25 +84,25 @@ namespace ParseModXIV
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
+                                     {
+                                         if (checkUpdates.EndInvoke(appresult))
                                          {
-                                             if (checkUpdates.EndInvoke(appresult))
+                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                                             if (msgbox == MessageBoxResult.Yes)
                                              {
-                                                 var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                                 if (msgbox == MessageBoxResult.Yes)
-                                                 {
-                                                     Process.Start("http://ffxiv-app.com/products/");
-                                                 }
-                                                 var proc = Process.GetProcessesByName("ParseModXIV");
-                                                 foreach (var p in proc)
-                                                 {
-                                                     p.Kill();
-                                                 }
+                                                 Process.Start("http://ffxiv-app.com/products/");
                                              }
-                                             else
+                                             var proc = Process.GetProcessesByName("ParseModXIV");
+                                             foreach (var p in proc)
                                              {
-                                                 checkLibrary.BeginInvoke(libresult => { }, null);
+                                                 p.Kill();
                                              }
-                                         }, null);
+                                         }
+                                         else
+                                         {
+                                             checkLibrary.BeginInvoke(libresult => { }, null);
+                                         }
+                                     }, null);
             if (File.Exists("./nlgo"))
             {
                 //gui_LogoContainer.Visibility = Visibility.Collapsed;
@@ -215,7 +215,7 @@ namespace ParseModXIV
             {
                 if (Settings.Default.Gui_ExportXML)
                 {
-                    //StatGroupToXml.ExportPartyStats();
+                    //StatGroupToXml.ExportParty();
                     //StatGroupToXml.ExportMonsterStats();
                     //StatGroupToXml.ExportBattleLog();
                     //StatGroupToXml.ExportHealingLog();
@@ -227,13 +227,17 @@ namespace ParseModXIV
                         ChatWorkerDelegate.XmlWriteLog.WriteToDisk(Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
                     }
                 }
+                if (ChatWorkerDelegate.XmlWriteUnmatchedLog.LineCount > 1)
+                {
+                    ChatWorkerDelegate.XmlWriteUnmatchedLog.WriteToDisk(Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Unmatched_Log.xml");
+                }
             }
-            else
+            else if (Settings.Default.DebugMode)
             {
-                //if (ChatWorkerDelegate.XmlWriteLog.LineCount > 1)
-                //{
-                //    ChatWorkerDelegate.XmlWriteLog.WriteToDisk(lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Unmatched_Log.xml");
-                //}
+                if (ChatWorkerDelegate.XmlWriteUnmatchedLog.LineCount > 1)
+                {
+                    ChatWorkerDelegate.XmlWriteUnmatchedLog.WriteToDisk(Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Unmatched_Log.xml");
+                }
             }
             _myNotifyIcon.Visible = false;
             Application.Current.MainWindow.WindowState = WindowState.Normal;
@@ -287,7 +291,7 @@ namespace ParseModXIV
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon { Icon = new Icon(iconStream) };
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "ParseModXIV - Minimized";
                     var myNotify = new ContextMenu();
@@ -307,12 +311,12 @@ namespace ParseModXIV
         /// </summary>
         private void LoadXml()
         {
-            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
             foreach (var item in items)
             {
                 Constants.XAtCodes.Add(item.Key, item.Value);
             }
-            items = from item in _xSettings.Descendants("Server") select new XValuePairs { Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value") };
+            items = from item in _xSettings.Descendants("Server") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
             foreach (var item in items)
             {
                 ParseMod.ServerName.Add(item.Value, item.Key);
@@ -356,7 +360,7 @@ namespace ParseModXIV
         {
             _tsColor = Settings.Default.Color_TimeStamp;
             _bColor = Settings.Default.Color_ChatlogBackground;
-            var tColor = new SolidColorBrush { Color = _bColor };
+            var tColor = new SolidColorBrush {Color = _bColor};
             MainTabControlViewModel.MobAbility_FLOW.Background = tColor;
         }
 
