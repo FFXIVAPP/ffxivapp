@@ -139,7 +139,9 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="ChatModXIV.config" />
+    <None Include="ChatModXIV.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="app.manifest" />
     <None Include="ChatModXIV.saproj" />
     <None Include="packages.config" />

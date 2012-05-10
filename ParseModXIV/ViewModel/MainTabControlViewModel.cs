@@ -52,23 +52,135 @@ namespace ParseModXIV.ViewModel
             }
         }
 
+        public ICommand HealingPlayersCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(HealingPlayers);
+
+                return _command;
+            }
+        }
+
+        public ICommand HealingPlayersPlayerCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(HealingPlayersPlayer);
+
+                return _command;
+            }
+        }
+
+        public ICommand HealingPlayersDetailsCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(HealingPlayersDetails);
+
+                return _command;
+            }
+        }
+
+        public ICommand DamageDetailMonsterCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(DamageDetailMonster);
+
+                return _command;
+            }
+        }
+
+        public ICommand DamageDetailAbiltiesCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(DamageDetailAbilties);
+
+                return _command;
+            }
+        }
+
+        public ICommand MonsterDetailAbilitiesCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(MonsterDetailAbilities);
+
+                return _command;
+            }
+        }
+
+        public ICommand MonsterDetailsDropsCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(MonsterDetailsDrops);
+
+                return _command;
+            }
+        }
+
         #endregion
 
         #region " GUI FUNCTIONS "
 
-        private void AbilityPlayerDetail()
+        private static void AbilityPlayerDetail()
         {
             MainTabControlView.View.AbilityPlayerDetail.Visibility = (MainTabControlView.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void AbilityPlayerMonster()
+        private static void AbilityPlayerMonster()
         {
             MainTabControlView.View.AbilityPlayerMonster.Visibility = (MainTabControlView.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void AbilityPlayerMonsterDetails()
+        private static void AbilityPlayerMonsterDetails()
         {
             MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility = (MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void HealingPlayers()
+        {
+            MainTabControlView.View.HealingPlayers.Visibility = (MainTabControlView.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void HealingPlayersPlayer()
+        {
+            MainTabControlView.View.HealingPlayersPlayer.Visibility = (MainTabControlView.View.HealingPlayersPlayer.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void HealingPlayersDetails()
+        {
+            MainTabControlView.View.HealingPlayersDetails.Visibility = (MainTabControlView.View.HealingPlayersDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void DamageDetailMonster()
+        {
+            MainTabControlView.View.DamageDetailMonster.Visibility = (MainTabControlView.View.DamageDetailMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void DamageDetailAbilties()
+        {
+            MainTabControlView.View.DamageDetailAbilties.Visibility = (MainTabControlView.View.DamageDetailAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void MonsterDetailsDrops()
+        {
+            MainTabControlView.View.MonsterDetailsDrops.Visibility = (MainTabControlView.View.MonsterDetailsDrops.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private static void MonsterDetailAbilities()
+        {
+            MainTabControlView.View.MonsterDetailAbilities.Visibility = (MainTabControlView.View.MonsterDetailAbilities.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion

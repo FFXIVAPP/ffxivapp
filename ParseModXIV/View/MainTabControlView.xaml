@@ -280,9 +280,14 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </Grid>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayerTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Abilities (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=HealingPlayersCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Abilities (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_HealingName"/>
-                                <ListView ItemsSource="{Binding Healing}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <ListView x:Name="HealingPlayers" ItemsSource="{Binding Healing}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -303,8 +308,12 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </DockPanel>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayerTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Players Healed (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView x:Name="HealingPlayers" ItemsSource="{Binding Players}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=HealingPlayersPlayerCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Players Healed (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
+                                <ListView x:Name="HealingPlayersPlayer" ItemsSource="{Binding Players}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -325,8 +334,12 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </DockPanel>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayers, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Ability Details (Players)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=HealingPlayersDetailsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Ability Details (Players)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
+                                <ListView x:Name="HealingPlayersDetails" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -384,7 +397,11 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </Grid>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=DamagePlayerTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked By (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=DamageDetailMonsterCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked By (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_DamageName"/>
                                 <ListView x:Name="DamageDetailMonster" ItemsSource="{Binding Damage}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -417,8 +434,12 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </DockPanel>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=DamageDetailMonster, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Ability Details (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=DamageDetailAbiltiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Ability Details (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
+                                <ListView x:Name="DamageDetailAbilties" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -447,7 +468,6 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 </ListView>
                             </StackPanel>
                         </DockPanel>
-
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -485,8 +505,12 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </Grid>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=MonsterTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked With (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=MonsterDetailAbilitiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked With (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
+                                <ListView x:Name="MonsterDetailAbilities" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -516,8 +540,12 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                         </DockPanel>
                         <DockPanel DataContext="{Binding SelectedItem, ElementName=MonsterTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
                             <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Monsters Drops (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView ItemsSource="{Binding Drops}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Show ~ Hide"
+                                            Command="{Binding Path=MonsterDetailsDropsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Drops (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                </StackPanel>
+                                <ListView x:Name="MonsterDetailsDrops" ItemsSource="{Binding Drops}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
