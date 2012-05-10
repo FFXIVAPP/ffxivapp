@@ -52,6 +52,17 @@ namespace ParseModXIV.ViewModel
             }
         }
 
+        public ICommand HealingAbiltiesCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(HealingAbilties);
+
+                return _command;
+            }
+        }
+
         public ICommand HealingPlayersCommand
         {
             get
@@ -63,23 +74,12 @@ namespace ParseModXIV.ViewModel
             }
         }
 
-        public ICommand HealingPlayersPlayerCommand
+        public ICommand HealingDetailsCommand
         {
             get
             {
                 _command = null;
-                _command = new DelegateCommand(HealingPlayersPlayer);
-
-                return _command;
-            }
-        }
-
-        public ICommand HealingPlayersDetailsCommand
-        {
-            get
-            {
-                _command = null;
-                _command = new DelegateCommand(HealingPlayersDetails);
+                _command = new DelegateCommand(HealingDetails);
 
                 return _command;
             }
@@ -148,19 +148,19 @@ namespace ParseModXIV.ViewModel
             MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility = (MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        private static void HealingAbilties()
+        {
+            MainTabControlView.View.HealingAbilties.Visibility = (MainTabControlView.View.HealingAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         private static void HealingPlayers()
         {
             MainTabControlView.View.HealingPlayers.Visibility = (MainTabControlView.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private static void HealingPlayersPlayer()
+        private static void HealingDetails()
         {
-            MainTabControlView.View.HealingPlayersPlayer.Visibility = (MainTabControlView.View.HealingPlayersPlayer.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private static void HealingPlayersDetails()
-        {
-            MainTabControlView.View.HealingPlayersDetails.Visibility = (MainTabControlView.View.HealingPlayersDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            MainTabControlView.View.HealingDetails.Visibility = (MainTabControlView.View.HealingDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void DamageDetailMonster()

@@ -283,11 +283,11 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
-                                            Command="{Binding Path=HealingPlayersCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                            Command="{Binding Path=HealingAbiltiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
                                     <TextBlock HorizontalAlignment="Left" Text="Abilities (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_HealingName"/>
-                                <ListView x:Name="HealingPlayers" ItemsSource="{Binding Healing}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <ListView x:Name="HealingAbilties" ItemsSource="{Binding Healing}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -310,10 +310,10 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
-                                            Command="{Binding Path=HealingPlayersPlayerCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                            Command="{Binding Path=HealingPlayersCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
                                     <TextBlock HorizontalAlignment="Left" Text="Players Healed (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
-                                <ListView x:Name="HealingPlayersPlayer" ItemsSource="{Binding Players}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <ListView x:Name="HealingPlayers" ItemsSource="{Binding Players}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
@@ -336,10 +336,10 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
-                                            Command="{Binding Path=HealingPlayersDetailsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
+                                            Command="{Binding Path=HealingDetailsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
                                     <TextBlock HorizontalAlignment="Left" Text="Ability Details (Players)" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
-                                <ListView x:Name="HealingPlayersDetails" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                                <ListView x:Name="HealingDetails" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
                                             <GridView.ColumnHeaderTemplate>
