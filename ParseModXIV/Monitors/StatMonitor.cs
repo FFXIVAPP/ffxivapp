@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -28,6 +29,8 @@ namespace ParseModXIV.Monitors
         internal readonly TotalStat PartyTotalRTaken = new TotalStat("Reg Taken");
         internal readonly TotalStat PartyTotalCTaken = new TotalStat("Crit Taken");
         private static readonly Hashtable Offsets = GetJob();
+        private string LastAttacker = "";
+        private string LastAttacked = "";
 
         public readonly Dictionary<string, string> TotalA = new Dictionary<string, string>();
         public readonly Dictionary<string, string> TotalD = new Dictionary<string, string>();
@@ -106,9 +109,19 @@ namespace ParseModXIV.Monitors
                         mReg = RegExpsEn.ResistsOrEvades.Match(e.RawLine);
                         if (!mReg.Success)
                         {
-                            Logger.Trace("No match for Damage or Counter RegEx on line {0}", e.RawLine);
-                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
+                            mReg = RegExpsEn.Additional.Match(e.RawLine);
+                            if (!mReg.Success)
+                            {
+                                Logger.Trace("No match for Damage or Counter RegEx on line {0}", e.RawLine);
+                                //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
+                                ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
+                                return;
+                            }
+                            if (!String.IsNullOrWhiteSpace(LastAttacked) && !String.IsNullOrWhiteSpace(LastAttacker))
+                            {
+                                var added = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
+                                ParseModInstance.Timeline.GetOrAddStatsForParty(LastAttacker, PartyDamage, PartyHealing, PartyTotalTaken).AddAbilityStats(LastAttacked, "Added Effect", added, true, false, false);
+                            }
                             return;
                         }
                         //logger.Trace("Matched ResistsOrEvades regex");
@@ -137,6 +150,7 @@ namespace ParseModXIV.Monitors
                     {
                         whoHit = Settings.Default.CharacterName;
                     }
+                    mob = (String.IsNullOrWhiteSpace(mob)) ? whoEvaded : mob;
                     if (String.IsNullOrWhiteSpace(whoHit) || String.IsNullOrWhiteSpace(mob))
                     {
                         return;
@@ -152,6 +166,8 @@ namespace ParseModXIV.Monitors
                         ParseModInstance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false, false, didCrit);
                     }
                     ParseModInstance.Timeline.GetOrAddStatsForParty(whoHit, PartyDamage, PartyHealing, PartyTotalTaken).AddAbilityStats(mob, ability, damage, didHit, didCrit, resist);
+                    LastAttacker = whoHit;
+                    LastAttacked = mob;
                     if (TotalA.ContainsKey(whoHit))
                     {
                         TotalA[whoHit] = ParseModInstance.Timeline.Party.GetGroup(whoHit).GetStatValue("Total").ToString();
@@ -395,6 +411,7 @@ namespace ParseModXIV.Monitors
                     {
                         whoHit = Settings.Default.CharacterName;
                     }
+                    mob = (String.IsNullOrWhiteSpace(mob)) ? whoEvaded : mob;
                     if (String.IsNullOrWhiteSpace(whoHit) || String.IsNullOrWhiteSpace(mob))
                     {
                         return;

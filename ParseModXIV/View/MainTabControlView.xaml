@@ -151,6 +151,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=DPS, StringFormat=\{0:F2\}}" Header="DPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />
@@ -189,6 +190,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=DPS, StringFormat=\{0:F2\}}" Header="DPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />
@@ -228,6 +230,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=DPS, StringFormat=\{0:F2\}}" Header="DPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />
@@ -297,6 +300,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=HPS, StringFormat=\{0:F2\}}" Header="HPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Heal, StringFormat=\{0:P2\}}" Header="% of Heal"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Low}" Header="Low"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding High}" Header="High"  />
@@ -323,6 +327,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=HPS, StringFormat=\{0:F2\}}" Header="HPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Heal, StringFormat=\{0:P2\}}" Header="% of Heal"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Low}" Header="Low"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding High}" Header="High"  />
@@ -349,6 +354,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=HPS, StringFormat=\{0:F2\}}" Header="HPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Heal, StringFormat=\{0:P2\}}" Header="% of Heal"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Low}" Header="Low"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding High}" Header="High"  />
@@ -413,6 +419,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=DTPS, StringFormat=\{0:F2\}}" Header="DTPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />
@@ -449,6 +456,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                             </GridView.ColumnHeaderTemplate>
                                             <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
                                             <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Path=DTPS, StringFormat=\{0:F2\}}" Header="DTPS"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
                                             <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />

@@ -200,7 +200,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="app.config" />
     <None Include="ParseModXIV.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -244,11 +243,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="ParseModXIV.saproj" input="$(OutDir)ParseModXIV.exe" output="$(OutDir)ParseModXIV.exe" OverwriteAssembly="true" />
-  </Target>
+  </Target>-->
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

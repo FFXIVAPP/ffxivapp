@@ -12,7 +12,7 @@ namespace ParseModXIV.Classes
     {
         private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture;
 
-        public static readonly Regex Damage = new Regex(@"((?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l\w?'? ?)?(?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w?'? ?)?(?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts (au|à) (l\w?'? ?)?(?<mob>.+(?=\.$))))|(?<whoHit>\w+\s\w+) util\w+ (une? )?(?<ability>.+(?= sur)) sur (l\w?'? ?)? (?<mob>.+(?= mais)) (?<didHit>mais échoue)!$", DefaultOptions);
+        public static readonly Regex Damage = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l?a?\w?'? ?)? (?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w?'? ?)? (?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts (au|à) ?(l\w?'? ?)? (?<mob>.+(?=\.$)))", DefaultOptions);
 
         public static readonly Regex DamageToPlayer = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(L\w?'? ?)?(?<whoHit>.+(?= util)) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) (?<player>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", DefaultOptions);
 

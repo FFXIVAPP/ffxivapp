@@ -14,6 +14,8 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex Damage = new Regex(@"(?!.+misses\.)(^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses)(((?!.+from)) (the )?(?<mob>.+('s)?(?='s))('s)? (?<bodypart>.+(?= for))? for (?<amount>\d+).+\.$| (the )?(?<mob>.+(?= from)) from the (?<direction>\w+) for (?<amount>\d+).+\.$)|^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses) ((the )?(?<mob>.+(?= from)) from the (?<direction>\w+)\.$|(the )?((?<mob>(?!.+for).+(?=\.))\.$|(?<mob>.+(?= for)) for (?<amount>\d+).+\.$)))", DefaultOptions);
 
+        public static readonly Regex Additional = new Regex(@"^A.+effect: (?<amount>\d+) p.+of.+dealt.$", DefaultOptions);
+
         public static readonly Regex DamageToPlayer = new Regex(@"(?!.+misses(\.)? )^(?<crit>Critical! )?(The )?(?<whoHit>[\w\s]+(?='s))('s) (?<ability>.+(?= hits)) (?<didHit>hits) (?<player>you(?!.+'s.+for)|\w+\s\w+) (from the (?<direction>\w+) )?for (?<amount>\d+).+\.$|(The )?(?<whoHit>[\w\s]+(?='s))('s) (?<ability>.+(?= misses)) (?<didHit>misses) (?<player>you(?!.+'s.+from)|\w+\s\w+)( from the (?<direction>\w+)\.$|\.$)", DefaultOptions);
 
         public static readonly Regex Counter = new Regex(@"^(?<counter>Counter! )?((?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)(['s]{1,2})?) hit(s)? (the )?(?<mob>(.+(?= for))) for (?<amount>\d+) points of damage.$", DefaultOptions);
