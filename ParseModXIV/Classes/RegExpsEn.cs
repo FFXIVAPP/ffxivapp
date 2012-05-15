@@ -10,7 +10,7 @@ namespace ParseModXIV.Classes
 {
     public static class RegExpsEn
     {
-        private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture;
+        private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 
         public static readonly Regex Damage = new Regex(@"(?!.+misses\.)(^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses)(((?!.+from)) (the )?(?<mob>.+('s)?(?='s))('s)? (?<bodypart>.+(?= for))? for (?<amount>\d+).+\.$| (the )?(?<mob>.+(?= from)) from the (?<direction>\w+) for (?<amount>\d+).+\.$)|^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses) ((the )?(?<mob>.+(?= from)) from the (?<direction>\w+)\.$|(the )?((?<mob>(?!.+for).+(?=\.))\.$|(?<mob>.+(?= for)) for (?<amount>\d+).+\.$)))", DefaultOptions);
 

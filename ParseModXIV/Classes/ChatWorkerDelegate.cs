@@ -5,16 +5,13 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Linq;
 using System.Speech.Synthesis;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using AppModXIV.Classes;
 using ParseModXIV.Model;
-using ParseModXIV.ViewModel;
 
 namespace ParseModXIV.Classes
 {

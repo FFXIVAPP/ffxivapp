@@ -5,8 +5,7 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Globalization;
-using ParseModXIV.Classes;
+using ParseModXIV.Monitors;
 
 namespace ParseModXIV.Stats
 {
@@ -214,13 +213,13 @@ namespace ParseModXIV.Stats
             var totalDtStat = new TotalStat("DT Total");
             var totalDtrStat = new TotalStat("DT Reg");
             var totalDtcStat = new TotalStat("DT Crit");
-            ParseMod.Instance.StatMonitor.TotalDamage.AddDependency(totalStat);
-            ParseMod.Instance.StatMonitor.PartyDamage.AddDependency(regularTotalStat);
-            ParseMod.Instance.StatMonitor.PartyCritDamage.AddDependency(critTotalStat);
-            ParseMod.Instance.StatMonitor.PartyHealing.AddDependency(healTotalStat);
-            ParseMod.Instance.StatMonitor.PartyTotalTaken.AddDependency(totalDtStat);
-            ParseMod.Instance.StatMonitor.PartyTotalRTaken.AddDependency(totalDtrStat);
-            ParseMod.Instance.StatMonitor.PartyTotalCTaken.AddDependency(totalDtcStat);
+            StatMonitor.TotalDamage.AddDependency(totalStat);
+            StatMonitor.PartyDamage.AddDependency(regularTotalStat);
+            StatMonitor.PartyCritDamage.AddDependency(critTotalStat);
+            StatMonitor.PartyHealing.AddDependency(healTotalStat);
+            StatMonitor.PartyTotalTaken.AddDependency(totalDtStat);
+            StatMonitor.PartyTotalRTaken.AddDependency(totalDtrStat);
+            StatMonitor.PartyTotalCTaken.AddDependency(totalDtcStat);
             var hitStat = new TotalStat("Hit");
             var cHitStat = new TotalStat("C Hit");
             var dtHitStat = new TotalStat("DT Hit");
@@ -228,12 +227,12 @@ namespace ParseModXIV.Stats
             var missStat = new TotalStat("Miss");
             var accuracyStat = new AccuracyStat("Acc", hitStat, missStat);
             var evadeStat = new TotalStat("Evade");
-            var damagePctStat = new PercentStat("% of Dmg", totalStat, ParseMod.Instance.StatMonitor.TotalDamage);
-            var cDamagePctStat = new PercentStat("% of Crit", critTotalStat, ParseMod.Instance.StatMonitor.PartyCritDamage);
-            var damageDtPctStat = new PercentStat("% of DT Dmg", totalDtStat, ParseMod.Instance.StatMonitor.PartyTotalTaken);
-            var cDamageDtPctStat = new PercentStat("% of DT C Dmg", totalDtcStat, ParseMod.Instance.StatMonitor.PartyTotalCTaken);
+            var damagePctStat = new PercentStat("% of Dmg", totalStat, StatMonitor.TotalDamage);
+            var cDamagePctStat = new PercentStat("% of Crit", critTotalStat, StatMonitor.PartyCritDamage);
+            var damageDtPctStat = new PercentStat("% of DT Dmg", totalDtStat, StatMonitor.PartyTotalTaken);
+            var cDamageDtPctStat = new PercentStat("% of DT C Dmg", totalDtcStat, StatMonitor.PartyTotalCTaken);
             var critPctStat = new PercentStat("Crit %", cHitStat, hitStat);
-            var healingPctStat = new PercentStat("% of Heal", healTotalStat, ParseMod.Instance.StatMonitor.PartyHealing);
+            var healingPctStat = new PercentStat("% of Heal", healTotalStat, StatMonitor.PartyHealing);
             var minStat = new MinStat("Low", regularTotalStat);
             var maxStat = new MaxStat("High", regularTotalStat);
             var minCStat = new MinStat("C Low", critTotalStat);
@@ -290,7 +289,7 @@ namespace ParseModXIV.Stats
             var minStat = new MinStat("Low", totalStat);
             var maxStat = new MaxStat("High", totalStat);
             var avgHealingStat = new AverageStat("Avg", totalStat);
-            return new Stat<decimal>[] { totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat };
+            return new Stat<decimal>[] {totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat};
         }
 
         private Stat<Decimal>[] DamageStatList()
@@ -314,7 +313,7 @@ namespace ParseModXIV.Stats
             var cmaxStat = new MaxStat("C High", critTotalStat);
             var avgDamageStat = new AverageStat("Avg", regularTotalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
-            return new Stat<decimal>[] { totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, blockStat, blockPctStat, chitStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat };
+            return new Stat<decimal>[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, blockStat, blockPctStat, chitStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
         }
     }
 }

@@ -136,9 +136,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="LogModXIV.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="app.manifest" />
     <AppDesigner Include="Properties\" />
     <None Include="LogModXIV.saproj" />

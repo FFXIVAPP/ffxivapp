@@ -12,28 +12,28 @@ namespace ChatModXIV.Classes
     public class Message
     {
         [JsonProperty]
-        public string Source { get; set; }
+        public string source { get; set; }
 
         [JsonProperty]
-        public string Type { get; set; }
+        public string type { get; set; }
 
         [JsonProperty]
-        public string Command { get; set; }
+        public string command { get; set; }
 
         [JsonProperty]
-        public string Server { get; set; }
+        public string server { get; set; }
 
         [JsonProperty]
-        public string Time { get; set; }
+        public string time { get; set; }
 
         [JsonProperty]
-        public string Code { get; set; }
+        public string code { get; set; }
 
         [JsonProperty]
-        public string Player { get; set; }
+        public string player { get; set; }
 
         [JsonProperty]
-        public string Data { get; set; }
+        public string message { get; set; }
 
         public string ToJsonString()
         {

@@ -43,65 +43,41 @@ namespace ParseModXIV.Monitors
         /// <param name="line"></param>
         private void CheckFight(String line)
         {
+            Match matches = null;
+            var you = Settings.Default.CharacterName;
             switch (Settings.Default.Language)
             {
                 case "English":
-                {
-                    var matches = RegExpsEn.Defeated.Match(line);
-                    if (matches.Success)
-                    {
-                        ParseMod.DeathCount++;
-                        var whatDefeated = matches.Groups["whatDefeated"];
-                        var whoDefeated = matches.Groups["whoDefeated"];
-                        if (!whatDefeated.Success)
-                        {
-                            //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
-                            return;
-                        }
-                        if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
-                        {
-                            return;
-                        }
-                        if (Regex.IsMatch(whatDefeated.Value, @"^[Yy]our?$"))
-                        {
-                            return;
-                        }
-                        var what = ParseMod.TitleCase(whatDefeated.Value, true);
-                        var who = ParseMod.TitleCase(whoDefeated.Value, true);
-                        //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
-                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
-                    }
-                }
+                    matches = RegExpsEn.Defeated.Match(line);
                     break;
                 case "French":
-                {
-                    var matches = RegExpsFr.Defeated.Match(line);
-                    if (matches.Success)
-                    {
-                        ParseMod.DeathCount++;
-                        var whatDefeated = matches.Groups["whatDefeated"];
-                        var whoDefeated = matches.Groups["whoDefeated"];
-                        if (!whatDefeated.Success)
-                        {
-                            //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
-                            return;
-                        }
-                        if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
-                        {
-                            return;
-                        }
-                        if (whatDefeated.Value == Settings.Default.CharacterName)
-                        {
-                            return;
-                        }
-                        var what = ParseMod.TitleCase(whatDefeated.Value, true);
-                        var who = ParseMod.TitleCase(whoDefeated.Value, true);
-                        //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
-                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
-                    }
-                }
+                    matches = RegExpsFr.Defeated.Match(line);
                     break;
             }
+            if (matches == null || !matches.Success)
+            {
+                return;
+            }
+            ParseMod.DeathCount++;
+            var whatDefeated = matches.Groups["whatDefeated"];
+            //var whoDefeated = matches.Groups["whoDefeated"];
+            if (!whatDefeated.Success)
+            {
+                //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
+                return;
+            }
+            if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
+            {
+                return;
+            }
+            if (Regex.IsMatch(whatDefeated.Value, @"^[Yy]our?$") || whatDefeated.Value == you)
+            {
+                return;
+            }
+            var what = ParseMod.TitleCase(whatDefeated.Value, true);
+            //var who = ParseMod.TitleCase(whoDefeated.Value, true);
+            //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
+            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
         }
 
         /// <summary>

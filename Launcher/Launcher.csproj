@@ -109,9 +109,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Launcher.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="app.manifest" />
     <AppDesigner Include="Properties\" />
     <None Include="Launcher.saproj" />

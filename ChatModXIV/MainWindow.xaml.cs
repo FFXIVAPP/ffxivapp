@@ -142,7 +142,7 @@ namespace ChatModXIV
                     var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss]");
                     var mCode = key;
                     var mMessage = value;
-                    SendMessage("message", new Message {Type = "Global", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
+                    SendMessage("message", new Message {type = "Global", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
                     value = key = time = "";
                 }
             }
@@ -282,9 +282,6 @@ namespace ChatModXIV
 
         #region " SOCKETS "
 
-        /// <summary>
-        /// 
-        /// </summary>
         public void Connect()
         {
             if (Settings.Default.SiteName == "")
@@ -391,13 +388,13 @@ namespace ChatModXIV
         /// <param name="line"></param>
         private void OnNewLine(Message line)
         {
-            switch (line.Source)
+            switch (line.source)
             {
                 case "Server":
-                    switch (line.Data)
+                    switch (line.message)
                     {
                         case "Hello":
-                            SendMessage("login", new Login {Source = "PC", Name = Settings.Default.SiteName, Api = Settings.Default.APIKey});
+                            SendMessage("login", new Login {source = "PC", name = Settings.Default.SiteName, api = Settings.Default.APIKey});
                             break;
                         case "Login Success":
                             UpdateControls(true);
@@ -410,7 +407,7 @@ namespace ChatModXIV
                     break;
                 case "Web":
                 case "Phone":
-                    Clipboard.SetText(line.Command + " " + line.Data);
+                    Clipboard.SetText(line.command + " " + line.message);
                     KeyHelper.KeyPress(Keys.Escape);
                     KeyHelper.KeyPress(Keys.Space);
                     KeyHelper.Paste();

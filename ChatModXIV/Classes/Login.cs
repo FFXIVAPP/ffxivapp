@@ -12,16 +12,16 @@ namespace ChatModXIV.Classes
     public class Login
     {
         [JsonProperty]
-        public string Source { get; set; }
+        public string source { get; set; }
 
         [JsonProperty]
-        public string Type { get; set; }
+        public string type { get; set; }
 
         [JsonProperty]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         [JsonProperty]
-        public string Api { get; set; }
+        public string api { get; set; }
 
         public string ToJsonString()
         {

@@ -50,17 +50,17 @@ namespace ChatModXIV.Classes
             {
                 if (CheckMode(mCode, ShoutLog))
                 {
-                    MainWindow.View.SendMessage("message", new Message {Type = "Global", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
+                    MainWindow.View.SendMessage("message", new Message {type = "Global", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
                 }
 
                 if (CheckMode(mCode, PrivateLog))
                 {
-                    MainWindow.View.SendMessage("message", new Message {Type = "Private", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
+                    MainWindow.View.SendMessage("message", new Message {type = "Private", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
                 }
 
                 if (!CheckMode(mCode, IgnoreLog))
                 {
-                    MainWindow.View.SendMessage("message", new Message {Command = "battle", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
+                    MainWindow.View.SendMessage("message", new Message {command = "battle", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
                 }
             }
             if (!debug)
@@ -69,7 +69,7 @@ namespace ChatModXIV.Classes
             }
             if (CheckMode(mCode, PrivateLog))
             {
-                MainWindow.View.SendMessage("message", new Message() {Type = "Global", Server = mServer, Time = mTimeStamp, Code = mCode, Data = mMessage});
+                MainWindow.View.SendMessage("message", new Message() {type = "Global", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
             }
         }
 

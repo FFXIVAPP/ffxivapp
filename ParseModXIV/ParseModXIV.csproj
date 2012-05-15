@@ -80,6 +80,8 @@
     <Compile Include="Classes\RegExps.cs" />
     <Compile Include="Classes\RegExpsEn.cs" />
     <Compile Include="Classes\RegExpsFr.cs" />
+    <Compile Include="Data\English.cs" />
+    <Compile Include="Data\French.cs" />
     <Compile Include="Model\EventCode.cs" />
     <Compile Include="Model\EventCodeComparer.cs" />
     <Compile Include="Model\EventDirection.cs" />
@@ -200,13 +202,10 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="ParseModXIV.config">
+    <None Include="app.manifest" />
+    <None Include="ParseModXIV.exe.nlog">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="app.manifest" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -233,7 +232,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Resources\Logos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -243,11 +241,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  
+  -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="ParseModXIV.saproj" input="$(OutDir)ParseModXIV.exe" output="$(OutDir)ParseModXIV.exe" OverwriteAssembly="true" />
-  </Target>-->
+  </Target>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

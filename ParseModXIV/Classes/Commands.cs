@@ -48,7 +48,7 @@ namespace ParseModXIV.Classes
                         case "ability":
                             var aascii = Encoding.ASCII;
                             KeyHelper.SendNotify(aascii.GetBytes("/p * Ability Stats *"));
-                            foreach (var item in ParseMod.Instance.StatMonitor.TotalA.OrderByDescending(item => int.Parse(item.Value)))
+                            foreach (var item in ParseMod.Instance.TotalA.OrderByDescending(item => int.Parse(item.Value)))
                             {
                                 KeyHelper.SendNotify(aascii.GetBytes("/p " + item.Key + ": " + item.Value));
                             }
@@ -56,7 +56,7 @@ namespace ParseModXIV.Classes
                         case "healing":
                             var hascii = Encoding.ASCII;
                             KeyHelper.SendNotify(hascii.GetBytes("/p * Healing Stats *"));
-                            foreach (var item in ParseMod.Instance.StatMonitor.TotalH.OrderByDescending(item => int.Parse(item.Value)))
+                            foreach (var item in ParseMod.Instance.TotalH.OrderByDescending(item => int.Parse(item.Value)))
                             {
                                 KeyHelper.SendNotify(hascii.GetBytes("/p " + item.Key + ": " + item.Value));
                             }
@@ -64,7 +64,7 @@ namespace ParseModXIV.Classes
                         case "damage":
                             var dascii = Encoding.ASCII;
                             KeyHelper.SendNotify(dascii.GetBytes("/p * Damage Stats *"));
-                            foreach (var item in ParseMod.Instance.StatMonitor.TotalD.OrderByDescending(item => int.Parse(item.Value)))
+                            foreach (var item in ParseMod.Instance.TotalD.OrderByDescending(item => int.Parse(item.Value)))
                             {
                                 KeyHelper.SendNotify(dascii.GetBytes("/p " + item.Key + ": " + item.Value));
                             }

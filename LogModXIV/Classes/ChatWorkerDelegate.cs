@@ -74,6 +74,7 @@ namespace LogModXIV.Classes
             //}
             if (mCode == "0043" || mCode == "0042")
             {
+                mMessage = mMessage.Replace(",", "");
                 var mReg = Exp.Match(mMessage);
                 if (mReg.Success)
                 {

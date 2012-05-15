@@ -8,7 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Web;
 using AppModXIV.Classes;
 using AppModXIV.Memory;
 using ParseModXIV.Model;
@@ -30,6 +33,9 @@ namespace ParseModXIV.Classes
         public Boolean IsLogging;
         public static string Desc = "";
         public static string Uid = "";
+        public readonly Dictionary<string, string> TotalA = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> TotalD = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> TotalH = new Dictionary<string, string>();
 
         /// <summary>
         /// 
@@ -176,6 +182,27 @@ namespace ParseModXIV.Classes
             }
             _chatWorker.StopLogging();
             _chatWorker = null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="insert"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static bool SubmitData(string insert, string message)
+        {
+            var url = string.Format("http://ffxiv-app.com/battles/insert/?insert={0}&q={1}", insert, HttpUtility.UrlEncode(message));
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
+            httpWebRequest.ContentType = "text/json";
+            httpWebRequest.Method = "POST";
+
+            var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var responseText = streamReader.ReadToEnd();
+                return true;
+            }
         }
     }
 }
