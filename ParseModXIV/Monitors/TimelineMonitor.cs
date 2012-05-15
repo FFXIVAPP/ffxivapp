@@ -6,6 +6,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using NLog;
 using ParseModXIV.Classes;
 using ParseModXIV.Model;
 
@@ -13,6 +14,8 @@ namespace ParseModXIV.Monitors
 {
     public class TimelineMonitor : EventMonitor
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,7 +66,7 @@ namespace ParseModXIV.Monitors
             var whoDefeated = matches.Groups["whoDefeated"];
             if (!whatDefeated.Success)
             {
-                Logger.Trace("KillEvent : Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
+                Logger.Debug("KillEvent : Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
                 return;
             }
             if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
@@ -76,7 +79,7 @@ namespace ParseModXIV.Monitors
             }
             var what = ParseMod.TitleCase(whatDefeated.Value, true);
             var who = ParseMod.TitleCase(whoDefeated.Value, true);
-            Logger.Trace("KillEvent : {0} by : {1}", what, who);
+            Logger.Debug("KillEvent : {0} by : {1}", what, who);
             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
         }
 
@@ -120,7 +123,7 @@ namespace ParseModXIV.Monitors
             Fight fight;
             if (ParseModInstance.Timeline.Fights.TryGetLastOrCurrent(ParseMod.LastKilled, out fight))
             {
-                Logger.Trace("DropEvent : {0} dropped {1}", fight.MobName, thing);
+                Logger.Debug("DropEvent : {0} dropped {1}", fight.MobName, thing);
                 if (fight.MobName.Replace(" ", "") == "")
                 {
                     return;
@@ -130,7 +133,7 @@ namespace ParseModXIV.Monitors
             }
             else
             {
-                Logger.Trace("DropEvent : Got loot drop (\"{0}\"), but no current or last fight info. Adding to last killed.", thing);
+                Logger.Debug("DropEvent : Got loot drop (\"{0}\"), but no current or last fight info. Adding to last killed.", thing);
                 if (ParseMod.LastKilled.Replace(" ", "") == "")
                 {
                     return;
@@ -154,12 +157,12 @@ namespace ParseModXIV.Monitors
                     if (matches.Success)
                     {
                         var whoJoined = matches.Groups["whoJoined"].Value;
-                        Logger.Trace("PartyEvent : Joined {0}", whoJoined);
+                        Logger.Debug("PartyEvent : Joined {0}", whoJoined);
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
                     }
                     else if (RegExpsEn.DisbandParty.Match(line).Success)
                     {
-                        Logger.Trace("PartyEvent : Disbanned");
+                        Logger.Debug("PartyEvent : Disbanned");
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
                     }
                     else
@@ -168,7 +171,7 @@ namespace ParseModXIV.Monitors
                         if (leftParty.Success)
                         {
                             var whoLeft = leftParty.Groups["whoLeft"].Value;
-                            Logger.Trace("PartyEvent : Left {0}", whoLeft);
+                            Logger.Debug("PartyEvent : Left {0}", whoLeft);
                             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }
@@ -178,12 +181,12 @@ namespace ParseModXIV.Monitors
                     if (matches.Success)
                     {
                         var whoJoined = matches.Groups["whoJoined"].Value;
-                        Logger.Trace("PartyEvent : Joined {0}", whoJoined);
+                        Logger.Debug("PartyEvent : Joined {0}", whoJoined);
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
                     }
                     else if (RegExpsFr.DisbandParty.Match(line).Success)
                     {
-                        Logger.Trace("PartyEvent : Disbanned");
+                        Logger.Debug("PartyEvent : Disbanned");
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
                     }
                     else
@@ -192,7 +195,7 @@ namespace ParseModXIV.Monitors
                         if (leftParty.Success)
                         {
                             var whoLeft = leftParty.Groups["whoLeft"].Value;
-                            Logger.Trace("PartyEvent : Left {0}", whoLeft);
+                            Logger.Debug("PartyEvent : Left {0}", whoLeft);
                             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }

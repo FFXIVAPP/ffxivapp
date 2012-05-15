@@ -10,8 +10,8 @@ namespace ParseModXIV.Model
 {
     public class TimelineEventArgs : EventArgs
     {
-        public TimelineEventType Type { get; private set; }
-        public object[] Args { get; private set; }
+        private TimelineEventType Type { get; set; }
+        private object[] Args { get; set; }
 
         /// <summary>
         /// 

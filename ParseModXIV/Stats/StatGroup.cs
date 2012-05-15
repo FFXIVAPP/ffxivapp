@@ -20,7 +20,6 @@ namespace ParseModXIV.Stats
 {
     public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider, INotifyPropertyChanged
     {
-        protected Logger Logger { get; private set; }
         private readonly ConcurrentDictionary<string, StatGroup> _children = new ConcurrentDictionary<string, StatGroup>();
         public Boolean IncludeSelf { private get; set; }
         private readonly StatContainer _statList = new StatContainer();
@@ -70,7 +69,6 @@ namespace ParseModXIV.Stats
         /// <param name="name"></param>
         private void DoInit(string name)
         {
-            Logger = LogManager.GetCurrentClassLogger();
             StatGroup = this;
             Name = name;
             _statList.PropertyChanged += (sender, e) => DoPropertyChanged(e.PropertyName);

@@ -56,7 +56,7 @@ namespace ParseModXIV.Monitors
         /// </summary>
         public override void Clear()
         {
-            Logger.Trace("ClearEvent : Clearing ${0} party members totals.", Count);
+            Logger.Debug("ClearEvent : Clearing ${0} party members totals.", Count);
             TotalDamage.Reset();
             PartyDamage.Reset();
             PartyCritDamage.Reset();
@@ -80,8 +80,8 @@ namespace ParseModXIV.Monitors
             var mCode = "00" + e.Code.ToString("X");
             var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
             var cleaned = XmlCleaner.SanitizeXmlString(e.RawLine);
-            Logger.Trace("ParseEvent : Parsing line of cleaned : {0}", cleaned);
-            Logger.Trace("ParseEvent : Parsing line of raw : {0}", e.RawLine);
+            Logger.Debug("ParseEvent : Parsing line of cleaned : {0}", cleaned);
+            Logger.Debug("ParseEvent : Parsing line of raw : {0}", e.RawLine);
             foreach (var tmp in RegExps.Mobbies)
             {
                 e.RawLine = Regex.Replace(e.RawLine, tmp, tmp.Replace("'s", ""));

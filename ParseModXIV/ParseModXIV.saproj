@@ -31,11 +31,6 @@
                             <Token Table="Namespace">
                                 <Assembly>ParseModXIV</Assembly>
                                 <Module>ParseModXIV.exe</Module>
-                                <Namespace>ParseModXIV.Monitors</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>ParseModXIV</Assembly>
-                                <Module>ParseModXIV.exe</Module>
                                 <Namespace>ParseModXIV.Stats</Namespace>
                             </Token>
                             <Token Table="WholeType">
@@ -64,6 +59,21 @@
                                 <Assembly>ParseModXIV</Assembly>
                                 <Module>ParseModXIV.exe</Module>
                                 <Namespace>ParseModXIV.Windows</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>ParseModXIV</Assembly>
+                                <Module>ParseModXIV.exe</Module>
+                                <Namespace>ParseModXIV.Data</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>ParseModXIV</Assembly>
+                                <Module>ParseModXIV.exe</Module>
+                                <Namespace>ParseModXIV.Model</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>ParseModXIV</Assembly>
+                                <Module>ParseModXIV.exe</Module>
+                                <Namespace>ParseModXIV.Monitors</Namespace>
                             </Token>
                         </Exclusion>
                     </Obfuscation>

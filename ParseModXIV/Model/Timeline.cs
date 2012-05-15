@@ -16,7 +16,7 @@ namespace ParseModXIV.Model
     public sealed class Timeline : INotifyPropertyChanged
     {
         private Boolean _fightingRightNow;
-        private Logger Logger { get; set; }
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 
@@ -58,7 +58,6 @@ namespace ParseModXIV.Model
         /// </summary>
         public Timeline()
         {
-            Logger = LogManager.GetCurrentClassLogger();
             FightingRightNow = false;
             Fights = new FightList();
             Overall = new StatGroup("Overall");
@@ -76,7 +75,7 @@ namespace ParseModXIV.Model
             StatGroup g;
             if (!Monster.TryGetGroup(mobName, out g))
             {
-                Logger.Trace("StatEvent : Adding new stat group for mob : {0}", mobName);
+                Logger.Debug("StatEvent : Adding new stat group for mob : {0}", mobName);
                 g = new StatGroupMonster(mobName);
                 Monster.AddGroup(g);
             }
@@ -109,7 +108,7 @@ namespace ParseModXIV.Model
         /// <param name="args"></param>
         public void PublishTimelineEvent(TimelineEventType t, params object[] args)
         {
-            Logger.Trace("TimelineEvent : {0} {1}", t, (args != null && args.Any()) ? args[0] : "(no args)");
+            Logger.Debug("TimelineEvent : {0} {1}", t, (args != null && args.Any()) ? args[0] : "(no args)");
             var mobName = args.First() as String;
             switch (t)
             {

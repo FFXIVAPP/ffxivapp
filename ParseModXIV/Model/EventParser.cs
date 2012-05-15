@@ -15,7 +15,6 @@ namespace ParseModXIV.Model
 {
     public sealed class EventParser
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public const UInt16 DirectionMask = 0x0003;
         public const UInt16 SubjectMask = 0x003C;
         public const UInt16 TypeMask = 0x7FC0;
@@ -23,6 +22,7 @@ namespace ParseModXIV.Model
         public static UInt16 UnknownEvent;
         private static EventParser _instance;
         private readonly SortedDictionary<UInt16, EventCode> _eventCodes = new SortedDictionary<UInt16, EventCode>();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 

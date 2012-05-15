@@ -42,12 +42,12 @@ namespace ParseModXIV.Stats
         {
             if (f.MobName != Name)
             {
-                Logger.Trace("KillEvent : Got request to add kill stats for {0}, but my name is {1}!", f.MobName, Name);
+                Logger.Debug("KillEvent : Got request to add kill stats for {0}, but my name is {1}!", f.MobName, Name);
                 return;
             }
             if (f.MobName == "")
             {
-                Logger.Trace("KillEvent : Got request to add kill stats for {0}, but no name!", f.MobName);
+                Logger.Debug("KillEvent : Got request to add kill stats for {0}, but no name!", f.MobName);
                 return;
             }
             ParseMod.LastKilled = f.MobName;
