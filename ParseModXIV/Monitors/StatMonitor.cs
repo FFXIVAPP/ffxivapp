@@ -7,11 +7,11 @@
 using System;
 using System.Text.RegularExpressions;
 using AppModXIV.Classes;
+using NLog;
 using ParseModXIV.Classes;
 using ParseModXIV.Data;
 using ParseModXIV.Model;
 using ParseModXIV.Stats;
-using NLog;
 
 namespace ParseModXIV.Monitors
 {

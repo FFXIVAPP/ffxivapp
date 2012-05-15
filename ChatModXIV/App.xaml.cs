@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Threading;
 using AppModXIV.Classes;
 using ChatModXIV.Classes;
+using NLog;
 
 namespace ChatModXIV
 {
@@ -20,6 +21,7 @@ namespace ChatModXIV
     public partial class App
     {
         public static String[] MArgs;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public App()
         {
@@ -53,10 +55,7 @@ namespace ChatModXIV
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            if (Constants.LogErrors == 1)
-            {
-                ErrorLogging.LogError(e.Exception.Message + e.Exception.StackTrace + e.Exception.InnerException, "ChatModXIV", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            }
+            Logger.Error("ErrorEvent : {0}", e.Exception.Message + e.Exception.StackTrace + e.Exception.InnerException);
             e.Handled = true;
         }
     }

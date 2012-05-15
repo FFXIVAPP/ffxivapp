@@ -6,8 +6,8 @@
             includeSourceInfo="true" includeCallSite="true"
             includeMdc="true" includeNdc ="true"
             includeNLogData="true"
-            address="udp://127.0.0.1:9994" />
-    <target xsi:type="File" name="f" fileName="${basedir}/Logs/Errors/ParseMod_BugReport-${date:format=yyyy-MM-dd}.log"
+            address="udp://127.0.0.1:9992" />
+    <target xsi:type="File" name="f" fileName="${basedir}/Logs/Errors/Launcher_BugReport-${date:format=yyyy-MM-dd}.log"
             layout="${longdate} ${message}" />
   </targets>
   <rules>
