@@ -29,7 +29,7 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex Resists = new Regex(@"^(?<whoHit>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<ability>.+(?= sur)) (?<didHit>sur) (l\w?'? ?)?(?<whoEvaded>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\..+subit (?<amount>\d+).+$", DefaultOptions);
 
-        public static readonly Regex Blocks = new Regex(@"^(?<whoHit>.+) util.+un\w+ (?<ability>.+) sur (?<player>\w+\s\w+).+mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points de d.+\.$)", DefaultOptions);
+        public static readonly Regex Blocks = new Regex(@"^(l|L)?\w+ (?<whoHit>.+) util.+un\w+ (?<ability>.+) sur (?<player>\w+\s\w+).+mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points de d.+\.$)", DefaultOptions);
 
         public static readonly Regex JoinParty = new Regex(@"^(?<whoJoined>Vous|\w+\s\w+) rejoint l'équipe.$", DefaultOptions);
 

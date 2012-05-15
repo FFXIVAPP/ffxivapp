@@ -112,7 +112,7 @@ namespace ParseModXIV.Data
                 }
                 var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") || (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
                 var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
-                var block = !(String.IsNullOrWhiteSpace(mReg.Groups["block"].Value)) && mReg.Groups["block"].Value != "subit";
+                var block = !(String.IsNullOrWhiteSpace(mReg.Groups["block"].Value));
                 var mob = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoHit"].Value), true);
                 var whoEvaded = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoEvaded"]), true);
                 var ability = Convert.ToString(mReg.Groups["ability"].Value);
