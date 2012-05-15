@@ -7,11 +7,11 @@
             includeMdc="true" includeNdc ="true"
             includeNLogData="true"
             address="udp://127.0.0.1:9999" />
-    <target xsi:type="File" name="f" fileName="${basedir}/logs/ParseMod/Events-${date:format=yyyy-MM-dd}.log"
-            layout="${longdate} ${message}" />
+    <!--<target xsi:type="File" name="f" fileName="${basedir}/logs/ParseMod/Events-${date:format=yyyy-MM-dd}.log"
+            layout="${longdate} ${message}" />-->
   </targets>
   <rules>
     <logger name="*" minlevel="Trace" writeTo="viewer" />
-    <logger name="*" minlevel="Trace" writeTo="f" />
+    <!--<logger name="*" minlevel="Trace" writeTo="f" />-->
   </rules>
 </nlog>
