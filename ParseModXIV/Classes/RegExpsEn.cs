@@ -12,7 +12,7 @@ namespace ParseModXIV.Classes
     {
         private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 
-        public static readonly Regex Damage = new Regex(@"(?!.+échou\.)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l\w+ |(a|à)(\w+)? )?(l\')?(?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w+ |a\w+ )?(l\')?(?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts ((a|à)(\w+)?)? (l\w+ )?(l\')?(?<mob>.+(?=\.$))\.$)|((?<whoHit>\w+\s\w+) util\w+ (une? )?(?<ability>.+(?= sur)) (?<didHit>sur) (l\w+ |(a|à)(\w+)? )?(l\')?(?<mob>.+(?= mais)) (?<didHit>mais) échoue!$)", DefaultOptions);
+        public static readonly Regex Damage = new Regex(@"(?!.+misses\.)(^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses)(((?!.+from)) (the )?(?<mob>.+('s)?(?='s))('s)? (?<bodypart>.+(?= for))? for (?<amount>\d+).+\.$| (the )?(?<mob>.+(?= from)) from the (?<direction>\w+) for (?<amount>\d+).+\.$)|^(?<crit>Critical! )?(?<whoHit>Your?(?!.+'s.+hits)|\w+\s\w+)('s)? (?<ability>.+(?=( misses| hits))) (?<didHit>hits|misses) ((the )?(?<mob>.+(?= from)) from the (?<direction>\w+)\.$|(the )?((?<mob>(?!.+for).+(?=\.))\.$|(?<mob>.+(?= for)) for (?<amount>\d+).+\.$)))", DefaultOptions);
 
         public static readonly Regex Additional = new Regex(@"^A.+effect: (?<amount>\d+) p.+of.+dealt.$", DefaultOptions);
 
