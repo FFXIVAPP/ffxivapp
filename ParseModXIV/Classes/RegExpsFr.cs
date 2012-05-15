@@ -14,6 +14,8 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex Damage = new Regex(@"(?!.+échou\.)^(?<crit>Coup critique! )?(?<whoHit>\w+\s\w+) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) ((l\w+ |(a|à)(\w+)? )?(l\')?(?<mob>.+(?= \()) \((?<direction>.+(?=\)))\) (?<didHit>et) inflige (?<amount>\d+).+$|(l\w+ |a\w+ )?(l\')?(?<mob>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<ability>.+(?= et inflige)) (?<didHit>et) inflige (?<amount>\d+).+dégâts ((a|à)(\w+)?)? (l\w+ )?(l\')?(?<mob>.+(?=\.$))\.$)|((?<whoHit>\w+\s\w+) util\w+ (une? )?(?<ability>.+(?= sur)) (?<didHit>sur) (l\w+ |(a|à)(\w+)? )?(l\')?((?<mob>.+(?= \()) \((?<direction>.+(?=\)))\)|(?<mob>.+)) (?<didHit>mais) échoue!$)", DefaultOptions);
 
+        public static readonly Regex Additional = new Regex(@"^Effet.+: (?<amount>\d+) p.+dégâts.$", DefaultOptions);
+
         public static readonly Regex DamageToPlayer = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(L\w?'? ?)?(?<whoHit>.+(?= util)) util\w+ (une? )?((?<ability>.+(?= sur)) (?<didHit>sur) (?<player>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", DefaultOptions);
 
         public static readonly Regex Counter = new Regex(@"^(?<whoHit>\w+\s\w+) contre (l\w?'? ?)?(?<mob>.+(?= et)) et lui inflige (?<amount>\d+).+$", DefaultOptions);
@@ -26,6 +28,8 @@ namespace ParseModXIV.Classes
         public static readonly Regex UseOnParty = new Regex(@"^(?<whoDid>\w+\s\w+) util\w+ (?<ability>.+(?= sur)) sur (?<castOn>\w+\s\w+)\. ?\w+\s\w+\s?(?<recLoss>récupère?|lose(s)?) (?<amount>\d+) (?<type>\w+)\.$", DefaultOptions);
 
         public static readonly Regex Resists = new Regex(@"^(?<whoHit>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<ability>.+(?= sur)) (?<didHit>sur) (l\w?'? ?)?(?<whoEvaded>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\..+subit (?<amount>\d+).+$", DefaultOptions);
+
+        public static readonly Regex Blocks = new Regex(@"^(?<whoHit>.+) util.+un\w+ (?<ability>.+) sur (?<player>\w+\s\w+).+mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points de d.+\.$)", DefaultOptions);
 
         public static readonly Regex JoinParty = new Regex(@"^(?<whoJoined>Vous|\w+\s\w+) rejoint l'équipe.$", DefaultOptions);
 

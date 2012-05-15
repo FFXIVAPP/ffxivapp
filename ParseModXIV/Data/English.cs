@@ -21,6 +21,13 @@ namespace ParseModXIV.Data
         private static string _lastAttacked = "";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mCode"></param>
+        /// <param name="mTimeStamp"></param>
+        /// <param name="cleaned"></param>
+        /// <param name="e"></param>
         public static void Parse(string mCode, string mTimeStamp, string cleaned, Event e)
         {
             #region " DAMAGE TO MOBS "
