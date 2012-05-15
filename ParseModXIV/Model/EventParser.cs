@@ -57,7 +57,7 @@ namespace ParseModXIV.Model
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to load ChatCodes.xml from resource stream : {0}", e.Message);
+                Logger.Error("ResourceEvent : Failed to load ChatCodes.xml from resource stream : {0}", e.Message);
             }
         }
 

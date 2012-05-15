@@ -76,7 +76,7 @@ namespace ParseModXIV.Model
             StatGroup g;
             if (!Monster.TryGetGroup(mobName, out g))
             {
-                //logger.Trace("Adding new stat group for mob : {0}", mobName);
+                Logger.Trace("StatEvent : Adding new stat group for mob : {0}", mobName);
                 g = new StatGroupMonster(mobName);
                 Monster.AddGroup(g);
             }
@@ -109,7 +109,7 @@ namespace ParseModXIV.Model
         /// <param name="args"></param>
         public void PublishTimelineEvent(TimelineEventType t, params object[] args)
         {
-            //logger.Trace("TimelineEvent : {0} {1}", t, (args != null && args.Any()) ? args[0] : "(no args)");
+            Logger.Trace("TimelineEvent : {0} {1}", t, (args != null && args.Any()) ? args[0] : "(no args)");
             var mobName = args.First() as String;
             switch (t)
             {

@@ -60,10 +60,10 @@ namespace ParseModXIV.Monitors
             }
             ParseMod.DeathCount++;
             var whatDefeated = matches.Groups["whatDefeated"];
-            //var whoDefeated = matches.Groups["whoDefeated"];
+            var whoDefeated = matches.Groups["whoDefeated"];
             if (!whatDefeated.Success)
             {
-                //logger.Error("Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
+                Logger.Trace("KillEvent : Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
                 return;
             }
             if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
@@ -75,8 +75,8 @@ namespace ParseModXIV.Monitors
                 return;
             }
             var what = ParseMod.TitleCase(whatDefeated.Value, true);
-            //var who = ParseMod.TitleCase(whoDefeated.Value, true);
-            //logger.Trace("Mob Defeated : {0} by : {1}", what, who);
+            var who = ParseMod.TitleCase(whoDefeated.Value, true);
+            Logger.Trace("KillEvent : {0} by : {1}", what, who);
             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, what);
         }
 
@@ -120,7 +120,7 @@ namespace ParseModXIV.Monitors
             Fight fight;
             if (ParseModInstance.Timeline.Fights.TryGetLastOrCurrent(ParseMod.LastKilled, out fight))
             {
-                //logger.Trace("{0} dropped {1}", fight.MobName, thing);
+                Logger.Trace("DropEvent : {0} dropped {1}", fight.MobName, thing);
                 if (fight.MobName.Replace(" ", "") == "")
                 {
                     return;
@@ -130,7 +130,7 @@ namespace ParseModXIV.Monitors
             }
             else
             {
-                //logger.Warn("Got loot drop (\"{0}\"), but no current or last fight info. Adding to last killed.", thing);
+                Logger.Trace("DropEvent : Got loot drop (\"{0}\"), but no current or last fight info. Adding to last killed.", thing);
                 if (ParseMod.LastKilled.Replace(" ", "") == "")
                 {
                     return;
@@ -146,20 +146,20 @@ namespace ParseModXIV.Monitors
         /// <param name="line"></param>
         private void CheckParty(String line)
         {
+            Match matches = null;
             switch (Settings.Default.Language)
             {
                 case "English":
-                {
-                    var matches = RegExpsEn.JoinParty.Match(line);
+                    matches = RegExpsEn.JoinParty.Match(line);
                     if (matches.Success)
                     {
                         var whoJoined = matches.Groups["whoJoined"].Value;
-                        //logger.Trace("Party Join Event : {0}", whoJoined);
+                        Logger.Trace("PartyEvent : Joined {0}", whoJoined);
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
                     }
                     else if (RegExpsEn.DisbandParty.Match(line).Success)
                     {
-                        //logger.Trace("Party Disband Event");
+                        Logger.Trace("PartyEvent : Disbanned");
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
                     }
                     else
@@ -168,24 +168,22 @@ namespace ParseModXIV.Monitors
                         if (leftParty.Success)
                         {
                             var whoLeft = leftParty.Groups["whoLeft"].Value;
-                            //logger.Trace("Party leave event : {0}", whoLeft);
+                            Logger.Trace("PartyEvent : Left {0}", whoLeft);
                             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }
-                }
                     break;
                 case "French":
-                {
-                    var matches = RegExpsFr.JoinParty.Match(line);
+                    matches = RegExpsFr.JoinParty.Match(line);
                     if (matches.Success)
                     {
                         var whoJoined = matches.Groups["whoJoined"].Value;
-                        //logger.Trace("Party Join Event : {0}", whoJoined);
+                        Logger.Trace("PartyEvent : Joined {0}", whoJoined);
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
                     }
                     else if (RegExpsFr.DisbandParty.Match(line).Success)
                     {
-                        //logger.Trace("Party Disband Event");
+                        Logger.Trace("PartyEvent : Disbanned");
                         ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
                     }
                     else
@@ -194,11 +192,10 @@ namespace ParseModXIV.Monitors
                         if (leftParty.Success)
                         {
                             var whoLeft = leftParty.Groups["whoLeft"].Value;
-                            //logger.Trace("Party leave event : {0}", whoLeft);
+                            Logger.Trace("PartyEvent : Left {0}", whoLeft);
                             ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
                         }
                     }
-                }
                     break;
             }
         }

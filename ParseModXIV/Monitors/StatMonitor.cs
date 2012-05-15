@@ -11,6 +11,7 @@ using ParseModXIV.Classes;
 using ParseModXIV.Data;
 using ParseModXIV.Model;
 using ParseModXIV.Stats;
+using NLog;
 
 namespace ParseModXIV.Monitors
 {
@@ -23,6 +24,7 @@ namespace ParseModXIV.Monitors
         internal static readonly TotalStat PartyTotalTaken = new TotalStat("Overall Taken");
         internal static readonly TotalStat PartyTotalRTaken = new TotalStat("Reg Taken");
         internal static readonly TotalStat PartyTotalCTaken = new TotalStat("Crit Taken");
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 
@@ -54,7 +56,7 @@ namespace ParseModXIV.Monitors
         /// </summary>
         public override void Clear()
         {
-            //logger.Trace("Clearing ${0} party members Total Party Damage: {1} Total Party Crit Damage: {2} Total Party Healing: {3}", Count, partyDamage.Value, partyCritDamage.Value, partyHealing.Value);
+            Logger.Trace("ClearEvent : Clearing ${0} party members totals.", Count);
             TotalDamage.Reset();
             PartyDamage.Reset();
             PartyCritDamage.Reset();
@@ -78,11 +80,12 @@ namespace ParseModXIV.Monitors
             var mCode = "00" + e.Code.ToString("X");
             var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
             var cleaned = XmlCleaner.SanitizeXmlString(e.RawLine);
+            Logger.Trace("ParseEvent : Parsing line of cleaned : {0}", cleaned);
+            Logger.Trace("ParseEvent : Parsing line of raw : {0}", e.RawLine);
             foreach (var tmp in RegExps.Mobbies)
             {
                 e.RawLine = Regex.Replace(e.RawLine, tmp, tmp.Replace("'s", ""));
             }
-
             switch (Settings.Default.Language)
             {
                 case "English":

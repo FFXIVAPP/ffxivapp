@@ -30,11 +30,11 @@ namespace ParseModXIV.Data
                 var mReg = RegExpsFr.Damage.Match(e.RawLine);
                 if (!mReg.Success)
                 {
-                    Logger.Trace("No match for Damage on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Damage on line {0}", e.RawLine);
                     mReg = RegExpsFr.Resists.Match(e.RawLine);
                     if (!mReg.Success)
                     {
-                        Logger.Trace("No match for Resists or Evades on line {0}", e.RawLine);
+                        Logger.Trace("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
                         ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                         return;
                     }
@@ -52,11 +52,7 @@ namespace ParseModXIV.Data
                 var whoEvaded = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoEvaded"]), true);
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
-                Logger.Debug("Handling event : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, whoHit, ability, mob);
-                if (Regex.IsMatch(whoHit, @"^[Yy]our?$"))
-                {
-                    whoHit = Settings.Default.CharacterName;
-                }
+                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, whoHit, ability, mob);
                 mob = (String.IsNullOrWhiteSpace(mob)) ? whoEvaded : mob;
                 if (String.IsNullOrWhiteSpace(whoHit) || String.IsNullOrWhiteSpace(mob))
                 {
@@ -92,11 +88,11 @@ namespace ParseModXIV.Data
                 var mReg = RegExpsFr.DamageToPlayer.Match(e.RawLine);
                 if (!mReg.Success)
                 {
-                    Logger.Trace("No match for Damage Taken on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Damage Taken on line {0}", e.RawLine);
                     mReg = RegExpsFr.Resists.Match(e.RawLine);
                     if (!mReg.Success)
                     {
-                        Logger.Trace("No match for Resists or Evades on line {0}", e.RawLine);
+                        Logger.Trace("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
                         ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                         return;
                     }
@@ -114,7 +110,7 @@ namespace ParseModXIV.Data
                 }
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
-                Logger.Debug("Handling event : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, player, ability, mob);
+                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, player, ability, mob);
                 if (Regex.IsMatch(player, @"^[Yy]our?$"))
                 {
                     player = Settings.Default.CharacterName;
@@ -144,7 +140,7 @@ namespace ParseModXIV.Data
                 var hReg = RegExpsFr.UseOnParty.Match(e.RawLine);
                 if (!hReg.Success)
                 {
-                    Logger.Trace("No match for Healing on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Healing on line {0}", e.RawLine);
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                     return;
                 }
@@ -162,7 +158,7 @@ namespace ParseModXIV.Data
                 {
                     castOn = Settings.Default.CharacterName;
                 }
-                Logger.Debug("Handling event : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
+                Logger.Trace("HandlingEvent : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
                 if (String.IsNullOrWhiteSpace(whoDid))
                 {
                     return;

@@ -30,15 +30,15 @@ namespace ParseModXIV.Data
                 var mReg = RegExpsEn.Damage.Match(e.RawLine);
                 if (!mReg.Success)
                 {
-                    Logger.Trace("No match for Damage on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Damage on line {0}", e.RawLine);
                     mReg = RegExpsEn.ResistsOrEvades.Match(e.RawLine);
                     if (!mReg.Success)
                     {
-                        Logger.Trace("No match for Resists or Evades on line {0}", e.RawLine);
+                        Logger.Trace("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
                         mReg = RegExpsEn.Additional.Match(e.RawLine);
                         if (!mReg.Success)
                         {
-                            Logger.Trace("No match for Additional on line {0}", e.RawLine);
+                            Logger.Trace("MatchEvent : No match for Additional on line {0}", e.RawLine);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
                             ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                             return;
@@ -70,7 +70,7 @@ namespace ParseModXIV.Data
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
                 var bodyPart = ParseMod.TitleCase((Convert.ToString(mReg.Groups["bodyPart"].Value)), true);
-                Logger.Debug("Handling event : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, whoHit, ability, mob);
+                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, whoHit, ability, mob);
                 if (Regex.IsMatch(whoHit, @"^[Yy]our?$"))
                 {
                     whoHit = Settings.Default.CharacterName;
@@ -144,15 +144,15 @@ namespace ParseModXIV.Data
                 var mReg = RegExpsEn.DamageToPlayer.Match(e.RawLine);
                 if (!mReg.Success)
                 {
-                    Logger.Trace("No match for Damage Taken on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Damage Taken on line {0}", e.RawLine);
                     mReg = RegExpsEn.ResistsOrEvades.Match(e.RawLine);
                     if (!mReg.Success)
                     {
-                        Logger.Trace("No match for Resists or Evades on line {0}", e.RawLine);
+                        Logger.Trace("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
                         mReg = RegExpsEn.Blocks.Match(e.RawLine);
                         if (!mReg.Success)
                         {
-                            Logger.Trace("No match for Blocks on line {0}", e.RawLine);
+                            Logger.Trace("MatchEvent : No match for Blocks on line {0}", e.RawLine);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
                             ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                             return;
@@ -178,7 +178,7 @@ namespace ParseModXIV.Data
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
                 var bodyPart = ParseMod.TitleCase((Convert.ToString(mReg.Groups["bodyPart"].Value)), true);
-                Logger.Debug("Handling event : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, player, ability, mob);
+                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, player, ability, mob);
                 if (player == "")
                 {
                     player = whoEvaded;
@@ -234,7 +234,7 @@ namespace ParseModXIV.Data
                 var hReg = RegExpsEn.UseOnParty.Match(e.RawLine);
                 if (!hReg.Success)
                 {
-                    Logger.Trace("No match for Healing on line {0}", e.RawLine);
+                    Logger.Trace("MatchEvent : No match for Healing on line {0}", e.RawLine);
                     //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                     return;
@@ -254,7 +254,7 @@ namespace ParseModXIV.Data
                 {
                     castOn = Settings.Default.CharacterName;
                 }
-                Logger.Debug("Handling event : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
+                Logger.Trace("HandlingEvent : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
                 if (String.IsNullOrWhiteSpace(whoDid))
                 {
                     return;
