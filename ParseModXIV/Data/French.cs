@@ -105,7 +105,7 @@ namespace ParseModXIV.Data
                         {
                             Logger.Trace("MatchEvent : No match for Blocks on line {0}", e.RawLine);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                             return;
                         }
                     }

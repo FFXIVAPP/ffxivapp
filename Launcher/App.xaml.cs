@@ -5,11 +5,8 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
-using AppModXIV.Classes;
 using NLog;
 
 namespace Launcher
