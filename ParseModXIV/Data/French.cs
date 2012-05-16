@@ -59,7 +59,7 @@ namespace ParseModXIV.Data
                     }
                 }
                 var didHit = (Convert.ToString(mReg.Groups["didHit"].Value) == "et") || (Convert.ToString(mReg.Groups["didHit"].Value) == "sur");
-                var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value)) && mReg.Groups["resist"].Value != "evades";
+                var resist = !(String.IsNullOrWhiteSpace(mReg.Groups["resist"].Value));
                 var direction = ParseMod.TitleCase(Convert.ToString(mReg.Groups["direction"].Value), true);
                 var whoHit = Convert.ToString(mReg.Groups["whoHit"].Value);
                 var ability = Convert.ToString(mReg.Groups["ability"].Value);
@@ -71,12 +71,12 @@ namespace ParseModXIV.Data
                 var whoEvaded = ParseMod.TitleCase(Convert.ToString(mReg.Groups["whoEvaded"]), true);
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
-                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, whoHit, ability, mob);
                 mob = (String.IsNullOrWhiteSpace(mob)) ? whoEvaded : mob;
                 if (String.IsNullOrWhiteSpace(whoHit) || String.IsNullOrWhiteSpace(mob))
                 {
                     return;
                 }
+                Logger.Trace("HandlingEvent : Who: {0} Monster: {1} Ability: {2} Damage: {3} Hit: {4} Crit: {5} Resist: {6}", whoHit, mob, ability, damage, didHit, didCrit, resist);
                 ParseMod.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, mob);
                 if (resist)
                 {
@@ -138,7 +138,6 @@ namespace ParseModXIV.Data
                 }
                 var damage = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 var didCrit = !(String.IsNullOrWhiteSpace(Convert.ToString(mReg.Groups["crit"].Value)));
-                Logger.Trace("HandlingEvent : Hit: {0} Who: {1} Ability: {2} Monster: {3}", didHit, player, ability, mob);
                 if (Regex.IsMatch(player, @"^[Yy]our?$"))
                 {
                     player = Settings.Default.CharacterName;
@@ -147,6 +146,7 @@ namespace ParseModXIV.Data
                 {
                     return;
                 }
+                Logger.Trace("HandlingEvent : Who: {0} Monster: {1} Ability: {2} Damage: {3} Hit: {4} Crit: {5} Resist: {6}", player, mob, ability, damage, didHit, didCrit, resist);
                 ParseMod.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, mob);
                 ParseMod.Instance.Timeline.GetOrAddStatsForParty(player, StatMonitor.PartyDamage, StatMonitor.PartyHealing, StatMonitor.PartyTotalTaken).AddDamageStats(mob, ability, damage, didHit, didCrit, block);
                 if (ParseMod.Instance.TotalD.ContainsKey(player))
@@ -186,11 +186,11 @@ namespace ParseModXIV.Data
                 {
                     castOn = Settings.Default.CharacterName;
                 }
-                Logger.Trace("HandlingEvent : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
                 if (String.IsNullOrWhiteSpace(whoDid))
                 {
                     return;
                 }
+                Logger.Trace("HandlingEvent : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
                 if (type == "PV")
                 {
                     ParseMod.Instance.Timeline.GetOrAddStatsForParty(whoDid, StatMonitor.PartyDamage, StatMonitor.PartyHealing, StatMonitor.PartyTotalTaken).AddHealingStats(ability, castOn, amount);

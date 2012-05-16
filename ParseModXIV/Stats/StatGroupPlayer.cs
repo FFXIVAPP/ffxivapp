@@ -5,22 +5,21 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
+using ParseModXIV;
+using ParseModXIV.Classes;
 using ParseModXIV.Monitors;
 
 namespace ParseModXIV.Stats
 {
     public class StatGroupPlayer : StatGroup
     {
-        private TotalStat _abilityTotalDamage;
-        private TotalStat _abilityRegularTotalDamage;
-        private TotalStat _abilityCritTotalDamage;
-        private AccuracyStat _percentOfOverallDamage;
+        private TotalStat _abilityTotal;
+        private TotalStat _abilityRegTotal;
+        private TotalStat _abilityCritTotal;
         private TotalStat _healingTotal;
-        private AccuracyStat _percentOfOverallHealing;
-        private TotalStat _abilityTotalDamageTaken;
-        private TotalStat _abilityRegularTotalDamageTaken;
-        private TotalStat _abilityCritTotalDamageTaken;
-        private AccuracyStat _percentOfOverallDamageTaken;
+        private TotalStat _abilityTotalDt;
+        private TotalStat _abilityRegTotalDt;
+        private TotalStat _abilityCritTotalDt;
 
         public StatGroupPlayer(string name, Stat<Decimal> overallDamage, Stat<Decimal> overallHealing, Stat<Decimal> overallDamageTaken) : base(name)
         {
@@ -29,20 +28,17 @@ namespace ParseModXIV.Stats
 
         private void InitStats(Stat<Decimal> overallDamage, Stat<Decimal> overallHealing, Stat<Decimal> overallDamageTaken)
         {
-            _abilityTotalDamage = new TotalStat("OverallAblility");
-            _abilityRegularTotalDamage = new TotalStat("RegularAblility");
-            _abilityCritTotalDamage = new TotalStat("CriticalAblility");
-            _percentOfOverallDamage = new AccuracyStat("PercentOfOverallAblility", _abilityTotalDamage, overallDamage);
+            _abilityTotal = new TotalStat("OverallAblility");
+            _abilityRegTotal = new TotalStat("RegularAblility");
+            _abilityCritTotal = new TotalStat("CriticalAblility");
             _healingTotal = new TotalStat("OverallHealing");
-            _percentOfOverallHealing = new AccuracyStat("PercentOfOverallHealing", _healingTotal, overallHealing);
-            _abilityTotalDamageTaken = new TotalStat("OverallTaken");
-            _abilityRegularTotalDamageTaken = new TotalStat("RegularTaken");
-            _abilityCritTotalDamageTaken = new TotalStat("CriticalTaken");
-            _percentOfOverallDamageTaken = new AccuracyStat("PercentOfOverallTaken", _abilityTotalDamage, overallDamage);
+            _abilityTotalDt = new TotalStat("OverallTaken");
+            _abilityRegTotalDt = new TotalStat("RegularTaken");
+            _abilityCritTotalDt = new TotalStat("CriticalTaken");
             Stats.AddStats(TotalStatList());
-            Stats.AddStats(_abilityTotalDamage, _abilityRegularTotalDamage, _abilityCritTotalDamage, _percentOfOverallDamage);
-            Stats.AddStats(_healingTotal, _percentOfOverallHealing);
-            Stats.AddStats(_abilityTotalDamageTaken, _abilityRegularTotalDamageTaken, _abilityCritTotalDamageTaken, _percentOfOverallDamageTaken);
+            Stats.AddStats(_abilityTotal, _abilityRegTotal, _abilityCritTotal);
+            Stats.AddStats(_healingTotal);
+            Stats.AddStats(_abilityTotalDt, _abilityRegTotalDt, _abilityCritTotalDt);
         }
 
         public void AddAbilityStats(string monster, string ability, decimal amount, bool didhit, bool didcrit, bool resisted)
@@ -52,7 +48,7 @@ namespace ParseModXIV.Stats
             if (!abilityGroup.TryGetGroup(ability, out subAGroup))
             {
                 subAGroup = new StatGroup(ability);
-                subAGroup.Stats.AddStats(AbilityStatList());
+                subAGroup.Stats.AddStats(AbilityStatList("a", null));
                 abilityGroup.AddGroup(subAGroup);
             }
             var monsterGroup = GetGroup("Monsters");
@@ -60,7 +56,7 @@ namespace ParseModXIV.Stats
             if (!monsterGroup.TryGetGroup(monster, out subMGroup))
             {
                 subMGroup = new StatGroup(monster);
-                subMGroup.Stats.AddStats(AbilityStatList());
+                subMGroup.Stats.AddStats(AbilityStatList("m", null));
                 monsterGroup.AddGroup(subMGroup);
             }
             var monsters = subMGroup.GetGroup("Abilities");
@@ -68,7 +64,7 @@ namespace ParseModXIV.Stats
             if (!monsters.TryGetGroup(ability, out subMaGroup))
             {
                 subMaGroup = new StatGroup(ability);
-                subMaGroup.Stats.AddStats(AbilityStatList());
+                subMaGroup.Stats.AddStats(AbilityStatList("ma", subMGroup));
                 monsters.AddGroup(subMaGroup);
             }
 
@@ -124,7 +120,7 @@ namespace ParseModXIV.Stats
             if (!abilityGroup.TryGetGroup(ability, out subAGroup))
             {
                 subAGroup = new StatGroup(ability);
-                subAGroup.Stats.AddStats(HealingStatList());
+                subAGroup.Stats.AddStats(HealingStatList("a", null));
                 abilityGroup.AddGroup(subAGroup);
             }
             var playerGroup = GetGroup("Players");
@@ -132,7 +128,7 @@ namespace ParseModXIV.Stats
             if (!playerGroup.TryGetGroup(caston, out subPGroup))
             {
                 subPGroup = new StatGroup(caston);
-                subPGroup.Stats.AddStats(HealingStatList());
+                subPGroup.Stats.AddStats(HealingStatList("p", null));
                 playerGroup.AddGroup(subPGroup);
             }
             var abilities = subPGroup.GetGroup("Abilities");
@@ -140,7 +136,7 @@ namespace ParseModXIV.Stats
             if (!abilities.TryGetGroup(ability, out subPaGroup))
             {
                 subPaGroup = new StatGroup(ability);
-                subPaGroup.Stats.AddStats(HealingStatList());
+                subPaGroup.Stats.AddStats(HealingStatList("pa", subPGroup));
                 abilities.AddGroup(subPaGroup);
             }
             Stats.GetStat("H Total").Value += amount;
@@ -156,7 +152,7 @@ namespace ParseModXIV.Stats
             if (!damageGroup.TryGetGroup(monster, out subMGroup))
             {
                 subMGroup = new StatGroup(monster);
-                subMGroup.Stats.AddStats(DamageStatList());
+                subMGroup.Stats.AddStats(DamageStatList("m", null));
                 damageGroup.AddGroup(subMGroup);
             }
             var abilities = subMGroup.GetGroup("Abilities");
@@ -164,7 +160,7 @@ namespace ParseModXIV.Stats
             if (!abilities.TryGetGroup(ability, out subMaGroup))
             {
                 subMaGroup = new StatGroup(ability);
-                subMaGroup.Stats.AddStats(DamageStatList());
+                subMaGroup.Stats.AddStats(DamageStatList("a", subMGroup));
                 abilities.AddGroup(subMaGroup);
             }
 
@@ -254,17 +250,32 @@ namespace ParseModXIV.Stats
             return new Stat<decimal>[] {totalStat, regularTotalStat, critTotalStat, healTotalStat, hitStat, cHitStat, missStat, accuracyStat, evadeStat, damagePctStat, cDamagePctStat, critPctStat, healingPctStat, minStat, maxStat, minCStat, maxCStat, minHStat, maxHStat, avgDamageStat, avgCDamageStat, avgHealingStat, dpsStat, hpsStat, totalDtStat, totalDtrStat, totalDtcStat, dtHitStat, dtcHitStat, damageDtPctStat, cDamageDtPctStat, minDtStat, maxDtStat, minDtcStat, maxDtcStat, avgDtDamageStat, avgDtcDamageStat, dtpsStat};
         }
 
-        private Stat<Decimal>[] AbilityStatList()
+        private Stat<Decimal>[] AbilityStatList(string type, StatGroup sub)
         {
             var totalStat = new CounterStat("Total");
             var dpsStat = new PerSecondAverageStat("DPS", totalStat);
             var regularTotalStat = new CounterStat("Reg");
             var critTotalStat = new CounterStat("Crit");
-            _abilityTotalDamage.AddDependency(totalStat);
-            _abilityRegularTotalDamage.AddDependency(regularTotalStat);
-            _abilityCritTotalDamage.AddDependency(critTotalStat);
-            var abilityPctStat = new PercentStat("% of Reg", regularTotalStat, StatMonitor.PartyDamage);
-            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, StatMonitor.PartyCritDamage);
+            Stat<Decimal> abilityPctStat = null;
+            Stat<Decimal> abilityCPctStat = null;
+            switch (type)
+            {
+                case "a":
+                    _abilityTotal.AddDependency(totalStat);
+                    _abilityRegTotal.AddDependency(regularTotalStat);
+                    _abilityCritTotal.AddDependency(critTotalStat);
+                    abilityPctStat = new PercentStat("% of Reg", regularTotalStat, Stats.GetStat("Reg"));
+                    abilityCPctStat = new PercentStat("% of Crit", critTotalStat, Stats.GetStat("Crit"));
+                    break;
+                case "m":
+                    abilityPctStat = new PercentStat("% of Reg", regularTotalStat, Stats.GetStat("RegularAblility"));
+                    abilityCPctStat = new PercentStat("% of Crit", critTotalStat, Stats.GetStat("CriticalAblility"));
+                    break;
+                case "ma":
+                    abilityPctStat = new PercentStat("% of Reg", regularTotalStat, sub.Stats.GetStat("Reg"));
+                    abilityCPctStat = new PercentStat("% of Crit", critTotalStat, sub.Stats.GetStat("Crit"));
+                    break;
+            }
             var hitStat = new CounterStat("Hit");
             var missStat = new CounterStat("Miss");
             var resistStat = new CounterStat("Resist");
@@ -280,33 +291,59 @@ namespace ParseModXIV.Stats
             return new Stat<decimal>[] { totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat };
         }
 
-        private Stat<Decimal>[] HealingStatList()
+        private Stat<Decimal>[] HealingStatList(string type, StatGroup sub)
         {
             var totalStat = new CounterStat("Total");
             var dpsStat = new PerSecondAverageStat("HPS", totalStat);
-            _healingTotal.AddDependency(totalStat);
-            var healingPctStat = new PercentStat("% of Heal", totalStat, StatMonitor.PartyHealing);
+            Stat<Decimal> healingPctStat = null;
+            switch (type)
+            {
+                case "a":
+                    _healingTotal.AddDependency(totalStat);
+                    healingPctStat = new PercentStat("% of Heal", totalStat, Stats.GetStat("H Total"));
+                    break;
+                case "p":
+                    healingPctStat = new PercentStat("% of Heal", totalStat, Stats.GetStat("OverallHealing"));
+                    break;
+                case "pa":
+                    healingPctStat = new PercentStat("% of Heal", totalStat, sub.Stats.GetStat("Total"));
+                    break;
+            }
             var minStat = new MinStat("Low", totalStat);
             var maxStat = new MaxStat("High", totalStat);
             var avgHealingStat = new AverageStat("Avg", totalStat);
             return new Stat<decimal>[] {totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat};
         }
 
-        private Stat<Decimal>[] DamageStatList()
+        private Stat<Decimal>[] DamageStatList(string type, StatGroup sub)
         {
             var totalStat = new CounterStat("Total");
             var dpsStat = new PerSecondAverageStat("DTPS", totalStat);
             var regularTotalStat = new CounterStat("Reg");
             var critTotalStat = new CounterStat("Crit");
-            _abilityTotalDamage.AddDependency(totalStat);
-            _abilityRegularTotalDamage.AddDependency(regularTotalStat);
-            _abilityCritTotalDamage.AddDependency(critTotalStat);
-            var abilityPctStat = new PercentStat("% of Reg", totalStat, StatMonitor.PartyTotalRTaken);
-            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, StatMonitor.PartyTotalCTaken);
+            Stat<Decimal> abilityPctStat = null;
+            Stat<Decimal> abilityCPctStat = null;
+            switch (type)
+            {
+                case "m":
+                    _abilityTotal.AddDependency(totalStat);
+                    _abilityRegTotal.AddDependency(regularTotalStat);
+                    _abilityCritTotal.AddDependency(critTotalStat);
+                    abilityPctStat = new PercentStat("% of Reg", regularTotalStat, Stats.GetStat("DT Reg"));
+                    abilityCPctStat = new PercentStat("% of Crit", critTotalStat, Stats.GetStat("DT Crit"));
+                    break;
+                case "a":
+                    abilityPctStat = new PercentStat("% of Reg", regularTotalStat, sub.Stats.GetStat("Reg"));
+                    abilityCPctStat = new PercentStat("% of Crit", critTotalStat, sub.Stats.GetStat("Crit"));
+                    break;
+            }
             var hitStat = new CounterStat("Hit");
-            var blockStat = new CounterStat("Block");
-            var blockPctStat = new PercentStat("Block %", blockStat, hitStat);
+            var attackStat = new TotalStat("A Hit");
             var chitStat = new CounterStat("C Hit");
+            attackStat.AddDependency(hitStat);
+            attackStat.AddDependency(chitStat);
+            var blockStat = new CounterStat("Block");
+            var blockPctStat = new PercentStat("Block %", blockStat, attackStat);
             var minStat = new MinStat("Low", regularTotalStat);
             var maxStat = new MaxStat("High", regularTotalStat);
             var cminStat = new MinStat("C Low", critTotalStat);

@@ -79,13 +79,11 @@ namespace ParseModXIV.Monitors
         {
             var mCode = "00" + e.Code.ToString("X");
             var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-            var cleaned = XmlCleaner.SanitizeXmlString(e.RawLine);
-            Logger.Debug("ParseEvent : Parsing line of cleaned : {0}", cleaned);
-            Logger.Debug("ParseEvent : Parsing line of raw : {0}", e.RawLine);
             foreach (var tmp in RegExps.Mobbies)
             {
                 e.RawLine = Regex.Replace(e.RawLine, tmp, tmp.Replace("'s", ""));
             }
+            var cleaned = XmlCleaner.SanitizeXmlString(e.RawLine);
             switch (Settings.Default.Language)
             {
                 case "English":
@@ -107,6 +105,58 @@ namespace ParseModXIV.Monitors
             }
 
             #endregion
+        }
+
+        private static string CleanAccent(string originalText)
+        {
+            var strTemp = originalText;
+            var regA = new Regex("[ã|à|â|ä|á|å]");
+            var regAa = new Regex("[Ã|À|Â|Ä|Á|Å]");
+            var regE = new Regex("[é|è|ê|ë]");
+            var regEe = new Regex("[É|È|Ê|Ë]");
+            var regI = new Regex("[í|ì|î|ï]");
+            var regIi = new Regex("[Í|Ì|Î|Ï]");
+            var regO = new Regex("[õ|ò|ó|ô|ö]");
+            var regOo = new Regex("[Õ|Ó|Ò|Ô|Ö]");
+            var regU = new Regex("[ù|ú|û|ü|µ]");
+            var regUu = new Regex("[Ü|Ú|Ù|Û]");
+            var regY = new Regex("[ý|ÿ]");
+            var regYy = new Regex("[Ý]");
+            var regAe = new Regex("[æ]");
+            var regAeae = new Regex("[Æ]");
+            var regOe = new Regex("[œ]");
+            var regOeoe = new Regex("[Œ]");
+            var regC = new Regex("[ç]");
+            var regCc = new Regex("[Ç]");
+            var regDd = new Regex("[Ð]");
+            var regN = new Regex("[ñ]");
+            var regNn = new Regex("[Ñ]");
+            var regS = new Regex("[š]");
+            var regSs = new Regex("[Š]");
+            strTemp = regA.Replace(strTemp, "a");
+            strTemp = regAa.Replace(strTemp, "A");
+            strTemp = regE.Replace(strTemp, "e");
+            strTemp = regEe.Replace(strTemp, "E");
+            strTemp = regI.Replace(strTemp, "i");
+            strTemp = regIi.Replace(strTemp, "I");
+            strTemp = regO.Replace(strTemp, "o");
+            strTemp = regOo.Replace(strTemp, "O");
+            strTemp = regU.Replace(strTemp, "u");
+            strTemp = regUu.Replace(strTemp, "U");
+            strTemp = regY.Replace(strTemp, "y");
+            strTemp = regYy.Replace(strTemp, "Y");
+            strTemp = regAe.Replace(strTemp, "ae");
+            strTemp = regAeae.Replace(strTemp, "AE");
+            strTemp = regOe.Replace(strTemp, "oe");
+            strTemp = regOeoe.Replace(strTemp, "OE");
+            strTemp = regC.Replace(strTemp, "c");
+            strTemp = regCc.Replace(strTemp, "C");
+            strTemp = regDd.Replace(strTemp, "D");
+            strTemp = regN.Replace(strTemp, "n");
+            strTemp = regNn.Replace(strTemp, "N");
+            strTemp = regS.Replace(strTemp, "s");
+            strTemp = regSs.Replace(strTemp, "S");
+            return strTemp;
         }
     }
 }

@@ -203,11 +203,14 @@ namespace ParseModXIV.Model
         /// <param name="line"></param>
         public void ParseAndPublish(UInt16 code, string line)
         {
-            var e = Parse(code, line);
-            var tmp = e.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
-            if (tmp != null)
+            lock (this)
             {
-                tmp(this, e);
+                var e = Parse(code, line);
+                var tmp = e.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
+                if (tmp != null)
+                {
+                    tmp(this, e);
+                }
             }
         }
 

@@ -45,7 +45,6 @@ namespace ParseModXIV.Classes
                     AppendFlow(mTimeStamp, mLine, "#FFFFFFFF", MainWindow.View.MainTabControlViewModel.MobAbility_FDR);
                 }
             }
-
             Func<bool> d = delegate
                            {
                                EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mLine);
