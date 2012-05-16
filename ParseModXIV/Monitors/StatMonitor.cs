@@ -17,13 +17,13 @@ namespace ParseModXIV.Monitors
 {
     public class StatMonitor : EventMonitor
     {
-        internal static readonly TotalStat TotalDamage = new TotalStat("Overall Damage");
-        internal static readonly TotalStat PartyDamage = new TotalStat("Reg Damage");
-        internal static readonly TotalStat PartyCritDamage = new TotalStat("Crit Damage");
-        internal static readonly TotalStat PartyHealing = new TotalStat("Overall Healing");
-        internal static readonly TotalStat PartyTotalTaken = new TotalStat("Overall Taken");
-        internal static readonly TotalStat PartyTotalRTaken = new TotalStat("Reg Taken");
-        internal static readonly TotalStat PartyTotalCTaken = new TotalStat("Crit Taken");
+        internal static readonly TotalStat TotalDamage = new TotalStat("TotalDamage");
+        internal static readonly TotalStat PartyDamage = new TotalStat("PartyDamage");
+        internal static readonly TotalStat PartyCritDamage = new TotalStat("PartyCritDamage");
+        internal static readonly TotalStat PartyHealing = new TotalStat("PartyHealing");
+        internal static readonly TotalStat PartyTotalTaken = new TotalStat("PartyTotalTaken");
+        internal static readonly TotalStat PartyTotalRTaken = new TotalStat("PartyTotalRTaken");
+        internal static readonly TotalStat PartyTotalCTaken = new TotalStat("PartyTotalCTaken");
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -107,6 +107,11 @@ namespace ParseModXIV.Monitors
             #endregion
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="originalText"></param>
+        /// <returns></returns>
         private static string CleanAccent(string originalText)
         {
             var strTemp = originalText;
