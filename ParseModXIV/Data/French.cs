@@ -34,15 +34,27 @@ namespace ParseModXIV.Data
 
             if (e.Type == EventType.Attack && e.Direction == EventDirection.By)
             {
-                var mReg = RegExpsFr.Damage.Match(e.RawLine);
+                var mReg = RegExpsFr.Damage.Match(cleaned);
                 if (!mReg.Success)
                 {
-                    Logger.Warn("MatchEvent : No match for Damage on line {0}", e.RawLine);
-                    mReg = RegExpsFr.Resists.Match(e.RawLine);
+                    Logger.Warn("MatchEvent : No match for Damage on line {0}", cleaned);
+                    mReg = RegExpsFr.Resists.Match(cleaned);
                     if (!mReg.Success)
                     {
-                        Logger.Warn("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
-                        ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
+                        Logger.Warn("MatchEvent : No match for Resists or Evades on line {0}", cleaned);
+                        mReg = RegExpsFr.Additional.Match(cleaned);
+                        if (!mReg.Success)
+                        {
+                            Logger.Warn("MatchEvent : No match for Additional on line {0}", cleaned);
+                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
+                            return;
+                        }
+                        if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
+                        {
+                            var added = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
+                            ParseMod.Instance.Timeline.GetOrAddStatsForParty(_lastAttacker, StatMonitor.PartyDamage, StatMonitor.PartyHealing, StatMonitor.PartyTotalTaken).AddAbilityStats(_lastAttacked, "Effet Supplémentaire", added, true, false, false);
+                        }
                         return;
                     }
                 }
@@ -76,6 +88,8 @@ namespace ParseModXIV.Data
                     ParseMod.Instance.Timeline.GetOrAddStatsForMob(mob).AddAbilityStats(ability, damage, false, false, didCrit);
                 }
                 ParseMod.Instance.Timeline.GetOrAddStatsForParty(whoHit, StatMonitor.PartyDamage, StatMonitor.PartyHealing, StatMonitor.PartyTotalTaken).AddAbilityStats(mob, ability, damage, didHit, didCrit, resist);
+                _lastAttacker = whoHit;
+                _lastAttacked = mob;
                 if (ParseMod.Instance.TotalA.ContainsKey(whoHit))
                 {
                     ParseMod.Instance.TotalA[whoHit] = ParseMod.Instance.Timeline.Party.GetGroup(whoHit).GetStatValue("Total").ToString();
@@ -92,18 +106,18 @@ namespace ParseModXIV.Data
 
             if (e.Type == EventType.Attack && e.Direction == EventDirection.On)
             {
-                var mReg = RegExpsFr.DamageToPlayer.Match(e.RawLine);
+                var mReg = RegExpsFr.DamageToPlayer.Match(cleaned);
                 if (!mReg.Success)
                 {
-                    Logger.Warn("MatchEvent : No match for Damage Taken on line {0}", e.RawLine);
-                    mReg = RegExpsFr.Resists.Match(e.RawLine);
+                    Logger.Warn("MatchEvent : No match for Damage Taken on line {0}", cleaned);
+                    mReg = RegExpsFr.Resists.Match(cleaned);
                     if (!mReg.Success)
                     {
-                        Logger.Warn("MatchEvent : No match for Resists or Evades on line {0}", e.RawLine);
-                        mReg = RegExpsFr.Blocks.Match(e.RawLine);
+                        Logger.Warn("MatchEvent : No match for Resists or Evades on line {0}", cleaned);
+                        mReg = RegExpsFr.Blocks.Match(cleaned);
                         if (!mReg.Success)
                         {
-                            Logger.Warn("MatchEvent : No match for Blocks on line {0}", e.RawLine);
+                            Logger.Warn("MatchEvent : No match for Blocks on line {0}", cleaned);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
                             ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                             return;
@@ -151,10 +165,10 @@ namespace ParseModXIV.Data
 
             if (e.Type == EventType.Heal)
             {
-                var hReg = RegExpsFr.UseOnParty.Match(e.RawLine);
+                var hReg = RegExpsFr.UseOnParty.Match(cleaned);
                 if (!hReg.Success)
                 {
-                    Logger.Warn("MatchEvent : No match for Healing on line {0}", e.RawLine);
+                    Logger.Warn("MatchEvent : No match for Healing on line {0}", cleaned);
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
                     return;
                 }

@@ -263,8 +263,8 @@ namespace ParseModXIV.Stats
             _abilityTotalDamage.AddDependency(totalStat);
             _abilityRegularTotalDamage.AddDependency(regularTotalStat);
             _abilityCritTotalDamage.AddDependency(critTotalStat);
-            var abilityPctStat = new PercentStat("% of Reg", regularTotalStat, _abilityTotalDamage);
-            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, _abilityCritTotalDamage);
+            var abilityPctStat = new PercentStat("% of Reg", regularTotalStat, StatMonitor.PartyDamage);
+            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, StatMonitor.PartyCritDamage);
             var hitStat = new CounterStat("Hit");
             var missStat = new CounterStat("Miss");
             var resistStat = new CounterStat("Resist");
@@ -277,7 +277,7 @@ namespace ParseModXIV.Stats
             var cmaxStat = new MaxStat("C High", critTotalStat);
             var avgDamageStat = new AverageStat("Avg", regularTotalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
-            return new Stat<decimal>[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
+            return new Stat<decimal>[] { totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat };
         }
 
         private Stat<Decimal>[] HealingStatList()
@@ -285,7 +285,7 @@ namespace ParseModXIV.Stats
             var totalStat = new CounterStat("Total");
             var dpsStat = new PerSecondAverageStat("HPS", totalStat);
             _healingTotal.AddDependency(totalStat);
-            var healingPctStat = new PercentStat("% of Heal", totalStat, _healingTotal);
+            var healingPctStat = new PercentStat("% of Heal", totalStat, StatMonitor.PartyHealing);
             var minStat = new MinStat("Low", totalStat);
             var maxStat = new MaxStat("High", totalStat);
             var avgHealingStat = new AverageStat("Avg", totalStat);
@@ -301,8 +301,8 @@ namespace ParseModXIV.Stats
             _abilityTotalDamage.AddDependency(totalStat);
             _abilityRegularTotalDamage.AddDependency(regularTotalStat);
             _abilityCritTotalDamage.AddDependency(critTotalStat);
-            var abilityPctStat = new PercentStat("% of Reg", totalStat, _abilityTotalDamage);
-            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, _abilityCritTotalDamage);
+            var abilityPctStat = new PercentStat("% of Reg", totalStat, StatMonitor.PartyTotalRTaken);
+            var abilityCPctStat = new PercentStat("% of Crit", critTotalStat, StatMonitor.PartyTotalCTaken);
             var hitStat = new CounterStat("Hit");
             var blockStat = new CounterStat("Block");
             var blockPctStat = new PercentStat("Block %", blockStat, hitStat);
