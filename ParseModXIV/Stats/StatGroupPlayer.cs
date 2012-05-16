@@ -5,8 +5,6 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using ParseModXIV;
-using ParseModXIV.Classes;
 using ParseModXIV.Monitors;
 
 namespace ParseModXIV.Stats
@@ -288,7 +286,7 @@ namespace ParseModXIV.Stats
             var cmaxStat = new MaxStat("C High", critTotalStat);
             var avgDamageStat = new AverageStat("Avg", regularTotalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
-            return new Stat<decimal>[] { totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat };
+            return new[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
         }
 
         private Stat<Decimal>[] HealingStatList(string type, StatGroup sub)
@@ -312,7 +310,7 @@ namespace ParseModXIV.Stats
             var minStat = new MinStat("Low", totalStat);
             var maxStat = new MaxStat("High", totalStat);
             var avgHealingStat = new AverageStat("Avg", totalStat);
-            return new Stat<decimal>[] {totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat};
+            return new[] {totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat};
         }
 
         private Stat<Decimal>[] DamageStatList(string type, StatGroup sub)
@@ -350,7 +348,7 @@ namespace ParseModXIV.Stats
             var cmaxStat = new MaxStat("C High", critTotalStat);
             var avgDamageStat = new AverageStat("Avg", regularTotalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
-            return new Stat<decimal>[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, blockStat, blockPctStat, chitStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
+            return new[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, blockStat, blockPctStat, chitStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
         }
     }
 }
