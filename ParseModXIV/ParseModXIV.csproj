@@ -80,8 +80,10 @@
     <Compile Include="Classes\RegExps.cs" />
     <Compile Include="Classes\RegExpsEn.cs" />
     <Compile Include="Classes\RegExpsFr.cs" />
+    <Compile Include="Classes\RegExpsJa.cs" />
     <Compile Include="Data\English.cs" />
     <Compile Include="Data\French.cs" />
+    <Compile Include="Data\Japanese.cs" />
     <Compile Include="Model\EventCode.cs" />
     <Compile Include="Model\EventCodeComparer.cs" />
     <Compile Include="Model\EventDirection.cs" />

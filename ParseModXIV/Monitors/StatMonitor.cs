@@ -93,6 +93,8 @@ namespace ParseModXIV.Monitors
                     French.Parse(mCode, mTimeStamp, cleaned, e);
                     break;
                 case "Japanese":
+                    Japanese.Parse(mCode, mTimeStamp, cleaned, e);
+                    break;
                 case "German":
                     break;
             }
