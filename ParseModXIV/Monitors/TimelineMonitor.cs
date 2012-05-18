@@ -57,7 +57,7 @@ namespace ParseModXIV.Monitors
                     matches = RegExpsFr.Defeated.Match(line);
                     break;
                 case "Japanese":
-                    //matches = RegExpsJa.Defeated.Match(line);
+                    matches = RegExpsJa.Defeated.Match(line);
                     break;
             }
             if (matches == null || !matches.Success)
@@ -112,12 +112,12 @@ namespace ParseModXIV.Monitors
                     }
                     break;
                 case "Japanese":
-                    //matches = RegExpsJa.Obtains.Match(line);
-                    //if (matches.Success)
-                    //{
-                    //    var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true);
-                    //    AddDrop(thing);
-                    //}
+                    matches = RegExpsJa.Obtains.Match(line);
+                    if (matches.Success)
+                    {
+                        var thing = ParseMod.TitleCase(matches.Groups["item"].Value, true).Replace("」", "");
+                        AddDrop(thing);
+                    }
                     break;
             }
         }
@@ -209,28 +209,28 @@ namespace ParseModXIV.Monitors
                     }
                     break;
                 case "Japanese":
-                    //matches = RegExpsJa.JoinParty.Match(line);
-                    //if (matches.Success)
-                    //{
-                    //    var whoJoined = matches.Groups["whoJoined"].Value;
-                    //    Logger.Debug("PartyEvent : Joined {0}", whoJoined);
-                    //    ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
-                    //}
-                    //else if (RegExpsJa.DisbandParty.Match(line).Success)
-                    //{
-                    //    Logger.Debug("PartyEvent : Disbanned");
-                    //    ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
-                    //}
-                    //else
-                    //{
-                    //    var leftParty = RegExpsJa.LeaveParty.Match(line);
-                    //    if (leftParty.Success)
-                    //    {
-                    //        var whoLeft = leftParty.Groups["whoLeft"].Value;
-                    //        Logger.Debug("PartyEvent : Left {0}", whoLeft);
-                    //        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
-                    //    }
-                    //}
+                    matches = RegExpsJa.JoinParty.Match(line);
+                    if (matches.Success)
+                    {
+                        var whoJoined = matches.Groups["whoJoined"].Value;
+                        Logger.Debug("PartyEvent : Joined {0}", whoJoined);
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, whoJoined);
+                    }
+                    else if (RegExpsJa.DisbandParty.Match(line).Success)
+                    {
+                        Logger.Debug("PartyEvent : Disbanned");
+                        ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
+                    }
+                    else
+                    {
+                        var leftParty = RegExpsJa.LeaveParty.Match(line);
+                        if (leftParty.Success)
+                        {
+                            var whoLeft = leftParty.Groups["whoLeft"].Value;
+                            Logger.Debug("PartyEvent : Left {0}", whoLeft);
+                            ParseModInstance.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, whoLeft);
+                        }
+                    }
                     break;
             }
         }
