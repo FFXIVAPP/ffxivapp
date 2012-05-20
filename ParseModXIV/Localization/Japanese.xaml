@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Loc_English"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="loc_file">ファイル</system:String>
+    <system:String x:Key="loc_defaultsettings">デフォルト設定</system:String>
+    <system:String x:Key="loc_exit">終了する</system:String>
+    <system:String x:Key="loc_view">表示</system:String>
+    <system:String x:Key="loc_mobability">暴徒能力</system:String>
+    <system:String x:Key="loc_partystats">パーティ統計</system:String>
+    <system:String x:Key="loc_healingstats">ヒーリング統計</system:String>
+    <system:String x:Key="loc_damagestats">被害統計</system:String>
+    <system:String x:Key="loc_monsterstats">モンスターの統計</system:String>
+    <system:String x:Key="loc_debug">デバッグ</system:String>
+    <system:String x:Key="loc_logtools">ツールのログ</system:String>
+    <system:String x:Key="loc_settings">設定</system:String>
+    <system:String x:Key="loc_uploadbattledata">バトルデータをアップロードする</system:String>
+    <system:String x:Key="loc_autosaverawxml">自動保存原材料（XML）</system:String>
+    <system:String x:Key="loc_autosaveparsedxml">自動保存は、解析された（XML）</system:String>
+    <system:String x:Key="loc_alwaysontop">常に手前に</system:String>
+    <system:String x:Key="loc_options">オプション</system:String>
+    <system:String x:Key="loc_help">助け</system:String>
+    <system:String x:Key="loc_about">約</system:String>
+    <system:String x:Key="loc_character">文字</system:String>
+    <system:String x:Key="loc_attachprocess">プロセスをアタッチ</system:String>
+    <system:String x:Key="loc_refresh">リフレッシュ</system:String>
+    <system:String x:Key="loc_basic">基本的な</system:String>
+    <system:String x:Key="loc_togglelogging">ロギングを切り替える</system:String>
+    <system:String x:Key="loc_reset">リセット</system:String>
+    <system:String x:Key="loc_capture">キャプチャー</system:String>
+    <system:String x:Key="loc_copy">コピーします。</system:String>
+    <system:String x:Key="loc_overalldamage">全体的なダメージ:</system:String>
+    <system:String x:Key="loc_accuracy">精度:</system:String>
+    <system:String x:Key="loc_critical">クリティカル％:</system:String>
+    <system:String x:Key="loc_abilitiesbycharacter">能力（文字）</system:String>
+    <system:String x:Key="loc_monstersattackedbyselectedcharacter">モンスター（選択した文字）が攻撃さ）</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedmonster">機能の詳細（選択したモンスターオン）</system:String>
+    <system:String x:Key="loc_playershealedbyselectedcharacter">プレイヤーは、（選択した文字）癒され）</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedplayer">機能の詳細（選択したプレーヤオン）</system:String>
+    <system:String x:Key="loc_monstersattackedbycharacter">モンスターは（文字で）が攻撃）</system:String>
+    <system:String x:Key="loc_abilitydetailsbyselectedcharacter">機能の詳細（選択した文字）</system:String>
+    <system:String x:Key="loc_monstersattacked">モンスターは攻撃を受けた</system:String>
+    <system:String x:Key="loc_monsterdrops">モンスタードロップ</system:String>
+</ResourceDictionary>

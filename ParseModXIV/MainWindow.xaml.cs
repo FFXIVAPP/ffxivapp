@@ -66,6 +66,8 @@ namespace ParseModXIV
                 rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/ParseModXIV.xaml"));
                 Resources.MergedDictionaries.Add(rd);
             }
+            var dict = new ResourceDictionary { Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language)) };
+            Resources.MergedDictionaries.Add(dict);
             InitializeComponent();
             Main_ToolBar_View.gui_Maximize.Visibility = Visibility.Visible;
             Main_ToolBar_View.gui_Restore.Visibility = Visibility.Collapsed;
@@ -103,19 +105,6 @@ namespace ParseModXIV
                                              checkLibrary.BeginInvoke(libresult => { }, null);
                                          }
                                      }, null);
-            if (File.Exists("./nlgo"))
-            {
-                //gui_LogoContainer.Visibility = Visibility.Collapsed;
-            }
-            //if (File.Exists("./Resources/Logos/parsemod.jpg"))
-            //{
-            //    BitmapImage src = new BitmapImage();
-            //    src.BeginInit();
-            //    src.UriSource = new Uri("./Resources/Logos/parsemod.jpg", UriKind.Relative);
-            //    src.CacheOption = BitmapCacheOption.OnLoad;
-            //    src.EndInit();
-            //    gui_Logo.Source = src;
-            //}
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -132,19 +121,6 @@ namespace ParseModXIV
             Start();
             LoadXml();
             ApplySettings();
-            //ParseMod.Desc = "Day of hell~!";
-            //var uid = Settings.Default.CICUID + new Random().Next(0, 999999).ToString(CultureInfo.InvariantCulture);
-            //Hashing protocol = new Hashing();
-            //ParseMod.Uid = protocol.CalculateMd5Hash(uid);
-            //var json = "{\"uid\":\"" + ParseMod.Uid + "\",\"cicuid\":\"" + Settings.Default.CICUID + "\",\"parse_desc\":\"" + ParseMod.Desc + "\"}";
-            //Func<bool> sendJson = () => SubmitData("l", json);
-            //sendJson.BeginInvoke(result =>
-            //{
-            //    if (!sendJson.EndInvoke(result))
-            //    {
-
-            //    }
-            //}, null);
             if (Settings.Default.DebugMode)
             {
             }

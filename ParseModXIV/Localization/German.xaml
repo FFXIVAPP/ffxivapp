@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Loc_English"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="loc_file">Datei</system:String>
+    <system:String x:Key="loc_defaultsettings">Default Settings</system:String>
+    <system:String x:Key="loc_exit">Ausgang</system:String>
+    <system:String x:Key="loc_view">Sehen</system:String>
+    <system:String x:Key="loc_mobability">Mob Fähigkeit</system:String>
+    <system:String x:Key="loc_partystats">Partei-Statistik</system:String>
+    <system:String x:Key="loc_healingstats">Healing Stats</system:String>
+    <system:String x:Key="loc_damagestats">Damage Stats</system:String>
+    <system:String x:Key="loc_monsterstats">Monster Stats</system:String>
+    <system:String x:Key="loc_debug">Debuggen</system:String>
+    <system:String x:Key="loc_logtools">Melden Sie Werkzeuge</system:String>
+    <system:String x:Key="loc_settings">Einstellungen</system:String>
+    <system:String x:Key="loc_uploadbattledata">Hochladen Schlacht Von Daten</system:String>
+    <system:String x:Key="loc_autosaverawxml">Auto Save Raw (XML)</system:String>
+    <system:String x:Key="loc_autosaveparsedxml">Auto Save Analysierte (XML)</system:String>
+    <system:String x:Key="loc_alwaysontop">Immer Im Vordergrund</system:String>
+    <system:String x:Key="loc_options">Optionen</system:String>
+    <system:String x:Key="loc_help">Hilfe</system:String>
+    <system:String x:Key="loc_about">über</system:String>
+    <system:String x:Key="loc_character">Charakter</system:String>
+    <system:String x:Key="loc_attachprocess">Bringen Prozess</system:String>
+    <system:String x:Key="loc_refresh">erfrischen</system:String>
+    <system:String x:Key="loc_basic">Grundlegende</system:String>
+    <system:String x:Key="loc_togglelogging">Umschalten Logging</system:String>
+    <system:String x:Key="loc_reset">Zurücksetzen</system:String>
+    <system:String x:Key="loc_capture">Erfassen</system:String>
+    <system:String x:Key="loc_copy">Kopieren Sie</system:String>
+    <system:String x:Key="loc_overalldamage">Gesamtschaden:</system:String>
+    <system:String x:Key="loc_accuracy">Genauigkeit:</system:String>
+    <system:String x:Key="loc_critical">Kritische%:</system:String>
+    <system:String x:Key="loc_abilitiesbycharacter">Fähigkeiten (Für Zeichen)</system:String>
+    <system:String x:Key="loc_monstersattackedbyselectedcharacter">Monstern Angegriffen (Durch Ausgewählte Zeichen)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedmonster">Die Fähigkeit Informationen (Auf Ausgewählten Monster)</system:String>
+    <system:String x:Key="loc_playershealedbyselectedcharacter">Spieler Geheilt (Durch Ausgewählte Zeichen)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedplayer">Die Fähigkeit Informationen (Auf Ausgewählten Spieler)</system:String>
+    <system:String x:Key="loc_monstersattackedbycharacter">Monstern Angegriffen (Für Zeichen)</system:String>
+    <system:String x:Key="loc_abilitydetailsbyselectedcharacter">Ability Details (Durch Ausgewählte Zeichen)</system:String>
+    <system:String x:Key="loc_monstersattacked">Monstern Angegriffen</system:String>
+    <system:String x:Key="loc_monsterdrops">Monster-Drops</system:String>
+
+</ResourceDictionary>

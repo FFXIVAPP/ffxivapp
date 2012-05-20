@@ -21,23 +21,23 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
             </DockPanel.Effect>
             <StatusBar Background="WhiteSmoke" >
                 <StatusBarItem>
-                    <Button Content="Start Logging" x:Name="gui_ToggleLogging"
+                    <Button Content="{DynamicResource loc_togglelogging}" x:Name="gui_ToggleLogging"
                             Command="{Binding Path=ToggleLoggingCommand}" IsEnabled="False" />
                 </StatusBarItem>
                 <StatusBarItem>
-                    <Button Content="Reset" x:Name="gui_ResetStats"
+                    <Button Content="{DynamicResource loc_reset}" x:Name="gui_ResetStats"
                             Command="{Binding Path=ResetStatsCommand}" />
                 </StatusBarItem>
                 <StatusBarItem>
-                    <Button Content="Capture" x:Name="gui_ScreenShot"
+                    <Button Content="{DynamicResource loc_capture}" x:Name="gui_ScreenShot"
                             Command="{Binding Path=ScreenShotCommand}" />
                 </StatusBarItem>
                 <StatusBarItem>
-                    <Button Content="Copy" x:Name="gui_CopyStats"
+                    <Button Content="{DynamicResource loc_copy}" x:Name="gui_CopyStats"
                             Command="{Binding Path=CopyStatsCommand}" />
                 </StatusBarItem>
                 <StatusBarItem>
-                    <TextBox Width="200" x:Name="gui_UploadDESC" MaxLength="255" />
+                    <TextBox Width="200" x:Name="gui_UploadDESC" MaxLength="255" Visibility="Collapsed" />
                 </StatusBarItem>
             </StatusBar>
         </DockPanel>

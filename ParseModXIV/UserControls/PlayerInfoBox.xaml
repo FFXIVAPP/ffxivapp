@@ -75,9 +75,9 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
             <DockPanel LastChildFill="True">
                 <DockPanel DockPanel.Dock="Left">
                     <StackPanel Name="StatNamesPanel" Grid.Column="0" HorizontalAlignment="Left">
-                        <Label Style="{StaticResource StatLabelStyle}">Overall Damage:</Label>
-                        <Label Style="{StaticResource StatLabelStyle}">Accuracy:</Label>
-                        <Label Style="{StaticResource StatLabelStyle}">Crit %:</Label>
+                        <Label Style="{StaticResource StatLabelStyle}" Content="{DynamicResource loc_overalldamage}"></Label>
+                        <Label Style="{StaticResource StatLabelStyle}" Content="{DynamicResource loc_accuracy}"></Label>
+                        <Label Style="{StaticResource StatLabelStyle}" Content="{DynamicResource loc_critical}"></Label>
                     </StackPanel>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Right">

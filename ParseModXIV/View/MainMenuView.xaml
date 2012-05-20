@@ -23,52 +23,52 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="3" />
             </DockPanel.Effect>
             <Menu Height="23" IsMainMenu="True" Background="WhiteSmoke">
-                <MenuItem Header="File">
-                    <MenuItem Header="Default Settings" Name="gui_DefaultSettings"
+                <MenuItem Header="{DynamicResource loc_file}">
+                    <MenuItem Header="{DynamicResource loc_defaultsettings}" Name="gui_DefaultSettings"
                               Command="{Binding Path=DefaultSettingsCommand}" />
-                    <MenuItem Header="Exit" Name="gui_Exit"
+                    <MenuItem Header="{DynamicResource loc_exit}" Name="gui_Exit"
                               Command="{Binding Path=ExitCommand}" />
                 </MenuItem>
-                <MenuItem Header="View">
-                    <MenuItem Header="Mob Ability (Chat)" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MobAbility, Mode=TwoWay}" Name="Gui_MobAbility"
+                <MenuItem Header="{DynamicResource loc_view}">
+                    <MenuItem Header="{DynamicResource loc_mobability}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MobAbility, Mode=TwoWay}" Name="Gui_MobAbility"
                               Command="{Binding ToggleMobAbilityCommand}"/>
-                    <MenuItem Header="Party Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_Party, Mode=TwoWay}" Name="Gui_Party"
+                    <MenuItem Header="{DynamicResource loc_partystats}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_Party, Mode=TwoWay}" Name="Gui_Party"
                               Command="{Binding TogglePartyCommand}"/>
-                    <MenuItem Header="Healing Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_HealingStats, Mode=TwoWay}" Name="Gui_HealingStats"
+                    <MenuItem Header="{DynamicResource loc_healingstats}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_HealingStats, Mode=TwoWay}" Name="Gui_HealingStats"
                               Command="{Binding ToggleHealingStatsCommand}"/>
-                    <MenuItem Header="Damage Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DamageStats, Mode=TwoWay}" Name="Gui_DamageStats"
+                    <MenuItem Header="{DynamicResource loc_damagestats}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DamageStats, Mode=TwoWay}" Name="Gui_DamageStats"
                               Command="{Binding ToggleDamageStatsCommand}"/>
-                    <MenuItem Header="Monster Stats" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MonsterStats, Mode=TwoWay}" Name="Gui_MonsterStats"
+                    <MenuItem Header="{DynamicResource loc_monsterstats}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MonsterStats, Mode=TwoWay}" Name="Gui_MonsterStats"
                               Command="{Binding ToggleMonsterStatsCommand}"/>
-                    <MenuItem Header="Debug" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_Debug, Mode=TwoWay}" Name="Gui_Debug"
+                    <MenuItem Header="{DynamicResource loc_debug}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_Debug, Mode=TwoWay}" Name="Gui_Debug"
                               Command="{Binding ToggleDebugCommand}"/>
                 </MenuItem>
-                <MenuItem Header="Log Tools">
-                    <MenuItem Header="Settings" Name="gui_Settings"
+                <MenuItem Header="{DynamicResource loc_logtools}">
+                    <MenuItem Header="{DynamicResource loc_settings}" Name="gui_Settings"
                               Command="{Binding Path=ShowSettingsCommand}" />
-                    <MenuItem Header="Upload Battle Data" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_UploadData, Mode=TwoWay}" Name="gui_UploadData"
+                    <MenuItem Header="{DynamicResource loc_uploadbattledata}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_UploadData, Mode=TwoWay}" IsEnabled="False" Name="gui_UploadData"
                               Command="{Binding Path=UploadDataCommand}" />
-                    <MenuItem Header="Auto Save Raw (XML)" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_SaveLog, Mode=TwoWay}" Name="gui_SaveLog"
+                    <MenuItem Header="{DynamicResource loc_autosaverawxml}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_SaveLog, Mode=TwoWay}" Name="gui_SaveLog"
                               Command="{Binding Path=SaveLogCommand}" />
-                    <MenuItem IsEnabled="False" Header="Auto Save Parsed (XML)" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_ExportXML, Mode=TwoWay}" Name="gui_ExportXML"
+                    <MenuItem IsEnabled="False" Header="{DynamicResource loc_autosaveparsedxml}" IsChecked="{Binding Source={x:Static me:Settings.Default}, Path=Gui_ExportXML, Mode=TwoWay}" Name="gui_ExportXML"
                               Command="{Binding Path=ExportXmlCommand}" />
                     <Separator/>
-                    <MenuItem Header="Always On Top" IsChecked="{Binding Source={x:Static me:Settings.Default}, 
+                    <MenuItem Header="{DynamicResource loc_alwaysontop}" IsChecked="{Binding Source={x:Static me:Settings.Default}, 
 Path=TopMost, Mode=TwoWay}" Name="gui_TopMost" 
                               Command="{Binding Path=TopMostCommand}" />
                     <Separator/>
-                    <MenuItem Header="Options" Name="gui_Options" IsEnabled="False"
+                    <MenuItem Header="{DynamicResource loc_options}" Name="gui_Options" IsEnabled="False"
                               Command="{Binding Path=OptionsCommand}" />
                 </MenuItem>
-                <MenuItem Header="Help">
-                    <MenuItem Header="About" Name="gui_About"
+                <MenuItem Header="{DynamicResource loc_help}">
+                    <MenuItem Header="{DynamicResource loc_about}" Name="gui_About"
                               Command="{Binding Path=AboutCommand}" />
                 </MenuItem>
-                <MenuItem Header="Character">
+                <MenuItem Header="{DynamicResource loc_character}">
                     <ComboBox Name="gui_PIDSelect" />
-                    <MenuItem Header="Set Process" Name="gui_SetProcess"
+                    <MenuItem Header="{DynamicResource loc_attachprocess}" Name="gui_SetProcess"
                               Command="{Binding Path=SetProcessCommand}" />
-                    <MenuItem Header="Refresh List" Name="gui_RefreshList"
+                    <MenuItem Header="{DynamicResource loc_refresh}" Name="gui_RefreshList"
                               Command="{Binding Path=RefreshListCommand}" />
                 </MenuItem>
             </Menu>

@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Loc_English"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="loc_file">Dossier</system:String>
+    <system:String x:Key="loc_defaultsettings">Réglages Par Défaut</system:String>
+    <system:String x:Key="loc_exit">Sortie</system:String>
+    <system:String x:Key="loc_view">Voir</system:String>
+    <system:String x:Key="loc_mobability">Capacité Mob</system:String>
+    <system:String x:Key="loc_partystats">Parti Statistiques</system:String>
+    <system:String x:Key="loc_healingstats">Statistiques De Guérison</system:String>
+    <system:String x:Key="loc_damagestats">Statistiques Des Dommages</system:String>
+    <system:String x:Key="loc_monsterstats">Statistiques De Monster</system:String>
+    <system:String x:Key="loc_debug">Déboguer</system:String>
+    <system:String x:Key="loc_logtools">Connectez-Vous Outils</system:String>
+    <system:String x:Key="loc_settings">Paramètres</system:String>
+    <system:String x:Key="loc_uploadbattledata">Télécharger Les Données De Bataille</system:String>
+    <system:String x:Key="loc_autosaverawxml">Auto Save Raw (XML)</system:String>
+    <system:String x:Key="loc_autosaveparsedxml">Enregistrer Auto Parsed (XML)</system:String>
+    <system:String x:Key="loc_alwaysontop">Always On Top</system:String>
+    <system:String x:Key="loc_options">Options De</system:String>
+    <system:String x:Key="loc_help">Aider</system:String>
+    <system:String x:Key="loc_about">Sur</system:String>
+    <system:String x:Key="loc_character">Caractère</system:String>
+    <system:String x:Key="loc_attachprocess">Fixez Processus</system:String>
+    <system:String x:Key="loc_refresh">Rafraîchir</system:String>
+    <system:String x:Key="loc_basic">De Base</system:String>
+    <system:String x:Key="loc_togglelogging">Basculer L'exploitation Forestière</system:String>
+    <system:String x:Key="loc_reset">Remettre</system:String>
+    <system:String x:Key="loc_capture">Capturer</system:String>
+    <system:String x:Key="loc_copy">Copier</system:String>
+    <system:String x:Key="loc_overalldamage">L'ensemble Des Dégâts:</system:String>
+    <system:String x:Key="loc_accuracy">Précision:</system:String>
+    <system:String x:Key="loc_critical">% Critique:</system:String>
+    <system:String x:Key="loc_abilitiesbycharacter">Capacités (Par Caractère)</system:String>
+    <system:String x:Key="loc_monstersattackedbyselectedcharacter">Monstres Attaqué (Par Caractère Sélectionné)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedmonster">Détails Capacité (Le Monstre Sélectionné)</system:String>
+    <system:String x:Key="loc_playershealedbyselectedcharacter">Les Joueurs Guéris (Par Caractère Sélectionné)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedplayer">Détails Capacité (Le Joueur Sélectionné)</system:String>
+    <system:String x:Key="loc_monstersattackedbycharacter">Monstres Attaqué (par Caractère)</system:String>
+    <system:String x:Key="loc_abilitydetailsbyselectedcharacter">Détails Capacité (Par Caractère Sélectionné)</system:String>
+    <system:String x:Key="loc_monstersattacked">Monstres Attaqué</system:String>
+    <system:String x:Key="loc_monsterdrops">Des Monstres</system:String>
+
+</ResourceDictionary>

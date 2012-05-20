@@ -67,7 +67,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="3" Opacity=".7"/>
             </TabControl.Effect>
 
-            <TabItem Header="Basic">
+            <TabItem Header="{DynamicResource loc_basic}">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Party, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                         <ItemsControl.ItemTemplate>
@@ -84,7 +84,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem x:Name="MobAbility_TabItem" Header="Mob Ability (Chat)"
+            <TabItem x:Name="MobAbility_TabItem" Header="{DynamicResource loc_mobability}"
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MobAbilityVisibility, Mode=TwoWay}">
                 <FlowDocumentReader x:Name="MobAbility_FDR" ViewingMode="Scroll" BorderThickness="1" BorderBrush="#FF939393" IsTwoPageViewEnabled="False">
                     <FlowDocument Name="MobAbility_FLOW" PagePadding="5" TextAlignment="Left" Background="Black" Foreground="White" ColumnWidth="99999">
@@ -97,7 +97,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 </FlowDocumentReader>
             </TabItem>
 
-            <TabItem Header="Party Stats"
+            <TabItem Header="{DynamicResource loc_partystats}"
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_PartyVisibility, Mode=TwoWay}">
                 <ScrollViewer>
                     <StackPanel Margin="10">
@@ -138,7 +138,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=AbilityPlayerDetailCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Abilities (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_abilitiesbycharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_AbilityName"/>
                                 <ListView x:Name="AbilityPlayerDetail" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
@@ -178,7 +178,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=AbilityPlayerMonsterCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_monstersattackedbyselectedcharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="AbilityPlayerMonster" ItemsSource="{Binding Monsters}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -217,7 +217,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=AbilityPlayerMonsterDetailsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Ability Details (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_abilitydetailsonselectedmonster}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 
                                 <ListView x:Name="AbilityPlayerMonsterDetails" ItemsSource="{Binding Abilities}"  GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
@@ -256,7 +256,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Healing Stats"
+            <TabItem Header="{DynamicResource loc_healingstats}"
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_HealingVisibility, Mode=TwoWay}">
                 <ScrollViewer>
                     <StackPanel Margin="10">
@@ -287,7 +287,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=HealingAbiltiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Abilities (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_abilitiesbycharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_HealingName"/>
                                 <ListView x:Name="HealingAbilties" ItemsSource="{Binding Healing}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
@@ -315,7 +315,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=HealingPlayersCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Players Healed (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_playershealedbyselectedcharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="HealingPlayers" ItemsSource="{Binding Players}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -342,7 +342,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=HealingDetailsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Ability Details (Players)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_abilitydetailsonselectedplayer}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="HealingDetails" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -368,7 +368,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Damage Stats"
+            <TabItem Header="{DynamicResource loc_damagestats}"
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DamageVisibility, Mode=TwoWay}">
                 <ScrollViewer>
                     <StackPanel Margin="10">
@@ -406,7 +406,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=DamageDetailMonsterCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked By (Character)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_monstersattackedbycharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Name}" Visibility="Collapsed" x:Name="gui_DamageName"/>
                                 <ListView x:Name="DamageDetailMonster" ItemsSource="{Binding Damage}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
@@ -444,7 +444,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=DamageDetailAbiltiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Ability Details (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_abilitydetailsbyselectedcharacter}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="DamageDetailAbilties" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -480,7 +480,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Monster Stats" 
+            <TabItem Header="{DynamicResource loc_monsterstats}" 
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_MonsterStatsVisibility, Mode=TwoWay}">
                 <ScrollViewer>
                     <StackPanel Margin="10">
@@ -516,7 +516,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=MonsterDetailAbilitiesCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Attacked With (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_monstersattacked}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="MonsterDetailAbilities" ItemsSource="{Binding Abilities}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -551,7 +551,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Show ~ Hide"
                                             Command="{Binding Path=MonsterDetailsDropsCommand}" DataContext="{Binding Source={StaticResource MainTabControlViewModelDataSource}}" />
-                                    <TextBlock HorizontalAlignment="Left" Text="Monsters Drops (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="{DynamicResource loc_monsterdrops}" FontSize="12" FontWeight="Bold" Margin="2"/>
                                 </StackPanel>
                                 <ListView x:Name="MonsterDetailsDrops" ItemsSource="{Binding Drops}" GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                                     <ListView.View>
@@ -569,45 +569,11 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                 </ListView>
                             </StackPanel>
                         </DockPanel>
-                        <!--<DockPanel DataContext="{Binding SelectedItem, ElementName=AbilityPlayerMonster, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
-                            <StackPanel>
-                                <TextBlock HorizontalAlignment="Left" Text="Ability Details (Monster)" FontSize="12" FontWeight="Bold" Margin="2"/>
-                                <ListView ItemsSource="{Binding Abilities}"  GridViewColumnHeader.Click="SortHandler" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
-                                    <ListView.View>
-                                        <GridView AllowsColumnReorder="False">
-                                            <GridView.ColumnHeaderTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock FontSize="10" FontWeight="Bold" Margin="2,0,2,0" Text="{Binding}" Width="Auto" MinWidth="50"/>
-                                                </DataTemplate>
-                                            </GridView.ColumnHeaderTemplate>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"  Width="150" />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Total}" Header="Total"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding % of Reg, StringFormat=\{0:P2\}}" Header="% of Reg"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Hit}" Header="Hit"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Miss}" Header="Miss"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Resist}" Header="Resist"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Resist %, StringFormat=\{0:P2\}}" Header="Resist %"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Acc, StringFormat=\{0:P2\}}" Header="Acc"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Low}" Header="Low"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding High}" Header="High"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Avg, StringFormat=\{0:F2\}}" Header="Avg"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Crit}" Header="Crit"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding % of Crit, StringFormat=\{0:P2\}}" Header="% of Crit"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding C Hit}" Header="C Hit"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding C Low}" Header="C Low"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding C High}" Header="C High"  />
-                                            <GridViewColumn DisplayMemberBinding="{Binding C Avg, StringFormat=\{0:F2\}}" Header="C Avg"  />
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </StackPanel>
-                        </DockPanel>-->
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Debug" IsEnabled="True" Name="debugTab" 
+            <TabItem Header="{DynamicResource loc_debug}" IsEnabled="True" Name="debugTab" 
                      Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DebugVisibility, Mode=TwoWay}">
                 <UserControls:DebugWindow DataContext="{StaticResource ParseMod}" />
             </TabItem>

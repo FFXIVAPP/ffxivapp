@@ -161,6 +161,7 @@ namespace ParseModXIV.Classes
                 MainWindow.View.Title = "ParseModXIV ~ Final Fantasy XIV Not Found!";
                 return;
             }
+            MainWindow.View.Title = "ParseModXIV ~ OFF";
             MainStatusView.View.gui_ToggleLogging.IsEnabled = true;
             MainStatusView.View.gui_ResetStats.IsEnabled = true;
             var p = Process.GetProcessById(id);

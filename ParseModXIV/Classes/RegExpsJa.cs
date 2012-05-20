@@ -18,7 +18,7 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex DamageToPlayer = new Regex(@"^(?<whoHit>.+)は(?<player>.+)(?<didHit>に)((?<direction>.+)から「(?<ability>.+)」|「(?<ability>.+)」)　⇒　((?<crit>クリティカル！)　(?<amount>\d+)ダメージを与えた。$|(?<amount>\d+)ダメージを与えた。$)", DefaultOptions);
 
-        public static readonly Regex Counter = new Regex(@"^placeholder$", DefaultOptions);
+        public static readonly Regex Counter = new Regex(@"^(?<whoHit>.+)は(?<mob>.+)の.+(?<counter>カウンター。)　⇒　(?<amount>\d+)ダメージを与えた。$", DefaultOptions);
 
         //public static readonly Regex Food = new Regex(@"", DefaultOptions);
 

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Name="Loc_English"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <system:String x:Key="loc_file">File</system:String>
+    <system:String x:Key="loc_defaultsettings">Default Settings</system:String>
+    <system:String x:Key="loc_exit">Exit</system:String>
+    <system:String x:Key="loc_view">View</system:String>
+    <system:String x:Key="loc_mobability">Mob Ability</system:String>
+    <system:String x:Key="loc_partystats">Party Stats</system:String>
+    <system:String x:Key="loc_healingstats">Healing Stats</system:String>
+    <system:String x:Key="loc_damagestats">Damage Stats</system:String>
+    <system:String x:Key="loc_monsterstats">Monster Stats</system:String>
+    <system:String x:Key="loc_debug">Debug</system:String>
+    <system:String x:Key="loc_logtools">Log Tools</system:String>
+    <system:String x:Key="loc_settings">Settings</system:String>
+    <system:String x:Key="loc_uploadbattledata">Upload Battle Data</system:String>
+    <system:String x:Key="loc_autosaverawxml">Auto Save Raw (XML)</system:String>
+    <system:String x:Key="loc_autosaveparsedxml">Auto Save Parsed (XML)</system:String>
+    <system:String x:Key="loc_alwaysontop">Always On Top</system:String>
+    <system:String x:Key="loc_options">Options</system:String>
+    <system:String x:Key="loc_help">Help</system:String>
+    <system:String x:Key="loc_about">About</system:String>
+    <system:String x:Key="loc_character">Character</system:String>
+    <system:String x:Key="loc_attachprocess">Attach Process</system:String>
+    <system:String x:Key="loc_refresh">Refresh</system:String>
+    <system:String x:Key="loc_basic">Basic</system:String>
+    <system:String x:Key="loc_togglelogging">Toggle Logging</system:String>
+    <system:String x:Key="loc_reset">Reset</system:String>
+    <system:String x:Key="loc_capture">Capture</system:String>
+    <system:String x:Key="loc_copy">Copy</system:String>
+    <system:String x:Key="loc_overalldamage">Overall Damage:</system:String>
+    <system:String x:Key="loc_accuracy">Accuracy:</system:String>
+    <system:String x:Key="loc_critical">Critical %:</system:String>
+    <system:String x:Key="loc_abilitiesbycharacter">Abilities (By Character)</system:String>
+    <system:String x:Key="loc_monstersattackedbyselectedcharacter">Monsters Attacked (By Selected Character)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedmonster">Ability Details (On Selected Monster)</system:String>
+    <system:String x:Key="loc_playershealedbyselectedcharacter">Players Healed (By Selected Character)</system:String>
+    <system:String x:Key="loc_abilitydetailsonselectedplayer">Ability Details (On Selected Player)</system:String>
+    <system:String x:Key="loc_monstersattackedbycharacter">Monsters Attacked (By Character)</system:String>
+    <system:String x:Key="loc_abilitydetailsbyselectedcharacter">Ability Details (By Selected Character)</system:String>
+    <system:String x:Key="loc_monstersattacked">Monsters Attacked</system:String>
+    <system:String x:Key="loc_monsterdrops">Monster Drops</system:String>
+</ResourceDictionary>

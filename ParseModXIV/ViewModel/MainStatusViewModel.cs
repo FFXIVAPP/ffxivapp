@@ -153,8 +153,8 @@ namespace ParseModXIV.ViewModel
             ParseMod.Uid = Hashing.CalculateMd5Hash(uid);
             MainStatusView.View.gui_UploadDESC.IsEnabled = false;
             MainMenuView.View.gui_Settings.IsEnabled = false;
-            MainStatusView.View.gui_ToggleLogging.Content = "Stop Logging";
             ParseMod.Instance.IsLogging = true;
+            MainWindow.View.Title = "ParseModXIV ~ ON";
             if (!Settings.Default.Gui_UploadData || ParseMod.Desc == "")
             {
                 return;
@@ -174,7 +174,7 @@ namespace ParseModXIV.ViewModel
             MainStatusView.View.gui_UploadDESC.IsEnabled = true;
             MainMenuView.View.gui_Settings.IsEnabled = true;
             MainStatusView.View.gui_UploadDESC.Text = "";
-            MainStatusView.View.gui_ToggleLogging.Content = "Start Logging";
+            MainWindow.View.Title = "ParseModXIV ~ OFF";
             ParseMod.Instance.IsLogging = false;
         }
 
