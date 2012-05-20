@@ -26,7 +26,6 @@ using ParseModXIV.Classes;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
-using MessageBox = System.Windows.MessageBox;
 
 namespace ParseModXIV
 {
@@ -66,7 +65,7 @@ namespace ParseModXIV
                 rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/ParseModXIV.xaml"));
                 Resources.MergedDictionaries.Add(rd);
             }
-            var dict = new ResourceDictionary { Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language)) };
+            var dict = new ResourceDictionary {Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language))};
             Resources.MergedDictionaries.Add(dict);
             InitializeComponent();
             Main_ToolBar_View.gui_Maximize.Visibility = Visibility.Visible;
@@ -86,25 +85,66 @@ namespace ParseModXIV
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
-                                     {
-                                         if (checkUpdates.EndInvoke(appresult))
-                                         {
-                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                             if (msgbox == MessageBoxResult.Yes)
-                                             {
-                                                 Process.Start("http://ffxiv-app.com/products/");
-                                             }
-                                             var proc = Process.GetProcessesByName("ParseModXIV");
-                                             foreach (var p in proc)
-                                             {
-                                                 p.Kill();
-                                             }
-                                         }
-                                         else
-                                         {
-                                             checkLibrary.BeginInvoke(libresult => { }, null);
-                                         }
-                                     }, null);
+            {
+                const int bTipTime = 3000;
+                if (checkUpdates.EndInvoke(appresult))
+                {
+                    switch (Settings.Default.Language)
+                    {
+                        case "English":
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                            break;
+                        case "French":
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "S'il vous plaît visitez http://ffxiv-app.com/products/ pour télécharger la dernière patch.", ToolTipIcon.Info);
+                            break;
+                        case "Japanese":
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "最新のパッチをダウンロードしhttp://ffxiv-app.com/products/をご覧ください。", ToolTipIcon.Info);
+                            break;
+                        case "German":
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Bitte besuchen Sie http://ffxiv-app.com/products/ auf die neueste patch herunter zu laden.", ToolTipIcon.Info);
+                            break;
+                    }
+                }
+                else
+                {
+                    checkLibrary.BeginInvoke(libresult =>
+                    {
+                        if (checkLibrary.EndInvoke(libresult))
+                        {
+                            switch (Settings.Default.Language)
+                            {
+                                case "English":
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll was updated. Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                                    break;
+                                case "French":
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll été mis à jour. S'il vous plaît visitez http://ffxiv-app.com/products/ pour télécharger la dernière patch.", ToolTipIcon.Info);
+                                    break;
+                                case "Japanese":
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "AppModXIV.dllが更新されました。最新のパッチをダウンロードしhttp://ffxiv-app.com/products/をご覧ください。", ToolTipIcon.Info);
+                                    break;
+                                case "German":
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "AppModXIV.dll aktualisiert wurde. Bitte besuchen Sie http://ffxiv-app.com/products/ auf die neueste patch herunter zu laden.", ToolTipIcon.Info);
+                                    break;
+                            }
+                        }
+                    }, null);
+                }
+            }, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
+        {
+            Process.Start("http://ffxiv-app.com/products/");
+            var proc = Process.GetProcessesByName("ParseModXIV");
+            foreach (var p in proc)
+            {
+                p.Kill();
+            }
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -232,11 +272,13 @@ namespace ParseModXIV
             {
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
-                    _myNotifyIcon.Visible = true;
+                    //_myNotifyIcon.Visible = true;
+                    _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
                     break;
                 case WindowState.Normal:
-                    _myNotifyIcon.Visible = false;
+                    //_myNotifyIcon.Visible = false;
                     ShowInTaskbar = true;
+                    _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
                     break;
             }
         }
@@ -267,16 +309,17 @@ namespace ParseModXIV
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream), Visible = true};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "ParseModXIV - Minimized";
                     var myNotify = new ContextMenu();
-                    myNotify.MenuItems.Add("&Restore Application");
+                    myNotify.MenuItems.Add("&Restore Application").Enabled = false;
                     myNotify.MenuItems.Add("&Exit");
                     myNotify.MenuItems[0].Click += Restore_Click;
                     myNotify.MenuItems[1].Click += Exit_Click;
                     _myNotifyIcon.ContextMenu = myNotify;
                     _myNotifyIcon.MouseDoubleClick += MyNotifyIcon_MouseDoubleClick;
+                    _myNotifyIcon.BalloonTipClicked += MyNotifyIconBalloonTipClicked;
                 }
             }
             ParseMod.Instance.StartLogging();

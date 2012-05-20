@@ -5,12 +5,10 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Windows;
 
 namespace AppModXIV.Classes
 {
@@ -31,11 +29,7 @@ namespace AppModXIV.Classes
             {
                 CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
-            if (CheckUpdates(dllName))
-            {
-                MessageBox.Show(string.Format("{0}.dll is out-dated. Please re-download from the public directory.", dllName));
-            }
-            return true;
+            return CheckUpdates(dllName);
         }
 
         /// <summary>
@@ -67,22 +61,6 @@ namespace AppModXIV.Classes
             {
                 lver = _latestVersion.Split('.');
                 cver = CurrentVersion.Split('.');
-            }
-            else
-            {
-                var proc = Process.GetProcessesByName(filename.ToLower());
-                if (proc.Length > 0)
-                {
-                    var result = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Process.Start("http://ffxiv-app.com/products/");
-                    }
-                    foreach (var process in proc)
-                    {
-                        process.CloseMainWindow();
-                    }
-                }
             }
             int lmajor, lminor, lbuild, lrevision;
             int cmajor, cminor, cbuild, crevision;

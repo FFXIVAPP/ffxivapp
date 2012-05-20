@@ -46,10 +46,10 @@ namespace ParseModXIV.Classes
                 }
             }
             Func<bool> d = delegate
-                           {
-                               EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mLine);
-                               return true;
-                           };
+            {
+                EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mLine);
+                return true;
+            };
             d.BeginInvoke(null, null);
         }
 
@@ -83,10 +83,10 @@ namespace ParseModXIV.Classes
                 }
             }
             Func<bool> d = delegate
-                           {
-                               EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mMessage);
-                               return true;
-                           };
+            {
+                EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mMessage);
+                return true;
+            };
             d.BeginInvoke(null, null);
         }
 

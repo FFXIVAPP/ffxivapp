@@ -380,10 +380,10 @@ namespace ParseModXIV.Stats
             if (handler != null)
             {
                 MainWindow.View.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                                                                                                                  {
-                                                                                                                      handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
-                                                                                                                      return null;
-                                                                                                                  }), null);
+                {
+                    handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
+                    return null;
+                }), null);
             }
         }
 

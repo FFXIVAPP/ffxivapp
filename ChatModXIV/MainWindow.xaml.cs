@@ -68,25 +68,38 @@ namespace ChatModXIV
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ChatModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
             checkUpdates.BeginInvoke(appresult =>
-                                     {
-                                         if (checkUpdates.EndInvoke(appresult))
-                                         {
-                                             var msgbox = MessageBox.Show("Go to main site and download the latest archive?", "Required Update!", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                                             if (msgbox == MessageBoxResult.Yes)
-                                             {
-                                                 Process.Start("http://ffxiv-app.com/products/");
-                                             }
-                                             var proc = Process.GetProcessesByName("ChatModXIV");
-                                             foreach (var p in proc)
-                                             {
-                                                 p.Kill();
-                                             }
-                                         }
-                                         else
-                                         {
-                                             checkLibrary.BeginInvoke(libresult => { }, null);
-                                         }
-                                     }, null);
+            {
+                const int bTipTime = 3000;
+                if (checkUpdates.EndInvoke(appresult))
+                {
+                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                }
+                else
+                {
+                    checkLibrary.BeginInvoke(libresult =>
+                    {
+                        if (checkLibrary.EndInvoke(libresult))
+                        {
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll was updated. Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                        }
+                    }, null);
+                }
+            }, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
+        {
+            Process.Start("http://ffxiv-app.com/products/");
+            var proc = Process.GetProcessesByName("ChatModXIV");
+            foreach (var p in proc)
+            {
+                p.Kill();
+            }
         }
 
         #region " FORM OPEN-CLOSE-STATES "
@@ -177,11 +190,13 @@ namespace ChatModXIV
             {
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
-                    _myNotifyIcon.Visible = true;
+                    //_myNotifyIcon.Visible = true;
+                    _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
                     break;
                 case WindowState.Normal:
-                    _myNotifyIcon.Visible = false;
+                    //_myNotifyIcon.Visible = false;
                     ShowInTaskbar = true;
+                    _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
                     break;
             }
         }
@@ -212,16 +227,17 @@ namespace ChatModXIV
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream)};
+                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream), Visible = true};
                     iconStream.Dispose();
                     _myNotifyIcon.Text = "ChatModXIV - Minimized";
                     var myNotify = new ContextMenu();
-                    myNotify.MenuItems.Add("&Restore Application");
+                    myNotify.MenuItems.Add("&Restore Application").Enabled = false;
                     myNotify.MenuItems.Add("&Exit");
                     myNotify.MenuItems[0].Click += Restore_Click;
                     myNotify.MenuItems[1].Click += Exit_Click;
                     _myNotifyIcon.ContextMenu = myNotify;
                     _myNotifyIcon.MouseDoubleClick += MyNotifyIcon_MouseDoubleClick;
+                    _myNotifyIcon.BalloonTipClicked += MyNotifyIconBalloonTipClicked;
                 }
             }
             ChatMod.Instance.StartLogging();
@@ -297,15 +313,15 @@ namespace ChatModXIV
                 Socket.SocketConnectionClosed += SocketConnectionClosed;
                 Socket.Error += SocketError;
                 Socket.On("welcome", data =>
-                                     {
-                                         var message = data.Json.GetFirstArgAs<Message>();
-                                         Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
-                                     });
+                {
+                    var message = data.Json.GetFirstArgAs<Message>();
+                    Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
+                });
                 Socket.On("message", data =>
-                                     {
-                                         var message = data.Json.GetFirstArgAs<Message>();
-                                         Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
-                                     });
+                {
+                    var message = data.Json.GetFirstArgAs<Message>();
+                    Dispatcher.BeginInvoke(new Action(() => OnNewLine(message)), null);
+                });
                 Socket.Connect();
             }
             catch (Exception se)
