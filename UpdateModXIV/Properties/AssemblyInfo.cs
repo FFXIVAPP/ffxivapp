@@ -11,6 +11,7 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+
 [assembly: AssemblyTitle("UpdateModXIV")]
 [assembly: AssemblyDescription("FFXIV-APP Application Updater")]
 [assembly: AssemblyConfiguration("")]
@@ -23,6 +24,7 @@ using System.Windows;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
+
 [assembly: ComVisible(false)]
 
 //In order to begin building localizable applications, set 
@@ -35,14 +37,13 @@ using System.Windows;
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
     //(used if a resource is not found in the page, 
     // or application resource dictionaries)
     ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
     //(used if a resource is not found in the page, 
     // app, or any theme specific resource dictionaries)
-)]
+    )]
 
 
 // Version information for an assembly consists of the following four values:
@@ -55,6 +56,8 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
+
 [assembly: AssemblyVersion("1.0.*")]
 //[assembly: AssemblyFileVersion("2.0.0.1")]
-[assembly: GuidAttribute("2a149ed7-c7fa-4cdf-b90a-362c5fdb4534")]
+
+[assembly: Guid("2a149ed7-c7fa-4cdf-b90a-362c5fdb4534")]

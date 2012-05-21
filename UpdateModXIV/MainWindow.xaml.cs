@@ -1,9 +1,20 @@
-﻿using System;
+﻿// UpdateModXIV
+// MainWindow.xaml.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Threading;
 using System.Windows;
+using Ionic.Zip;
 using NLog;
 
 namespace UpdateModXIV
@@ -14,94 +25,91 @@ namespace UpdateModXIV
     public partial class MainWindow
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        string exe;
-        string[] filelist;
-        Boolean Success = false;
-        WebClient webClient = new WebClient();
+        private string file;
+        private readonly WebClient _webClient = new WebClient();
 
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainContainer_Loaded);
         }
 
-        void MainContainer_Loaded(object sender, RoutedEventArgs e)
+        private void MainContainer_Loaded(object sender, RoutedEventArgs e)
         {
             if (Application.Current.Properties["file"] != null)
             {
-                exe = Application.Current.Properties["file"].ToString();
-                string sUrlToReadFileFrom = "http://ffxiv-app.com/files/public/AppModXIV/" + file;
-                Process[] aProc = Process.GetProcessesByName(exe);
-                foreach (Process p in aProc)
-                {
-                    p.Kill();
-                }
-                System.Threading.Thread.Sleep(1000);
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-                System.Threading.Thread.Sleep(1000);
-                try
-                {
-                    webClient.DownloadFileCompleted += Completed;
-                    webClient.DownloadProgressChanged += ProgressChanged;
-                    webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), file);
-                }
-                catch
-                {
-                    Logger.Error("ErrorEvent : {0}", "Error getting " + file + ", please try update again.");
-                    MessageBox.Show("Error getting " + file + ", please try update again.", "UpdateModXIV - Warning!");
-                    Environment.Exit(0);
-                }
+                //Application.Current.Shutdown();
             }
             else
             {
-                //Application.Current.Shutdown();
+                //file = Application.Current.Properties["file"].ToString();
+                file = "ParseModXIV";
+                var tfile = file + ".zip";
+                var sUrlToReadFileFrom = "http://ffxiv-app.com/files/public/AppModXIV/" + tfile;
+                var aProc = Process.GetProcessesByName(file);
+                foreach (var p in aProc)
+                {
+                    p.Kill();
+                }
+                Thread.Sleep(1000);
+                if (File.Exists(tfile))
+                {
+                    File.Delete(tfile);
+                }
+                Thread.Sleep(1000);
+                try
+                {
+                    _webClient.DownloadFileCompleted += Completed;
+                    _webClient.DownloadProgressChanged += ProgressChanged;
+                    _webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), tfile);
+                }
+                catch
+                {
+                    Logger.Error("ErrorEvent : {0}", "Error getting " + tfile + ", please try update again.");
+                    MessageBox.Show("Error getting " + tfile + ", please try update again.", "UpdateModXIV - Warning!");
+                    Environment.Exit(0);
+                }
             }
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            double bytesIn = double.Parse(e.BytesReceived.ToString());
-            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
-            double percentage = bytesIn / totalBytes * 100;
+            var bytesIn = double.Parse(e.BytesReceived.ToString(CultureInfo.InvariantCulture));
+            var totalBytes = double.Parse(e.TotalBytesToReceive.ToString(CultureInfo.InvariantCulture));
+            var percentage = bytesIn/totalBytes*100;
 
             progressBarSingle.Value = Math.Truncate(percentage);
         }
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            webClient.DownloadFileCompleted -= Completed;
-            webClient.DownloadProgressChanged -= ProgressChanged;
-            using (ZipFile zip = ZipFile.Read(ExistingZipFile))
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            using (var zip = ZipFile.Read(file + ".zip"))
             {
-                foreach (ZipEntry e in zip)
+                foreach (var efile in zip.Where(efile => efile.FileName != "NLog.dll"))
                 {
-                    e.Extract(TargetDirectory, true);  // overwrite == true  
+                    efile.Extract(path, ExtractExistingFileAction.OverwriteSilently); // overwrite == true  
                 }
-            } 
-            //Success = true;
-            //webClient.Dispose();
-            //try
-            //{
-            //    if (Success)
-            //    {
-            //        MessageBox.Show("Download Complete - Launch " + file, "UpdateModXIV - Complete!");
-            //        System.Diagnostics.Process m = new System.Diagnostics.Process();
-            //        m.StartInfo.FileName = exe;
-            //        m.Start();
-            //    }
-            //}
-            //catch
-            //{
-            //    Logger.Error("ErrorEvent : {0}", "Error launching " + exe + ", please launch manually");
-            //    MessageBox.Show("Error launching " + exe + ", please launch manually", "UpdateModXIV - Warning!");
-            //}
-            //finally
-            //{
-            //    Application.Current.Shutdown();
-            //}
+            }
+            _webClient.Dispose();
+            var tfile = file + ".exe";
+            try
+            {
+                MessageBox.Show("Download Complete - Launch " + tfile, "UpdateModXIV - Complete!");
+               Process m = new Process();
+               m.StartInfo.FileName = tfile;
+                m.Start();
+            }
+            catch
+            {
+                Logger.Error("ErrorEvent : {0}", "Error launching " + tfile + ", please launch manually");
+                MessageBox.Show("Error launching " + tfile + ", please launch manually", "UpdateModXIV - Warning!");
+            }
+            finally
+            {
+                _webClient.DownloadFileCompleted -= Completed;
+                _webClient.DownloadProgressChanged -= ProgressChanged;
+                Application.Current.Shutdown();
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="UpdateModXIV.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="UpdateModXIV" Height="60" Width="285" Icon="/UpdateModXIV;component/UpdateModXIV.ico" MinWidth="285" MaxWidth="285" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" SizeToContent="Height">
+        Title="UpdateModXIV" Height="60" Width="285" Icon="/UpdateModXIV;component/UpdateModXIV.ico" MinWidth="285" MaxWidth="285" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" SizeToContent="Height" Loaded="MainContainer_Loaded">
     <Window.Resources>
         <Style TargetType="ProgressBar">
             <Setter Property="Template">
