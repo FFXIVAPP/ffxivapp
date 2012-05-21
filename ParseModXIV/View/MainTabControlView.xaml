@@ -113,7 +113,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                                         <!--<GridViewColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />-->
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" />
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Total}" Header="Total" />
-                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DPS, StringFormat=\{0:F2\}}" Header="DPS"  />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DPS, StringFormat=\{0:F2\}}" Header="DPS" />
                                         <GridViewColumn DisplayMemberBinding="{Binding Reg}" Header="Reg"  />
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=% of Dmg, StringFormat=\{0:P2\}}" Header="% of Dmg"  />
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Low}" Header="Low"  />

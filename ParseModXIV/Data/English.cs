@@ -46,8 +46,8 @@ namespace ParseModXIV.Data
                         if (!mReg.Success)
                         {
                             Logger.Warn("MatchEvent : No match for Additional on line {0}", cleaned);
-                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
+                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                             return;
                         }
                         if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
@@ -160,8 +160,8 @@ namespace ParseModXIV.Data
                         if (!mReg.Success)
                         {
                             Logger.Warn("MatchEvent : No match for Blocks on line {0}", cleaned);
-                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
+                            //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                             return;
                         }
                     }
@@ -242,8 +242,8 @@ namespace ParseModXIV.Data
                 if (!hReg.Success)
                 {
                     Logger.Warn("MatchEvent : No match for Healing on line {0}", cleaned);
-                    //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, mTimeStamp, "#FFFFFF" });
-                    ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, mTimeStamp, "#FFFFFF"});
+                    //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                    ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                     return;
                 }
                 var whoDid = Convert.ToString(hReg.Groups["whoDid"].Value);

@@ -61,7 +61,6 @@ namespace ParseModXIV.View
         private void SortHandler(object sender, RoutedEventArgs e)
         {
             var headerClicked = e.OriginalSource as GridViewColumnHeader;
-
             if (headerClicked == null)
             {
                 return;

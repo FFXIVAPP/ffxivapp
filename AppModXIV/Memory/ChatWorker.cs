@@ -205,18 +205,6 @@ namespace AppModXIV.Memory
                             tmpString += _newText[j].ToString(CultureInfo.CurrentUICulture) + " ";
                         }
                         PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
-                        //if (CultureInfo.CurrentCulture.Name == "ja-JP")
-                        //{
-                        //    PostLineEvent(Encoding.UTF8.GetString(_newText.ToArray()));
-                        //}
-                        //else
-                        //{
-                        //    var results = CleanUpStringAt(_newText.ToArray());
-                        //    if (results.Length > 5)
-                        //    {
-                        //        PostLineEvent(results);
-                        //    }
-                        //}
                         var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
                         if (results.Length > 5)
                         {

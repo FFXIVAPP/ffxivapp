@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4C0593
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateModXIV", "UpdateModXIV\UpdateModXIV.csproj", "{39A1D2AF-916A-49EF-A717-27D691FB25C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -227,6 +229,36 @@ Global
 		{1F29DB22-54E5-45C6-94A9-71A9D9440354}.SingleImage|Win32.ActiveCfg = Release|x86
 		{1F29DB22-54E5-45C6-94A9-71A9D9440354}.SingleImage|x86.ActiveCfg = Release|x86
 		{1F29DB22-54E5-45C6-94A9-71A9D9440354}.SingleImage|x86.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|Any CPU.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|Mixed Platforms.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|Mixed Platforms.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|Win32.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|x86.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.CD_ROM|x86.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Win32.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|x86.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|x86.Build.0 = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|Any CPU.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|Mixed Platforms.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|Mixed Platforms.Build.0 = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|Win32.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|x86.ActiveCfg = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.DVD-5|x86.Build.0 = Debug|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|Any CPU.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|Mixed Platforms.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|Win32.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|x86.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Release|x86.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|Any CPU.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|Mixed Platforms.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|Mixed Platforms.Build.0 = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|Win32.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|x86.ActiveCfg = Release|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SingleImage|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

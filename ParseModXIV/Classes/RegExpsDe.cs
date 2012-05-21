@@ -38,7 +38,7 @@ namespace ParseModXIV.Classes
 
         public static readonly Regex UseOnParty = new Regex(@"^placeholder$", DefaultOptions);
 
-        public static readonly Regex ResistsOrEvades = new Regex(@"^placeholder$", DefaultOptions);
+        public static readonly Regex Resists = new Regex(@"^placeholder$", DefaultOptions);
 
         //public static readonly Regex PlayerResistsOrEvades = new Regex(@"", DefaultOptions);
 
