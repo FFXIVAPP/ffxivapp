@@ -38,7 +38,7 @@ namespace ParseModXIV.Classes
         /// <param name="mLine"></param>
         public static void OnDebugline(string mTimeStamp, string mCode, string mLine)
         {
-            if (mLine.Contains("readies") || mLine.Contains("prépare"))
+            if (mLine.Contains("readies") || mLine.Contains("prépare") || mLine.Contains("をしようとしている。"))
             {
                 if (mCode == "0053" || mCode == "0054" || mCode == "0055")
                 {
@@ -75,7 +75,7 @@ namespace ParseModXIV.Classes
             {
                 return;
             }
-            if (mMessage.Contains("readies") || mMessage.Contains("prépare"))
+            if (mMessage.Contains("readies") || mMessage.Contains("prépare") || mLine.Contains("をしようとしている。"))
             {
                 if (mCode == "0053" || mCode == "0054" || mCode == "0055")
                 {

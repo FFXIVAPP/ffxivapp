@@ -100,7 +100,7 @@ namespace LogModXIV.Classes
 
                 if (Settings.Default.Gui_SaveLog)
                 {
-                    XmlWriteLog.AddChatLine(new[] {mMessage, mCode, mTimeStamp, "#" + LmSettings.XColor[mCode]});
+                    XmlWriteLog.AddChatLine(new[] {mMessage, mCode, "#" + LmSettings.XColor[mCode], mTimeStamp});
                 }
             }
             if (!Settings.Default.Gui_Translate)

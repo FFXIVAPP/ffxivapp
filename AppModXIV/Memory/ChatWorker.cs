@@ -76,7 +76,7 @@ namespace AppModXIV.Memory
             }
         }
 
-        #region  Public Methods
+        #region " PUBLIC "
 
         /// <summary>
         /// 
@@ -97,7 +97,7 @@ namespace AppModXIV.Memory
 
         #endregion
 
-        #region Private Methods
+        #region " PRIVATE "
 
         /// <summary>
         /// 
@@ -137,7 +137,7 @@ namespace AppModXIV.Memory
 
         #endregion
 
-        #region Thread Methods
+        #region " THREADS "
 
         /// <summary>
         /// 
@@ -205,17 +205,22 @@ namespace AppModXIV.Memory
                             tmpString += _newText[j].ToString(CultureInfo.CurrentUICulture) + " ";
                         }
                         PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
-                        if (CultureInfo.CurrentCulture.Name == "ja-JP")
+                        //if (CultureInfo.CurrentCulture.Name == "ja-JP")
+                        //{
+                        //    PostLineEvent(Encoding.UTF8.GetString(_newText.ToArray()));
+                        //}
+                        //else
+                        //{
+                        //    var results = CleanUpStringAt(_newText.ToArray());
+                        //    if (results.Length > 5)
+                        //    {
+                        //        PostLineEvent(results);
+                        //    }
+                        //}
+                        var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
+                        if (results.Length > 5)
                         {
-                            PostLineEvent(Encoding.UTF8.GetString(_newText.ToArray()));
-                        }
-                        else
-                        {
-                            var results = CleanUpStringAt(_newText.ToArray());
-                            if (results.Length > 5)
-                            {
-                                PostLineEvent(results);
-                            }
+                            PostLineEvent(results);
                         }
                     }
                 }
@@ -241,7 +246,7 @@ namespace AppModXIV.Memory
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        private string CleanUpStringAt(byte[] bytes)
+        private string CleanUpStringAt(byte[] bytes, CultureInfo ci)
         {
             _jp = false;
             _cleaned = "";
@@ -344,6 +349,7 @@ namespace AppModXIV.Memory
                 }
             }
             _cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(_nList.ToArray())).Replace("  ", " ");
+            _cleaned = (ci.Name == "ja-JP") ? Encoding.UTF8.GetString(_nList.ToArray()).Replace("  ", " ") : _cleaned;
             _aList.Clear();
             _nList.Clear();
             return _cleaned;

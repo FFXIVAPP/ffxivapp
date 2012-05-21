@@ -33,12 +33,12 @@ namespace ParseModXIV.Model
             {
                 try
                 {
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AppModXIV", Assembly.GetEntryAssembly().GetName().Name, "./Logs/Avatars/");
+                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AppModXIV", Assembly.GetEntryAssembly().GetName().Name, "./Avatars/");
                 }
                 catch
                 {
                     _cachingEnabled = false;
-                    return "./Logs/Avatars/";
+                    return "./Avatars/";
                 }
             }
         }

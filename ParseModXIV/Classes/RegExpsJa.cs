@@ -10,7 +10,7 @@ namespace ParseModXIV.Classes
 {
     public static class RegExpsJa
     {
-        private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.CultureInvariant;
+        private const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 
         public static readonly Regex Damage = new Regex(@"^(?<whoHit>.+)は(?<mob>.+)(?<didHit>に)((?<direction>.+)から「(?<ability>.+)」|「(?<ability>.+)」)　⇒　((?<crit>クリティカル！)　(?<amount>\d+)ダメージを与えた。$|(?<amount>\d+)ダメージを与えた。$)", DefaultOptions);
 
