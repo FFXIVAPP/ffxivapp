@@ -26,7 +26,7 @@
     <system:String x:Key="loc_attachprocess">Bringen Prozess</system:String>
     <system:String x:Key="loc_refresh">erfrischen</system:String>
     <system:String x:Key="loc_basic">Grundlegende</system:String>
-    <system:String x:Key="loc_togglelogging">Umschalten Logging</system:String>
+    <system:String x:Key="loc_togglelogging">Analysiert:ON/OFF</system:String>
     <system:String x:Key="loc_reset">Zurücksetzen</system:String>
     <system:String x:Key="loc_capture">Erfassen</system:String>
     <system:String x:Key="loc_copy">Kopieren Sie</system:String>

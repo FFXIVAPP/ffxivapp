@@ -26,7 +26,7 @@
     <system:String x:Key="loc_attachprocess">プロセスをアタッチ</system:String>
     <system:String x:Key="loc_refresh">リフレッシュ</system:String>
     <system:String x:Key="loc_basic">基本的な</system:String>
-    <system:String x:Key="loc_togglelogging">ロギングを切り替える</system:String>
+    <system:String x:Key="loc_togglelogging">構文解析する:ON/OFF</system:String>
     <system:String x:Key="loc_reset">リセット</system:String>
     <system:String x:Key="loc_capture">キャプチャー</system:String>
     <system:String x:Key="loc_copy">コピーします。</system:String>

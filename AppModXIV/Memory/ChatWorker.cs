@@ -202,13 +202,20 @@ namespace AppModXIV.Memory
                         var tmpString = "";
                         for (var j = 0; j < _newText.Count; j++)
                         {
-                            tmpString += _newText[j].ToString(CultureInfo.InvariantCulture) + " ";
+                            tmpString += _newText[j].ToString(CultureInfo.CurrentUICulture) + " ";
                         }
                         PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
-                        var results = CleanUpStringAt(_newText.ToArray());
-                        if (results.Length > 5)
+                        if (CultureInfo.CurrentCulture.Name == "ja-JP")
                         {
-                            PostLineEvent(results);
+                            PostLineEvent(Encoding.UTF8.GetString(_newText.ToArray()));
+                        }
+                        else
+                        {
+                            var results = CleanUpStringAt(_newText.ToArray());
+                            if (results.Length > 5)
+                            {
+                                PostLineEvent(results);
+                            }
                         }
                     }
                 }
