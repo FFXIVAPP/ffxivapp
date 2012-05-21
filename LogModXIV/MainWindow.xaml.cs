@@ -75,19 +75,10 @@ namespace LogModXIV
                 rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/LogModXIV.xaml"));
                 Resources.MergedDictionaries.Add(rd);
             }
-            //var dict = new ResourceDictionary();
-            //switch (System.Threading.Thread.CurrentThread.CurrentCulture.ToString())
-            //{
-            //    case "en-US":
-            //        dict = (ResourceDictionary)XamlReader.Load(System.Xml.XmlReader.Create("./Resources/Languages/LogMod/en-us.xaml"));
-            //        break;
-            //}
-            //Resources.MergedDictionaries.Add(dict);
             InitializeComponent();
             MainToolBarView.gui_Maximize.Visibility = Visibility.Visible;
             MainToolBarView.gui_Restore.Visibility = Visibility.Collapsed;
             View = this;
-
             _lpath = "./Logs/LogMod/";
             if (!Directory.Exists(_lpath))
             {

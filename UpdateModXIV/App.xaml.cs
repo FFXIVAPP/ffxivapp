@@ -6,7 +6,6 @@
 
 using System.Windows;
 using System.Windows.Threading;
-using NLog;
 
 namespace UpdateModXIV
 {
@@ -15,8 +14,6 @@ namespace UpdateModXIV
     /// </summary>
     public partial class App : Application
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
@@ -24,7 +21,6 @@ namespace UpdateModXIV
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.Error("ErrorEvent : {0}", e.Exception.Message + e.Exception.StackTrace + e.Exception.InnerException);
             e.Handled = true;
         }
 
