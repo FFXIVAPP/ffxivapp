@@ -24,13 +24,14 @@ namespace ParseModXIV.Monitors
         internal static readonly TotalStat PartyTotalTaken = new TotalStat("PartyTotalTaken");
         internal static readonly TotalStat PartyTotalRTaken = new TotalStat("PartyTotalRTaken");
         internal static readonly TotalStat PartyTotalCTaken = new TotalStat("PartyTotalCTaken");
+        static readonly string[] Mobbies = new[] { "Miser's Mistress", "Dodore's Minion" };
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="parseModInstance"></param>
-        public StatMonitor(ParseMod parseModInstance) : base("Stat Monitor", parseModInstance)
+        public StatMonitor(ParseMod parseModInstance) : base("StatMonitor", parseModInstance)
         {
             IncludeSelf = false;
             Filter = ((UInt16) EventDirection.By | (UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventType.Attack | (UInt16) EventType.Heal | (UInt16) EventDirection.On);
@@ -79,7 +80,7 @@ namespace ParseModXIV.Monitors
         {
             var mCode = "00" + e.Code.ToString("X");
             var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-            foreach (var tmp in RegExps.Mobbies)
+            foreach (var tmp in Mobbies)
             {
                 e.RawLine = Regex.Replace(e.RawLine, tmp, tmp.Replace("'s", ""));
             }

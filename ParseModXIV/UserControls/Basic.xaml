@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ParseModXIV.UserControls.Basic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:my="clr-namespace:ParseModXIV.Model"
+             xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
+             xmlns:UserControls="clr-namespace:ParseModXIV.UserControls">
+
+    <UserControl.Resources>
+        <my:AsyncNameToAvatarConverter x:Key="AsyncNameToAvatarConverter" />
+        <DataTemplate x:Key="avatarTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Width="40" Height="40">
+                    <Image.Source>
+                        <MultiBinding Converter="{StaticResource AsyncNameToAvatarConverter}">
+                            <MultiBinding.Bindings>
+                                <Binding RelativeSource="{RelativeSource Self}" />
+                                <Binding Path="Name" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </Image.Source>
+                    <Image.ToolTip>
+                        <ToolTip Content="{Binding Path=Name, StringFormat='Name: {0}'}" />
+                    </Image.ToolTip>
+                </Image>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Ability, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <UserControls:PlayerInfoBox DataContext="{Binding}" MaxWidth="300" MaxHeight="100" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>

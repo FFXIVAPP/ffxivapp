@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -64,6 +65,20 @@ namespace ParseModXIV
             {
                 rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/ParseModXIV.xaml"));
                 Resources.MergedDictionaries.Add(rd);
+            }
+            var ci = CultureInfo.CurrentUICulture;
+            Settings.Default.Language = "English";
+            switch (ci.EnglishName)
+            {
+                case "Japanese":
+                    Settings.Default.Language = "Japanese";
+                    break;
+                case "German":
+                    Settings.Default.Language = "German";
+                    break;
+                case "French":
+                    Settings.Default.Language = "French";
+                    break;
             }
             var dict = new ResourceDictionary {Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language))};
             Resources.MergedDictionaries.Add(dict);

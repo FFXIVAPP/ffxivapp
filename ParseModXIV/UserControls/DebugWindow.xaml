@@ -42,6 +42,8 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                             <TreeViewItem Header="Healing" ItemsSource="{Binding Path=Healing}"/>
                             <TreeViewItem Header="Players" ItemsSource="{Binding Path=Players}"/>
                             <TreeViewItem Header="Damage" ItemsSource="{Binding Path=Damage}"/>
+                            <TreeViewItem Header="Crafting" ItemsSource="{Binding Path=Crafting}"/>
+                            <TreeViewItem Header="Items" ItemsSource="{Binding Path=Items}"/>
                         </TreeViewItem>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
@@ -49,8 +51,11 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
                     <TreeViewItem Header="Timeline" DataContext="{Binding Path=Timeline}" IsExpanded="True">
                         <TextBlock Text="{Binding Path=FightingRightNow,StringFormat={}FightingRightNow: {0}}"/>
                         <TreeViewItem Header="Overall" ItemsSource="{Binding Path=Overall}"/>
-                        <TreeViewItem Header="Party" ItemsSource="{Binding Path=Party}"/>
+                        <TreeViewItem Header="Ability" ItemsSource="{Binding Path=Ability}"/>
+                        <TreeViewItem Header="Healing" ItemsSource="{Binding Path=Healing}"/>
+                        <TreeViewItem Header="Damage" ItemsSource="{Binding Path=Damage}"/>
                         <TreeViewItem Header="Monster" ItemsSource="{Binding Path=Monster}"/>
+                        <TreeViewItem Header="Craft" ItemsSource="{Binding Path=Craft}"/>
                     </TreeViewItem>
                 </TreeViewItem>
             </TreeView>

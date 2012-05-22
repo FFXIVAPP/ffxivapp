@@ -72,8 +72,16 @@ namespace ParseModXIV.Monitors
                 Logger.Debug("KillEvent : Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
                 return;
             }
-            if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
+            if (ParseModInstance.Timeline.Ability.HasGroup(whatDefeated.Value))
             {
+                if (ParseModInstance.Timeline.Healing.HasGroup(whatDefeated.Value))
+                {
+                    if (ParseModInstance.Timeline.Damage.HasGroup(whatDefeated.Value))
+                    {
+                        return;
+                    }
+                    return;
+                }
                 return;
             }
             if (Regex.IsMatch(whatDefeated.Value, @"^[Yy]our?$") || whatDefeated.Value == you)
@@ -136,7 +144,7 @@ namespace ParseModXIV.Monitors
                 {
                     return;
                 }
-                var mobGroup = ParseModInstance.Timeline.GetOrAddStatsForMob(fight.MobName);
+                var mobGroup = ParseModInstance.Timeline.GetSetMob(fight.MobName);
                 mobGroup.AddDropStats(thing);
             }
             else
@@ -146,7 +154,7 @@ namespace ParseModXIV.Monitors
                 {
                     return;
                 }
-                var mobGroup = ParseModInstance.Timeline.GetOrAddStatsForMob(ParseMod.LastKilled);
+                var mobGroup = ParseModInstance.Timeline.GetSetMob(ParseMod.LastKilled);
                 mobGroup.AddDropStats(thing);
             }
         }

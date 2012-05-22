@@ -135,52 +135,52 @@ namespace ParseModXIV.ViewModel
 
         private static void AbilityPlayerDetail()
         {
-            MainTabControlView.View.AbilityPlayerDetail.Visibility = (MainTabControlView.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Party.View.AbilityPlayerDetail.Visibility = (UserControls.Party.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void AbilityPlayerMonster()
         {
-            MainTabControlView.View.AbilityPlayerMonster.Visibility = (MainTabControlView.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Party.View.AbilityPlayerMonster.Visibility = (UserControls.Party.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void AbilityPlayerMonsterDetails()
         {
-            MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility = (MainTabControlView.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Party.View.AbilityPlayerMonsterDetails.Visibility = (UserControls.Party.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingAbilties()
         {
-            MainTabControlView.View.HealingAbilties.Visibility = (MainTabControlView.View.HealingAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Healing.View.HealingAbilties.Visibility = (UserControls.Healing.View.HealingAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingPlayers()
         {
-            MainTabControlView.View.HealingPlayers.Visibility = (MainTabControlView.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Healing.View.HealingPlayers.Visibility = (UserControls.Healing.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingDetails()
         {
-            MainTabControlView.View.HealingDetails.Visibility = (MainTabControlView.View.HealingDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Healing.View.HealingDetails.Visibility = (UserControls.Healing.View.HealingDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void DamageDetailMonster()
         {
-            MainTabControlView.View.DamageDetailMonster.Visibility = (MainTabControlView.View.DamageDetailMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Damage.View.DamageDetailMonster.Visibility = (UserControls.Damage.View.DamageDetailMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void DamageDetailAbilties()
         {
-            MainTabControlView.View.DamageDetailAbilties.Visibility = (MainTabControlView.View.DamageDetailAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Damage.View.DamageDetailAbilties.Visibility = (UserControls.Damage.View.DamageDetailAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MonsterDetailsDrops()
         {
-            MainTabControlView.View.MonsterDetailsDrops.Visibility = (MainTabControlView.View.MonsterDetailsDrops.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Monster.View.MonsterDetailsDrops.Visibility = (UserControls.Monster.View.MonsterDetailsDrops.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MonsterDetailAbilities()
         {
-            MainTabControlView.View.MonsterDetailAbilities.Visibility = (MainTabControlView.View.MonsterDetailAbilities.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            UserControls.Monster.View.MonsterDetailAbilities.Visibility = (UserControls.Monster.View.MonsterDetailAbilities.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion

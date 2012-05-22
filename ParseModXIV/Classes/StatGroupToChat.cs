@@ -34,23 +34,24 @@ namespace ParseModXIV.Classes
             if (statName == "party")
             {
                 statName = "Abilities";
-                playerName = MainTabControlView.View.gui_AbilityName.Text;
+                playerName = UserControls.Party.View.gui_AbilityName.Text;
             }
             if (statName == "healing")
             {
                 statName = "Healing";
-                playerName = MainTabControlView.View.gui_HealingName.Text;
+                playerName = UserControls.Healing.View.gui_HealingName.Text;
             }
             if (statName == "damage")
             {
                 statName = "Damage";
-                playerName = MainTabControlView.View.gui_DamageName.Text;
+                playerName = UserControls.Damage.View.gui_DamageName.Text;
             }
             if (Regex.IsMatch(statName, "^Abilities$|^Healing$|^Damage$"))
             {
                 if (playerName != "")
                 {
-                    using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
+                    toClipboard += playerName + "@ ";
+                    using (var aEnum = ParseMod.Instance.Timeline.Ability.GetEnumerator())
                     {
                         while (aEnum.MoveNext()) //name of player
                         {
@@ -58,7 +59,6 @@ namespace ParseModXIV.Classes
                             {
                                 continue;
                             }
-                            toClipboard += playerName + "@ ";
                             switch (statName)
                             {
                                 case "Abilities":
@@ -80,6 +80,20 @@ namespace ParseModXIV.Classes
                                     toClipboard += "C Avg: " + CleanString(aEnum.Current.GetStatValue("C Avg").ToString()) + " ~ ";
                                     toClipboard += "Crit %: " + CleanString(aEnum.Current.GetStatValue("Crit %").ToString());
                                     break;
+                            }
+                        }
+                    }
+
+                    using (var aEnum = ParseMod.Instance.Timeline.Healing.GetEnumerator())
+                    {
+                        while (aEnum.MoveNext()) //name of player
+                        {
+                            if (aEnum.Current.Name != playerName)
+                            {
+                                continue;
+                            }
+                            switch (statName)
+                            {
                                 case "Healing":
                                     toClipboard += "H Total: " + CleanString(aEnum.Current.GetStatValue("H Total").ToString()) + " ~ ";
                                     toClipboard += "HPS: " + CleanString(aEnum.Current.GetStatValue("HPS").ToString()) + " ~ ";
@@ -88,6 +102,20 @@ namespace ParseModXIV.Classes
                                     toClipboard += "Heal High: " + CleanString(aEnum.Current.GetStatValue("Heal High").ToString()) + " ~ ";
                                     toClipboard += "Heal Avg: " + CleanString(aEnum.Current.GetStatValue("Heal Avg").ToString());
                                     break;
+                            }
+                        }
+                    }
+
+                    using (var aEnum = ParseMod.Instance.Timeline.Damage.GetEnumerator())
+                    {
+                        while (aEnum.MoveNext()) //name of player
+                        {
+                            if (aEnum.Current.Name != playerName)
+                            {
+                                continue;
+                            }
+                            switch (statName)
+                            {
                                 case "Damage":
                                     toClipboard += "DT Total: " + CleanString(aEnum.Current.GetStatValue("DT Total").ToString()) + " ~ ";
                                     toClipboard += "DTPS: " + CleanString(aEnum.Current.GetStatValue("DTPS").ToString()) + " ~ ";

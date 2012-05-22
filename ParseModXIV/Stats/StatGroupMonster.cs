@@ -63,7 +63,7 @@ namespace ParseModXIV.Stats
         /// <param name="resisted"></param>
         /// <param name="evaded"></param>
         /// <param name="critical"></param>
-        public void AddAbilityStats(string ability, decimal amount, bool resisted, bool evaded, bool critical)
+        public void GetSetAbility(string ability, decimal amount, bool resisted, bool evaded, bool critical)
         {
             var abilityGroup = GetGroup("Abilities");
             StatGroup subGroup;

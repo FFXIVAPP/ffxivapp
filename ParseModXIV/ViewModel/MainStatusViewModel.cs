@@ -112,11 +112,6 @@ namespace ParseModXIV.ViewModel
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.WriteToDisk(MainWindow.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.ClearXml();
                 }
-                if (Settings.Default.Gui_ExportXML)
-                {
-                    StatGroupToXml.ExportParty();
-                    StatGroupToXml.ExportMonsterStats();
-                }
             }
             MainTabControlView.View.MobAbility_FLOW.Blocks.Clear();
             ParseMod.Instance.StatMonitor.Clear();

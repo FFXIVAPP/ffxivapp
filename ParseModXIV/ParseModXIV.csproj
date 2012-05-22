@@ -89,6 +89,7 @@
     <Compile Include="Classes\RegExpsEn.cs" />
     <Compile Include="Classes\RegExpsFr.cs" />
     <Compile Include="Classes\RegExpsJa.cs" />
+    <Compile Include="Classes\SortHandler.cs" />
     <Compile Include="Data\English.cs" />
     <Compile Include="Data\French.cs" />
     <Compile Include="Data\German.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Model\TimelineEventType.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Classes\StatGroupToChat.cs" />
-    <Compile Include="Classes\StatGroupToXml.cs" />
     <Compile Include="Model\AsyncNameToAvatarConverter.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\EventMonitor.cs" />
@@ -128,19 +128,36 @@
     <Compile Include="Stats\MinStat.cs" />
     <Compile Include="Stats\NumericStat.cs" />
     <Compile Include="Stats\PerSecondAverageStat.cs" />
-    <Compile Include="Stats\StatGroupPlayer.cs" />
+    <Compile Include="Stats\StatGroupAbility.cs" />
     <Compile Include="Stats\Stat.cs" />
     <Compile Include="Stats\StatChangedEvent.cs" />
     <Compile Include="Stats\StatContainer.cs" />
     <Compile Include="Stats\StatGroup.cs" />
+    <Compile Include="Stats\StatGroupDamage.cs" />
+    <Compile Include="Stats\StatGroupHealing.cs" />
     <Compile Include="Stats\StatGroupMonster.cs" />
     <Compile Include="Stats\StatGroupPropertyDescriptor.cs" />
     <Compile Include="Stats\StatGroupTypeDescriptor.cs" />
     <Compile Include="Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Stats\PercentStat.cs" />
     <Compile Include="Stats\TotalStat.cs" />
+    <Compile Include="UserControls\Basic.xaml.cs">
+      <DependentUpon>Basic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Damage.xaml.cs">
+      <DependentUpon>Damage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Healing.xaml.cs">
+      <DependentUpon>Healing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Monster.xaml.cs">
+      <DependentUpon>Monster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Party.xaml.cs">
+      <DependentUpon>Party.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
@@ -196,9 +213,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Basic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Damage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DebugWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Healing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Monster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Party.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PlayerInfoBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="ParseModXIV.exe.nlog">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -267,10 +305,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="ParseModXIV.saproj" input="$(OutDir)ParseModXIV.exe" output="$(OutDir)ParseModXIV.exe" OverwriteAssembly="true" />
-  </Target>
+  </Target>-->
 </Project>
