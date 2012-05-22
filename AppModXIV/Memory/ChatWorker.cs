@@ -205,18 +205,8 @@ namespace AppModXIV.Memory
                             tmpString += _newText[j].ToString(CultureInfo.CurrentUICulture) + " ";
                         }
                         PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
-                        //if (CultureInfo.CurrentUICulture.Name == "ja-JP")
-                        //{
-                        //    PostLineEvent(Encoding.UTF8.GetString(_newText.ToArray()));
-                        //}
-                        //else
-                        //{
                         var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
-                        if (results.Length > 5)
-                        {
-                            PostLineEvent(results);
-                        }
-                        //}
+                        PostLineEvent(results.Length > 5 ? results : Encoding.UTF8.GetString(_newText.ToArray()));
                     }
                 }
                 catch
@@ -344,7 +334,7 @@ namespace AppModXIV.Memory
                 }
             }
             _cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(_nList.ToArray())).Replace("  ", " ");
-            _cleaned = (ci.Name == "ja-JP") ? Encoding.UTF8.GetString(_nList.ToArray()).Replace("  ", " ") : _cleaned;
+            _cleaned = (ci.TwoLetterISOLanguageName == "ja") ? Encoding.UTF8.GetString(_nList.ToArray()).Replace("  ", " ") : _cleaned;
             _aList.Clear();
             _nList.Clear();
             return _cleaned;

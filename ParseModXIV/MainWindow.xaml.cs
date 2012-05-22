@@ -66,23 +66,22 @@ namespace ParseModXIV
                 rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/ParseModXIV.xaml"));
                 Resources.MergedDictionaries.Add(rd);
             }
-            var ci = CultureInfo.CurrentUICulture;
-            switch (ci.TwoLetterISOLanguageName)
+            ResourceDictionary dict;
+            switch (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
             {
                 case "ja":
-                    Settings.Default.Language = "Japanese";
+                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/Japanese.xaml")};
                     break;
                 case "de":
-                    Settings.Default.Language = "German";
+                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/German.xaml")};
                     break;
                 case "fr":
-                    Settings.Default.Language = "French";
+                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/French.xaml")};
                     break;
                 default:
-                    Settings.Default.Language = "English";
+                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/English.xaml")};
                     break;
             }
-            var dict = new ResourceDictionary {Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language))};
             Resources.MergedDictionaries.Add(dict);
             InitializeComponent();
             Main_ToolBar_View.gui_Maximize.Visibility = Visibility.Visible;
