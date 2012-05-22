@@ -211,11 +211,11 @@ namespace AppModXIV.Memory
                         //}
                         //else
                         //{
-                            var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
-                            if (results.Length > 5)
-                            {
-                                PostLineEvent(results);
-                            }
+                        var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
+                        if (results.Length > 5)
+                        {
+                            PostLineEvent(results);
+                        }
                         //}
                     }
                 }

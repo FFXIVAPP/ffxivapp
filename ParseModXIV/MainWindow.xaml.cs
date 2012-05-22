@@ -67,17 +67,19 @@ namespace ParseModXIV
                 Resources.MergedDictionaries.Add(rd);
             }
             var ci = CultureInfo.CurrentUICulture;
-            Settings.Default.Language = "English";
-            switch (ci.EnglishName)
+            switch (ci.TwoLetterISOLanguageName)
             {
-                case "Japanese":
+                case "ja":
                     Settings.Default.Language = "Japanese";
                     break;
-                case "German":
+                case "de":
                     Settings.Default.Language = "German";
                     break;
-                case "French":
+                case "fr":
                     Settings.Default.Language = "French";
+                    break;
+                default:
+                    Settings.Default.Language = "English";
                     break;
             }
             var dict = new ResourceDictionary {Source = new Uri(String.Format("pack://application:,,,/ParseModXIV;component/Localization/{0}.xaml", Settings.Default.Language))};

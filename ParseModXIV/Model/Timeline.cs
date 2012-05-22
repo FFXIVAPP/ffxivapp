@@ -71,10 +71,10 @@ namespace ParseModXIV.Model
             FightingRightNow = false;
             Fights = new FightList();
             Overall = new StatGroup("Overall");
-            Ability = new StatGroup("Ability") { IncludeSelf = false };
-            Healing = new StatGroup("Healing") { IncludeSelf = false };
-            Damage = new StatGroup("Damage") { IncludeSelf = false };
-            Monster = new StatGroup("Monster") { IncludeSelf = false };
+            Ability = new StatGroup("Ability") {IncludeSelf = false};
+            Healing = new StatGroup("Healing") {IncludeSelf = false};
+            Damage = new StatGroup("Damage") {IncludeSelf = false};
+            Monster = new StatGroup("Monster") {IncludeSelf = false};
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace ParseModXIV.Model
                 g = new StatGroupAbility(playerName, overall);
                 Ability.AddGroup(g);
             }
-            return (StatGroupAbility)g;
+            return (StatGroupAbility) g;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace ParseModXIV.Model
                 g = new StatGroupHealing(playerName, overall);
                 Healing.AddGroup(g);
             }
-            return (StatGroupHealing)g;
+            return (StatGroupHealing) g;
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ParseModXIV.Model
                 g = new StatGroupDamage(playerName, overall);
                 Damage.AddGroup(g);
             }
-            return (StatGroupDamage)g;
+            return (StatGroupDamage) g;
         }
 
         /// <summary>

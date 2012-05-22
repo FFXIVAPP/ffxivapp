@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
-using ParseModXIV.View;
+using ParseModXIV.UserControls;
 
 namespace ParseModXIV.ViewModel
 {
@@ -135,52 +135,52 @@ namespace ParseModXIV.ViewModel
 
         private static void AbilityPlayerDetail()
         {
-            UserControls.Party.View.AbilityPlayerDetail.Visibility = (UserControls.Party.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Party.View.AbilityPlayerDetail.Visibility = (Party.View.AbilityPlayerDetail.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void AbilityPlayerMonster()
         {
-            UserControls.Party.View.AbilityPlayerMonster.Visibility = (UserControls.Party.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Party.View.AbilityPlayerMonster.Visibility = (Party.View.AbilityPlayerMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void AbilityPlayerMonsterDetails()
         {
-            UserControls.Party.View.AbilityPlayerMonsterDetails.Visibility = (UserControls.Party.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Party.View.AbilityPlayerMonsterDetails.Visibility = (Party.View.AbilityPlayerMonsterDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingAbilties()
         {
-            UserControls.Healing.View.HealingAbilties.Visibility = (UserControls.Healing.View.HealingAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Healing.View.HealingAbilties.Visibility = (Healing.View.HealingAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingPlayers()
         {
-            UserControls.Healing.View.HealingPlayers.Visibility = (UserControls.Healing.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Healing.View.HealingPlayers.Visibility = (Healing.View.HealingPlayers.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void HealingDetails()
         {
-            UserControls.Healing.View.HealingDetails.Visibility = (UserControls.Healing.View.HealingDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Healing.View.HealingDetails.Visibility = (Healing.View.HealingDetails.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void DamageDetailMonster()
         {
-            UserControls.Damage.View.DamageDetailMonster.Visibility = (UserControls.Damage.View.DamageDetailMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Damage.View.DamageDetailMonster.Visibility = (Damage.View.DamageDetailMonster.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void DamageDetailAbilties()
         {
-            UserControls.Damage.View.DamageDetailAbilties.Visibility = (UserControls.Damage.View.DamageDetailAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Damage.View.DamageDetailAbilties.Visibility = (Damage.View.DamageDetailAbilties.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MonsterDetailsDrops()
         {
-            UserControls.Monster.View.MonsterDetailsDrops.Visibility = (UserControls.Monster.View.MonsterDetailsDrops.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Monster.View.MonsterDetailsDrops.Visibility = (Monster.View.MonsterDetailsDrops.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MonsterDetailAbilities()
         {
-            UserControls.Monster.View.MonsterDetailAbilities.Visibility = (UserControls.Monster.View.MonsterDetailAbilities.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
+            Monster.View.MonsterDetailAbilities.Visibility = (Monster.View.MonsterDetailAbilities.Visibility == Visibility.Collapsed) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion

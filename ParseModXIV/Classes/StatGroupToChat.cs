@@ -6,7 +6,7 @@
 
 using System;
 using System.Text.RegularExpressions;
-using ParseModXIV.View;
+using ParseModXIV.UserControls;
 
 namespace ParseModXIV.Classes
 {
@@ -34,17 +34,17 @@ namespace ParseModXIV.Classes
             if (statName == "party")
             {
                 statName = "Abilities";
-                playerName = UserControls.Party.View.gui_AbilityName.Text;
+                playerName = Party.View.gui_AbilityName.Text;
             }
             if (statName == "healing")
             {
                 statName = "Healing";
-                playerName = UserControls.Healing.View.gui_HealingName.Text;
+                playerName = Healing.View.gui_HealingName.Text;
             }
             if (statName == "damage")
             {
                 statName = "Damage";
-                playerName = UserControls.Damage.View.gui_DamageName.Text;
+                playerName = Damage.View.gui_DamageName.Text;
             }
             if (Regex.IsMatch(statName, "^Abilities$|^Healing$|^Damage$"))
             {

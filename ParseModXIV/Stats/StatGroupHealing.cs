@@ -11,8 +11,7 @@ namespace ParseModXIV.Stats
 {
     public class StatGroupHealing : StatGroup
     {
-        public StatGroupHealing(string name, Stat<Decimal> overall)
-            : base(name)
+        public StatGroupHealing(string name, Stat<Decimal> overall) : base(name)
         {
             InitStats(overall);
         }
@@ -79,7 +78,7 @@ namespace ParseModXIV.Stats
             var maxHStat = new MaxStat("Heal High", healTotalStat);
             var avgHealingStat = new AverageStat("Heal Avg", healTotalStat);
             var hpsStat = new PerSecondAverageStat("HPS", healTotalStat);
-            return new Stat<decimal>[] { healTotalStat, healingPctStat, minHStat, maxHStat, avgHealingStat, hpsStat };
+            return new Stat<decimal>[] {healTotalStat, healingPctStat, minHStat, maxHStat, avgHealingStat, hpsStat};
         }
 
         /// <summary>
@@ -108,7 +107,7 @@ namespace ParseModXIV.Stats
             var minStat = new MinStat("Low", totalStat);
             var maxStat = new MaxStat("High", totalStat);
             var avgHealingStat = new AverageStat("Avg", totalStat);
-            return new[] { totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat };
+            return new[] {totalStat, dpsStat, healingPctStat, minStat, maxStat, avgHealingStat};
         }
 
         #endregion

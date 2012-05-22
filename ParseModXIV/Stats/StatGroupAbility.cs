@@ -11,8 +11,7 @@ namespace ParseModXIV.Stats
 {
     public class StatGroupAbility : StatGroup
     {
-        public StatGroupAbility(string name, Stat<Decimal> overall)
-            : base(name)
+        public StatGroupAbility(string name, Stat<Decimal> overall) : base(name)
         {
             InitStats(overall);
         }
@@ -136,7 +135,7 @@ namespace ParseModXIV.Stats
             var avgDamageStat = new AverageStat("Avg", totalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
             var dpsStat = new PerSecondAverageStat("DPS", totalStat);
-            return new Stat<decimal>[] { totalStat, regularTotalStat, critTotalStat,  hitStat, cHitStat, missStat, accuracyStat, evadeStat, damagePctStat, cDamagePctStat, critPctStat,  minStat, maxStat, minCStat, maxCStat, avgDamageStat, avgCDamageStat,  dpsStat };
+            return new Stat<decimal>[] {totalStat, regularTotalStat, critTotalStat, hitStat, cHitStat, missStat, accuracyStat, evadeStat, damagePctStat, cDamagePctStat, critPctStat, minStat, maxStat, minCStat, maxCStat, avgDamageStat, avgCDamageStat, dpsStat};
         }
 
         /// <summary>
@@ -180,7 +179,7 @@ namespace ParseModXIV.Stats
             var cmaxStat = new MaxStat("C High", critTotalStat);
             var avgDamageStat = new AverageStat("Avg", regularTotalStat);
             var avgCDamageStat = new AverageStat("C Avg", critTotalStat);
-            return new[] { totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat };
+            return new[] {totalStat, dpsStat, regularTotalStat, critTotalStat, abilityPctStat, abilityCPctStat, hitStat, chitStat, missStat, resistStat, resistPctStat, accuracyStat, minStat, cminStat, maxStat, cmaxStat, avgDamageStat, avgCDamageStat};
         }
 
         #endregion

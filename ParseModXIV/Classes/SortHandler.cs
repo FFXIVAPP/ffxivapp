@@ -1,11 +1,17 @@
-﻿using System.ComponentModel;
+﻿// ParseModXIV
+// SortHandler.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace ParseModXIV.Classes
 {
-    static class SortHandler
+    internal static class SortHandler
     {
         /// <summary>
         /// 

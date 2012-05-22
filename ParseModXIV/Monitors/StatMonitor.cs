@@ -24,7 +24,7 @@ namespace ParseModXIV.Monitors
         internal static readonly TotalStat PartyTotalTaken = new TotalStat("PartyTotalTaken");
         internal static readonly TotalStat PartyTotalRTaken = new TotalStat("PartyTotalRTaken");
         internal static readonly TotalStat PartyTotalCTaken = new TotalStat("PartyTotalCTaken");
-        static readonly string[] Mobbies = new[] { "Miser's Mistress", "Dodore's Minion" };
+        private static readonly string[] Mobbies = new[] {"Miser's Mistress", "Dodore's Minion"};
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
