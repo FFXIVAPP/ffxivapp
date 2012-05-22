@@ -23,7 +23,7 @@ namespace UpdateModXIV
     /// </summary>  
     public partial class MainWindow
     {
-        private string file, exe, zfile;
+        private string _file, _exe, _zfile;
         private readonly WebClient _webClient = new WebClient();
 
         public MainWindow()
@@ -39,10 +39,10 @@ namespace UpdateModXIV
             }
             else
             {
-                file = Application.Current.Properties["file"].ToString();
-                exe = file + ".exe";
-                zfile = file + ".zip";
-                var sUrlToReadFileFrom = "http://ffxiv-app.com/files/public/AppModXIV/" + zfile;
+                _file = Application.Current.Properties["file"].ToString();
+                _exe = _file + ".exe";
+                _zfile = _file + ".zip";
+                var sUrlToReadFileFrom = "http://ffxiv-app.com/files/public/AppModXIV/" + _zfile;
                 var running = "";
                 var cm = Process.GetProcessesByName("ChatModXIV");
                 var wm = Process.GetProcessesByName("Launcher");
@@ -85,20 +85,20 @@ namespace UpdateModXIV
                     p.Kill();
                 }
                 Thread.Sleep(1000);
-                if (File.Exists(zfile))
+                if (File.Exists(_zfile))
                 {
-                    File.Delete(zfile);
+                    File.Delete(_zfile);
                 }
                 Thread.Sleep(1000);
                 try
                 {
                     _webClient.DownloadFileCompleted += Completed;
                     _webClient.DownloadProgressChanged += ProgressChanged;
-                    _webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), zfile);
+                    _webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), _zfile);
                 }
                 catch
                 {
-                    MessageBox.Show("Error getting " + zfile + ", please try update again.", "UpdateModXIV - Warning!");
+                    MessageBox.Show("Error getting " + _zfile + ", please try update again.", "UpdateModXIV - Warning!");
                     Environment.Exit(0);
                 }
             }
@@ -116,23 +116,28 @@ namespace UpdateModXIV
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            using (var zip = ZipFile.Read(zfile))
+            using (var zip = ZipFile.Read(_zfile))
             {
-                foreach (var f in zip)
+                foreach (var f in zip.Where(f => f.FileName != "UpdateModXIV.exe" && f.FileName != "Ionic.Zip.dll"))
                 {
-                    f.Extract(path, ExtractExistingFileAction.OverwriteSilently); 
+                    try
+                    {
+                        f.Extract(path, ExtractExistingFileAction.OverwriteSilently);
+                    }
+                    catch
+                    {
+                    }
                 }
             }
             _webClient.Dispose();
             try
             {
-               Process m = new Process();
-               m.StartInfo.FileName = exe;
-               m.Start();
+                var m = new Process {StartInfo = {FileName = _exe}};
+                m.Start();
             }
             catch
             {
-                MessageBox.Show("Error launching " + exe + ", please launch manually", "UpdateModXIV - Warning!");
+                MessageBox.Show("Error launching " + _exe + ", please launch manually", "UpdateModXIV - Warning!");
             }
             finally
             {

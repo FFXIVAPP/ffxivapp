@@ -92,16 +92,16 @@ namespace ParseModXIV
                     switch (Settings.Default.Language)
                     {
                         case "English":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
                             break;
                         case "French":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "S'il vous plaît visitez http://ffxiv-app.com/products/ pour télécharger la dernière patch.", ToolTipIcon.Info);
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Cliquez sur ce message pour télécharger.", ToolTipIcon.Info);
                             break;
                         case "Japanese":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "最新のパッチをダウンロードしhttp://ffxiv-app.com/products/をご覧ください。", ToolTipIcon.Info);
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "ダウンロードするにはこのメッセージをクリックします。", ToolTipIcon.Info);
                             break;
                         case "German":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Bitte besuchen Sie http://ffxiv-app.com/products/ auf die neueste patch herunter zu laden.", ToolTipIcon.Info);
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Klicken sie auf diese nachricht zu downloaden.", ToolTipIcon.Info);
                             break;
                     }
                 }
@@ -114,16 +114,16 @@ namespace ParseModXIV
                             switch (Settings.Default.Language)
                             {
                                 case "English":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll was updated. Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
                                     break;
                                 case "French":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll été mis à jour. S'il vous plaît visitez http://ffxiv-app.com/products/ pour télécharger la dernière patch.", ToolTipIcon.Info);
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Cliquez sur ce message pour télécharger.", ToolTipIcon.Info);
                                     break;
                                 case "Japanese":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "AppModXIV.dllが更新されました。最新のパッチをダウンロードしhttp://ffxiv-app.com/products/をご覧ください。", ToolTipIcon.Info);
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "ダウンロードするにはこのメッセージをクリックします。", ToolTipIcon.Info);
                                     break;
                                 case "German":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "AppModXIV.dll aktualisiert wurde. Bitte besuchen Sie http://ffxiv-app.com/products/ auf die neueste patch herunter zu laden.", ToolTipIcon.Info);
+                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Klicken sie auf diese nachricht zu downloaden.", ToolTipIcon.Info);
                                     break;
                             }
                         }
@@ -139,12 +139,13 @@ namespace ParseModXIV
         /// <param name="e"></param>
         private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
         {
-            Process.Start("http://ffxiv-app.com/products/");
-            var proc = Process.GetProcessesByName("ParseModXIV");
-            foreach (var p in proc)
-            {
-                p.Kill();
-            }
+            //Process.Start("http://ffxiv-app.com/products/");
+            //var proc = Process.GetProcessesByName("ParseModXIV");
+            //foreach (var p in proc)
+            //{
+            //    p.Kill();
+            //}
+            Process.Start("UpdateModXIV.exe", "ParseModXIV");
         }
 
         #region " FORM OPEN-CLOSE-STATES "

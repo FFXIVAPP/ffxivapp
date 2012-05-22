@@ -72,7 +72,7 @@ namespace ChatModXIV
                 const int bTipTime = 3000;
                 if (checkUpdates.EndInvoke(appresult))
                 {
-                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
                 }
                 else
                 {
@@ -80,7 +80,7 @@ namespace ChatModXIV
                     {
                         if (checkLibrary.EndInvoke(libresult))
                         {
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "AppModXIV.dll was updated. Please visit http://ffxiv-app.com/products/ to download the lastest patch.", ToolTipIcon.Info);
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
                         }
                     }, null);
                 }
@@ -94,12 +94,13 @@ namespace ChatModXIV
         /// <param name="e"></param>
         private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
         {
-            Process.Start("http://ffxiv-app.com/products/");
-            var proc = Process.GetProcessesByName("ChatModXIV");
-            foreach (var p in proc)
-            {
-                p.Kill();
-            }
+            //Process.Start("http://ffxiv-app.com/products/");
+            //var proc = Process.GetProcessesByName("ChatModXIV");
+            //foreach (var p in proc)
+            //{
+            //    p.Kill();
+            //}
+            Process.Start("UpdateModXIV.exe", "ChatModXIV");
         }
 
         #region " FORM OPEN-CLOSE-STATES "

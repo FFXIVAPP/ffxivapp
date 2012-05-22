@@ -91,12 +91,6 @@
     <None Include="app.manifest" />
     <AppDesigner Include="Properties\" />
     <None Include="packages.config" />
-    <None Include="UpdateModXIV.exe.nlog">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UpdateModXIV.ico" />
@@ -110,4 +104,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <SmartAssembly.MSBuild.Tasks.Build ProjectFile="UpdateModXIV.saproj" input="$(OutDir)UpdateModXIV.exe" output="$(OutDir)UpdateModXIV.exe" OverwriteAssembly="true" />
+  </Target>
 </Project>

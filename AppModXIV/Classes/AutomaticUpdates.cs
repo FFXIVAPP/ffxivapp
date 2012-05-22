@@ -83,6 +83,10 @@ namespace AppModXIV.Classes
             {
                 if (lminor <= cminor)
                 {
+                    if (lbuild == cbuild)
+                    {
+                        return lrevision > crevision;
+                    }
                     return lbuild > cbuild;
                 }
                 return true;

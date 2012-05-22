@@ -1,12 +1,11 @@
 ﻿// ParseModXIV
-// French.cs
+// German.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
 using System.Collections;
-using System.Text.RegularExpressions;
 using NLog;
 using ParseModXIV.Classes;
 using ParseModXIV.Model;
@@ -47,7 +46,7 @@ namespace ParseModXIV.Data
                         {
                             Logger.Warn("MatchEvent : No match for Additional on line {0}", cleaned);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                             return;
                         }
                         if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
@@ -115,7 +114,7 @@ namespace ParseModXIV.Data
                         {
                             Logger.Warn("MatchEvent : No match for Blocks on line {0}", cleaned);
                             //ChatWorkerDelegate.XmlWriteLog.AddChatLine(new string[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
-                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                            ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                             return;
                         }
                     }
@@ -157,7 +156,7 @@ namespace ParseModXIV.Data
                 if (!hReg.Success)
                 {
                     Logger.Warn("MatchEvent : No match for Healing on line {0}", cleaned);
-                    ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                    ChatWorkerDelegate.XmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
                     return;
                 }
                 var whoDid = Convert.ToString(hReg.Groups["whoDid"].Value);
@@ -193,7 +192,7 @@ namespace ParseModXIV.Data
 
         private static Hashtable GetJob()
         {
-            var offsets = new Hashtable { { "phalanx", "gladiator" }, { "aegis boon", "gladiator" }, { "riot blade", "gladiator" }, { "war drum", "gladiator" }, { "tempered will", "gladiator" }, { "rage of halone", "gladiator" }, { "goring blade", "gladiator" }, { "cover", "paladin" }, { "divine veil", "paladin" }, { "hallowed ground", "paladin" }, { "holy succor", "paladin" }, { "spirits within", "paladin" }, { "pounce", "puglist" }, { "haymaker", "puglist" }, { "fists of earth", "puglist" }, { "fists of fire", "puglist" }, { "aura pulse", "puglist" }, { "taunt", "puglist" }, { "howling fist", "puglist" }, { "simian thrash", "puglist" }, { "shoulder tackle", "monk" }, { "spinning heal", "monk" }, { "fists of wind", "monk" }, { "dragon kick", "monk" }, { "hundred fists", "monk" }, { "fracture", "marauder" }, { "berserk", "marauder" }, { "rampage", "marauder" }, { "path of the storm", "marauder" }, { "enduring march", "marauder" }, { "whirlwind", "marauder" }, { "godsbane", "marauder" }, { "vengeance", "warrior" }, { "antagonize", "warrior" }, { "collusion", "warrior" }, { "mighty strikes", "warrior" }, { "steel cyclone", "warrior" }, { "life surge", "lancer" }, { "power surge", "lancer" }, { "full thrust", "lancer" }, { "dread spike", "lancer" }, { "doom spike", "lancer" }, { "chaos thrust", "lancer" }, { "jump", "dragoon" }, { "elusive jump", "dragoon" }, { "dragonfire dive", "dragoon" }, { "disembowel", "dragoon" }, { "ring of talons", "dragoon" }, { "light shot", "archer" }, { "raging strike", "archer" }, { "shadowbind", "archer" }, { "swiftsong", "archer" }, { "barrage", "archer" }, { "quick nock", "archer" }, { "bloodletter", "archer" }, { "wide volley", "archer" }, { "battle voice", "bard" }, { "rain of death", "bard" }, { "ballad of magi", "bard" }, { "paeon of war", "bard" }, { "minuet of rigor", "bard" }, { "cleric stance", "conjurer" }, { "blissful mind", "conjurer" }, { "stonera", "conjurer" }, { "cura", "conjurer" }, { "shroud of saints", "conjurer" }, { "aerora", "conjurer" }, { "curaga", "conjurer" }, { "repose", "conjurer" }, { "presence of mind", "white mage" }, { "benediction", "white mage" }, { "esuna", "white mage" }, { "regen", "white mage" }, { "holy", "white mage" }, { "parsimony", "thaumaturgy" }, { "blizzard", "thaumaturgy" }, { "thundara", "thaumaturgy" }, { "blizzara", "thaumaturgy" }, { "excruciate", "thaumaturgy" }, { "sleep", "thaumaturgy" }, { "thundaga", "thaumaturgy" }, { "firaga", "thaumaturgy" }, { "convert", "black mage" }, { "burst", "black mage" }, { "sleepga", "black mage" }, { "flare", "black mage" }, { "freeze", "black mage" } };
+            var offsets = new Hashtable {{"phalanx", "gladiator"}, {"aegis boon", "gladiator"}, {"riot blade", "gladiator"}, {"war drum", "gladiator"}, {"tempered will", "gladiator"}, {"rage of halone", "gladiator"}, {"goring blade", "gladiator"}, {"cover", "paladin"}, {"divine veil", "paladin"}, {"hallowed ground", "paladin"}, {"holy succor", "paladin"}, {"spirits within", "paladin"}, {"pounce", "puglist"}, {"haymaker", "puglist"}, {"fists of earth", "puglist"}, {"fists of fire", "puglist"}, {"aura pulse", "puglist"}, {"taunt", "puglist"}, {"howling fist", "puglist"}, {"simian thrash", "puglist"}, {"shoulder tackle", "monk"}, {"spinning heal", "monk"}, {"fists of wind", "monk"}, {"dragon kick", "monk"}, {"hundred fists", "monk"}, {"fracture", "marauder"}, {"berserk", "marauder"}, {"rampage", "marauder"}, {"path of the storm", "marauder"}, {"enduring march", "marauder"}, {"whirlwind", "marauder"}, {"godsbane", "marauder"}, {"vengeance", "warrior"}, {"antagonize", "warrior"}, {"collusion", "warrior"}, {"mighty strikes", "warrior"}, {"steel cyclone", "warrior"}, {"life surge", "lancer"}, {"power surge", "lancer"}, {"full thrust", "lancer"}, {"dread spike", "lancer"}, {"doom spike", "lancer"}, {"chaos thrust", "lancer"}, {"jump", "dragoon"}, {"elusive jump", "dragoon"}, {"dragonfire dive", "dragoon"}, {"disembowel", "dragoon"}, {"ring of talons", "dragoon"}, {"light shot", "archer"}, {"raging strike", "archer"}, {"shadowbind", "archer"}, {"swiftsong", "archer"}, {"barrage", "archer"}, {"quick nock", "archer"}, {"bloodletter", "archer"}, {"wide volley", "archer"}, {"battle voice", "bard"}, {"rain of death", "bard"}, {"ballad of magi", "bard"}, {"paeon of war", "bard"}, {"minuet of rigor", "bard"}, {"cleric stance", "conjurer"}, {"blissful mind", "conjurer"}, {"stonera", "conjurer"}, {"cura", "conjurer"}, {"shroud of saints", "conjurer"}, {"aerora", "conjurer"}, {"curaga", "conjurer"}, {"repose", "conjurer"}, {"presence of mind", "white mage"}, {"benediction", "white mage"}, {"esuna", "white mage"}, {"regen", "white mage"}, {"holy", "white mage"}, {"parsimony", "thaumaturgy"}, {"blizzard", "thaumaturgy"}, {"thundara", "thaumaturgy"}, {"blizzara", "thaumaturgy"}, {"excruciate", "thaumaturgy"}, {"sleep", "thaumaturgy"}, {"thundaga", "thaumaturgy"}, {"firaga", "thaumaturgy"}, {"convert", "black mage"}, {"burst", "black mage"}, {"sleepga", "black mage"}, {"flare", "black mage"}, {"freeze", "black mage"}};
             return offsets;
         }
 
