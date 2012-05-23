@@ -229,6 +229,13 @@ namespace ParseModXIV.ViewModel
         {
             Settings.Default.Reset();
             Settings.Default.Reload();
+            try {
+            var p = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            System.IO.Directory.Delete(p, true);
+            }
+            catch
+            {
+            }
         }
 
         private static void Exit()

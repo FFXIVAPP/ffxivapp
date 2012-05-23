@@ -33,7 +33,7 @@ namespace ParseModXIV
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : IDisposable
+    public partial class MainWindow :IDisposable
     {
         #region " VARIABLES "
 
@@ -51,7 +51,7 @@ namespace ParseModXIV
         private Color _bColor;
         public static readonly List<string[]> BattleLog = new List<string[]>();
         public static readonly List<string[]> HealingLog = new List<string[]>();
-
+        private static string lang = "en";
         #endregion
 
         /// <summary>
@@ -67,7 +67,8 @@ namespace ParseModXIV
                 Resources.MergedDictionaries.Add(rd);
             }
             ResourceDictionary dict;
-            switch (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)
+            lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            switch (lang)
             {
                 case "ja":
                     dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/Japanese.xaml")};
@@ -100,26 +101,32 @@ namespace ParseModXIV
             _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
+            string title, message;
             checkUpdates.BeginInvoke(appresult =>
             {
                 const int bTipTime = 3000;
                 if (checkUpdates.EndInvoke(appresult))
                 {
-                    switch (Settings.Default.Language)
+                    switch (lang)
                     {
-                        case "English":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
+                        case "ja":
+                            title = "利用可能な更新！";
+                            message = "ダウンロードするにはこのメッセージをクリックします。";
                             break;
-                        case "French":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Cliquez sur ce message pour télécharger.", ToolTipIcon.Info);
+                        case "de":
+                            title = "Update Verfügbar!";
+                            message = "Klicken sie auf diese nachricht zu downloaden.";
                             break;
-                        case "Japanese":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "ダウンロードするにはこのメッセージをクリックします。", ToolTipIcon.Info);
+                        case "fr":
+                            title = "Mise À Jour Possible!";
+                            message = "Cliquez sur ce message pour télécharger.";
                             break;
-                        case "German":
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Klicken sie auf diese nachricht zu downloaden.", ToolTipIcon.Info);
+                        default:
+                            title = "Update Available!";
+                            message = "Click this message to download.";
                             break;
                     }
+                    _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
                 }
                 else
                 {
@@ -127,26 +134,53 @@ namespace ParseModXIV
                     {
                         if (checkLibrary.EndInvoke(libresult))
                         {
-                            switch (Settings.Default.Language)
+                            switch (lang)
                             {
-                                case "English":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Click this message to download.", ToolTipIcon.Info);
+                                case "ja":
+                                    title = "利用可能な更新！";
+                                    message = "ダウンロードするにはこのメッセージをクリックします。";
                                     break;
-                                case "French":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Available!", "Cliquez sur ce message pour télécharger.", ToolTipIcon.Info);
+                                case "de":
+                                    title = "Update Verfügbar!";
+                                    message = "Klicken sie auf diese nachricht zu downloaden.";
                                     break;
-                                case "Japanese":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "利用可能な更新！", "ダウンロードするにはこのメッセージをクリックします。", ToolTipIcon.Info);
+                                case "fr":
+                                    title = "Mise À Jour Possible!";
+                                    message = "Cliquez sur ce message pour télécharger.";
                                     break;
-                                case "German":
-                                    _myNotifyIcon.ShowBalloonTip(bTipTime, "Update Verfügbar!", "Klicken sie auf diese nachricht zu downloaden.", ToolTipIcon.Info);
+                                default:
+                                    title = "Update Available!";
+                                    message = "Click this message to download.";
                                     break;
                             }
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
                         }
                     }, null);
                 }
             }, null);
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //private static void UpdateNotify(string message)
+        //{
+        //    System.Threading.Thread thread = new System.Threading.Thread(
+        //        new System.Threading.ThreadStart(
+        //            delegate()
+        //            {
+        //                //name of control here:
+        //                View.Dispatcher.Invoke(
+        //                    new Action(
+        //                        delegate()
+        //                        {
+        //                            //do stuff here
+        //                        }
+        //                        ));
+        //            }
+        //            ));
+        //    thread.Start();
+        //}
 
         /// <summary>
         /// 

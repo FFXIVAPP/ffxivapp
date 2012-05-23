@@ -26,10 +26,7 @@ You may not copy, modify, redistribute or otherwise do anything else to the soft
             <DockPanel DockPanel.Dock="Top">
                 <local:MainMenuView x:Name="MainMenuView"/>
             </DockPanel>
-            <Border BorderBrush="Gray" BorderThickness="0 0 0 2" DockPanel.Dock="Top">
-                <DockPanel x:Name="gui_LogoContainer">
-                    <!--<Image x:Name="gui_Logo" Margin="0 2 0 0" Source="/ParseModXIV;component/Resources/Logos/logo.jpg" HorizontalAlignment="Left" Stretch="Uniform" MaxWidth="555" MaxHeight="100" />-->
-                </DockPanel>
+            <Border BorderBrush="Gray" BorderThickness="0 1 0 1" DockPanel.Dock="Top">
             </Border>
             <DockPanel DockPanel.Dock="Bottom">
                 <local:MainStatusView x:Name="MainStatusView" />
