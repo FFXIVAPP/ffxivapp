@@ -306,6 +306,11 @@ namespace ChatModXIV
                 MessageBox.Show("Site Username Required!");
                 return;
             }
+            if (Settings.Default.APIKey == "")
+            {
+                MessageBox.Show("API Required!");
+                return;
+            }
             try
             {
                 Socket = new Client("http://ffxiv-app.com:4000");
@@ -352,6 +357,7 @@ namespace ChatModXIV
         {
             UpdateControls(false);
             PreClose();
+            Connect();
         }
 
         /// <summary>
