@@ -72,11 +72,11 @@ namespace ParseModXIV.Monitors
                 Logger.Debug("KillEvent : Got regex match for mob defeat, but no whatDefeated capture group.  Raw Line: {0}", line);
                 return;
             }
-            if (ParseModInstance.Timeline.Ability.HasGroup(whatDefeated.Value))
+            if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
             {
-                if (ParseModInstance.Timeline.Healing.HasGroup(whatDefeated.Value))
+                if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
                 {
-                    if (ParseModInstance.Timeline.Damage.HasGroup(whatDefeated.Value))
+                    if (ParseModInstance.Timeline.Party.HasGroup(whatDefeated.Value))
                     {
                         return;
                     }

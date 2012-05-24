@@ -51,7 +51,7 @@ namespace ParseModXIV.Classes
                 if (playerName != "")
                 {
                     toClipboard += playerName + "@ ";
-                    using (var aEnum = ParseMod.Instance.Timeline.Ability.GetEnumerator())
+                    using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
                     {
                         while (aEnum.MoveNext()) //name of player
                         {
@@ -84,7 +84,7 @@ namespace ParseModXIV.Classes
                         }
                     }
 
-                    using (var aEnum = ParseMod.Instance.Timeline.Healing.GetEnumerator())
+                    using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
                     {
                         while (aEnum.MoveNext()) //name of player
                         {
@@ -106,7 +106,7 @@ namespace ParseModXIV.Classes
                         }
                     }
 
-                    using (var aEnum = ParseMod.Instance.Timeline.Damage.GetEnumerator())
+                    using (var aEnum = ParseMod.Instance.Timeline.Party.GetEnumerator())
                     {
                         while (aEnum.MoveNext()) //name of player
                         {

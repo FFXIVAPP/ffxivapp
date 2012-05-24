@@ -44,17 +44,7 @@ namespace ParseModXIV.Model
         /// <summary>
         /// 
         /// </summary>
-        public StatGroup Ability { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StatGroup Healing { get; internal set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StatGroup Damage { get; internal set; }
+        public StatGroup Party { get; internal set; }
 
         /// <summary>
         /// 
@@ -71,9 +61,7 @@ namespace ParseModXIV.Model
             FightingRightNow = false;
             Fights = new FightList();
             Overall = new StatGroup("Overall");
-            Ability = new StatGroup("Ability") {IncludeSelf = false};
-            Healing = new StatGroup("Healing") {IncludeSelf = false};
-            Damage = new StatGroup("Damage") {IncludeSelf = false};
+            Party = new StatGroup("Party") {IncludeSelf = false};
             Monster = new StatGroup("Monster") {IncludeSelf = false};
         }
 
@@ -98,51 +86,16 @@ namespace ParseModXIV.Model
         /// 
         /// </summary>
         /// <param name="playerName"></param>
-        /// <param name="overall"></param>
         /// <returns></returns>
-        public StatGroupAbility GetSetAbility(string playerName, Stat<Decimal> overall)
+        public StatGroupPlayer GetSetPlayer(string playerName)
         {
             StatGroup g;
-            if (!Ability.TryGetGroup(playerName, out g))
+            if (!Party.TryGetGroup(playerName, out g))
             {
-                g = new StatGroupAbility(playerName, overall);
-                Ability.AddGroup(g);
+                g = new StatGroupPlayer(playerName);
+                Party.AddGroup(g);
             }
-            return (StatGroupAbility) g;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="playerName"></param>
-        /// <param name="overall"></param>
-        /// <returns></returns>
-        public StatGroupHealing GetSetHealing(string playerName, Stat<Decimal> overall)
-        {
-            StatGroup g;
-            if (!Healing.TryGetGroup(playerName, out g))
-            {
-                g = new StatGroupHealing(playerName, overall);
-                Healing.AddGroup(g);
-            }
-            return (StatGroupHealing) g;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="playerName"></param>
-        /// <param name="overall"></param>
-        /// <returns></returns>
-        public StatGroupDamage GetSetDamage(string playerName, Stat<Decimal> overall)
-        {
-            StatGroup g;
-            if (!Damage.TryGetGroup(playerName, out g))
-            {
-                g = new StatGroupDamage(playerName, overall);
-                Damage.AddGroup(g);
-            }
-            return (StatGroupDamage) g;
+            return (StatGroupPlayer) g;
         }
 
         /// <summary>
@@ -207,12 +160,10 @@ namespace ParseModXIV.Model
         /// </summary>
         public static void Clear()
         {
-            ParseMod.Instance.Timeline.Overall.Clear();
-            ParseMod.Instance.Timeline.Ability.Clear();
-            ParseMod.Instance.Timeline.Healing.Clear();
-            ParseMod.Instance.Timeline.Damage.Clear();
-            ParseMod.Instance.Timeline.Monster.Clear();
             ParseMod.Instance.Timeline.Fights.Clear();
+            ParseMod.Instance.Timeline.Overall.Clear();
+            ParseMod.Instance.Timeline.Party.Clear();
+            ParseMod.Instance.Timeline.Monster.Clear();
         }
 
         #region Implementation of INotifyPropertyChanged

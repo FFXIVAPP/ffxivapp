@@ -30,7 +30,7 @@
     </UserControl.Resources>
     
     <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Ability, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+        <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Party, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <UserControls:PlayerInfoBox DataContext="{Binding}" MaxWidth="300" MaxHeight="100" />

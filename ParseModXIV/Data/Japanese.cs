@@ -9,7 +9,6 @@ using System.Collections;
 using NLog;
 using ParseModXIV.Classes;
 using ParseModXIV.Model;
-using ParseModXIV.Monitors;
 
 namespace ParseModXIV.Data
 {
@@ -52,7 +51,7 @@ namespace ParseModXIV.Data
                         if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
                         {
                             var added = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
-                            ParseMod.Instance.Timeline.GetSetAbility(_lastAttacker, StatMonitor.PartyDamage).GetSetAbility(_lastAttacked, "追加効果", added, true, false, false);
+                            ParseMod.Instance.Timeline.GetSetPlayer(_lastAttacker).AddAbilityStats(_lastAttacked, "追加効果", added, true, false, false);
                         }
                         return;
                     }
@@ -76,23 +75,23 @@ namespace ParseModXIV.Data
                 ParseMod.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, mob);
                 if (resist)
                 {
-                    ParseMod.Instance.Timeline.GetSetMob(whoEvaded).GetSetAbility(ability, damage, true, false, false);
+                    ParseMod.Instance.Timeline.GetSetMob(whoEvaded).GetSetPlayer(ability, damage, true, false, false);
                     didHit = true;
                 }
                 else
                 {
-                    ParseMod.Instance.Timeline.GetSetMob(mob).GetSetAbility(ability, damage, false, false, didCrit);
+                    ParseMod.Instance.Timeline.GetSetMob(mob).GetSetPlayer(ability, damage, false, false, didCrit);
                 }
-                ParseMod.Instance.Timeline.GetSetAbility(whoHit, StatMonitor.PartyDamage).GetSetAbility(mob, ability, damage, didHit, didCrit, resist);
+                ParseMod.Instance.Timeline.GetSetPlayer(whoHit).AddAbilityStats(mob, ability, damage, didHit, didCrit, resist);
                 _lastAttacker = whoHit;
                 _lastAttacked = mob;
                 if (ParseMod.Instance.TotalA.ContainsKey(whoHit))
                 {
-                    ParseMod.Instance.TotalA[whoHit] = ParseMod.Instance.Timeline.Ability.GetGroup(whoHit).GetStatValue("Total").ToString();
+                    ParseMod.Instance.TotalA[whoHit] = ParseMod.Instance.Timeline.Party.GetGroup(whoHit).GetStatValue("Total").ToString();
                 }
                 else
                 {
-                    ParseMod.Instance.TotalA[whoHit] = ParseMod.Instance.Timeline.Ability.GetGroup(whoHit).GetStatValue("Total").ToString();
+                    ParseMod.Instance.TotalA[whoHit] = ParseMod.Instance.Timeline.Party.GetGroup(whoHit).GetStatValue("Total").ToString();
                 }
                 //var critical = "0";
                 //if (didCrit) critical = "1";
@@ -173,14 +172,14 @@ namespace ParseModXIV.Data
                 }
                 Logger.Trace("HandlingEvent : Who: {0} Monster: {1} Ability: {2} Damage: {3} Hit: {4} Crit: {5} Resist: {6}", player, mob, ability, damage, didHit, didCrit, resist);
                 ParseMod.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, mob);
-                ParseMod.Instance.Timeline.GetSetDamage(player, StatMonitor.PartyTotalTaken).GetSetDamage(mob, ability, damage, didHit, didCrit, block);
+                ParseMod.Instance.Timeline.GetSetPlayer(player).AddDamageStats(mob, ability, damage, didHit, didCrit, block);
                 if (ParseMod.Instance.TotalD.ContainsKey(player))
                 {
-                    ParseMod.Instance.TotalD[player] = ParseMod.Instance.Timeline.Damage.GetGroup(player).GetStatValue("DT Total").ToString();
+                    ParseMod.Instance.TotalD[player] = ParseMod.Instance.Timeline.Party.GetGroup(player).GetStatValue("DT Total").ToString();
                 }
                 else
                 {
-                    ParseMod.Instance.TotalD[player] = ParseMod.Instance.Timeline.Damage.GetGroup(player).GetStatValue("DT Total").ToString();
+                    ParseMod.Instance.TotalD[player] = ParseMod.Instance.Timeline.Party.GetGroup(player).GetStatValue("DT Total").ToString();
                 }
                 //var critical = "0";
                 //if (didCrit) critical = "1";
@@ -233,7 +232,7 @@ namespace ParseModXIV.Data
                 Logger.Trace("HandlingEvent : Caster: {0} Ability: {1} Target: {2} Rec/Loss: {3} Amount: {4} Type: {5}", whoDid, ability, castOn, recLoss, amount, type);
                 if (type == "ＨＰ")
                 {
-                    ParseMod.Instance.Timeline.GetSetHealing(whoDid, StatMonitor.PartyHealing).GetSetHealing(ability, castOn, amount);
+                    ParseMod.Instance.Timeline.GetSetPlayer(whoDid).AddHealingStats(ability, castOn, amount);
                     //if (whoDid != Settings.Default.CharacterName) return;
                     //if (Settings.Default.Gui_UploadData && App.MArgs == null)
                     //{
@@ -250,11 +249,11 @@ namespace ParseModXIV.Data
                     //}
                     if (ParseMod.Instance.TotalH.ContainsKey(whoDid))
                     {
-                        ParseMod.Instance.TotalH[whoDid] = ParseMod.Instance.Timeline.Healing.GetGroup(whoDid).GetStatValue("H Total").ToString();
+                        ParseMod.Instance.TotalH[whoDid] = ParseMod.Instance.Timeline.Party.GetGroup(whoDid).GetStatValue("H Total").ToString();
                     }
                     else
                     {
-                        ParseMod.Instance.TotalH[whoDid] = ParseMod.Instance.Timeline.Healing.GetGroup(whoDid).GetStatValue("H Total").ToString();
+                        ParseMod.Instance.TotalH[whoDid] = ParseMod.Instance.Timeline.Party.GetGroup(whoDid).GetStatValue("H Total").ToString();
                     }
                 }
                 ////********** Commented until I find a cheaper host.

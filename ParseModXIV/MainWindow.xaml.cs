@@ -33,7 +33,7 @@ namespace ParseModXIV
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :IDisposable
+    public partial class MainWindow : IDisposable
     {
         #region " VARIABLES "
 
@@ -52,6 +52,7 @@ namespace ParseModXIV
         public static readonly List<string[]> BattleLog = new List<string[]>();
         public static readonly List<string[]> HealingLog = new List<string[]>();
         private static string lang = "en";
+
         #endregion
 
         /// <summary>

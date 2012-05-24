@@ -6,6 +6,8 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
@@ -229,9 +231,10 @@ namespace ParseModXIV.ViewModel
         {
             Settings.Default.Reset();
             Settings.Default.Reload();
-            try {
-            var p = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-            System.IO.Directory.Delete(p, true);
+            try
+            {
+                var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Assembly.GetExecutingAssembly().GetName().Name);
+                Directory.Delete(p, true);
             }
             catch
             {

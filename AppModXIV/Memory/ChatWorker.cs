@@ -206,7 +206,10 @@ namespace AppModXIV.Memory
                         }
                         PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
                         var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
-                        PostLineEvent(results.Length > 5 ? results : Encoding.UTF8.GetString(_newText.ToArray()));
+                        if (results.Length > 5)
+                        {
+                            PostLineEvent(results);
+                        }
                     }
                 }
                 catch
@@ -230,6 +233,7 @@ namespace AppModXIV.Memory
         /// 
         /// </summary>
         /// <param name="bytes"></param>
+        /// <param name="ci"> </param>
         /// <returns></returns>
         private string CleanUpStringAt(byte[] bytes, CultureInfo ci)
         {
@@ -334,10 +338,10 @@ namespace AppModXIV.Memory
                 }
             }
             _cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(_nList.ToArray())).Replace("  ", " ");
-            _cleaned = (ci.TwoLetterISOLanguageName == "ja") ? Encoding.UTF8.GetString(_nList.ToArray()).Replace("  ", " ") : _cleaned;
             _aList.Clear();
             _nList.Clear();
-            return _cleaned;
+            _cList.Clear();
+            return _cleaned.Length < 5 && ci.TwoLetterISOLanguageName == "ja" ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray())).Replace("  ", " ") : _cleaned;
         }
 
         #endregion

@@ -26,7 +26,7 @@
     <ScrollViewer>
         <StackPanel Margin="10">
             <Grid>
-                <ListView ItemsSource="{Binding}" DataContext="{Binding NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, Source={StaticResource ParseMod}, Path=Timeline.Ability}" x:Name="AbilityPlayerTotal" ScrollViewer.CanContentScroll="False" GridViewColumnHeader.Click="Sort" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
+                <ListView ItemsSource="{Binding}" DataContext="{Binding NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, Source={StaticResource ParseMod}, Path=Timeline.Party}" x:Name="AbilityPlayerTotal" ScrollViewer.CanContentScroll="False" GridViewColumnHeader.Click="Sort" ItemContainerStyle="{StaticResource alternatingListViewItemStyle}" AlternationCount="2">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridView.ColumnHeaderTemplate>

@@ -6,6 +6,8 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
@@ -303,6 +305,14 @@ namespace LogModXIV.ViewModel
         {
             Settings.Default.Reset();
             Settings.Default.Reload();
+            try
+            {
+                var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Assembly.GetExecutingAssembly().GetName().Name);
+                Directory.Delete(p, true);
+            }
+            catch
+            {
+            }
         }
 
         private static void Exit()
