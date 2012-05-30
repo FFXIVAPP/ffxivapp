@@ -66,40 +66,43 @@ namespace UpdateModXIV
                 }
                 if (!String.IsNullOrWhiteSpace(running))
                 {
-                    MessageBox.Show("The following programs that are running will be closed:" + running, "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
-                foreach (var p in cm)
-                {
-                    p.Kill();
-                }
-                foreach (var p in wm)
-                {
-                    p.Kill();
-                }
-                foreach (var p in lm)
-                {
-                    p.Kill();
-                }
-                foreach (var p in pm)
-                {
-                    p.Kill();
-                }
-                Thread.Sleep(1000);
-                if (File.Exists(_zfile))
-                {
-                    File.Delete(_zfile);
-                }
-                Thread.Sleep(1000);
-                try
-                {
-                    _webClient.DownloadFileCompleted += Completed;
-                    _webClient.DownloadProgressChanged += ProgressChanged;
-                    _webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), _zfile);
-                }
-                catch
-                {
-                    MessageBox.Show("Error getting " + _zfile + ", please try update again.", "UpdateModXIV - Warning!");
-                    Environment.Exit(0);
+                    var result = MessageBox.Show("The following programs that are running will be closed:" + running, "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    if(result == MessageBoxResult.OK)
+                    {
+                        foreach (var p in cm)
+                        {
+                            p.Kill();
+                        }
+                        foreach (var p in wm)
+                        {
+                            p.Kill();
+                        }
+                        foreach (var p in lm)
+                        {
+                            p.Kill();
+                        }
+                        foreach (var p in pm)
+                        {
+                            p.Kill();
+                        }
+                        Thread.Sleep(1000);
+                        if (File.Exists(_zfile))
+                        {
+                            File.Delete(_zfile);
+                        }
+                        Thread.Sleep(1000);
+                        try
+                        {
+                            _webClient.DownloadFileCompleted += Completed;
+                            _webClient.DownloadProgressChanged += ProgressChanged;
+                            _webClient.DownloadFileAsync(new Uri(sUrlToReadFileFrom), _zfile);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error getting " + _zfile + ", please try update again.", "UpdateModXIV - Warning!");
+                            Environment.Exit(0);
+                        }
+                    }
                 }
             }
         }

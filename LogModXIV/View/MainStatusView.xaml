@@ -64,6 +64,9 @@
             </DockPanel.Effect>
             <StatusBar Background="WhiteSmoke" >
                 <StatusBarItem>
+                    <Button x:Name="gui_Send" Click="gui_Send_Click">Send</Button>
+                </StatusBarItem>
+                <StatusBarItem>
                     <ComboBox ItemsSource="{Binding Source={StaticResource LanguageStrings}}" SelectedValue="{Binding Source={x:Static me:Settings.Default}, Path=Gui_ManualTranslate, Mode=TwoWay}" x:Name="Gui_ManualTranslate"/>
                 </StatusBarItem>
                 <StatusBarItem>

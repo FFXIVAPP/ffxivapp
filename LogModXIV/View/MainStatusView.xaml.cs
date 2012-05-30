@@ -36,19 +36,14 @@ namespace LogModXIV.View
 
         private void ChatterTrans()
         {
+            if (Settings.Default.Gui_SendToGame)
+            {
+                return;
+            }
             var tmpTranString = GoogleTranslate.TranslateText(gui_Chatter.Text, "en", GoogleTranslate.Offsets[Gui_ManualTranslate.Text].ToString(), false, false);
             gui_Chatter.Clear();
             gui_Chatter.Text = tmpTranString;
             Clipboard.SetText(tmpTranString);
-            if (!Settings.Default.Gui_SendToGame)
-            {
-                return;
-            }
-            Clipboard.SetText(gui_ChatToSend.Text.Trim() + " " + tmpTranString);
-            KeyHelper.KeyPress(Keys.Escape);
-            KeyHelper.KeyPress(Keys.Space);
-            KeyHelper.Paste();
-            KeyHelper.KeyPress(Keys.Return);
         }
 
         private void gui_ChatToSend_GotFocus(object sender, RoutedEventArgs e)
@@ -59,6 +54,23 @@ namespace LogModXIV.View
         private void gui_Chatter_GotFocus(object sender, RoutedEventArgs e)
         {
             gui_Chatter.SelectAll();
+        }
+
+        private void gui_Send_Click(object sender, RoutedEventArgs e)
+        {
+            var tmpTranString = GoogleTranslate.TranslateText(gui_Chatter.Text, "en", GoogleTranslate.Offsets[Gui_ManualTranslate.Text].ToString(), false, false);
+            gui_Chatter.Clear();
+            gui_Chatter.Text = tmpTranString;
+            if (!Settings.Default.Gui_SendToGame)
+            {
+                return;
+            }
+            Clipboard.SetText(gui_ChatToSend.Text.Trim() + " " + tmpTranString);
+            KeyHelper.KeyPress(Keys.Escape);
+            KeyHelper.KeyPress(Keys.Space);
+            KeyHelper.Paste();
+            KeyHelper.KeyPress(Keys.Return);
+            Clipboard.SetText(tmpTranString);
         }
     }
 }
