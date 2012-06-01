@@ -7,7 +7,7 @@
 namespace ParseModXIV.View
 {
     /// <summary>
-    /// Interaction logic for TabControlViewModel.xaml
+    /// Interaction logic for TabControlView.xaml
     /// </summary>
     public partial class TabControlView
     {
@@ -19,13 +19,5 @@ namespace ParseModXIV.View
             // Insert code required on object creation below this point.
             View = this;
         }
-
-        //private void List_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Delete)
-        //    {
-        //        e.Handled = true;
-        //    }
-        //}
     }
 }

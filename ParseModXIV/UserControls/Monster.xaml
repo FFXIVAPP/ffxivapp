@@ -25,7 +25,8 @@
                                                 NotifyOnTargetUpdated=True}"
                           ItemsSource="{Binding}"
                           ScrollViewer.CanContentScroll="False"
-                          util:GridViewSort.AutoSort="True">
+                          util:GridViewSort.AutoSort="True"
+                          util:GridViewSort.ShowSortGlyph="False">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridView.ColumnHeaderTemplate>
@@ -105,6 +106,7 @@
                     <ListView x:Name="MonsterDetailAbilities"
                               ItemsSource="{Binding Abilities}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=MonsterDetailAbilities,
                                                    Mode=TwoWay,
@@ -192,6 +194,7 @@
                     <ListView x:Name="MonsterDetailsDrops"
                               ItemsSource="{Binding Drops}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=MonsterDetailsDrops,
                                                    Mode=TwoWay,

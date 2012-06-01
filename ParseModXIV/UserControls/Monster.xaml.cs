@@ -16,6 +16,7 @@ namespace ParseModXIV.UserControls
         public Monster()
         {
             InitializeComponent();
+            // Insert code required on object creation below this point.
             View = this;
         }
     }

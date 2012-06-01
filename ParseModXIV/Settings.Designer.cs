@@ -499,5 +499,38 @@ namespace ParseModXIV {
                 this["MonsterDetailAbilities"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Red|Light</string>
+  <string>Green|Light</string>
+  <string>Blue|Light</string>
+  <string>Purple|Light</string>
+  <string>Orange|Light</string>
+  <string>Red|Dark</string>
+  <string>Green|Dark</string>
+  <string>Blue|Dark</string>
+  <string>Purple|Dark</string>
+  <string>Orange|Dark</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection ThemeList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ThemeList"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Green|Light")]
+        public string Theme {
+            get {
+                return ((string)(this["Theme"]));
+            }
+            set {
+                this["Theme"] = value;
+            }
+        }
     }
 }

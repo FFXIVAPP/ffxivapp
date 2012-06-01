@@ -24,7 +24,8 @@
                                                 Source={StaticResource ParseMod},
                                                 Path=Timeline.Party}"
                           ItemsSource="{Binding}"
-                          util:GridViewSort.AutoSort="True">
+                          util:GridViewSort.AutoSort="True"
+                          util:GridViewSort.ShowSortGlyph="False">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridView.ColumnHeaderTemplate>
@@ -123,6 +124,7 @@
                     <ListView x:Name="AbilityPlayerDetail"
                               ItemsSource="{Binding Abilities}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=AbilityPlayerDetail,
                                                    Mode=TwoWay,
@@ -226,6 +228,7 @@
                     <ListView x:Name="AbilityPlayerMonster"
                               ItemsSource="{Binding Monsters}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=AbilityPlayerMonster,
                                                    Mode=TwoWay,
@@ -330,6 +333,7 @@
                     <ListView x:Name="AbilityPlayerMonsterDetails"
                               ItemsSource="{Binding Abilities}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=AbilityPlayerMonsterDetails,
                                                    Mode=TwoWay,

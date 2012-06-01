@@ -97,6 +97,8 @@
     <Compile Include="Classes\RegExpsFr.cs" />
     <Compile Include="Classes\RegExpsJa.cs" />
     <Compile Include="Classes\GridViewSort.cs" />
+    <Compile Include="Classes\SelectionBehavior.cs" />
+    <Compile Include="Classes\ThemeHelper.cs" />
     <Compile Include="Data\English.cs" />
     <Compile Include="Data\French.cs" />
     <Compile Include="Data\German.cs" />

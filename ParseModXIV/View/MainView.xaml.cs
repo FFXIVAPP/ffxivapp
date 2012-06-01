@@ -22,6 +22,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using AppModXIV.Classes;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
 using ParseModXIV.Classes;
 using Application = System.Windows.Application;
@@ -193,6 +194,7 @@ namespace ParseModXIV
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            UpdateTheme();
             UpdateColors();
             UpdateFonts();
             Start();
@@ -381,7 +383,29 @@ namespace ParseModXIV
 
         #endregion
 
-        #region " FONTS AND COLORS "
+        #region " THEME, FONTS AND COLORS "
+
+        private void UpdateTheme()
+        {
+            try
+            {
+                var split = Settings.Default.Theme.Split('|');
+                var accent = split[0];
+                var theme = split[1];
+                switch (theme)
+                {
+                    case "Dark":
+                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
+                        break;
+                    case "Light":
+                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Light);
+                        break;
+                }
+            }
+            catch
+            {
+            }
+        }
 
         private void UpdateFonts()
         {

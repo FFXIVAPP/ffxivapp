@@ -36,8 +36,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <model:MainViewModel x:Key="MainViewModelDataSource" />
         </ResourceDictionary>
@@ -63,10 +61,10 @@
                 <DockPanel>
                     <local:TabControlView x:Name="TabControlView" />
                 </DockPanel>
-                <ScrollViewer>
+                <DockPanel>
                     <local:SettingsView x:Name="SettingsView"
                                         Visibility="Collapsed" />
-                </ScrollViewer>
+                </DockPanel>
             </DockPanel>
         </Grid>
     </Controls:MetroContentControl>

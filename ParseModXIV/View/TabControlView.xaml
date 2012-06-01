@@ -14,14 +14,6 @@
     <UserControl.Resources>
         <local:TabControlViewModel x:Key="TabControlViewModelDataSource" />
         <m:VisibilityConverter x:Key="VisibilityConverter" />
-        <Style x:Key="TabItemCollapsed"
-               TargetType="TabItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem" />
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"

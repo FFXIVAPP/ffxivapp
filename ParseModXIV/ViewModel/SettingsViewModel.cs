@@ -11,6 +11,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
@@ -26,14 +27,19 @@ namespace ParseModXIV.ViewModel
         private static HttpWebResponse _httpWResp;
         private static Encoding _resEncoding;
         private DelegateCommand _command;
-        private static IEnumerable<Accent> _accents;
-
-        public static IEnumerable<Accent> DefaultAccents
-        {
-            get { return _accents ?? (_accents = new List<Accent> {new Accent("Red", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml")), new Accent("Green", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml")), new Accent("Blue", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml")), new Accent("Purple", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Purple.xaml")), new Accent("Orange", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml")),}); }
-        }
 
         #region " COMMAND FUNCTIONS "
+
+        public ICommand ChangeThemeCommand
+        {
+            get
+            {
+                _command = null;
+                _command = new DelegateCommand(ChangeTheme);
+
+                return _command;
+            }
+        }
 
         public ICommand DefaultSettingsCommand
         {
@@ -82,6 +88,28 @@ namespace ParseModXIV.ViewModel
         #endregion
 
         #region " GUI FUNCTIONS "
+
+        private static void ChangeTheme()
+        {
+            try
+            {
+                var split = Settings.Default.Theme.Split('|');
+                var accent = split[0];
+                var theme = split[1];
+                switch (theme)
+                {
+                    case "Dark":
+                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
+                        break;
+                    case "Light":
+                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Light);
+                        break;
+                }
+            }
+            catch
+            {
+            }
+        }
 
         private static void DefaultSettings()
         {

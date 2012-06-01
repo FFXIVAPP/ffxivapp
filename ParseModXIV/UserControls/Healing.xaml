@@ -24,7 +24,8 @@
                                                 Source={StaticResource ParseMod},
                                                 Path=Timeline.Party}"
                           ItemsSource="{Binding}"
-                          util:GridViewSort.AutoSort="True">
+                          util:GridViewSort.AutoSort="True"
+                          util:GridViewSort.ShowSortGlyph="False">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridView.ColumnHeaderTemplate>
@@ -87,6 +88,7 @@
                     <ListView x:Name="HealingAbilties"
                               ItemsSource="{Binding Healing}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=HealingAbilties,
                                                    Mode=TwoWay,
@@ -150,6 +152,7 @@
                     <ListView x:Name="HealingPlayers"
                               ItemsSource="{Binding Players}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=HealingPlayers,
                                                    Mode=TwoWay,
@@ -212,6 +215,8 @@
                     </StackPanel>
                     <ListView x:Name="HealingDetails"
                               ItemsSource="{Binding Abilities}"
+                              util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=HealingDetails,
                                                    Mode=TwoWay,

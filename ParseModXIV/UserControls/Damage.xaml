@@ -24,7 +24,8 @@
                                                 Source={StaticResource ParseMod},
                                                 Path=Timeline.Party}"
                           ItemsSource="{Binding}"
-                          util:GridViewSort.AutoSort="True">
+                          util:GridViewSort.AutoSort="True"
+                          util:GridViewSort.ShowSortGlyph="False">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridView.ColumnHeaderTemplate>
@@ -112,6 +113,7 @@
                     <ListView x:Name="DamageDetailMonster"
                               ItemsSource="{Binding Damage}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=DamageDetailMonster,
                                                    Mode=TwoWay,
@@ -208,6 +210,7 @@
                     <ListView x:Name="DamageDetailAbilties"
                               ItemsSource="{Binding Abilities}"
                               util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
                               Visibility="{Binding Source={x:Static me:Settings.Default},
                                                    Path=DamageDetailAbilties,
                                                    Mode=TwoWay,

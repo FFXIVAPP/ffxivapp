@@ -11,9 +11,13 @@ namespace ParseModXIV.UserControls
     /// </summary>
     public partial class PlayerInfoBox
     {
+        public static PlayerInfoBox View;
+
         public PlayerInfoBox()
         {
             InitializeComponent();
+            // Insert code required on object creation below this point.
+            View = this;
         }
     }
 }
