@@ -1,5 +1,5 @@
 ﻿// ParseModXIV
-// MainStatusView.xaml.cs
+// StatusView.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
@@ -7,13 +7,13 @@
 namespace ParseModXIV.View
 {
     /// <summary>
-    /// Interaction logic for MainStatusView.xaml
+    /// Interaction logic for StatusView.xaml
     /// </summary>
-    public partial class MainStatusView
+    public partial class StatusView
     {
-        public static MainStatusView View;
+        public static StatusView View;
 
-        public MainStatusView()
+        public StatusView()
         {
             InitializeComponent();
             // Insert code required on object creation below this point.

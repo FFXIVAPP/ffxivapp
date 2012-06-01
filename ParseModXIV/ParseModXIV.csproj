@@ -58,14 +58,21 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.3\lib\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=0.7.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.8.0.0\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.8.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -89,7 +96,7 @@
     <Compile Include="Classes\RegExpsEn.cs" />
     <Compile Include="Classes\RegExpsFr.cs" />
     <Compile Include="Classes\RegExpsJa.cs" />
-    <Compile Include="Classes\SortHandler.cs" />
+    <Compile Include="Classes\GridViewSort.cs" />
     <Compile Include="Data\English.cs" />
     <Compile Include="Data\French.cs" />
     <Compile Include="Data\German.cs" />
@@ -102,6 +109,7 @@
     <Compile Include="Model\EventType.cs" />
     <Compile Include="Model\TimelineEventArgs.cs" />
     <Compile Include="Model\TimelineEventType.cs" />
+    <Compile Include="Model\VisibilityConverter.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Classes\StatGroupToChat.cs" />
     <Compile Include="Model\AsyncNameToAvatarConverter.cs" />
@@ -148,6 +156,9 @@
     <Compile Include="UserControls\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FlowDocument.xaml.cs">
+      <DependentUpon>FlowDocument.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Healing.xaml.cs">
       <DependentUpon>Healing.xaml</DependentUpon>
     </Compile>
@@ -160,24 +171,18 @@
     <Compile Include="UserControls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\MainMenuViewModel.cs" />
-    <Compile Include="ViewModel\MainStatusViewModel.cs" />
-    <Compile Include="ViewModel\MainTabControlViewModel.cs" />
-    <Compile Include="ViewModel\MainToolBarViewModel.cs" />
-    <Compile Include="View\MainMenuView.xaml.cs">
-      <DependentUpon>MainMenuView.xaml</DependentUpon>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\StatusViewModel.cs" />
+    <Compile Include="ViewModel\TabControlViewModel.cs" />
+    <Compile Include="View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainStatusView.xaml.cs">
-      <DependentUpon>MainStatusView.xaml</DependentUpon>
+    <Compile Include="View\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainTabControlView.xaml.cs">
-      <DependentUpon>MainTabControlView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainToolBarView.xaml.cs">
-      <DependentUpon>MainToolBarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SettingsDialog.xaml.cs">
-      <DependentUpon>SettingsDialog.xaml</DependentUpon>
+    <Compile Include="View\TabControlView.xaml.cs">
+      <DependentUpon>TabControlView.xaml</DependentUpon>
     </Compile>
     <Page Include="Localization\English.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -195,7 +200,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -203,11 +208,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ParseModXIV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -222,6 +231,10 @@
     <Page Include="UserControls\DebugWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FlowDocument.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Healing.xaml">
       <SubType>Designer</SubType>
@@ -239,25 +252,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainMenuView.xaml">
+    <Page Include="View\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainStatusView.xaml">
+    <Page Include="View\StatusView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainTabControlView.xaml">
+    <Page Include="View\TabControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\MainToolBarView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\SettingsDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +282,7 @@
     <None Include="Resources\ChatCodes.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Resources\Entypo.ttf" />
     <None Include="Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -294,6 +300,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

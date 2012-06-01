@@ -142,30 +142,6 @@ namespace ParseModXIV {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FirstName {
-            get {
-                return ((string)(this["FirstName"]));
-            }
-            set {
-                this["FirstName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastName {
-            get {
-                return ((string)(this["LastName"]));
-            }
-            set {
-                this["LastName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Application_UpgradeRequired {
             get {
@@ -178,73 +154,37 @@ namespace ParseModXIV {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_MobAbilityVisibility {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Gui_SaveLog {
             get {
-                return ((global::System.Windows.Visibility)(this["Gui_MobAbilityVisibility"]));
+                return ((bool)(this["Gui_SaveLog"]));
             }
             set {
-                this["Gui_MobAbilityVisibility"] = value;
+                this["Gui_SaveLog"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_PartyVisibility {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Gui_ExportXML {
             get {
-                return ((global::System.Windows.Visibility)(this["Gui_PartyVisibility"]));
+                return ((bool)(this["Gui_ExportXML"]));
             }
             set {
-                this["Gui_PartyVisibility"] = value;
+                this["Gui_ExportXML"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_HealingStatsVisibility {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Gui_UploadData {
             get {
-                return ((global::System.Windows.Visibility)(this["Gui_HealingStatsVisibility"]));
+                return ((bool)(this["Gui_UploadData"]));
             }
             set {
-                this["Gui_HealingStatsVisibility"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_DamageStatsVisibility {
-            get {
-                return ((global::System.Windows.Visibility)(this["Gui_DamageStatsVisibility"]));
-            }
-            set {
-                this["Gui_DamageStatsVisibility"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_MonsterStatsVisibility {
-            get {
-                return ((global::System.Windows.Visibility)(this["Gui_MonsterStatsVisibility"]));
-            }
-            set {
-                this["Gui_MonsterStatsVisibility"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Visible")]
-        public global::System.Windows.Visibility Gui_DebugVisibility {
-            get {
-                return ((global::System.Windows.Visibility)(this["Gui_DebugVisibility"]));
-            }
-            set {
-                this["Gui_DebugVisibility"] = value;
+                this["Gui_UploadData"] = value;
             }
         }
         
@@ -263,12 +203,12 @@ namespace ParseModXIV {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Gui_Party {
+        public bool Gui_PartyStats {
             get {
-                return ((bool)(this["Gui_Party"]));
+                return ((bool)(this["Gui_PartyStats"]));
             }
             set {
-                this["Gui_Party"] = value;
+                this["Gui_PartyStats"] = value;
             }
         }
         
@@ -311,36 +251,60 @@ namespace ParseModXIV {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Gui_SaveLog {
-            get {
-                return ((bool)(this["Gui_SaveLog"]));
-            }
-            set {
-                this["Gui_SaveLog"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Gui_ExportXML {
-            get {
-                return ((bool)(this["Gui_ExportXML"]));
-            }
-            set {
-                this["Gui_ExportXML"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Gui_Debug {
             get {
                 return ((bool)(this["Gui_Debug"]));
             }
             set {
                 this["Gui_Debug"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CICUID {
+            get {
+                return ((string)(this["CICUID"]));
+            }
+            set {
+                this["CICUID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FirstName {
+            get {
+                return ((string)(this["FirstName"]));
+            }
+            set {
+                this["FirstName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastName {
+            get {
+                return ((string)(this["LastName"]));
+            }
+            set {
+                this["LastName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CharacterName {
+            get {
+                return ((string)(this["CharacterName"]));
+            }
+            set {
+                this["CharacterName"] = value;
             }
         }
         
@@ -419,36 +383,120 @@ namespace ParseModXIV {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Gui_UploadData {
+        public bool AbilityPlayerDetail {
             get {
-                return ((bool)(this["Gui_UploadData"]));
+                return ((bool)(this["AbilityPlayerDetail"]));
             }
             set {
-                this["Gui_UploadData"] = value;
+                this["AbilityPlayerDetail"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CICUID {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AbilityPlayerMonster {
             get {
-                return ((string)(this["CICUID"]));
+                return ((bool)(this["AbilityPlayerMonster"]));
             }
             set {
-                this["CICUID"] = value;
+                this["AbilityPlayerMonster"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CharacterName {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AbilityPlayerMonsterDetails {
             get {
-                return ((string)(this["CharacterName"]));
+                return ((bool)(this["AbilityPlayerMonsterDetails"]));
             }
             set {
-                this["CharacterName"] = value;
+                this["AbilityPlayerMonsterDetails"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HealingAbilties {
+            get {
+                return ((bool)(this["HealingAbilties"]));
+            }
+            set {
+                this["HealingAbilties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HealingPlayers {
+            get {
+                return ((bool)(this["HealingPlayers"]));
+            }
+            set {
+                this["HealingPlayers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HealingDetails {
+            get {
+                return ((bool)(this["HealingDetails"]));
+            }
+            set {
+                this["HealingDetails"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DamageDetailMonster {
+            get {
+                return ((bool)(this["DamageDetailMonster"]));
+            }
+            set {
+                this["DamageDetailMonster"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DamageDetailAbilties {
+            get {
+                return ((bool)(this["DamageDetailAbilties"]));
+            }
+            set {
+                this["DamageDetailAbilties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MonsterDetailsDrops {
+            get {
+                return ((bool)(this["MonsterDetailsDrops"]));
+            }
+            set {
+                this["MonsterDetailsDrops"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MonsterDetailAbilities {
+            get {
+                return ((bool)(this["MonsterDetailAbilities"]));
+            }
+            set {
+                this["MonsterDetailAbilities"] = value;
             }
         }
     }

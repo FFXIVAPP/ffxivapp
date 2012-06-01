@@ -32,37 +32,22 @@
     <Setting Name="Gui_LogFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Microsoft Sans Serif, 12pt</Value>
     </Setting>
-    <Setting Name="FirstName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="LastName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="Application_UpgradeRequired" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Gui_MobAbilityVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
+    <Setting Name="Gui_SaveLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Gui_PartyVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
+    <Setting Name="Gui_ExportXML" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Gui_HealingStatsVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
-    </Setting>
-    <Setting Name="Gui_DamageStatsVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
-    </Setting>
-    <Setting Name="Gui_MonsterStatsVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
-    </Setting>
-    <Setting Name="Gui_DebugVisibility" Type="System.Windows.Visibility" Scope="User">
-      <Value Profile="(Default)">Visible</Value>
+    <Setting Name="Gui_UploadData" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Gui_MobAbility" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Gui_Party" Type="System.Boolean" Scope="User">
+    <Setting Name="Gui_PartyStats" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Gui_HealingStats" Type="System.Boolean" Scope="User">
@@ -74,14 +59,20 @@
     <Setting Name="Gui_MonsterStats" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Gui_SaveLog" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Gui_ExportXML" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="Gui_Debug" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CICUID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CharacterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LanguageList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
@@ -116,14 +107,35 @@
     <Setting Name="Server" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Gui_UploadData" Type="System.Boolean" Scope="User">
+    <Setting Name="AbilityPlayerDetail" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CICUID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="AbilityPlayerMonster" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CharacterName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="AbilityPlayerMonsterDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingAbilties" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingPlayers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DamageDetailMonster" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DamageDetailAbilties" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MonsterDetailsDrops" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MonsterDetailAbilities" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

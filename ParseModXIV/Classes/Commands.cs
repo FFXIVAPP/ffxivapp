@@ -30,15 +30,15 @@ namespace ParseModXIV.Classes
                     {
                         case "on":
                             //Speech.Speak("Parsing ON.");
-                            MainStatusViewModel.ToggleLogging();
+                            StatusViewModel.ToggleLogging();
                             break;
                         case "off":
                             //Speech.Speak("Parsing OFF.");
-                            MainStatusViewModel.ToggleLogging();
+                            StatusViewModel.ToggleLogging();
                             break;
                         case "reset":
                             //Speech.Speak("Parsing RESET.");
-                            MainStatusViewModel.ResetStats();
+                            StatusViewModel.ResetStats();
                             break;
                     }
                     break;

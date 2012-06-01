@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
+using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 using ParseModXIV.Classes;
 
 namespace ParseModXIV.UserControls
@@ -20,11 +24,6 @@ namespace ParseModXIV.UserControls
         {
             InitializeComponent();
             View = this;
-        }
-
-        private void Sort(object sender, RoutedEventArgs e)
-        {
-            SortHandler.Handler(sender, e);
         }
     }
 }

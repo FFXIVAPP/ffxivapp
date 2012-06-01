@@ -123,7 +123,7 @@ namespace ParseModXIV.Data
                 ////********** Commented until I find a cheaper host.
                 //if (App.MArgs == null)
                 //{
-                //    MainWindow.BattleLog.Add(new[] { didCrit.ToString(CultureInfo.InvariantCulture), "False", target.Name, mob, ability, direction, damage.ToString(CultureInfo.InvariantCulture) });
+                //    MainView.BattleLog.Add(new[] { didCrit.ToString(CultureInfo.InvariantCulture), "False", target.Name, mob, ability, direction, damage.ToString(CultureInfo.InvariantCulture) });
                 //}
             }
 
@@ -201,7 +201,7 @@ namespace ParseModXIV.Data
                 ////********** Commented until I find a cheaper host.
                 //if (App.MArgs == null)
                 //{
-                //    MainWindow.BattleLog.Add(new[] { didCrit.ToString(CultureInfo.InvariantCulture), "False", mob, target.Name, ability, direction, damage.ToString(CultureInfo.InvariantCulture) });
+                //    MainView.BattleLog.Add(new[] { didCrit.ToString(CultureInfo.InvariantCulture), "False", mob, target.Name, ability, direction, damage.ToString(CultureInfo.InvariantCulture) });
                 //}
             }
 
@@ -259,7 +259,7 @@ namespace ParseModXIV.Data
                 ////********** Commented until I find a cheaper host.
                 //if (App.MArgs == null)
                 //{
-                //    MainWindow.HealingLog.Add(new[] { whoDid, castOn, ability, amount.ToString(CultureInfo.InvariantCulture), type });
+                //    MainView.HealingLog.Add(new[] { whoDid, castOn, ability, amount.ToString(CultureInfo.InvariantCulture), type });
                 //}
             }
 

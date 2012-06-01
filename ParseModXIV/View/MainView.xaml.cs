@@ -1,5 +1,5 @@
 ﻿// ParseModXIV
-// MainWindow.xaml.cs
+// MainView.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
@@ -23,6 +23,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using AppModXIV.Classes;
+using MahApps.Metro.Controls;
 using ParseModXIV.Classes;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
@@ -31,9 +32,9 @@ using FontFamily = System.Windows.Media.FontFamily;
 namespace ParseModXIV
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : IDisposable
+    public partial class MainView : MetroWindow, IDisposable
     {
         #region " VARIABLES "
 
@@ -42,7 +43,7 @@ namespace ParseModXIV
         public int Counter;
         public string Mysql = "";
         private readonly AutomaticUpdates _autoUpdates = new AutomaticUpdates();
-        public static MainWindow View;
+        public static MainView View;
         private DispatcherTimer _expTimer = new DispatcherTimer();
         private NotifyIcon _myNotifyIcon;
         private readonly XDocument _xAtCodes = XDocument.Load("./Resources/ATCodes.xml");
@@ -58,15 +59,9 @@ namespace ParseModXIV
         /// <summary>
         /// 
         /// </summary>
-        public MainWindow()
+        public MainView()
         {
-            var rd = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.xaml")};
-            Resources.MergedDictionaries.Add(rd);
-            if (File.Exists("./Resources/Themes/ParseModXIV.xaml"))
-            {
-                rd = (ResourceDictionary) XamlReader.Load(XmlReader.Create("./Resources/Themes/ParseModXIV.xaml"));
-                Resources.MergedDictionaries.Add(rd);
-            }
+            InitializeComponent();
             ResourceDictionary dict;
             lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             switch (lang)
@@ -85,9 +80,6 @@ namespace ParseModXIV
                     break;
             }
             Resources.MergedDictionaries.Add(dict);
-            InitializeComponent();
-            Main_ToolBar_View.gui_Maximize.Visibility = Visibility.Visible;
-            Main_ToolBar_View.gui_Restore.Visibility = Visibility.Collapsed;
             View = this;
             Lpath = "./Logs/ParseMod/";
             Ipath = "./ScreenShots/ParseMod/";
@@ -102,10 +94,10 @@ namespace ParseModXIV
             _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
-            string title, message;
             checkUpdates.BeginInvoke(appresult =>
             {
                 const int bTipTime = 3000;
+                string title, message;
                 if (checkUpdates.EndInvoke(appresult))
                 {
                     switch (lang)
@@ -190,12 +182,6 @@ namespace ParseModXIV
         /// <param name="e"></param>
         private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
         {
-            //Process.Start("http://ffxiv-app.com/products/");
-            //var proc = Process.GetProcessesByName("ParseModXIV");
-            //foreach (var p in proc)
-            //{
-            //    p.Kill();
-            //}
             Process.Start("UpdateModXIV.exe", "ParseModXIV");
         }
 
@@ -324,11 +310,9 @@ namespace ParseModXIV
             {
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
-                    //_myNotifyIcon.Visible = true;
                     _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
                     break;
                 case WindowState.Normal:
-                    //_myNotifyIcon.Visible = false;
                     ShowInTaskbar = true;
                     _myNotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
                     break;
@@ -344,18 +328,8 @@ namespace ParseModXIV
         /// </summary>
         private void Start()
         {
-            MainMenuView.LayoutRoot.Visibility = Visibility.Visible;
-            MainStatusView.LayoutRoot.Visibility = Visibility.Visible;
-            try
-            {
-                MainTabControlViewModel.gui_TabControl.ItemContainerStyle = (Style) MainTabControlViewModel.FindResource("TabItemVisible");
-            }
-            catch
-            {
-                var s = new Style();
-                s.Setters.Add(new Setter(VisibilityProperty, Visibility.Visible));
-                MainTabControlViewModel.gui_TabControl.ItemContainerStyle = s;
-            }
+            StatusView.LayoutRoot.Visibility = Visibility.Visible;
+
             var streamResourceInfo = Application.GetResourceStream(new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.ico"));
             if (streamResourceInfo != null)
             {
@@ -400,7 +374,7 @@ namespace ParseModXIV
         private static void ApplySettings()
         {
             Constants.LogErrors = Settings.Default.LogErrors ? 1 : 0;
-            if (Settings.Default.Server != "")
+            if (!String.IsNullOrWhiteSpace(Settings.Default.Server))
             {
                 Settings.Default.ServerName = ParseMod.ServerName[Settings.Default.Server];
             }
@@ -417,10 +391,10 @@ namespace ParseModXIV
                 return;
             }
             var font = Settings.Default.Gui_LogFont;
-            MainTabControlViewModel.MobAbility_FLOW.FontFamily = new FontFamily(font.Name);
-            MainTabControlViewModel.MobAbility_FLOW.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
-            MainTabControlViewModel.MobAbility_FLOW.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
-            MainTabControlViewModel.MobAbility_FLOW.FontSize = font.Size;
+            TabControlView.MA.MobAbility_FLOW.FontFamily = new FontFamily(font.Name);
+            TabControlView.MA.MobAbility_FLOW.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
+            TabControlView.MA.MobAbility_FLOW.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
+            TabControlView.MA.MobAbility_FLOW.FontSize = font.Size;
             font.Dispose();
         }
 
@@ -432,7 +406,7 @@ namespace ParseModXIV
             _tsColor = Settings.Default.Color_TimeStamp;
             _bColor = Settings.Default.Color_ChatlogBackground;
             var tColor = new SolidColorBrush {Color = _bColor};
-            MainTabControlViewModel.MobAbility_FLOW.Background = tColor;
+            TabControlView.MA.MobAbility_FLOW.Background = tColor;
         }
 
         #endregion

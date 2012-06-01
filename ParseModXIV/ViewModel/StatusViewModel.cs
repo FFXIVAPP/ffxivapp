@@ -1,5 +1,5 @@
 ﻿// ParseModXIV
-// MainStatusViewModel.cs
+// StatusViewModel.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
@@ -23,7 +23,7 @@ using ParseModXIV.View;
 
 namespace ParseModXIV.ViewModel
 {
-    public class MainStatusViewModel : INotifyPropertyChanged
+    public class StatusViewModel : INotifyPropertyChanged
     {
         private DelegateCommand _command;
         private static Hashing _hashing = new Hashing();
@@ -103,34 +103,34 @@ namespace ParseModXIV.ViewModel
                 {
                     if (ChatWorkerDelegate.XmlWriteLog.LineCount > 1)
                     {
-                        ChatWorkerDelegate.XmlWriteLog.WriteToDisk(MainWindow.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
+                        ChatWorkerDelegate.XmlWriteLog.WriteToDisk(MainView.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
                         ChatWorkerDelegate.XmlWriteLog.ClearXml();
                     }
                 }
                 if (ChatWorkerDelegate.XmlWriteUnmatchedLog.LineCount > 1)
                 {
-                    ChatWorkerDelegate.XmlWriteUnmatchedLog.WriteToDisk(MainWindow.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
+                    ChatWorkerDelegate.XmlWriteUnmatchedLog.WriteToDisk(MainView.View.Lpath + DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_Log.xml");
                     ChatWorkerDelegate.XmlWriteUnmatchedLog.ClearXml();
                 }
             }
-            MainTabControlView.View.MobAbility_FLOW.Blocks.Clear();
+            TabControlView.View.MA.MobAbility_FLOW.Blocks.Clear();
             ParseMod.Instance.StatMonitor.Clear();
         }
 
         private static void ScreenShot()
         {
-            var myTab = MainTabControlView.View.gui_TabControl.SelectedItem as TabItem;
+            var myTab = TabControlView.View.gui_TabControl.SelectedItem as TabItem;
             new ScreenCapture();
-            var myHandle = new WindowInteropHelper(MainWindow.View).Handle;
+            var myHandle = new WindowInteropHelper(MainView.View).Handle;
             if (myTab != null)
             {
-                ScreenCapture.CaptureWindowToFile(myHandle, MainWindow.View.Ipath + DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss_") + myTab.Header.ToString().Replace(" ", "") + ".jpg", ImageFormat.Jpeg);
+                ScreenCapture.CaptureWindowToFile(myHandle, MainView.View.Ipath + DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss_") + myTab.Header.ToString().Replace(" ", "") + ".jpg", ImageFormat.Jpeg);
             }
         }
 
         private static void CopyStats()
         {
-            var myTab = MainTabControlView.View.gui_TabControl.SelectedItem as TabItem;
+            var myTab = TabControlView.View.gui_TabControl.SelectedItem as TabItem;
             if (myTab == null)
             {
                 return;
@@ -143,13 +143,12 @@ namespace ParseModXIV.ViewModel
 
         private static void StartLogging()
         {
-            ParseMod.Desc = MainStatusView.View.gui_UploadDESC.Text;
+            ParseMod.Desc = StatusView.View.gui_UploadDESC.Text;
             var uid = Settings.Default.CICUID + new Random().Next(0, 999999).ToString(CultureInfo.InvariantCulture);
             ParseMod.Uid = Hashing.CalculateMd5Hash(uid);
-            MainStatusView.View.gui_UploadDESC.IsEnabled = false;
-            MainMenuView.View.gui_Settings.IsEnabled = false;
+            StatusView.View.gui_UploadDESC.IsEnabled = false;
             ParseMod.Instance.IsLogging = true;
-            MainWindow.View.Title = "ParseModXIV ~ ON";
+            MainView.View.Title = "ParseModXIV ~ ON";
             if (!Settings.Default.Gui_UploadData || ParseMod.Desc == "")
             {
                 return;
@@ -166,10 +165,9 @@ namespace ParseModXIV.ViewModel
 
         private static void StopLogging()
         {
-            MainStatusView.View.gui_UploadDESC.IsEnabled = true;
-            MainMenuView.View.gui_Settings.IsEnabled = true;
-            MainStatusView.View.gui_UploadDESC.Text = "";
-            MainWindow.View.Title = "ParseModXIV ~ OFF";
+            StatusView.View.gui_UploadDESC.IsEnabled = true;
+            StatusView.View.gui_UploadDESC.Text = "";
+            MainView.View.Title = "ParseModXIV ~ OFF";
             ParseMod.Instance.IsLogging = false;
         }
 

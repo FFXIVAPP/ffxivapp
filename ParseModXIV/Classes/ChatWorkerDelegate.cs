@@ -42,7 +42,7 @@ namespace ParseModXIV.Classes
             {
                 if (mCode == "0053" || mCode == "0054" || mCode == "0055")
                 {
-                    AppendFlow(mTimeStamp, mLine, "#FFFFFFFF", MainWindow.View.MainTabControlViewModel.MobAbility_FDR);
+                    AppendFlow(mTimeStamp, mLine, "#FFFFFFFF", MainView.View.TabControlView.MA.MobAbility_FDR);
                 }
             }
             Func<bool> d = delegate
@@ -79,7 +79,7 @@ namespace ParseModXIV.Classes
             {
                 if (mCode == "0053" || mCode == "0054" || mCode == "0055")
                 {
-                    AppendFlow(mTimeStamp, mMessage, "#FFFFFFFF", MainWindow.View.MainTabControlViewModel.MobAbility_FDR);
+                    AppendFlow(mTimeStamp, mMessage, "#FFFFFFFF", MainView.View.TabControlView.MA.MobAbility_FDR);
                 }
             }
             Func<bool> d = delegate

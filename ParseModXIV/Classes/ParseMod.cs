@@ -113,9 +113,9 @@ namespace ParseModXIV.Classes
             Constants.FfxivOpen = true;
             foreach (var proc in Constants.FfxivPid)
             {
-                MainMenuView.View.gui_PIDSelect.Items.Add(proc.Id);
+                SettingsView.View.gui_PIDSelect.Items.Add(proc.Id);
             }
-            MainMenuView.View.gui_PIDSelect.SelectedIndex = 0;
+            SettingsView.View.gui_PIDSelect.SelectedIndex = 0;
             Pid(Constants.FfxivPid.First().Id);
             return Constants.FfxivPid.First().Id;
         }
@@ -125,11 +125,11 @@ namespace ParseModXIV.Classes
         /// </summary>
         public static void SetPid()
         {
-            if (MainMenuView.View.gui_PIDSelect.Text == "")
+            if (SettingsView.View.gui_PIDSelect.Text == "")
             {
                 return;
             }
-            Pid(Convert.ToInt32(MainMenuView.View.gui_PIDSelect.Text));
+            Pid(Convert.ToInt32(SettingsView.View.gui_PIDSelect.Text));
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace ParseModXIV.Classes
         private static void Pid(int pid)
         {
             Constants.Pid = pid;
-            Constants.PHandle = Constants.FfxivPid[MainMenuView.View.gui_PIDSelect.SelectedIndex].MainWindowHandle;
+            Constants.PHandle = Constants.FfxivPid[SettingsView.View.gui_PIDSelect.SelectedIndex].MainWindowHandle;
         }
 
         /// <summary>
@@ -158,12 +158,12 @@ namespace ParseModXIV.Classes
             var id = GetPid();
             if (id < 0)
             {
-                MainWindow.View.Title = "ParseModXIV ~ Final Fantasy XIV Not Found!";
+                MainView.View.Title = "ParseModXIV ~ Final Fantasy XIV Not Found!";
                 return;
             }
-            MainWindow.View.Title = "ParseModXIV ~ OFF";
-            MainStatusView.View.gui_ToggleLogging.IsEnabled = true;
-            MainStatusView.View.gui_ResetStats.IsEnabled = true;
+            MainView.View.Title = "ParseModXIV ~ OFF";
+            StatusView.View.gui_ToggleLogging.IsEnabled = true;
+            StatusView.View.gui_ResetStats.IsEnabled = true;
             var p = Process.GetProcessById(id);
             var o = new Offsets(p);
             _chatWorker = new ChatWorker(p, o);

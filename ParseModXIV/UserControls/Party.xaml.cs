@@ -21,10 +21,5 @@ namespace ParseModXIV.UserControls
             InitializeComponent();
             View = this;
         }
-
-        private void Sort(object sender, RoutedEventArgs e)
-        {
-            SortHandler.Handler(sender, e);
-        }
     }
 }
