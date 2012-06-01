@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ParseModXIV
+// VisibilityConverter.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -9,13 +15,13 @@ namespace ParseModXIV.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool visibility = (bool) value;
+            var visibility = (bool) value;
             return visibility ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Visibility visibility = (Visibility) value;
+            var visibility = (Visibility) value;
             return (visibility == Visibility.Visible);
         }
     }

@@ -67,7 +67,7 @@ namespace UpdateModXIV
                 if (!String.IsNullOrWhiteSpace(running))
                 {
                     var result = MessageBox.Show("The following programs that are running will be closed:" + running, "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    if(result == MessageBoxResult.OK)
+                    if (result == MessageBoxResult.OK)
                     {
                         foreach (var p in cm)
                         {

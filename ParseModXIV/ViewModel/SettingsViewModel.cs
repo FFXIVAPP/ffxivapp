@@ -5,6 +5,7 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
+using MahApps.Metro;
 using ParseModXIV.Classes;
 using ParseModXIV.View;
 
@@ -24,6 +26,12 @@ namespace ParseModXIV.ViewModel
         private static HttpWebResponse _httpWResp;
         private static Encoding _resEncoding;
         private DelegateCommand _command;
+        private static IEnumerable<Accent> _accents;
+
+        public static IEnumerable<Accent> DefaultAccents
+        {
+            get { return _accents ?? (_accents = new List<Accent> {new Accent("Red", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml")), new Accent("Green", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml")), new Accent("Blue", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml")), new Accent("Purple", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Purple.xaml")), new Accent("Orange", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml")),}); }
+        }
 
         #region " COMMAND FUNCTIONS "
 

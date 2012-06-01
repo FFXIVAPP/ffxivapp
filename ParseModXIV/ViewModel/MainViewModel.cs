@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// ParseModXIV
+// MainViewModel.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
-using ParseModXIV.View;
 
 namespace ParseModXIV.ViewModel
 {
@@ -78,7 +80,6 @@ namespace ParseModXIV.ViewModel
         {
             SettingsViewModel.Character();
         }
-
 
         #endregion
 

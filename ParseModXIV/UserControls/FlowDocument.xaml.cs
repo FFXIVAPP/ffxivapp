@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿// ParseModXIV
+// FlowDocument.xaml.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ParseModXIV.UserControls
 {

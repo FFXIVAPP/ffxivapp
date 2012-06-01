@@ -4,11 +4,6 @@
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-
 namespace ParseModXIV.View
 {
     /// <summary>

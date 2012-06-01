@@ -1,19 +1,8 @@
 ﻿// ParseModXIV
-// MainMenuView.xaml.cs
+// SettingsView.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
-
-using System;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Windows;
-using ParseModXIV.Classes;
 
 namespace ParseModXIV.View
 {
@@ -22,7 +11,6 @@ namespace ParseModXIV.View
     /// </summary>
     public partial class SettingsView
     {
-
         public static SettingsView View;
 
         public SettingsView()

@@ -6,10 +6,8 @@
 
 using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
-using ParseModXIV.UserControls;
 
 namespace ParseModXIV.ViewModel
 {
@@ -36,7 +34,6 @@ namespace ParseModXIV.ViewModel
 
         private static void Empty()
         {
-            
         }
 
         #endregion
