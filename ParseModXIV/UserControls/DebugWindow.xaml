@@ -4,12 +4,13 @@
              xmlns:Classes="clr-namespace:ParseModXIV.Classes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:ParseModXIV"
              xmlns:Stats="clr-namespace:ParseModXIV.Stats"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d">
 
     <ScrollViewer>
-        <Grid>
+        <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
             <StackPanel Margin="10 10 30 10">
                 <TreeView x:Name="gui_DataTree"
                           DataContext="{Binding Source={StaticResource ParseMod}}">

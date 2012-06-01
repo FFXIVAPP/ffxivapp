@@ -58,14 +58,16 @@ namespace ParseModXIV.ViewModel
         private static void Main()
         {
             MainView.View.SettingsView.Visibility = Visibility.Collapsed;
+            MainView.View.AboutView.Visibility = Visibility.Collapsed;
             MainView.View.TabControlView.Visibility = Visibility.Visible;
             Character();
         }
 
         private static void Settings()
         {
-            MainView.View.SettingsView.Visibility = Visibility.Visible;
             MainView.View.TabControlView.Visibility = Visibility.Collapsed;
+            MainView.View.AboutView.Visibility = Visibility.Collapsed;
+            MainView.View.SettingsView.Visibility = Visibility.Visible;
             Character();
         }
 
@@ -73,6 +75,7 @@ namespace ParseModXIV.ViewModel
         {
             MainView.View.SettingsView.Visibility = Visibility.Collapsed;
             MainView.View.TabControlView.Visibility = Visibility.Collapsed;
+            MainView.View.AboutView.Visibility = Visibility.Visible;
             Character();
         }
 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:ParseModXIV"
              xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
              xmlns:my="clr-namespace:ParseModXIV.Model"
              xmlns:UserControls="clr-namespace:ParseModXIV.UserControls"
@@ -32,7 +33,7 @@
 
 
     <ScrollViewer>
-        <Grid>
+        <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
             <StackPanel>
                 <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Party, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <ItemsControl.ItemTemplate>

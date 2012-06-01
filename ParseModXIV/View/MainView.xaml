@@ -65,6 +65,10 @@
                     <local:SettingsView x:Name="SettingsView"
                                         Visibility="Collapsed" />
                 </DockPanel>
+                <DockPanel>
+                    <local:AboutView x:Name="AboutView"
+                                     Visibility="Collapsed" />
+                </DockPanel>
             </DockPanel>
         </Grid>
     </Controls:MetroContentControl>

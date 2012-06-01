@@ -94,9 +94,9 @@
     <system:String x:Key="loc_grid_total">Total</system:String>
     <system:String x:Key="loc_grid_totaldrops">Total Drops</system:String>
     <system:String x:Key="loc_grid_used">Used</system:String>
-    <system:String x:Key="loc_tab_tabs">Tabs</system:String>
-    <system:String x:Key="loc_tab_character">Character</system:String>
-    <system:String x:Key="loc_tab_application">Application</system:String>
+    <system:String x:Key="loc_settings_tabs">Tabs</system:String>
+    <system:String x:Key="loc_settings_character">Character</system:String>
+    <system:String x:Key="loc_settings_application">Application</system:String>
     <system:String x:Key="loc_char_lodestoneid">Lodestone ID:</system:String>
     <system:String x:Key="loc_char_importid">Get Lodestone ID</system:String>
     <system:String x:Key="loc_char_first">First Name:</system:String>
@@ -108,4 +108,7 @@
     <system:String x:Key="loc_title_settings">settings</system:String>
     <system:String x:Key="loc_title_about">about</system:String>
     <system:String x:Key="loc_option_theme">Theme:</system:String>
+    <system:String x:Key="loc_about_about">About</system:String>
+    <system:String x:Key="loc_about_credits">Credits</system:String>
+    <system:String x:Key="loc_about_license">License</system:String>
 </ResourceDictionary>
