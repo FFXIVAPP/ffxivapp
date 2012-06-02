@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using AppModXIV.Classes;
 using ParseModXIV.Model;
+using ParseModXIV.View;
 
 namespace ParseModXIV.Classes
 {

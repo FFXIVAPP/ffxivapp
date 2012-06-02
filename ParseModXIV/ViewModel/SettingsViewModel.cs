@@ -5,13 +5,12 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using AppModXIV.Commands;
@@ -127,9 +126,7 @@ namespace ParseModXIV.ViewModel
 
         private static void SetProcess()
         {
-            ParseMod.Instance.StopLogging();
             ParseMod.SetPid();
-            ParseMod.Instance.StartLogging();
         }
 
         private static void RefreshList()
@@ -175,7 +172,8 @@ namespace ParseModXIV.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Character not found.", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show(ex.ToString());
             }
         }
 

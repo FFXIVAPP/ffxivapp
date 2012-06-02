@@ -29,7 +29,7 @@ using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
 
-namespace ParseModXIV
+namespace ParseModXIV.View
 {
     /// <summary>
     /// Interaction logic for MainView.xaml
@@ -62,95 +62,10 @@ namespace ParseModXIV
         public MainView()
         {
             InitializeComponent();
-            ResourceDictionary dict;
-            lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            switch (lang)
-            {
-                case "ja":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/Japanese.xaml")};
-                    break;
-                case "de":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/German.xaml")};
-                    break;
-                case "fr":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/French.xaml")};
-                    break;
-                default:
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/English.xaml")};
-                    break;
-            }
-            Resources.MergedDictionaries.Add(dict);
+            // Insert code required on object creation below this point.
             View = this;
             Lpath = "./Logs/ParseMod/";
             Ipath = "./ScreenShots/ParseMod/";
-            if (!Directory.Exists(Lpath))
-            {
-                Directory.CreateDirectory(Lpath);
-            }
-            if (!Directory.Exists(Ipath))
-            {
-                Directory.CreateDirectory(Ipath);
-            }
-            _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
-            Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
-            checkUpdates.BeginInvoke(appresult =>
-            {
-                const int bTipTime = 3000;
-                string title, message;
-                if (checkUpdates.EndInvoke(appresult))
-                {
-                    switch (lang)
-                    {
-                        case "ja":
-                            title = "利用可能な更新！";
-                            message = "ダウンロードするにはこのメッセージをクリックします。";
-                            break;
-                        case "de":
-                            title = "Update Verfügbar!";
-                            message = "Klicken sie auf diese nachricht zu downloaden.";
-                            break;
-                        case "fr":
-                            title = "Mise À Jour Possible!";
-                            message = "Cliquez sur ce message pour télécharger.";
-                            break;
-                        default:
-                            title = "Update Available!";
-                            message = "Click this message to download.";
-                            break;
-                    }
-                    _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
-                }
-                else
-                {
-                    checkLibrary.BeginInvoke(libresult =>
-                    {
-                        if (checkLibrary.EndInvoke(libresult))
-                        {
-                            switch (lang)
-                            {
-                                case "ja":
-                                    title = "利用可能な更新！";
-                                    message = "ダウンロードするにはこのメッセージをクリックします。";
-                                    break;
-                                case "de":
-                                    title = "Update Verfügbar!";
-                                    message = "Klicken sie auf diese nachricht zu downloaden.";
-                                    break;
-                                case "fr":
-                                    title = "Mise À Jour Possible!";
-                                    message = "Cliquez sur ce message pour télécharger.";
-                                    break;
-                                default:
-                                    title = "Update Available!";
-                                    message = "Click this message to download.";
-                                    break;
-                            }
-                            _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
-                        }
-                    }, null);
-                }
-            }, null);
         }
 
         ///// <summary>
@@ -175,16 +90,6 @@ namespace ParseModXIV
         //    thread.Start();
         //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
-        {
-            Process.Start("UpdateModXIV.exe", "ParseModXIV");
-        }
-
         #region " FORM OPEN-CLOSE-STATES "
 
         /// <summary>
@@ -194,23 +99,16 @@ namespace ParseModXIV
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateTheme();
-            UpdateColors();
-            UpdateFonts();
-            Start();
+            ApplyLocale();
+            DirectoryStructure();
             LoadXml();
+            ApplyTheme();
+            ApplyColor();
+            ApplyFonts();
             ApplySettings();
-            if (Settings.Default.DebugMode)
-            {
-            }
-            if (App.MArgs == null)
-            {
-                return;
-            }
-            if (File.Exists(App.MArgs[0]))
-            {
-                ProcessXml(App.MArgs[0]);
-            }
+            CreateNotify();
+            CheckUpdates();
+            Start();
         }
 
         /// <summary>
@@ -327,29 +225,41 @@ namespace ParseModXIV
         /// <summary>
         /// 
         /// </summary>
-        private void Start()
+        private void ApplyLocale()
         {
-            StatusView.LayoutRoot.Visibility = Visibility.Visible;
-
-            var streamResourceInfo = Application.GetResourceStream(new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.ico"));
-            if (streamResourceInfo != null)
+            ResourceDictionary dict;
+            lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            switch (lang)
             {
-                using (var iconStream = streamResourceInfo.Stream)
-                {
-                    _myNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream), Visible = true};
-                    iconStream.Dispose();
-                    _myNotifyIcon.Text = "ParseModXIV - Minimized";
-                    var myNotify = new ContextMenu();
-                    myNotify.MenuItems.Add("&Restore Application").Enabled = false;
-                    myNotify.MenuItems.Add("&Exit");
-                    myNotify.MenuItems[0].Click += Restore_Click;
-                    myNotify.MenuItems[1].Click += Exit_Click;
-                    _myNotifyIcon.ContextMenu = myNotify;
-                    _myNotifyIcon.MouseDoubleClick += MyNotifyIcon_MouseDoubleClick;
-                    _myNotifyIcon.BalloonTipClicked += MyNotifyIconBalloonTipClicked;
-                }
+                case "ja":
+                    dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/Japanese.xaml") };
+                    break;
+                case "de":
+                    dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/German.xaml") };
+                    break;
+                case "fr":
+                    dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/French.xaml") };
+                    break;
+                default:
+                    dict = new ResourceDictionary { Source = new Uri("pack://application:,,,/ParseModXIV;component/Localization/English.xaml") };
+                    break;
             }
-            ParseMod.Instance.StartLogging();
+            Resources.MergedDictionaries.Add(dict);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DirectoryStructure()
+        {
+            if (!Directory.Exists(Lpath))
+            {
+                Directory.CreateDirectory(Lpath);
+            }
+            if (!Directory.Exists(Ipath))
+            {
+                Directory.CreateDirectory(Ipath);
+            }
         }
 
         /// <summary>
@@ -357,12 +267,12 @@ namespace ParseModXIV
         /// </summary>
         private void LoadXml()
         {
-            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
+            var items = from item in _xAtCodes.Descendants("Code") select new XValuePairs { Key = (string)item.Attribute("Key"), Value = (string)item.Attribute("Value") };
             foreach (var item in items)
             {
                 Constants.XAtCodes.Add(item.Key, item.Value);
             }
-            items = from item in _xSettings.Descendants("Server") select new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")};
+            items = from item in _xSettings.Descendants("Server") select new XValuePairs { Key = (string)item.Attribute("Key"), Value = (string)item.Attribute("Value") };
             foreach (var item in items)
             {
                 ParseMod.ServerName.Add(item.Value, item.Key);
@@ -381,33 +291,135 @@ namespace ParseModXIV
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CreateNotify()
+        {
+            var streamResourceInfo = Application.GetResourceStream(new Uri("pack://application:,,,/ParseModXIV;component/ParseModXIV.ico"));
+            if (streamResourceInfo != null)
+            {
+                using (var iconStream = streamResourceInfo.Stream)
+                {
+                    _myNotifyIcon = new NotifyIcon { Icon = new Icon(iconStream), Visible = true };
+                    iconStream.Dispose();
+                    _myNotifyIcon.Text = "ParseModXIV - Minimized";
+                    var myNotify = new ContextMenu();
+                    myNotify.MenuItems.Add("&Restore Application").Enabled = false;
+                    myNotify.MenuItems.Add("&Exit");
+                    myNotify.MenuItems[0].Click += Restore_Click;
+                    myNotify.MenuItems[1].Click += Exit_Click;
+                    _myNotifyIcon.ContextMenu = myNotify;
+                    _myNotifyIcon.MouseDoubleClick += MyNotifyIcon_MouseDoubleClick;
+                    _myNotifyIcon.BalloonTipClicked += MyNotifyIconBalloonTipClicked;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CheckUpdates()
+        {
+            _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
+            Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
+            checkUpdates.BeginInvoke(appresult =>
+            {
+                const int bTipTime = 3000;
+                string title, message;
+                if (checkUpdates.EndInvoke(appresult))
+                {
+                    switch (lang)
+                    {
+                        case "ja":
+                            title = "利用可能な更新！";
+                            message = "ダウンロードするにはこのメッセージをクリックします。";
+                            break;
+                        case "de":
+                            title = "Update Verfügbar!";
+                            message = "Klicken sie auf diese nachricht zu downloaden.";
+                            break;
+                        case "fr":
+                            title = "Mise À Jour Possible!";
+                            message = "Cliquez sur ce message pour télécharger.";
+                            break;
+                        default:
+                            title = "Update Available!";
+                            message = "Click this message to download.";
+                            break;
+                    }
+                    _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
+                }
+                else
+                {
+                    checkLibrary.BeginInvoke(libresult =>
+                    {
+                        if (checkLibrary.EndInvoke(libresult))
+                        {
+                            switch (lang)
+                            {
+                                case "ja":
+                                    title = "利用可能な更新！";
+                                    message = "ダウンロードするにはこのメッセージをクリックします。";
+                                    break;
+                                case "de":
+                                    title = "Update Verfügbar!";
+                                    message = "Klicken sie auf diese nachricht zu downloaden.";
+                                    break;
+                                case "fr":
+                                    title = "Mise À Jour Possible!";
+                                    message = "Cliquez sur ce message pour télécharger.";
+                                    break;
+                                default:
+                                    title = "Update Available!";
+                                    message = "Click this message to download.";
+                                    break;
+                            }
+                            _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
+                        }
+                    }, null);
+                }
+            }, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MyNotifyIconBalloonTipClicked(object sender, EventArgs e)
+        {
+            Process.Start("UpdateModXIV.exe", "ParseModXIV");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void Start()
+        {
+            ParseMod.Instance.StartLogging();
+            if (Settings.Default.DebugMode)
+            {
+            }
+            if (App.MArgs == null)
+            {
+                return;
+            }
+            if (File.Exists(App.MArgs[0]))
+            {
+                ProcessXml(App.MArgs[0]);
+            }
+        }
+
         #endregion
 
         #region " THEME, FONTS AND COLORS "
 
-        private void UpdateTheme()
-        {
-            try
-            {
-                var split = Settings.Default.Theme.Split('|');
-                var accent = split[0];
-                var theme = split[1];
-                switch (theme)
-                {
-                    case "Dark":
-                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
-                        break;
-                    case "Light":
-                        ThemeManager.ChangeTheme(MainView.View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Light);
-                        break;
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        private void UpdateFonts()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ApplyFonts()
         {
             if (Settings.Default.Gui_LogFont == null)
             {
@@ -424,12 +436,37 @@ namespace ParseModXIV
         /// <summary>
         /// 
         /// </summary>
-        private void UpdateColors()
+        private void ApplyColor()
         {
             _tsColor = Settings.Default.Color_TimeStamp;
             _bColor = Settings.Default.Color_ChatlogBackground;
-            var tColor = new SolidColorBrush {Color = _bColor};
+            var tColor = new SolidColorBrush { Color = _bColor };
             TabControlView.MA.MobAbility_FLOW.Background = tColor;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static void ApplyTheme()
+        {
+            try
+            {
+                var split = Settings.Default.Theme.Split('|');
+                var accent = split[0];
+                var theme = split[1];
+                switch (theme)
+                {
+                    case "Dark":
+                        ThemeManager.ChangeTheme(View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
+                        break;
+                    case "Light":
+                        ThemeManager.ChangeTheme(View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Light);
+                        break;
+                }
+            }
+            catch
+            {
+            }
         }
 
         #endregion

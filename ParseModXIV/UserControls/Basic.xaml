@@ -6,7 +6,7 @@
              xmlns:me="clr-namespace:ParseModXIV"
              xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
              xmlns:my="clr-namespace:ParseModXIV.Model"
-             xmlns:UserControls="clr-namespace:ParseModXIV.UserControls"
+             xmlns:UserControls="clr-namespace:ParseModXIV.UserControls" xmlns:View="clr-namespace:ParseModXIV.View"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -33,7 +33,7 @@
 
 
     <ScrollViewer>
-        <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
+        <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
             <StackPanel>
                 <ItemsControl ItemsSource="{Binding Source={StaticResource ParseMod}, Path=Timeline.Party, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
                     <ItemsControl.ItemTemplate>

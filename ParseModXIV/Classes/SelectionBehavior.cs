@@ -1,5 +1,12 @@
-﻿using System;
+﻿// ParseModXIV
+// SelectionBehavior.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
@@ -7,21 +14,20 @@ namespace ParseModXIV.Classes
 {
     public class SelectionBehavior
     {
-        public static DependencyProperty SelectionChangedProperty =
-           DependencyProperty.RegisterAttached("SelectionChanged",
-           typeof(ICommand),
-           typeof(SelectionBehavior),
-           new UIPropertyMetadata(SelectionBehavior.SelectedItemChanged));
+        public static DependencyProperty SelectionChangedProperty = DependencyProperty.RegisterAttached("SelectionChanged", typeof (ICommand), typeof (SelectionBehavior), new UIPropertyMetadata(SelectedItemChanged));
 
         public static void SetSelectionChanged(DependencyObject target, ICommand value)
         {
-            target.SetValue(SelectionBehavior.SelectionChangedProperty, value);
+            target.SetValue(SelectionChangedProperty, value);
         }
 
-        static void SelectedItemChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+        private static void SelectedItemChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
         {
-            Selector element = target as Selector;
-            if (element == null) throw new InvalidOperationException("This behavior can be attached to Selector item only.");
+            var element = target as Selector;
+            if (element == null)
+            {
+                throw new InvalidOperationException("This behavior can be attached to Selector item only.");
+            }
             if ((e.NewValue != null) && (e.OldValue == null))
             {
                 element.SelectionChanged += SelectionChanged;
@@ -32,11 +38,11 @@ namespace ParseModXIV.Classes
             }
         }
 
-        static void SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private static void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UIElement element = (UIElement)sender;
-            ICommand command = (ICommand)element.GetValue(SelectionBehavior.SelectionChangedProperty);
-            command.Execute(((Selector)sender).SelectedValue);
+            var element = (UIElement) sender;
+            var command = (ICommand) element.GetValue(SelectionChangedProperty);
+            command.Execute(((Selector) sender).SelectedValue);
         }
     }
 }

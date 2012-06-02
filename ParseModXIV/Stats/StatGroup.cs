@@ -14,6 +14,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Threading;
+using ParseModXIV.View;
 
 namespace ParseModXIV.Stats
 {

@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Classes="clr-namespace:ParseModXIV.Classes"
-             xmlns:Model="clr-namespace:ParseModXIV.Model"
              Startup="Application_Startup"
              StartupUri="View\MainView.xaml">
 

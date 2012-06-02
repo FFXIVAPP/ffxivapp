@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:me="clr-namespace:ParseModXIV"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:View="clr-namespace:ParseModXIV.View"
              mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot">
         <TabControl VirtualizingStackPanel.IsVirtualizing="True">
             <TabItem Header="{DynamicResource loc_about_about}">
                 <ScrollViewer>
-                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
@@ -84,7 +84,7 @@
             </TabItem>
             <TabItem Header="{DynamicResource loc_about_credits}">
                 <ScrollViewer>
-                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
@@ -106,7 +106,7 @@
             </TabItem>
             <TabItem Header="{DynamicResource loc_about_license}">
                 <ScrollViewer>
-                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=me:MainView, AncestorLevel=1}}">
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
