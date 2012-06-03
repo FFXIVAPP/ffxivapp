@@ -14,6 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
+using System.Threading;
 using System.Web;
 using System.Windows;
 using System.Windows.Forms;
@@ -28,6 +30,7 @@ using ParseModXIV.Classes;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ParseModXIV.View
 {
@@ -56,9 +59,6 @@ namespace ParseModXIV.View
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
         public MainView()
         {
             InitializeComponent();
@@ -66,6 +66,7 @@ namespace ParseModXIV.View
             View = this;
             Lpath = "./Logs/ParseMod/";
             Ipath = "./ScreenShots/ParseMod/";
+            //MessageBox.Show(AppDomain.CurrentDomain.FriendlyName);
         }
 
         ///// <summary>
@@ -109,6 +110,19 @@ namespace ParseModXIV.View
             CreateNotify();
             CheckUpdates();
             Start();
+            Func<bool> d = delegate
+            {
+                if (File.Exists("ParseModXIV.bak"))
+                {
+                    File.Delete("ParseModXIV.bak");
+                }
+                if (File.Exists("AppModXIV.bak"))
+                {
+                    File.Delete("AppModXIV.bak");
+                }
+                return true;
+            };
+            d.BeginInvoke(null, null);
         }
 
         /// <summary>
@@ -321,6 +335,11 @@ namespace ParseModXIV.View
         /// </summary>
         private void CheckUpdates()
         {
+            //Func<bool> d = delegate
+            //{
+            //    return true;
+            //};
+            //d.BeginInvoke(null, null);
             _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("ParseModXIV");
             Func<bool> checkLibrary = () => _autoUpdates.CheckDlls("AppModXIV", "");
@@ -334,19 +353,19 @@ namespace ParseModXIV.View
                     {
                         case "ja":
                             title = "利用可能な更新！";
-                            message = "ダウンロードするにはこのメッセージをクリックします。";
+                            message = "ダウンロードするには \"ParseModに関して\"をクリックしてください。";
                             break;
                         case "de":
                             title = "Update Verfügbar!";
-                            message = "Klicken sie auf diese nachricht zu downloaden.";
+                            message = "Klicken Sie auf \"Über\" zum Download bereit.";
                             break;
                         case "fr":
                             title = "Mise À Jour Possible!";
-                            message = "Cliquez sur ce message pour télécharger.";
+                            message = "Cliquez sur \"A propos\" pour télécharger.";
                             break;
                         default:
                             title = "Update Available!";
-                            message = "Click this message to download.";
+                            message = "Click \"About\" to download.";
                             break;
                     }
                     _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);
@@ -361,19 +380,19 @@ namespace ParseModXIV.View
                             {
                                 case "ja":
                                     title = "利用可能な更新！";
-                                    message = "ダウンロードするにはこのメッセージをクリックします。";
+                                    message = "ダウンロードするには \"ParseModに関して\"をクリックしてください。";
                                     break;
                                 case "de":
                                     title = "Update Verfügbar!";
-                                    message = "Klicken sie auf diese nachricht zu downloaden.";
+                                    message = "Klicken Sie auf \"Über\" zum Download bereit.";
                                     break;
                                 case "fr":
                                     title = "Mise À Jour Possible!";
-                                    message = "Cliquez sur ce message pour télécharger.";
+                                    message = "Cliquez sur \"A propos\" pour télécharger.";
                                     break;
                                 default:
                                     title = "Update Available!";
-                                    message = "Click this message to download.";
+                                    message = "Click \"About\" to download.";
                                     break;
                             }
                             _myNotifyIcon.ShowBalloonTip(bTipTime, title, message, ToolTipIcon.Info);

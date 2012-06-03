@@ -146,6 +146,11 @@ namespace UpdateModXIV
             {
                 _webClient.DownloadFileCompleted -= Completed;
                 _webClient.DownloadProgressChanged -= ProgressChanged;
+                var directory = new System.IO.DirectoryInfo(path);
+                foreach (var file in directory.GetFiles().Where(file => file.Extension == "tmp" || file.Extension == "PendingOverwrite"))
+                {
+                    file.Delete();
+                }
                 Application.Current.Shutdown();
             }
         }

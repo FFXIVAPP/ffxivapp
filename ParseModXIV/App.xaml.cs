@@ -36,7 +36,6 @@ namespace ParseModXIV
                     Settings.Default.Application_UpgradeRequired = false;
                 }
             }
-
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
         }
 

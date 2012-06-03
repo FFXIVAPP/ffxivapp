@@ -111,4 +111,5 @@
     <system:String x:Key="loc_about_about">About</system:String>
     <system:String x:Key="loc_about_credits">Credits</system:String>
     <system:String x:Key="loc_about_license">License</system:String>
+    <system:String x:Key="loc_about_changelog">Changes</system:String>
 </ResourceDictionary>

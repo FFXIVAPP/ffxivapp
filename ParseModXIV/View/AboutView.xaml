@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:me="clr-namespace:ParseModXIV"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:View="clr-namespace:ParseModXIV.View"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:View="clr-namespace:ParseModXIV.View"
              mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot">
@@ -131,6 +132,28 @@
                                 <Paragraph>
                                     <Bold>Twitter:</Bold>
                                     http://twitter.com/#!/FFXIVAPP
+                                </Paragraph>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource loc_about_changelog}">
+                <ScrollViewer>
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                        <FlowDocumentScrollViewer Margin="10"
+                                                  VerticalScrollBarVisibility="Auto">
+                            <FlowDocument>
+                                <FlowDocument.Resources>
+                                    <Style TargetType="{x:Type Paragraph}">
+                                        <Setter Property="FontSize" Value="12" />
+                                    </Style>
+                                    <Style TargetType="{x:Type Bold}">
+                                        <Setter Property="FontSize" Value="16" />
+                                    </Style>
+                                </FlowDocument.Resources>
+                                <Paragraph>
+                                    <Bold>Coming Soon!</Bold>
                                 </Paragraph>
                             </FlowDocument>
                         </FlowDocumentScrollViewer>
