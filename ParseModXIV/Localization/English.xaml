@@ -110,6 +110,6 @@
     <system:String x:Key="loc_option_theme">Theme:</system:String>
     <system:String x:Key="loc_about_about">About</system:String>
     <system:String x:Key="loc_about_credits">Credits</system:String>
-    <system:String x:Key="loc_about_license">License</system:String>
+    <system:String x:Key="loc_about_contact">Contact</system:String>
     <system:String x:Key="loc_about_changelog">Changes</system:String>
 </ResourceDictionary>

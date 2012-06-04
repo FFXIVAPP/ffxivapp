@@ -10,6 +10,14 @@
              mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Paragraph}">
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+            <Style TargetType="{x:Type Bold}">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </Grid.Resources>
         <TabControl VirtualizingStackPanel.IsVirtualizing="True">
             <TabItem Header="{DynamicResource loc_about_about}">
                 <ScrollViewer>
@@ -17,14 +25,11 @@
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
-                                <FlowDocument.Resources>
-                                    <Style TargetType="{x:Type Paragraph}">
-                                        <Setter Property="FontSize" Value="12" />
-                                    </Style>
-                                    <Style TargetType="{x:Type Bold}">
-                                        <Setter Property="FontSize" Value="16" />
-                                    </Style>
-                                </FlowDocument.Resources>
+                                <Paragraph>
+                                    <Bold>Copyright:</Bold>
+                                </Paragraph>
+                                <Paragraph>Created by Ryan Wilson.</Paragraph>
+                                <Paragraph>Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.</Paragraph>
                                 <Paragraph>
                                     <Bold>Features:</Bold>
                                 </Paragraph>
@@ -89,14 +94,6 @@
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
-                                <FlowDocument.Resources>
-                                    <Style TargetType="{x:Type Paragraph}">
-                                        <Setter Property="FontSize" Value="12" />
-                                    </Style>
-                                    <Style TargetType="{x:Type Bold}">
-                                        <Setter Property="FontSize" Value="16" />
-                                    </Style>
-                                </FlowDocument.Resources>
                                 <Paragraph>
                                     <Bold>Coming Soon!</Bold>
                                 </Paragraph>
@@ -105,22 +102,12 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{DynamicResource loc_about_license}">
+            <TabItem Header="{DynamicResource loc_about_contact}">
                 <ScrollViewer>
                     <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
-                                <FlowDocument.Resources>
-                                    <Style TargetType="{x:Type Paragraph}">
-                                        <Setter Property="FontSize" Value="12" />
-                                    </Style>
-                                    <Style TargetType="{x:Type Bold}">
-                                        <Setter Property="FontSize" Value="16" />
-                                    </Style>
-                                </FlowDocument.Resources>
-                                <Paragraph>Created by Ryan Wilson.</Paragraph>
-                                <Paragraph>Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.</Paragraph>
                                 <Paragraph>
                                     <Bold>Email:</Bold>
                                     webmaster@ffxiv-app.com
@@ -144,14 +131,6 @@
                         <FlowDocumentScrollViewer Margin="10"
                                                   VerticalScrollBarVisibility="Auto">
                             <FlowDocument>
-                                <FlowDocument.Resources>
-                                    <Style TargetType="{x:Type Paragraph}">
-                                        <Setter Property="FontSize" Value="12" />
-                                    </Style>
-                                    <Style TargetType="{x:Type Bold}">
-                                        <Setter Property="FontSize" Value="16" />
-                                    </Style>
-                                </FlowDocument.Resources>
                                 <Paragraph>
                                     <Bold>Coming Soon!</Bold>
                                 </Paragraph>
