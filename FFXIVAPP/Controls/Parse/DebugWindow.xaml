@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="FFXIVAPP.Controls.Parse.DebugWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Classes="clr-namespace:FFXIVAPP.Classes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:FFXIVAPP"
+             xmlns:Stats="clr-namespace:FFXIVAPP.Stats"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:View="clr-namespace:FFXIVAPP.Views"
+             mc:Ignorable="d">
+
+    <ScrollViewer>
+        <Grid>
+            <StackPanel Margin="10 10 30 10">
+                <TreeView x:Name="gui_DataTree"
+                          DataContext="{Binding Source={StaticResource FFXIV}}">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type Stats:StatGroupMonster}">
+                            <TreeViewItem Header="{Binding Path=Name}">
+                                <DataGrid ItemsSource="{Binding Path=Stats}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Path=Name}"
+                                                            Header="Name" />
+                                        <DataGridTextColumn Binding="{Binding Path=Value}"
+                                                            Header="Value" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TreeViewItem Header="Abilities"
+                                              ItemsSource="{Binding Path=Abilities}" />
+                                <TreeViewItem Header="Drops"
+                                              ItemsSource="{Binding Path=Drops}" />
+                            </TreeViewItem>
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type Stats:StatGroup}">
+                            <TreeViewItem Header="{Binding Path=Name}">
+                                <DataGrid ItemsSource="{Binding Path=Stats}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Path=Name}"
+                                                            Header="Name" />
+                                        <DataGridTextColumn Binding="{Binding Path=Value}"
+                                                            Header="Value" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TreeViewItem Header="Abilities"
+                                              ItemsSource="{Binding Path=Abilities}" />
+                                <TreeViewItem Header="Monsters"
+                                              ItemsSource="{Binding Path=Monsters}" />
+                                <TreeViewItem Header="Healing"
+                                              ItemsSource="{Binding Path=Healing}" />
+                                <TreeViewItem Header="Players"
+                                              ItemsSource="{Binding Path=Players}" />
+                                <TreeViewItem Header="Damage"
+                                              ItemsSource="{Binding Path=Damage}" />
+                            </TreeViewItem>
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                    <TreeViewItem Header="Debug"
+                                  IsExpanded="True">
+                        <TreeViewItem DataContext="{Binding Path=Timeline}"
+                                      Header="Timeline"
+                                      IsExpanded="True">
+                            <TextBlock Text="{Binding Path=FightingRightNow, StringFormat={}FightingRightNow: {0}}" />
+                            <TreeViewItem Header="Overall"
+                                          ItemsSource="{Binding Path=Overall}" />
+                            <TreeViewItem Header="Party"
+                                          ItemsSource="{Binding Path=Party}" />
+                            <TreeViewItem Header="Monster"
+                                          ItemsSource="{Binding Path=Monster}" />
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

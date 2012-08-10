@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <targets async="true">
+    <!--
+      This data will be output and viewable by a udp receiver such as log4view
+      Uncomment the rule below if you want files to be generated as well.
+    -->
+    <target xsi:type="NLogViewer" name="viewer"
+            includeSourceInfo="true" includeCallSite="true"
+            includeMdc="true" includeNdc ="true"
+            includeNLogData="true"
+            address="udp://127.0.0.1:9994" />
+    <!-- This data is all application errors that aren't covered by a message box -->
+    <target xsi:type="File" name="f" fileName="${basedir}/Logs/Errors/BugReport-${date:format=yyyy-MM-dd}.log"
+            layout="${longdate} ${message}" />
+    <!-- This data is for actual parsed data, outputting to a string what each part was -->
+    <!--<target xsi:type="File" name="t" fileName="${basedir}/Logs/Trace-${date:format=yyyy-MM-dd}.log"
+              layout="${longdate} ${message}" />-->
+    <!-- This data is for event handlers such as party join, killed, whodunit senarios -->
+    <!--<target xsi:type="File" name="d" fileName="${basedir}/Logs/Debug-${date:format=yyyy-MM-dd}.log"
+              layout="${longdate} ${message}" />-->
+    <!-- This data is regex's that were not matched -->
+    <!--<target xsi:type="File" name="w" fileName="${basedir}/Logs/Warn-${date:format=yyyy-MM-dd}.log"
+              layout="${longdate} ${message}" />-->
+  </targets>
+  <rules>
+    <logger name="*" minlevel="Trace" writeTo="viewer" />
+    <logger name="*" level="Error" writeTo="f" />
+    <!--<logger name="*" level="Trace" writeTo="t" />-->
+    <!--<logger name="*" level="Debug" writeTo="d" />-->
+    <!--<logger name="*" level="Warn" writeTo="w" />-->
+  </rules>
+</nlog>
