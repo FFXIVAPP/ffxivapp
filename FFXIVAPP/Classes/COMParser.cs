@@ -25,17 +25,11 @@ namespace FFXIVAPP.Classes
             {
                 return;
             }
-            var cmd = Convert.ToString(cReg.Groups["cmd"].Value);
-            var sub = Convert.ToString(cReg.Groups["sub"].Value);
-            var c = "p";
-            var t = "";
-            switch (sub.Contains(":"))
-            {
-                case true:
-                    c = sub.Split(':')[0];
-                    sub = sub.Split(':')[1];
-                    break;
-            }
+            var cmd = cReg.Groups["cmd"].Success ? cReg.Groups["cmd"].Value : "";
+            var cm = cReg.Groups["cm"].Success ? cReg.Groups["cm"].Value : "p";
+            var sub = cReg.Groups["sub"].Success ? cReg.Groups["sub"].Value : "";
+            var limit = cReg.Groups["limit"].Success ? Convert.ToInt32(cReg.Groups["limit"].Value) : 1000;
+            limit = (limit == 0) ? 1000 : limit;
             var ascii = Encoding.GetEncoding("utf-16");
             switch (cmd)
             {
@@ -63,48 +57,49 @@ namespace FFXIVAPP.Classes
                         {
                             sb.AppendFormat("[{0}:{1}]", s, Math.Ceiling(r.Stats.GetStatValue(s)));
                         }
-                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", c, sub)));
-                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", c) + sb));
+                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
+                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + sb));
                     }
                     break;
                 case "show-total":
+                    string t;
                     switch (sub)
                     {
                         case "ability":
                             t = ResourceHelper.StringR("loc_Party");
-                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", c, t)));
-                            foreach (var item in FFXIV.Instance.TotalA.OrderByDescending(i => int.Parse(i.Value)))
+                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
+                            foreach (var item in FFXIV.Instance.TotalA.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", c) + item.Key + ": " + item.Value));
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
                             }
                             break;
                         case "healing":
                             t = ResourceHelper.StringR("loc_Healing");
-                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", c, t)));
-                            foreach (var item in FFXIV.Instance.TotalH.OrderByDescending(i => int.Parse(i.Value)))
+                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
+                            foreach (var item in FFXIV.Instance.TotalH.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", c) + item.Key + ": " + item.Value));
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
                             }
                             break;
                         case "damage":
                             t = ResourceHelper.StringR("loc_Damage");
-                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", c, t)));
-                            foreach (var item in FFXIV.Instance.TotalD.OrderByDescending(i => int.Parse(i.Value)))
+                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
+                            foreach (var item in FFXIV.Instance.TotalD.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", c) + item.Key + ": " + item.Value));
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
                             }
                             break;
                         case "dps":
                             t = "DPS";
-                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", c, t)));
-                            foreach (var item in FFXIV.Instance.TotalDPS.OrderByDescending(i => Math.Ceiling(Decimal.Parse(i.Value))))
+                            KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
+                            foreach (var item in FFXIV.Instance.TotalDPS.OrderByDescending(i => Math.Ceiling(Decimal.Parse(i.Value))).Take(limit))
                             {
                                 var amount = item.Value;
                                 if (item.Value.Contains("."))
                                 {
                                     amount = item.Value.Split('.')[0];
                                 }
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", c) + item.Key + ": " + amount));
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + amount));
                             }
                             break;
                     }

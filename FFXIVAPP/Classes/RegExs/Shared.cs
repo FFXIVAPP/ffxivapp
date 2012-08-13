@@ -18,7 +18,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex Exp = new Regex(@"^You earn (?<exp>\d+).+\.$", DefaultOptions);
 
-        public static readonly Regex ParseCOMS = new Regex(@"com:(?<cmd>(show-(mob|total)|parse)) (?<sub>.+)", DefaultOptions);
+        public static readonly Regex ParseCOMS = new Regex(@"com:(?<cmd>(show-(mob|total)|parse)) ((?<cm>\w+):)?(?<sub>\w+)( (?<limit>\d))?$", DefaultOptions);
 
         public static readonly Regex TranslateCOMS = new Regex(@"^/\w( \w+ \w+)?$", DefaultOptions);
     }
