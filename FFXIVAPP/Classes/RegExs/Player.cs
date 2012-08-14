@@ -124,7 +124,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex MultiFlagEn = new Regex(@"^(?<source>You|\w+\s\w+) use(s)? (?<action>.+) on ((t|T)he )?(((?<target>.+)(?:'s)|(?<target>.+)) from the (?<direction>.+)\.$|(?<target>.+(?='s))('s)?\.$|(?<target>.+)\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFlagFr = new Regex(@"^(?<source>Vous) util\w+ (?<action>.+(?= sur)) sur ((l\w+ |(a|à)(\w+)? )?(l\')?(?<target>.+))\.$", Shared.DefaultOptions);
+        public static readonly Regex MultiFlagFr = new Regex(@"^(?<source>Vous) util\w+ (?<action>.+(?= sur)) sur (l\w+|(a|à)(\w+)?)?(l\')? ((?<target>[\w\s]+(?!\())\.|(?<target>.+)\((?<direction>[\w\s]+)\)\.) ?$", Shared.DefaultOptions);
 
         public static readonly Regex MultiFlagJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
