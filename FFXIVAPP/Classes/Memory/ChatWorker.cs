@@ -15,33 +15,31 @@ using System.Threading;
 using System.Timers;
 using System.Web;
 using Timer = System.Timers.Timer;
+using NLog;
 
 namespace FFXIVAPP.Classes.Memory
 {
     public class ChatWorker
     {
+        public delegate void NewLineEvnetHandler(string line, Boolean jp);
+        public event NewLineEvnetHandler OnNewline;
+        public delegate void RawLineEvnetHandler(string line);
+        public event RawLineEvnetHandler OnRawline;
         private readonly MemoryHandler _handler;
-        private readonly Timer _scanTimer;
         private readonly Offsets _o;
         private int _lastCount;
         private readonly SynchronizationContext _sync = SynchronizationContext.Current;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
-
-        public delegate void NewLineEvnetHandler(string line, Boolean jp);
-
-        public event NewLineEvnetHandler OnNewline;
-
-        public delegate void RawLineEvnetHandler(string line);
-
-        public event RawLineEvnetHandler OnRawline;
+        private readonly Timer _scanTimer;
+        private bool _isScanning;
         private Boolean _jp;
+        private Boolean _colorFound;
         private readonly List<uint> _spots = new List<uint>();
         private readonly List<byte> _newText = new List<byte>();
-        private bool _isScanning;
-        private Boolean _colorFound;
         private List<byte> _nList, _aList, _cList;
         private string _cleaned;
-        private readonly string[] _checks = new[] {"0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C"};
+        private readonly string[] _checks = new[] { "0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C" };
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// </summary>
@@ -202,8 +200,9 @@ namespace FFXIVAPP.Classes.Memory
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Logger.Error("ErrorEvent : ", ex.Message + ex.StackTrace + ex.InnerException);
                 }
                 _lastCount = (int) cp.LineCount;
             }
