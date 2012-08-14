@@ -22,8 +22,8 @@ namespace FFXIVAPP.Classes.Memory
     public class ChatWorker
     {
         public delegate void NewLineEvnetHandler(string line, Boolean jp);
-        public event NewLineEvnetHandler OnNewline;
         public delegate void RawLineEvnetHandler(string line);
+        public event NewLineEvnetHandler OnNewline;
         public event RawLineEvnetHandler OnRawline;
         private readonly MemoryHandler _handler;
         private readonly Offsets _o;
@@ -47,7 +47,7 @@ namespace FFXIVAPP.Classes.Memory
         /// <param name="o"> </param>
         public ChatWorker(Process p, Offsets o)
         {
-            _scanTimer = new Timer(500);
+            _scanTimer = new Timer(100);
             _scanTimer.Elapsed += _scanTimer_Elapsed;
             _scanner.DoWork += Scanner_DoWork;
             _scanner.RunWorkerCompleted += Scanner_RunWorkerCompleted;
