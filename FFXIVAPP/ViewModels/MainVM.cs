@@ -38,7 +38,7 @@ namespace FFXIVAPP.ViewModels
 
         /// <summary>
         /// </summary>
-        private static void ClearStats()
+        internal static void ClearStats()
         {
             if (App.MArgs == null)
             {

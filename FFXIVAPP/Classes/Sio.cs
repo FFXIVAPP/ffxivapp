@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using FFXIVAPP.Classes.Helpers;
+using FFXIVAPP.Models;
 using FFXIVAPP.Views;
 using NLog;
 using SocketIOClient;
@@ -21,7 +22,6 @@ namespace FFXIVAPP.Classes
     {
         public Client Socket;
         private static readonly FlowDocumentHelper FD = new FlowDocumentHelper();
-        private static readonly string[] Events = new[] {"welcome", "message"};
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private string _clipText = "";
 
@@ -39,6 +39,16 @@ namespace FFXIVAPP.Classes
                 Socket.Opened += Socket_Opened;
                 Socket.SocketConnectionClosed += Socket_SocketConnectionClosed;
                 Socket.Connect();
+                Socket.On("welcome", data =>
+                {
+                    var message = data.Json.GetFirstArgAs<Message>();
+                    OnNewLine(message);
+                });
+                Socket.On("message", data =>
+                {
+                    var message = data.Json.GetFirstArgAs<Message>();
+                    OnNewLine(message);
+                });
             }
             catch
             {
@@ -78,11 +88,6 @@ namespace FFXIVAPP.Classes
         /// <param name="e"> </param>
         private void Socket_Message(object sender, MessageEventArgs e)
         {
-            if (CheckEvent(e.Message.Event, Events))
-            {
-                var message = e.Message.RawMessage;
-                OnNewLine(e.Message.Json.GetFirstArgAs<Message>(), message);
-            }
         }
 
         /// <summary>
@@ -153,7 +158,7 @@ namespace FFXIVAPP.Classes
         /// <param name="line"> </param>
         /// <param name="raw"> </param>
         [STAThread]
-        private void OnNewLine(Message line, string raw)
+        private void OnNewLine(Message line)
         {
             lock (this)
             {
@@ -177,9 +182,9 @@ namespace FFXIVAPP.Classes
                         break;
                     case "Phone":
                     case "Web":
-                        UpdateStatus(string.Format("Command : {0}", raw));
                         if (!Settings.Default.WebsiteControl)
                         {
+                            UpdateStatus(string.Format("Command : {0}", line.command + " " + line.message));
                             UpdateStatus(string.Format("Error : {0}", "Command Ignored; Web Control : Off"));
                             break;
                         }
@@ -199,9 +204,9 @@ namespace FFXIVAPP.Classes
                                 KeyHelper.Paste();
                                 KeyHelper.KeyPress(Keys.Return);
                             }
-                            catch (Exception e)
+                            catch (Exception ex)
                             {
-                                Logger.Error("ErrorEvent : {0}", e.Message + e.StackTrace + e.InnerException);
+                                Logger.Error("{0} :\n{1}", ex.Message, ex.StackTrace);
                             }
                         }
                         break;

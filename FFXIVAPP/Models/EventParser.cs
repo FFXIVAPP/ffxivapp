@@ -10,11 +10,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
+using FFXIVAPP.Classes;
 using NLog;
 
 namespace FFXIVAPP.Models
 {
-    public sealed class EventParser
+    public class EventParser
     {
         public const UInt16 DirectionMask = 0x0003;
         public const UInt16 SubjectMask = 0x003C;
@@ -54,9 +55,9 @@ namespace FFXIVAPP.Models
                     LoadCodes(XElement.Load(resource.Stream));
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logger.Error("ResourceEvent : Failed to load ChatCodes.xml from resource stream : {0}", e.Message);
+                Logger.Error("{0} :\n{1}", ex.Message, ex.StackTrace);
             }
         }
 
@@ -198,7 +199,7 @@ namespace FFXIVAPP.Models
         {
             lock (this)
             {
-                Thread.Sleep(5);
+                Thread.Sleep(App.MArgs == null ? 100 : 10);
                 var e = Parse(code, line);
                 var tmp = e.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
                 if (tmp != null)

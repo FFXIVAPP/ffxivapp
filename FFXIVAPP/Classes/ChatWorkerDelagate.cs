@@ -5,11 +5,13 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Classes.Helpers;
+using FFXIVAPP.Classes.Memory;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Models;
 using FFXIVAPP.ViewModels;
@@ -29,16 +31,20 @@ namespace FFXIVAPP.Classes
 
         /// <summary>
         /// </summary>
-        /// <param name="mLine"> </param>
-        public static void OnRawLine(string mLine)
+        public static void OnRawLine(ChatlogEntry cle)
         {
-            var splitOfLine = mLine.Split(' ');
-            var tmpString = splitOfLine.Aggregate("", (current, t) => current + (char) int.Parse(t));
+            var tmp = "";
+            for (var j = 0; j < cle.Bytes.Length; j++)
+            {
+                tmp += cle.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
+            }
+            var splitOfLine = tmp.Split(' ');
+            var tmpString = splitOfLine.Aggregate("", (current, t) => current + (char) Int32.Parse(t));
             if (Settings.Default.ShowDebug)
             {
                 if (Settings.Default.ASCII)
                 {
-                    FD.AppendFlow("", mLine, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
+                    FD.AppendFlow("", tmp, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
                 }
                 FD.AppendFlow("", tmpString, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
             }
@@ -68,26 +74,17 @@ namespace FFXIVAPP.Classes
 
         /// <summary>
         /// </summary>
-        /// <param name="mLine"> </param>
-        /// <param name="mJp"> </param>
-        public static void OnNewline(string mLine, Boolean mJp)
+        public static void OnNewline(ChatlogEntry cle)
         {
             #region Clean Message
 
-            mLine = mLine.Replace("::", ":").Replace("  ", " ");
-            var mTimeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-            var mCode = mLine.Substring(mLine.IndexOf(":", StringComparison.Ordinal) - 4, 4);
-            var mMessage = mLine.Substring(mLine.IndexOf(":", StringComparison.Ordinal) + 1);
+            var mTimeStamp = cle.TimeStamp.ToString("[HH:mm:ss] ");
+            var mMessage = XmlCleaner.SanitizeXmlString(cle.Line.Replace("  ", " "));
             var mServer = Settings.Default.Server;
-            if (mMessage.Substring(0, 1) == ":")
-            {
-                mMessage = mMessage.Substring(1);
-            }
-            mMessage = XmlCleaner.SanitizeXmlString(mMessage);
 
             #endregion
 
-            if (mCode == "0043" || mCode == "0042")
+            if (cle.Code == "0043" || cle.Code == "0042")
             {
                 mMessage = mMessage.Replace(",", "");
                 var mReg = Shared.Exp.Match(mMessage);
@@ -98,7 +95,7 @@ namespace FFXIVAPP.Classes
                 }
             }
 
-            if (mCode == "0020")
+            if (cle.Code == "0020")
             {
                 COMParser.Process(mMessage);
             }
@@ -120,16 +117,16 @@ namespace FFXIVAPP.Classes
 
             if (Settings.Default.EnableChat)
             {
-                if (mCode != "" || mMessage != "" || FFXIV.Instance.SIO.Socket.ReadyState.ToString() == "Open")
+                if (cle.Code != "" || mMessage != "" || FFXIV.Instance.SIO.Socket.ReadyState.ToString() == "Open")
                 {
                     mTimeStamp = mTimeStamp.Trim();
-                    if (CheckMode(mCode, ShoutLog))
+                    if (CheckMode(cle.Code, ShoutLog))
                     {
-                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Global", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
+                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Global", server = mServer, time = mTimeStamp, code = cle.Code, message = mMessage});
                     }
-                    if (CheckMode(mCode, PrivateLog))
+                    if (CheckMode(cle.Code, PrivateLog))
                     {
-                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Private", server = mServer, time = mTimeStamp, code = mCode, message = mMessage});
+                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Private", server = mServer, time = mTimeStamp, code = cle.Code, message = mMessage});
                     }
                     //if (!CheckMode(mCode, IgnoreLog))
                     //{
@@ -146,7 +143,7 @@ namespace FFXIVAPP.Classes
             {
                 for (var a = 0; a < LogVM.ChatScan.Length; a++)
                 {
-                    if (!LogVM.ChatScan[a].Items.Contains(mCode))
+                    if (!LogVM.ChatScan[a].Items.Contains(cle.Code))
                     {
                         continue;
                     }
@@ -176,38 +173,38 @@ namespace FFXIVAPP.Classes
                     if (success)
                     {
                         var tempFlow = LogVM.DFlowDocReader[LogVM.TabNames[a] + "_FDR"];
-                        FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[mCode][0], tempFlow);
+                        FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[cle.Code][0], tempFlow);
                     }
                 }
                 if (Settings.Default.ShowAll)
                 {
-                    FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[mCode][0], MainWindow.View.LogView.All._FDR);
+                    FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[cle.Code][0], MainWindow.View.LogView.All._FDR);
                 }
                 if (Settings.Default.Log_SaveLog)
                 {
-                    LogXmlWriteLog.AddChatLine(new[] {mMessage, mCode, "#" + Constants.XColor[mCode][0], mTimeStamp});
+                    LogXmlWriteLog.AddChatLine(new[] { mMessage, cle.Code, "#" + Constants.XColor[cle.Code][0], mTimeStamp });
                 }
                 if (Settings.Default.Translate)
                 {
-                    if (CheckMode(mCode, Constants.CmSay) && Settings.Default.Say)
+                    if (CheckMode(cle.Code, Constants.CmSay) && Settings.Default.Say)
                     {
-                        GoogleTranslate.RetreiveLang(mMessage, mJp);
+                        GoogleTranslate.RetreiveLang(mMessage, cle.JP);
                     }
-                    if (CheckMode(mCode, Constants.CmTell) && Settings.Default.Tell)
+                    if (CheckMode(cle.Code, Constants.CmTell) && Settings.Default.Tell)
                     {
-                        GoogleTranslate.RetreiveLang(mMessage, mJp);
+                        GoogleTranslate.RetreiveLang(mMessage, cle.JP);
                     }
-                    if (CheckMode(mCode, Constants.CmParty) && Settings.Default.Party)
+                    if (CheckMode(cle.Code, Constants.CmParty) && Settings.Default.Party)
                     {
-                        GoogleTranslate.RetreiveLang(mMessage, mJp);
+                        GoogleTranslate.RetreiveLang(mMessage, cle.JP);
                     }
-                    if (CheckMode(mCode, Constants.CmShout) && Settings.Default.Shout)
+                    if (CheckMode(cle.Code, Constants.CmShout) && Settings.Default.Shout)
                     {
-                        GoogleTranslate.RetreiveLang(mMessage, mJp);
+                        GoogleTranslate.RetreiveLang(mMessage, cle.JP);
                     }
-                    if (CheckMode(mCode, Constants.Cmls) && Settings.Default.LS)
+                    if (CheckMode(cle.Code, Constants.Cmls) && Settings.Default.LS)
                     {
-                        GoogleTranslate.RetreiveLang(mMessage, mJp);
+                        GoogleTranslate.RetreiveLang(mMessage, cle.JP);
                     }
                 }
             }
@@ -218,16 +215,16 @@ namespace FFXIVAPP.Classes
 
             if (Settings.Default.EnableParse)
             {
-                if (mMessage.Contains("readies") || mMessage.Contains("prépare") || mLine.Contains("をしようとしている。"))
+                if (mMessage.Contains("readies") || mMessage.Contains("prépare") || mMessage.Contains("をしようとしている。"))
                 {
-                    if (mCode == "0053" || mCode == "0054" || mCode == "0055")
+                    if (cle.Code == "0053" || cle.Code == "0054" || cle.Code == "0055")
                     {
                         FD.AppendFlow(mTimeStamp, mMessage, "#FFFFFF", MainWindow.View.ParseView.MA._FDR);
                     }
                 }
                 Func<bool> d = delegate
                 {
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(mCode, 16), mMessage);
+                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(cle.Code, 16), mMessage);
                     return true;
                 };
                 d.BeginInvoke(null, null);

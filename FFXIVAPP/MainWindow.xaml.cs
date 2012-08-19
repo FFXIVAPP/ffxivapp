@@ -25,6 +25,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
+using FFXIVAPP.Models;
 using FFXIVAPP.ViewModels;
 using FFXIVAPP.Views;
 using MahApps.Metro;

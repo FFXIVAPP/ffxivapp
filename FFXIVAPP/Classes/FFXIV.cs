@@ -29,8 +29,7 @@ namespace FFXIVAPP.Classes
         private TimelineMonitor TimelineMonitor { get; set; }
         private static FFXIV _instance;
         private static ChatWorker _chatWorker;
-        public Boolean IsChat;
-        public Boolean IsParse;
+        public Boolean IsParsing = false;
         public static string Desc = "";
         public static string UID = "";
         public readonly Dictionary<string, string> TotalA = new Dictionary<string, string>();

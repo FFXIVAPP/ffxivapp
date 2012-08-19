@@ -87,15 +87,6 @@ namespace FFXIVAPP.Monitors
             #endregion
 
             Process.Parse(mCode, mTimeStamp, e.RawLine, e);
-
-            #region Save Parse to XML
-
-            if (Settings.Default.Parse_SaveLog && App.MArgs == null)
-            {
-                ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] {e.RawLine, mCode, "#FFFFFF", mTimeStamp});
-            }
-
-            #endregion
         }
 
         /// <summary>

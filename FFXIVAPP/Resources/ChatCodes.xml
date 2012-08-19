@@ -45,7 +45,8 @@
     <Group Name="Attacks">
       <Group Name="By You" Subject="You" Direction="By">
         <ChatCode Desc="You: Successful Actions - Mob Resists - Enemy Calls For Help" ID="0050"/>
-        <ChatCode Desc="You: Multi-Hit Action Log" ID="006E"/>
+        <ChatCode Desc="You: Multi-Hit Action Log HITS (Detailed)" ID="006E"/>
+        <ChatCode Desc="You: Multi-Hit Action Log MISSES (Detailed)" ID="0074"/>
         <ChatCode Desc="You: Failed Actions" ID="0056"/>
       </Group>
       <Group Name="On You" Subject="You" Direction="On">
@@ -54,6 +55,8 @@
       </Group>
       <Group Name="By Party" Subject="Party" Direction="By">
         <ChatCode Desc="Party: Successful Actions - Mob Resists - Enemy Calls For Help" ID="0052"/>
+        <ChatCode Desc="Party: Multi-Hit Action Log HITS (Detailed)" ID="0070"/>
+        <ChatCode Desc="Party: Multi-Hit Action Log MISSES (Detailed)" ID="0076"/>
         <ChatCode Desc="Party: Failed Party Actions Against Party" ID="0058"/>
       </Group>
       <Group Name="On Party" Subject="Party" Direction="On">
@@ -198,5 +201,19 @@
     <ChatCode Desc="Unknown" ID="004E"/>
     <ChatCode Desc="Unknown" ID="004F"/>
     <ChatCode Desc="Unknown" ID="006F"/>
+    <ChatCode Desc="Unknown" ID="0071"/>
+    <ChatCode Desc="Unknown" ID="0072"/>
+    <ChatCode Desc="Unknown" ID="0073"/>
+    <ChatCode Desc="Unknown" ID="0075"/>
+    <ChatCode Desc="Unknown" ID="0077"/>
+    <ChatCode Desc="Unknown" ID="0078"/>
+    <ChatCode Desc="Unknown" ID="0079"/>
+    <ChatCode Desc="Unknown" ID="007A"/>
+    <ChatCode Desc="Unknown" ID="007B"/>
+    <ChatCode Desc="Unknown" ID="007C"/>
+    <ChatCode Desc="Unknown" ID="007D"/>
+    <ChatCode Desc="Unknown" ID="007E"/>
+    <ChatCode Desc="Unknown" ID="007F"/>
+    <ChatCode Desc="Unknown" ID="0080"/>
   </Group>
 </ChatCodes>

@@ -1,4 +1,4 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // Login.cs
 //  
 // Created by Ryan Wilson.
@@ -6,7 +6,7 @@
 
 using Newtonsoft.Json;
 
-namespace FFXIVAPP.Classes
+namespace FFXIVAPP.Models
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class Login

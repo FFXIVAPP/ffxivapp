@@ -1,4 +1,4 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // BitField.cs
 //  
 // Created by Ryan Wilson.
@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FFXIVAPP.Classes
+namespace FFXIVAPP.Models
 {
     public class BitField
     {

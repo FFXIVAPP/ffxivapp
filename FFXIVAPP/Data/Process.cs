@@ -25,10 +25,12 @@ namespace FFXIVAPP.Data
         private static string _lastAction = "";
         private static string _lastDirection = "";
         private static bool _multi;
+        private static bool _valid;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public static void Parse(string mCode, string mTimeStamp, string cleaned, Event e)
         {
+            _valid = false;
             Match mReg;
             var json = "";
             var q = "";
@@ -161,7 +163,6 @@ namespace FFXIVAPP.Data
                                 case true:
                                     break;
                                 case false:
-                                    _multi = false;
                                     return;
                             }
                         }
@@ -257,8 +258,9 @@ namespace FFXIVAPP.Data
                     d.Action = _lastAction;
                     d.Direction = _lastDirection;
                     d.Hit = true;
+                    _multi = false;
                 }
-                if (Regex.IsMatch(d.Source, @"^[Yy]our?$"))
+                if (Regex.IsMatch(d.Source, @"^[Yy]our?$|^Vous"))
                 {
                     d.Source = Settings.Default.CharacterName;
                 }
@@ -268,6 +270,7 @@ namespace FFXIVAPP.Data
                     return;
                 }
                 Logger.Trace("HandlingEvent : Matched: {0}", cleaned);
+                _valid = true;
                 FFXIV.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, d.Target);
                 if (mReg.Groups["amount"].Success || d.Resist)
                 {
@@ -426,6 +429,7 @@ namespace FFXIVAPP.Data
                     return;
                 }
                 Logger.Trace("HandlingEvent : Matched: {0}", cleaned);
+                _valid = true;
                 if (mReg.Groups["amount"].Success || d.Resist)
                 {
                     d.Hit = true;
@@ -510,6 +514,7 @@ namespace FFXIVAPP.Data
                     return;
                 }
                 Logger.Trace("HandlingEvent : Matched: {0}", cleaned);
+                _valid = true;
                 if (d.Type == type)
                 {
                     FFXIV.Instance.Timeline.GetSetPlayer(d.Source).AddHealingStats(d);
@@ -538,6 +543,15 @@ namespace FFXIVAPP.Data
 
                     #endregion
                 }
+            }
+
+            #endregion
+
+            #region Save Parse to XML
+
+            if (Settings.Default.Parse_SaveLog && App.MArgs == null & _valid)
+            {
+                ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
             }
 
             #endregion

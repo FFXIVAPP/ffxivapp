@@ -26,7 +26,7 @@ namespace FFXIVAPP
         private readonly string[] _directories = {"./Logs/", "./Resources/", "./ScreenShots/"};
         private readonly string[] _xmlResources = {"ATCodes.xml", "Settings.xml", "RegularExpressions.xml"};
         private readonly string[] _mainResources = {"FFXIVAPP.exe.nlog", "Ionic.Zip.dll", "Updater.exe"};
-        private readonly string[] _cleanResources = {"Ionic.Zip.dll", "UpdateModXIV.exe", "Updater.exe"};
+        private readonly string[] _cleanResources = {"Ionic.Zip.dll", "Updater.exe"};
 
         public App()
         {
@@ -65,7 +65,7 @@ namespace FFXIVAPP
         /// <param name="e"> </param>
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.Error("ErrorEvent : {0}", e.Exception.Message + e.Exception.StackTrace + e.Exception.InnerException);
+            Logger.Error("{0} :\n{1}", e.Exception.Message, e.Exception.StackTrace);
             e.Handled = true;
         }
 
@@ -176,9 +176,9 @@ namespace FFXIVAPP
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                Logger.Error("ErrorEvent : {0}", "Cannot Find Embedded Resource : '" + name + "'");
+                Logger.Error("{0} :\n{1}", ex.Message, ex.StackTrace);
                 Current.Shutdown();
             }
         }

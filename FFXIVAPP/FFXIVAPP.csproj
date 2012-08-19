@@ -63,22 +63,22 @@
     <ApplicationIcon>Resources\FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\HtmlAgilityPack.1.4.5\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=0.7.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.0.8.0.0\lib\net40\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="MahApps.Metro, Version=0.9.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SocketIOClient, Version=0.6.26.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\SocketIOClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -87,7 +87,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.0.8.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -96,7 +96,6 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WebSocket4Net, Version=0.7.0.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\WebSocket4Net.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -110,15 +109,12 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Accent.cs" />
     <Compile Include="Classes\AutomaticUpdates.cs" />
-    <Compile Include="Classes\BitField.cs" />
     <Compile Include="Classes\ChatWorkerDelagate.cs" />
     <Compile Include="Classes\Converters\StringToBrushConverter.cs" />
     <Compile Include="Classes\Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Classes\Helpers\ParseHelper.cs" />
     <Compile Include="Classes\Helpers\ResourceHelper.cs" />
     <Compile Include="Classes\Helpers\XmlHelper.cs" />
-    <Compile Include="Classes\Login.cs" />
-    <Compile Include="Classes\Message.cs" />
     <Compile Include="Classes\ChildUtilities.cs" />
     <Compile Include="Classes\Commands\CommandManagerHelper.cs" />
     <Compile Include="Classes\Commands\DelegateCommand.cs" />
@@ -130,6 +126,8 @@
     <Compile Include="Classes\GridViewSort.cs" />
     <Compile Include="Classes\Helpers\KeyHelper.cs" />
     <Compile Include="Classes\Keys.cs" />
+    <Compile Include="Classes\Memory\ChatlogCleaner.cs" />
+    <Compile Include="Classes\Memory\ChatlogEntry.cs" />
     <Compile Include="Classes\Memory\ChatWorker.cs" />
     <Compile Include="Classes\Memory\MemoryHandler.cs" />
     <Compile Include="Classes\Memory\MemoryStructures.cs" />
@@ -151,7 +149,6 @@
     <Compile Include="Classes\WindowsMessageEvents.cs" />
     <Compile Include="Classes\XmlCleaner.cs" />
     <Compile Include="Classes\XmlWriteLog.cs" />
-    <Compile Include="Classes\XValuePairs.cs" />
     <Compile Include="Controls\FlowDoc.xaml.cs">
       <DependentUpon>FlowDoc.xaml</DependentUpon>
     </Compile>
@@ -196,6 +193,7 @@
     </Compile>
     <Compile Include="Data\Process.cs" />
     <Compile Include="Classes\Converters\NameToAvatarConverter.cs" />
+    <Compile Include="Models\BitField.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventCode.cs" />
     <Compile Include="Models\EventCodeComparer.cs" />
@@ -207,6 +205,9 @@
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\Fight.cs" />
     <Compile Include="Models\FightList.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\XValuePairs.cs" />
     <Compile Include="Monitors\StatMonitor.cs" />
     <Compile Include="Monitors\TimelineMonitor.cs" />
     <Compile Include="Stats\AccuracyStat.cs" />

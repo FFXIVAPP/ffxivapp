@@ -11,34 +11,30 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
 using System.Web;
-using Timer = System.Timers.Timer;
 using NLog;
+using Timer = System.Timers.Timer;
 
 namespace FFXIVAPP.Classes.Memory
 {
     public class ChatWorker
     {
-        public delegate void NewLineEvnetHandler(string line, Boolean jp);
-        public delegate void RawLineEvnetHandler(string line);
         public event NewLineEvnetHandler OnNewline;
+        public delegate void NewLineEvnetHandler(ChatlogEntry cle);
         public event RawLineEvnetHandler OnRawline;
+        public delegate void RawLineEvnetHandler(ChatlogEntry cle);
         private readonly MemoryHandler _handler;
         private readonly Offsets _o;
-        private int _lastCount;
         private readonly SynchronizationContext _sync = SynchronizationContext.Current;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly Timer _scanTimer;
         private bool _isScanning;
-        private Boolean _jp;
-        private Boolean _colorFound;
+        private int _lastCount;
+        private uint _lastChatNum;
         private readonly List<uint> _spots = new List<uint>();
-        private readonly List<byte> _newText = new List<byte>();
-        private List<byte> _nList, _aList, _cList;
-        private string _cleaned;
-        private readonly string[] _checks = new[] { "0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C" };
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -94,10 +90,9 @@ namespace FFXIVAPP.Classes.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="line"> </param>
-        private void PostLineEvent(string line)
+        private void PostLineEvent(ChatlogEntry cle)
         {
-            _sync.Post(RaiseLineEvent, line);
+            _sync.Post(RaiseLineEvent, cle);
         }
 
         /// <summary>
@@ -105,15 +100,14 @@ namespace FFXIVAPP.Classes.Memory
         /// <param name="state"> </param>
         private void RaiseLineEvent(object state)
         {
-            OnNewline((string) state, _jp);
+            OnNewline((ChatlogEntry) state);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="line"> </param>
-        private void PostRawEvent(string line)
+        private void PostRawEvent(ChatlogEntry cle)
         {
-            _sync.Post(RaiseRawEvent, line);
+            _sync.Post(RaiseRawEvent, cle);
         }
 
         /// <summary>
@@ -121,7 +115,7 @@ namespace FFXIVAPP.Classes.Memory
         /// <param name="state"> </param>
         private void RaiseRawEvent(object state)
         {
-            OnRawline((string) state);
+            OnRawline((ChatlogEntry) state);
         }
 
         #endregion
@@ -137,74 +131,58 @@ namespace FFXIVAPP.Classes.Memory
             _isScanning = true;
             _handler.Address = _o.Locations["CHAT_POINTER"];
             var cp = _handler.GetStructure<ChatPointers>();
-            var count = (int) (cp.OffsetArrayStop - cp.OffsetArrayStart)/4 - 1;
             if (_lastCount == 0)
             {
-                _lastCount = (int) cp.LineCount;
+                _lastCount = (int) cp.LineCount1;
             }
-            else if (cp.LineCount > _lastCount)
+            if (_lastCount != cp.LineCount1)
             {
-                if (_spots.Count > 0)
-                {
-                    _spots.Clear();
-                }
-                for (var i = count; i > count - (cp.LineCount - _lastCount); i--)
-                {
-                    if (i < 0)
-                    {
-                        break;
-                    }
-                    _handler.Address = cp.OffsetArrayStart + (uint) ((i - 1)*4);
-                    _spots.Insert(0, cp.LogStart + (uint) _handler.GetInt32());
-                }
+                _spots.Clear();
+                var index = (int)(cp.OffsetArrayPos - cp.OffsetArrayStart) / 4;
+                var lengths = new List<int>();
                 try
                 {
-                    for (var i = 0; i < _spots.Count; i++)
+                    for (var i = cp.LineCount1 - _lastCount; i > 0; i--)
                     {
-                        if (i < 0)
+                        var getline = ((index - i) < 0) ? (index - i) + 60 : index - i;
+                        int lineLen;
+                        if (getline == 0)
                         {
-                            break;
-                        }
-                        uint length;
-                        if (i < _spots.Count - 1)
-                        {
-                            length = _spots[i + 1] - _spots[i];
+                            _handler.Address = cp.OffsetArrayStart;
+                            lineLen = _handler.GetInt32();
                         }
                         else
                         {
-                            length = cp.LogNextEntry - _spots[i];
+                            _handler.Address = cp.OffsetArrayStart + (uint)((getline - 1) * 4);
+                            var p = _handler.GetInt32();
+                            _handler.Address = cp.OffsetArrayStart + (uint)(getline * 4);
+                            var c = _handler.GetInt32();
+                            lineLen = c - p;
                         }
+                        lengths.Add(lineLen);
+                        _handler.Address = cp.OffsetArrayStart + (uint)((getline - 1) * 4);
+                        _spots.Add(cp.LogStart + (uint)_handler.GetInt32());
+                    }
+                    var limit = _spots.Count;
+                    for (var i = 0; i < limit; i++)
+                    {
+                        _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : cp.LogStart;
                         _handler.Address = _spots[i];
-                        var text = _handler.GetByteArray((int) length);
-                        if (_newText.Count > 0)
+                        var text = _handler.GetByteArray(lengths[i]);
+                        var cle = new ChatlogEntry(text.ToArray());
+                        PostRawEvent(cle);
+                        if (Regex.IsMatch(cle.Combined, @"[\w\d]{4}::?.+"))
                         {
-                            _newText.Clear();
+                            PostLineEvent(cle);
                         }
-                        foreach (var t in text)
-                        {
-                            if (t != 0)
-                            {
-                                _newText.Add(t);
-                            }
-                        }
-                        var tmpString = "";
-                        for (var j = 0; j < _newText.Count; j++)
-                        {
-                            tmpString += _newText[j].ToString(CultureInfo.CurrentUICulture) + " ";
-                        }
-                        PostRawEvent(tmpString.Substring(0, tmpString.Length - 1));
-                        var results = CleanUpStringAt(_newText.ToArray(), CultureInfo.CurrentUICulture);
-                        if (results.Length > 5)
-                        {
-                            PostLineEvent(results);
-                        }
+                        _lastChatNum = _spots[i];
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Logger.Error("ErrorEvent : ", ex.Message + ex.StackTrace + ex.InnerException);
+                    Logger.Warn("{0} :\n{1}", ex.Message, ex.StackTrace);
                 }
-                _lastCount = (int) cp.LineCount;
+                _lastCount = (int) cp.LineCount1;
             }
         }
 
@@ -215,120 +193,6 @@ namespace FFXIVAPP.Classes.Memory
         private void Scanner_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _isScanning = false;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="bytes"> </param>
-        /// <param name="ci"> </param>
-        /// <returns> </returns>
-        private string CleanUpStringAt(byte[] bytes, CultureInfo ci)
-        {
-            _jp = false;
-            _cleaned = "";
-            _aList = new List<byte>();
-            _nList = new List<byte>();
-            _cList = new List<byte>();
-            for (var t = 0; t < 4; t++)
-            {
-                _cList.Add(bytes[t]);
-            }
-            var check = Encoding.UTF8.GetString(_cList.ToArray());
-            for (var x = 0; x < bytes.Count(); x++)
-            {
-                if (bytes[x] == 2)
-                {
-                    if (bytes[x + 1] == 29 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                    {
-                        x += 4;
-                    }
-                    else if (bytes[x + 1] == 16 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                    {
-                        x += 4;
-                    }
-                }
-                if (_checks.Contains(check))
-                {
-                    if (bytes[x] == 2 && _colorFound == false)
-                    {
-                        x += 18;
-                        _colorFound = true;
-                    }
-                    else if (bytes[x] == 2 && _colorFound)
-                    {
-                        x += 10;
-                        _colorFound = false;
-                    }
-                    _nList.Add(bytes[x]);
-                }
-                else
-                {
-                    if (bytes[x] == 2)
-                    {
-                        int length = bytes[x + 2];
-                        if (length == 3)
-                        {
-                            x = x + 3;
-                            if (bytes[x] == 1)
-                            {
-                                x++;
-                            }
-                            while (bytes[x] != 3)
-                            {
-                                _aList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
-                                x++;
-                            }
-                        }
-                        else
-                        {
-                            x = x + 5;
-                            var end = length - 3;
-                            for (var t = 0; t < end; t++)
-                            {
-                                _aList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
-                                x++;
-                            }
-                        }
-                        if (bytes[x] == 3)
-                        {
-                            x++;
-                        }
-                        string aCheckstr;
-                        try
-                        {
-                            aCheckstr = Constants.XAtCodes[Encoding.UTF8.GetString(_aList.ToArray())];
-                        }
-                        catch
-                        {
-                            aCheckstr = "";
-                        }
-
-                        if (aCheckstr != "")
-                        {
-                            var aCheckbyte = Encoding.UTF8.GetBytes(aCheckstr);
-                            _nList.AddRange(aCheckbyte);
-                        }
-                        else
-                        {
-                            _nList.AddRange(_aList);
-                        }
-                        _aList.Clear();
-                    }
-                    else
-                    {
-                        if (bytes[x] > 127)
-                        {
-                            _jp = true;
-                        }
-                        _nList.Add(bytes[x]);
-                    }
-                }
-            }
-            _cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(_nList.ToArray())).Replace("  ", " ");
-            _aList.Clear();
-            _nList.Clear();
-            _cList.Clear();
-            return _cleaned.Length < 5 && ci.TwoLetterISOLanguageName == "ja" ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray())).Replace("  ", " ") : _cleaned;
         }
 
         #endregion

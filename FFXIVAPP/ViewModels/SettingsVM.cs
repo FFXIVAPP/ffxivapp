@@ -7,6 +7,7 @@
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
@@ -61,6 +62,12 @@ namespace FFXIVAPP.ViewModels
         /// </summary>
         private static void ManualUpdate()
         {
+            //var ascii = Encoding.GetEncoding("utf-16");
+            //for (var i = 1; i < 61; i++)
+            //{
+            //    KeyHelper.SendNotify(ascii.GetBytes(String.Format("/echo * Testing {0} {1}*", i, new Random().Next(0, 10000))));
+            //    System.Threading.Thread.Sleep(100);
+            //}
             Process.Start("Updater.exe", "FFXIVAPP");
         }
 

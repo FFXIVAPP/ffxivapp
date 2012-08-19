@@ -1,7 +1,660 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ATCodes>
-	<Code Key="67" Value="Japanese" />
-	<Code Key="68" Value="English" />
-	<Code Key="69" Value="French" />
-	<Code Key="6A" Value="German" />
+  <!-- [Languages] -->
+  <Code Key="66" Value=" {Please use the auto-translate function.} " />
+  <Code Key="67" Value=" {Japanese} " />
+  <Code Key="68" Value=" {English} " />
+  <Code Key="69" Value=" {French} " />
+  <Code Key="6A" Value=" {German} " />
+  <Code Key="6B" Value=" {Can you speak Japanese?} " />
+  <Code Key="6C" Value=" {Can you speak English?} " />
+  <Code Key="6D" Value=" {Can you speak French?} " />
+  <Code Key="6E" Value=" {Can you speak German?} " />
+  <Code Key="6F" Value=" {I don't speak any English.} " />
+  <Code Key="70" Value=" {I don't speak any Japanese.} " />
+  <Code Key="71" Value=" {I don't speak any French.} " />
+  <Code Key="72" Value=" {I don't speak any German.} " />
+  <Code Key="73" Value=" {Please listen.} " />
+  <Code Key="74" Value=" {Can you hear me?} " />
+  <Code Key="75" Value=" {I can speak a little.} " />
+  <Code Key="76" Value=" {I can understand a little.} " />
+  <Code Key="77" Value=" {Please use simple words.} " />
+  <Code Key="78" Value=" {Please do not abbreviate your words.} " />
+  <Code Key="79" Value=" {I need some time to put together my answer.} " />
+  <!-- [Greetings] -->
+  <Code Key="02CA" Value=" {Nice to meet you.} " />
+  <Code Key="02CB" Value=" {Good morning!} " />
+  <Code Key="02CC" Value=" {Hello!} " />
+  <Code Key="02CD" Value=" {Good evening!} " />
+  <Code Key="02CE" Value=" {Good night!} " />
+  <Code Key="02CF" Value=" {Goodbye.} " />
+  <Code Key="CF" Value=" {I had fun today.} " />
+  <Code Key="D0" Value=" {See you again!} " />
+  <Code Key="D1" Value=" {Let's play together again sometime!} " />
+  <Code Key="D2" Value=" {I'm back!} " />
+  <Code Key="D3" Value=" {Welcome back.} " />
+  <Code Key="D4" Value=" {Congratulations!} " />
+  <Code Key="D5" Value=" {Good job!} " />
+  <Code Key="D6" Value=" {Good luck!} " />
+  <Code Key="D7" Value=" {All right!} " />
+  <Code Key="D8" Value=" {Thank you.} " />
+  <Code Key="D9" Value=" {You're welcome.} " />
+  <Code Key="DA" Value=" {Take care.} " />
+  <Code Key="DB" Value=" {I'm sorry.} " />
+  <Code Key="DC" Value=" {Please forgive me.} " />
+  <Code Key="DD" Value=" {That's too bad.} " />
+  <Code Key="DE" Value=" {Excuse me...} " />
+  <!-- [Questions] -->
+  <Code Key="012D" Value=" {Who?} " />
+  <Code Key="012E" Value=" {Which?} " />
+  <Code Key="012F" Value=" {How?} " />
+  <Code Key="0130" Value=" {What?} " />
+  <Code Key="0131" Value=" {When?} " />
+  <Code Key="0132" Value=" {How many?} " />
+  <Code Key="0133" Value=" {Where?} " />
+  <Code Key="0134" Value=" {Where shall we go?} " />
+  <Code Key="0135" Value=" {Which levequest shall we do?} " />
+  <Code Key="0137" Value=" {Do you have it?} " />
+  <Code Key="0138" Value=" {What weapons can you use?} " />
+  <Code Key="0139" Value=" {What guildleves do you have?} " />
+  <Code Key="013B" Value=" {Can you do it?} " />
+  <Code Key="013C" Value=" {What other classes can you use?} " />
+  <Code Key="013D" Value=" {Do you have it set?} " />
+  <Code Key="013E" Value=" {What's the battle plan?} " />
+  <Code Key="013F" Value=" {Can I add you to my friend list?} " />
+  <Code Key="0141" Value=" {Shall we take a break?} " />
+  <Code Key="0142" Value=" {Do you want me to repair it?} " />
+  <Code Key="0143" Value=" {Do you need any help?} " />
+  <Code Key="0144" Value=" {Why?} " />
+  <Code Key="0145" Value=" {How come?} " />
+  <Code Key="0146" Value=" {Do you want to join my linkshell?} " />
+  <Code Key="0147" Value=" {Can I join your linkshell?} " />
+  <Code Key="0148" Value=" {What jobs can you use?} " />
+  <Code Key="0149" Value=" {Can you use any other jobs?} " />
+  <!-- [Answers] -->
+  <Code Key="0191" Value=" {I don't understand.} " />
+  <Code Key="0192" Value=" {No thanks.} " />
+  <Code Key="0193" Value=" {Yes, please.} " />
+  <Code Key="0194" Value=" {If you would be so kind.} " />
+  <Code Key="0195" Value=" {Understood.} " />
+  <Code Key="0196" Value=" {I'm sorry. I'm busy now.} " />
+  <Code Key="0197" Value=" {I'm playing solo right now.} " />
+  <Code Key="0198" Value=" {I don't know how to answer that question.} " />
+  <Code Key="0199" Value=" {I see.} " />
+  <Code Key="019A" Value=" {Thanks for the offer, but I'll have to pass.} " />
+  <Code Key="019B" Value=" {That's interesting.} " />
+  <Code Key="019C" Value=" {Um...} " />
+  <Code Key="019D" Value=" {Huh!?} " />
+  <Code Key="019E" Value=" {Really?} " />
+  <Code Key="019F" Value=" {Hmmm.} " />
+  <Code Key="01A0" Value=" {I have to go soon.} " />
+  <Code Key="01A1" Value=" {Yes.} " />
+  <Code Key="01A2" Value=" {No.} " />
+  <Code Key="01A3" Value=" {Let me explain...} " />
+  <!-- [Reasons] -->
+  <Code Key="01F5" Value=" {Casting spell.} " />
+  <Code Key="01F6" Value=" {Time for work!} " />
+  <Code Key="01F7" Value=" {I have plans.} " />
+  <Code Key="01F8" Value=" {I'm sleepy.} " />
+  <Code Key="01F9" Value=" {I'm tired.} " />
+  <Code Key="01FA" Value=" {Have stuff to do, gotta go!} " />
+  <Code Key="01FB" Value=" {I don't feel well.} " />
+  <Code Key="01FC" Value=" {I'm not up for it.} " />
+  <Code Key="01FD" Value=" {I'm interested/} " />
+  <Code Key="01FE" Value=" {Fighting right now!} " />
+  <Code Key="01FF" Value=" {I want to make money.} " />
+  <Code Key="0200" Value=" {I don't remember.} " />
+  <Code Key="0201" Value=" {I don't know.} " />
+  <Code Key="0202" Value=" {Just used it.} " />
+  <Code Key="0203" Value=" {I want experience points.} " />
+  <Code Key="0204" Value=" {I don't understand} " />
+  <Code Key="0205" Value=" {Oops!} " />
+  <!-- [Trade] -->
+  <Code Key="0259" Value=" {Can I have it?} " />
+  <Code Key="025A" Value=" {Can you do it for me?} " />
+  <Code Key="025B" Value=" {Lower the price?} " />
+  <Code Key="025C" Value=" {Buy?} " />
+  <Code Key="025D" Value=" {Sell?} " />
+  <Code Key="025E" Value=" {Trade?} " />
+  <Code Key="025F" Value=" {Do you need it?} " />
+  <Code Key="0260" Value=" {Can you make it?} " />
+  <Code Key="0261" Value=" {Do you have it?} " />
+  <Code Key="0262" Value=" {Can uou repair it?} " />
+  <Code Key="0263" Value=" {What materials are needed?} " />
+  <Code Key="0264" Value=" {No money!} " />
+  <Code Key="0265" Value=" {I don't have anything to give you.} " />
+  <Code Key="0266" Value=" {You can have this.} " />
+  <Code Key="0267" Value=" {Please.} " />
+  <Code Key="0268" Value=" {Reward:} " />
+  <Code Key="0269" Value=" {Price:} " />
+  <!-- [Organize] -->
+  <Code Key="02BD" Value=" {Looking for members.} " />
+  <Code Key="02BE" Value=" {Gather together.} " />
+  <Code Key="02BF" Value=" {Team up?} " />
+  <Code Key="02C0" Value=" {Are you alone?} " />
+  <Code Key="02C1" Value=" {Any vacancies?} " />
+  <Code Key="02C2" Value=" {Please invite me.} " />
+  <Code Key="02C3" Value=" {Please let me join.} " />
+  <Code Key="02C4" Value=" {Who is the leader?} " />
+  <Code Key="02C5" Value=" {Just for a short time is fine.} " />
+  <Code Key="02C6" Value=" {Our party's full.} " />
+  <Code Key="02C7" Value=" {Please assist.} " />
+  <Code Key="02C8" Value=" {Disbanding party.} " />
+  <Code Key="02C9" Value=" {Taking a break.} " />
+
+  <!-- //SAME CODE AS {Good morning!} and {Hello!}.
+    <Code Key="03CB" Value=" {It's better if our levels aren't too far apart.} " />
+    <Code Key="03CC" Value=" {I'm putting together a behest party.} " />
+    -->
+
+  <!-- [Tactics] -->
+  <Code Key="0321" Value=" {Please follow.} " />
+  <Code Key="0322" Value=" {I'll follow you.} " />
+  <Code Key="0323" Value=" {Please check it.} " />
+  <Code Key="0324" Value=" {Found it!} " />
+  <Code Key="0325" Value=" {Full attack!} " />
+  <Code Key="0326" Value=" {Pull back.} " />
+  <Code Key="0327" Value=" {Watch out for enemies.} " />
+  <Code Key="0328" Value=" {Defeat this one first!} " />
+  <Code Key="0329" Value=" {Please don't attack.} " />
+  <Code Key="032A" Value=" {Please deactivate it.} " />
+  <Code Key="032B" Value=" {Heal!} " />
+  <Code Key="032C" Value=" {Run away!} " />
+  <Code Key="032D" Value=" {Help me out!} " />
+  <Code Key="032E" Value=" {Stop!} " />
+  <Code Key="032F" Value=" {Standing by.} " />
+  <Code Key="0330" Value=" {None left.} " />
+  <Code Key="0331" Value=" {Don't have it.} " />
+  <Code Key="0332" Value=" {Please use it sparingly.} " />
+  <Code Key="0333" Value=" {I'll use it sparingly.} " />
+  <Code Key="0334" Value=" {I'm weakened.} " />
+  <Code Key="0335" Value=" {My gear is in poor condition.} " />
+  <Code Key="0336" Value=" {Ready!} " />
+  <Code Key="0339" Value=" {Please set enemy marks.} " />
+  <Code Key="033A" Value=" {Please set an ally mark.} " />
+  <Code Key="033B" Value=" {Please use it.} " />
+  <Code Key="033C" Value=" {Let's rest for a while.} " />
+  <Code Key="033D" Value=" {Front line class} " />
+  <Code Key="033E" Value=" {Support role class} " />
+  <Code Key="033F" Value=" {Back line class} " />
+  <Code Key="0340" Value=" {Weakness} " />
+  <Code Key="0341" Value=" {Warning} " />
+  <Code Key="0342" Value=" {Recommend} " />
+  <Code Key="0343" Value=" {Kill Order} " />
+  <Code Key="0344" Value=" {Pulling enemy over.} " />
+  <Code Key="0345" Value=" {Drawing enemy over.} " />
+  <Code Key="0346" Value=" {Please wait until weakness wears off.} " />
+  <Code Key="0347" Value=" {Wait, please.} " />
+  <Code Key="0348" Value=" {Target only linked enemies!} " />
+  <!-- [Game Terms] -->
+  <Code Key="0385" Value=" {Guildleve} " />
+  <Code Key="0387" Value=" {Quest} " />
+  <Code Key="0388" Value=" {Client} " />
+  <Code Key="0389" Value=" {Instance} " />
+  <Code Key="038A" Value=" {Gil} " />
+  <Code Key="038B" Value=" {Skill} " />
+  <Code Key="038C" Value=" {Class} " />
+  <Code Key="038D" Value=" {Level} " />
+  <Code Key="038F" Value=" {Experience Points} " />
+  <Code Key="0391" Value=" {Affinity} " />
+  <Code Key="0392" Value=" {Attribute} " />
+  <Code Key="0393" Value=" {Elemental Resistance} " />
+  <Code Key="0394" Value=" {Fire} " />
+  <Code Key="0395" Value=" {Ice} " />
+  <Code Key="0396" Value=" {Wind} " />
+  <Code Key="0397" Value=" {Earth} " />
+  <Code Key="0398" Value=" {Lightning} " />
+  <Code Key="0399" Value=" {Water} " />
+  <Code Key="039A" Value=" {Astral} " />
+  <Code Key="039B" Value=" {Umbral} " />
+  <Code Key="039C" Value=" {Guardian} " />
+  <Code Key="039D" Value=" {Nameday} " />
+  <Code Key="039E" Value=" {Race} " />
+  <Code Key="039F" Value=" {Clan} " />
+  <Code Key="03A0" Value=" {Gender} " />
+  <Code Key="03A1" Value=" {Title} " />
+  <Code Key="03A2" Value=" {Quality} " />
+  <Code Key="03AC" Value=" {To Repair} " />
+  <Code Key="03AD" Value=" {Status Effect} " />
+  <Code Key="03AE" Value=" {Cast Time} " />
+  <Code Key="03AF" Value=" {Recast Time} " />
+  <Code Key="03B0" Value=" {KO'd} " />
+  <Code Key="03B1" Value=" {Craft} " />
+  <Code Key="03B2" Value=" {Gathering} " />
+  <Code Key="03B3" Value=" {Negotiate} " />
+  <Code Key="03B4" Value=" {Guild Mark} " />
+  <Code Key="03B5" Value=" {Mark} " />
+  <Code Key="03B6" Value=" {Linkshell} " />
+  <Code Key="03B7" Value=" {Linkpearl} " />
+  <Code Key="03B8" Value=" {Active Mode} " />
+  <Code Key="03B9" Value=" {Passive Mode} " />
+  <Code Key="03BA" Value=" {Action} " />
+  <Code Key="03BB" Value=" {Magic} " />
+  <Code Key="03BC" Value=" {Weaponskill} " />
+  <Code Key="03BD" Value=" {Ability} " />
+  <Code Key="03BE" Value=" {Trait} " />
+  <Code Key="03BF" Value=" {Gathering Actions} " />
+  <Code Key="03C0" Value=" {Synthesis Actions} " />
+  <Code Key="03C3" Value=" {Incapacitated} " />
+  <Code Key="03C5" Value=" {Enmity} " />
+  <Code Key="03C6" Value=" {Loot} " />
+  <Code Key="03C7" Value=" {Enemy Sign} " />
+  <Code Key="03C8" Value=" {Ally Sign} " />
+  <Code Key="03C9" Value=" {Target} " />
+  <Code Key="03CA" Value=" {(Gear) Affinity} " />
+  <Code Key="03CB" Value=" {Unique} " />
+  <Code Key="03CC" Value=" {Untradable} " />
+  <Code Key="03CD" Value=" {Party} " />
+  <Code Key="03CE" Value=" {Map} " />
+  <Code Key="03CF" Value=" {Log out} " />
+  <Code Key="03D0" Value=" {Indent} " />
+  <Code Key="03D1" Value=" {Pattern} " />
+  <Code Key="03D2" Value=" {Retainer} " />
+  <Code Key="03D3" Value=" {Chocobo} " />
+  <Code Key="03D4" Value=" {Aetheryte} " />
+  <Code Key="03D5" Value=" {Aetherial Gate} " />
+  <Code Key="03D6" Value=" {Aetherial Node} " />
+  <Code Key="03D7" Value=" {Trade} " />
+  <Code Key="03D8" Value=" {Bazaar} " />
+  <Code Key="03D9" Value=" {Repair} " />
+  <Code Key="03DA" Value=" {Auto-translation Dictionary} " />
+  <Code Key="03DB" Value=" {Teleport} " />
+  <Code Key="03DC" Value=" {Return} " />
+  <Code Key="03DD" Value=" {Guild Shop} " />
+  <Code Key="03DE" Value=" {Hyur} " />
+  <Code Key="03DF" Value=" {Elezen} " />
+  <Code Key="03E0" Value=" {Lalafell} " />
+  <Code Key="03E1" Value=" {Miqo'te} " />
+  <Code Key="03E2" Value=" {Roegadyn} " />
+  <Code Key="03E3" Value=" {Midlander} " />
+  <Code Key="03E4" Value=" {Highlander} " />
+  <Code Key="03E5" Value=" {Wildwood} " />
+  <Code Key="03E6" Value=" {Duskwight} " />
+  <Code Key="03E7" Value=" {Plainsfolk} " />
+  <Code Key="03E8" Value=" {Dunesfolk} " />
+  <Code Key="03E9" Value=" {Seeker of the Sun} " />
+  <Code Key="03EA" Value=" {Keeper of the Moon} " />
+  <Code Key="03EB" Value=" {Sea Wolf} " />
+  <Code Key="03EC" Value=" {Hellsguard} " />
+  <Code Key="03ED" Value=" {Disciples of War} " />
+  <Code Key="03EE" Value=" {Disciples of Magic} " />
+  <Code Key="03EF" Value=" {Disciples of the Land} " />
+  <Code Key="03F0" Value=" {Disciples of the Hand} " />
+  <Code Key="03F1" Value=" {Regional Levequest} " />
+  <Code Key="03F2" Value=" {Local Levequest} " />
+  <Code Key="04FC" Value=" {Leve Sharing} " />
+  <Code Key="04FD" Value=" {Leve Link} " />
+  <Code Key="044E" Value=" {Behest} " />
+  <Code Key="044F" Value=" {Recipes} " />
+  <Code Key="0450" Value=" {Anima} " />
+  <Code Key="0451" Value=" {Item} " />
+  <Code Key="0452" Value=" {Item Search} " />
+  <Code Key="0453" Value=" {Markets} " />
+  <Code Key="0454" Value=" {Support Desk} " />
+  <Code Key="0455" Value=" {Emote} " />
+  <Code Key="0457" Value=" {Notorious Monster} " />
+  <Code Key="0458" Value=" {Grand Company} " />
+  <Code Key="0459" Value=" {Instanced Raid} " />
+  <Code Key="045A" Value=" {Maelstrom} " />
+  <Code Key="045B" Value=" {Order of the Twin Adder} " />
+  <Code Key="045C" Value=" {Immortal Flames} " />
+  <Code Key="045D" Value=" {Light Party} " />
+  <Code Key="045E" Value=" {Full Party} " />
+  <Code Key="045F" Value=" {Sidequest} " />
+  <Code Key="0460" Value=" {Grand Company Quest} " />
+  <Code Key="0461" Value=" {Company Leve} " />
+  <Code Key="0462" Value=" {Target Circle} " />
+  <Code Key="0463" Value=" {Ferry} " />
+  <Code Key="0464" Value=" {Levequest Difficulty} " />
+  <Code Key="0466" Value=" {Abilities} " />
+  <Code Key="0467" Value=" {EXP Chain} " />
+  <Code Key="0468" Value=" {Link} " />
+  <Code Key="0469" Value=" {Materia} " />
+  <Code Key="046A" Value=" {Materia Craft} " />
+  <Code Key="046B" Value=" {Spiritbond} " />
+  <Code Key="046C" Value=" {Leve Allowance} " />
+  <Code Key="046D" Value=" {Search} " />
+  <Code Key="046E" Value=" {Achievements} " />
+  <Code Key="046F" Value=" {Point Allotment} " />
+  <Code Key="0470" Value=" {Airship} " />
+  <Code Key="0471" Value=" {Exit Game} " />
+  <Code Key="0472" Value=" {Grand Company Rank} " />
+  <Code Key="0473" Value=" {Shutdown} " />
+  <Code Key="0474" Value=" {Ifrit} " />
+  <Code Key="0475" Value=" {Moogle} " />
+  <Code Key="0476" Value=" {Job} " />
+  <Code Key="0477" Value=" {Job Change} " />
+  <Code Key="0478" Value=" {Soul Crystal} " />
+  <Code Key="0479" Value=" {Inn} " />
+  <Code Key="047A" Value=" {Inn Room} " />
+  <Code Key="047B" Value=" {Rested Bonus} " />
+  <Code Key="047C" Value=" {Faction Leve} " />
+  <Code Key="047D" Value=" {Class Action} " />
+  <Code Key="047E" Value=" {Job Action} " />
+  <Code Key="047F" Value=" {Additional Action} " />
+  <Code Key="0480" Value=" {Artifact} " />
+  <Code Key="0481" Value=" {Garuda} " />
+  <Code Key="0482" Value=" {Hamlet Defense} " />
+  <Code Key="0483" Value=" {Aethernet} " />
+  <Code Key="0484" Value=" {Primal} " />
+  <Code Key="0485" Value=" {Sanction} " />
+  <!-- [Text Commands] -->
+  <Code Key="04B1" Value=" {/?} " />
+  <Code Key="04B2" Value=" {/action} " />
+  <Code Key="04B3" Value=" {/angry} " />
+  <Code Key="04B5" Value=" {/automove} " />
+  <Code Key="04B6" Value=" {/away} " />
+  <Code Key="04B7" Value=" {/battlemode} " />
+  <Code Key="04B9" Value=" {/beckon} " />
+  <Code Key="04BA" Value=" {/blacklist} " />
+  <Code Key="04BB" Value=" {/blush} " />
+  <Code Key="04BC" Value=" {/bow} " />
+  <Code Key="04BE" Value=" {/chatmode} " />
+  <Code Key="04BF" Value=" {/check} " />
+  <Code Key="04C0" Value=" {/cheer} " />
+  <Code Key="04C1" Value=" {/chuckle} " />
+  <Code Key="04C2" Value=" {/clap} " />
+  <Code Key="04C3" Value=" {/clock} " />
+  <Code Key="04C4" Value=" {/comfort} " />
+  <Code Key="04C6" Value=" {/congratulate} " />
+  <Code Key="04C7" Value=" {/cry} " />
+  <Code Key="04C8" Value=" {/dance} " />
+  <Code Key="04C9" Value=" {/decline} " />
+  <Code Key="04CA" Value=" {/deny} " />
+  <Code Key="04CB" Value=" {/doubt} " />
+  <Code Key="04CC" Value=" {/doze} " />
+  <Code Key="04CD" Value=" {/display} " />
+  <Code Key="04CE" Value=" {/dusteffect} " />
+  <Code Key="04CF" Value=" {/echo} " />
+  <Code Key="04D0" Value=" {/emote} " />
+  <Code Key="04D1" Value=" {/equip} " />
+  <Code Key="04D2" Value=" {/equipaction} " />
+  <Code Key="04D3" Value=" {/examineself} " />
+  <Code Key="04D4" Value=" {/extendeddraw} " />
+  <Code Key="04D6" Value=" {/friendlist} " />
+  <Code Key="04D7" Value=" {/fume} " />
+  <Code Key="04D8" Value=" {/furious} " />
+  <Code Key="04D9" Value=" {/goodbye} " />
+  <Code Key="04DB" Value=" {/item} " />
+  <Code Key="04DC" Value=" {/join} " />
+  <Code Key="04DD" Value=" {/joy} " />
+  <Code Key="04DE" Value=" {/kneel} " />
+  <Code Key="04DF" Value=" {/laugh} " />
+  <Code Key="04E0" Value=" {/linkshell} " />
+  <Code Key="04E2" Value=" {/lockon} " />
+  <Code Key="04E3" Value=" {/logout} " />
+  <Code Key="04E4" Value=" {/lookout} " />
+  <Code Key="04E5" Value=" {/loot} " />
+  <Code Key="04E7" Value=" {/map} " />
+  <Code Key="04E8" Value=" {/marking} " />
+  <Code Key="04E9" Value=" {/me} " />
+  <Code Key="04EA" Value=" {/huh} " />
+  <Code Key="04EB" Value=" {/names} " />
+  <Code Key="04EC" Value=" {/no} " />
+  <Code Key="04ED" Value=" {/panic} " />
+  <Code Key="04EF" Value=" {/party} " />
+  <Code Key="04F0" Value=" {/partycmd} " />
+  <Code Key="04F1" Value=" {/physics} " />
+  <Code Key="04F3" Value=" {/point} " />
+  <Code Key="04F4" Value=" {/poke} " />
+  <Code Key="04F5" Value=" {/profanity} " />
+  <Code Key="04F6" Value=" {/psych} " />
+  <Code Key="04F7" Value=" {/rally} " />
+  <Code Key="04F8" Value=" {/recast} " />
+  <Code Key="04F9" Value=" {/salute} " />
+  <Code Key="04FA" Value=" {/say} " />
+  <Code Key="04FB" Value=" {/scrollingbattletext} " />
+
+  <!-- //SAME CODE AS {Leve Link}
+    <Code Key="04FD" Value=" {/shadow} " />
+    -->
+
+  <Code Key="04FE" Value=" {/shocked} " />
+  <Code Key="04FF" Value=" {/shout} " />
+  <Code Key="0500" Value=" {/shrug} " />
+  <Code Key="0501" Value=" {/sit} " />
+  <Code Key="0502" Value=" {/soothe} " />
+  <Code Key="0503" Value=" {/stagger} " />
+  <Code Key="0504" Value=" {/stretch} " />
+  <Code Key="0505" Value=" {/sulk} " />
+  <Code Key="0506" Value=" {/supportdesk} " />
+  <Code Key="0507" Value=" {/surprised} " />
+  <Code Key="0509" Value=" {/targetnpc} " />
+  <Code Key="050A" Value=" {/targetpc} " />
+  <Code Key="050B" Value=" {/tell} " />
+  <Code Key="050C" Value=" {/think} " />
+  <Code Key="050D" Value=" {/thumbsup} " />
+  <Code Key="050E" Value=" {/upset} " />
+  <Code Key="0510" Value=" {/wait} " />
+  <Code Key="0511" Value=" {/wave} " />
+  <Code Key="0512" Value=" {/welcome} " />
+  <Code Key="0514" Value=" {/yes} " />
+  <Code Key="0515" Value=" {/textclear} " />
+  <Code Key="0516" Value=" {/targetmode} " />
+  <Code Key="0517" Value=" {/autolockon} " />
+  <Code Key="0518" Value=" {/enemylevel} " />
+  <Code Key="0519" Value=" {/enemyicon} " />
+  <Code Key="051B" Value=" {/camera} " />
+  <Code Key="051C" Value=" {/targetcursor} " />
+  <Code Key="051D" Value=" {/uihelp} " />
+  <Code Key="051E" Value=" {/directtarget} " />
+  <Code Key="051F" Value=" {/actionbar} " />
+  <Code Key="0520" Value=" {/enmity} " />
+  <Code Key="0521" Value=" {/targetenemy} " />
+  <Code Key="0522" Value=" {/pose} " />
+  <Code Key="0523" Value=" {/uilock} " />
+  <Code Key="0524" Value=" {/macrobar} " />
+  <Code Key="0525" Value=" {/battletarget} " />
+  <Code Key="0526" Value=" {/battletargetmode} " />
+  <Code Key="0527" Value=" {/gcsalute} " />
+  <Code Key="0528" Value=" {/shutdown} " />
+  <Code Key="052A" Value=" {/blowkiss} " />
+  <Code Key="052B" Value=" {/grovel} " />
+  <Code Key="052C" Value=" {/happy} " />
+  <Code Key="052D" Value=" {/disappointed} " />
+  <Code Key="052E" Value=" {/actionqueue} " />
+  <Code Key="052F" Value=" {/random} " />
+  <Code Key="0530" Value=" {/assist} " />
+  <Code Key="0532" Value=" {/subtarget} " />
+  <Code Key="0533" Value=" {/facetarget} " />
+  <Code Key="0534" Value=" {/countdown} " />
+  <Code Key="0535" Value=" {/search} " />
+  <Code Key="0536" Value=" {/job} " />
+  <Code Key="0537" Value=" {/airquotes} " />
+  <Code Key="0538" Value=" {/equiplinkshell} " />
+  <Code Key="0539" Value=" {/actionbarhelp} " />
+  <Code Key="053A" Value=" {/actioncancel} " />
+  <!-- [Locations] -->
+  <Code Key="05DD" Value=" {North} " />
+  <Code Key="05DE" Value=" {South} " />
+  <Code Key="05DF" Value=" {East} " />
+  <Code Key="05E0" Value=" {West} " />
+  <Code Key="05E1" Value=" {Up} " />
+  <Code Key="05E2" Value=" {Down} " />
+  <Code Key="05E3" Value=" {Right} " />
+  <Code Key="05E4" Value=" {Left} " />
+  <Code Key="05E5" Value=" {Surface} " />
+  <Code Key="05E6" Value=" {Rear} " />
+  <Code Key="05E7" Value=" {Side} " />
+  <Code Key="05E8" Value=" {Front} " />
+  <Code Key="05E9" Value=" {Middle} " />
+  <Code Key="05EA" Value=" {Flank} " />
+  <Code Key="05EB" Value=" {Inside} " />
+  <Code Key="05EC" Value=" {Outside} " />
+  <Code Key="05ED" Value=" {This way} " />
+  <Code Key="05EE" Value=" {Over there} " />
+  <Code Key="05EF" Value=" {That way} " />
+  <!-- [Time] -->
+  <Code Key="0641" Value=" {Day before yesterday} " />
+  <Code Key="0642" Value=" {Yesterday} " />
+  <Code Key="0643" Value=" {Today} " />
+  <Code Key="0644" Value=" {Tomorrow} " />
+  <Code Key="0645" Value=" {Day after tomorrow} " />
+  <Code Key="0646" Value=" {Last week} " />
+  <Code Key="0647" Value=" {This week} " />
+  <Code Key="0648" Value=" {Next week} " />
+  <Code Key="0649" Value=" {a.m.} " />
+  <Code Key="064A" Value=" {p.m.} " />
+  <Code Key="064B" Value=" {Morning} " />
+  <Code Key="064C" Value=" {Afternoon} " />
+  <Code Key="064D" Value=" {Night} " />
+  <Code Key="064E" Value=" {Day of the week} " />
+  <Code Key="064F" Value=" {Sunday} " />
+  <Code Key="0650" Value=" {Monday} " />
+  <Code Key="0651" Value=" {Tuesday} " />
+  <Code Key="0652" Value=" {Wednesday} " />
+  <Code Key="0653" Value=" {Thursday} " />
+  <Code Key="0654" Value=" {Friday} " />
+  <Code Key="0655" Value=" {Saturday} " />
+  <Code Key="0656" Value=" {Holiday} " />
+  <Code Key="0657" Value=" {Break} " />
+  <Code Key="0658" Value=" {Long time} " />
+  <Code Key="0659" Value=" {Short time} " />
+  <Code Key="065A" Value=" {Second} " />
+  <Code Key="065B" Value=" {Minute} " />
+  <Code Key="065C" Value=" {Hour} " />
+  <Code Key="065D" Value=" {Time remaining} " />
+  <Code Key="065E" Value=" {January} " />
+  <Code Key="065F" Value=" {February} " />
+  <Code Key="0660" Value=" {March (Month)} " />
+  <Code Key="0661" Value=" {April} " />
+  <Code Key="0662" Value=" {May} " />
+  <Code Key="0663" Value=" {June} " />
+  <Code Key="0664" Value=" {July} " />
+  <Code Key="0665" Value=" {August} " />
+  <Code Key="0666" Value=" {September} " />
+  <Code Key="0667" Value=" {October} " />
+  <Code Key="0668" Value=" {November} " />
+  <Code Key="0669" Value=" {December} " />
+  <Code Key="066A" Value=" {Last month} " />
+  <Code Key="066B" Value=" {This month} " />
+  <Code Key="066C" Value=" {Next month} " />
+  <Code Key="066D" Value=" {Last year} " />
+  <Code Key="066E" Value=" {This year} " />
+  <Code Key="066F" Value=" {Next year} " />
+  <!-- [Settings] -->
+  <Code Key="06A5" Value=" {Connection Speed} " />
+  <Code Key="06A6" Value=" {Blacklist} " />
+  <Code Key="06A7" Value=" {Friend List} " />
+  <Code Key="06A8" Value=" {Config} " />
+  <Code Key="06A9" Value=" {Connection} " />
+  <Code Key="06AA" Value=" {Screenshot} " />
+  <Code Key="06AB" Value=" {Patch} " />
+  <Code Key="06AC" Value=" {Version} " />
+  <Code Key="06AD" Value=" {Connection Lost} " />
+  <Code Key="06AE" Value=" {Lag} " />
+  <Code Key="06AF" Value=" {Filter} " />
+  <Code Key="06B0" Value=" {Client} " />
+  <Code Key="06B1" Value=" {Backup} " />
+  <Code Key="06B3" Value=" {Save} " />
+  <Code Key="06B4" Value=" {TV} " />
+  <Code Key="06B5" Value=" {Modem} " />
+  <Code Key="06B6" Value=" {Monitor} " />
+  <Code Key="06B7" Value=" {Log off} " />
+  <Code Key="06B8" Value=" {Log on} " />
+  <Code Key="06B9" Value=" {Hard Disk} " />
+  <Code Key="06BA" Value=" {Server} " />
+  <Code Key="06BB" Value=" {Macro} " />
+  <!-- [Online Status] -->
+  <Code Key="0709" Value=" {Online} " />
+  <Code Key="070A" Value=" {Away} " />
+  <!-- [Keyboard] -->
+  <Code Key="076D" Value=" {Numeric keypad} " />
+  <Code Key="076E" Value=" {Arrow keys} " />
+  <Code Key="076F" Value=" {Tab key} " />
+  <Code Key="0770" Value=" {Enter key} " />
+  <Code Key="0771" Value=" {End key} " />
+  <Code Key="0772" Value=" {Num Lock key} " />
+  <Code Key="0773" Value=" {Function keys} " />
+  <Code Key="0774" Value=" {Spacebar} " />
+  <Code Key="0775" Value=" {Backspace key} " />
+  <Code Key="0776" Value=" {Halfwidth/Fullwidth key} " />
+  <Code Key="0777" Value=" {Alt key} " />
+  <Code Key="0778" Value=" {Insert key} " />
+  <Code Key="0779" Value=" {Page Down key} " />
+  <Code Key="077A" Value=" {Home key} " />
+  <Code Key="077B" Value=" {Page Up key} " />
+  <Code Key="077C" Value=" {Caps Lock key} " />
+  <Code Key="077D" Value=" {Shift key} " />
+  <Code Key="077E" Value=" {Esc key} " />
+  <Code Key="077F" Value=" {Ctrl key} " />
+  <Code Key="0780" Value=" {Delete key} " />
+  <!-- [General Terms] -->
+  <Code Key="07D1" Value=" {Notice} " />
+  <Code Key="07D2" Value=" {Place} " />
+  <Code Key="07D3" Value=" {Meat} " />
+  <Code Key="07D4" Value=" {Train} " />
+  <Code Key="07D5" Value=" {Last} " />
+  <Code Key="07D6" Value=" {Death} " />
+  <Code Key="07D7" Value=" {Question} " />
+  <Code Key="07D8" Value=" {Joy} " />
+  <Code Key="07D9" Value=" {Mistake} " />
+  <Code Key="07DA" Value=" {Purpose} " />
+  <Code Key="07DB" Value=" {Half} " />
+  <Code Key="07DC" Value=" {Date} " />
+  <Code Key="07DD" Value=" {Secret} " />
+  <Code Key="07DE" Value=" {Position} " />
+  <Code Key="07DF" Value=" {Lie} " />
+  <Code Key="07E0" Value=" {Excitement} " />
+  <Code Key="07E1" Value=" {Money} " />
+  <Code Key="07E2" Value=" {Fear} " />
+  <Code Key="07E3" Value=" {Friend} " />
+  <Code Key="07E4" Value=" {Entrance} " />
+  <Code Key="07E5" Value=" {Exit} " />
+  <Code Key="07E6" Value=" {Mine} " />
+  <Code Key="07E7" Value=" {Fun} " />
+  <Code Key="07E8" Value=" {I} " />
+  <Code Key="07E9" Value=" {You} " />
+  <Code Key="07EA" Value=" {Food} " />
+  <Code Key="07EB" Value=" {Weather} " />
+  <Code Key="07EC" Value=" {Clear} " />
+  <Code Key="07ED" Value=" {Fair} " />
+  <Code Key="07EE" Value=" {Cloudy} " />
+  <Code Key="07EF" Value=" {Foggy} " />
+  <Code Key="07F0" Value=" {Blustery} " />
+  <Code Key="07F1" Value=" {Rainy} " />
+  <Code Key="07F2" Value=" {Stormy} " />
+  <Code Key="07F3" Value=" {Sandy} " />
+  <Code Key="07F4" Value=" {Gloomy} " />
+  <Code Key="07F5" Value=" {Medicine} " />
+  <!-- (Guardians) -->
+  <!-- (Slots) -->
+  <!-- (Skills) -->
+  <!-- (Classes) -->
+  <!-- (Places) -->
+  <Code Key="1006" Value=" {Dzemael Darkhold} " />
+  <!-- (NPCs) -->
+  <!-- (Items) -->
+  <!-- (Statuses) -->
+  <!-- (Traits) -->
+  <!-- (Abilities) -->
+  <!-- (Gladiator & Paladin Actions) -->
+  <!-- (Pugilist & Monk Actions) -->
+  <!-- (Marauder & Warrior Actions) -->
+  <!-- (Archer & Bard Actions) -->
+  <!-- (Lancer & Dragoon Actions) -->
+  <!-- (Thaumaturge & Black Mage Actions) -->
+  <!-- (Conjurer & White Mage Actions) -->
+  <!-- (Crafter Actions) -->
+  <!-- (Gatherer Actions) -->
+  <!-- (Regional Levequests) -->
+  <!-- (Local Levequests) -->
+  <!-- (Quests) -->
+  <Code Key="01B28E" Value=" {The Chorus of Cataclysm} " />
+  <Code Key="01B023" Value=" {Ifrit Bleeds, We Can Kill It} " />
+  <Code Key="01B114" Value=" {A Relic Reborn} " />
+  <Code Key="01B40E" Value=" {In for Garuda Wakening (Gridania)} " />
+  <Code Key="01B266" Value=" {How to Quit You} " />
+  <Code Key="01B2B6" Value=" {Keeping the Oath} " />
+  <Code Key="01B333" Value=" {Into the Dark (Limsa Lominsa} " />
+  <Code Key="01B0E0" Value=" {A Feast of Fools} " />
+  <!-- [Grand Company Rank] -->
+  <!-- (Job) -->
+  <Code Key="2910" Value=" {Monk} " />
+  <Code Key="2911" Value=" {Paladin} " />
+  <Code Key="2912" Value=" {Warrior} " />
+  <Code Key="2913" Value=" {Bard} " />
+  <Code Key="2914" Value=" {Dragoon} " />
+  <Code Key="291B" Value=" {Black Mage} " />
+  <Code Key="291C" Value=" {White Mage} " />
 </ATCodes>

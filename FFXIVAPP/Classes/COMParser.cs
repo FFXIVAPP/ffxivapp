@@ -10,6 +10,7 @@ using System.Text;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Stats;
+using FFXIVAPP.ViewModels;
 
 namespace FFXIVAPP.Classes
 {
@@ -43,7 +44,7 @@ namespace FFXIVAPP.Classes
                             Settings.Default.EnableParse = false;
                             break;
                         case "reset":
-                            FFXIV.Instance.StatMonitor.Clear();
+                            MainVM.ClearStats();
                             break;
                     }
                     break;
