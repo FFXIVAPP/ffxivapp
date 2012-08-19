@@ -43,7 +43,7 @@ namespace FFXIVAPP.Views
             AddP(Changes, "Current Version:", true);
             AddP(Changes, _version + (String.Format(" (Built : {0})", _buildDate)));
             AddP(Changes, "Changes:", true);
-            var l = new[] {"Working on fixing missing lines, 1-59 of the 60 line limit work.","Fixed Chat server issues.","Code refinement."};
+            var l = new[] {"Working on fixing missing lines, 1-59 of the 60 line limit work.", "Fixed Chat server issues.", "Code refinement."};
             foreach (var i in l)
             {
                 AddP(Changes, String.Format("• {0}", i));

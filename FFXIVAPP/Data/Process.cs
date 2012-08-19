@@ -148,82 +148,74 @@ namespace FFXIVAPP.Data
                 switch (pMultiFlag.Success)
                 {
                     case true:
-                        _multi = true;
                         _lastAttacked = FFXIV.TitleCase((Convert.ToString(mReg.Groups["target"].Value)));
                         _lastAttacker = Convert.ToString(mReg.Groups["source"].Value);
                         _lastAction = Convert.ToString(mReg.Groups["action"].Value);
                         _lastDirection = FFXIV.TitleCase(Convert.ToString(mReg.Groups["direction"].Value));
-                        return;
+                        break;
+                }
+                mReg = pMulti;
+                switch (pMulti.Success)
+                {
+                    case true:
+                        _multi = true;
+                        break;
                     case false:
-                        if (_multi)
+                        mReg = pAction;
+                        switch (pAction.Success)
                         {
-                            mReg = pMulti;
-                            switch (pMulti.Success)
-                            {
-                                case true:
-                                    break;
-                                case false:
-                                    return;
-                            }
-                        }
-                        else
-                        {
-                            mReg = pAction;
-                            switch (pAction.Success)
-                            {
-                                case true:
-                                    break;
-                                case false:
-                                    //Logger.Warn("MatchEvent : No match for Damage on line {0}", cleaned);
-                                    mReg = mParry;
-                                    switch (mReg.Success)
-                                    {
-                                        case true:
-                                            break;
-                                        case false:
-                                            //Logger.Warn("MatchEvent : No match for Parry on line {0}", cleaned);
-                                            mReg = pResist;
-                                            switch (pResist.Success)
-                                            {
-                                                case true:
-                                                    break;
-                                                case false:
-                                                    //Logger.Warn("MatchEvent : No match for Resist on line {0}", cleaned);
-                                                    mReg = pEvade;
-                                                    switch (pEvade.Success)
-                                                    {
-                                                        case true:
-                                                            break;
-                                                        case false:
-                                                            //Logger.Warn("MatchEvent : No match for Evade on line {0}", cleaned);
-                                                            mReg = pAdditional;
-                                                            switch (pAdditional.Success)
-                                                            {
-                                                                case true:
-                                                                    if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
-                                                                    {
-                                                                        var amount = pAdditional.Groups["amount"].Success ? Convert.ToDecimal(pAdditional.Groups["amount"].Value) : 0m;
-                                                                        d.Amount = amount;
-                                                                        d.Action = added;
-                                                                        d.Source = _lastAttacker;
-                                                                        d.Target = _lastAttacked;
-                                                                        d.Hit = true;
-                                                                        FFXIV.Instance.Timeline.GetSetPlayer(_lastAttacker).AddAbilityStats(d);
-                                                                    }
-                                                                    return;
-                                                                case false:
-                                                                    //Logger.Warn("MatchEvent : No match for Additional on line {0}", cleaned);
-                                                                    ChatWorkerDelegate.ParseXmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
-                                                                    return;
-                                                            }
-                                                            break;
-                                                    }
-                                                    break;
-                                            }
-                                            break;
-                                    }
-                                    break;
-                            }
+                            case true:
+                                break;
+                            case false:
+                                //Logger.Warn("MatchEvent : No match for Damage on line {0}", cleaned);
+                                mReg = mParry;
+                                switch (mReg.Success)
+                                {
+                                    case true:
+                                        break;
+                                    case false:
+                                        //Logger.Warn("MatchEvent : No match for Parry on line {0}", cleaned);
+                                        mReg = pResist;
+                                        switch (pResist.Success)
+                                        {
+                                            case true:
+                                                break;
+                                            case false:
+                                                //Logger.Warn("MatchEvent : No match for Resist on line {0}", cleaned);
+                                                mReg = pEvade;
+                                                switch (pEvade.Success)
+                                                {
+                                                    case true:
+                                                        break;
+                                                    case false:
+                                                        //Logger.Warn("MatchEvent : No match for Evade on line {0}", cleaned);
+                                                        mReg = pAdditional;
+                                                        switch (pAdditional.Success)
+                                                        {
+                                                            case true:
+                                                                if (!String.IsNullOrWhiteSpace(_lastAttacked) && !String.IsNullOrWhiteSpace(_lastAttacker))
+                                                                {
+                                                                    var amount = pAdditional.Groups["amount"].Success ? Convert.ToDecimal(pAdditional.Groups["amount"].Value) : 0m;
+                                                                    d.Amount = amount;
+                                                                    d.Action = added;
+                                                                    d.Source = _lastAttacker;
+                                                                    d.Target = _lastAttacked;
+                                                                    d.Hit = true;
+                                                                    FFXIV.Instance.Timeline.GetSetPlayer(_lastAttacker).AddAbilityStats(d);
+                                                                }
+                                                                return;
+                                                            case false:
+                                                                //Logger.Warn("MatchEvent : No match for Additional on line {0}", cleaned);
+                                                                ChatWorkerDelegate.ParseXmlWriteUnmatchedLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
+                                                                return;
+                                                        }
+                                                        break;
+                                                }
+                                                break;
+                                        }
+                                        break;
+                                }
+                                break;
                         }
                         break;
                 }
@@ -551,7 +543,7 @@ namespace FFXIVAPP.Data
 
             if (Settings.Default.Parse_SaveLog && App.MArgs == null & _valid)
             {
-                ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] { cleaned, mCode, "#FFFFFF", mTimeStamp });
+                ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
             }
 
             #endregion

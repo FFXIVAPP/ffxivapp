@@ -13,10 +13,13 @@ namespace FFXIVAPP.Classes.Memory
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public byte[] Unk1;
+
         public uint LineCount1;
         public uint LineCount2;
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
         public byte[] Unk2;
+
         public uint OffsetArrayStart;
         public uint OffsetArrayPos;
         public uint OffsetArrayEnd;

@@ -1,5 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// FFXIVAPP
+// ChatlogEntry.cs
+//  
+// Created by Ryan Wilson.
+// Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;

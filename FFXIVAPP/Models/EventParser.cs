@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
-using FFXIVAPP.Classes;
 using NLog;
 
 namespace FFXIVAPP.Models
@@ -199,7 +198,7 @@ namespace FFXIVAPP.Models
         {
             lock (this)
             {
-                Thread.Sleep(App.MArgs == null ? 100 : 10);
+                Thread.Sleep(App.MArgs == null ? 6 : 3);
                 var e = Parse(code, line);
                 var tmp = e.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
                 if (tmp != null)

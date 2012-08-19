@@ -7,7 +7,6 @@
 using System;
 using System.Diagnostics;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
@@ -16,6 +15,7 @@ using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Controls.Settings;
 using HtmlAgilityPack;
+using NLog;
 
 namespace FFXIVAPP.ViewModels
 {
@@ -30,6 +30,7 @@ namespace FFXIVAPP.ViewModels
         public ICommand SaveCharacterCommand { get; private set; }
         public ICommand ColorSelectionCommand { get; private set; }
         public ICommand UpdateColorCommand { get; private set; }
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public SettingsVM()
         {
@@ -62,12 +63,6 @@ namespace FFXIVAPP.ViewModels
         /// </summary>
         private static void ManualUpdate()
         {
-            //var ascii = Encoding.GetEncoding("utf-16");
-            //for (var i = 1; i < 61; i++)
-            //{
-            //    KeyHelper.SendNotify(ascii.GetBytes(String.Format("/echo * Testing {0} {1}*", i, new Random().Next(0, 10000))));
-            //    System.Threading.Thread.Sleep(100);
-            //}
             Process.Start("Updater.exe", "FFXIVAPP");
         }
 

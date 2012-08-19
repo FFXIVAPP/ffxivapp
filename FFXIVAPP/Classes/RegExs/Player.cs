@@ -74,14 +74,6 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex EvadeDe = new Regex(@"^\.$", Shared.DefaultOptions);
 
-        //public static readonly Regex ResEvaEn = new Regex(@"^(The )?((?<whoevaded>(.+(?= partially)))|(?<whoevaded>(.+(?= resists)))|(?<whoevaded>.+(?= evades))) ((?<partial>partially) ((?<resist>resists)|(?<evade>evades)) |((?<resist>resists)|(?<evade>evades)) )(((the )?(?<source>.+('s)?(?='s))('s)? )|(?<source>your|\w+\s\w+)( )?('s )?)(?<action>\w+[\s\w+]{1,})(,|\.)?( taking (?<amount>\d+) point(s)? of damage\.)?", Shared.DefaultOptions);
-
-        //public static readonly Regex ResEvaFr = new Regex(@"^(?<source>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<action>.+(?= sur)) (?<hit>sur) (l\w?'? ?)?(?<whoevaded>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\..+subit (?<amount>\d+).+$", Shared.DefaultOptions);
-
-        //public static readonly Regex ResEvaJa = new Regex(@"^(?<whoevaded>.+)は(?<target>.+)(?<hit>に)「(?<action>.+)」　⇒　.+は(?<amount>\d+).+(?<resist>半減).+。$", Shared.DefaultOptions);
-
-        //public static readonly Regex ResEvaDe = new Regex(@"^\.$", Shared.DefaultOptions);
-
         public static readonly Regex DefeatsEn = new Regex(@"^(?<source>\w+(\s\w+)?) defeat(s)? (?:the )?(?<target>.+)('s (?<group>group))?\.$", Shared.DefaultOptions);
 
         public static readonly Regex DefeatsFr = new Regex(@"^(?<source>\w+(\s\w+)?) a vaincu (l\w?'? ?)?(?<target>.+)\.$", Shared.DefaultOptions);
@@ -124,17 +116,15 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex MultiFlagEn = new Regex(@"^(?<source>You|\w+\s\w+) use(s)? (?<action>.+) on ((t|T)he )?(((?<target>.+)(?:'s)|(?<target>.+)) from the (?<direction>.+)\.$|(?<target>.+(?='s))('s)?\.$|(?<target>.+)\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFlagFr = new Regex(@"^(?<source>.+) utilisez? (?<action>.+(?= sur)) sur (l\w+|(a|à)(\w+)?)?(l\')? ((?!.+\()(?<target>.+)|(?<target>.+(?= \()) \((?<direction>[\w\s]+)\))\.$", Shared.DefaultOptions);
+        public static readonly Regex MultiFlagFr = new Regex(@"(?!.+et)^(?<source>.+) utilisez? (?<action>.+(?= sur)) sur (l\w+|(a|à)(\w+)?)?(l\')? ?((?!.+\()(?<target>.+)|(?<target>.+(?= \()) \((?<direction>[\w\s]+)\))\.$", Shared.DefaultOptions);
 
         public static readonly Regex MultiFlagJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
         public static readonly Regex MultiFlagDe = new Regex(@"^\.$", Shared.DefaultOptions);
-        
-        //public static readonly Regex MultiEn = new Regex(@"^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiEn = new Regex(@"^(?<count>.+)fold attack!( The)? (?<target>.+(?= takes)).+total.+of (?<amount>\d+) po.+of.+\.$", Shared.DefaultOptions);
+        public static readonly Regex MultiEn = new Regex(@"^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFr = new Regex(@"^(?<count>\d) coups! Total: (?<amount>\d+) points de dégâts!", Shared.DefaultOptions);
+        public static readonly Regex MultiFr = new Regex(@"^(?<crit>Coup critique! )?(((L\w+ |(a|à)(\w+)? )?(L\')?(?<target>.+))) subit (?<amount>\d+) points?.+\.$", Shared.DefaultOptions);
 
         public static readonly Regex MultiJa = new Regex(@"^\.$", Shared.DefaultOptions);
 

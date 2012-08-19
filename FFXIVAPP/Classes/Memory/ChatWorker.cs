@@ -8,13 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
-using System.Web;
 using NLog;
 using Timer = System.Timers.Timer;
 
@@ -23,9 +20,13 @@ namespace FFXIVAPP.Classes.Memory
     public class ChatWorker
     {
         public event NewLineEvnetHandler OnNewline;
+
         public delegate void NewLineEvnetHandler(ChatlogEntry cle);
+
         public event RawLineEvnetHandler OnRawline;
+
         public delegate void RawLineEvnetHandler(ChatlogEntry cle);
+
         private readonly MemoryHandler _handler;
         private readonly Offsets _o;
         private readonly SynchronizationContext _sync = SynchronizationContext.Current;
@@ -138,7 +139,7 @@ namespace FFXIVAPP.Classes.Memory
             if (_lastCount != cp.LineCount1)
             {
                 _spots.Clear();
-                var index = (int)(cp.OffsetArrayPos - cp.OffsetArrayStart) / 4;
+                var index = (int) (cp.OffsetArrayPos - cp.OffsetArrayStart)/4;
                 var lengths = new List<int>();
                 try
                 {
@@ -153,15 +154,15 @@ namespace FFXIVAPP.Classes.Memory
                         }
                         else
                         {
-                            _handler.Address = cp.OffsetArrayStart + (uint)((getline - 1) * 4);
+                            _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1)*4);
                             var p = _handler.GetInt32();
-                            _handler.Address = cp.OffsetArrayStart + (uint)(getline * 4);
+                            _handler.Address = cp.OffsetArrayStart + (uint) (getline*4);
                             var c = _handler.GetInt32();
                             lineLen = c - p;
                         }
                         lengths.Add(lineLen);
-                        _handler.Address = cp.OffsetArrayStart + (uint)((getline - 1) * 4);
-                        _spots.Add(cp.LogStart + (uint)_handler.GetInt32());
+                        _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1)*4);
+                        _spots.Add(cp.LogStart + (uint) _handler.GetInt32());
                     }
                     var limit = _spots.Count;
                     for (var i = 0; i < limit; i++)

@@ -5,7 +5,6 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -15,6 +14,7 @@ using FFXIVAPP.Classes.Memory;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Models;
 using FFXIVAPP.ViewModels;
+using NLog;
 
 namespace FFXIVAPP.Classes
 {
@@ -28,6 +28,7 @@ namespace FFXIVAPP.Classes
         private static readonly string[] PrivateLog = new[] {"0001", "0002", "0004", "000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C", "001B", "0019", "000D", "0003"};
         private static readonly string[] IgnoreLog = new[] {"0020"};
         private static FlowDocumentHelper FD = new FlowDocumentHelper();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// </summary>
@@ -38,15 +39,13 @@ namespace FFXIVAPP.Classes
             {
                 tmp += cle.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
             }
-            var splitOfLine = tmp.Split(' ');
-            var tmpString = splitOfLine.Aggregate("", (current, t) => current + (char) Int32.Parse(t));
             if (Settings.Default.ShowDebug)
             {
                 if (Settings.Default.ASCII)
                 {
                     FD.AppendFlow("", tmp, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
                 }
-                FD.AppendFlow("", tmpString, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
+                FD.AppendFlow("", cle.Raw, "#FFFFFF", MainWindow.View.LogView.Debug._FDR);
             }
         }
 
@@ -182,7 +181,7 @@ namespace FFXIVAPP.Classes
                 }
                 if (Settings.Default.Log_SaveLog)
                 {
-                    LogXmlWriteLog.AddChatLine(new[] { mMessage, cle.Code, "#" + Constants.XColor[cle.Code][0], mTimeStamp });
+                    LogXmlWriteLog.AddChatLine(new[] {mMessage, cle.Code, "#" + Constants.XColor[cle.Code][0], mTimeStamp});
                 }
                 if (Settings.Default.Translate)
                 {

@@ -30,18 +30,14 @@ namespace FFXIVAPP
 
         public App()
         {
-            if (Settings.Default.Application_UpgradeRequired)
+            try
             {
-                try
-                {
-                    Settings.Default.Upgrade();
-                    Settings.Default.Reload();
-                    Settings.Default.Application_UpgradeRequired = true;
-                }
-                catch
-                {
-                    DefaultSettings();
-                }
+                Settings.Default.Upgrade();
+                Settings.Default.Reload();
+            }
+            catch
+            {
+                DefaultSettings();
             }
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             Configure();
@@ -176,7 +172,7 @@ namespace FFXIVAPP
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("{0} :\n{1}", ex.Message, ex.StackTrace);
                 Current.Shutdown();

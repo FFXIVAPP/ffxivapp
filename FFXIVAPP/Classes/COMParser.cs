@@ -11,11 +11,14 @@ using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Stats;
 using FFXIVAPP.ViewModels;
+using NLog;
 
 namespace FFXIVAPP.Classes
 {
     internal static class COMParser
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
@@ -49,17 +52,25 @@ namespace FFXIVAPP.Classes
                     }
                     break;
                 case "show-mob":
-                    var sList = new[] {"Total", "Reg", "Low", "High", "Avg", "Crit", "C Low", "C High", "C Avg"};
+                    var sList = new[] {"Total", "Low", "High", "Avg"};
                     var sb = new StringBuilder();
-                    StatGroup r;
-                    if (FFXIV.Instance.Timeline.Monster.TryGetGroup(sub, out r))
+                    KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
+                    foreach (var player in FFXIV.Instance.Timeline.Party)
                     {
-                        foreach (var s in sList)
+                        StatGroup m;
+                        if (player.TryGetGroup("Monsters", out m))
                         {
-                            sb.AppendFormat("[{0}:{1}]", s, Math.Ceiling(r.Stats.GetStatValue(s)));
+                            foreach (var s in m.Where(s => s.Name == sub))
+                            {
+                                sb.AppendFormat("{0} :: ", player.Name);
+                                foreach (var r in sList)
+                                {
+                                    sb.AppendFormat(" [{0}:{1}] ", r, Math.Ceiling(s.Stats.GetStatValue(r)));
+                                }
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + sb));
+                                sb.Clear();
+                            }
                         }
-                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
-                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + sb));
                     }
                     break;
                 case "show-total":
@@ -95,11 +106,7 @@ namespace FFXIVAPP.Classes
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
                             foreach (var item in FFXIV.Instance.TotalDPS.OrderByDescending(i => Math.Ceiling(Decimal.Parse(i.Value))).Take(limit))
                             {
-                                var amount = item.Value;
-                                if (item.Value.Contains("."))
-                                {
-                                    amount = item.Value.Split('.')[0];
-                                }
+                                var amount = (item.Value.Contains(".")) ? item.Value.Split('.')[0] : item.Value;
                                 KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + amount));
                             }
                             break;
