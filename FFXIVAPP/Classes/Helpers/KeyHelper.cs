@@ -3,9 +3,11 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.IO;
+using System.Threading;
 using FFXIVAPP.Classes.Memory;
 
 namespace FFXIVAPP.Classes.Helpers
@@ -49,6 +51,7 @@ namespace FFXIVAPP.Classes.Helpers
         {
             if (Constants.PHandle != null)
             {
+                Thread.Sleep(100);
                 var input = new MemoryStream(bytes);
                 var reader = new BinaryReader(input);
                 while (input.Position < input.Length)

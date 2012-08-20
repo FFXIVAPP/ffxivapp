@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections.Generic;
@@ -17,19 +18,18 @@ using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Models;
 using FFXIVAPP.Monitors;
 using FFXIVAPP.Views;
+using NLog;
 
 namespace FFXIVAPP.Classes
 {
     public class FFXIV
     {
-        public static int DeathCount;
         public static string LastKilled = "";
         public Timeline Timeline { get; private set; }
         public StatMonitor StatMonitor { get; private set; }
         private TimelineMonitor TimelineMonitor { get; set; }
         private static FFXIV _instance;
         private static ChatWorker _chatWorker;
-        public Boolean IsParsing = false;
         public static string Desc = "";
         public static string UID = "";
         public readonly Dictionary<string, string> TotalA = new Dictionary<string, string>();
@@ -37,6 +37,7 @@ namespace FFXIVAPP.Classes
         public readonly Dictionary<string, string> TotalH = new Dictionary<string, string>();
         public readonly Dictionary<string, string> TotalDPS = new Dictionary<string, string>();
         public Sio SIO;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// </summary>
@@ -53,11 +54,12 @@ namespace FFXIVAPP.Classes
         public static string TitleCase(string s, bool all = true)
         {
             var result = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(all ? s.ToLower() : s);
-            var reg = Shared.Romans.Match(result);
+            var reg = Shared.Romans.Match(s);
             if (reg.Success)
             {
-                var temp = Convert.ToString(reg.Groups["roman"].Value);
-                result = result.Replace(temp, temp.ToUpper());
+                var replace = Convert.ToString(reg.Groups["roman"].Value);
+                var orig = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(replace.ToLower());
+                result = result.Replace(orig, replace.ToUpper());
             }
             return result;
         }

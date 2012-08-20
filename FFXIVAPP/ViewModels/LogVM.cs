@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections;
@@ -294,11 +295,6 @@ namespace FFXIVAPP.ViewModels
             {
                 arrays += String.Format("DFlowDocReader : {0}\n", fdr.Key);
             }
-            //var r = TabNames.Cast<object>().Aggregate("", (t, i) => t + String.Format("TabName : {0}\n", i.ToString()));
-            //r = RegExs.Cast<object>().Aggregate(r, (t, i) => t + String.Format("RegEx : {0}\n", i.ToString()));
-            //r = ChatScan.Select(cs => cs.Items.Cast<object>().Aggregate("", (t, i) => t + (i.ToString() + ","))).Aggregate(r, (t1, i1) => t1 + String.Format("ChatScan : {0}\n", i1.Substring(0, i1.Length - 1)));
-            //r = DFlowDoc.Aggregate(r, (t, i) => t + String.Format("DFlowDoc : {0}\n", i.Key.ToString()));
-            //r = DFlowDocReader.Aggregate(r, (t, i) => t + String.Format("DFlowDocReader : {0}\n", i.Key.ToString()));
             if (!String.IsNullOrWhiteSpace(arrays.Trim()))
             {
                 Clipboard.SetText(arrays);

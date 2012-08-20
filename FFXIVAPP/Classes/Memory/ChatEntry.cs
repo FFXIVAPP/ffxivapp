@@ -1,8 +1,9 @@
 ﻿// FFXIVAPP
-// ChatlogEntry.cs
+// ChatEntry.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Globalization;
@@ -11,7 +12,7 @@ using System.Text;
 
 namespace FFXIVAPP.Classes.Memory
 {
-    public class ChatlogEntry
+    public class ChatEntry
     {
         public DateTime TimeStamp { get; set; }
         public string Code { get; set; }
@@ -24,12 +25,12 @@ namespace FFXIVAPP.Classes.Memory
         /// <summary>
         /// </summary>
         /// <param name="raw"> </param>
-        public ChatlogEntry(byte[] raw)
+        public ChatEntry(byte[] raw)
         {
             Bytes = raw;
             Raw = Encoding.UTF8.GetString(raw.ToArray());
             var cut = (Raw.Substring(5, 1) == ":") ? 6 : 5;
-            var cleaned = ChatlogCleaner.Process(raw, CultureInfo.CurrentUICulture, out JP);
+            var cleaned = ChatCleaner.Process(raw, CultureInfo.CurrentUICulture, out JP).Trim();
             Line = cleaned.Substring(cut);
             Code = Raw.Substring(0, 4);
             Combined = String.Format("{0}:{1}", Code, Line);

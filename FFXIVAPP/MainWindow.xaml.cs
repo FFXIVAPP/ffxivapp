@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,6 @@ using System.Xml.Linq;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
-using FFXIVAPP.Models;
 using FFXIVAPP.ViewModels;
 using FFXIVAPP.Views;
 using MahApps.Metro;

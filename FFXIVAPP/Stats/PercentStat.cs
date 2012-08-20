@@ -1,10 +1,9 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // PercentStat.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
-
-using System;
+// 
 
 namespace FFXIVAPP.Stats
 {
@@ -14,15 +13,15 @@ namespace FFXIVAPP.Stats
     /// </summary>
     public class PercentStat : LinkedStat
     {
-        private readonly Stat<Decimal> _numerator;
-        private readonly Stat<Decimal> _denominator;
+        private readonly Stat<decimal> _numerator;
+        private readonly Stat<decimal> _denominator;
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="n"> </param>
         /// <param name="d"> </param>
-        public PercentStat(string name, Stat<Decimal> n, Stat<Decimal> d) : base(name, n, d)
+        public PercentStat(string name, Stat<decimal> n, Stat<decimal> d) : base(name, n, d)
         {
             _numerator = n;
             _denominator = d;

@@ -7,8 +7,7 @@
              xmlns:me="clr-namespace:FFXIVAPP"
              xmlns:Stats="clr-namespace:FFXIVAPP.Stats"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:View="clr-namespace:FFXIVAPP.Views"
-             mc:Ignorable="d">
+             xmlns:View="clr-namespace:FFXIVAPP.Views" mc:Ignorable="d">
 
     <ScrollViewer>
         <Grid>

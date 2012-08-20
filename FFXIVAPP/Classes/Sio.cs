@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using FFXIVAPP.Classes.Helpers;
-using FFXIVAPP.Models;
 using FFXIVAPP.Views;
 using NLog;
 using SocketIOClient;

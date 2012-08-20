@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Text.RegularExpressions;
@@ -64,7 +65,6 @@ namespace FFXIVAPP.Monitors
             {
                 return;
             }
-            FFXIV.DeathCount++;
             var target = matches.Groups["target"];
             var source = matches.Groups["source"];
             if (!target.Success)

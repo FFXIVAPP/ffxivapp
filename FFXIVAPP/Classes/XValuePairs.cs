@@ -3,8 +3,9 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
-namespace FFXIVAPP.Models
+namespace FFXIVAPP.Classes
 {
     public class XValuePairs
     {

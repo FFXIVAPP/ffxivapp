@@ -3,6 +3,7 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,11 @@ namespace FFXIVAPP.Classes.Memory
     {
         public event NewLineEvnetHandler OnNewline;
 
-        public delegate void NewLineEvnetHandler(ChatlogEntry cle);
+        public delegate void NewLineEvnetHandler(ChatEntry cle);
 
         public event RawLineEvnetHandler OnRawline;
 
-        public delegate void RawLineEvnetHandler(ChatlogEntry cle);
+        public delegate void RawLineEvnetHandler(ChatEntry cle);
 
         private readonly MemoryHandler _handler;
         private readonly Offsets _o;
@@ -91,7 +92,7 @@ namespace FFXIVAPP.Classes.Memory
 
         /// <summary>
         /// </summary>
-        private void PostLineEvent(ChatlogEntry cle)
+        private void PostLineEvent(ChatEntry cle)
         {
             _sync.Post(RaiseLineEvent, cle);
         }
@@ -101,12 +102,12 @@ namespace FFXIVAPP.Classes.Memory
         /// <param name="state"> </param>
         private void RaiseLineEvent(object state)
         {
-            OnNewline((ChatlogEntry) state);
+            OnNewline((ChatEntry) state);
         }
 
         /// <summary>
         /// </summary>
-        private void PostRawEvent(ChatlogEntry cle)
+        private void PostRawEvent(ChatEntry cle)
         {
             _sync.Post(RaiseRawEvent, cle);
         }
@@ -116,7 +117,7 @@ namespace FFXIVAPP.Classes.Memory
         /// <param name="state"> </param>
         private void RaiseRawEvent(object state)
         {
-            OnRawline((ChatlogEntry) state);
+            OnRawline((ChatEntry) state);
         }
 
         #endregion
@@ -170,7 +171,7 @@ namespace FFXIVAPP.Classes.Memory
                         _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : cp.LogStart;
                         _handler.Address = _spots[i];
                         var text = _handler.GetByteArray(lengths[i]);
-                        var cle = new ChatlogEntry(text.ToArray());
+                        var cle = new ChatEntry(text.ToArray());
                         PostRawEvent(cle);
                         if (Regex.IsMatch(cle.Combined, @"[\w\d]{4}::?.+"))
                         {

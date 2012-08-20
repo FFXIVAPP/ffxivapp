@@ -1,8 +1,9 @@
 ﻿// FFXIVAPP
-// ChatlogCleaner.cs
+// ChatCleaner.cs
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using NLog;
 
 namespace FFXIVAPP.Classes.Memory
 {
-    public static class ChatlogCleaner
+    public static class ChatCleaner
     {
         private static Boolean _colorFound;
         private static readonly string[] Checks = new[] {"0020", "0021", "0023", "0027", "0028", "0046", "0047", "0048", "0049", "005C"};

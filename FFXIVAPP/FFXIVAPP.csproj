@@ -71,9 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
@@ -109,6 +109,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Accent.cs" />
     <Compile Include="Classes\AutomaticUpdates.cs" />
+    <Compile Include="Classes\BitField.cs" />
     <Compile Include="Classes\ChatWorkerDelagate.cs" />
     <Compile Include="Classes\Converters\StringToBrushConverter.cs" />
     <Compile Include="Classes\Helpers\FlowDocumentHelper.cs" />
@@ -126,14 +127,16 @@
     <Compile Include="Classes\GridViewSort.cs" />
     <Compile Include="Classes\Helpers\KeyHelper.cs" />
     <Compile Include="Classes\Keys.cs" />
-    <Compile Include="Classes\Memory\ChatlogCleaner.cs" />
-    <Compile Include="Classes\Memory\ChatlogEntry.cs" />
+    <Compile Include="Classes\Login.cs" />
+    <Compile Include="Classes\Memory\ChatCleaner.cs" />
+    <Compile Include="Classes\Memory\ChatEntry.cs" />
     <Compile Include="Classes\Memory\ChatWorker.cs" />
     <Compile Include="Classes\Memory\MemoryHandler.cs" />
     <Compile Include="Classes\Memory\MemoryStructures.cs" />
     <Compile Include="Classes\Memory\Offsets.cs" />
     <Compile Include="Classes\Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Classes\Helpers\NotifyHelper.cs" />
+    <Compile Include="Classes\Message.cs" />
     <Compile Include="Classes\RegExs\Monster.cs" />
     <Compile Include="Classes\RegExs\Player.cs" />
     <Compile Include="Classes\RegExs\Shared.cs" />
@@ -149,6 +152,7 @@
     <Compile Include="Classes\WindowsMessageEvents.cs" />
     <Compile Include="Classes\XmlCleaner.cs" />
     <Compile Include="Classes\XmlWriteLog.cs" />
+    <Compile Include="Classes\XValuePairs.cs" />
     <Compile Include="Controls\FlowDoc.xaml.cs">
       <DependentUpon>FlowDoc.xaml</DependentUpon>
     </Compile>
@@ -193,7 +197,6 @@
     </Compile>
     <Compile Include="Data\Process.cs" />
     <Compile Include="Classes\Converters\NameToAvatarConverter.cs" />
-    <Compile Include="Models\BitField.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventCode.cs" />
     <Compile Include="Models\EventCodeComparer.cs" />
@@ -205,9 +208,6 @@
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\Fight.cs" />
     <Compile Include="Models\FightList.cs" />
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\XValuePairs.cs" />
     <Compile Include="Monitors\StatMonitor.cs" />
     <Compile Include="Monitors\TimelineMonitor.cs" />
     <Compile Include="Stats\AccuracyStat.cs" />
@@ -230,7 +230,6 @@
     <Compile Include="Stats\StatGroupPropertyDescriptor.cs" />
     <Compile Include="Stats\StatGroupTypeDescriptor.cs" />
     <Compile Include="Stats\StatPropertyDescriptor.cs" />
-    <Compile Include="Stats\TotalStat.cs" />
     <Compile Include="Models\Timeline.cs" />
     <Compile Include="Models\TimelineEventArgs.cs" />
     <Compile Include="Models\TimelineEventType.cs" />
@@ -241,6 +240,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Stats\TotalStat.cs" />
     <Compile Include="ViewModels\LogVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
@@ -511,6 +511,7 @@
   <ItemGroup>
     <Resource Include="Resources\Colors.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -519,10 +520,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.saproj" input="$(OutDir)FFXIVAPP.exe" output="$(OutDir)FFXIVAPP.exe" OverwriteAssembly="true" />
-  </Target>
+  </Target>-->
 </Project>

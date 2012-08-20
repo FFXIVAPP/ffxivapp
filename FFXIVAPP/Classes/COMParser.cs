@@ -3,8 +3,10 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FFXIVAPP.Classes.Helpers;
@@ -54,23 +56,27 @@ namespace FFXIVAPP.Classes
                 case "show-mob":
                     var sList = new[] {"Total", "Low", "High", "Avg"};
                     var sb = new StringBuilder();
+                    var results = new Dictionary<string, List<int>>();
                     KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
                     foreach (var player in FFXIV.Instance.Timeline.Party)
                     {
                         StatGroup m;
                         if (player.TryGetGroup("Monsters", out m))
                         {
-                            foreach (var s in m.Where(s => s.Name == sub))
+                            foreach (var stats in m.Where(s => s.Name == sub).Select(s => sList.Select(r => Math.Ceiling(s.Stats.GetStatValue(r))).Select(dummy => (int) dummy).ToList()))
                             {
-                                sb.AppendFormat("{0} :: ", player.Name);
-                                foreach (var r in sList)
-                                {
-                                    sb.AppendFormat(" [{0}:{1}] ", r, Math.Ceiling(s.Stats.GetStatValue(r)));
-                                }
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + sb));
-                                sb.Clear();
+                                results.Add(player.Name, stats.ToList());
                             }
                         }
+                    }
+                    foreach (var item in results.OrderByDescending(i => i.Value[0]))
+                    {
+                        sb.Clear();
+                        for (var i = 0; i < item.Value.Count; i++)
+                        {
+                            sb.AppendFormat(" [{0}:{1}] ", sList[i], item.Value[i]);
+                        }
+                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + sb));
                     }
                     break;
                 case "show-total":

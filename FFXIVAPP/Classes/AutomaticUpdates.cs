@@ -3,11 +3,11 @@
 //  
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
+// 
 
 using System;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text;
 
 namespace FFXIVAPP.Classes
@@ -16,20 +16,6 @@ namespace FFXIVAPP.Classes
     {
         public string CurrentVersion;
         private string _latestVersion;
-
-        /// <summary>
-        /// </summary>
-        /// <param name="dllName"> </param>
-        /// <param name="ver"> </param>
-        public bool CheckDlls(string dllName, string ver)
-        {
-            CurrentVersion = ver;
-            if (dllName == "FFXIVAPP")
-            {
-                CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-            return CheckUpdates(dllName);
-        }
 
         /// <summary>
         /// </summary>
