@@ -116,7 +116,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex MultiFlagEn = new Regex(@"^(?<source>You|\w+\s\w+) use(s)? (?<action>.+) on ((t|T)he )?(((?<target>.+)(?:'s)|(?<target>.+)) from the (?<direction>.+)\.$|(?<target>.+(?='s))('s)?\.$|(?<target>.+)\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFlagFr = new Regex(@"(?!.+et)^(?<source>.+) utilisez? (?<action>.+(?= sur)) sur (l\w+|(a|à)(\w+)?)?(l\')? ?((?!.+\()(?<target>.+)|(?<target>.+(?= \()) \((?<direction>[\w\s]+)\))\.$", Shared.DefaultOptions);
+        public static readonly Regex MultiFlagFr = new Regex(@"(?!.+et)^(?<source>.+) utilisez? (?<action>.+(?= sur)) sur (l\w+|(a|à)(\w+)?)?(l\')? ?((?!.+\()(?<target>.+)|(?<target>.+(?= \()) \((?<direction>[\w\s]+)\))\. ?$", Shared.DefaultOptions);
 
         public static readonly Regex MultiFlagJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
@@ -124,7 +124,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex MultiEn = new Regex(@"^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFr = new Regex(@"^(?<crit>Coup critique! )?(((L\w+ |(a|à)(\w+)? )?(L\')?(?<target>.+))) subit (?<amount>\d+) points?.+\.$", Shared.DefaultOptions);
+        public static readonly Regex MultiFr = new Regex(@"^(?<crit>Coup critique! )?(((L\w+ |(a|à)(\w+)? )?(L\')?(?<target>.+))) subit (?<amount>\d+) points?.+\. ?$", Shared.DefaultOptions);
 
         public static readonly Regex MultiJa = new Regex(@"^\.$", Shared.DefaultOptions);
 

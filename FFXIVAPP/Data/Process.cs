@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
@@ -25,6 +26,7 @@ namespace FFXIVAPP.Data
         private static string _lastAction = "";
         private static string _lastDirection = "";
         private static bool _multi;
+        private static string _multiFlag;
         private static bool _valid;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -47,6 +49,7 @@ namespace FFXIVAPP.Data
             var pResist = Regex.Match("ph", @"^\.$");
             var pEvade = Regex.Match("ph", @"^\.$");
             var pMultiFlag = Regex.Match("ph", @"^\.$");
+            var pMultiFlagAbility = new string[] {};
             var pMulti = Regex.Match("ph", @"^\.$");
 
             #endregion
@@ -84,6 +87,7 @@ namespace FFXIVAPP.Data
                     pResist = (Constants.XPlayerRegEx.ContainsKey("ResistEn")) ? Constants.XPlayerRegEx["ResistEn"].Match(cleaned) : Player.ResistEn.Match(cleaned);
                     pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeEn")) ? Constants.XPlayerRegEx["EvadeEn"].Match(cleaned) : Player.EvadeEn.Match(cleaned);
                     pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagEn")) ? Constants.XPlayerRegEx["MultiFlagEn"].Match(cleaned) : Player.MultiFlagEn.Match(cleaned);
+                    pMultiFlagAbility = ParseHelper.MultiEn;
                     pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiEn")) ? Constants.XPlayerRegEx["MultiEn"].Match(cleaned) : Player.MultiEn.Match(cleaned);
                     mAction = (Constants.XMonsterRegEx.ContainsKey("ActionEn")) ? Constants.XMonsterRegEx["ActionEn"].Match(cleaned) : Monster.ActionEn.Match(cleaned);
                     mResist = (Constants.XMonsterRegEx.ContainsKey("ResistEn")) ? Constants.XMonsterRegEx["ResistEn"].Match(cleaned) : Monster.ResistEn.Match(cleaned);
@@ -104,6 +108,7 @@ namespace FFXIVAPP.Data
                     pResist = (Constants.XPlayerRegEx.ContainsKey("ResistFr")) ? Constants.XPlayerRegEx["ResistFr"].Match(cleaned) : Player.ResistFr.Match(cleaned);
                     pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeFr")) ? Constants.XPlayerRegEx["EvadeFr"].Match(cleaned) : Player.EvadeFr.Match(cleaned);
                     pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagFr")) ? Constants.XPlayerRegEx["MultiFlagFr"].Match(cleaned) : Player.MultiFlagFr.Match(cleaned);
+                    pMultiFlagAbility = ParseHelper.MultiFr;
                     pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiFr")) ? Constants.XPlayerRegEx["MultiFr"].Match(cleaned) : Player.MultiFr.Match(cleaned);
                     mAction = (Constants.XMonsterRegEx.ContainsKey("ActionFr")) ? Constants.XMonsterRegEx["ActionFr"].Match(cleaned) : Monster.ActionFr.Match(cleaned);
                     mResist = (Constants.XMonsterRegEx.ContainsKey("ResistFr")) ? Constants.XMonsterRegEx["ResistFr"].Match(cleaned) : Monster.ResistFr.Match(cleaned);
@@ -124,6 +129,7 @@ namespace FFXIVAPP.Data
                     pResist = (Constants.XPlayerRegEx.ContainsKey("ResistJa")) ? Constants.XPlayerRegEx["ResistJa"].Match(cleaned) : Player.ResistJa.Match(cleaned);
                     pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeJa")) ? Constants.XPlayerRegEx["EvadeJa"].Match(cleaned) : Player.EvadeJa.Match(cleaned);
                     pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagJa")) ? Constants.XPlayerRegEx["MultiFlagJa"].Match(cleaned) : Player.MultiFlagJa.Match(cleaned);
+                    pMultiFlagAbility = ParseHelper.MultiJa;
                     pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiJa")) ? Constants.XPlayerRegEx["MultiJa"].Match(cleaned) : Player.MultiJa.Match(cleaned);
                     mAction = (Constants.XMonsterRegEx.ContainsKey("ActionJa")) ? Constants.XMonsterRegEx["ActionJa"].Match(cleaned) : Monster.ActionJa.Match(cleaned);
                     mResist = (Constants.XMonsterRegEx.ContainsKey("ResistJa")) ? Constants.XMonsterRegEx["ResistJa"].Match(cleaned) : Monster.ResistJa.Match(cleaned);
@@ -148,10 +154,15 @@ namespace FFXIVAPP.Data
                 switch (pMultiFlag.Success)
                 {
                     case true:
-                        _lastAttacked = FFXIV.TitleCase((Convert.ToString(mReg.Groups["target"].Value)));
-                        _lastAttacker = Convert.ToString(mReg.Groups["source"].Value);
-                        _lastAction = Convert.ToString(mReg.Groups["action"].Value);
-                        _lastDirection = FFXIV.TitleCase(Convert.ToString(mReg.Groups["direction"].Value));
+                        if (pMultiFlagAbility.Any(s => cleaned.ToLower().Contains(s.ToLower())))
+                        {
+                            _lastAttacked = FFXIV.TitleCase((Convert.ToString(mReg.Groups["target"].Value)));
+                            _lastAttacker = Convert.ToString(mReg.Groups["source"].Value);
+                            _lastAction = Convert.ToString(mReg.Groups["action"].Value);
+                            _lastDirection = FFXIV.TitleCase(Convert.ToString(mReg.Groups["direction"].Value));
+                            _multiFlag = cleaned;
+                            return;
+                        }
                         break;
                 }
                 mReg = pMulti;
@@ -245,6 +256,14 @@ namespace FFXIVAPP.Data
                 d.Part = FFXIV.TitleCase((Convert.ToString(mReg.Groups["part"].Value)));
                 if (_multi)
                 {
+                    if (!String.IsNullOrWhiteSpace(_multiFlag))
+                    {
+                        if (Settings.Default.Parse_SaveLog && App.MArgs == null)
+                        {
+                            ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
+                        }
+                        _multiFlag = "";
+                    }
                     d.Target = _lastAttacked;
                     d.Source = _lastAttacker;
                     d.Action = _lastAction;

@@ -80,6 +80,7 @@ namespace FFXIVAPP.Classes
             var mTimeStamp = cle.TimeStamp.ToString("[HH:mm:ss] ");
             var mMessage = XmlCleaner.SanitizeXmlString(cle.Line.Replace("  ", " "));
             var mServer = Settings.Default.Server;
+            var mColor = (Constants.XColor.ContainsKey(cle.Code)) ? Constants.XColor[cle.Code][0] : "FFFFFF";
 
             #endregion
 
@@ -172,16 +173,16 @@ namespace FFXIVAPP.Classes
                     if (success)
                     {
                         var tempFlow = LogVM.DFlowDocReader[LogVM.TabNames[a] + "_FDR"];
-                        FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[cle.Code][0], tempFlow);
+                        FD.AppendFlow(mTimeStamp, mMessage, "#" + mColor, tempFlow);
                     }
                 }
                 if (Settings.Default.ShowAll)
                 {
-                    FD.AppendFlow(mTimeStamp, mMessage, "#" + Constants.XColor[cle.Code][0], MainWindow.View.LogView.All._FDR);
+                    FD.AppendFlow(mTimeStamp, mMessage, "#" + mColor, MainWindow.View.LogView.All._FDR);
                 }
                 if (Settings.Default.Log_SaveLog)
                 {
-                    LogXmlWriteLog.AddChatLine(new[] {mMessage, cle.Code, "#" + Constants.XColor[cle.Code][0], mTimeStamp});
+                    LogXmlWriteLog.AddChatLine(new[] {mMessage, cle.Code, "#" + mColor, mTimeStamp});
                 }
                 if (Settings.Default.Translate)
                 {

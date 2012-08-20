@@ -50,6 +50,7 @@ namespace FFXIVAPP
         private Color _tsColor;
         private Color _bColor;
         private readonly XDocument _xAtCodes = XDocument.Load("./Resources/ATCodes.xml");
+        private readonly XDocument _xColors = XDocument.Load("./Resources/Colors.xml");
         private readonly XDocument _xSettings = XDocument.Load("./Resources/Settings.xml");
         private readonly XDocument _xRegEx = XDocument.Load("./Resources/RegularExpressions.xml");
         public static readonly List<string[]> BattleLog = new List<string[]>();
@@ -156,15 +157,16 @@ namespace FFXIVAPP
                     XmlHelper.SaveXMLNode(_xSettings, "Tab", "Settings", tabname, code, regex);
                 }
             }
-            XmlHelper.DeleteXMLNode(_xSettings, "Color");
+            XmlHelper.DeleteXMLNode(_xColors, "Color");
             var items = Constants.XColor.Select(item => new XValuePairs {Key = item.Key, Value = item.Value[0], Desc = item.Value[1]});
             foreach (var item in items)
             {
-                XmlHelper.SaveXMLNode(_xSettings, "Color", "Settings", item.Key, item.Value, desc: item.Desc);
+                XmlHelper.SaveXMLNode(_xColors, "Color", "Colors", item.Key, item.Value, item.Desc);
             }
             MyNotifyIcon.Visible = false;
             Application.Current.MainWindow.WindowState = WindowState.Normal;
             _xSettings.Save("./Resources/Settings.xml");
+            _xColors.Save("./Resources/Colors.xml");
             GC.Collect();
         }
 
@@ -178,10 +180,12 @@ namespace FFXIVAPP
             {
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
+                    MyNotifyIcon.Text = "FFXIVAPP - Minimized";
                     MyNotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
                     break;
                 case WindowState.Normal:
                     ShowInTaskbar = true;
+                    MyNotifyIcon.Text = "FFXIVAPP";
                     MyNotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
                     break;
             }
@@ -232,7 +236,7 @@ namespace FFXIVAPP
                 {
                     MyNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream), Visible = true};
                     iconStream.Dispose();
-                    MyNotifyIcon.Text = "FFXIVAPP - Minimized";
+                    MyNotifyIcon.Text = "FFXIVAPP";
                     var myNotify = new ContextMenu();
                     myNotify.MenuItems.Add("&Restore Application").Enabled = false;
                     myNotify.MenuItems.Add(ResourceHelper.StringR("loc_ManualUpdate"));
@@ -307,7 +311,13 @@ namespace FFXIVAPP
         /// <param name="setting"> </param>
         private void LoadSettings(string setting)
         {
-            var items = _xSettings.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value"), RegEx = (string) item.Attribute("RegEx"), Desc = (string) item.Attribute("Desc")});
+            var items = _xSettings.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value"), RegEx = (string) item.Attribute("RegEx")});
+            switch (setting)
+            {
+                case "Color":
+                    items = _xColors.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value"), Desc = (string) item.Attribute("Desc")});
+                    break;
+            }
             foreach (var item in items.Where(item => !String.IsNullOrWhiteSpace(item.Key) && !String.IsNullOrWhiteSpace(item.Value)))
             {
                 switch (setting)

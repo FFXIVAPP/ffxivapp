@@ -26,7 +26,7 @@ namespace FFXIVAPP.Classes
         public static readonly Dictionary<string, Regex> XPlayerRegEx = new Dictionary<string, Regex>();
         public static readonly Dictionary<string, Regex> XMonsterRegEx = new Dictionary<string, Regex>();
         public static Process[] FFXIVPID;
-        public static readonly string[] Settings = {"Tab", "Color", "Server"};
+        public static readonly string[] Settings = {"Tab", "Color"};
         public static readonly string[] CmSay = {"0001"};
         public static readonly string[] CmTell = {"000D", "0003"};
         public static readonly string[] CmParty = {"0004"};
