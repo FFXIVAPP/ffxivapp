@@ -54,29 +54,22 @@ namespace FFXIVAPP.Classes
                     }
                     break;
                 case "show-mob":
-                    var sList = new[] {"Total", "Low", "High", "Avg"};
-                    var sb = new StringBuilder();
-                    var results = new Dictionary<string, List<int>>();
+                    var results = new Dictionary<string, int>();
                     KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
                     foreach (var player in FFXIV.Instance.Timeline.Party)
                     {
                         StatGroup m;
                         if (player.TryGetGroup("Monsters", out m))
                         {
-                            foreach (var stats in m.Where(s => s.Name == sub).Select(s => sList.Select(r => Math.Ceiling(s.Stats.GetStatValue(r))).Select(dummy => (int) dummy).ToList()))
+                            foreach (var stats in m.Where(s => s.Name == sub).Select(r => r.Stats))
                             {
-                                results.Add(player.Name, stats.ToList());
+                                results.Add(player.Name, (int) Math.Ceiling(stats.GetStatValue("Total")));
                             }
                         }
                     }
-                    foreach (var item in results.OrderByDescending(i => i.Value[0]))
+                    foreach (var item in results.OrderByDescending(i => i.Value))
                     {
-                        sb.Clear();
-                        for (var i = 0; i < item.Value.Count; i++)
-                        {
-                            sb.AppendFormat(" [{0}:{1}] ", sList[i], item.Value[i]);
-                        }
-                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + sb));
+                        KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
                     }
                     break;
                 case "show-total":
