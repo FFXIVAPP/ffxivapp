@@ -122,9 +122,9 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex MultiFlagDe = new Regex(@"^\.$", Shared.DefaultOptions);
 
-        public static readonly Regex MultiEn = new Regex(@"^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
+        public static readonly Regex MultiEn = new Regex(@"(?!.+uses)^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex MultiFr = new Regex(@"^(?<crit>Coup critique! )?(((L\w+ |(a|à)(\w+)? )?(L\')?(?<target>.+))) subit (?<amount>\d+) points?.+\. ?$", Shared.DefaultOptions);
+        public static readonly Regex MultiFr = new Regex(@"(?!.+util)^(?<crit>Coup critique! )?(((L\w+ |(a|à)(\w+)? )?(L\')?(?<target>.+))) subit (?<amount>\d+) points?.+\. ?$", Shared.DefaultOptions);
 
         public static readonly Regex MultiJa = new Regex(@"^\.$", Shared.DefaultOptions);
 

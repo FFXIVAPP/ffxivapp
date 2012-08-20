@@ -161,7 +161,6 @@ namespace FFXIVAPP.Data
                             _lastAction = Convert.ToString(mReg.Groups["action"].Value);
                             _lastDirection = FFXIV.TitleCase(Convert.ToString(mReg.Groups["direction"].Value));
                             _multiFlag = cleaned;
-                            return;
                         }
                         break;
                 }
