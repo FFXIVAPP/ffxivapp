@@ -45,7 +45,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex BlockEn = new Regex(@"^(?<target>(You|\w+\s\w+)) (?<partial>partially )?(?<block>block(s)?) ((t|T)he )?(?<source>.+(?='s))('s)? ((?<action>.+(?= from)) from the (?<direction>\w+)(, taking (?<amount>\d+).+$|\.$)|(?<action>.+), taking (?<amount>\d+).+$|(?<action>.+)\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex BlockFr = new Regex(@"^(l|L)?\w+ (?<source>.+) util.+un\w+ (?<action>.+) sur (?<target>\w+\s\w+).+mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points de d.+\.$)", Shared.DefaultOptions);
+        public static readonly Regex BlockFr = new Regex(@"^([L'ead ]+)?(?<source>.+) util.+un\w+ (?<action>.+) sur (?<target>\w+\s\w+).+mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points de d.+\.$)", Shared.DefaultOptions);
 
         public static readonly Regex BlockJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
@@ -53,7 +53,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static readonly Regex ParryEn = new Regex(@"^(?<target>(You|\w+\s\w+)) (?<partial>partially )?(?<parry>parr(y|ies)?) ((t|T)he )?(?<source>.+(?='s))('s)? ((?<action>.+(?= from)) from the (?<direction>\w+)(, taking (?<amount>\d+).+$|\.$)|(?<action>.+), taking (?<amount>\d+).+$|(?<action>.+)\.$)", Shared.DefaultOptions);
 
-        public static readonly Regex ParryFr = new Regex(@"^[L'ead ]+(?<source>[\w\s'-]+) utilise( une?)? (?<action>[\w\s'-]+) sur (?<target>\w+\s\w+) mais.+arrive à (?<parry>parer)\.(\w+ \w+ (?<partial>ne subit aucun).+!|\w+ \w+ subit (?<amount>\d+) point?.+\(mit.+\)\.)$", Shared.DefaultOptions);
+        public static readonly Regex ParryFr = new Regex(@"^([L'ead ]+)?(?<source>[\w\s'-]+) utilise( une?)? (?<action>[\w\s'-]+) sur (?<target>\w+\s\w+) mais.+arrive à (?<parry>parer)\.(\w+ \w+ (?<partial>ne subit aucun).+!|\w+ \w+ subit (?<amount>\d+) point?.+\(mit.+\)\.)$", Shared.DefaultOptions);
 
         public static readonly Regex ParryJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
