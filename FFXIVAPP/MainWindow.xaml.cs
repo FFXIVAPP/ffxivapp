@@ -259,34 +259,6 @@ namespace FFXIVAPP
             {
                 Constants.XAtCodes.Add(item.Key, item.Value);
             }
-            //LOAD CUSTOM PLAYER REGEX
-            items = _xRegEx.Descendants("Player").Select(item => new XValuePairs {ID = (string) item.Attribute("ID"), Value = item.FirstNode.ToString()});
-            foreach (var item in items)
-            {
-                var v = (item.Value.Length == 12) ? "" : item.Value.Substring(9, item.Value.Length - 12);
-                if (String.IsNullOrWhiteSpace(v))
-                {
-                    continue;
-                }
-                if (Constants.IsValidRegex(v))
-                {
-                    Constants.XPlayerRegEx.Add(item.ID, new Regex(v, Shared.DefaultOptions));
-                }
-            }
-            //LOAD CUSTOM MONSTER REGEX
-            items = _xRegEx.Descendants("Monster").Select(item => new XValuePairs {ID = (string) item.Attribute("ID"), Value = item.FirstNode.ToString()});
-            foreach (var item in items)
-            {
-                var v = (item.Value.Length == 12) ? "" : item.Value.Substring(9, item.Value.Length - 12);
-                if (String.IsNullOrWhiteSpace(v))
-                {
-                    continue;
-                }
-                if (Constants.IsValidRegex(v))
-                {
-                    Constants.XMonsterRegEx.Add(item.ID, new Regex(v, Shared.DefaultOptions));
-                }
-            }
             //LOAD CHATCODES
             var resourceUri = new Uri("pack://application:,,,/FFXIVAPP;component/Resources/ChatCodes.xml");
             var resource = Application.GetResourceStream(resourceUri);
@@ -302,6 +274,158 @@ namespace FFXIVAPP
             foreach (var t in Constants.Settings)
             {
                 LoadSettings(t);
+            }
+            //LOAD CUSTOM REGEX
+            ProcessRegEx("Player");
+            ProcessRegEx("Monster");
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="type"> </param>
+        private void ProcessRegEx(string type)
+        {
+            var items = _xRegEx.Descendants(type).Select(item => new XValuePairs {ID = (string) item.Attribute("ID"), Value = item.FirstNode.ToString()});
+            foreach (var item in items)
+            {
+                var v = (item.Value.Length == 12) ? "" : item.Value.Substring(9, item.Value.Length - 12);
+                if (String.IsNullOrWhiteSpace(v))
+                {
+                    continue;
+                }
+                if (Constants.IsValidRegex(v))
+                {
+                    var regex = new Regex(v, Shared.DefaultOptions);
+                    switch (type)
+                    {
+                            #region Player
+
+                        case "Player":
+                            Player.ActionEn = item.Key == "ActionEn" ? regex : Player.ActionEn;
+                            Player.ActionFr = item.Key == "ActionFr" ? regex : Player.ActionFr;
+                            Player.ActionJa = item.Key == "ActionJa" ? regex : Player.ActionJa;
+                            Player.ActionDe = item.Key == "ActionDe" ? regex : Player.ActionDe;
+
+                            Player.UsedEn = item.Key == "UsedEn" ? regex : Player.UsedEn;
+                            Player.UsedFr = item.Key == "UsedFr" ? regex : Player.UsedFr;
+                            Player.UsedJa = item.Key == "UsedJa" ? regex : Player.UsedJa;
+                            Player.UsedDe = item.Key == "UsedDe" ? regex : Player.UsedDe;
+
+                            Player.AdditionalEn = item.Key == "AdditionalEn" ? regex : Player.AdditionalEn;
+                            Player.AdditionalFr = item.Key == "AdditionalFr" ? regex : Player.AdditionalFr;
+                            Player.AdditionalJa = item.Key == "AdditionalJa" ? regex : Player.AdditionalJa;
+                            Player.AdditionalDe = item.Key == "AdditionalDe" ? regex : Player.AdditionalDe;
+
+                            Player.CounterEn = item.Key == "CounterEn" ? regex : Player.CounterEn;
+                            Player.CounterFr = item.Key == "CounterFr" ? regex : Player.CounterFr;
+                            Player.CounterJa = item.Key == "CounterJa" ? regex : Player.CounterJa;
+                            Player.CounterDe = item.Key == "CounterDe" ? regex : Player.CounterDe;
+
+                            Player.BlockEn = item.Key == "BlockEn" ? regex : Player.BlockEn;
+                            Player.BlockFr = item.Key == "BlockFr" ? regex : Player.BlockFr;
+                            Player.BlockJa = item.Key == "BlockJa" ? regex : Player.BlockJa;
+                            Player.BlockDe = item.Key == "BlockDe" ? regex : Player.BlockDe;
+
+                            Player.ParryEn = item.Key == "ParryEn" ? regex : Player.ParryEn;
+                            Player.ParryFr = item.Key == "ParryFr" ? regex : Player.ParryFr;
+                            Player.ParryJa = item.Key == "ParryJa" ? regex : Player.ParryJa;
+                            Player.ParryDe = item.Key == "ParryDe" ? regex : Player.ParryDe;
+
+                            Player.ResistEn = item.Key == "ResistEn" ? regex : Player.ResistEn;
+                            Player.ResistFr = item.Key == "ResistFr" ? regex : Player.ResistFr;
+                            Player.ResistJa = item.Key == "ResistJa" ? regex : Player.ResistJa;
+                            Player.ResistDe = item.Key == "ResistDe" ? regex : Player.ResistDe;
+
+                            Player.EvadeEn = item.Key == "EvadeEn" ? regex : Player.EvadeEn;
+                            Player.EvadeFr = item.Key == "EvadeFr" ? regex : Player.EvadeFr;
+                            Player.EvadeJa = item.Key == "EvadeJa" ? regex : Player.EvadeJa;
+                            Player.EvadeDe = item.Key == "EvadeDe" ? regex : Player.EvadeDe;
+
+                            Player.DefeatsEn = item.Key == "DefeatsEn" ? regex : Player.DefeatsEn;
+                            Player.DefeatsFr = item.Key == "DefeatsFr" ? regex : Player.DefeatsFr;
+                            Player.DefeatsJa = item.Key == "DefeatsJa" ? regex : Player.DefeatsJa;
+                            Player.DefeatsDe = item.Key == "DefeatsDe" ? regex : Player.DefeatsDe;
+
+                            Player.ObtainsEn = item.Key == "ObtainsEn" ? regex : Player.ObtainsEn;
+                            Player.ObtainsFr = item.Key == "ObtainsFr" ? regex : Player.ObtainsFr;
+                            Player.ObtainsJa = item.Key == "ObtainsJa" ? regex : Player.ObtainsJa;
+                            Player.ObtainsDe = item.Key == "ObtainsDe" ? regex : Player.ObtainsDe;
+
+                            Player.JoinEn = item.Key == "JoinEn" ? regex : Player.JoinEn;
+                            Player.JoinFr = item.Key == "JoinFr" ? regex : Player.JoinFr;
+                            Player.JoinJa = item.Key == "JoinJa" ? regex : Player.JoinJa;
+                            Player.JoinDe = item.Key == "JoinDe" ? regex : Player.JoinDe;
+
+                            Player.DisbandEn = item.Key == "DisbandEn" ? regex : Player.DisbandEn;
+                            Player.DisbandFr = item.Key == "DisbandFr" ? regex : Player.DisbandFr;
+                            Player.DisbandJa = item.Key == "DisbandJa" ? regex : Player.DisbandJa;
+                            Player.DisbandDe = item.Key == "DisbandDe" ? regex : Player.DisbandDe;
+
+                            Player.LeftEn = item.Key == "LeftEn" ? regex : Player.LeftEn;
+                            Player.LeftFr = item.Key == "LeftFr" ? regex : Player.LeftFr;
+                            Player.LeftJa = item.Key == "LeftJa" ? regex : Player.LeftJa;
+                            Player.LeftDe = item.Key == "LeftDe" ? regex : Player.LeftDe;
+
+                            Player.MultiFlagEn = item.Key == "MultiFlagEn" ? regex : Player.MultiFlagEn;
+                            Player.MultiFlagFr = item.Key == "MultiFlagFr" ? regex : Player.MultiFlagFr;
+                            Player.MultiFlagJa = item.Key == "MultiFlagJa" ? regex : Player.MultiFlagJa;
+                            Player.MultiFlagDe = item.Key == "MultiFlagDe" ? regex : Player.MultiFlagDe;
+
+                            Player.MultiEn = item.Key == "MultiEn" ? regex : Player.MultiEn;
+                            Player.MultiFr = item.Key == "MultiFr" ? regex : Player.MultiFr;
+                            Player.MultiJa = item.Key == "MultiJa" ? regex : Player.MultiJa;
+                            Player.MultiDe = item.Key == "MultiDe" ? regex : Player.MultiDe;
+                            break;
+
+                            #endregion
+
+                            #region Monster
+
+                        case "Monster":
+                            Monster.ActionEn = item.Key == "ActionEn" ? regex : Monster.ActionEn;
+                            Monster.ActionFr = item.Key == "ActionFr" ? regex : Monster.ActionFr;
+                            Monster.ActionJa = item.Key == "ActionJa" ? regex : Monster.ActionJa;
+                            Monster.ActionDe = item.Key == "ActionDe" ? regex : Monster.ActionDe;
+
+                            Monster.UsedEn = item.Key == "UsedEn" ? regex : Monster.UsedEn;
+                            Monster.UsedFr = item.Key == "UsedFr" ? regex : Monster.UsedFr;
+                            Monster.UsedJa = item.Key == "UsedJa" ? regex : Monster.UsedJa;
+                            Monster.UsedDe = item.Key == "UsedDe" ? regex : Monster.UsedDe;
+
+                            Monster.AdditionalEn = item.Key == "AdditionalEn" ? regex : Monster.AdditionalEn;
+                            Monster.AdditionalFr = item.Key == "AdditionalFr" ? regex : Monster.AdditionalFr;
+                            Monster.AdditionalJa = item.Key == "AdditionalJa" ? regex : Monster.AdditionalJa;
+                            Monster.AdditionalDe = item.Key == "AdditionalDe" ? regex : Monster.AdditionalDe;
+
+                            Monster.CounterEn = item.Key == "CounterEn" ? regex : Monster.CounterEn;
+                            Monster.CounterFr = item.Key == "CounterFr" ? regex : Monster.CounterFr;
+                            Monster.CounterJa = item.Key == "CounterJa" ? regex : Monster.CounterJa;
+                            Monster.CounterDe = item.Key == "CounterDe" ? regex : Monster.CounterDe;
+
+                            Monster.BlockEn = item.Key == "BlockEn" ? regex : Monster.BlockEn;
+                            Monster.BlockFr = item.Key == "BlockFr" ? regex : Monster.BlockFr;
+                            Monster.BlockJa = item.Key == "BlockJa" ? regex : Monster.BlockJa;
+                            Monster.BlockDe = item.Key == "BlockDe" ? regex : Monster.BlockDe;
+
+                            Monster.ParryEn = item.Key == "ParryEn" ? regex : Monster.ParryEn;
+                            Monster.ParryFr = item.Key == "ParryFr" ? regex : Monster.ParryFr;
+                            Monster.ParryJa = item.Key == "ParryJa" ? regex : Monster.ParryJa;
+                            Monster.ParryDe = item.Key == "ParryDe" ? regex : Monster.ParryDe;
+
+                            Monster.ResistEn = item.Key == "ResistEn" ? regex : Monster.ResistEn;
+                            Monster.ResistFr = item.Key == "ResistFr" ? regex : Monster.ResistFr;
+                            Monster.ResistJa = item.Key == "ResistJa" ? regex : Monster.ResistJa;
+                            Monster.ResistDe = item.Key == "ResistDe" ? regex : Monster.ResistDe;
+
+                            Monster.EvadeEn = item.Key == "EvadeEn" ? regex : Monster.EvadeEn;
+                            Monster.EvadeFr = item.Key == "EvadeFr" ? regex : Monster.EvadeFr;
+                            Monster.EvadeJa = item.Key == "EvadeJa" ? regex : Monster.EvadeJa;
+                            Monster.EvadeDe = item.Key == "EvadeDe" ? regex : Monster.EvadeDe;
+                            break;
+
+                            #endregion
+                    }
+                }
             }
         }
 

@@ -78,20 +78,20 @@ namespace FFXIVAPP.Data
             switch (Settings.Default.Language)
             {
                 case "English":
-                    pAction = (Constants.XPlayerRegEx.ContainsKey("ActionEn")) ? Constants.XPlayerRegEx["ActionEn"].Match(cleaned) : Player.ActionEn.Match(cleaned);
-                    pUsed = (Constants.XPlayerRegEx.ContainsKey("UsedEn")) ? Constants.XPlayerRegEx["UsedEn"].Match(cleaned) : Player.UsedEn.Match(cleaned);
-                    pAdditional = (Constants.XPlayerRegEx.ContainsKey("AdditionalEn")) ? Constants.XPlayerRegEx["AdditionalEn"].Match(cleaned) : Player.AdditionalEn.Match(cleaned);
-                    pCounter = (Constants.XPlayerRegEx.ContainsKey("CounterEn")) ? Constants.XPlayerRegEx["CounterEn"].Match(cleaned) : Player.CounterEn.Match(cleaned);
-                    pBlock = (Constants.XPlayerRegEx.ContainsKey("BlockEn")) ? Constants.XPlayerRegEx["BlockEn"].Match(cleaned) : Player.BlockEn.Match(cleaned);
-                    pParry = (Constants.XPlayerRegEx.ContainsKey("ParryEn")) ? Constants.XPlayerRegEx["ParryEn"].Match(cleaned) : Player.ParryEn.Match(cleaned);
-                    pResist = (Constants.XPlayerRegEx.ContainsKey("ResistEn")) ? Constants.XPlayerRegEx["ResistEn"].Match(cleaned) : Player.ResistEn.Match(cleaned);
-                    pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeEn")) ? Constants.XPlayerRegEx["EvadeEn"].Match(cleaned) : Player.EvadeEn.Match(cleaned);
-                    pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagEn")) ? Constants.XPlayerRegEx["MultiFlagEn"].Match(cleaned) : Player.MultiFlagEn.Match(cleaned);
+                    pAction = Player.ActionEn.Match(cleaned);
+                    pUsed = Player.UsedEn.Match(cleaned);
+                    pAdditional = Player.AdditionalEn.Match(cleaned);
+                    pCounter = Player.CounterEn.Match(cleaned);
+                    pBlock = Player.BlockEn.Match(cleaned);
+                    pParry = Player.ParryEn.Match(cleaned);
+                    pResist = Player.ResistEn.Match(cleaned);
+                    pEvade = Player.EvadeEn.Match(cleaned);
+                    pMultiFlag = Player.MultiFlagEn.Match(cleaned);
                     pMultiFlagAbility = ParseHelper.MultiEn;
-                    pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiEn")) ? Constants.XPlayerRegEx["MultiEn"].Match(cleaned) : Player.MultiEn.Match(cleaned);
-                    mAction = (Constants.XMonsterRegEx.ContainsKey("ActionEn")) ? Constants.XMonsterRegEx["ActionEn"].Match(cleaned) : Monster.ActionEn.Match(cleaned);
-                    mResist = (Constants.XMonsterRegEx.ContainsKey("ResistEn")) ? Constants.XMonsterRegEx["ResistEn"].Match(cleaned) : Monster.ResistEn.Match(cleaned);
-                    mEvade = (Constants.XMonsterRegEx.ContainsKey("EvadeEn")) ? Constants.XMonsterRegEx["EvadeEn"].Match(cleaned) : Monster.EvadeEn.Match(cleaned);
+                    pMulti = Player.MultiEn.Match(cleaned);
+                    mAction = Monster.ActionEn.Match(cleaned);
+                    mResist = Monster.ResistEn.Match(cleaned);
+                    mEvade = Monster.EvadeEn.Match(cleaned);
                     counter = "Counter";
                     added = "Additional Effect";
                     type = "HP";
@@ -99,20 +99,20 @@ namespace FFXIVAPP.Data
                     attack = "Attack";
                     break;
                 case "French":
-                    pAction = (Constants.XPlayerRegEx.ContainsKey("ActionFr")) ? Constants.XPlayerRegEx["ActionFr"].Match(cleaned) : Player.ActionFr.Match(cleaned);
-                    pUsed = (Constants.XPlayerRegEx.ContainsKey("UsedFr")) ? Constants.XPlayerRegEx["UsedFr"].Match(cleaned) : Player.UsedFr.Match(cleaned);
-                    pAdditional = (Constants.XPlayerRegEx.ContainsKey("AdditionalFr")) ? Constants.XPlayerRegEx["AdditionalFr"].Match(cleaned) : Player.AdditionalFr.Match(cleaned);
-                    pCounter = (Constants.XPlayerRegEx.ContainsKey("CounterFr")) ? Constants.XPlayerRegEx["CounterFr"].Match(cleaned) : Player.CounterFr.Match(cleaned);
-                    pBlock = (Constants.XPlayerRegEx.ContainsKey("BlockFr")) ? Constants.XPlayerRegEx["BlockFr"].Match(cleaned) : Player.BlockFr.Match(cleaned);
-                    pParry = (Constants.XPlayerRegEx.ContainsKey("ParryFr")) ? Constants.XPlayerRegEx["ParryFr"].Match(cleaned) : Player.ParryFr.Match(cleaned);
-                    pResist = (Constants.XPlayerRegEx.ContainsKey("ResistFr")) ? Constants.XPlayerRegEx["ResistFr"].Match(cleaned) : Player.ResistFr.Match(cleaned);
-                    pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeFr")) ? Constants.XPlayerRegEx["EvadeFr"].Match(cleaned) : Player.EvadeFr.Match(cleaned);
-                    pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagFr")) ? Constants.XPlayerRegEx["MultiFlagFr"].Match(cleaned) : Player.MultiFlagFr.Match(cleaned);
+                    pAction = Player.ActionFr.Match(cleaned);
+                    pUsed = Player.UsedFr.Match(cleaned);
+                    pAdditional = Player.AdditionalFr.Match(cleaned);
+                    pCounter = Player.CounterFr.Match(cleaned);
+                    pBlock = Player.BlockFr.Match(cleaned);
+                    pParry = Player.ParryFr.Match(cleaned);
+                    pResist = Player.ResistFr.Match(cleaned);
+                    pEvade = Player.EvadeFr.Match(cleaned);
+                    pMultiFlag = Player.MultiFlagFr.Match(cleaned);
                     pMultiFlagAbility = ParseHelper.MultiFr;
-                    pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiFr")) ? Constants.XPlayerRegEx["MultiFr"].Match(cleaned) : Player.MultiFr.Match(cleaned);
-                    mAction = (Constants.XMonsterRegEx.ContainsKey("ActionFr")) ? Constants.XMonsterRegEx["ActionFr"].Match(cleaned) : Monster.ActionFr.Match(cleaned);
-                    mResist = (Constants.XMonsterRegEx.ContainsKey("ResistFr")) ? Constants.XMonsterRegEx["ResistFr"].Match(cleaned) : Monster.ResistFr.Match(cleaned);
-                    mEvade = (Constants.XMonsterRegEx.ContainsKey("EvadeFr")) ? Constants.XMonsterRegEx["EvadeFr"].Match(cleaned) : Monster.EvadeFr.Match(cleaned);
+                    pMulti = Player.MultiFr.Match(cleaned);
+                    mAction = Monster.ActionFr.Match(cleaned);
+                    mResist = Monster.ResistFr.Match(cleaned);
+                    mEvade = Monster.EvadeFr.Match(cleaned);
                     counter = "Contre";
                     added = "Effet Supplémentaire";
                     type = "PV";
@@ -120,20 +120,20 @@ namespace FFXIVAPP.Data
                     attack = "Attaque";
                     break;
                 case "Japanese":
-                    pAction = (Constants.XPlayerRegEx.ContainsKey("ActionJa")) ? Constants.XPlayerRegEx["ActionJa"].Match(cleaned) : Player.ActionJa.Match(cleaned);
-                    pUsed = (Constants.XPlayerRegEx.ContainsKey("UsedJa")) ? Constants.XPlayerRegEx["UsedJa"].Match(cleaned) : Player.UsedJa.Match(cleaned);
-                    pAdditional = (Constants.XPlayerRegEx.ContainsKey("AdditionalJa")) ? Constants.XPlayerRegEx["AdditionalJa"].Match(cleaned) : Player.AdditionalJa.Match(cleaned);
-                    pCounter = (Constants.XPlayerRegEx.ContainsKey("CounterJa")) ? Constants.XPlayerRegEx["CounterJa"].Match(cleaned) : Player.CounterJa.Match(cleaned);
-                    pBlock = (Constants.XPlayerRegEx.ContainsKey("BlockJa")) ? Constants.XPlayerRegEx["BlockJa"].Match(cleaned) : Player.BlockJa.Match(cleaned);
-                    pParry = (Constants.XPlayerRegEx.ContainsKey("ParryJa")) ? Constants.XPlayerRegEx["ParryJa"].Match(cleaned) : Player.ParryJa.Match(cleaned);
-                    pResist = (Constants.XPlayerRegEx.ContainsKey("ResistJa")) ? Constants.XPlayerRegEx["ResistJa"].Match(cleaned) : Player.ResistJa.Match(cleaned);
-                    pEvade = (Constants.XPlayerRegEx.ContainsKey("EvadeJa")) ? Constants.XPlayerRegEx["EvadeJa"].Match(cleaned) : Player.EvadeJa.Match(cleaned);
-                    pMultiFlag = (Constants.XPlayerRegEx.ContainsKey("MultiFlagJa")) ? Constants.XPlayerRegEx["MultiFlagJa"].Match(cleaned) : Player.MultiFlagJa.Match(cleaned);
+                    pAction = Player.ActionJa.Match(cleaned);
+                    pUsed = Player.UsedJa.Match(cleaned);
+                    pAdditional = Player.AdditionalJa.Match(cleaned);
+                    pCounter = Player.CounterJa.Match(cleaned);
+                    pBlock = Player.BlockJa.Match(cleaned);
+                    pParry = Player.ParryJa.Match(cleaned);
+                    pResist = Player.ResistJa.Match(cleaned);
+                    pEvade = Player.EvadeJa.Match(cleaned);
+                    pMultiFlag = Player.MultiFlagJa.Match(cleaned);
                     pMultiFlagAbility = ParseHelper.MultiJa;
-                    pMulti = (Constants.XPlayerRegEx.ContainsKey("MultiJa")) ? Constants.XPlayerRegEx["MultiJa"].Match(cleaned) : Player.MultiJa.Match(cleaned);
-                    mAction = (Constants.XMonsterRegEx.ContainsKey("ActionJa")) ? Constants.XMonsterRegEx["ActionJa"].Match(cleaned) : Monster.ActionJa.Match(cleaned);
-                    mResist = (Constants.XMonsterRegEx.ContainsKey("ResistJa")) ? Constants.XMonsterRegEx["ResistJa"].Match(cleaned) : Monster.ResistJa.Match(cleaned);
-                    mEvade = (Constants.XMonsterRegEx.ContainsKey("EvadeJa")) ? Constants.XMonsterRegEx["EvadeJa"].Match(cleaned) : Monster.EvadeJa.Match(cleaned);
+                    pMulti = Player.MultiJa.Match(cleaned);
+                    mAction = Monster.ActionJa.Match(cleaned);
+                    mResist = Monster.ResistJa.Match(cleaned);
+                    mEvade = Monster.EvadeJa.Match(cleaned);
                     counter = "カウンター";
                     added = "追加効果";
                     type = "ＨＰ";
@@ -141,6 +141,25 @@ namespace FFXIVAPP.Data
                     attack = "Attack";
                     break;
                 case "German":
+                    pAction = Player.ActionDe.Match(cleaned);
+                    pUsed = Player.UsedDe.Match(cleaned);
+                    pAdditional = Player.AdditionalDe.Match(cleaned);
+                    pCounter = Player.CounterDe.Match(cleaned);
+                    pBlock = Player.BlockDe.Match(cleaned);
+                    pParry = Player.ParryDe.Match(cleaned);
+                    pResist = Player.ResistDe.Match(cleaned);
+                    pEvade = Player.EvadeDe.Match(cleaned);
+                    pMultiFlag = Player.MultiFlagDe.Match(cleaned);
+                    pMultiFlagAbility = ParseHelper.MultiDe;
+                    pMulti = Player.MultiDe.Match(cleaned);
+                    mAction = Monster.ActionDe.Match(cleaned);
+                    mResist = Monster.ResistDe.Match(cleaned);
+                    mEvade = Monster.EvadeDe.Match(cleaned);
+                    counter = "Counter";
+                    added = "Additional Effect";
+                    type = "HP";
+                    rattack = "Ranged Attack";
+                    attack = "Attack";
                     return;
             }
 

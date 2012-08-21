@@ -13,7 +13,6 @@ namespace FFXIVAPP.Classes
 {
     public static class Constants
     {
-        public static string DLLVersion = "";
         public static IntPtr PHandle;
         public static int PID;
         public static int LogErrors;
@@ -23,8 +22,6 @@ namespace FFXIVAPP.Classes
         public static readonly Dictionary<string, string[]> XColor = new Dictionary<string, string[]>();
         public static readonly Dictionary<string, string> XServerName = new Dictionary<string, string>();
         public static readonly Dictionary<string, string[]> XTab = new Dictionary<string, string[]>();
-        public static readonly Dictionary<string, Regex> XPlayerRegEx = new Dictionary<string, Regex>();
-        public static readonly Dictionary<string, Regex> XMonsterRegEx = new Dictionary<string, Regex>();
         public static Process[] FFXIVPID;
         public static readonly string[] Settings = {"Tab", "Color"};
         public static readonly string[] CmSay = {"0001"};

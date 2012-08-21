@@ -279,16 +279,4 @@
   <Monster ID="EvadeDe" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
     <![CDATA[]]>
   </Monster>
-  <Monster ID="DefeatsEn" Comment="Needed Groups: source, target, group">
-    <![CDATA[]]>
-  </Monster>
-  <Monster ID="DefeatsFr" Comment="Needed Groups: source, target, group">
-    <![CDATA[]]>
-  </Monster>
-  <Monster ID="DefeatsJa" Comment="Needed Groups: source, target, group">
-    <![CDATA[]]>
-  </Monster>
-  <Monster ID="DefeatsDe" Comment="Needed Groups: source, target, group">
-    <![CDATA[]]>
-  </Monster>
 </RegEx>
