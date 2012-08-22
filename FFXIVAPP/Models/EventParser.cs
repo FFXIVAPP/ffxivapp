@@ -43,7 +43,7 @@ namespace FFXIVAPP.Models
 
         /// <summary>
         /// </summary>
-        private EventParser()
+        public EventParser()
         {
             try
             {

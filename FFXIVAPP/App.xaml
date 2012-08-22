@@ -7,12 +7,6 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP;component/Styles/Controls.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <x:Static x:Key="FFXIV"
                       Member="Classes:FFXIV.Instance" />
             <!--  Resources scoped at the Application level should be defined here.  -->

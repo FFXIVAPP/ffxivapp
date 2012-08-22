@@ -693,10 +693,10 @@ namespace FFXIVAPP
                 switch (theme)
                 {
                     case "Dark":
-                        ThemeHelper.ChangeTheme(View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
+                        ThemeManager.ChangeTheme(View, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
                         break;
                     case "Light":
-                        ThemeHelper.ChangeTheme(View, ThemeHelper.DefaultAccents.First(a => a.Name == accent), Theme.Light);
+                        ThemeManager.ChangeTheme(View, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Light);
                         break;
                 }
             }

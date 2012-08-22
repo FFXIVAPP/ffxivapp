@@ -32,8 +32,12 @@ namespace FFXIVAPP
         {
             try
             {
-                Settings.Default.Upgrade();
-                Settings.Default.Reload();
+                if (Settings.Default.Application_UpgradeRequired)
+                {
+                    Settings.Default.Upgrade();
+                    Settings.Default.Reload();
+                    Settings.Default.Application_UpgradeRequired = false;
+                }
             }
             catch
             {

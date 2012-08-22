@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FFXIVAPP.Views.MainV"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:my="clr-namespace:FFXIVAPP"
@@ -21,54 +21,56 @@
                           NotifyOnTargetUpdated=True,
                           Mode=OneWay}"
           DataContext="{Binding Source={StaticResource MainModelDataSource}}">
-        <ScrollViewer>
-            <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=my:MainWindow, AncestorLevel=1}}">
-                <StackPanel Margin="20 0 20 0">
-                    <GroupBox Header="{DynamicResource loc_ExperienceTracker}">
-                        <StackPanel>
-                            <Label x:Name="Exp" />
-                            <Button Margin="5"
+        <metro:MetroContentControl>
+            <ScrollViewer>
+                <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=my:MainWindow, AncestorLevel=1}}">
+                    <StackPanel Margin="20 0 20 0">
+                        <GroupBox Header="{DynamicResource loc_ExperienceTracker}">
+                            <StackPanel>
+                                <Label x:Name="Exp" />
+                                <Button Margin="5"
                                     Command="{Binding Path=ResetExpCommand}"
                                     Content="{DynamicResource loc_Reset}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="{DynamicResource loc_EnabledMods}">
-                        <StackPanel>
-                            <Controls:ToggleSwitch Header="{DynamicResource loc_EnableChatServer}"
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource loc_EnabledMods}">
+                            <StackPanel>
+                                <metro:ToggleSwitch Header="{DynamicResource loc_EnableChatServer}"
                                                    IsChecked="{Binding Source={x:Static my:Settings.Default},
                                                                        Path=EnableChat,
                                                                        Mode=TwoWay}" />
-                            <Controls:ToggleSwitch Header="{DynamicResource loc_EnableLoggerTranslator}"
+                                <metro:ToggleSwitch Header="{DynamicResource loc_EnableLoggerTranslator}"
                                                    IsChecked="{Binding Source={x:Static my:Settings.Default},
                                                                        Path=EnableLog,
                                                                        Mode=TwoWay}" />
-                            <Controls:ToggleSwitch Header="{DynamicResource loc_EnableParser}"
+                                <metro:ToggleSwitch Header="{DynamicResource loc_EnableParser}"
                                                    IsChecked="{Binding Source={x:Static my:Settings.Default},
                                                                        Path=EnableParse,
                                                                        Mode=TwoWay}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="{DynamicResource loc_ProcessIDNum}">
-                        <StackPanel>
-                            <ComboBox x:Name="PIDSelect"
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource loc_ProcessIDNum}">
+                            <StackPanel>
+                                <ComboBox x:Name="PIDSelect"
                                       Margin="5" />
-                            <Button x:Name="SetProcess"
+                                <Button x:Name="SetProcess"
                                     Margin="5"
                                     Command="{Binding Path=SetProcessCommand}"
                                     Content="{DynamicResource loc_AttachProcess}" />
-                            <Button x:Name="RefreshList"
+                                <Button x:Name="RefreshList"
                                     Margin="5"
                                     Command="{Binding Path=RefreshListCommand}"
                                     Content="{DynamicResource loc_RefreshProcesses}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <Label Content="{DynamicResource loc_Parser}" />
-                    <Button x:Name="ResetParser"
+                            </StackPanel>
+                        </GroupBox>
+                        <Label Content="{DynamicResource loc_Parser}" />
+                        <Button x:Name="ResetParser"
                             Margin="5"
                             Command="{Binding Path=ResetStatsCommand}"
                             Content="{DynamicResource loc_Reset}" />
-                </StackPanel>
-            </Grid>
-        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </metro:MetroContentControl>
     </Grid>
 </UserControl>

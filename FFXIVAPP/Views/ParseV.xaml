@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FFXIVAPP.Views.ParseV"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:conv="clr-namespace:FFXIVAPP.Classes.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,62 +22,63 @@
                           NotifyOnSourceUpdated=True,
                           NotifyOnTargetUpdated=True,
                           Mode=OneWay}">
-
-        <TabControl x:Name="TabControl"
+        <metro:MetroContentControl>
+            <TabControl x:Name="TabControl"
                     VirtualizingStackPanel.IsVirtualizing="True">
-            <TabItem Header="{DynamicResource loc_Basic}">
-                <UserControls:Basic DataContext="{StaticResource FFXIV}" />
-            </TabItem>
+                <TabItem Header="{DynamicResource loc_Basic}">
+                    <UserControls:Basic DataContext="{StaticResource FFXIV}" />
+                </TabItem>
 
-            <TabItem x:Name="MobAbility"
+                <TabItem x:Name="MobAbility"
                      Header="{DynamicResource loc_Chatlog}"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=MobAbility,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls2:FlowDoc x:Name="MA" />
-            </TabItem>
+                    <UserControls2:FlowDoc x:Name="MA" />
+                </TabItem>
 
-            <TabItem Header="{DynamicResource loc_Party}"
+                <TabItem Header="{DynamicResource loc_Party}"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=PartyStats,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls:Party DataContext="{StaticResource FFXIV}" />
-            </TabItem>
+                    <UserControls:Party DataContext="{StaticResource FFXIV}" />
+                </TabItem>
 
-            <TabItem Header="{DynamicResource loc_Healing}"
+                <TabItem Header="{DynamicResource loc_Healing}"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=HealingStats,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls:Healing DataContext="{StaticResource FFXIV}" />
-            </TabItem>
+                    <UserControls:Healing DataContext="{StaticResource FFXIV}" />
+                </TabItem>
 
-            <TabItem Header="{DynamicResource loc_Damage}"
+                <TabItem Header="{DynamicResource loc_Damage}"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=DamageStats,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls:Damage DataContext="{StaticResource FFXIV}" />
-            </TabItem>
+                    <UserControls:Damage DataContext="{StaticResource FFXIV}" />
+                </TabItem>
 
-            <TabItem Header="{DynamicResource loc_Monster}"
+                <TabItem Header="{DynamicResource loc_Monster}"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=MonsterStats,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls:Monster DataContext="{StaticResource FFXIV}" />
-            </TabItem>
+                    <UserControls:Monster DataContext="{StaticResource FFXIV}" />
+                </TabItem>
 
-            <TabItem Header="{DynamicResource loc_Debug}"
+                <TabItem Header="{DynamicResource loc_Debug}"
                      IsEnabled="True"
                      Visibility="{Binding Source={x:Static me:Settings.Default},
                                           Path=Debug,
                                           Mode=TwoWay,
                                           Converter={StaticResource VisibilityConverter}}">
-                <UserControls:DebugWindow DataContext="{StaticResource FFXIV}" />
-            </TabItem>
-        </TabControl>
+                    <UserControls:DebugWindow DataContext="{StaticResource FFXIV}" />
+                </TabItem>
+            </TabControl>
+        </metro:MetroContentControl>
     </Grid>
 </UserControl>
