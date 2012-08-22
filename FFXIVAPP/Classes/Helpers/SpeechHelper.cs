@@ -5,11 +5,14 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System.Speech.Synthesis;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
     internal static class SpeechHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="message"> </param>

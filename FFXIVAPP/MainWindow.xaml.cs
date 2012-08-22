@@ -27,7 +27,6 @@ using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.ViewModels;
 using FFXIVAPP.Views;
-using MahApps.Metro;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -685,24 +684,7 @@ namespace FFXIVAPP
         /// </summary>
         private static void ApplyTheme()
         {
-            try
-            {
-                var split = Settings.Default.Theme.Split('|');
-                var accent = split[0];
-                var theme = split[1];
-                switch (theme)
-                {
-                    case "Dark":
-                        ThemeManager.ChangeTheme(View, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Dark);
-                        break;
-                    case "Light":
-                        ThemeManager.ChangeTheme(View, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Light);
-                        break;
-                }
-            }
-            catch
-            {
-            }
+            ThemeHelper.ChangeTheme(Settings.Default.Theme);
         }
 
         #endregion

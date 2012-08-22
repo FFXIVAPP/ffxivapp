@@ -36,6 +36,7 @@ namespace FFXIVAPP.Classes
             var limit = cReg.Groups["limit"].Success ? Convert.ToInt32(cReg.Groups["limit"].Value) : 1000;
             limit = (limit == 0) ? 1000 : limit;
             var ascii = Encoding.GetEncoding("utf-16");
+            var ptline = FFXIV.Instance.Timeline.Party;
             switch (cmd)
             {
                 case "parse":
@@ -55,7 +56,7 @@ namespace FFXIVAPP.Classes
                 case "show-mob":
                     var results = new Dictionary<string, int>();
                     KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, sub)));
-                    foreach (var player in FFXIV.Instance.Timeline.Party)
+                    foreach (var player in ptline)
                     {
                         StatGroup m;
                         if (player.TryGetGroup("Monsters", out m))
@@ -78,34 +79,37 @@ namespace FFXIVAPP.Classes
                         case "ability":
                             t = ResourceHelper.StringR("loc_Party");
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
-                            foreach (var item in FFXIV.Instance.TotalA.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("Total")).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
+                                var amount = item.Stats.GetStatValue("Total");
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
                         case "healing":
                             t = ResourceHelper.StringR("loc_Healing");
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
-                            foreach (var item in FFXIV.Instance.TotalH.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("H Total")).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
+                                var amount = item.Stats.GetStatValue("H Total");
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
                         case "damage":
                             t = ResourceHelper.StringR("loc_Damage");
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
-                            foreach (var item in FFXIV.Instance.TotalD.OrderByDescending(i => int.Parse(i.Value)).Take(limit))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("DT Total")).Take(limit))
                             {
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
+                                var amount = item.Stats.GetStatValue("DT Total");
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
                         case "dps":
                             t = "DPS";
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
-                            foreach (var item in FFXIV.Instance.TotalDPS.OrderByDescending(i => Math.Ceiling(Decimal.Parse(i.Value))).Take(limit))
+                            foreach (var item in ptline.OrderBy(i => Math.Ceiling((decimal) i.GetStatValue("DPS"))).Take(limit))
                             {
-                                var amount = (item.Value.Contains(".")) ? item.Value.Split('.')[0] : item.Value;
-                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Key + ": " + amount));
+                                var amount = item.Stats.GetStatValue("DPS");
+                                KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
                     }

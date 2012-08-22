@@ -1,4 +1,4 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // DelegateCommand.cs
 //  
 // Created by Ryan Wilson.
@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace FFXIVAPP.Classes.Commands
 {
-    public sealed class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         #region Constructors
 

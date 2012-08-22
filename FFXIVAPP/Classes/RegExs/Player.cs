@@ -8,11 +8,11 @@ using System.Text.RegularExpressions;
 
 namespace FFXIVAPP.Classes.RegExs
 {
-    public static class Player
+    public class Player
     {
         public static Regex ActionEn = new Regex(@"((?!.+misses\.)^(?<crit>Critical! )?(?<source>Your|\w+\s\w+)('s)? (?<action>.+(?= hits)) (?<hit>hits) (the )?((?!.+from)((?<target>.+)'s (?<part>.+)|(?<target>.+)) for |((?<target>.+)'s (?<part>.+)|(?<target>.+)) from the (?<direction>\w+) for )(?<amount>\d+) points? of damage\.$)|(^(?<source>Your|\w+\s\w+)('s)? (?<action>.+(?= misses)) (?<miss>misses) (the )?((?!.+from)((?<target>.+)'s (?<part>.+)|(?<target>.+))\.$|((?<target>.+)'s (?<part>.+)|(?<target>.+)) from the (?<direction>\w+)\.$))", Shared.DefaultOptions);
 
-        public static Regex ActionFr = new Regex(@"(?!.+échou\.)^(?<crit>Coup critique! )?(?<source>\w+\s\w+) util\w+ (une? )?((?<action>.+(?= sur)) (?<hit>sur) ((l\w+ |(a|à)(\w+)? )?(l\')?(?<target>.+(?= \()) \((?<direction>.+(?=\)))\) (?<hit>et) inflige (?<amount>\d+).+$|(l\w+ |a\w+ )?(l\')?(?<target>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<action>.+(?= et inflige)) (?<hit>et) inflige (?<amount>\d+).+dégâts ((a|à)(\w+)?)? (l\w+ )?(l\')?(?<target>.+(?=\.$))\.$)|((?<source>\w+\s\w+) util\w+ (une? )?(?<action>.+(?= sur)) (?<hit>sur) (l\w+ |(a|à)(\w+)? )?(l\')?((?<target>.+(?= \()) \((?<direction>.+(?=\)))\)|(?<target>.+)) (?<miss>mais) échoue!$)", Shared.DefaultOptions);
+        public static Regex ActionFr = new Regex(@"(?!.+échou\.)^(?<crit>Coup critique! )?(L\w |([LEAD' ]+))?(?<source>.+) utilisez?( une?)? ((?<action>.+(?= sur)) (?<hit>sur) ((L\w |([LEAD' ]+))?(l\')?(?<target>.+(?= \()) \((?<direction>.+(?=\)))\) (?<hit>et) inflige (?<amount>\d+).+$|(L\w |([LEAD' ]+))?(?<target>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<action>.+(?= et inflige)) (?<hit>et) inflige (?<amount>\d+).+dégâts ((a|à)(\w+)?)? (L\w |([LEAD' ]+))?(?<target>.+(?=\.$))\.$)|((?<source>\w+\s\w+) util\w+ (une? )?(?<action>.+(?= sur)) (?<hit>sur) (L\w |([LEAD' ]+))?((?<target>.+(?= \()) \((?<direction>.+(?=\)))\)|(?<target>.+)) (?<miss>mais) échoue!$)", Shared.DefaultOptions);
 
         public static Regex ActionJa = new Regex(@"^(?<source>.+)は(?<target>.+)(?<hit>に)((?<direction>.+)?(から)?「(?<action>.+)」|「(?<action>.+)」)　⇒　((?<crit>クリティカル！)　(?<amount>\d+)ダメージ。$|(?<amount>\d+)ダメージ。$)", Shared.DefaultOptions);
 
@@ -44,7 +44,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex BlockEn = new Regex(@"^(?<target>(You|\w+\s\w+)) (?<partial>partially )?(?<block>block(s)?) ((t|T)he )?(?<source>.+(?='s))('s)? ((?<action>.+(?= from)) from the (?<direction>\w+)(, taking (?<amount>\d+).+$|\.$)|(?<action>.+), taking (?<amount>\d+).+$|(?<action>.+)\.$)", Shared.DefaultOptions);
 
-        public static Regex BlockFr = new Regex(@"^(L\w |([LEAD' ]+))?(?<source>.+) util.+(une?)? (?<action>.+) sur (?<target>\w+\s\w+)( \((?<direction>.+)\))? mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points? de d.+\.$)", Shared.DefaultOptions);
+        public static Regex BlockFr = new Regex(@"^(L\w |([LEAD' ]+))?(?<source>.+) utilisez?( une?)? (?<action>.+) sur (?<target>\w+\s\w+)( \((?<direction>.+)\))? mais.+bouclier\.(.+par.+(?<block>coup)!$|.+(?<block>subit) (?<amount>\d+) points? de d.+\.$)", Shared.DefaultOptions);
 
         public static Regex BlockJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
@@ -60,7 +60,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex ResistEn = new Regex(@"^(The )?((?<target>.+(?= partially))|(?<target>.+(?= resists))) (?<partial>partially )?(?<resist>resists) (?<source>your|\w+\s\w+)(?:'s)? ((?!.+from)(?<action>\w+[\s\w+]{1,})(, taking (?<amount>\d+).+$|\.$)|(?<action>.+(?= from)) from the (?<direction>\w+)(, taking (?<amount>\d+).+$|\.$))", Shared.DefaultOptions);
 
-        public static Regex ResistFr = new Regex(@"^(?<source>\w+\s\w+|(L\w?'? ?)?.+) util\w+ (une? )?(?<action>.+(?= sur)) sur (l\w?'? ?)?(?<target>.+(?= mais)).+cel.+ci (?<resist>résiste) à moitié\..+subit (?<amount>\d+).+$", Shared.DefaultOptions);
+        public static Regex ResistFr = new Regex(@"^(L\w |([LEAD' ]+))?(?<source>.+) utilisez?( une?)? (?<action>.+(?= sur)) sur ([Ll]\w |([LEAD' ]+))?(?<target>.+(?= mais)) mais(.+(?<resist>résiste).+moitié\..+subit (?<amount>\d+) points? de dégâts \(mitigés\)\.|.+(?<resist>résiste)\..+complètement!)$", Shared.DefaultOptions);
 
         public static Regex ResistJa = new Regex(@"^(?<target>.+)は(?<source>.+)に「(?<action>.+)」　⇒　.+は(?<amount>\d+).+(?<resist>半減).+。$", Shared.DefaultOptions);
 

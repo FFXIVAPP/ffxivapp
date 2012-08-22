@@ -10,11 +10,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using NLog;
 
 namespace FFXIVAPP.Classes.Memory
 {
     public class MemoryHandler
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         public struct MemoryBlock

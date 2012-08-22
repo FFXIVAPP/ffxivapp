@@ -31,23 +31,5 @@ namespace FFXIVAPP.Classes.Memory
         public uint pOldChat2Unk1;
         public uint pOldChat2Unk2;
         public uint pOldChat2Unk3;
-        //public readonly uint LineCount;
-        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        //public readonly byte[] Unk1;
-        //public readonly uint UnknownPointer1;
-        //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        //public readonly byte[] Unk2;
-        //public readonly uint OffsetArrayStart;
-        //public readonly uint OffsetArrayPos;
-        //public readonly uint OffsetArrayStop;
-        //public readonly uint Unk3;
-        //public readonly uint LogStart;
-        //public readonly uint LogNext;
-        //public readonly uint LogEnd;
-        //public readonly uint Unk4;
-        //public readonly uint UnknownPointer4;
-        //public readonly uint UnknownPointer5;
-        //public readonly uint UnknownPointer6;
-        //public readonly uint UnknownPointer7;
     }
 }

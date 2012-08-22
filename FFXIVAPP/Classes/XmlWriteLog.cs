@@ -1,4 +1,4 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // XmlWriteLog.cs
 //  
 // Created by Ryan Wilson.

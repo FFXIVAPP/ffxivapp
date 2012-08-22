@@ -1,4 +1,4 @@
-﻿// FFXIVAPP
+// FFXIVAPP
 // Shared.cs
 //  
 // Created by Ryan Wilson.
@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace FFXIVAPP.Classes.RegExs
 {
-    internal static class Shared
+    public class Shared
     {
         public const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 

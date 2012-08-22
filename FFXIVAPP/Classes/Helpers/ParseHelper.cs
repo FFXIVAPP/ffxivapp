@@ -5,11 +5,14 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System.Collections;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
     public static class ParseHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public struct LineData
         {
             public string Job;

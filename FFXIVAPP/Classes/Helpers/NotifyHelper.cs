@@ -5,11 +5,14 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System.Windows.Forms;
+using NLog;
 
 namespace FFXIVAPP.Classes
 {
     internal static class NotifyHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="bTipTime"> </param>

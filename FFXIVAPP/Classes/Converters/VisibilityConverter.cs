@@ -8,11 +8,14 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using NLog;
 
 namespace FFXIVAPP.Classes.Converters
 {
     public class VisibilityConverter : IValueConverter
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>

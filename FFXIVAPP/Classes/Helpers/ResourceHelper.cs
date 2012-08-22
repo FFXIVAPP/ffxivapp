@@ -6,11 +6,14 @@
 
 using System;
 using System.Linq.Expressions;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
     internal static class ResourceHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="key"> </param>

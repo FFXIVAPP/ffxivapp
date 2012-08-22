@@ -8,11 +8,14 @@ using System;
 using System.IO;
 using System.Threading;
 using FFXIVAPP.Classes.Memory;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
     internal static class KeyHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="key"> </param>

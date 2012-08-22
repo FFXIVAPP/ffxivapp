@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using FFXIVAPP.Classes.Converters;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
@@ -17,6 +18,7 @@ namespace FFXIVAPP.Classes.Helpers
         private StringToBrushConverter _stb = new StringToBrushConverter();
         private Paragraph _pgraph;
         private Span _tStamp, _tMessage;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// </summary>

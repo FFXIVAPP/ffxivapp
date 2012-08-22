@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace FFXIVAPP.Classes.Commands
 {
-    internal static class CommandManagerHelper
+    internal class CommandManagerHelper
     {
         /// <summary>
         /// </summary>

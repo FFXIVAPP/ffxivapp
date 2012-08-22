@@ -6,6 +6,7 @@
 
 using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -61,4 +62,4 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.*")]
 [assembly: Guid("3970bcf6-74f5-4ed9-a228-17aaf154c8a5")]
 [assembly: NeutralResourcesLanguage("")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FFXIVAPP.Test")]
+[assembly: InternalsVisibleTo("FFXIVAPP.Test")]

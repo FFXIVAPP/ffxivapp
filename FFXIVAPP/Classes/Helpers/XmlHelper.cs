@@ -6,11 +6,14 @@
 
 using System.Linq;
 using System.Xml.Linq;
+using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
     internal static class XmlHelper
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// </summary>
         /// <param name="xDoc"> </param>
