@@ -36,11 +36,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <!--
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />
-                -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <vm:MainWindowVM x:Key="MainWindowModelDataSource" />
@@ -151,29 +146,26 @@
 
     <Controls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
-            <DockPanel>
-                <v:MainV x:Name="MainView" />
-            </DockPanel>
-            <DockPanel>
-                <v:ChatV x:Name="ChatView"
-                         Visibility="Collapsed" />
-            </DockPanel>
-            <DockPanel>
-                <v:LogV x:Name="LogView"
-                        Visibility="Collapsed" />
-            </DockPanel>
-            <DockPanel>
-                <v:ParseV x:Name="ParseView"
-                          Visibility="Collapsed" />
-            </DockPanel>
-            <DockPanel>
-                <v:SettingsV x:Name="SettingsView"
-                             Visibility="Collapsed" />
-            </DockPanel>
-            <DockPanel>
-                <v:AboutV x:Name="AboutView"
-                          Visibility="Collapsed" />
-            </DockPanel>
+            <TabControl x:Name="MainWindowTC">
+                <TabItem x:Name="MainTI">
+                    <v:MainV x:Name="MainView" />
+                </TabItem>
+                <TabItem x:Name="ChatTI">
+                    <v:ChatV x:Name="ChatView" />
+                </TabItem>
+                <TabItem x:Name="LogTI">
+                    <v:LogV x:Name="LogView" />
+                </TabItem>
+                <TabItem x:Name="ParseTI">
+                    <v:ParseV x:Name="ParseView" />
+                </TabItem>
+                <TabItem x:Name="SettingsTI">
+                    <v:SettingsV x:Name="SettingsView" />
+                </TabItem>
+                <TabItem x:Name="AboutTI">
+                    <v:AboutV x:Name="AboutView" />
+                </TabItem>
+            </TabControl>
         </Grid>
     </Controls:MetroContentControl>
 </Controls:MetroWindow>

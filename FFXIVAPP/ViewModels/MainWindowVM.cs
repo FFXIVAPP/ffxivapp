@@ -7,6 +7,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Commands;
@@ -37,31 +38,34 @@ namespace FFXIVAPP.ViewModels
             {
                 return;
             }
-            CollapseView(_currentView);
+            if(_currentView == "settings")
+            {
+                SettingsVM.SaveCharacter();
+            }
             switch (t)
             {
                 case "main":
-                    MainWindow.View.MainView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("MainTI");
                     ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
                 case "chat":
-                    MainWindow.View.ChatView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("ChatTI");
                     ThemeHelper.ChangeTheme(Settings.Default.ChatTheme);
                     break;
                 case "log":
-                    MainWindow.View.LogView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("LogTI");
                     ThemeHelper.ChangeTheme(Settings.Default.LogTheme);
                     break;
                 case "parse":
-                    MainWindow.View.ParseView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("ParseTI");
                     ThemeHelper.ChangeTheme(Settings.Default.ParseTheme);
                     break;
                 case "settings":
-                    MainWindow.View.SettingsView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("SettingsTI");
                     ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
                 case "about":
-                    MainWindow.View.AboutView.Visibility = Visibility.Visible;
+                    MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("AboutTI");
                     ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
             }
@@ -83,34 +87,5 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
-
-        /// <summary>
-        /// </summary>
-        /// <param name="view"> </param>
-        private static void CollapseView(string view)
-        {
-            switch (view)
-            {
-                case "main":
-                    MainWindow.View.MainView.Visibility = Visibility.Collapsed;
-                    break;
-                case "chat":
-                    MainWindow.View.ChatView.Visibility = Visibility.Collapsed;
-                    break;
-                case "log":
-                    MainWindow.View.LogView.Visibility = Visibility.Collapsed;
-                    break;
-                case "parse":
-                    MainWindow.View.ParseView.Visibility = Visibility.Collapsed;
-                    break;
-                case "settings":
-                    SettingsVM.SaveCharacter();
-                    MainWindow.View.SettingsView.Visibility = Visibility.Collapsed;
-                    break;
-                case "about":
-                    MainWindow.View.AboutView.Visibility = Visibility.Collapsed;
-                    break;
-            }
-        }
     }
 }

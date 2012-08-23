@@ -684,6 +684,9 @@ namespace FFXIVAPP
         /// </summary>
         private static void ApplyTheme()
         {
+            var s = new Style();
+            s.Setters.Add(new Setter(VisibilityProperty, Visibility.Collapsed));
+            View.MainWindowTC.ItemContainerStyle = s;
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
         }
 
