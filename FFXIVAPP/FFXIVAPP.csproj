@@ -63,7 +63,13 @@
     <ApplicationIcon>Resources\FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Locked|x86'">
-    <OutputPath>bin\x86\Release - Locked\</OutputPath>
+    <OutputPath>..\Release\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -490,7 +496,7 @@
   -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release - Locked'">
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.saproj" input="$(OutDir)FFXIVAPP.exe" output="$(OutDir)FFXIVAPP.exe" OverwriteAssembly="true" />
   </Target>
 </Project>

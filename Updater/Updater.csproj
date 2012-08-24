@@ -48,7 +48,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Locked|x86'">
-    <OutputPath>bin\x86\Release - Locked\</OutputPath>
+    <OutputPath>..\FFXIVAPP\Resources\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
@@ -105,7 +111,7 @@
   -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release - Locked'">
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="Updater.saproj" input="$(OutDir)Updater.exe" output="$(OutDir)Updater.exe" OverwriteAssembly="true" />
   </Target>
 </Project>
