@@ -4,14 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using MahApps.Metro;
-using FFXIVAPP.Classes;
-using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {

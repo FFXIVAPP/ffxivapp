@@ -160,7 +160,7 @@ namespace FFXIVAPP.Data
                     mResist = Monster.ResistDe.Match(cleaned);
                     mEvade = Monster.EvadeDe.Match(cleaned);
                     counter = "Counter";
-                    added = "Additional Effect";
+                    added = "Zusatzefeckt";
                     type = "HP";
                     rattack = "Ranged Attack";
                     attack = "Attack";

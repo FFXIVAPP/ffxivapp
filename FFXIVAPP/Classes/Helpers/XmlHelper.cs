@@ -6,7 +6,6 @@
 
 using System.Linq;
 using System.Xml.Linq;
-using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {

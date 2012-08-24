@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using FFXIVAPP.Classes.Converters;
-using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {

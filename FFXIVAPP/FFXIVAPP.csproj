@@ -62,6 +62,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release - Locked|x86'">
+    <OutputPath>bin\x86\Release - Locked\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,6 +119,7 @@
     <Compile Include="Classes\Helpers\FlowDocumentHelper.cs" />
     <Compile Include="Classes\Helpers\ParseHelper.cs" />
     <Compile Include="Classes\Helpers\ResourceHelper.cs" />
+    <Compile Include="Classes\Helpers\SoundPlayerHelper.cs" />
     <Compile Include="Classes\Helpers\XmlHelper.cs" />
     <Compile Include="Classes\ChildUtilities.cs" />
     <Compile Include="Classes\COMParser.cs" />
@@ -472,7 +476,9 @@
   <ItemGroup>
     <Resource Include="Resources\Colors.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\aruba.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

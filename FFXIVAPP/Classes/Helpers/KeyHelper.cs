@@ -8,7 +8,6 @@ using System;
 using System.IO;
 using System.Threading;
 using FFXIVAPP.Classes.Memory;
-using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {

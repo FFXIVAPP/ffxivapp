@@ -32,7 +32,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex AdditionalJa = new Regex(@"^追加効果.+(?<amount>\d+)ダメージ。$", Shared.DefaultOptions);
 
-        public static Regex AdditionalDe = new Regex(@"^\.$", Shared.DefaultOptions);
+        public static Regex AdditionalDe = new Regex(@"^Der Zusatzefeckt verursacht (?<amount>\d+) Punkte? Schaden\.$", Shared.DefaultOptions);
 
         public static Regex CounterEn = new Regex(@"^(?<counter>Counter! )(?<source>(.+(?:'s) |Your? ))(?<action>[\w\s]+) (?<hit>hits?)( the)? (?<target>.+(?= for)) for (?<amount>\d+) points of damage\.$", Shared.DefaultOptions);
 
@@ -120,7 +120,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex MultiFlagJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
-        public static Regex MultiFlagDe = new Regex(@"^\.$", Shared.DefaultOptions);
+        public static Regex MultiFlagDe = new Regex(@"^(?<source>.+) triffs?t d\w+ (?<target>.+(?= mit)) mit ((?<action>.+(?= von)) von (?<direction>.+)|(?<action>.+))\.$", Shared.DefaultOptions);
 
         public static Regex MultiEn = new Regex(@"(?!.+uses)^(?<crit>Critical! )?(The )?((?<target>.+)('s) takes (?<amount>\d+).+\.$|(?<target>.+(?= takes)) takes (?<amount>\d+).+\.$)", Shared.DefaultOptions);
 
@@ -128,6 +128,6 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex MultiJa = new Regex(@"^\.$", Shared.DefaultOptions);
 
-        public static Regex MultiDe = new Regex(@"^\.$", Shared.DefaultOptions);
+        public static Regex MultiDe = new Regex(@"^　⇒　((?<crit>Kritischer Treffer!) (?<amount>\d+) |(?<amount>\d+) )Punkte? Schaden\.$", Shared.DefaultOptions);
     }
 }

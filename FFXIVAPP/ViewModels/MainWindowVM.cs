@@ -6,8 +6,6 @@
 
 using System;
 using System.IO;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Commands;
@@ -38,7 +36,7 @@ namespace FFXIVAPP.ViewModels
             {
                 return;
             }
-            if(_currentView == "settings")
+            if (_currentView == "settings")
             {
                 SettingsVM.SaveCharacter();
             }

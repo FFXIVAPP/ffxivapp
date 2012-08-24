@@ -5,7 +5,6 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System.Speech.Synthesis;
-using NLog;
 
 namespace FFXIVAPP.Classes.Helpers
 {
