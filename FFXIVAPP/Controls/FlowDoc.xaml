@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:FFXIVAPP"
              mc:Ignorable="d">
 
     <FlowDocumentReader x:Name="_FDR"
                         BorderBrush="#FF939393"
                         BorderThickness="1"
                         IsTwoPageViewEnabled="False"
-                        ViewingMode="Scroll">
+                        MaxZoom="300"
+                        MinZoom="50"
+                        ViewingMode="Scroll"
+                        Zoom="{Binding Source={x:Static me:Settings.Default},
+                                       Path=LogZoomLevel,
+                                       Mode=TwoWay}">
         <FlowDocument x:Name="_FD"
                       Background="Black"
                       ColumnWidth="99999"

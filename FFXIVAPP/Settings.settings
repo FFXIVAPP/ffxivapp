@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FFXIVAPP.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FFXIVAPP" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="DebugMode" Type="System.Boolean" Scope="Application">
@@ -273,6 +273,9 @@
     </Setting>
     <Setting Name="ParseTheme" Type="System.String" Scope="User">
       <Value Profile="(Default)">Green|Light</Value>
+    </Setting>
+    <Setting Name="LogZoomLevel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>
