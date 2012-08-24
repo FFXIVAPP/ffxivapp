@@ -23,7 +23,7 @@ namespace FFXIVAPP
     {
         public static String[] MArgs;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly string[] _directories = {"./Logs/", "./Resources/", "./ScreenShots/"};
+        private readonly string[] _directories = { "./Logs/", "./Resources/", "./ScreenShots/", "./Plugins/" };
         private readonly string[] _xmlResources = {"ATCodes.xml", "Colors.xml", "Settings.xml", "RegularExpressions.xml"};
         private readonly string[] _mainResources = {"FFXIVAPP.exe.nlog", "Ionic.Zip.dll", "Updater.exe"};
         private readonly string[] _cleanResources = {"Ionic.Zip.dll", "Updater.exe"};

@@ -203,17 +203,14 @@ namespace FFXIVAPP
             {
                 case "ja":
                     dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/Japanese.xaml")};
-                    Settings.Default.TranslateJPOnly = false;
                     Settings.Default.TranslateTo = "Japanese";
                     break;
                 case "de":
                     dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/German.xaml")};
-                    Settings.Default.TranslateJPOnly = false;
                     Settings.Default.TranslateTo = "German";
                     break;
                 case "fr":
                     dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/French.xaml")};
-                    Settings.Default.TranslateJPOnly = false;
                     Settings.Default.TranslateTo = "French";
                     break;
                 default:

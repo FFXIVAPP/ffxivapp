@@ -24,8 +24,7 @@ namespace FFXIVAPP.Classes.Converters
         private const String LodestoneUrl = "http://lodestone.finalfantasyxiv.com/rc/search/search?tgt=77&q=\"{0}\"&cms=&cw={1}";
         private const String DefaultAvatar = "pack://application:,,,/FFXIVAPP;component/Resources/NoImage.jpg";
         private bool _cachingEnabled = true;
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
+        
         /// <summary>
         /// </summary>
         private String CachePath

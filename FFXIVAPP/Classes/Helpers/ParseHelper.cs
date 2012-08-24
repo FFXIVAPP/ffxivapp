@@ -11,8 +11,6 @@ namespace FFXIVAPP.Classes.Helpers
 {
     public static class ParseHelper
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         public struct LineData
         {
             public string Job;

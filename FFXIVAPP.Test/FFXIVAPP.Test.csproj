@@ -78,10 +78,6 @@
       <Project>{721EE445-AF6A-4515-8431-E6DFC1DFD391}</Project>
       <Name>FFXIVAPP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MahApps.Metro\MahApps.Metro.csproj">
-      <Project>{5B1710D2-5DC8-4754-91B2-19165DE49B3D}</Project>
-      <Name>MahApps.Metro</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

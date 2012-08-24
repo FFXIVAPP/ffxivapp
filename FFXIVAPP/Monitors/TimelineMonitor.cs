@@ -58,6 +58,7 @@ namespace FFXIVAPP.Monitors
                     matches = Player.DefeatsJa.Match(line);
                     break;
                 case "German":
+                    matches = Player.DefeatsDe.Match(line);
                     break;
             }
             if (matches == null || !matches.Success)
@@ -101,6 +102,9 @@ namespace FFXIVAPP.Monitors
                     break;
                 case "Japanese":
                     matches = Player.ObtainsJa.Match(line);
+                    break;
+                case "German":
+                    matches = Player.ObtainsDe.Match(line);
                     break;
             }
             if (matches.Success)
@@ -162,6 +166,11 @@ namespace FFXIVAPP.Monitors
                     join = Player.JoinJa.Match(line);
                     disband = Player.DisbandJa.Match(line);
                     left = Player.LeftJa.Match(line);
+                    break;
+                case "German":
+                    join = Player.JoinDe.Match(line);
+                    disband = Player.DisbandDe.Match(line);
+                    left = Player.LeftDe.Match(line);
                     break;
             }
             if (join.Success)

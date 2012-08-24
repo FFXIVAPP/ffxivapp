@@ -14,8 +14,6 @@ namespace FFXIVAPP.Classes.Converters
 {
     public class StringToBrushConverter : IValueConverter
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>

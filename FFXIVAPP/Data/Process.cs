@@ -74,6 +74,7 @@ namespace FFXIVAPP.Data
             var type = "";
             var attack = "";
             var rattack = "";
+            var you = "";
 
             switch (Settings.Default.Language)
             {
@@ -97,6 +98,7 @@ namespace FFXIVAPP.Data
                     type = "HP";
                     rattack = "Ranged Attack";
                     attack = "Attack";
+                    you = @"^[Yy]our?$";
                     break;
                 case "French":
                     pAction = Player.ActionFr.Match(cleaned);
@@ -118,6 +120,7 @@ namespace FFXIVAPP.Data
                     type = "PV";
                     rattack = "D'Attaque À Distance";
                     attack = "Attaque";
+                    you = @"^[Vv]ous$";
                     break;
                 case "Japanese":
                     pAction = Player.ActionJa.Match(cleaned);
@@ -139,6 +142,7 @@ namespace FFXIVAPP.Data
                     type = "ＨＰ";
                     rattack = "Ranged Attack";
                     attack = "Attack";
+                    you = @"^\.$";
                     break;
                 case "German":
                     pAction = Player.ActionDe.Match(cleaned);
@@ -160,7 +164,8 @@ namespace FFXIVAPP.Data
                     type = "HP";
                     rattack = "Ranged Attack";
                     attack = "Attack";
-                    return;
+                    you = @"^[Dd]u$";
+                    break;
             }
 
             #endregion
@@ -289,7 +294,7 @@ namespace FFXIVAPP.Data
                     d.Hit = true;
                     _multi = false;
                 }
-                if (Regex.IsMatch(d.Source, @"^[Yy]our?$|^Vous"))
+                if (Regex.IsMatch(d.Source, you))
                 {
                     d.Source = Settings.Default.CharacterName;
                 }
@@ -445,11 +450,11 @@ namespace FFXIVAPP.Data
                 }
                 d.Amount = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 d.Part = FFXIV.TitleCase((Convert.ToString(mReg.Groups["part"].Value)));
-                if (Regex.IsMatch(d.Source, @"^[Yy]our?$"))
+                if (Regex.IsMatch(d.Source, you))
                 {
                     d.Source = Settings.Default.CharacterName;
                 }
-                if (Regex.IsMatch(d.Target, @"^[Yy]our?$"))
+                if (Regex.IsMatch(d.Target, you))
                 {
                     d.Target = Settings.Default.CharacterName;
                 }
@@ -530,11 +535,11 @@ namespace FFXIVAPP.Data
                 var recloss = Convert.ToString(mReg.Groups["recloss"].Value);
                 d.Amount = mReg.Groups["amount"].Success ? Convert.ToDecimal(mReg.Groups["amount"].Value) : 0m;
                 d.Type = Convert.ToString(mReg.Groups["type"].Value.ToUpper());
-                if (Regex.IsMatch(d.Source, @"^[Yy]our?$"))
+                if (Regex.IsMatch(d.Source, you))
                 {
                     d.Source = Settings.Default.CharacterName;
                 }
-                if (Regex.IsMatch(d.Target, @"^[Yy]our?$"))
+                if (Regex.IsMatch(d.Target, you))
                 {
                     d.Target = Settings.Default.CharacterName;
                 }

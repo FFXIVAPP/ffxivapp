@@ -18,7 +18,6 @@ namespace FFXIVAPP.Classes.Helpers
         private StringToBrushConverter _stb = new StringToBrushConverter();
         private Paragraph _pgraph;
         private Span _tStamp, _tMessage;
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// </summary>

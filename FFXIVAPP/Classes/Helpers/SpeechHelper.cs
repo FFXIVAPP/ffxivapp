@@ -11,8 +11,6 @@ namespace FFXIVAPP.Classes.Helpers
 {
     internal static class SpeechHelper
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         /// <summary>
         /// </summary>
         /// <param name="message"> </param>

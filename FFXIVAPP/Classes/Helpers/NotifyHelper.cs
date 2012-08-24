@@ -11,8 +11,6 @@ namespace FFXIVAPP.Classes
 {
     internal static class NotifyHelper
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         /// <summary>
         /// </summary>
         /// <param name="bTipTime"> </param>
