@@ -45,7 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Release\</OutputPath>
@@ -481,10 +481,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  
+  -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.saproj" input="$(OutDir)FFXIVAPP.exe" output="$(OutDir)FFXIVAPP.exe" OverwriteAssembly="true" />
-  </Target>-->
+  </Target>
 </Project>
