@@ -13,6 +13,7 @@
                         MaxZoom="300"
                         MinZoom="50"
                         ViewingMode="Scroll"
+                        VirtualizingStackPanel.IsVirtualizing="True"
                         Zoom="{Binding Source={x:Static me:Settings.Default},
                                        Path=LogZoomLevel,
                                        Mode=TwoWay}">
@@ -21,7 +22,8 @@
                       ColumnWidth="99999"
                       Foreground="White"
                       PagePadding="5"
-                      TextAlignment="Left">
+                      TextAlignment="Left"
+                      VirtualizingStackPanel.IsVirtualizing="True">
             <FlowDocument.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0.5" />

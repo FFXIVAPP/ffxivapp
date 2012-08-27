@@ -19,6 +19,7 @@ using System.Web;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -30,6 +31,8 @@ using FFXIVAPP.Views;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using WebBrowser = System.Windows.Controls.WebBrowser;
 
 namespace FFXIVAPP
 {
@@ -38,6 +41,7 @@ namespace FFXIVAPP
     /// </summary>
     public partial class MainWindow : IDisposable
     {
+        private static WebBrowser _ga = new WebBrowser();
         public readonly string Lpath = "./Logs/";
         public readonly string Ipath = "./ScreenShots/";
         public int Counter;
@@ -492,7 +496,7 @@ namespace FFXIVAPP
             //};
             //d.BeginInvoke(null, null);
             _autoUpdates.CurrentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates("FFXIVAPP");
+            Func<bool> checkUpdates = () => _autoUpdates.CheckUpdates();
             checkUpdates.BeginInvoke(appresult =>
             {
                 const int bTipTime = 3000;

@@ -147,7 +147,8 @@
 
     <Controls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
-            <TabControl x:Name="MainWindowTC">
+            <TabControl x:Name="MainWindowTC"
+                        VirtualizingStackPanel.IsVirtualizing="True">
                 <TabItem x:Name="MainTI"
                          Header="Main">
                     <v:MainV x:Name="MainView" />
