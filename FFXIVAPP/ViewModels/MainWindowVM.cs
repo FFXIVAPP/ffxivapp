@@ -44,27 +44,27 @@ namespace FFXIVAPP.ViewModels
             {
                 case "main":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("MainTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.Theme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
                 case "chat":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("ChatTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.ChatTheme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.ChatTheme);
                     break;
                 case "log":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("LogTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.LogTheme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.LogTheme);
                     break;
                 case "parse":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("ParseTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.ParseTheme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.ParseTheme);
                     break;
                 case "settings":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("SettingsTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.Theme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
                 case "about":
                     MainWindow.View.MainWindowTC.SelectedItem = MainWindow.View.MainWindowTC.FindName("AboutTI");
-                    ThemeHelper.ChangeTheme(Settings.Default.Theme);
+                    //ThemeHelper.ChangeTheme(Settings.Default.Theme);
                     break;
             }
             _currentView = t;

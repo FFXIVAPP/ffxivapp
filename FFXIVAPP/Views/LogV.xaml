@@ -2,13 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:FFXIVAPP.Controls"
-             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:conv="clr-namespace:FFXIVAPP.Classes.Converters"
              xmlns:ctrl="clr-namespace:FFXIVAPP.Controls.Log"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FFXIVAPP.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:me="clr-namespace:FFXIVAPP"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -17,15 +17,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"
-          Width="{Binding RelativeSource={RelativeSource FindAncestor,
-                                                         AncestorType=me:MainWindow,
-                                                         AncestorLevel=1},
-                          Path=Width,
-                          NotifyOnSourceUpdated=True,
-                          NotifyOnTargetUpdated=True,
-                          Mode=OneWay}"
           DataContext="{DynamicResource LogViewModelDataSource}">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="33" />

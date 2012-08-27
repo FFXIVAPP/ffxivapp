@@ -2,10 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:class="clr-namespace:FFXIVAPP.Classes"
-             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FFXIVAPP.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:my="clr-namespace:FFXIVAPP"
              xmlns:ucontrols="clr-namespace:FFXIVAPP.Controls.Settings"
              mc:Ignorable="d">
@@ -15,13 +15,6 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"
-          Width="{Binding RelativeSource={RelativeSource FindAncestor,
-                                                         AncestorType=my:MainWindow,
-                                                         AncestorLevel=1},
-                          Path=Width,
-                          NotifyOnSourceUpdated=True,
-                          NotifyOnTargetUpdated=True,
-                          Mode=OneWay}"
           DataContext="{Binding Source={StaticResource SettingsViewModelDataSource}}">
         <metro:MetroContentControl>
             <TabControl x:Name="TabControl">

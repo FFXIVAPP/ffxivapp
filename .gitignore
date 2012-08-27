@@ -9,7 +9,8 @@
 # Build results
 
 [Dd]ebug*/
-[Rr]elease/
+[Rr]elease*/
+[Ss]mart[Aa]ssembly*/
 
 build/
 

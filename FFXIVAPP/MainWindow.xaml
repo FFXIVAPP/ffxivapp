@@ -148,22 +148,28 @@
     <Controls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
             <TabControl x:Name="MainWindowTC">
-                <TabItem x:Name="MainTI">
+                <TabItem x:Name="MainTI"
+                         Header="Main">
                     <v:MainV x:Name="MainView" />
                 </TabItem>
-                <TabItem x:Name="ChatTI">
+                <TabItem x:Name="ChatTI"
+                         Header="Chat">
                     <v:ChatV x:Name="ChatView" />
                 </TabItem>
-                <TabItem x:Name="LogTI">
+                <TabItem x:Name="LogTI"
+                         Header="Log">
                     <v:LogV x:Name="LogView" />
                 </TabItem>
-                <TabItem x:Name="ParseTI">
+                <TabItem x:Name="ParseTI"
+                         Header="Parse">
                     <v:ParseV x:Name="ParseView" />
                 </TabItem>
-                <TabItem x:Name="SettingsTI">
+                <TabItem x:Name="SettingsTI"
+                         Header="Settings">
                     <v:SettingsV x:Name="SettingsView" />
                 </TabItem>
-                <TabItem x:Name="AboutTI">
+                <TabItem x:Name="AboutTI"
+                         Header="About">
                     <v:AboutV x:Name="AboutView" />
                 </TabItem>
             </TabControl>
