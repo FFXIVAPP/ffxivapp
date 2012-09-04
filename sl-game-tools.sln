@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP", "FFXIVAPP\FFXIVAPP.csproj", "{721EE445-AF6A-4515-8431-E6DFC1DFD391}"
 	ProjectSection(ProjectDependencies) = postProject
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2} = {39A1D2AF-916A-49EF-A717-27D691FB25C2}

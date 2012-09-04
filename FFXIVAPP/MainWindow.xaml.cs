@@ -19,7 +19,6 @@ using System.Web;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -31,7 +30,6 @@ using FFXIVAPP.Views;
 using Application = System.Windows.Application;
 using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 
 namespace FFXIVAPP

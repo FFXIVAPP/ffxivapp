@@ -46,6 +46,10 @@ namespace FFXIVAPP.Classes.Memory
                         {
                             x += 4;
                         }
+                        else if (bytes[x + 1] == 22 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
+                        {
+                            x += 4;
+                        }
                     }
                     if (Checks.Contains(check))
                     {

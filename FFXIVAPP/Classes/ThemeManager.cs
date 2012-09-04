@@ -12,7 +12,7 @@ using MahApps.Metro;
 
 namespace FFXIVAPP.Classes
 {
-    static class ThemeManager
+    internal static class ThemeManager
     {
         private static readonly ResourceDictionary LightResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")};
         private static readonly ResourceDictionary DarkResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")};

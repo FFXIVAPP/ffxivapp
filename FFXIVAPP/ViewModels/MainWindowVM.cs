@@ -9,7 +9,6 @@ using System.IO;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Commands;
-using FFXIVAPP.Classes.Helpers;
 
 namespace FFXIVAPP.ViewModels
 {

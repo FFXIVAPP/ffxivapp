@@ -61,6 +61,8 @@
                                 Margin="5"
                                 Command="{Binding Path=ResetStatsCommand}"
                                 Content="{DynamicResource loc_Reset}" />
+                        <WebBrowser x:Name="Version" Visibility="Collapsed"
+                                Source="http://ffxiv-app.com/appv/?q=FFXIVAPP-GA" />
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

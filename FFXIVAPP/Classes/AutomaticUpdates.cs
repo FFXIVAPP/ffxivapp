@@ -5,9 +5,7 @@
 // Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.
 
 using System;
-using System.IO;
 using System.Net;
-using System.Text;
 using HtmlAgilityPack;
 
 namespace FFXIVAPP.Classes
@@ -19,15 +17,14 @@ namespace FFXIVAPP.Classes
 
         /// <summary>
         /// </summary>
-        /// <param name="filename"> </param>
         /// <returns> </returns>
         public bool CheckUpdates()
         {
             try
             {
-                var req = (HttpWebRequest)WebRequest.Create("http://ffxiv-app.com/appv/?q=FFXIVAPP-GA");
+                var req = (HttpWebRequest) WebRequest.Create("http://ffxiv-app.com/appv/?q=FFXIVAPP-GA");
                 req.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                var response = (HttpWebResponse)req.GetResponse();
+                var response = (HttpWebResponse) req.GetResponse();
                 var s = response.GetResponseStream();
                 if (response.StatusCode != HttpStatusCode.OK || s == null)
                 {
