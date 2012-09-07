@@ -25,8 +25,9 @@ namespace FFXIVAPP.Monitors
         internal static readonly TotalStat PartyTotalRTaken = new TotalStat("PartyTotalRTaken");
         internal static readonly TotalStat PartyTotalCTaken = new TotalStat("PartyTotalCTaken");
         private static readonly string[] removeCS = new[] {"Miser's Mistress", "Dodore's Minion"};
+        private static readonly string[] addCS = new[] { "Uraeus" };
         private static readonly string[] cleanParts = new[] {"head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"};
-        private static readonly string[] addCS = new[] {"Uraeus"};
+        
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -81,9 +82,11 @@ namespace FFXIVAPP.Monitors
 
             #region Clean Mob Names
 
-            var r = removeCS.Select(t => e.RawLine.Contains(t)).ToString();
-            e.RawLine = Regex.Replace(e.RawLine, r, r.Replace("'s", "") + "'s");
-
+            foreach (var s in removeCS.Where(s => e.RawLine.Contains(s)))
+            {
+                e.RawLine = Regex.Replace(e.RawLine, s, s.Replace("'s", ""));
+            }
+            
             #endregion
 
             Process.Parse(mCode, mTimeStamp, e.RawLine, e);
