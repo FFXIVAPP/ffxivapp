@@ -12,7 +12,7 @@ namespace FFXIVAPP.Classes.RegExs
     {
         public static Regex ActionEn = new Regex(@"(?!.+misses(\.)? )^(?<crit>Critical! )?(The )?(?<source>[\w\s']+(?='s))('s) (?<action>.+(?= hits)) (?<hit>hits) (?<target>you(?!.+'s.+for)|\w+\s\w+) (from the (?<direction>\w+) )?for (?<amount>\d+).+\.$|(The )?(?<source>[\w\s]+(?='s))('s) (?<action>.+(?= misses)) (?<hit>misses) (?<target>you(?!.+'s.+from)|\w+\s\w+)( from the (?<direction>\w+)\.$|\.$)", Shared.DefaultOptions);
 
-        public static Regex ActionFr = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?([Ll]\w |([LEAD' ]+))?(?<source>.+(?= util)) util\w+ (une? )?((?<action>.+(?= sur)) (?<hit>sur) (?<target>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", Shared.DefaultOptions);
+        public static Regex ActionFr = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(L[aes]{0,2} |([LEAD]'))?(?<source>.+(?= util)) util\w+ (une? )?((?<action>.+(?= sur)) (?<hit>sur) (?<target>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", Shared.DefaultOptions);
 
         public static Regex ActionJa = new Regex(@"^(?<source>.+)は(?<target>.+)(?<hit>に)((?<direction>.+)?(から)?「(?<action>.+)」|「(?<action>.+)」)　⇒　((?<crit>クリティカル！)　(?<amount>\d+)ダメージ。$|(?<amount>\d+)ダメージ。$)", Shared.DefaultOptions);
 
@@ -36,7 +36,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex CounterEn = new Regex(@"^(?<counter>Counter! )(?<source>.+)'s (?<action>[\w\s]+) (?<hit>hits?)( the)? (?<target>.+(?= for)) for (?<amount>\d+) points of damage\.$", Shared.DefaultOptions);
 
-        public static Regex CounterFr = new Regex(@"^([Ll]\w |([LEAD' ]+))?(?<source>.+) (?<counter>contre) (?<target>.+(?= et)) et.+inflige (?<amount>\d+).+$", Shared.DefaultOptions);
+        public static Regex CounterFr = new Regex(@"^(L[aes]{0,2} |([LEAD]'))?(?<source>.+) (?<counter>contre) (?<target>.+(?= et)) et.+inflige (?<amount>\d+).+$", Shared.DefaultOptions);
 
         public static Regex CounterJa = new Regex(@"^(?<source>.+)は(?<target>.+)の.+(?<counter>カウンター。)　⇒　(?<amount>\d+)ダメージを与えた。$", Shared.DefaultOptions);
 
@@ -60,7 +60,7 @@ namespace FFXIVAPP.Classes.RegExs
 
         public static Regex ResistEn = new Regex(@"^((?<target>.+(?= partially))|(?<target>.+(?= resists))) (?<partial>partially )?(?<resist>resists) (the )?(?<source>.+('s)?(?='s))('s)? ((?!.+from)(?<action>\w+[\s\w+]{1,})(, taking (?<amount>\d+).+$|\.$)|(?<action>.+(?= from)) from the (?<direction>\w+)(, taking (?<amount>\d+).+$|\.$))", Shared.DefaultOptions);
 
-        public static Regex ResistFr = new Regex(@"^([Ll]\w |([LEAD' ]+))?(?<source>.+) utilisez?( une?)? (?<action>.+(?= sur)) sur (?<target>.+(?= mais)) mais(.+(?<resist>résiste).+moitié\..+subit (?<amount>\d+) points? de dégâts \(mitigés\)\.|.+(?<resist>résiste)\..+complètement!)$", Shared.DefaultOptions);
+        public static Regex ResistFr = new Regex(@"^(L[aes]{0,2} |([LEAD]'))?(?<source>.+) utilisez?( une?)? (?<action>.+(?= sur)) sur (?<target>.+(?= mais)) mais(.+(?<resist>résiste).+moitié\..+subit (?<amount>\d+) points? de dégâts \(mitigés\)\.|.+(?<resist>résiste)\..+complètement!)$", Shared.DefaultOptions);
 
         public static Regex ResistJa = new Regex(@"^(?<target>.+)は(?<source>.+)に「(?<action>.+)」　⇒　.+は(?<amount>\d+).+(?<resist>半減).+。$", Shared.DefaultOptions);
 

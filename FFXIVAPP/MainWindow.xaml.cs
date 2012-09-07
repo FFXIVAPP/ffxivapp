@@ -95,6 +95,7 @@ namespace FFXIVAPP
         /// <param name="e"> </param>
         private void MetroWindow_Closing(object sender, CancelEventArgs e)
         {
+            View.WindowState = WindowState.Normal;
             Settings.Default.Save();
             if (Constants.FFXIVOpen)
             {

@@ -81,7 +81,7 @@ namespace FFXIVAPP.Classes
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("Total")).Take(limit))
                             {
-                                var amount = item.Stats.GetStatValue("Total");
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("Total"));
                                 KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
@@ -90,7 +90,7 @@ namespace FFXIVAPP.Classes
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("H Total")).Take(limit))
                             {
-                                var amount = item.Stats.GetStatValue("H Total");
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("H Total"));
                                 KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
@@ -99,7 +99,7 @@ namespace FFXIVAPP.Classes
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("DT Total")).Take(limit))
                             {
-                                var amount = item.Stats.GetStatValue("DT Total");
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("DT Total"));
                                 KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
@@ -108,7 +108,7 @@ namespace FFXIVAPP.Classes
                             KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} * {1} *", cm, t)));
                             foreach (var item in ptline.OrderBy(i => Math.Ceiling((decimal) i.GetStatValue("DPS"))).Take(limit))
                             {
-                                var amount = item.Stats.GetStatValue("DPS");
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("DPS"));
                                 KeyHelper.SendNotify(ascii.GetBytes(String.Format("/{0} ", cm) + item.Name + ": " + amount));
                             }
                             break;
