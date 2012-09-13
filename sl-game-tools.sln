@@ -63,6 +63,7 @@ Global
 		{721EE445-AF6A-4515-8431-E6DFC1DFD391}.SmartAssembly|Win32.ActiveCfg = SmartAssembly|x86
 		{721EE445-AF6A-4515-8431-E6DFC1DFD391}.SmartAssembly|x64.ActiveCfg = SmartAssembly|x86
 		{721EE445-AF6A-4515-8431-E6DFC1DFD391}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
+		{721EE445-AF6A-4515-8431-E6DFC1DFD391}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|ARM.ActiveCfg = Debug|x86
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -86,6 +87,7 @@ Global
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SmartAssembly|Win32.ActiveCfg = SmartAssembly|x86
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SmartAssembly|x64.ActiveCfg = SmartAssembly|x86
 		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
+		{39A1D2AF-916A-49EF-A717-27D691FB25C2}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
