@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP", "FFXIVAPP\FFXIVAPP.csproj", "{7E0DFC5C-4C89-499E-B295-F3ED6A232221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{3139560E-9338-44E0-8C12-257CAF09E97D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A1AF055A-3762-4D56-86F6-8FD22ACDC860}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+		SmartAssembly|x86 = SmartAssembly|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.Debug|x86.ActiveCfg = Debug|x86
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.Debug|x86.Build.0 = Debug|x86
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.Release|x86.ActiveCfg = Release|x86
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.Release|x86.Build.0 = Release|x86
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
+		{7E0DFC5C-4C89-499E-B295-F3ED6A232221}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.Debug|x86.ActiveCfg = Debug|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.Debug|x86.Build.0 = Debug|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.Release|x86.ActiveCfg = Release|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.Release|x86.Build.0 = Release|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
+		{3139560E-9338-44E0-8C12-257CAF09E97D}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

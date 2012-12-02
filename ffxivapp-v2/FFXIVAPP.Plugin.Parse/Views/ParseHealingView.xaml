@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseHealingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Models="clr-namespace:FFXIVAPP.Plugin.Parse.Models"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="ParseHealingViewModel"
+                  Member="ViewModels:ParseHealingViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:ParseControl.Instance" />
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ParseHealingViewModel}">
+        <ScrollViewer>
+            <StackPanel>
+                <Grid>
+                    <ListView x:Name="HealingPlayerTotal"
+                              DataContext="{Binding Timeline.Party,
+                                                    Source={StaticResource Parser}}"
+                              ItemsSource="{Binding}"
+                              Utilities:GridViewSort.AutoSort="True"
+                              Utilities:GridViewSort.ShowSortGlyph="False">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </GridView.ColumnHeaderTemplate>
+                                <!--  <GridViewColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                Header="{Binding Locale[parse_nameheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HTotal}"
+                                                Header="{Binding Locale[parse_htotalheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HTotal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HPS,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_hpsheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HPS" />
+                                <GridViewColumn DisplayMemberBinding="{Binding PerOfHeal,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{Binding Locale[parse_perofhealheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="PerOfHeal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealLow}"
+                                                Header="{Binding Locale[parse_heallowheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealLow" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealHigh}"
+                                                Header="{Binding Locale[parse_healhighheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealHigh" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealAvg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_healavgheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealAvg" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <DockPanel DataContext="{Binding SelectedItem,
+                                                 ElementName=HealingPlayerTotal,
+                                                 NotifyOnTargetUpdated=True,
+                                                 NotifyOnSourceUpdated=True}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="5"
+                                      IsChecked="{Binding PlayerHealing,
+                                                          Source={StaticResource Settings}}" />
+                            <TextBlock Margin="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       Text="{Binding Locale[parse_playerhealingheader],
+                                                      Source={StaticResource PluginViewModel}}" />
+                        </StackPanel>
+                        <TextBlock x:Name="gui_HealingName"
+                                   Text="{Binding Name}"
+                                   Visibility="Collapsed" />
+                        <ListView x:Name="HealingAbilties"
+                                  ItemsSource="{Binding Healing}"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Visibility="{Binding PlayerHealing,
+                                                       Source={StaticResource Settings},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Name" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                    Header="{Binding Locale[parse_totalheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Total" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HPS,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_hpsheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HPS" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfHeal,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofhealheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfHeal" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                    Header="{Binding Locale[parse_lowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Low" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                    Header="{Binding Locale[parse_highheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="High" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_avgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Avg" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel DataContext="{Binding SelectedItem,
+                                                 ElementName=HealingPlayerTotal,
+                                                 NotifyOnTargetUpdated=True,
+                                                 NotifyOnSourceUpdated=True}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="5"
+                                      IsChecked="{Binding PlayerOnOther,
+                                                          Source={StaticResource Settings}}" />
+                            <TextBlock Margin="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       Text="{Binding Locale[parse_playeronotherheader],
+                                                      Source={StaticResource PluginViewModel}}" />
+                        </StackPanel>
+                        <ListView x:Name="HealingPlayers"
+                                  ItemsSource="{Binding Players}"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Visibility="{Binding PlayerOnOther,
+                                                       Source={StaticResource Settings},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Name" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                    Header="{Binding Locale[parse_totalheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Total" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HPS,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_hpsheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HPS" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfHeal,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofhealheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfHeal" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                    Header="{Binding Locale[parse_lowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Low" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                    Header="{Binding Locale[parse_highheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="High" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_avgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Avg" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel DataContext="{Binding SelectedItem,
+                                                 ElementName=HealingPlayers,
+                                                 NotifyOnTargetUpdated=True,
+                                                 NotifyOnSourceUpdated=True}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="5"
+                                      IsChecked="{Binding PlayerHealingByPlayerOnOther,
+                                                          Source={StaticResource Settings}}" />
+                            <TextBlock Margin="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       Text="{Binding Locale[parse_playerhealingbyplayeronotherheader],
+                                                      Source={StaticResource PluginViewModel}}" />
+                        </StackPanel>
+                        <ListView x:Name="HealingDetails"
+                                  ItemsSource="{Binding Abilities}"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Visibility="{Binding PlayerHealingByPlayerOnOther,
+                                                       Source={StaticResource Settings},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Name" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                    Header="{Binding Locale[parse_totalheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Total" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HPS,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_hpsheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HPS" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfHeal,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofhealheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfHeal" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                    Header="{Binding Locale[parse_lowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Low" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                    Header="{Binding Locale[parse_highheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="High" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_avgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Avg" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,219 @@
+<?xml version="1.0" standalone="yes"?>
+<ChatCodes xmlns:xivapp="http://ffxiv-app.com/schemas/ChatCodes.xsd">
+  <Group Name="Notices" Type="Notice" Subject="You" Direction="On">
+    <ChatCode Desc="System Messages" ID="0020"/>
+    <ChatCode Desc="Error Messages" ID="0021"/>
+    <ChatCode Desc="You: Defeat - Regain" ID="0044"/>
+    <ChatCode Desc="Other: Defeats - Regains" ID="0045"/>
+  </Group>
+  <Group Name="Chat" Type="Chat">
+    <Group Name="By You" Subject="You" Direction="On">
+      <ChatCode Desc="Say" ID="0001"/>
+      <ChatCode Desc="Shout" ID="0002"/>
+      <ChatCode Desc="Party" ID="0004"/>
+      <ChatCode Desc="Linkshell (1) (In It)" ID="000E"/>
+      <ChatCode Desc="Linkshell (1) " ID="0005"/>
+      <ChatCode Desc="Linkshell (2) (In It)" ID="000F"/>
+      <ChatCode Desc="Linkshell (2)" ID="0006"/>
+      <ChatCode Desc="Linkshell (3) (In It)" ID="0010"/>
+      <ChatCode Desc="Linkshell (3)" ID="0007"/>
+      <ChatCode Desc="Linkshell (4) (In It)" ID="0011"/>
+      <ChatCode Desc="Linkshell (4)" ID="0008"/>
+      <ChatCode Desc="Linkshell (5) (In It)" ID="0012"/>
+      <ChatCode Desc="Linkshell (5)" ID="0009"/>
+      <ChatCode Desc="Linkshell (6) (In It)" ID="0013"/>
+      <ChatCode Desc="Linkshell (6)" ID="000A"/>
+      <ChatCode Desc="Linkshell (7) (In It)" ID="0014"/>
+      <ChatCode Desc="Linkshell (7)" ID="000B"/>
+      <ChatCode Desc="Linkshell (8) (In It)" ID="0015"/>
+      <ChatCode Desc="Linkshell (8)" ID="000C"/>
+      <ChatCode Desc="Standard Emotes" ID="001B"/>
+      <ChatCode Desc="Custom Emotes" ID="0019"/>
+      <ChatCode Desc="NPC Say" ID="0023"/>
+      <ChatCode Desc="NPC LinkPearl" ID="0027"/>
+      <ChatCode Desc="Tell (Out)" ID="000D"/>
+    </Group>
+    <Group Name="By You" Subject="You" Direction="By">
+      <ChatCode Desc="Tell (In)" ID="0003"/>
+    </Group>
+  </Group>
+  <Group Name="Skill Points" Type="SkillPoints" Direction="By" Subject="You">
+    <ChatCode Desc="Points You Gain By Killing Monsters 1" ID="0042"/>
+    <ChatCode Desc="Points You Gain By Killing Monsters 2 - Skills Learned" ID="0043"/>
+  </Group>
+  <Group Name="Combat" Type="Attack">
+    <Group Name="Attacks">
+      <Group Name="By You" Subject="You" Direction="By">
+        <ChatCode Desc="You: Successful Actions - Mob Resists - Enemy Calls For Help" ID="0050"/>
+        <ChatCode Desc="You: Multi-Hit Action Log HITS (Detailed)" ID="006E"/>
+        <ChatCode Desc="You: Multi-Hit Action Log MISSES (Detailed)" ID="0074"/>
+        <ChatCode Desc="You: Failed Actions" ID="0056"/>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <ChatCode Desc="You: Failed Actions Against You" ID="0057"/>
+        <ChatCode Desc="You: Successful Hostile Actions Against You" ID="0051"/>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <ChatCode Desc="Party: Successful Actions - Mob Resists - Enemy Calls For Help" ID="0052"/>
+        <ChatCode Desc="Party: Multi-Hit Action Log HITS (Detailed)" ID="0070"/>
+        <ChatCode Desc="Party: Multi-Hit Action Log MISSES (Detailed)" ID="0076"/>
+        <ChatCode Desc="Party: Failed Party Actions Against Party" ID="0058"/>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <ChatCode Desc="Party: Successful Hostile Actions Against - Counter To Mob - Resist To Mob" ID="0053"/>
+        <ChatCode Desc="Party: Failed Mob Actions Against Party" ID="0059"/>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <ChatCode Desc="Other (Enemy): Successful Hostile Actions Against(By Helping Party) - Counter To Mob - Resist To Mob" ID="0054"/>
+        <ChatCode Desc="Other (Enemy): Failed Mob Actions Against Helping Party" ID="005A"/>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <ChatCode Desc="Other (Enemy): Successful Hostile Actions Against - Counter To Mob - Resist To Mob" ID="0055"/>
+        <ChatCode Desc="Other (Enemy): Failed Mob Actions Against Other" ID="005B"/>
+      </Group>
+    </Group>
+    <Group Name="Heals" Type="Heal">
+      <Group Name="By You" Subject="You" Direction="By">
+        <ChatCode Desc="Helpful Actions By You" ID="005C"/>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <ChatCode Desc="Helpful Actions On You" ID="005D"/>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <ChatCode Desc="Helpful Actions By Party" ID="005E"/>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <ChatCode Desc="Helpful Actions On Party" ID="005F"/>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <ChatCode Desc="Helpful Actions By/On Enemies" ID="0060"/>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <ChatCode Desc="Helpful Actions By/On Others" ID="0061"/>
+      </Group>
+    </Group>
+    <Group Name="Buffs" Type="Buff">
+      <Group Name="By You" Subject="You" Direction="By">
+        <ChatCode Desc="Enhancing Status Effects By You" ID="0062"/>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <ChatCode Desc="Enhancing Status Effects On You" ID="0063"/>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <ChatCode Desc="Enhancing Status Effects By Allies" ID="0064"/>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <ChatCode Desc="Enhancing Status Effects On Allies" ID="0065"/>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <ChatCode Desc="Enhancing Status Effects By/On Enemies" ID="0066"/>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <ChatCode Desc="Enhancing Status Effects By/On Others" ID="0067"/>
+      </Group>
+    </Group>
+    <Group Name="Debuffs" Type="Debuff">
+      <Group Name="By You" Subject="You" Direction="By">
+        <ChatCode Desc="Enfeebling Status Effects By You" ID="0068"/>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <ChatCode Desc="Enfeebling Status Effects On You" ID="0069"/>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <ChatCode Desc="Enfeebling Status Effects By Allies" ID="006A"/>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <ChatCode Desc="Enfeebling Status Effects On Allies" ID="006B"/>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <ChatCode Desc="Enfeebling Status Effects By/On Enemies" ID="006C"/>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <ChatCode Desc="Enfeebling Status Effects By/On Others" ID="006D"/>
+      </Group>
+    </Group>
+  </Group>
+  <Group Name="Crafting" Type="Crafting">
+    <Group Name="By You" Subject="You" Direction="By">
+      <ChatCode Desc="Synthesis Performed By Self" ID="0046"/>
+    </Group>
+    <Group Name="By Others" Subject="Other" Direction="By">
+      <ChatCode Desc="Synthesis Performed By Others" ID="0047"/>
+    </Group>
+  </Group>
+  <Group Name="Gathering" Type="Gathering">
+    <Group Name="By You" Subject="You" Direction="By">
+      <ChatCode Desc="Gathering Performed By Self" ID="0048"/>
+    </Group>
+    <Group Name="By Others" Subject="Other" Direction="By">
+      <ChatCode Desc="Gathering Performed By Others" ID="0049"/>
+    </Group>
+  </Group>
+  <Group Name="Other" Direction="By">
+    <Group Name="You" Subject="You">
+      <ChatCode Desc="Other Actions/Information Concerning Self" ID="004A"/>
+    </Group>
+    <Group Name="Others" Subject="Other">
+      <ChatCode Desc="Other Actions/Information Concerning Others" ID="004B"/>
+    </Group>
+  </Group>
+  <Group Name="Unknown" Type="Unknown">
+    <ChatCode Desc="Unknown" ID="0016"/>
+    <ChatCode Desc="Unknown" ID="0017"/>
+    <ChatCode Desc="Unknown" ID="0018"/>
+    <ChatCode Desc="Unknown" ID="001A"/>
+    <ChatCode Desc="Unknown" ID="001C"/>
+    <ChatCode Desc="Unknown" ID="001D"/>
+    <ChatCode Desc="Unknown" ID="001E"/>
+    <ChatCode Desc="Unknown" ID="001F"/>
+    <ChatCode Desc="Unknown" ID="0022"/>
+    <ChatCode Desc="Unknown" ID="0024"/>
+    <ChatCode Desc="Unknown" ID="0025"/>
+    <ChatCode Desc="Unknown" ID="0026"/>
+    <ChatCode Desc="Unknown" ID="0028"/>
+    <ChatCode Desc="Unknown" ID="0029"/>
+    <ChatCode Desc="Unknown" ID="002A"/>
+    <ChatCode Desc="Unknown" ID="002B"/>
+    <ChatCode Desc="Unknown" ID="002C"/>
+    <ChatCode Desc="Unknown" ID="002D"/>
+    <ChatCode Desc="Unknown" ID="002E"/>
+    <ChatCode Desc="Unknown" ID="002F"/>
+    <ChatCode Desc="Unknown" ID="0030"/>
+    <ChatCode Desc="Unknown" ID="0031"/>
+    <ChatCode Desc="Unknown" ID="0032"/>
+    <ChatCode Desc="Unknown" ID="0033"/>
+    <ChatCode Desc="Unknown" ID="0034"/>
+    <ChatCode Desc="Unknown" ID="0035"/>
+    <ChatCode Desc="Unknown" ID="0036"/>
+    <ChatCode Desc="Unknown" ID="0037"/>
+    <ChatCode Desc="Unknown" ID="0038"/>
+    <ChatCode Desc="Unknown" ID="0039"/>
+    <ChatCode Desc="Unknown" ID="003A"/>
+    <ChatCode Desc="Unknown" ID="003B"/>
+    <ChatCode Desc="Unknown" ID="003C"/>
+    <ChatCode Desc="Unknown" ID="003D"/>
+    <ChatCode Desc="Unknown" ID="003E"/>
+    <ChatCode Desc="Unknown" ID="003F"/>
+    <ChatCode Desc="Unknown" ID="0040"/>
+    <ChatCode Desc="Unknown" ID="0041"/>
+    <ChatCode Desc="Unknown" ID="004C"/>
+    <ChatCode Desc="Unknown" ID="004D"/>
+    <ChatCode Desc="Unknown" ID="004E"/>
+    <ChatCode Desc="Unknown" ID="004F"/>
+    <ChatCode Desc="Unknown" ID="006F"/>
+    <ChatCode Desc="Unknown" ID="0071"/>
+    <ChatCode Desc="Unknown" ID="0072"/>
+    <ChatCode Desc="Unknown" ID="0073"/>
+    <ChatCode Desc="Unknown" ID="0075"/>
+    <ChatCode Desc="Unknown" ID="0077"/>
+    <ChatCode Desc="Unknown" ID="0078"/>
+    <ChatCode Desc="Unknown" ID="0079"/>
+    <ChatCode Desc="Unknown" ID="007A"/>
+    <ChatCode Desc="Unknown" ID="007B"/>
+    <ChatCode Desc="Unknown" ID="007C"/>
+    <ChatCode Desc="Unknown" ID="007D"/>
+    <ChatCode Desc="Unknown" ID="007E"/>
+    <ChatCode Desc="Unknown" ID="007F"/>
+    <ChatCode Desc="Unknown" ID="0080"/>
+  </Group>
+</ChatCodes>

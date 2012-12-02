@@ -1,0 +1,284 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FFXIVAPP.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DebugMode" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Application_UpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Top" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Left" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Width" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">720</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">480</Value>
+    </Setting>
+    <Setting Name="TopMost" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EnableChat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EnableLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EnableParse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EnableEvent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SiteName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="APIKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CharacterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Server" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ServerList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Durandal&lt;/string&gt;
+  &lt;string&gt;Hyperion&lt;/string&gt;
+  &lt;string&gt;Masamune&lt;/string&gt;
+  &lt;string&gt;Gungnir&lt;/string&gt;
+  &lt;string&gt;Aegis&lt;/string&gt;
+  &lt;string&gt;Sargatanas&lt;/string&gt;
+  &lt;string&gt;Balmung&lt;/string&gt;
+  &lt;string&gt;Ridill&lt;/string&gt;
+  &lt;string&gt;Excalibur&lt;/string&gt;
+  &lt;string&gt;Ragnarok&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="FirstName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CICUID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Color_ChatlogBackground" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Color_TimeStamp" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF800080</Value>
+    </Setting>
+    <Setting Name="LogFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Microsoft Sans Serif, 12pt</Value>
+    </Setting>
+    <Setting Name="Parse_ExportXML" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Parse_SaveLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UploadParse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MobAbility" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PartyStats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="HealingStats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DamageStats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MonsterStats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Debug" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AbilityPlayerDetail" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AbilityPlayerMonster" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AbilityPlayerMonsterDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingAbilties" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingPlayers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="HealingDetails" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DamageDetailMonster" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DamageDetailAbilties" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MonsterDetailsDrops" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MonsterDetailAbilities" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WebsiteControl" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Log_SaveLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ShowAll" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowDebug" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Translate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SendToGame" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Romanization" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TranslateJPOnly" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TranslateTo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">English</Value>
+    </Setting>
+    <Setting Name="Say" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Tell" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Party" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Shout" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ASCII" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TranslateToEcho" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ManualTranslate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Japanese</Value>
+    </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">English</Value>
+    </Setting>
+    <Setting Name="LanguageList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;English&lt;/string&gt;
+  &lt;string&gt;Japanese&lt;/string&gt;
+  &lt;string&gt;French&lt;/string&gt;
+  &lt;string&gt;German&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="ThemeList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Red|Light&lt;/string&gt;
+  &lt;string&gt;Green|Light&lt;/string&gt;
+  &lt;string&gt;Blue|Light&lt;/string&gt;
+  &lt;string&gt;Purple|Light&lt;/string&gt;
+  &lt;string&gt;Orange|Light&lt;/string&gt;
+  &lt;string&gt;Red|Dark&lt;/string&gt;
+  &lt;string&gt;Green|Dark&lt;/string&gt;
+  &lt;string&gt;Blue|Dark&lt;/string&gt;
+  &lt;string&gt;Purple|Dark&lt;/string&gt;
+  &lt;string&gt;Orange|Dark&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Orange|Light</Value>
+    </Setting>
+    <Setting Name="LogZoomLevel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="ChatTheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Red|Light</Value>
+    </Setting>
+    <Setting Name="LogTheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Blue|Light</Value>
+    </Setting>
+    <Setting Name="ParseTheme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Green|Light</Value>
+    </Setting>
+    <Setting Name="TranslateLanguages" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Albanian&lt;/string&gt;
+  &lt;string&gt;Arabic&lt;/string&gt;
+  &lt;string&gt;Bulgarian&lt;/string&gt;
+  &lt;string&gt;Catalan&lt;/string&gt;
+  &lt;string&gt;Chinese (Simplified)&lt;/string&gt;
+  &lt;string&gt;Chinese (Traditional)&lt;/string&gt;
+  &lt;string&gt;Croatian&lt;/string&gt;
+  &lt;string&gt;Czech&lt;/string&gt;
+  &lt;string&gt;Danish&lt;/string&gt;
+  &lt;string&gt;Dutch&lt;/string&gt;
+  &lt;string&gt;English&lt;/string&gt;
+  &lt;string&gt;Estonian&lt;/string&gt;
+  &lt;string&gt;Filipino&lt;/string&gt;
+  &lt;string&gt;Finnish&lt;/string&gt;
+  &lt;string&gt;French&lt;/string&gt;
+  &lt;string&gt;Galician&lt;/string&gt;
+  &lt;string&gt;German&lt;/string&gt;
+  &lt;string&gt;Greek&lt;/string&gt;
+  &lt;string&gt;Hebrew&lt;/string&gt;
+  &lt;string&gt;Hindi&lt;/string&gt;
+  &lt;string&gt;Hungarian&lt;/string&gt;
+  &lt;string&gt;Indonesian&lt;/string&gt;
+  &lt;string&gt;Italian&lt;/string&gt;
+  &lt;string&gt;Japanese&lt;/string&gt;
+  &lt;string&gt;Korean&lt;/string&gt;
+  &lt;string&gt;Latvian&lt;/string&gt;
+  &lt;string&gt;Lithuanian&lt;/string&gt;
+  &lt;string&gt;Maltese&lt;/string&gt;
+  &lt;string&gt;Norwegian&lt;/string&gt;
+  &lt;string&gt;Polish&lt;/string&gt;
+  &lt;string&gt;Portuguese&lt;/string&gt;
+  &lt;string&gt;Romanian&lt;/string&gt;
+  &lt;string&gt;Russian&lt;/string&gt;
+  &lt;string&gt;Serbian&lt;/string&gt;
+  &lt;string&gt;Slovak&lt;/string&gt;
+  &lt;string&gt;Slovenian&lt;/string&gt;
+  &lt;string&gt;Spanish&lt;/string&gt;
+  &lt;string&gt;Swedish&lt;/string&gt;
+  &lt;string&gt;Thai&lt;/string&gt;
+  &lt;string&gt;Turkish&lt;/string&gt;
+  &lt;string&gt;Ukrainian&lt;/string&gt;
+  &lt;string&gt;Vietnamese&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{7E0DFC5C-4C89-499E-B295-F3ED6A232221}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FFXIVAPP</RootNamespace>
+    <AssemblyName>FFXIVAPP</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SmartAssembly|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\SmartAssembly\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FFXIVAPP.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Media\Icons\FFXIVAPP.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SocketIOClient">
+      <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\SocketIOClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.9.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WebSocket4Net">
+      <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\WebSocket4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Classes\AutomaticUpdates.cs" />
+    <Compile Include="Classes\BitField.cs" />
+    <Compile Include="Classes\ChatWorkerDelagate.cs" />
+    <Compile Include="Classes\ChildUtilities.cs" />
+    <Compile Include="Classes\COMParser.cs" />
+    <Compile Include="Classes\Constants.cs" />
+    <Compile Include="Classes\Converters\NameToAvatarConverter.cs" />
+    <Compile Include="Classes\Converters\StringToBrushConverter.cs" />
+    <Compile Include="Classes\Converters\VisibilityConverter.cs" />
+    <Compile Include="Classes\DelegateCommand.cs" />
+    <Compile Include="Classes\FFXIV.cs" />
+    <Compile Include="Classes\Gdi32.cs" />
+    <Compile Include="Classes\GoogleTranslate.cs" />
+    <Compile Include="Classes\GridViewSort.cs" />
+    <Compile Include="Classes\Helpers\CommandManagerHelper.cs" />
+    <Compile Include="Classes\Helpers\FlowDocHelper.cs" />
+    <Compile Include="Classes\Helpers\KeyHelper.cs" />
+    <Compile Include="Classes\Helpers\NotifyHelper.cs" />
+    <Compile Include="Classes\Helpers\ParseHelper.cs" />
+    <Compile Include="Classes\Helpers\ResourceHelper.cs" />
+    <Compile Include="Classes\Helpers\SettingsHelper.cs" />
+    <Compile Include="Classes\Helpers\SoundPlayerHelper.cs" />
+    <Compile Include="Classes\Helpers\SpeechHelper.cs" />
+    <Compile Include="Classes\Helpers\ThemeHelper.cs" />
+    <Compile Include="Classes\Helpers\XmlHelper.cs" />
+    <Compile Include="Classes\Keys.cs" />
+    <Compile Include="Classes\Login.cs" />
+    <Compile Include="Classes\Memory\ChatCleaner.cs" />
+    <Compile Include="Classes\Memory\ChatEntry.cs" />
+    <Compile Include="Classes\Memory\ChatWorker.cs" />
+    <Compile Include="Classes\Memory\MemoryHandler.cs" />
+    <Compile Include="Classes\Memory\MemoryStructures.cs" />
+    <Compile Include="Classes\Memory\Offsets.cs" />
+    <Compile Include="Classes\Memory\UnsafeNativeMethods.cs" />
+    <Compile Include="Classes\Message.cs" />
+    <Compile Include="Classes\RegExs\Monster.cs" />
+    <Compile Include="Classes\RegExs\Player.cs" />
+    <Compile Include="Classes\RegExs\Shared.cs" />
+    <Compile Include="Classes\ScreenCapture.cs" />
+    <Compile Include="Classes\Security\Hashing.cs" />
+    <Compile Include="Classes\SelectionBehavior.cs" />
+    <Compile Include="Classes\Sio.cs" />
+    <Compile Include="Classes\TempDelay.cs" />
+    <Compile Include="Classes\ThemeManager.cs" />
+    <Compile Include="Classes\User32.cs" />
+    <Compile Include="Classes\VisualUtilities.cs" />
+    <Compile Include="Classes\WindowsMessageEvents.cs" />
+    <Compile Include="Classes\XmlCleaner.cs" />
+    <Compile Include="Classes\XmlWriteLog.cs" />
+    <Compile Include="Classes\XValuePairs.cs" />
+    <Compile Include="Controls\FlowDoc.xaml.cs">
+      <DependentUpon>FlowDoc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlayerInfoBox.xaml.cs">
+      <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Process.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventCode.cs" />
+    <Compile Include="Models\EventCodeComparer.cs" />
+    <Compile Include="Models\EventDirection.cs" />
+    <Compile Include="Models\EventGroup.cs" />
+    <Compile Include="Models\EventMonitor.cs" />
+    <Compile Include="Models\EventParser.cs" />
+    <Compile Include="Models\EventSubject.cs" />
+    <Compile Include="Models\EventType.cs" />
+    <Compile Include="Models\Fight.cs" />
+    <Compile Include="Models\FightList.cs" />
+    <Compile Include="Models\Timeline.cs" />
+    <Compile Include="Models\TimelineEventArgs.cs" />
+    <Compile Include="Models\TimelineEventType.cs" />
+    <Compile Include="Monitors\StatMonitor.cs" />
+    <Compile Include="Monitors\TimelineMonitor.cs" />
+    <Compile Include="Stats\AccuracyStat.cs" />
+    <Compile Include="Stats\AverageStat.cs" />
+    <Compile Include="Stats\CounterStat.cs" />
+    <Compile Include="Stats\ILinkedStat.cs" />
+    <Compile Include="Stats\IStatContainer.cs" />
+    <Compile Include="Stats\LinkedStat.cs" />
+    <Compile Include="Stats\MaxStat.cs" />
+    <Compile Include="Stats\MinStat.cs" />
+    <Compile Include="Stats\NumericStat.cs" />
+    <Compile Include="Stats\PercentStat.cs" />
+    <Compile Include="Stats\PerSecondAverageStat.cs" />
+    <Compile Include="Stats\Stat.cs" />
+    <Compile Include="Stats\StatChangedEvent.cs" />
+    <Compile Include="Stats\StatContainer.cs" />
+    <Compile Include="Stats\StatGroup.cs" />
+    <Compile Include="Stats\StatGroupMonster.cs" />
+    <Compile Include="Stats\StatGroupPlayer.cs" />
+    <Compile Include="Stats\StatGroupPropertyDescriptor.cs" />
+    <Compile Include="Stats\StatGroupTypeDescriptor.cs" />
+    <Compile Include="Stats\StatPropertyDescriptor.cs" />
+    <Compile Include="Stats\TotalStat.cs" />
+    <Compile Include="ViewModels\ChatVM.cs" />
+    <Compile Include="ViewModels\EventVM.cs" />
+    <Compile Include="ViewModels\LogVM.cs" />
+    <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Compile Include="ViewModels\ParseVM.cs" />
+    <Compile Include="ViewModels\SettingsVM.cs" />
+    <Compile Include="Views\AboutV.xaml.cs">
+      <DependentUpon>AboutV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChatV.xaml.cs">
+      <DependentUpon>ChatV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventV.xaml.cs">
+      <DependentUpon>EventV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogV.xaml.cs">
+      <DependentUpon>LogV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogVOptions.xaml.cs">
+      <DependentUpon>LogVOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainV.xaml.cs">
+      <DependentUpon>MainV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseV.xaml.cs">
+      <DependentUpon>ParseV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVBasic.xaml.cs">
+      <DependentUpon>ParseVBasic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVDamage.xaml.cs">
+      <DependentUpon>ParseVDamage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVDebug.xaml.cs">
+      <DependentUpon>ParseVDebug.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVHealing.xaml.cs">
+      <DependentUpon>ParseVHealing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVMonster.xaml.cs">
+      <DependentUpon>ParseVMonster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseVParty.xaml.cs">
+      <DependentUpon>ParseVParty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsV.xaml.cs">
+      <DependentUpon>SettingsV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVApplication.xaml.cs">
+      <DependentUpon>SettingsVApplication.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVCharacter.xaml.cs">
+      <DependentUpon>SettingsVCharacter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVChat.xaml.cs">
+      <DependentUpon>SettingsVChat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVLog.xaml.cs">
+      <DependentUpon>SettingsVLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVLogColor.xaml.cs">
+      <DependentUpon>SettingsVLogColor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsVParse.xaml.cs">
+      <DependentUpon>SettingsVParse.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\FlowDoc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlayerInfoBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Localization\English.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\French.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\German.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Localization\Japanese.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\Colours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AboutV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChatV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogVOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVBasic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVDebug.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVHealing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVMonster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ParseVParty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVApplication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVCharacter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVChat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVLogColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsVParse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="FFXIVAPP.saproj" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\ChatCodes.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\FFXIVAPP.exe.nlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\Images\About.png" />
+    <Resource Include="Media\Sounds\aruba.wav" />
+    <Resource Include="Media\Images\Chat.png" />
+    <Resource Include="Resources\ChatCodes.xml" />
+    <Resource Include="Settings\Colors.xml" />
+    <Resource Include="Media\Images\Event.png" />
+    <Resource Include="Media\Icons\FFXIVAPP.ico" />
+    <Resource Include="Media\Images\FFXIVAPP.png" />
+    <Resource Include="Resources\Ionic.Zip.dll" />
+    <Resource Include="Media\Images\Log.png" />
+    <Resource Include="Media\Images\Main.png" />
+    <Resource Include="Media\Images\NoImage.jpg" />
+    <Resource Include="Media\Images\Parse.png" />
+    <Resource Include="Settings\RegularExpressions.xml" />
+    <Resource Include="Media\Images\ScreenShot.png" />
+    <Resource Include="Media\Images\Settings.png" />
+    <Resource Include="Settings\Settings.xml" />
+    <Resource Include="Resources\Updater.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Settings\Events.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'SmartAssembly'">
+    <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.saproj" input="$(OutDir)FFXIVAPP.exe" output="$(OutDir)FFXIVAPP.exe" OverwriteAssembly="true" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+</Project>

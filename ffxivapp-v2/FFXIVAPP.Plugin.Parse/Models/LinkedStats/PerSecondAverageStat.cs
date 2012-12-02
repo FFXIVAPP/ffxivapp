@@ -1,0 +1,60 @@
+// FFXIVAPP.Plugin.Parse
+// PerSecondAverageStat.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+
+using System;
+using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
+{
+    public class PerSecondAverageStat : LinkedStat
+    {
+        private DateTime FirstEventReceived { get; set; }
+        private DateTime LastEventReceived { get; set; }
+
+        public PerSecondAverageStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
+        {
+            FirstEventReceived = DateTime.Now;
+            SetupDepends(dependencies[0]);
+        }
+
+        public PerSecondAverageStat(string name, decimal value) : base(name, 0m)
+        {
+        }
+
+        public PerSecondAverageStat(string name) : base(name, 0m)
+        {
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dependency"> </param>
+        private void SetupDepends(Stat<decimal> dependency)
+        {
+            AddDependency(dependency);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"> </param>
+        /// <param name="previousValue"> </param>
+        /// <param name="newValue"> </param>
+        public override void DoDependencyValueChanged(object sender, object previousValue, object newValue)
+        {
+            var ovalue = (decimal) previousValue;
+            var nvalue = (decimal) newValue;
+            if (FirstEventReceived == default(DateTime))
+            {
+                FirstEventReceived = DateTime.Now;
+            }
+            LastEventReceived = DateTime.Now;
+            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived).TotalSeconds);
+            if (timeDifference >= 1)
+            {
+                Value = nvalue/timeDifference;
+            }
+        }
+    }
+}

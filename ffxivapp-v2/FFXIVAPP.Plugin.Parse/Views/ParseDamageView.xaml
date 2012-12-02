@@ -1,0 +1,432 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseDamageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Models="clr-namespace:FFXIVAPP.Plugin.Parse.Models"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="ParseDamageViewModel"
+                  Member="ViewModels:ParseDamageViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:ParseControl.Instance" />
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ParseDamageViewModel}">
+        <ScrollViewer>
+            <StackPanel>
+                <Grid>
+                    <ListView x:Name="DamagePlayerTotal"
+                              DataContext="{Binding Timeline.Party,
+                                                    Source={StaticResource Parser}}"
+                              ItemsSource="{Binding}"
+                              Utilities:GridViewSort.AutoSort="True"
+                              Utilities:GridViewSort.ShowSortGlyph="False">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </GridView.ColumnHeaderTemplate>
+                                <!--  <GridViewColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                Header="{Binding Locale[parse_nameheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTTotal}"
+                                                Header="{Binding Locale[parse_dttotalheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTTotal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTPS,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_dtpsheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTPS" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTReg}"
+                                                Header="{Binding Locale[parse_dtregheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTReg" />
+                                <GridViewColumn DisplayMemberBinding="{Binding PerOfDTDmg,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{Binding Locale[parse_perofdtheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="PerOfDTDmg" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTLow}"
+                                                Header="{Binding Locale[parse_dtlowheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTLow" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTHigh}"
+                                                Header="{Binding Locale[parse_dthighheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTHigh" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTHit}"
+                                                Header="{Binding Locale[parse_dthitheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTHit" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTAvg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_dtavgheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTAvg" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTCrit}"
+                                                Header="{Binding Locale[parse_dtcritheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTCrit" />
+                                <GridViewColumn DisplayMemberBinding="{Binding PerOfDTCDmg,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{Binding Locale[parse_perofdtcdmgheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="PerOfDTCDmg" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTCHit}"
+                                                Header="{Binding Locale[parse_dtchitheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTCHit" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTCLow}"
+                                                Header="{Binding Locale[parse_dtclowheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTCLow" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTCHigh}"
+                                                Header="{Binding Locale[parse_dtchighheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTCHigh" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DTCAvg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_dtcavgheader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DTCAvg" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <DockPanel DataContext="{Binding SelectedItem,
+                                                 ElementName=DamagePlayerTotal,
+                                                 NotifyOnTargetUpdated=True,
+                                                 NotifyOnSourceUpdated=True}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="5"
+                                      IsChecked="{Binding PlayerDamageTaken,
+                                                          Source={StaticResource Settings}}" />
+                            <TextBlock Margin="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       Text="{Binding Locale[parse_playerdamagetakenheader],
+                                                      Source={StaticResource PluginViewModel}}" />
+                        </StackPanel>
+                        <TextBlock x:Name="gui_DamageName"
+                                   Text="{Binding Name}"
+                                   Visibility="Collapsed" />
+                        <ListView x:Name="DamageDetailMonster"
+                                  ItemsSource="{Binding Damage}"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Visibility="{Binding PlayerDamageTaken,
+                                                       Source={StaticResource Settings},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Name" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                    Header="{Binding Locale[parse_totalheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Total" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DTPS,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_dpsheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DPS" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Reg}"
+                                                    Header="{Binding Locale[parse_regheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Reg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfReg,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofregheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfReg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Hit}"
+                                                    Header="{Binding Locale[parse_hitheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Hit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Miss}"
+                                                    Header="{Binding Locale[parse_missheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Miss" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Acc,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_accheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Acc" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                    Header="{Binding Locale[parse_lowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Low" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                    Header="{Binding Locale[parse_highheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="High" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_avgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Avg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Crit}"
+                                                    Header="{Binding Locale[parse_critheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Crit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfCrit,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofcritheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfCrit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CHit}"
+                                                    Header="{Binding Locale[parse_chitheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CHit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CLow}"
+                                                    Header="{Binding Locale[parse_clowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CLow" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CHigh}"
+                                                    Header="{Binding Locale[parse_chighheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CHigh" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CAvg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_cavgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CAvg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Counter}"
+                                                    Header="{Binding Locale[parse_counterheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Counter" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CounterPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_counterperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CounterPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Block}"
+                                                    Header="{Binding Locale[parse_blockheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Block" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding BlockPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_blockperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="BlockPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Parry}"
+                                                    Header="{Binding Locale[parse_parryheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Parry" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParryPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_parryperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="ParryPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Resist}"
+                                                    Header="{Binding Locale[parse_resistheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Resist" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ResistPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_resistperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="ResistPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Evade}"
+                                                    Header="{Binding Locale[parse_evadeheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Evade" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding EvadePer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_evadeperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="EvadePer" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel DataContext="{Binding SelectedItem,
+                                                 ElementName=DamageDetailMonster,
+                                                 NotifyOnTargetUpdated=True,
+                                                 NotifyOnSourceUpdated=True}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="5"
+                                      IsChecked="{Binding PlayerDamageTakenByAbility,
+                                                          Source={StaticResource Settings}}" />
+                            <TextBlock Margin="2"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       Text="{Binding Locale[parse_playerdamagetakenbyabilityheader],
+                                                      Source={StaticResource PluginViewModel}}" />
+                        </StackPanel>
+                        <ListView x:Name="DamageDetailAbilties"
+                                  ItemsSource="{Binding Abilities}"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Visibility="{Binding PlayerDamageTakenByAbility,
+                                                       Source={StaticResource Settings},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Name" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                    Header="{Binding Locale[parse_totalheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Total" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DTPS,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_dpsheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DPS" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Reg}"
+                                                    Header="{Binding Locale[parse_regheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Reg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfReg,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofregheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfReg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Hit}"
+                                                    Header="{Binding Locale[parse_hitheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Hit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Miss}"
+                                                    Header="{Binding Locale[parse_missheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Miss" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Acc,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_accheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Acc" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                    Header="{Binding Locale[parse_lowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Low" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                    Header="{Binding Locale[parse_highheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="High" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_avgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Avg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Crit}"
+                                                    Header="{Binding Locale[parse_critheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Crit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding PerOfCrit,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_perofcritheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="PerOfCrit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CHit}"
+                                                    Header="{Binding Locale[parse_chitheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CHit" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CLow}"
+                                                    Header="{Binding Locale[parse_clowheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CLow" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CHigh}"
+                                                    Header="{Binding Locale[parse_chighheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CHigh" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CAvg,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_cavgheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CAvg" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Counter}"
+                                                    Header="{Binding Locale[parse_counterheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Counter" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding CounterPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_counterperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="CounterPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Block}"
+                                                    Header="{Binding Locale[parse_blockheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Block" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding BlockPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_blockperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="BlockPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Parry}"
+                                                    Header="{Binding Locale[parse_parryheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Parry" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParryPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_parryperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="ParryPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Resist}"
+                                                    Header="{Binding Locale[parse_resistheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Resist" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ResistPer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_resistperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="ResistPer" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Evade}"
+                                                    Header="{Binding Locale[parse_evadeheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="Evade" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding EvadePer,
+                                                                                   StringFormat=\{0:P2\}}"
+                                                    Header="{Binding Locale[parse_evadeperheader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="EvadePer" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

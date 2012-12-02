@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Common.Controls;assembly=FFXIVAPP.Common"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             xmlns:Views="clr-namespace:FFXIVAPP.Plugin.Parse.Views"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="MainViewModel"
+                  Member="ViewModels:MainViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource MainViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="33" />
+        </Grid.RowDefinitions>
+        <TabControl x:Name="MainViewTC"
+                    Grid.Row="0">
+            <TabItem Header="{Binding Locale[parse_basictab], Source={StaticResource PluginViewModel}}">
+                <Views:ParseBasicView />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_abilitychattab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowAbilityChatTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Controls:xFlowDocument x:Name="AbilityChatFD" />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_partytab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowPartyTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Views:ParsePartyView />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_healingtab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowHealingTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+
+                <Views:ParseHealingView />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_damagetab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowDamageTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Views:ParseDamageView />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_monstertab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowMonsterTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Views:ParseMonsterView />
+            </TabItem>
+            <TabItem Header="{Binding Locale[parse_debugtab],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowDebugTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Views:ParseDebugView />
+            </TabItem>
+        </TabControl>
+        <DockPanel Grid.Row="1"
+                   Margin="3"
+                   LastChildFill="True">
+            <Button Width="28"
+                    Command="{Binding ResetStatsCommand}"
+                    ToolTip="{Binding Locale[parse_resetstats],
+                                      Source={StaticResource PluginViewModel}}">
+                <Image Width="16"
+                       Height="16"
+                       Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
+            </Button>
+            <Button Margin="3 0 0 0"
+                    Command="{Binding ProcessSampleCommand}"
+                    Content="sample.xml"
+                    IsEnabled="{Binding SampleOK}" />
+        </DockPanel>
+    </Grid>
+</UserControl>

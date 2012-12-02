@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://ffxiv-app.com/schemas/ChatCodes.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xivapp="http://secure.ffxiv-app.com/schemas/ChatCodes.xsd">
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="Group" type="xivapp:Group" />
+      <xs:element maxOccurs="unbounded" name="ChatCode">
+        <xs:complexType>
+          <xs:attribute name="Desc" type="xs:string" use="required" />
+          <xs:attribute name="ID" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Subject" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="You" />
+          <xs:enumeration value="Party" />
+          <xs:enumeration value="Enemy" />
+          <xs:enumeration value="Other" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Direction" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="By" />
+          <xs:enumeration value="On" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Type" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Attack" />
+          <xs:enumeration value="Heal" />
+          <xs:enumeration value="Buff" />
+          <xs:enumeration value="Debuff" />
+          <xs:enumeration value="SkillPoints" />
+          <xs:enumeration value="Crafting" />
+          <xs:enumeration value="Gathering" />
+		  <xs:enumeration value="Unknown" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="ChatCodes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Group" type="xivapp:Group" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

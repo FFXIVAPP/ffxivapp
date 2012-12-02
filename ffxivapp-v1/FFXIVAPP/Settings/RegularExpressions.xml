@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<RegEx>
+  <!--BOOLEAN GROUPS : crit, hit, miss, partial, counter, block, parry, resist, evade-->
+  <!--PLAYER REGEX-->
+  <Player ID="ActionEn" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ActionFr" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ActionJa" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ActionDe" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="UsedEn" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="UsedFr" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="UsedJa" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="UsedDe" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="AdditionalEn" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="AdditionalFr" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="AdditionalJa" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="AdditionalDe" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="CounterEn" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="CounterFr" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="CounterJa" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="CounterDe" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="BlockEn" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="BlockFr" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="BlockJa" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="BlockDe" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ParryEn" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ParryFr" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ParryJa" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ParryDe" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ResistEn" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ResistFr" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ResistJa" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ResistDe" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="EvadeEn" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="EvadeFr" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="EvadeJa" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="EvadeDe" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DefeatsEn" Comment="Needed Groups: source, target, group">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DefeatsFr" Comment="Needed Groups: source, target, group">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DefeatsJa" Comment="Needed Groups: source, target, group">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DefeatsDe" Comment="Needed Groups: source, target, group">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ObtainsEn" Comment="Needed Groups: who, item, gil">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ObtainsFr" Comment="Needed Groups: who, item, gil">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ObtainsJa" Comment="Needed Groups: who, item, gil">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="ObtainsDe" Comment="Needed Groups: who, item, gil">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="JoinEn" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="JoinFr" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="JoinJa" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="JoinDe" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DisbandEn" Comment="Needed Groups: n/a">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DisbandFr" Comment="Needed Groups: n/a">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DisbandJa" Comment="Needed Groups: n/a">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="DisbandDe" Comment="Needed Groups: n/a">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="LeftEn" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="LeftFr" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="LeftJa" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="LeftDe" Comment="Needed Groups: who">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiFlagEn" Comment="Needed Groups: source, action, target, direction">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiFlagFr" Comment="Needed Groups: source, action, target, direction">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiFlagJa" Comment="Needed Groups: source, action, target, direction">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiFlagDe" Comment="Needed Groups: source, action, target, direction">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiEn" Comment="Needed Groups: crit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiFr" Comment="Needed Groups: crit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiJa" Comment="Needed Groups: crit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <Player ID="MultiDe" Comment="Needed Groups: crit, target, amount">
+    <![CDATA[]]>
+  </Player>
+  <!--MONSTER REGEX-->
+  <Monster ID="ActionEn" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ActionFr" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ActionJa" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ActionDe" Comment="Needed Groups: crit, source, action, hit, miss, target, part, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="UsedEn" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="UsedFr" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="UsedJa" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="UsedDe" Comment="Needed Groups: source, action, target, recloss, amount, type">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="AdditionalEn" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="AdditionalFr" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="AdditionalJa" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="AdditionalDe" Comment="Needed Groups: amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="CounterEn" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="CounterFr" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="CounterJa" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="CounterDe" Comment="Needed Groups: counter, source, hit, target, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="BlockEn" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="BlockFr" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="BlockJa" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="BlockDe" Comment="Needed Groups: target, partial, block, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ParryEn" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ParryFr" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ParryJa" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ParryDe" Comment="Needed Groups: target, partial, parry, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ResistEn" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ResistFr" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ResistJa" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="ResistDe" Comment="Needed Groups: target, partial, resist, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="EvadeEn" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="EvadeFr" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="EvadeJa" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+  <Monster ID="EvadeDe" Comment="Needed Groups: target, partial, evade, source, action, direction, amount">
+    <![CDATA[]]>
+  </Monster>
+</RegEx>

@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="FFXIVAPP.Client.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Common="clr-namespace:FFXIVAPP.Common;assembly=FFXIVAPP.Common"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+             xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource SettingsViewModel}" />
+    </UserControl.DataContext>
+
+    <Grid x:Name="LayoutRoot">
+        <TabControl>
+            <TabItem Header="{Binding Locale[app_mainsettings], Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <GroupBox Header="{Binding Locale[app_changetheme], Source={StaticResource AppProperties}}">
+                        <StackPanel>
+                            <ComboBox x:Name="ThemeSelect"
+                                      Margin="5"
+                                      IsReadOnly="False"
+                                      ItemsSource="{Binding ThemeList,
+                                                            Source={x:Static Properties:Settings.Default}}"
+                                      SelectedValue="{Binding Theme,
+                                                              Source={x:Static Properties:Settings.Default}}"
+                                      Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="{Binding Locale[app_savelog], Source={StaticResource AppProperties}}">
+                        <StackPanel>
+                            <Controls:ToggleSwitch IsChecked="{Binding SaveLog, Source={x:Static Properties:Settings.Default}}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <Button Margin="5"
+                            Command="{Binding DefaultSettingsCommand}"
+                            Content="{Binding Locale[app_defaultsettings],
+                                              Source={StaticResource AppProperties}}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="{Binding Locale[app_charactersettings], Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[app_lodestoneidlabel], Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <TextBox x:Name="CICUID"
+                                         Margin="5"
+                                         VerticalContentAlignment="Center"
+                                         AutoWordSelection="True"
+                                         IsReadOnly="True"
+                                         Text="{Binding CICUID,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <Button Margin="5"
+                                        Command="{Binding GetCICUIDCommand}"
+                                        Content="{Binding Locale[app_importlodestoneid],
+                                                          Source={StaticResource AppProperties}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_characterinformation], Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <Label Content="{Binding Locale[app_firstnamelabel], Source={StaticResource AppProperties}}" />
+                                <TextBox x:Name="FirstName"
+                                         Margin="5"
+                                         VerticalContentAlignment="Center"
+                                         AutoWordSelection="True"
+                                         MaxLength="32"
+                                         Text="{Binding FirstName,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <Label Content="{Binding Locale[app_lastnamelabel], Source={StaticResource AppProperties}}" />
+                                <TextBox x:Name="LastName"
+                                         Margin="5"
+                                         VerticalContentAlignment="Center"
+                                         AutoWordSelection="True"
+                                         MaxLength="32"
+                                         Text="{Binding LastName,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <Label Content="{Binding Locale[app_serverlabel], Source={StaticResource AppProperties}}" />
+                                <ComboBox x:Name="ServerList"
+                                          Margin="5"
+                                          IsReadOnly="False"
+                                          ItemsSource="{Binding ServerList,
+                                                                Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding ServerName,
+                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                <Label Content="{Binding Locale[app_gamelanguagelabel], Source={StaticResource AppProperties}}" />
+                                <ComboBox x:Name="LanguageList"
+                                          Margin="5"
+                                          IsReadOnly="False"
+                                          ItemsSource="{Binding GameLanguageList,
+                                                                Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding GameLanguage,
+                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                <Button Margin="5"
+                                        Command="{Binding SaveCharacterCommand}"
+                                        Content="{Binding Locale[app_savecharacter],
+                                                          Source={StaticResource AppProperties}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding Locale[app_colorsettings], Source={StaticResource AppProperties}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="33" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="33" />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0"
+                               Margin="3"
+                               LastChildFill="True">
+                        <Label VerticalContentAlignment="Center"
+                               Content="{Binding Locale[app_codelabel],
+                                                 Source={StaticResource AppProperties}}" />
+                        <TextBox x:Name="TCode"
+                                 Width="50"
+                                 VerticalContentAlignment="Center"
+                                 IsReadOnly="True"
+                                 Text="" />
+                        <Label VerticalContentAlignment="Center"
+                               Content="{Binding Locale[app_colorlabel],
+                                                 Source={StaticResource AppProperties}}" />
+                        <TextBox x:Name="TColor"
+                                 VerticalContentAlignment="Center"
+                                 Text="" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="1"
+                               Margin="3">
+                        <ListView x:Name="Colors"
+                                  ItemsSource="{Binding Source={x:Static Common:Constants.Colors}}"
+                                  SelectionMode="Single"
+                                  Utilities:GridViewSort.AutoSort="True"
+                                  Utilities:GridViewSort.ShowSortGlyph="False"
+                                  Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridView.ColumnHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBox Width="Auto"
+                                                     MinWidth="120"
+                                                     Margin="2,0,2,0"
+                                                     FontSize="10"
+                                                     FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </GridView.ColumnHeaderTemplate>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Key}"
+                                                    Header="{Binding Locale[app_code],
+                                                                     Source={StaticResource AppProperties}}"
+                                                    Utilities:GridViewSort.PropertyName="Key" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Value[0]}"
+                                                    Header="{Binding Locale[app_color],
+                                                                     Source={StaticResource AppProperties}}"
+                                                    Utilities:GridViewSort.PropertyName="Value[0]" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Value[1]}"
+                                                    Header="{Binding Locale[app_description],
+                                                                     Source={StaticResource AppProperties}}"
+                                                    Utilities:GridViewSort.PropertyName="Value[1]" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2"
+                               LastChildFill="True">
+                        <Button Margin="3"
+                                Command="{Binding UpdateColorCommand}"
+                                Content="{Binding Locale[app_updatecolor],
+                                                  Source={StaticResource AppProperties}}" />
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{Binding Locale[app_pluginsettings], Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[app_allowplugincommands], Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding AllowPluginCommands, Source={x:Static Properties:Settings.Default}}" />
+                                <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                    <FlowDocument>
+                                        <Paragraph Margin="0"
+                                                   FontSize="12">
+                                            <Run Foreground="{DynamicResource TextBrush}"
+                                                 Text="{Binding Locale[app_pluginwarning],
+                                                                Source={StaticResource AppProperties}}" />
+                                        </Paragraph>
+                                    </FlowDocument>
+                                </FlowDocumentScrollViewer>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

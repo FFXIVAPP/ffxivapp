@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="FFXIVAPP.Views.SettingsVParse"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FFXIVAPP.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Properties"
+             x:Name="settingsvparse"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:SettingsVM x:Key="SettingsViewModelDataSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource SettingsViewModelDataSource}}">
+        <ScrollViewer>
+            <Grid>
+                <StackPanel Margin="20 0 20 0">
+                    <GroupBox Header="{DynamicResource loc_Tabs}" Padding="20">
+                        <StackPanel>
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Chatlog}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=MobAbility, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Party}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=PartyStats, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Healing}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=HealingStats, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Damage}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=DamageStats, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Monster}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=MonsterStats, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_Debug}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Debug, Mode=TwoWay}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="{DynamicResource loc_Options}" Padding="20">
+                        <StackPanel>
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_UploadParsesToFFXIVAPP}"
+                                                   IsChecked="{Binding Source={x:Static Properties:Settings.Default},
+                                                                       Path=UploadParse,
+                                                                       Mode=TwoWay}"
+                                                   IsEnabled="False" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_AutoSaveRawXML}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Parse_SaveLog, Mode=TwoWay}" />
+                            <Controls:ToggleSwitch Header="{DynamicResource loc_AutoSaveParsedXML}" IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=Parse_ExportXML, Mode=TwoWay}" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

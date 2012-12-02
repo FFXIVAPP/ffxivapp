@@ -1,0 +1,153 @@
+﻿<Controls:MetroWindow x:Class="FFXIVAPP.Client.ShellView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Behaviors="clr-namespace:FFXIVAPP.Client.Behaviors"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:MetroPopup="clr-namespace:FFXIVAPP.Client.Controls"
+                      xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+                      xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+                      xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
+                      Title="{Binding AppTitle,
+                                      Source={StaticResource AppProperties}}"
+                      Width="{Binding Width,
+                                      Mode=TwoWay,
+                                      Source={x:Static Properties:Settings.Default}}"
+                      Height="{Binding Height,
+                                       Mode=TwoWay,
+                                       Source={x:Static Properties:Settings.Default}}"
+                      MinWidth="720"
+                      MinHeight="480"
+                      Closing="MetroWindowClosing"
+                      d:DesignHeight="720"
+                      d:DesignWidth="480"
+                      Icon="Resources/Media/Icons/FFXIVAPP.ico"
+                      Left="{Binding Left,
+                                     Mode=TwoWay,
+                                     Source={x:Static Properties:Settings.Default}}"
+                      Loaded="MetroWindowLoaded"
+                      ResizeMode="CanResizeWithGrip"
+                      ShowIconOnTitleBar="False"
+                      Top="{Binding Top,
+                                    Mode=TwoWay,
+                                    Source={x:Static Properties:Settings.Default}}"
+                      WindowStyle="None"
+                      mc:Ignorable="d">
+
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/Custom.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+            <Converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.DataContext>
+        <Binding Source="{StaticResource ShellViewModel}" />
+    </Controls:MetroWindow.DataContext>
+
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="screenshot"
+                    Command="{Binding ScreenShotCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/ScreenShot.png"
+                           ToolTip="{Binding Locale[app_screenshot],
+                                             Source={StaticResource AppProperties}}" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+
+    <Grid x:Name="LayoutRoot">
+        <Popup x:Name="Notify"
+               AllowsTransparency="True"
+               PopupAnimation="Fade">
+            <MetroPopup:xMetroPopup x:Name="MetroNotify"
+                                    Margin="1" />
+            <i:Interaction.Behaviors>
+                <Behaviors:MouseDragPopupBehavior />
+            </i:Interaction.Behaviors>
+        </Popup>
+        <TabControl x:Name="ShellViewTC"
+                    BorderThickness="{Binding TabStripPlacement,
+                                              Converter={StaticResource TabStripBorderConverter},
+                                              RelativeSource={RelativeSource Self}}"
+                    TabStripPlacement="Left"
+                    Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}">
+            <TabControl.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource AccentColor}" />
+            </TabControl.BorderBrush>
+            <TabItem x:Name="MainTI">
+                <TabItem.Header>
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
+                           ToolTip="{Binding Locale[app_main],
+                                             Source={StaticResource AppProperties}}" />
+                </TabItem.Header>
+                <Views:MainView x:Name="MainV"
+                                Margin="10 0 10 10" />
+            </TabItem>
+            <TabItem x:Name="PluginsTI"
+                     Visibility="{Binding HasPlugins,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Bootstrapper}}">
+                <TabItem.Header>
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
+                           ToolTip="{Binding Locale[app_plugins],
+                                             Source={StaticResource AppProperties}}" />
+                </TabItem.Header>
+                <TabControl x:Name="PluginsTC"
+                            Margin="10 0 10 10"
+                            BorderThickness="{Binding TabStripPlacement,
+                                                      Converter={StaticResource TabStripBorderConverter},
+                                                      RelativeSource={RelativeSource Self}}"
+                            ItemsSource="{Binding PluginTabItems,
+                                                  Source={StaticResource AppProperties}}"
+                            Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
+                    <TabControl.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                    </TabControl.BorderBrush>
+                </TabControl>
+            </TabItem>
+            <TabItem x:Name="SettingsTI">
+                <TabItem.Header>
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
+                           ToolTip="{Binding Locale[app_settings],
+                                             Source={StaticResource AppProperties}}" />
+                </TabItem.Header>
+                <Views:SettingsView x:Name="SettingsV"
+                                    Margin="10 0 10 10" />
+            </TabItem>
+            <TabItem x:Name="AboutTI">
+                <TabItem.Header>
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
+                           ToolTip="{Binding Locale[app_about],
+                                             Source={StaticResource AppProperties}}" />
+                </TabItem.Header>
+                <Views:AboutView x:Name="AboutV"
+                                 Margin="10 0 10 10" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

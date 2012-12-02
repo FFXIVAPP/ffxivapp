@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:Sample="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="SettingsViewModel"
+                  Member="ViewModels:SettingsViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Sample:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource SettingsViewModel}">
+        <TabControl x:Name="SettingsViewTC">
+            <TabItem x:Name="SettingsTabsTI"
+                     Header="{Binding Locale[app_tabsettings],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_showabilitychattab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowAbilityChatTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_showpartytab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowPartyTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_showhealingtab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowHealingTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_showdamagetab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowDamageTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_showmonstertab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowMonsterTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_showdebugtab], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowDebugTab, Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsOtherTI"
+                     Header="{Binding Locale[parse_otheroptions],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_uploadparse], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding UploadParse,
+                                                                           Source={StaticResource Settings}}"
+                                                       IsEnabled="False" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_exportxml], Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ExportXML,
+                                                                           Source={StaticResource Settings}}"
+                                                       IsEnabled="False" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

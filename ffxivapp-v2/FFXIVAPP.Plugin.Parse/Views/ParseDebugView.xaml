@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseDebugView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Models="clr-namespace:FFXIVAPP.Plugin.Parse.Models"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:StatGroups="clr-namespace:FFXIVAPP.Plugin.Parse.Models.StatGroups"
+             xmlns:Stats="clr-namespace:FFXIVAPP.Plugin.Parse.Models.Stats"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="ParseDebugViewModel"
+                  Member="ViewModels:ParseDebugViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:ParseControl.Instance" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ParseDebugViewModel}">
+        <TreeView x:Name="gui_DataTree"
+                  DataContext="{Binding Source={StaticResource Parser}}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type StatGroups:Monster}">
+                    <TreeViewItem Header="{Binding Name}">
+                        <DataGrid ItemsSource="{Binding Stats}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}" />
+                                <DataGridTextColumn Binding="{Binding Value}"
+                                                    Header="{Binding Locale[parse_valueheader],
+                                                                     Source={StaticResource PluginViewModel}}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TreeViewItem Header="{Binding Locale[parse_abilitiesheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Abilities}" />
+                        <TreeViewItem Header="{Binding Locale[parse_dropsheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Drops}" />
+                    </TreeViewItem>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type Stats:StatGroup}">
+                    <TreeViewItem Header="{Binding Name}">
+                        <DataGrid ItemsSource="{Binding Stats}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Name}"
+                                                    Header="{Binding Locale[parse_nameheader],
+                                                                     Source={StaticResource PluginViewModel}}" />
+                                <DataGridTextColumn Binding="{Binding Value}"
+                                                    Header="{Binding Locale[parse_valueheader],
+                                                                     Source={StaticResource PluginViewModel}}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TreeViewItem Header="{Binding Locale[parse_abilitiesheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Abilities}" />
+                        <TreeViewItem Header="{Binding Locale[parse_monstersheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Monsters}" />
+                        <TreeViewItem Header="{Binding Locale[parse_healingheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Healing}" />
+                        <TreeViewItem Header="{Binding Locale[parse_playersheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Players}" />
+                        <TreeViewItem Header="{Binding Locale[parse_damageheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Damage}" />
+                    </TreeViewItem>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+            <ScrollViewer>
+                <TreeViewItem Header="{Binding Locale[parse_debugheader],
+                                               Source={StaticResource PluginViewModel}}"
+                              IsExpanded="True">
+                    <TreeViewItem DataContext="{Binding Timeline}"
+                                  Header="{Binding Locale[parse_timelineheader],
+                                                   Source={StaticResource PluginViewModel}}"
+                                  IsExpanded="True">
+                        <TextBlock Text="{Binding FightingRightNow,
+                                                  StringFormat={}FightingRightNow: {0}}" />
+                        <TreeViewItem Header="{Binding Locale[parse_overallheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Overall}" />
+                        <TreeViewItem Header="{Binding Locale[parse_partyheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Party}" />
+                        <TreeViewItem Header="{Binding Locale[parse_monsterheader],
+                                                       Source={StaticResource PluginViewModel}}"
+                                      ItemsSource="{Binding Monster}" />
+                    </TreeViewItem>
+                </TreeViewItem>
+            </ScrollViewer>
+        </TreeView>
+    </Grid>
+</UserControl>

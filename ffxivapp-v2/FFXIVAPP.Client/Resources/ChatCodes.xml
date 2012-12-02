@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Codes>
+  <Group Name="Notices" Type="Notice" Subject="You" Direction="On">
+    <Code Key="0020">
+      <Description>System Messages</Description>
+    </Code>
+    <Code Key="0021">
+      <Description>Error Messages</Description>
+    </Code>
+    <Code Key="0044">
+      <Description>You: Defeat - Regain</Description>
+    </Code>
+    <Code Key="0045">
+      <Description>Other: Defeats - Regains</Description>
+    </Code>
+  </Group>
+  <Group Name="Chat" Type="Chat">
+    <Group Name="By You" Subject="You" Direction="On">
+      <Code Key="0001">
+        <Description>Say</Description>
+      </Code>
+      <Code Key="0002">
+        <Description>Shout</Description>
+      </Code>
+      <Code Key="0004">
+        <Description>Party</Description>
+      </Code>
+      <Code Key="000E">
+        <Description>Linkshell (1) (In It)</Description>
+      </Code>
+      <Code Key="0005">
+        <Description>Linkshell (1)</Description>
+      </Code>
+      <Code Key="000F">
+        <Description>Linkshell (2) (In It)</Description>
+      </Code>
+      <Code Key="0006">
+        <Description>Linkshell (2)</Description>
+      </Code>
+      <Code Key="0010">
+        <Description>Linkshell (3) (In It)</Description>
+      </Code>
+      <Code Key="0007">
+        <Description>Linkshell (3)</Description>
+      </Code>
+      <Code Key="0011">
+        <Description>Linkshell (4) (In It)</Description>
+      </Code>
+      <Code Key="0008">
+        <Description>Linkshell (4)</Description>
+      </Code>
+      <Code Key="0012">
+        <Description>Linkshell (5) (In It)</Description>
+      </Code>
+      <Code Key="0009">
+        <Description>Linkshell (5)</Description>
+      </Code>
+      <Code Key="0013">
+        <Description>Linkshell (6) (In It)</Description>
+      </Code>
+      <Code Key="000A">
+        <Description>Linkshell (6)</Description>
+      </Code>
+      <Code Key="0014">
+        <Description>Linkshell (7) (In It)</Description>
+      </Code>
+      <Code Key="000B">
+        <Description>Linkshell (7)</Description>
+      </Code>
+      <Code Key="0015">
+        <Description>Linkshell (8) (In It)</Description>
+      </Code>
+      <Code Key="000C">
+        <Description>Linkshell (8)</Description>
+      </Code>
+      <Code Key="001B">
+        <Description>Standard Emotes</Description>
+      </Code>
+      <Code Key="0019">
+        <Description>Custom Emotes</Description>
+      </Code>
+      <Code Key="0023">
+        <Description>NPC Say</Description>
+      </Code>
+      <Code Key="0027">
+        <Description>NPC LinkPearl</Description>
+      </Code>
+      <Code Key="000D">
+        <Description>Tell (Out)</Description>
+      </Code>
+    </Group>
+    <Group Name="By You" Subject="You" Direction="By">
+      <Code Key="0003">
+        <Description>Tell (In)</Description>
+      </Code>
+    </Group>
+  </Group>
+  <Group Name="Skill Points" Type="SkillPoints" Direction="By" Subject="You">
+    <Code Key="0042">
+      <Description>Points You Gain By Killing Monsters 1</Description>
+    </Code>
+    <Code Key="0043">
+      <Description>Points You Gain By Killing Monsters 2 - Skills Learned</Description>
+    </Code>
+  </Group>
+  <Group Name="Combat" Type="Attack">
+    <Group Name="Attacks">
+      <Group Name="By You" Subject="You" Direction="By">
+        <Code Key="0050">
+          <Description>You: Successful Actions - Mob Resists - Enemy Calls For Help</Description>
+        </Code>
+        <Code Key="006E">
+          <Description>You: Multi-Hit Action Log HITS (Detailed)</Description>
+        </Code>
+        <Code Key="0074">
+          <Description>You: Multi-Hit Action Log MISSES (Detailed)</Description>
+        </Code>
+        <Code Key="0056">
+          <Description>You: Failed Actions</Description>
+        </Code>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <Code Key="0057">
+          <Description>You: Failed Actions Against You</Description>
+        </Code>
+        <Code Key="0051">
+          <Description>You: Successful Hostile Actions Against You</Description>
+        </Code>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <Code Key="0052">
+          <Description>Party: Successful Actions - Mob Resists - Enemy Calls For Help</Description>
+        </Code>
+        <Code Key="0070">
+          <Description>Party: Multi-Hit Action Log HITS (Detailed)</Description>
+        </Code>
+        <Code Key="0076">
+          <Description>Party: Multi-Hit Action Log MISSES (Detailed)</Description>
+        </Code>
+        <Code Key="0058">
+          <Description>Party: Failed Party Actions Against Party</Description>
+        </Code>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <Code Key="0053">
+          <Description>Party: Successful Hostile Actions Against - Counter To Mob - Resist To Mob</Description>
+        </Code>
+        <Code Key="0059">
+          <Description>Party: Failed Mob Actions Against Party</Description>
+        </Code>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <Code Key="0054">
+          <Description>Other (Enemy): Successful Hostile Actions Against(By Helping Party) - Counter To Mob - Resist To Mob</Description>
+        </Code>
+        <Code Key="005A">
+          <Description>Other (Enemy): Failed Mob Actions Against Helping Party</Description>
+        </Code>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <Code Key="0055">
+          <Description>Other (Enemy): Successful Hostile Actions Against - Counter To Mob - Resist To Mob</Description>
+        </Code>
+        <Code Key="005B">
+          <Description>Other (Enemy): Failed Mob Actions Against Other</Description>
+        </Code>
+      </Group>
+    </Group>
+    <Group Name="Heals" Type="Heal">
+      <Group Name="By You" Subject="You" Direction="By">
+        <Code Key="005C">
+          <Description>Helpful Actions By You</Description>
+        </Code>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <Code Key="005D">
+          <Description>Helpful Actions On You</Description>
+        </Code>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <Code Key="005E">
+          <Description>Helpful Actions By Party</Description>
+        </Code>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <Code Key="005F">
+          <Description>Helpful Actions On Party</Description>
+        </Code>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <Code Key="0060">
+          <Description>Helpful Actions By/On Enemies</Description>
+        </Code>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <Code Key="0061">
+          <Description>Helpful Actions By/On Others</Description>
+        </Code>
+      </Group>
+    </Group>
+    <Group Name="Buffs" Type="Buff">
+      <Group Name="By You" Subject="You" Direction="By">
+        <Code Key="0062">
+          <Description>Enhancing Status Effects By You</Description>
+        </Code>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <Code Key="0063">
+          <Description>Enhancing Status Effects On You</Description>
+        </Code>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <Code Key="0064">
+          <Description>Enhancing Status Effects By Allies</Description>
+        </Code>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <Code Key="0065">
+          <Description>Enhancing Status Effects On Allies</Description>
+        </Code>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <Code Key="0066">
+          <Description>Enhancing Status Effects By/On Enemies</Description>
+        </Code>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <Code Key="0067">
+          <Description>Enhancing Status Effects By/On Others</Description>
+        </Code>
+      </Group>
+    </Group>
+    <Group Name="Debuffs" Type="Debuff">
+      <Group Name="By You" Subject="You" Direction="By">
+        <Code Key="0068">
+          <Description>Enfeebling Status Effects By You</Description>
+        </Code>
+      </Group>
+      <Group Name="On You" Subject="You" Direction="On">
+        <Code Key="0069">
+          <Description>Enfeebling Status Effects On You</Description>
+        </Code>
+      </Group>
+      <Group Name="By Party" Subject="Party" Direction="By">
+        <Code Key="006A">
+          <Description>Enfeebling Status Effects By Allies</Description>
+        </Code>
+      </Group>
+      <Group Name="On Party" Subject="Party" Direction="On">
+        <Code Key="006B">
+          <Description>Enfeebling Status Effects On Allies</Description>
+        </Code>
+      </Group>
+      <Group Name="Enemies" Subject="Enemy">
+        <Code Key="006C">
+          <Description>Enfeebling Status Effects By/On Enemies</Description>
+        </Code>
+      </Group>
+      <Group Name="Others" Subject="Other">
+        <Code Key="006D">
+          <Description>Enfeebling Status Effects By/On Others</Description>
+        </Code>
+      </Group>
+    </Group>
+  </Group>
+  <Group Name="Crafting" Type="Crafting">
+    <Group Name="By You" Subject="You" Direction="By">
+      <Code Key="0046">
+        <Description>Synthesis Performed By Self</Description>
+      </Code>
+    </Group>
+    <Group Name="By Others" Subject="Other" Direction="By">
+      <Code Key="0047">
+        <Description>Synthesis Performed By Others</Description>
+      </Code>
+    </Group>
+  </Group>
+  <Group Name="Gathering" Type="Gathering">
+    <Group Name="By You" Subject="You" Direction="By">
+      <Code Key="0048">
+        <Description>Gathering Performed By Self</Description>
+      </Code>
+    </Group>
+    <Group Name="By Others" Subject="Other" Direction="By">
+      <Code Key="0049">
+        <Description>Gathering Performed By Others</Description>
+      </Code>
+    </Group>
+  </Group>
+  <Group Name="Other" Direction="By">
+    <Group Name="You" Subject="You">
+      <Code Key="004A">
+        <Description>Other Actions/Information Concerning Self</Description>
+      </Code>
+    </Group>
+    <Group Name="Others" Subject="Other">
+      <Code Key="004B">
+        <Description>Other Actions/Information Concerning Others</Description>
+      </Code>
+    </Group>
+  </Group>
+  <Group Name="Unknown" Type="Unknown">
+    <Code Key="0000">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0016">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0017">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0018">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="001A">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="001C">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="001D">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="001E">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="001F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0022">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0024">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0025">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0026">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0028">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0029">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002A">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002B">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002C">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002D">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002E">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="002F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0030">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0031">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0032">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0033">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0034">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0035">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0036">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0037">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0038">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0039">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003A">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003B">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003C">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003D">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003E">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="003F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0040">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0041">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="004C">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="004D">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="004E">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="004F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="006F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0071">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0072">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0073">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0075">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0077">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0078">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0079">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007A">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007B">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007C">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007D">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007E">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="007F">
+      <Description>Unknown</Description>
+    </Code>
+    <Code Key="0080">
+      <Description>Unknown</Description>
+    </Code>
+  </Group>
+</Codes>

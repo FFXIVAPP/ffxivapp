@@ -1,0 +1,200 @@
+﻿<Controls:MetroWindow x:Class="FFXIVAPP.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:conv="clr-namespace:FFXIVAPP.Classes.Converters"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:local="clr-namespace:FFXIVAPP.ViewModels"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Properties="clr-namespace:FFXIVAPP.Properties"
+                      xmlns:views="clr-namespace:FFXIVAPP.Views"
+                      Title="FFXIVAPP"
+                      Width="{Binding Source={x:Static Properties:Settings.Default},
+                                      Path=Width,
+                                      Mode=TwoWay}"
+                      Height="{Binding Source={x:Static Properties:Settings.Default},
+                                       Path=Height,
+                                       Mode=TwoWay}"
+                      Closing="MetroWindow_Closing"
+                      Icon="/FFXIVAPP;component/Media/Images/FFXIVAPP.png"
+                      Left="{Binding Source={x:Static Properties:Settings.Default},
+                                     Path=Left,
+                                     Mode=TwoWay}"
+                      Loaded="MetroWindow_Loaded"
+                      StateChanged="MetroWindow_StateChanged"
+                      Top="{Binding Source={x:Static Properties:Settings.Default},
+                                    Path=Top,
+                                    Mode=TwoWay}"
+                      Topmost="{Binding Source={x:Static Properties:Settings.Default},
+                                        Path=TopMost,
+                                        Mode=TwoWay}"
+                      ShowIconOnTitleBar="False">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP;component/Styles/TabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:MainWindowVM x:Key="MainWindowModelDataSource" />
+            <conv:VisibilityConverter x:Key="VisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <i:Interaction.Behaviors>
+        <Behaviours:BorderlessWindowBehavior ResizeWithGrip="False" />
+    </i:Interaction.Behaviors>
+
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands DataContext="{Binding Source={StaticResource MainWindowModelDataSource}}">
+            <Button x:Name="main"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}">
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                        <TextBlock VerticalAlignment="Center"
+                        Text="{DynamicResource loc_main}" />
+                    -->
+                    <Image Width="20"
+                           Height="20"
+                           Source="/Media/Images/Main.png"
+                           ToolTip="{DynamicResource loc_main}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="screenshot" Command="{Binding Path=ScreenShotCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                        <TextBlock VerticalAlignment="Center"
+                        Text="{DynamicResource loc_main}" />
+                    -->
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP;component/Media/Images/ScreenShot.png" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="chat"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}"
+                    Visibility="{Binding Source={x:Static Properties:Settings.Default},
+                                         Path=EnableChat,
+                                         Converter={StaticResource VisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="24"
+                           Height="24"
+                           Source="/FFXIVAPP;component/Media/Images/Chat.png" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="log"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}"
+                    Visibility="{Binding Source={x:Static Properties:Settings.Default},
+                                         Path=EnableLog,
+                                         Converter={StaticResource VisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="24"
+                           Height="24"
+                           Source="/FFXIVAPP;component/Media/Images/Log.png" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="parse"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}"
+                    Visibility="{Binding Source={x:Static Properties:Settings.Default},
+                                         Path=EnableParse,
+                                         Converter={StaticResource VisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="24"
+                           Height="24"
+                           Source="/FFXIVAPP;component/Media/Images/Parse.png" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="event"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}"
+                    Visibility="{Binding Source={x:Static Properties:Settings.Default},
+                                         Path=EnableEvent,
+                                         Converter={StaticResource VisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="24"
+                           Height="24"
+                           Source="/FFXIVAPP;component/Media/Images/Event.png" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="settings"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}">
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                        <TextBlock VerticalAlignment="Center"
+                        Text="{DynamicResource loc_settings}" />
+                    -->
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP;component/Media/Images/Settings.png"
+                           ToolTip="{DynamicResource loc_settings}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="about"
+                    Command="{Binding Path=SwitchViewCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self},
+                                               Path=Name,
+                                               Mode=OneWay}">
+                <StackPanel Orientation="Horizontal">
+                    <!--
+                        <TextBlock VerticalAlignment="Center"
+                        Text="{DynamicResource loc_about}" />
+                    -->
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP;component/Media/Images/About.png"
+                           ToolTip="{DynamicResource loc_about}" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+
+    <Controls:MetroContentControl>
+        <Grid x:Name="LayoutRoot">
+            <TabControl x:Name="MainWindowTC" VirtualizingStackPanel.IsVirtualizing="True">
+                <TabItem x:Name="MainTI" Header="Main">
+                    <views:MainV x:Name="MainView" />
+                </TabItem>
+                <TabItem x:Name="ChatTI" Header="Chat">
+                    <views:ChatV x:Name="ChatView" />
+                </TabItem>
+                <TabItem x:Name="LogTI" Header="Log">
+                    <views:LogV x:Name="LogView" />
+                </TabItem>
+                <TabItem x:Name="ParseTI" Header="Parse">
+                    <views:ParseV x:Name="ParseView" />
+                </TabItem>
+                <TabItem x:Name="EventTI" Header="Event">
+                    <views:EventV x:Name="EventView" />
+                </TabItem>
+                <TabItem x:Name="SettingsTI" Header="Settings">
+                    <views:SettingsV x:Name="SettingsView" />
+                </TabItem>
+                <TabItem x:Name="AboutTI" Header="About">
+                    <views:AboutV x:Name="AboutView" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Controls:MetroContentControl>
+</Controls:MetroWindow>
