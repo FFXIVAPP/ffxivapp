@@ -142,7 +142,7 @@
     <Compile Include="Memory\ChatPointers.cs" />
     <Compile Include="Memory\ChatWorker.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
-    <Compile Include="Memory\Offsets.cs" />
+    <Compile Include="Memory\SigFinder.cs" />
     <Compile Include="Memory\Pointers.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />

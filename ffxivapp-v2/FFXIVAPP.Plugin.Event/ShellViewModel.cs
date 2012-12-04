@@ -35,7 +35,6 @@ namespace FFXIVAPP.Plugin.Event
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
             Initializer.LoadEvents();
-            PluginViewModel.Instance.MemoryHandler = Plugin.PHost.MemoryHandler();
         }
 
         #region Loading Functions

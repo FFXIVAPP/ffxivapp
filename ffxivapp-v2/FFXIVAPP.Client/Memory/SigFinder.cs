@@ -17,7 +17,7 @@ using NLog;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class Offsets : INotifyPropertyChanged
+    internal class SigFinder : INotifyPropertyChanged
     {
         #region Property Bindings
 
@@ -25,7 +25,7 @@ namespace FFXIVAPP.Client.Memory
 
         public Dictionary<string, uint> Locations
         {
-            get { return _locations; }
+            get { return _locations ?? (_locations = new Dictionary<string, uint>()); }
             private set
             {
                 _locations = value;
@@ -59,14 +59,17 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        public Offsets(Process process)
+        /// <param name="pointers"> </param>
+        public SigFinder(Process process, List<Pointers> pointers)
         {
             _process = process;
+            LoadOffsets(pointers);
         }
 
         /// <summary>
         /// </summary>
-        public void LoadOffsets(List<Pointers> pointers)
+        /// <param name="pointers"></param>
+        private void LoadOffsets(List<Pointers> pointers)
         {
             if (_process == null)
             {
@@ -85,7 +88,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 Locations.Add("CHAT_POINTER", (uint)FindByteString("81000000??????00????????????????????0000????0000????0000????????????????08000000??00000014000000") + 16);
             }
-            //Locations.Add("CHAT_POINTER", (uint)FindByteString("4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000C0F9E4006F01A800000000003200000000000000C0CAC50200000000000000000000000060CA1F03080000000000000014000000E0CAC502000000000000000030A7E80CF8A7E80C2CA8E80C00CBC5020000000000000000") + 7);
+            //Locations.Add("CHAT_POINTER", (uint)FindByteString("40000000060000000000000000010212020203"));
             _memDump = null;
         }
 

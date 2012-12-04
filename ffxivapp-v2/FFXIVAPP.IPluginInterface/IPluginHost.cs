@@ -10,7 +10,6 @@ namespace FFXIVAPP.IPluginInterface
 {
     public interface IPluginHost
     {
-        dynamic MemoryHandler();
         void Commands(string pluginName, IEnumerable<string> commands);
         void PopupMessage(out bool displayed, object content);
     }

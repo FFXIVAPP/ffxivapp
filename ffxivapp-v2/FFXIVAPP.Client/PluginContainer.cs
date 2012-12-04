@@ -123,19 +123,6 @@ namespace FFXIVAPP.Client
 
         #region Implementaion of IPluginHost
 
-        public dynamic MemoryHandler()
-        {
-            var id = MainView.View.PIDSelect.Text == "" ? -1 : Common.Constants.ProcessID;
-            Common.Constants.IsOpen = true;
-            if (id < 0)
-            {
-                Common.Constants.IsOpen = false;
-                return null;
-            }
-            var process = Process.GetProcessById(id);
-            return new MemoryHandler(process, 0);
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="pluginName"> </param>

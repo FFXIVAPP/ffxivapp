@@ -1,24 +1,20 @@
-﻿// FFXIVAPP.Plugin.Parse
-// ShellViewModel.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+﻿// FFXIVAPP.Plugin.Sample
+// SettingsViewModel.cs
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 
-namespace FFXIVAPP.Plugin.Parse
+namespace FFXIVAPP.Plugin.Sample.ViewModels
 {
-    public sealed class ShellViewModel : INotifyPropertyChanged
+    internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
 
-        private static ShellViewModel _instance;
+        private static SettingsViewModel _instance;
 
-        public static ShellViewModel Instance
+        public static SettingsViewModel Instance
         {
-            get { return _instance ?? (_instance = new ShellViewModel()); }
+            get { return _instance ?? (_instance = new SettingsViewModel()); }
         }
 
         #endregion
@@ -26,16 +22,6 @@ namespace FFXIVAPP.Plugin.Parse
         #region Declarations
 
         #endregion
-
-        public ShellViewModel()
-        {
-            Initializer.LoadSettings();
-        }
-
-        internal static void Loaded(object sender, RoutedEventArgs e)
-        {
-            Initializer.ApplyTheming();
-        }
 
         #region Loading Functions
 

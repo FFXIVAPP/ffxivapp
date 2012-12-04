@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A4C9A3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Parse", "FFXIVAPP.Plugin.Parse\FFXIVAPP.Plugin.Parse.csproj", "{579B29CA-AAAB-4DEB-9718-6F23AF05094B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Chat", "FFXIVAPP.Plugin.Chat\FFXIVAPP.Plugin.Chat.csproj", "{BDF0777F-306F-464C-A30B-3FAE6CDDF527}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Sample", "FFXIVAPP.Plugin.Sample\FFXIVAPP.Plugin.Sample.csproj", "{BDF0777F-306F-464C-A30B-3FAE6CDDF527}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Event", "FFXIVAPP.Plugin.Event\FFXIVAPP.Plugin.Event.csproj", "{8B6E13D1-8849-4B1A-8329-2343240DE02C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Chat", "FFXIVAPP.Plugin.Chat\FFXIVAPP.Plugin.Chat.csproj", "{5FBF9918-92C5-44C6-AF13-117556DBE855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,11 @@ Global
 		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.Release|x86.Build.0 = Release|x86
 		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
+		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Debug|x86.ActiveCfg = Debug|x86
+		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Debug|x86.Build.0 = Debug|x86
+		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Release|x86.ActiveCfg = Release|x86
+		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Release|x86.Build.0 = Release|x86
+		{5FBF9918-92C5-44C6-AF13-117556DBE855}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,11 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Plugin.Sample
 // ShellViewModel.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace FFXIVAPP.Plugin.Parse
+namespace FFXIVAPP.Plugin.Sample
 {
     public sealed class ShellViewModel : INotifyPropertyChanged
     {
@@ -34,7 +31,6 @@ namespace FFXIVAPP.Plugin.Parse
 
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
-            Initializer.ApplyTheming();
         }
 
         #region Loading Functions

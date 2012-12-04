@@ -34,7 +34,6 @@ namespace FFXIVAPP.Plugin.Chat
 
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
-            PluginViewModel.Instance.MemoryHandler = Plugin.PHost.MemoryHandler();
         }
 
         #region Loading Functions

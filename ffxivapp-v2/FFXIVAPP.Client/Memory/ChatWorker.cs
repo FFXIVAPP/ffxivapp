@@ -29,7 +29,7 @@ namespace FFXIVAPP.Client.Memory
         #region Declarations
 
         private readonly MemoryHandler _handler;
-        private readonly Offsets _offsets;
+        private readonly SigFinder _offsets;
         private readonly SynchronizationContext _sync = SynchronizationContext.Current;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly Timer _scanTimer;
@@ -37,6 +37,8 @@ namespace FFXIVAPP.Client.Memory
         private int _lastCount;
         private uint _lastChatNum;
         private bool _isScanning;
+
+        private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
 
         #endregion
 
@@ -72,7 +74,7 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="process"> </param>
         /// <param name="offsets"> </param>
-        public ChatWorker(Process process, Offsets offsets)
+        public ChatWorker(Process process, SigFinder offsets)
         {
             _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
@@ -129,14 +131,14 @@ namespace FFXIVAPP.Client.Memory
             var chatPointers = _handler.GetStructure<ChatPointers>();
             if (_lastCount == 0)
             {
-                _lastCount = (int) chatPointers.LineCount1;
+                _lastCount = (int)chatPointers.LineCount1;
             }
             if (_lastCount == chatPointers.LineCount1)
             {
                 return;
             }
             _spots.Clear();
-            var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart)/4;
+            var index = (int)(chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
             var lengths = new List<int>();
             try
             {
@@ -151,15 +153,15 @@ namespace FFXIVAPP.Client.Memory
                     }
                     else
                     {
-                        _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1)*4);
+                        _handler.Address = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
                         var previous = _handler.GetInt32();
-                        _handler.Address = chatPointers.OffsetArrayStart + (uint) (getline*4);
+                        _handler.Address = chatPointers.OffsetArrayStart + (uint)(getline * 4);
                         var current = _handler.GetInt32();
                         lineLen = current - previous;
                     }
                     lengths.Add(lineLen);
-                    _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1)*4);
-                    _spots.Add(chatPointers.LogStart + (uint) _handler.GetInt32());
+                    _handler.Address = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
+                    _spots.Add(chatPointers.LogStart + (uint)_handler.GetInt32());
                 }
                 var limit = _spots.Count;
                 for (var i = 0; i < limit; i++)
@@ -179,7 +181,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
-            _lastCount = (int) chatPointers.LineCount1;
+            _lastCount = (int)chatPointers.LineCount1;
         }
 
         /// <summary>

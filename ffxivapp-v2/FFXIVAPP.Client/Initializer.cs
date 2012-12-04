@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
@@ -262,13 +263,14 @@ namespace FFXIVAPP.Client
                 return;
             }
             var process = Process.GetProcessById(id);
-            var offsets = new Offsets(process);
             var pointers = AppViewModel.Instance.Pointers;
             if(!pointers.Any())
             {
-                pointers.Add(new Pointers {Key = "CHAT_POINTER", Value = "81000000??????00????????????????????0000????0000????0000????????????????08000000??00000014000000", Offset = 16});
+                pointers.Add(new Pointers { Key = "CHAT_POINTER", Value = "C0F9E4006F01A8", Offset = 8 });
+                pointers.Add(new Pointers { Key = "CHARMAP", Value = "00DB0FC93F6F12833A52070A01", Offset = 205 });
+                pointers.Add(new Pointers { Key = "TARGET", Value = "0000000005000000????????0000000000000000000000000000000004", Offset = 128 });
             }
-            offsets.LoadOffsets(pointers);
+            var offsets = new SigFinder(process, pointers);
             _chatWorker = new ChatWorker(process, offsets);
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
         }
