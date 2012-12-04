@@ -43,8 +43,6 @@ namespace FFXIVAPP.Plugin.Parse
             }
         }
 
-        public dynamic MemoryHandler { get; set; }
-
         public static Dictionary<string, string> PluginInfo
         {
             get

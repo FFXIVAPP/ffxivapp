@@ -40,8 +40,6 @@ namespace FFXIVAPP.Plugin.Sample
             }
         }
 
-        public dynamic MemoryHandler { get; set; }
-
         public static Dictionary<string, string> PluginInfo
         {
             get

@@ -46,8 +46,6 @@ namespace FFXIVAPP.Plugin.Log
             }
         }
 
-        public dynamic MemoryHandler { get; set; }
-
         public static Dictionary<string, string> PluginInfo
         {
             get
