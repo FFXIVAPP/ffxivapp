@@ -42,6 +42,14 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
+        /// <param name="lpKeyState"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool NativeGetKeyboardState(byte[] lpKeyState);
+
+        /// <summary>
+        /// </summary>
         /// <param name="hwnd"> </param>
         /// <param name="hwndInsertAfter"> </param>
         /// <param name="x"> </param>

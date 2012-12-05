@@ -127,7 +127,7 @@ namespace FFXIVAPP.Client.Memory
         private void ScannerDoWork(object sender, DoWorkEventArgs e)
         {
             _isScanning = true;
-            _handler.Address = _offsets.Locations["CHAT_POINTER"];
+            _handler.Address = _offsets.Locations["CHATLOG"];
             var chatPointers = _handler.GetStructure<ChatPointers>();
             if (_lastCount == 0)
             {
@@ -173,6 +173,10 @@ namespace FFXIVAPP.Client.Memory
                     if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
                     {
                         PostLineEvent(chatEntry);
+                    }
+                    else
+                    {
+                        Tracer.Debug("DebugLineEvent: {0}", text.ToArray());
                     }
                     _lastChatNum = _spots[i];
                 }

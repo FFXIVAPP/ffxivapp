@@ -266,7 +266,7 @@ namespace FFXIVAPP.Client
             var pointers = AppViewModel.Instance.Pointers;
             if(!pointers.Any())
             {
-                pointers.Add(new Pointers { Key = "CHAT_POINTER", Value = "C0F9E4006F01A8", Offset = 8 });
+                pointers.Add(new Pointers { Key = "CHATLOG", Value = "C0F9E4006F01A8", Offset = 8 });
                 pointers.Add(new Pointers { Key = "CHARMAP", Value = "00DB0FC93F6F12833A52070A01", Offset = 205 });
                 pointers.Add(new Pointers { Key = "TARGET", Value = "0000000005000000????????0000000000000000000000000000000004", Offset = 128 });
             }
