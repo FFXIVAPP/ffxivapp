@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
@@ -144,7 +145,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
                 {
-                    var getline = ((index - i) < 0) ? (index - i) + 60 : index - i;
+                    var getline = ((index - i) < 0) ? (index - i) + 100 : index - i;
                     int lineLen;
                     if (getline == 0)
                     {

@@ -266,12 +266,13 @@ namespace FFXIVAPP.Client
             var pointers = AppViewModel.Instance.Pointers;
             if(!pointers.Any())
             {
-                pointers.Add(new Pointers { Key = "CHATLOG", Value = "C0F9E4006F01A8", Offset = 8 });
-                pointers.Add(new Pointers { Key = "CHARMAP", Value = "00DB0FC93F6F12833A52070A01", Offset = 205 });
-                pointers.Add(new Pointers { Key = "TARGET", Value = "0000000005000000????????0000000000000000000000000000000004", Offset = 128 });
+                pointers.Add(new Pointers { Key = "CHATLOG", Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000????????????A8", Offset = 92 });
+                //pointers.Add(new Pointers { Key = "CHARMAP", Value = "00DB0FC93F6F12833A52070A01", Offset = 205 });
+                //pointers.Add(new Pointers { Key = "TARGET", Value = "0000000005000000????????0000000000000000000000000000000004", Offset = 128 });
             }
             var offsets = new SigFinder(process, pointers);
             _chatWorker = new ChatWorker(process, offsets);
+            _chatWorker.StartLogging();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
         }
 
@@ -280,6 +281,7 @@ namespace FFXIVAPP.Client
         public static void StopLogging()
         {
             _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
+            _chatWorker.StopLogging();
             _chatWorker.Dispose();
         }
     }

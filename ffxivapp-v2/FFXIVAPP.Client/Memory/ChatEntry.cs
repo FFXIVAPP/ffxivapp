@@ -9,6 +9,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -29,11 +31,11 @@ namespace FFXIVAPP.Client.Memory
         {
             Bytes = raw;
             Raw = Encoding.UTF8.GetString(raw.ToArray());
-            var cut = (Raw.Substring(5, 1) == ":") ? 6 : 5;
+            var cut = (Raw.Substring(13, 1) == ":") ? 14 : 13;
             var cleaner = new ChatCleaner(raw, CultureInfo.CurrentUICulture, out JP);
             var cleaned = cleaner.Result;
             Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
-            Code = Raw.Substring(0, 4);
+            Code = Raw.Substring(8, 4);
             Combined = String.Format("{0}:{1}", Code, Line);
             TimeStamp = DateTime.Now;
         }
