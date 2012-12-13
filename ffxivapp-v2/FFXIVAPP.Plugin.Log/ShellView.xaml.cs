@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Plugin.Log
 {
     /// <summary>
-    ///   Interaction logic for ShellView.xaml
+    ///     Interaction logic for ShellView.xaml
     /// </summary>
     public partial class ShellView
     {

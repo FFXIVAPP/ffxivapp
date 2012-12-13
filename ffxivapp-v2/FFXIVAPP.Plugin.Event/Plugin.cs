@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +25,8 @@ using FFXIVAPP.Plugin.Event.Helpers;
 using FFXIVAPP.Plugin.Event.Properties;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Event
 {
     public class Plugin : IPlugin, INotifyPropertyChanged
@@ -38,10 +42,10 @@ namespace FFXIVAPP.Plugin.Event
 
         #endregion
 
-        private MessageBoxResult _popupResult;
         private IPluginHost _host;
         private Dictionary<string, string> _locale;
         private string _name;
+        private MessageBoxResult _popupResult;
 
         public MessageBoxResult PopupResult
         {
@@ -119,7 +123,10 @@ namespace FFXIVAPP.Plugin.Event
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {Header = Name, Content = content};
+            var tabItem = new TabItem {
+                Header = Name,
+                Content = content
+            };
             //do your gui stuff here
             var files = Directory.GetFiles(Constants.BaseDirectory).Where(file => Regex.IsMatch(file, @"^.+\.(wav)$")).Select(file => new FileInfo(file));
             foreach (var file in files)

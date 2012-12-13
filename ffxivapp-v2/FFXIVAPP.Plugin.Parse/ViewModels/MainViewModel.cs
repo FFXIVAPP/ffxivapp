@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,8 @@ using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.ViewModels
 {

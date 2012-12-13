@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Enums;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Events
 {
@@ -16,8 +20,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
     {
         #region Property Bindings
 
-        private string _name;
         private List<EventCode> _codes;
+        private string _name;
 
         private string Name
         {
@@ -130,16 +134,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         #region Declarations
 
         private readonly List<EventGroup> _children = new List<EventGroup>();
-        private EventGroup _parent;
         private UInt16 _flags;
+        private EventGroup _parent;
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public EventGroup()
-        {
-        }
+        public EventGroup() {}
 
         /// <summary>
         /// </summary>

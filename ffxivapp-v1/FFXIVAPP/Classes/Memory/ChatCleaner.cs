@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,6 +13,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Memory
 {

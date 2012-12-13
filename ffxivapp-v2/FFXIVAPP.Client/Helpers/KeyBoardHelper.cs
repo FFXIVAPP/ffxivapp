@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,14 +17,16 @@ using FFXIVAPP.Client.Enums;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 
+#endregion
+
 namespace FFXIVAPP.Client.Helpers
 {
     public static class KeyBoardHelper
     {
         /// <summary>
         /// </summary>
-        /// <param name="keyStates"></param>
-        /// <returns></returns>
+        /// <param name="keyStates"> </param>
+        /// <returns> </returns>
         private static bool GetKeyboardState(byte[] keyStates)
         {
             if (keyStates == null)
@@ -34,7 +38,7 @@ namespace FFXIVAPP.Client.Helpers
 
         /// <summary>
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         private static IEnumerable<byte> GetKeyboardState()
         {
             var keyStates = new byte[256];
@@ -47,7 +51,7 @@ namespace FFXIVAPP.Client.Helpers
 
         /// <summary>
         /// </summary>
-        /// <returns></returns>
+        /// <returns> </returns>
         private static bool AnyKeyPressed()
         {
             var keyState = GetKeyboardState();

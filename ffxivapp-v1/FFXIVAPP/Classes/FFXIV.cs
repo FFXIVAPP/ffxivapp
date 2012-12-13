@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,24 +22,38 @@ using FFXIVAPP.Properties;
 using FFXIVAPP.Views;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Classes
 {
     public class FFXIV
     {
         public static string LastKilled = "";
-        public Timeline Timeline { get; private set; }
-        public StatMonitor StatMonitor { get; private set; }
-        private TimelineMonitor TimelineMonitor { get; set; }
         private static FFXIV _instance;
         private static ChatWorker _chatWorker;
         public static string Desc = "";
         public static string UID = "";
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public readonly Dictionary<string, string> TotalA = new Dictionary<string, string>();
         public readonly Dictionary<string, string> TotalD = new Dictionary<string, string>();
-        public readonly Dictionary<string, string> TotalH = new Dictionary<string, string>();
         public readonly Dictionary<string, string> TotalDPS = new Dictionary<string, string>();
+        public readonly Dictionary<string, string> TotalH = new Dictionary<string, string>();
         public Sio SIO;
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// </summary>
+        private FFXIV()
+        {
+            Constants.FFXIVOpen = false;
+            Constants.PID = -1;
+            Timeline = new Timeline();
+            InitMonitors();
+            SIO = new Sio();
+        }
+
+        public Timeline Timeline { get; private set; }
+        public StatMonitor StatMonitor { get; private set; }
+        private TimelineMonitor TimelineMonitor { get; set; }
 
         /// <summary>
         /// </summary>
@@ -66,22 +82,9 @@ namespace FFXIVAPP.Classes
 
         /// <summary>
         /// </summary>
-        private FFXIV()
-        {
-            Constants.FFXIVOpen = false;
-            Constants.PID = -1;
-            Timeline = new Timeline();
-            InitMonitors();
-            SIO = new Sio();
-        }
-
-        /// <summary>
-        /// </summary>
         private void InitMonitors()
         {
-            if (Settings.Default.DebugMode)
-            {
-            }
+            if (Settings.Default.DebugMode) {}
             TimelineMonitor = new TimelineMonitor(this);
             StatMonitor = new StatMonitor(this);
         }

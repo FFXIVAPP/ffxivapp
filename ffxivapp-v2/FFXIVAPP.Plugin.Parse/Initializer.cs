@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -11,6 +13,8 @@ using System.Xml.Linq;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse
 {

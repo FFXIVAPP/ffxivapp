@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +13,14 @@ using System.Reflection;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Parse
 {
     public static class Constants
     {
         public const string BaseDirectory = "./Plugins/FFXIVAPP.Plugin.Parse/";
+
         public static readonly string[] Abilities = new[] {"0053", "0054", "0055"};
 
         #region Assembly Property Bindings

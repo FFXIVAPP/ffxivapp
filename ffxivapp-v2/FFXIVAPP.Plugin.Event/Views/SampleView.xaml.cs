@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Plugin.Event.Views
 {
     /// <summary>
-    ///   Interaction logic for SampleView.xaml
+    ///     Interaction logic for SampleView.xaml
     /// </summary>
     public partial class SampleView
     {

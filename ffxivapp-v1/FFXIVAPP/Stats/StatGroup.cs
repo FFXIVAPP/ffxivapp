@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -15,13 +17,38 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Threading;
 
+#endregion
+
 namespace FFXIVAPP.Stats
 {
     public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, IDynamicMetaObjectProvider, INotifyPropertyChanged
     {
         private readonly ConcurrentDictionary<string, StatGroup> _children = new ConcurrentDictionary<string, StatGroup>();
-        public Boolean IncludeSelf { private get; set; }
         private readonly StatContainer _statList = new StatContainer();
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        /// <param name="children"> </param>
+        protected StatGroup(string name, params StatGroup[] children)
+        {
+            IncludeSelf = true;
+            _children = new ConcurrentDictionary<string, StatGroup>(from c in children
+                                                                    select new KeyValuePair<string, StatGroup>(c.Name, c));
+            DoInit(name);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        public StatGroup(string name)
+        {
+            IncludeSelf = true;
+            DoInit(name);
+        }
+
+        public Boolean IncludeSelf { private get; set; }
+
         public String Name { get; set; }
 
         /// <summary>
@@ -40,22 +67,11 @@ namespace FFXIVAPP.Stats
 
         /// <summary>
         /// </summary>
-        /// <param name="name"> </param>
-        /// <param name="children"> </param>
-        protected StatGroup(string name, params StatGroup[] children)
+        /// <param name="parameter"> </param>
+        /// <returns> </returns>
+        public DynamicMetaObject GetMetaObject(Expression parameter)
         {
-            IncludeSelf = true;
-            _children = new ConcurrentDictionary<string, StatGroup>(from c in children select new KeyValuePair<string, StatGroup>(c.Name, c));
-            DoInit(name);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        public StatGroup(string name)
-        {
-            IncludeSelf = true;
-            DoInit(name);
+            return new StatGroupMetaObject(parameter, this);
         }
 
         /// <summary>
@@ -111,7 +127,9 @@ namespace FFXIVAPP.Stats
             TryGetGroup(name, out result);
             if (result == null)
             {
-                AddGroup(new StatGroup(name) {IncludeSelf = false});
+                AddGroup(new StatGroup(name) {
+                    IncludeSelf = false
+                });
             }
             return TryGetGroup(name, out result) ? result : null;
         }
@@ -174,14 +192,33 @@ namespace FFXIVAPP.Stats
             }
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="parameter"> </param>
-        /// <returns> </returns>
-        public DynamicMetaObject GetMetaObject(Expression parameter)
+        private void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup whichGroup)
         {
-            return new StatGroupMetaObject(parameter, this);
+            var handler = CollectionChanged;
+            if (handler != null)
+            {
+                MainWindow.View.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
+                {
+                    handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
+                    return null;
+                }), null);
+            }
         }
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void DoPropertyChanged(string name)
+        {
+            var propChanged = PropertyChanged;
+            if (propChanged != null)
+            {
+                propChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// </summary>
@@ -191,17 +228,13 @@ namespace FFXIVAPP.Stats
             /// </summary>
             /// <param name="expression"> </param>
             /// <param name="restrictions"> </param>
-            internal StatGroupMetaObject(Expression expression, BindingRestrictions restrictions) : base(expression, restrictions)
-            {
-            }
+            internal StatGroupMetaObject(Expression expression, BindingRestrictions restrictions) : base(expression, restrictions) {}
 
             /// <summary>
             /// </summary>
             /// <param name="expression"> </param>
             /// <param name="value"> </param>
-            internal StatGroupMetaObject(Expression expression, StatGroup value) : base(expression, BindingRestrictions.Empty, value)
-            {
-            }
+            internal StatGroupMetaObject(Expression expression, StatGroup value) : base(expression, BindingRestrictions.Empty, value) {}
 
             /// <summary>
             /// </summary>
@@ -241,8 +274,10 @@ namespace FFXIVAPP.Stats
             public override IEnumerable<string> GetDynamicMemberNames()
             {
                 var sg = (StatGroup) Value;
-                var groupNames = from g in sg select g.Name;
-                var statNames = from stat in sg.Stats select stat.Name;
+                var groupNames = from g in sg
+                                 select g.Name;
+                var statNames = from stat in sg.Stats
+                                select stat.Name;
                 return statNames.Union(groupNames);
             }
         }
@@ -345,34 +380,6 @@ namespace FFXIVAPP.Stats
         #region Implementation of INotifyCollectionChanged
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        #endregion
-
-        private void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup whichGroup)
-        {
-            var handler = CollectionChanged;
-            if (handler != null)
-            {
-                MainWindow.View.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate
-                {
-                    handler(this, new NotifyCollectionChangedEventArgs(action, whichGroup));
-                    return null;
-                }), null);
-            }
-        }
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void DoPropertyChanged(string name)
-        {
-            var propChanged = PropertyChanged;
-            if (propChanged != null)
-            {
-                propChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
 
         #endregion
     }

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,8 @@ using FFXIVAPP.Properties;
 using FFXIVAPP.Stats;
 using FFXIVAPP.ViewModels;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Classes
 {

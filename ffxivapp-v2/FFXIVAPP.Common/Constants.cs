@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using FFXIVAPP.Common.Helpers;
+
+#endregion
 
 namespace FFXIVAPP.Common
 {
@@ -22,10 +26,15 @@ namespace FFXIVAPP.Common
         public const string DefaultIcon = AppPack + "Resources/Media/Images/DefaultIcon.jpg";
         public const string DefaultAvatar = AppPack + "Resources/Media/Images/DefaultAvatar.jpg";
         public static readonly FlowDocHelper FD = new FlowDocHelper();
+
         public static readonly string[] ChatSay = {"0001"};
+
         public static readonly string[] ChatTell = {"000D", "0003"};
+
         public static readonly string[] ChatParty = {"0004"};
+
         public static readonly string[] ChatShout = {"0002"};
+
         public static readonly string[] ChatLS = {"000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C"};
 
         #region Property Bindings

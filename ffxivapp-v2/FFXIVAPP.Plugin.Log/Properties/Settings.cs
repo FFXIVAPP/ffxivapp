@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -23,6 +25,8 @@ using NLog;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Log.Properties
 {
@@ -46,8 +50,14 @@ namespace FFXIVAPP.Plugin.Log.Properties
                 var xValue = flowDoc.Codes.Items.Cast<object>().Aggregate("", (c, code) => c + "," + code).Substring(1);
                 var xRegularExpression = flowDoc.RegEx.Text;
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair {Key = "Value", Value = xValue});
-                keyPairList.Add(new XValuePair {Key = "RegularExpression", Value = xRegularExpression});
+                keyPairList.Add(new XValuePair {
+                    Key = "Value",
+                    Value = xValue
+                });
+                keyPairList.Add(new XValuePair {
+                    Key = "RegularExpression",
+                    Value = xRegularExpression
+                });
                 XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Tab", xKey, keyPairList);
             }
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
@@ -73,7 +83,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
             {
                 var xKey = i;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {new XValuePair {Key = "Value", Value = xValue}};
+                var keyPairList = new List<XValuePair> {
+                    new XValuePair {
+                        Key = "Value",
+                        Value = xValue
+                    }
+                };
                 XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");

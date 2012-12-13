@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Log.Properties;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Log.Helpers
 {
@@ -19,7 +23,9 @@ namespace FFXIVAPP.Plugin.Log.Helpers
         public static void AddTabByName(string xKey, string xValue, string xRegularExpression)
         {
             xKey = Regex.Replace(xKey, "[^a-zA-Z]", "");
-            var tabItem = new TabItem {Header = xKey};
+            var tabItem = new TabItem {
+                Header = xKey
+            };
             var flowDoc = new xFlowDocument();
             foreach (var code in xValue.Split(','))
             {

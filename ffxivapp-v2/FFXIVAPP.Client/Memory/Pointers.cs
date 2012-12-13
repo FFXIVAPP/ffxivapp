@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// FFXIVAPP.Client
+// Pointers.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 namespace FFXIVAPP.Client.Memory
 {

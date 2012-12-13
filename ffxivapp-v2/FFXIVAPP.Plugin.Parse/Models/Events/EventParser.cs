@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using FFXIVAPP.Plugin.Parse.Enums;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Events
 {
@@ -170,7 +174,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 return new Event(eventCode, line);
             }
-            var unknownEventCode = new EventCode {Code = code};
+            var unknownEventCode = new EventCode {
+                Code = code
+            };
             return new Event(unknownEventCode, line);
         }
 

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +15,16 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
+#endregion
+
 namespace FFXIVAPP.Client.Memory
 {
     internal class MemoryHandler : INotifyPropertyChanged
     {
         #region Property Bindings
 
-        private Process _process;
         private uint _address;
+        private Process _process;
 
         private Process Process
         {
@@ -48,8 +52,8 @@ namespace FFXIVAPP.Client.Memory
 
         public struct MemoryBlock
         {
-            public long Start;
             public long Length;
+            public long Start;
         }
 
         #endregion
@@ -199,7 +203,10 @@ namespace FFXIVAPP.Client.Memory
             try
             {
                 var modules = GetModules(process);
-                return (from module in modules let baseAddress = module.BaseAddress.ToInt32() where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address) select module).FirstOrDefault();
+                return (from module in modules
+                        let baseAddress = module.BaseAddress.ToInt32()
+                        where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address)
+                        select module).FirstOrDefault();
             }
             catch
             {
@@ -245,7 +252,10 @@ namespace FFXIVAPP.Client.Memory
         {
             var counter = new UnsafeNativeMethods.ProcessMemoryCounters();
             UnsafeNativeMethods.GetProcessMemoryInfo(process.Handle, out counter, Marshal.SizeOf(counter));
-            var block = new MemoryBlock {Start = process.MainModule.BaseAddress.ToInt64(), Length = counter.PagefileUsage};
+            var block = new MemoryBlock {
+                Start = process.MainModule.BaseAddress.ToInt64(),
+                Length = counter.PagefileUsage
+            };
             return block;
         }
 

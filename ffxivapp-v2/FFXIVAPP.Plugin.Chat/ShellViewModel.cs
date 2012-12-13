@@ -4,9 +4,13 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Chat
 {
@@ -32,9 +36,7 @@ namespace FFXIVAPP.Plugin.Chat
             Initializer.LoadSettings();
         }
 
-        internal static void Loaded(object sender, RoutedEventArgs e)
-        {
-        }
+        internal static void Loaded(object sender, RoutedEventArgs e) {}
 
         #region Loading Functions
 

@@ -4,7 +4,7 @@
 namespace FFXIVAPP.Plugin.Sample.Views
 {
     /// <summary>
-    ///   Interaction logic for AboutView.xaml
+    ///     Interaction logic for AboutView.xaml
     /// </summary>
     public partial class AboutView
     {

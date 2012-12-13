@@ -4,19 +4,19 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Views;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class EventVM
     {
-        public ICommand AddEventCommand { get; private set; }
-        public ICommand DeleteEventCommand { get; private set; }
-        public ICommand EventSelectionCommand { get; private set; }
-
         public EventVM()
         {
             AddEventCommand = new DelegateCommand(AddEvent);
@@ -95,5 +95,9 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand AddEventCommand { get; private set; }
+        public ICommand DeleteEventCommand { get; private set; }
+        public ICommand EventSelectionCommand { get; private set; }
     }
 }

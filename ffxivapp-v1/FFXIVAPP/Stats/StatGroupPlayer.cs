@@ -4,12 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Monitors;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {

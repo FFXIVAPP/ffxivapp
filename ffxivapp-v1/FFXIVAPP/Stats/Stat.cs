@@ -4,16 +4,46 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
     public abstract class Stat<T> : INotifyPropertyChanged
     {
-        private T _value;
         private String _name;
-        public event EventHandler<StatChangedEvent> OnValueChanged;
+        private T _value;
+
+        /// <summary>
+        /// </summary>
+        protected Stat()
+        {
+            Name = "";
+            _value = default(T);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        protected Stat(String name)
+        {
+            Name = name;
+            _value = default(T);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        /// <param name="value"> </param>
+        protected Stat(String name, T value)
+        {
+            Name = name;
+            _value = value;
+        }
 
         /// <summary>
         /// </summary>
@@ -44,32 +74,7 @@ namespace FFXIVAPP.Stats
             }
         }
 
-        /// <summary>
-        /// </summary>
-        protected Stat()
-        {
-            Name = "";
-            _value = default(T);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        protected Stat(String name)
-        {
-            Name = name;
-            _value = default(T);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        /// <param name="value"> </param>
-        protected Stat(String name, T value)
-        {
-            Name = name;
-            _value = value;
-        }
+        public event EventHandler<StatChangedEvent> OnValueChanged;
 
         /// <summary>
         /// </summary>

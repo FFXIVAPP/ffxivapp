@@ -4,15 +4,19 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using FFXIVAPP.Common.Helpers;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Line
     {
-        private string _job;
         private string _action;
         private string _direction;
+        private string _job;
         private string _part;
 
 

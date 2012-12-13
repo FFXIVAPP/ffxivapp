@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for EventV.xaml
+    ///     Interaction logic for EventV.xaml
     /// </summary>
     public partial class EventV
     {

@@ -4,9 +4,13 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {

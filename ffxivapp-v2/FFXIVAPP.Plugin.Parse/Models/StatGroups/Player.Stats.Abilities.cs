@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Linq;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {

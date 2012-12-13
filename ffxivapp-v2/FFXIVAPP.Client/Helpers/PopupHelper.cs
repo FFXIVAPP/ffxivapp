@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -12,11 +14,13 @@ using System.Windows.Media.Effects;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Models;
 
+#endregion
+
 namespace FFXIVAPP.Client.Helpers
 {
     internal static class PopupHelper
     {
-        private const int Time = 1000000000/100;
+        private const int Time = 1000000000 / 100;
 
         public static Popup MessagePopup
         {
@@ -27,7 +31,7 @@ namespace FFXIVAPP.Client.Helpers
         {
             get
             {
-                var timeSpan = new TimeSpan((long) (Time*.1));
+                var timeSpan = new TimeSpan((long) (Time * .1));
                 return new DoubleAnimation(3, 0, timeSpan);
             }
         }
@@ -36,7 +40,7 @@ namespace FFXIVAPP.Client.Helpers
         {
             get
             {
-                var timeSpan = new TimeSpan((long) (Time*.1));
+                var timeSpan = new TimeSpan((long) (Time * .1));
                 return new DoubleAnimation(0, 3, timeSpan);
             }
         }
@@ -65,7 +69,7 @@ namespace FFXIVAPP.Client.Helpers
                     window.MetroNotify.Message.Text = popupContent.Message;
                     //set max width and location
                     window.Notify.Placement = PlacementMode.Center;
-                    window.Notify.MaxWidth = (double) Math.Ceiling(((decimal) Settings.Default.Width/2));
+                    window.Notify.MaxWidth = (double) Math.Ceiling(((decimal) Settings.Default.Width / 2));
                     //open popup
                     window.Notify.IsOpen = true;
                     //assign ClickEvent to OK button
@@ -124,7 +128,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="timeOffset"> </param>
         private static void FadeOut(UIElement framework, double timeOffset)
         {
-            var animation = new DoubleAnimation(framework.Opacity, .5, new TimeSpan((long) (Time*timeOffset)));
+            var animation = new DoubleAnimation(framework.Opacity, .5, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
 
@@ -135,7 +139,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="to"> </param>
         private static void FadeOut(UIElement framework, double timeOffset, double to)
         {
-            var animation = new DoubleAnimation(framework.Opacity, to, new TimeSpan((long) (Time*timeOffset)));
+            var animation = new DoubleAnimation(framework.Opacity, to, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
 
@@ -145,7 +149,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="timeOffset"> </param>
         private static void FadeIn(UIElement framework, double timeOffset)
         {
-            var animation = new DoubleAnimation(framework.Opacity, 1, new TimeSpan((long) (Time*timeOffset)));
+            var animation = new DoubleAnimation(framework.Opacity, 1, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
 
@@ -156,7 +160,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="from"> </param>
         private static void FadeIn(UIElement framework, double timeOffset, double from)
         {
-            var animation = new DoubleAnimation(from, 1, new TimeSpan((long) (Time*timeOffset)));
+            var animation = new DoubleAnimation(from, 1, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
     }

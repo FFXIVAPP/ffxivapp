@@ -4,18 +4,18 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Models
 {
     public class EventMonitor : StatGroup
     {
-        private DateTime LastEventReceived { get; set; }
-        protected UInt16 Filter { private get; set; }
-        protected FFXIV FFXIVInstance { get; private set; }
-
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
@@ -25,6 +25,10 @@ namespace FFXIVAPP.Models
             DoInit(ffxivInstance);
             EventParser.Instance.OnLogEvent += FilterEvent;
         }
+
+        private DateTime LastEventReceived { get; set; }
+        protected UInt16 Filter { private get; set; }
+        protected FFXIV FFXIVInstance { get; private set; }
 
         /// <summary>
         /// </summary>
@@ -61,12 +65,10 @@ namespace FFXIVAPP.Models
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleEvent(Event e)
-        {
-        }
+        protected virtual void HandleEvent(Event e) {}
 
         /// <summary>
-        ///   HOOK INTO THIS EVENT IN THE GUI OR ELSEWHERE IF YOU WANT TO GET NOTIFIED WHENEVER A STAT IS UPDATED!
+        ///     HOOK INTO THIS EVENT IN THE GUI OR ELSEWHERE IF YOU WANT TO GET NOTIFIED WHENEVER A STAT IS UPDATED!
         /// </summary>
         public event EventHandler<StatChangedEvent> OnStatChanged;
 

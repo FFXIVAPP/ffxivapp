@@ -4,12 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Utilities
 {

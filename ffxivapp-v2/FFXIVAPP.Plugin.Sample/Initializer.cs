@@ -1,9 +1,13 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Initializer.cs
 
+#region Usings
+
 using System;
 using System.Xml.Linq;
 using FFXIVAPP.Plugin.Sample.Properties;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample
 {

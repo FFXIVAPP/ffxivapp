@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using FFXIVAPP.Common.ViewModelBase;
 using FFXIVAPP.Plugin.Log.Helpers;
 using FFXIVAPP.Plugin.Log.Views;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Log.ViewModels
 {
@@ -64,9 +68,7 @@ namespace FFXIVAPP.Plugin.Log.ViewModels
                 xValue = SettingsView.View.Codes.SelectedItems.Cast<object>().Aggregate("", (current, item) => current + (item.ToString().Split(',')[0] + ",")).Replace("[", "");
                 xValue = xValue.Substring(0, xValue.Length - 1);
             }
-            if (xKey == "" || xValue == "" || xRegularExpression == "")
-            {
-            }
+            if (xKey == "" || xValue == "" || xRegularExpression == "") {}
             else
             {
                 TabItemHelper.AddTabByName(xKey, xValue, xRegularExpression);

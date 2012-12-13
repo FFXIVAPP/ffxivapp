@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for MainV.xaml
+    ///     Interaction logic for MainV.xaml
     /// </summary>
     public partial class MainV
     {

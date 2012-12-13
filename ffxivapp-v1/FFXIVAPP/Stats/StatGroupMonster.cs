@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,12 @@ using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Models;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Stats
 {
     public class StatGroupMonster : StatGroup
     {
-        private TotalStat TotalDrops { get; set; }
-        private CounterStat NumKilled { get; set; }
         private static readonly IList<string> LD = new[] {"Counter", "Block", "Parry", "Resist", "Evade"};
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -29,6 +31,9 @@ namespace FFXIVAPP.Stats
         {
             InitStats();
         }
+
+        private TotalStat TotalDrops { get; set; }
+        private CounterStat NumKilled { get; set; }
 
         /// <summary>
         /// </summary>
@@ -54,7 +59,7 @@ namespace FFXIVAPP.Stats
             }
             FFXIV.LastKilled = f.MobName;
             Stats.GetStat("Killed").Value++;
-            Stats.GetStat("Avg HP").Value = Stats.GetStat("Total").Value/Stats.GetStat("Killed").Value;
+            Stats.GetStat("Avg HP").Value = Stats.GetStat("Total").Value / Stats.GetStat("Killed").Value;
         }
 
         /// <summary>

@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
@@ -16,13 +20,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             AddDependency(dependencies[0]);
         }
 
-        public MaxStat(string name, decimal value) : base(name, 0m)
-        {
-        }
+        public MaxStat(string name, decimal value) : base(name, 0m) {}
 
-        public MaxStat(string name) : base(name, 0m)
-        {
-        }
+        public MaxStat(string name) : base(name, 0m) {}
 
         /// <summary>
         /// </summary>

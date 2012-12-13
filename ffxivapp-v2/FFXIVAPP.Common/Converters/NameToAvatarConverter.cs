@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -16,6 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using HtmlAgilityPack;
 
+#endregion
+
 namespace FFXIVAPP.Common.Converters
 {
     public class NameToAvatarConverter : IMultiValueConverter
@@ -23,6 +27,24 @@ namespace FFXIVAPP.Common.Converters
         private const string LodestoneUrl = "http://lodestone.finalfantasyxiv.com/rc/search/search?tgt=77&q=\"{0}\"&cms=&cw={1}";
         private const string DefaultAvatar = Constants.DefaultAvatar;
         private bool _cachingEnabled = true;
+
+        /// <summary>
+        /// </summary>
+        public NameToAvatarConverter()
+        {
+            if (Directory.Exists(CachePath))
+            {
+                return;
+            }
+            try
+            {
+                Directory.CreateDirectory(CachePath);
+            }
+            catch
+            {
+                _cachingEnabled = false;
+            }
+        }
 
         /// <summary>
         /// </summary>
@@ -41,24 +63,6 @@ namespace FFXIVAPP.Common.Converters
                     _cachingEnabled = false;
                     return "./Avatars/";
                 }
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        public NameToAvatarConverter()
-        {
-            if (Directory.Exists(CachePath))
-            {
-                return;
-            }
-            try
-            {
-                Directory.CreateDirectory(CachePath);
-            }
-            catch
-            {
-                _cachingEnabled = false;
             }
         }
 
@@ -130,6 +134,18 @@ namespace FFXIVAPP.Common.Converters
 
         /// <summary>
         /// </summary>
+        /// <param name="value"> </param>
+        /// <param name="targetTypes"> </param>
+        /// <param name="parameter"> </param>
+        /// <param name="culture"> </param>
+        /// <returns> </returns>
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// </summary>
         /// <param name="fileName"> </param>
         /// <param name="imageUri"> </param>
         /// <returns> </returns>
@@ -147,18 +163,6 @@ namespace FFXIVAPP.Common.Converters
                 return imagePath;
             }
             return DefaultAvatar;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="value"> </param>
-        /// <param name="targetTypes"> </param>
-        /// <param name="parameter"> </param>
-        /// <param name="culture"> </param>
-        /// <returns> </returns>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

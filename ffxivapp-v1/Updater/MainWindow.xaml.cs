@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,15 +18,19 @@ using System.Threading;
 using System.Windows;
 using Ionic.Zip;
 
+#endregion
+
 namespace Updater
 {
     /// <summary>
-    ///   Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _file, _exe, _zfile;
         private readonly WebClient _webClient = new WebClient();
+        private string _exe;
+        private string _file;
+        private string _zfile;
 
         public MainWindow()
         {
@@ -54,9 +60,7 @@ namespace Updater
                     {
                         p.Kill();
                     }
-                    catch
-                    {
-                    }
+                    catch {}
                 }
                 Thread.Sleep(1000);
                 try
@@ -77,7 +81,7 @@ namespace Updater
         {
             var bytesIn = double.Parse(e.BytesReceived.ToString(CultureInfo.InvariantCulture));
             var totalBytes = double.Parse(e.TotalBytesToReceive.ToString(CultureInfo.InvariantCulture));
-            var percentage = bytesIn/totalBytes*100;
+            var percentage = bytesIn / totalBytes * 100;
 
             progressBarSingle.Value = Math.Truncate(percentage);
         }
@@ -98,15 +102,17 @@ namespace Updater
                     {
                         f.Extract(path, ExtractExistingFileAction.OverwriteSilently);
                     }
-                    catch
-                    {
-                    }
+                    catch {}
                 }
             }
             _webClient.Dispose();
             try
             {
-                var m = new Process {StartInfo = {FileName = _exe}};
+                var m = new Process {
+                    StartInfo = {
+                        FileName = _exe
+                    }
+                };
                 m.Start();
             }
             catch

@@ -4,16 +4,20 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections;
 using System.Linq;
 using FFXIVAPP.Client.Models;
+
+#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
     internal class PluginCollectionHelper : CollectionBase
     {
         /// <summary>
-        ///   add to collection
+        ///     add to collection
         /// </summary>
         /// <param name="plugin"> </param>
         public void Add(PluginInstance plugin)
@@ -22,7 +26,7 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         /// <summary>
-        ///   remove from collection
+        ///     remove from collection
         /// </summary>
         /// <param name="plugin"> </param>
         public void Remove(PluginInstance plugin)
@@ -31,7 +35,7 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         /// <summary>
-        ///   find plugin by name
+        ///     find plugin by name
         /// </summary>
         /// <param name="plugin"> </param>
         /// <returns> </returns>

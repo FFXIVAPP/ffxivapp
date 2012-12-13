@@ -4,17 +4,19 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Monster : StatGroup
     {
-        private TotalStat TotalDrops { get; set; }
-        private CounterStat Killed { get; set; }
         private static readonly IList<string> LD = new[] {"Counter", "Block", "Parry", "Resist", "Evade"};
 
 
@@ -25,6 +27,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             InitStats();
         }
+
+        private TotalStat TotalDrops { get; set; }
+        private CounterStat Killed { get; set; }
 
         /// <summary>
         /// </summary>

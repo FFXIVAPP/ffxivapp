@@ -4,16 +4,17 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
     public class AccuracyStat : LinkedStat
     {
-        private Stat<decimal> HitStat { get; set; }
-        private Stat<decimal> MissStat { get; set; }
-
         public AccuracyStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
             HitStat = dependencies[0];
@@ -21,13 +22,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends();
         }
 
-        public AccuracyStat(string name, decimal value) : base(name, 0m)
-        {
-        }
+        public AccuracyStat(string name, decimal value) : base(name, 0m) {}
 
-        public AccuracyStat(string name) : base(name, 0m)
-        {
-        }
+        public AccuracyStat(string name) : base(name, 0m) {}
+        private Stat<decimal> HitStat { get; set; }
+        private Stat<decimal> MissStat { get; set; }
 
         /// <summary>
         /// </summary>
@@ -51,7 +50,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
                 return;
             }
             var total = Convert.ToDouble(HitStat.Value + MissStat.Value);
-            Value = Convert.ToDecimal((Convert.ToDouble(HitStat.Value)/total));
+            Value = Convert.ToDecimal((Convert.ToDouble(HitStat.Value) / total));
         }
 
         /// <summary>

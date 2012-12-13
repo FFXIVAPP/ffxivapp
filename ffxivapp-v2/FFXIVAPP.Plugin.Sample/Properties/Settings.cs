@@ -1,6 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Settings.cs
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Sample.Properties
 {
     internal class Settings : ApplicationSettingsBase, INotifyPropertyChanged
@@ -31,14 +35,17 @@ namespace FFXIVAPP.Plugin.Sample.Properties
         public override void Save()
         {
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0)
-            {
-            }
+            if (Constants.Settings.Count == 0) {}
             foreach (var item in Constants.Settings)
             {
                 var xKey = item;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {new XValuePair {Key = "Value", Value = xValue}};
+                var keyPairList = new List<XValuePair> {
+                    new XValuePair {
+                        Key = "Value",
+                        Value = xValue
+                    }
+                };
                 XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");

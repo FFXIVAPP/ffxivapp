@@ -4,15 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
     public class PerSecondAverageStat : LinkedStat
     {
-        private DateTime FirstEventReceived { get; set; }
-        private DateTime LastEventReceived { get; set; }
-
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
@@ -33,6 +34,9 @@ namespace FFXIVAPP.Stats
             FirstEventReceived = DateTime.Now;
             SetupDepends(dependency);
         }
+
+        private DateTime FirstEventReceived { get; set; }
+        private DateTime LastEventReceived { get; set; }
 
         /// <summary>
         /// </summary>
@@ -59,7 +63,7 @@ namespace FFXIVAPP.Stats
             var timeDiff = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived).TotalSeconds);
             if (timeDiff >= 1)
             {
-                Value = newValue/timeDiff;
+                Value = newValue / timeDiff;
             }
         }
     }

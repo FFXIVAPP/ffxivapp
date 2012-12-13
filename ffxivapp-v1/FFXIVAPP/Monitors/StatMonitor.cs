@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,6 +14,8 @@ using FFXIVAPP.Data;
 using FFXIVAPP.Models;
 using FFXIVAPP.Stats;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Monitors
 {

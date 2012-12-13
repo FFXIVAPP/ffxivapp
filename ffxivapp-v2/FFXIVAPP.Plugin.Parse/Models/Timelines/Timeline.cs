@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +16,8 @@ using FFXIVAPP.Plugin.Parse.Models.Fights;
 using FFXIVAPP.Plugin.Parse.Models.StatGroups;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Timelines
 {
@@ -65,8 +69,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             FightingRightNow = false;
             Fights = new List();
             Overall = new StatGroup("Overall");
-            Party = new StatGroup("Party") {IncludeSelf = false};
-            Monster = new StatGroup("Monster") {IncludeSelf = false};
+            Party = new StatGroup("Party") {
+                IncludeSelf = false
+            };
+            Monster = new StatGroup("Monster") {
+                IncludeSelf = false
+            };
         }
 
         /// <summary>

@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.IO;
 using System.Threading;
 using FFXIVAPP.Classes.Memory;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Helpers
 {

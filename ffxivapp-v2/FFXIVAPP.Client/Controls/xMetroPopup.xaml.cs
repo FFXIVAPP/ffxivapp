@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Client.Controls
 {
     /// <summary>
-    ///   Interaction logic for xMetroPopup.xaml
+    ///     Interaction logic for xMetroPopup.xaml
     /// </summary>
     public partial class xMetroPopup
     {

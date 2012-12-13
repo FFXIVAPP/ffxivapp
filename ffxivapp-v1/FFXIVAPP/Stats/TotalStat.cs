@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -14,24 +18,18 @@ namespace FFXIVAPP.Stats
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="dependencies"> </param>
-        public TotalStat(string name, params Stat<decimal>[] dependencies) : base(name, dependencies)
-        {
-        }
+        public TotalStat(string name, params Stat<decimal>[] dependencies) : base(name, dependencies) {}
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public TotalStat(string name) : base(name)
-        {
-        }
+        public TotalStat(string name) : base(name) {}
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="value"> </param>
-        public TotalStat(string name, Decimal value) : base(name, value)
-        {
-        }
+        public TotalStat(string name, Decimal value) : base(name, value) {}
 
         /// <summary>
         /// </summary>

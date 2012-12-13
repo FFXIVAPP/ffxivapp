@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -13,6 +15,8 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -111,16 +115,6 @@ namespace FFXIVAPP.Stats
 
         /// <summary>
         /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="e"> </param>
-        private void HandleStatValueChanged(object sender, StatChangedEvent e)
-        {
-            var s = (Stat<Decimal>) sender;
-            DoPropertyChanged(s.Name);
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="parameter"> </param>
         /// <returns> </returns>
         public DynamicMetaObject GetMetaObject(Expression parameter)
@@ -128,63 +122,14 @@ namespace FFXIVAPP.Stats
             return new StatContainerMetaObject(parameter, this);
         }
 
-        private class StatContainerMetaObject : DynamicMetaObject
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"> </param>
+        /// <param name="e"> </param>
+        private void HandleStatValueChanged(object sender, StatChangedEvent e)
         {
-            /// <summary>
-            /// </summary>
-            /// <param name="expression"> </param>
-            /// <param name="restrictions"> </param>
-            internal StatContainerMetaObject(Expression expression, BindingRestrictions restrictions) : base(expression, restrictions)
-            {
-            }
-
-            /// <summary>
-            /// </summary>
-            /// <param name="expression"> </param>
-            /// <param name="value"> </param>
-            internal StatContainerMetaObject(Expression expression, IStatContainer value) : base(expression, BindingRestrictions.Empty, value)
-            {
-            }
-
-            /// <summary>
-            /// </summary>
-            /// <param name="binder"> </param>
-            /// <param name="value"> </param>
-            /// <returns> </returns>
-            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
-            {
-                var restrictions = BindingRestrictions.GetTypeRestriction(Expression, LimitType);
-                const string methodName = "SetOrAddStat";
-                var args = new Expression[2];
-                args[0] = Expression.Constant(binder.Name);
-                args[1] = Expression.Convert(value.Expression, typeof (Decimal));
-                var self = Expression.Convert(Expression, LimitType);
-                var methodCall = Expression.Call(self, typeof (IStatContainer).GetMethod(methodName), args);
-                return new DynamicMetaObject(methodCall, restrictions);
-            }
-
-            /// <summary>
-            /// </summary>
-            /// <param name="binder"> </param>
-            /// <returns> </returns>
-            public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
-            {
-                const string methodName = "GetStatValue";
-                var args = new Expression[1];
-                args[0] = Expression.Constant(binder.Name);
-                var self = Expression.Convert(Expression, LimitType);
-                var methodCall = Expression.Call(self, typeof (IStatContainer).GetMethod(methodName), args);
-                return new DynamicMetaObject(Expression.Convert(methodCall, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
-            }
-
-            /// <summary>
-            /// </summary>
-            /// <returns> </returns>
-            public override IEnumerable<string> GetDynamicMemberNames()
-            {
-                var statContainer = (IStatContainer) Value;
-                return from stat in statContainer select stat.Name;
-            }
+            var s = (Stat<Decimal>) sender;
+            DoPropertyChanged(s.Name);
         }
 
         /// <summary>
@@ -322,5 +267,61 @@ namespace FFXIVAPP.Stats
         }
 
         #endregion
+
+        private class StatContainerMetaObject : DynamicMetaObject
+        {
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"> </param>
+            /// <param name="restrictions"> </param>
+            internal StatContainerMetaObject(Expression expression, BindingRestrictions restrictions) : base(expression, restrictions) {}
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"> </param>
+            /// <param name="value"> </param>
+            internal StatContainerMetaObject(Expression expression, IStatContainer value) : base(expression, BindingRestrictions.Empty, value) {}
+
+            /// <summary>
+            /// </summary>
+            /// <param name="binder"> </param>
+            /// <param name="value"> </param>
+            /// <returns> </returns>
+            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
+            {
+                var restrictions = BindingRestrictions.GetTypeRestriction(Expression, LimitType);
+                const string methodName = "SetOrAddStat";
+                var args = new Expression[2];
+                args[0] = Expression.Constant(binder.Name);
+                args[1] = Expression.Convert(value.Expression, typeof (Decimal));
+                var self = Expression.Convert(Expression, LimitType);
+                var methodCall = Expression.Call(self, typeof (IStatContainer).GetMethod(methodName), args);
+                return new DynamicMetaObject(methodCall, restrictions);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="binder"> </param>
+            /// <returns> </returns>
+            public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
+            {
+                const string methodName = "GetStatValue";
+                var args = new Expression[1];
+                args[0] = Expression.Constant(binder.Name);
+                var self = Expression.Convert(Expression, LimitType);
+                var methodCall = Expression.Call(self, typeof (IStatContainer).GetMethod(methodName), args);
+                return new DynamicMetaObject(Expression.Convert(methodCall, binder.ReturnType), BindingRestrictions.GetTypeRestriction(Expression, LimitType));
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <returns> </returns>
+            public override IEnumerable<string> GetDynamicMemberNames()
+            {
+                var statContainer = (IStatContainer) Value;
+                return from stat in statContainer
+                       select stat.Name;
+            }
+        }
     }
 }

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,8 @@ using System.Web;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -154,7 +158,7 @@ namespace FFXIVAPP.Client.Memory
                     //        newList.Add(bytes[x]);
                     //    }
                     //}
-                    if(bytes[x] > 127)
+                    if (bytes[x] > 127)
                     {
                         jp = true;
                     }

@@ -4,14 +4,18 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
     public class PercentStat : LinkedStat
     {
-        private readonly Stat<decimal> _numerator;
         private readonly Stat<decimal> _denominator;
+        private readonly Stat<decimal> _numerator;
 
         public PercentStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
@@ -20,13 +24,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends();
         }
 
-        public PercentStat(string name, decimal value) : base(name, 0m)
-        {
-        }
+        public PercentStat(string name, decimal value) : base(name, 0m) {}
 
-        public PercentStat(string name) : base(name, 0m)
-        {
-        }
+        public PercentStat(string name) : base(name, 0m) {}
 
         /// <summary>
         /// </summary>
@@ -49,7 +49,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
                 Value = 0m;
                 return;
             }
-            Value = (_numerator.Value/_denominator.Value);
+            Value = (_numerator.Value / _denominator.Value);
         }
 
         /// <summary>

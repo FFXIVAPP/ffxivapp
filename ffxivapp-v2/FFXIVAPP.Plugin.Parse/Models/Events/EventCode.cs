@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Enums;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Events
 {
@@ -67,13 +71,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         #endregion
 
-        private string _description;
         private ushort _code;
+        private string _description;
         private EventGroup _group;
 
-        public EventCode()
-        {
-        }
+        public EventCode() {}
 
         /// <summary>
         /// </summary>

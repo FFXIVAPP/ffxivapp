@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,13 +13,16 @@ using System.Windows.Media;
 using FFXIVAPP.Classes.Converters;
 using FFXIVAPP.Properties;
 
+#endregion
+
 namespace FFXIVAPP.Classes.Helpers
 {
     internal class FlowDocHelper
     {
-        private StringToBrushConverter _stb = new StringToBrushConverter();
         private Paragraph _pgraph;
-        private Span _tStamp, _tMessage;
+        private StringToBrushConverter _stb = new StringToBrushConverter();
+        private Span _tMessage;
+        private Span _tStamp;
 
         /// <summary>
         /// </summary>
@@ -41,8 +46,13 @@ namespace FFXIVAPP.Classes.Helpers
             var tsc = _stb.Convert(Settings.Default.Color_TimeStamp.ToString());
             var c = _stb.Convert(color);
             _pgraph = new Paragraph();
-            _tStamp = new Span(new Run(time)) {Foreground = (Brush) tsc, FontWeight = FontWeights.Bold};
-            _tMessage = new Span(new Run(message)) {Foreground = (Brush) c};
+            _tStamp = new Span(new Run(time)) {
+                Foreground = (Brush) tsc,
+                FontWeight = FontWeights.Bold
+            };
+            _tMessage = new Span(new Run(message)) {
+                Foreground = (Brush) c
+            };
             _pgraph.Inlines.Add(_tStamp);
             _pgraph.Inlines.Add(_tMessage);
             flow.Document.Blocks.Add(_pgraph);

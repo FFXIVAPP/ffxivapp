@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for SettingsVParse.xaml
+    ///     Interaction logic for SettingsVParse.xaml
     /// </summary>
     public partial class SettingsVParse
     {

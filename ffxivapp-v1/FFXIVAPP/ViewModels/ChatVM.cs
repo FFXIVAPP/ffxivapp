@@ -4,18 +4,20 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
 using FFXIVAPP.Properties;
 using FFXIVAPP.Views;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class ChatVM
     {
-        public ICommand ToggleConnectionCommand { get; private set; }
-
         public ChatVM()
         {
             ToggleConnectionCommand = new DelegateCommand(ToggleConnection);
@@ -67,5 +69,7 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand ToggleConnectionCommand { get; private set; }
     }
 }

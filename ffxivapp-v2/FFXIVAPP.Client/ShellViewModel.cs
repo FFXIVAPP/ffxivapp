@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -13,6 +15,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
+
+#endregion
 
 namespace FFXIVAPP.Client
 {

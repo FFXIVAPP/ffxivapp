@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -12,12 +14,29 @@ using FFXIVAPP.Properties;
 using FFXIVAPP.Stats;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Models
 {
     public sealed class Timeline : INotifyPropertyChanged
     {
-        private Boolean _fightingRightNow;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private Boolean _fightingRightNow;
+
+        /// <summary>
+        /// </summary>
+        public Timeline()
+        {
+            FightingRightNow = false;
+            Fights = new FightList();
+            Overall = new StatGroup("Overall");
+            Party = new StatGroup("Party") {
+                IncludeSelf = false
+            };
+            Monster = new StatGroup("Monster") {
+                IncludeSelf = false
+            };
+        }
 
         /// <summary>
         /// </summary>
@@ -48,17 +67,6 @@ namespace FFXIVAPP.Models
         public StatGroup Monster { get; internal set; }
 
         public event EventHandler<TimelineEventArgs> OnTimelineEvent;
-
-        /// <summary>
-        /// </summary>
-        public Timeline()
-        {
-            FightingRightNow = false;
-            Fights = new FightList();
-            Overall = new StatGroup("Overall");
-            Party = new StatGroup("Party") {IncludeSelf = false};
-            Monster = new StatGroup("Monster") {IncludeSelf = false};
-        }
 
         /// <summary>
         /// </summary>

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ using FFXIVAPP.Common.Utilities;
 using NLog;
 using NLog.Config;
 
+#endregion
+
 namespace FFXIVAPP.Client
 {
     public partial class App
@@ -35,18 +39,6 @@ namespace FFXIVAPP.Client
         public static string[] MArgs { get; private set; }
 
         #endregion
-
-        /// <summary>
-        ///   Application Entry Point.
-        /// </summary>
-        [STAThread]
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
-        public static void Main()
-        {
-            var app = new App();
-            app.Run();
-        }
 
         private App()
         {
@@ -60,6 +52,18 @@ namespace FFXIVAPP.Client
             CheckSettings();
             ConfigureNLog();
             LoadPlugins();
+        }
+
+        /// <summary>
+        ///     Application Entry Point.
+        /// </summary>
+        [STAThread]
+        [DebuggerNonUserCode]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
+        public static void Main()
+        {
+            var app = new App();
+            app.Run();
         }
 
         /// <summary>

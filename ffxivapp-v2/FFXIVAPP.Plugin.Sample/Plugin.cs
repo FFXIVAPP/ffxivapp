@@ -1,6 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Plugin.cs
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,8 @@ using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Sample.Helpers;
 using FFXIVAPP.Plugin.Sample.Properties;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample
 {
@@ -30,10 +34,10 @@ namespace FFXIVAPP.Plugin.Sample
 
         #endregion
 
-        private MessageBoxResult _popupResult;
         private IPluginHost _host;
         private Dictionary<string, string> _locale;
         private string _name;
+        private MessageBoxResult _popupResult;
 
         public MessageBoxResult PopupResult
         {
@@ -111,7 +115,10 @@ namespace FFXIVAPP.Plugin.Sample
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {Header = Name, Content = content};
+            var tabItem = new TabItem {
+                Header = Name,
+                Content = content
+            };
             //do your gui stuff here
             //content gives you access to the base xaml
             return tabItem;

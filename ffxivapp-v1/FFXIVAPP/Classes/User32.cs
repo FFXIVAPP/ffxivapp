@@ -4,22 +4,17 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace FFXIVAPP.Classes
 {
     internal abstract class User32
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct Rect
-        {
-            public readonly int left;
-            public readonly int top;
-            public readonly int right;
-            public readonly int bottom;
-        }
-
         /// <summary>
         /// </summary>
         /// <returns> </returns>
@@ -48,5 +43,14 @@ namespace FFXIVAPP.Classes
         /// <returns> </returns>
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Rect
+        {
+            public readonly int left;
+            public readonly int top;
+            public readonly int right;
+            public readonly int bottom;
+        }
     }
 }

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
@@ -14,6 +16,8 @@ using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Models.Fights;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Monitors
 {

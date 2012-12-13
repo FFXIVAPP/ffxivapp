@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,12 +13,19 @@ using System.Linq;
 using System.Windows;
 using MahApps.Metro;
 
+#endregion
+
 namespace FFXIVAPP.Client.Utilities
 {
     internal static class ThemeManager
     {
-        private static readonly ResourceDictionary LightResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")};
-        private static readonly ResourceDictionary DarkResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")};
+        private static readonly ResourceDictionary LightResource = new ResourceDictionary {
+            Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")
+        };
+
+        private static readonly ResourceDictionary DarkResource = new ResourceDictionary {
+            Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")
+        };
 
         public static IEnumerable<Accent> DefaultAccents
         {

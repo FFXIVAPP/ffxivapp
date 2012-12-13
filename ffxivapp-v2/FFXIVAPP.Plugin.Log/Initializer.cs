@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +15,8 @@ using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Plugin.Log.Helpers;
 using FFXIVAPP.Plugin.Log.Properties;
 using FFXIVAPP.Plugin.Log.Views;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Log
 {

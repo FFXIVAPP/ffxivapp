@@ -4,17 +4,21 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
+#endregion
+
 namespace FFXIVAPP.Classes
 {
     public class VisualUtilities
     {
-        private int _indentDepth;
         private string _finalAnswer = "";
+        private int _indentDepth;
 
         /// <summary>
         /// </summary>

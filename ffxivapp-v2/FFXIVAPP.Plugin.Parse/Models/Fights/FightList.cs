@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
@@ -12,6 +14,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Parse.Models.Fights
 {
     public sealed class List : ConcurrentStack<Fight>, INotifyPropertyChanged, INotifyCollectionChanged
@@ -19,9 +23,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Fights
         /// <summary>
         /// </summary>
         /// <param name="fights"> </param>
-        public List(params Fight[] fights) : base(fights)
-        {
-        }
+        public List(params Fight[] fights) : base(fights) {}
 
         /// <summary>
         /// </summary>

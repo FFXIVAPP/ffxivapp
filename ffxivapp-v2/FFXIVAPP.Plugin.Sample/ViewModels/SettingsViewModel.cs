@@ -1,8 +1,12 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // SettingsViewModel.cs
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample.ViewModels
 {

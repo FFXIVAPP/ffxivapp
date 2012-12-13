@@ -7,13 +7,17 @@
 namespace FFXIVAPP.Stats
 {
     /// <summary>
-    ///   Stat which automatically generates a percentage value based on the numerator and denominator stats that are linked to it. Any time the linked numerator or denominator stat's value is updated, the PercentStat value will automatically update with the changes and publish its own <seealso
-    ///    cref="Stat{T}.OnValueChanged">OnValueChanged</seealso> event.
+    ///     Stat which automatically generates a percentage value based on the numerator and denominator stats that are linked to it. Any time the linked numerator or denominator stat's value is updated, the PercentStat value will automatically update with the changes and publish its own
+    ///     <seealso
+    ///         cref="Stat{T}.OnValueChanged">
+    ///         OnValueChanged
+    ///     </seealso>
+    ///     event.
     /// </summary>
     public class PercentStat : LinkedStat
     {
-        private readonly Stat<decimal> _numerator;
         private readonly Stat<decimal> _denominator;
+        private readonly Stat<decimal> _numerator;
 
         /// <summary>
         /// </summary>
@@ -57,7 +61,7 @@ namespace FFXIVAPP.Stats
                 Value = 0m;
                 return;
             }
-            Value = (_numerator.Value/_denominator.Value);
+            Value = (_numerator.Value / _denominator.Value);
         }
     }
 }

@@ -1,10 +1,14 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // SampleViewModel.cs
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FFXIVAPP.Common.ViewModelBase;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample.ViewModels
 {

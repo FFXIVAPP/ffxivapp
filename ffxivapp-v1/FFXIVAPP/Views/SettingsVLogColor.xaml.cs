@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for SettingsVLogColor.xaml
+    ///     Interaction logic for SettingsVLogColor.xaml
     /// </summary>
     public partial class SettingsVLogColor
     {

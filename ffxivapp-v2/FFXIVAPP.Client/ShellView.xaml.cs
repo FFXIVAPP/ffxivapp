@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +19,12 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Client
 {
     /// <summary>
-    ///   Interaction logic for ShellView.xaml
+    ///     Interaction logic for ShellView.xaml
     /// </summary>
     public partial class ShellView
     {
@@ -89,12 +93,21 @@ namespace FFXIVAPP.Client
                                     //var xRaw = entry.Raw;
                                     var xTimeStamp = entry.TimeStamp.ToString("[HH:mm:ss]");
                                     var keyPairList = new List<XValuePair>();
-                                    keyPairList.Add(new XValuePair {Key = "Bytes", Value = xBytes});
+                                    keyPairList.Add(new XValuePair {
+                                        Key = "Bytes",
+                                        Value = xBytes
+                                    });
                                     //keyPairList.Add(new XValuePair {Key = "Combined", Value = xCombined});
                                     //keyPairList.Add(new XValuePair {Key = "JP", Value = xJP});
-                                    keyPairList.Add(new XValuePair {Key = "Line", Value = xLine});
+                                    keyPairList.Add(new XValuePair {
+                                        Key = "Line",
+                                        Value = xLine
+                                    });
                                     //keyPairList.Add(new XValuePair {Key = "Raw", Value = xRaw});
-                                    keyPairList.Add(new XValuePair {Key = "TimeStamp", Value = xTimeStamp});
+                                    keyPairList.Add(new XValuePair {
+                                        Key = "TimeStamp",
+                                        Value = xTimeStamp
+                                    });
                                     XmlHelper.SaveXmlNode(savedLog, "History", "Entry", xCode, keyPairList);
                                 }
                                 savedLog.Save(AppViewModel.Instance.LogsPath + savedLogName);

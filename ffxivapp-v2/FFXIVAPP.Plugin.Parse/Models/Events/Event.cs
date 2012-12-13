@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Enums;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Events
 {
@@ -15,9 +19,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
     {
         #region Property Bindings
 
-        private DateTime _timestamp;
         private EventCode _eventCode;
         private string _rawLine;
+        private DateTime _timestamp;
 
         public DateTime Timestamp
         {

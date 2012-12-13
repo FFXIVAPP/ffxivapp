@@ -4,17 +4,44 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace FFXIVAPP.Models
 {
     public class EventGroup
     {
-        private String Name { get; set; }
         private readonly List<EventGroup> _children = new List<EventGroup>();
-        private EventGroup _parent;
         private UInt16 _flags;
+        private EventGroup _parent;
+
+        /// <summary>
+        /// </summary>
+        public EventGroup() {}
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        public EventGroup(String name)
+        {
+            Init(name, null);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        /// <param name="parent"> </param>
+        public EventGroup(String name, EventGroup parent)
+        {
+            Init(name, parent);
+        }
+
+        private String Name { get; set; }
+
         public List<EventCode> Codes { get; private set; }
 
         /// <summary>
@@ -98,29 +125,6 @@ namespace FFXIVAPP.Models
                 _parent = value;
                 value._children.Add(this);
             }
-        }
-
-        /// <summary>
-        /// </summary>
-        public EventGroup()
-        {
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        public EventGroup(String name)
-        {
-            Init(name, null);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        /// <param name="parent"> </param>
-        public EventGroup(String name, EventGroup parent)
-        {
-            Init(name, parent);
         }
 
         /// <summary>

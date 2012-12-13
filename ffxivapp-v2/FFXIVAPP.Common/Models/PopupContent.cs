@@ -4,15 +4,19 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Common.Models
 {
     public class PopupContent
     {
+        private string _message;
         private string _pluginName;
         private string _title;
-        private string _message;
 
         public string PluginName
         {

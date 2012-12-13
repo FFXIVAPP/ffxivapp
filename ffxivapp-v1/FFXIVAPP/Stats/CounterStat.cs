@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -14,16 +18,12 @@ namespace FFXIVAPP.Stats
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="value"> </param>
-        public CounterStat(String name, Decimal value) : base(name, value)
-        {
-        }
+        public CounterStat(String name, Decimal value) : base(name, value) {}
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public CounterStat(String name) : base(name)
-        {
-        }
+        public CounterStat(String name) : base(name) {}
 
         /// <summary>
         /// </summary>

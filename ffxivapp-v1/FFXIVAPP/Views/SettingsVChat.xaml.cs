@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for SettingsVChat.xaml
+    ///     Interaction logic for SettingsVChat.xaml
     /// </summary>
     public partial class SettingsVChat
     {

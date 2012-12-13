@@ -4,31 +4,35 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Classes
 {
     public class BitField
     {
         /// <summary>
-        ///   Hexidecimal Decimal Binary 0x...
-        ///   0000     0 00000000000000000 0x...
-        ///   0001     1 00000000000000001 0x...
-        ///   0002     2 00000000000000010 0x...
-        ///   0004     4 00000000000000100 0x...
-        ///   0008     8 00000000000001000 0x...
-        ///   0010    16 00000000000010000 0x...
-        ///   0020    32 00000000000100000 0x...
-        ///   0040    64 00000000001000000 0x...
-        ///   0080   128 00000000010000000 0x...
-        ///   0100   256 00000000100000000 0x...
-        ///   0200   512 00000001000000000 0x...
-        ///   0400  1024 00000010000000000 0x...
-        ///   0800  2048 00000100000000000 0x...
-        ///   1000  4096 00001000000000000 0x...
-        ///   2000  8192 00010000000000000 0x...
-        ///   4000 16384 00100000000000000 0x...
-        ///   8000 32768 01000000000000000
+        ///     Hexidecimal Decimal Binary 0x...
+        ///     0000     0 00000000000000000 0x...
+        ///     0001     1 00000000000000001 0x...
+        ///     0002     2 00000000000000010 0x...
+        ///     0004     4 00000000000000100 0x...
+        ///     0008     8 00000000000001000 0x...
+        ///     0010    16 00000000000010000 0x...
+        ///     0020    32 00000000000100000 0x...
+        ///     0040    64 00000000001000000 0x...
+        ///     0080   128 00000000010000000 0x...
+        ///     0100   256 00000000100000000 0x...
+        ///     0200   512 00000001000000000 0x...
+        ///     0400  1024 00000010000000000 0x...
+        ///     0800  2048 00000100000000000 0x...
+        ///     1000  4096 00001000000000000 0x...
+        ///     2000  8192 00010000000000000 0x...
+        ///     4000 16384 00100000000000000 0x...
+        ///     8000 32768 01000000000000000
         /// </summary>
         [Flags]
         public enum Flag : ulong
@@ -53,11 +57,7 @@ namespace FFXIVAPP.Classes
         };
 
         /// <summary>
-        /// </summary>
-        public ulong Mask { get; set; }
-
-        /// <summary>
-        ///   Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="flg"> </param>
         public BitField(Flag flg)
@@ -66,7 +66,11 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   ClearField clears all contents of the Field
+        /// </summary>
+        public ulong Mask { get; set; }
+
+        /// <summary>
+        ///     ClearField clears all contents of the Field
         /// </summary>
         public void ClearField()
         {
@@ -82,7 +86,7 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   Setting the specified flag and leaving all other flags unchanged
+        ///     Setting the specified flag and leaving all other flags unchanged
         /// </summary>
         /// <param name="flg"> </param>
         public void SetOn(Flag flg)
@@ -91,7 +95,7 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   Unsetting the specified flag and leaving all other flags unchanged
+        ///     Unsetting the specified flag and leaving all other flags unchanged
         /// </summary>
         /// <param name="flg"> </param>
         public void SetOff(Flag flg)
@@ -100,7 +104,7 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   Toggling the specified flag and leaving all other bits unchanged
+        ///     Toggling the specified flag and leaving all other bits unchanged
         /// </summary>
         /// <param name="flg"> </param>
         public void SetToggle(Flag flg)
@@ -118,7 +122,7 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   Convert a decimal value to a Flag FlagsAttribute value
+        ///     Convert a decimal value to a Flag FlagsAttribute value
         /// </summary>
         /// <param name="dec"> </param>
         /// <returns> </returns>
@@ -136,7 +140,7 @@ namespace FFXIVAPP.Classes
         }
 
         /// <summary>
-        ///   Return a string representation of the Field in decimal (base 10) notation
+        ///     Return a string representation of the Field in decimal (base 10) notation
         /// </summary>
         /// <returns> </returns>
         public String ToStringDec()

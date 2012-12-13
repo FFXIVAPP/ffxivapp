@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+
+#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

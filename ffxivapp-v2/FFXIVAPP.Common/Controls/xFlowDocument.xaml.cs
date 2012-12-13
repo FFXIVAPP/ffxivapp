@@ -4,13 +4,17 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+#endregion
 
 namespace FFXIVAPP.Common.Controls
 {
     /// <summary>
-    ///   Interaction logic for xFlowDocument.xaml
+    ///     Interaction logic for xFlowDocument.xaml
     /// </summary>
     public partial class xFlowDocument : INotifyPropertyChanged
     {

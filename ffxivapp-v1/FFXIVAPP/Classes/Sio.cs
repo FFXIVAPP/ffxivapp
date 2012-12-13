@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +18,15 @@ using FFXIVAPP.Views;
 using NLog;
 using SocketIOClient;
 
+#endregion
+
 namespace FFXIVAPP.Classes
 {
     public class Sio
     {
-        public Client Socket;
         private static readonly FlowDocHelper FD = new FlowDocHelper();
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        public Client Socket;
         private string _clipText = "";
 
         /// <summary>
@@ -50,9 +54,7 @@ namespace FFXIVAPP.Classes
                     OnNewLine(message);
                 });
             }
-            catch
-            {
-            }
+            catch {}
         }
 
         /// <summary>
@@ -86,9 +88,7 @@ namespace FFXIVAPP.Classes
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void Socket_Message(object sender, MessageEventArgs e)
-        {
-        }
+        private void Socket_Message(object sender, MessageEventArgs e) {}
 
         /// <summary>
         /// </summary>
@@ -168,7 +168,11 @@ namespace FFXIVAPP.Classes
                         {
                             case "Hello":
                                 UpdateStatus(string.Format("Notice : {0}", line.message));
-                                SendMessage("login", new Login {source = "PC", name = Settings.Default.SiteName, api = Settings.Default.APIKey});
+                                SendMessage("login", new Login {
+                                    source = "PC",
+                                    name = Settings.Default.SiteName,
+                                    api = Settings.Default.APIKey
+                                });
                                 break;
                             case "Login Success":
                                 UpdateStatus(string.Format("Notice : {0}", line.message));

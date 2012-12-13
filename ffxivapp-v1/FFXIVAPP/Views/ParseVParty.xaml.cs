@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for ParseVParty.xaml
+    ///     Interaction logic for ParseVParty.xaml
     /// </summary>
     public partial class ParseVParty
     {

@@ -4,12 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using FFXIVAPP.Common.Converters;
+
+#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {
@@ -43,8 +47,13 @@ namespace FFXIVAPP.Common.Helpers
                     var timeStampColor = _stb.Convert(String.IsNullOrWhiteSpace(colors[0]) ? "#FFFFFFFF" : colors[0]);
                     var lineColor = _stb.Convert(String.IsNullOrWhiteSpace(colors[1]) ? "#FFFFFFFF" : colors[1]);
                     var paraGraph = new Paragraph();
-                    var timeStamp = new Span(new Run(time)) {Foreground = (Brush) timeStampColor, FontWeight = FontWeights.Bold};
-                    var coloredLine = new Span(new Run(line)) {Foreground = (Brush) lineColor};
+                    var timeStamp = new Span(new Run(time)) {
+                        Foreground = (Brush) timeStampColor,
+                        FontWeight = FontWeights.Bold
+                    };
+                    var coloredLine = new Span(new Run(line)) {
+                        Foreground = (Brush) lineColor
+                    };
                     paraGraph.Inlines.Add(timeStamp);
                     paraGraph.Inlines.Add(coloredLine);
                     flow.Document.Blocks.Add(paraGraph);

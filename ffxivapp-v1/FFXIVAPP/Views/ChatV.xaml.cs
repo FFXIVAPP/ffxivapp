@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for ChatV.xaml
+    ///     Interaction logic for ChatV.xaml
     /// </summary>
     public partial class ChatV
     {

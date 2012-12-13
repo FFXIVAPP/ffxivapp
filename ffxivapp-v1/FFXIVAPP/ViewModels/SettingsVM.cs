@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -17,19 +19,14 @@ using FFXIVAPP.Views;
 using HtmlAgilityPack;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class SettingsVM
     {
         private static string _key = "";
         private static string _colorcode = "";
-        public ICommand ChangeThemeCommand { get; private set; }
-        public ICommand DefaultSettingsCommand { get; private set; }
-        public ICommand ManualUpdateCommand { get; private set; }
-        public ICommand GetCICUIDCommand { get; private set; }
-        public ICommand SaveCharacterCommand { get; private set; }
-        public ICommand ColorSelectionCommand { get; private set; }
-        public ICommand UpdateColorCommand { get; private set; }
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public SettingsVM()
@@ -106,9 +103,7 @@ namespace FFXIVAPP.ViewModels
                 request.Headers.Add("Accept-Language", "en;q=0.8");
                 var response = (HttpWebResponse) request.GetResponse();
                 var s = response.GetResponseStream();
-                if (response.StatusCode != HttpStatusCode.OK || s == null)
-                {
-                }
+                if (response.StatusCode != HttpStatusCode.OK || s == null) {}
                 else
                 {
                     var doc = new HtmlDocument();
@@ -123,14 +118,10 @@ namespace FFXIVAPP.ViewModels
                 {
                     cicuid = Shared.Cicuid.Match(uri).Groups["cicuid"].Value;
                 }
-                catch
-                {
-                }
+                catch {}
                 Settings.Default.CICUID = cicuid;
             }
-            catch
-            {
-            }
+            catch {}
             finally
             {
                 if (String.IsNullOrWhiteSpace(cicuid))
@@ -171,9 +162,7 @@ namespace FFXIVAPP.ViewModels
                 Settings.Default.CharacterName = (first + " " + last).Trim();
                 Settings.Default.ServerName = Constants.XServerName[Settings.Default.Server];
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) {}
         }
 
         /// <summary>
@@ -231,5 +220,13 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand ChangeThemeCommand { get; private set; }
+        public ICommand DefaultSettingsCommand { get; private set; }
+        public ICommand ManualUpdateCommand { get; private set; }
+        public ICommand GetCICUIDCommand { get; private set; }
+        public ICommand SaveCharacterCommand { get; private set; }
+        public ICommand ColorSelectionCommand { get; private set; }
+        public ICommand UpdateColorCommand { get; private set; }
     }
 }

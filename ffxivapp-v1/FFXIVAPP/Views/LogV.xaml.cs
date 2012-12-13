@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for LogV.xaml
+    ///     Interaction logic for LogV.xaml
     /// </summary>
     public partial class LogV
     {

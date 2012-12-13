@@ -126,6 +126,7 @@
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />

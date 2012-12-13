@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Win32;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Security
 {

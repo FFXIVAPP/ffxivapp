@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +13,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using FFXIVAPP.Common.Events;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Log
 {

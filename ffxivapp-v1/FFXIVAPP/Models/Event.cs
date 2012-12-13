@@ -4,12 +4,40 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Models
 {
     public class Event : EventArgs
     {
+        /// <summary>
+        /// </summary>
+        public Event()
+        {
+            Initialize(DateTime.Now, null, null);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ec"> </param>
+        public Event(EventCode ec)
+        {
+            Initialize(DateTime.Now, ec, null);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ec"> </param>
+        /// <param name="rawLine"> </param>
+        public Event(EventCode ec, string rawLine)
+        {
+            Initialize(DateTime.Now, ec, rawLine);
+        }
+
         public DateTime Timestamp { get; private set; }
         private EventCode EventCode { get; set; }
         public string RawLine { get; set; }
@@ -47,30 +75,6 @@ namespace FFXIVAPP.Models
         public Boolean IsUnknown
         {
             get { return (EventCode == null) || (EventCode.Flags == EventParser.UnknownEvent); }
-        }
-
-        /// <summary>
-        /// </summary>
-        public Event()
-        {
-            Initialize(DateTime.Now, null, null);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="ec"> </param>
-        public Event(EventCode ec)
-        {
-            Initialize(DateTime.Now, ec, null);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="ec"> </param>
-        /// <param name="rawLine"> </param>
-        public Event(EventCode ec, string rawLine)
-        {
-            Initialize(DateTime.Now, ec, rawLine);
         }
 
         /// <summary>

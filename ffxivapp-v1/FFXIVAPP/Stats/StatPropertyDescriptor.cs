@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -14,11 +18,30 @@ namespace FFXIVAPP.Stats
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public StatPropertyDescriptor(string name) : base(name, null)
-        {
-        }
+        public StatPropertyDescriptor(string name) : base(name, null) {}
 
         #region Overrides of PropertyDescriptor
+
+        /// <summary>
+        /// </summary>
+        public override Type ComponentType
+        {
+            get { return typeof (StatGroup); }
+        }
+
+        /// <summary>
+        /// </summary>
+        public override bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// </summary>
+        public override Type PropertyType
+        {
+            get { return Name.ToLower() == "name" ? typeof (String) : typeof (Decimal); }
+        }
 
         /// <summary>
         /// </summary>
@@ -70,27 +93,6 @@ namespace FFXIVAPP.Stats
         public override bool ShouldSerializeValue(object component)
         {
             return false;
-        }
-
-        /// <summary>
-        /// </summary>
-        public override Type ComponentType
-        {
-            get { return typeof (StatGroup); }
-        }
-
-        /// <summary>
-        /// </summary>
-        public override bool IsReadOnly
-        {
-            get { return false; }
-        }
-
-        /// <summary>
-        /// </summary>
-        public override Type PropertyType
-        {
-            get { return Name.ToLower() == "name" ? typeof (String) : typeof (Decimal); }
         }
 
         #endregion

@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Controls
 {
     /// <summary>
-    ///   Interaction logic for FlowDoc.xaml
+    ///     Interaction logic for FlowDoc.xaml
     /// </summary>
     public partial class FlowDoc
     {

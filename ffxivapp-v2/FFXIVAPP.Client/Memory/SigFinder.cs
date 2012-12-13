@@ -1,8 +1,10 @@
 ﻿// FFXIVAPP.Client
-// Offsets.cs
+// SigFinder.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+
+#region Usings
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -39,20 +43,20 @@ namespace FFXIVAPP.Client.Memory
 
         private struct MemRegion
         {
-            public long Start;
             public long Length;
+            public long Start;
         }
 
         #endregion
 
         #region Declarations
 
-        private readonly Process _process;
-        private List<MemRegion> _regions;
-        private byte[] _memDump;
         private const int MemCommit = 0x1000;
         private const int PageNoaccess = 0x01;
         private const int PageGuard = 0x100;
+        private readonly Process _process;
+        private byte[] _memDump;
+        private List<MemRegion> _regions;
 
         #endregion
 
@@ -68,7 +72,7 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="pointers"></param>
+        /// <param name="pointers"> </param>
         private void LoadOffsets(List<Pointers> pointers)
         {
             if (_process == null)
@@ -81,12 +85,12 @@ namespace FFXIVAPP.Client.Memory
             {
                 foreach (var pointer in pointers)
                 {
-                    Locations.Add(pointer.Key, (uint)(FindByteString(pointer.Value) + pointer.Offset));
+                    Locations.Add(pointer.Key, (uint) (FindByteString(pointer.Value) + pointer.Offset));
                 }
             }
             else
             {
-                Locations.Add("CHATLOG", (uint)FindByteString("81000000??????00????????????????????0000????0000????0000????????????????08000000??00000014000000") + 16);
+                Locations.Add("CHATLOG", (uint) FindByteString("81000000??????00????????????????????0000????0000????0000????????????????08000000??00000014000000") + 16);
             }
             //Locations.Add("CHATLOG", (uint)FindByteString("40000000060000000000000000010212020203"));
             _memDump = null;
@@ -105,7 +109,10 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (!IsSystemModule(info.BaseAddress) && info.State == MemCommit && (info.Protect & PageGuard) == 0 && (info.Protect & PageNoaccess) == 0)
                     {
-                        var region = new MemRegion {Start = info.BaseAddress, Length = info.RegionSize};
+                        var region = new MemRegion {
+                            Start = info.BaseAddress,
+                            Length = info.RegionSize
+                        };
                         _regions.Add(region);
                     }
                     address = (uint) info.BaseAddress + (uint) info.RegionSize;
@@ -113,12 +120,15 @@ namespace FFXIVAPP.Client.Memory
                 var i = 0;
                 while (i < _regions.Count - 1)
                 {
-                    if (_regions[i].Length > 512*1024)
+                    if (_regions[i].Length > 512 * 1024)
                     {
-                        var region = new MemRegion {Start = _regions[i].Start + 512*1024, Length = 512*1024};
+                        var region = new MemRegion {
+                            Start = _regions[i].Start + 512 * 1024,
+                            Length = 512 * 1024
+                        };
                         _regions.Add(region);
                         region = _regions[i];
-                        region.Length = (512*1024);
+                        region.Length = (512 * 1024);
                         _regions[i] = region;
                     }
                     i++;
@@ -162,7 +172,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 var pointerStart = prefix.Replace("-", String.Empty);
                 var address = FindByteString(String.Format("{0}-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-{1}", prefix, suffix));
-                var temp = (address - _process.MainModule.BaseAddress.ToInt32()) + (pointerStart.Length/2);
+                var temp = (address - _process.MainModule.BaseAddress.ToInt32()) + (pointerStart.Length / 2);
                 return BitConverter.ToInt32(_memDump, (int) temp);
             }
             catch
@@ -217,10 +227,10 @@ namespace FFXIVAPP.Client.Memory
             }
             search = search.Replace("([0-9|A-F][0-9|A-F])", "??").Replace("-", String.Empty);
             var mask = String.Empty;
-            var pattern = new byte[(search.Length/2)];
+            var pattern = new byte[(search.Length / 2)];
             for (var x = 0; x < pattern.Length; x++)
             {
-                if (search.Substring(x*2, 2).Contains("??"))
+                if (search.Substring(x * 2, 2).Contains("??"))
                 {
                     mask += "?";
                     pattern[x] = 0xFF;
@@ -228,7 +238,7 @@ namespace FFXIVAPP.Client.Memory
                 else
                 {
                     mask += "x";
-                    pattern[x] = Byte.Parse(search.Substring(x*2, 2), NumberStyles.HexNumber);
+                    pattern[x] = Byte.Parse(search.Substring(x * 2, 2), NumberStyles.HexNumber);
                 }
             }
             try

@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Plugin.Parse.Views
 {
     /// <summary>
-    ///   Interaction logic for AboutView.xaml
+    ///     Interaction logic for AboutView.xaml
     /// </summary>
     public partial class AboutView
     {

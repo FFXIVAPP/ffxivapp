@@ -4,18 +4,35 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {
     public class StatPropertyDescriptor : PropertyDescriptor
     {
-        public StatPropertyDescriptor(string name) : base(name, null)
-        {
-        }
+        public StatPropertyDescriptor(string name) : base(name, null) {}
 
         #region Overrides of PropertyDescriptor
+
+        public override Type ComponentType
+        {
+            get { return typeof (StatGroup); }
+        }
+
+        public override bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        public override Type PropertyType
+        {
+            get { return Name.ToLower() == "name" ? typeof (string) : typeof (decimal); }
+        }
 
         public override bool CanResetValue(object component)
         {
@@ -46,21 +63,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         public override bool ShouldSerializeValue(object component)
         {
             return false;
-        }
-
-        public override Type ComponentType
-        {
-            get { return typeof (StatGroup); }
-        }
-
-        public override bool IsReadOnly
-        {
-            get { return false; }
-        }
-
-        public override Type PropertyType
-        {
-            get { return Name.ToLower() == "name" ? typeof (string) : typeof (decimal); }
         }
 
         #endregion

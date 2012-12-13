@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,6 +17,8 @@ using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Models;
 using FFXIVAPP.Properties;
 using FFXIVAPP.ViewModels;
+
+#endregion
 
 namespace FFXIVAPP.Classes
 {
@@ -122,11 +126,23 @@ namespace FFXIVAPP.Classes
                     mTimeStamp = mTimeStamp.Trim();
                     if (CheckMode(cle.Code, ShoutLog))
                     {
-                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Global", server = mServer, time = mTimeStamp, code = cle.Code, message = mMessage});
+                        FFXIV.Instance.SIO.SendMessage("message", new Message {
+                            type = "Global",
+                            server = mServer,
+                            time = mTimeStamp,
+                            code = cle.Code,
+                            message = mMessage
+                        });
                     }
                     if (CheckMode(cle.Code, PrivateLog))
                     {
-                        FFXIV.Instance.SIO.SendMessage("message", new Message {type = "Private", server = mServer, time = mTimeStamp, code = cle.Code, message = mMessage});
+                        FFXIV.Instance.SIO.SendMessage("message", new Message {
+                            type = "Private",
+                            server = mServer,
+                            time = mTimeStamp,
+                            code = cle.Code,
+                            message = mMessage
+                        });
                     }
                     //if (!CheckMode(mCode, IgnoreLog))
                     //{

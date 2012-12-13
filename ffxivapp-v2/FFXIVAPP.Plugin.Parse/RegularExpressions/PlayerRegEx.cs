@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.RegularExpressions;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {

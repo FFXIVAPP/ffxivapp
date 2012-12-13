@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.IO;
 using System.Linq;
@@ -16,20 +18,22 @@ using FFXIVAPP.Properties;
 using NLog;
 using NLog.Config;
 
+#endregion
+
 namespace FFXIVAPP
 {
     /// <summary>
-    ///   Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
         public static String[] MArgs;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly string[] _clean = {"Ionic.Zip.dll", "Updater.exe"};
         private readonly string[] _directories = {"./Logs/", "./Resources/", "./Settings/", "./ScreenShots/", "./Plugins/", "./Sounds/"};
+        private readonly string[] _main = {"FFXIVAPP.exe.nlog", "Ionic.Zip.dll", "Updater.exe"};
         private readonly string[] _settings = {"Colors.xml", "Events.xml", "Settings.xml", "RegularExpressions.xml"};
         private readonly string[] _sounds = {"aruba.wav"};
-        private readonly string[] _main = {"FFXIVAPP.exe.nlog", "Ionic.Zip.dll", "Updater.exe"};
-        private readonly string[] _clean = {"Ionic.Zip.dll", "Updater.exe"};
 
         public App()
         {

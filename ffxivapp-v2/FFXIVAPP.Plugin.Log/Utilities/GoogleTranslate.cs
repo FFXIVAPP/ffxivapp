@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Net;
@@ -11,14 +13,16 @@ using FFXIVAPP.Plugin.Log.Properties;
 using FFXIVAPP.Plugin.Log.Views;
 using HtmlAgilityPack;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Log.Utilities
 {
     internal static class GoogleTranslate
     {
+        private const string BaseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
         public static readonly Hashtable Offsets = GetLanguage();
         private static HttpWebRequest _httpWReq;
         private static HttpWebResponse _httpWResp;
-        private const string BaseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
 
         /// <summary>
         /// </summary>
@@ -99,9 +103,7 @@ namespace FFXIVAPP.Plugin.Log.Utilities
                 _httpWReq.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 _httpWResp = (HttpWebResponse) _httpWReq.GetResponse();
                 var stream = _httpWResp.GetResponseStream();
-                if (_httpWResp.StatusCode != HttpStatusCode.OK || stream == null)
-                {
-                }
+                if (_httpWResp.StatusCode != HttpStatusCode.OK || stream == null) {}
                 else
                 {
                     var doc = new HtmlDocument();
@@ -133,7 +135,50 @@ namespace FFXIVAPP.Plugin.Log.Utilities
         /// <returns> </returns>
         private static Hashtable GetLanguage()
         {
-            var offsets = new Hashtable {{"Albanian", "sq"}, {"Arabic", "ar"}, {"Bulgarian", "bg"}, {"Catalan", "ca"}, {"Chinese (Simplified)", "zh-CN"}, {"Chinese (Traditional)", "zh-TW"}, {"Croatian", "hr"}, {"Czech", "cs"}, {"Danish", "da"}, {"Dutch", "nl"}, {"English", "en"}, {"Estonian", "et"}, {"Filipino", "tl"}, {"Finnish", "fi"}, {"French", "fr"}, {"Galician", "gl"}, {"German", "de"}, {"Greek", "el"}, {"Hebrew", "iw"}, {"Hindi", "hi"}, {"Hungarian", "hu"}, {"Indonesian", "id"}, {"Italian", "it"}, {"Japanese", "ja"}, {"Korean", "ko"}, {"Latvian", "lv"}, {"Lithuanian", "lt"}, {"Maltese", "mt"}, {"Norwegian", "no"}, {"Polish", "pl"}, {"Portuguese", "pt"}, {"Romanian", "ro"}, {"Russian", "ru"}, {"Serbian", "sr"}, {"Slovak", "sk"}, {"Slovenian", "sl"}, {"Spanish", "es"}, {"Swedish", "sv"}, {"Thai", "th"}, {"Turkish", "tr"}, {"Ukrainian", "uk"}, {"Vietnamese", "vi"}};
+            var offsets = new Hashtable {
+                {"Albanian", "sq"},
+                {"Arabic", "ar"},
+                {"Bulgarian", "bg"},
+                {"Catalan", "ca"},
+                {"Chinese (Simplified)", "zh-CN"},
+                {"Chinese (Traditional)", "zh-TW"},
+                {"Croatian", "hr"},
+                {"Czech", "cs"},
+                {"Danish", "da"},
+                {"Dutch", "nl"},
+                {"English", "en"},
+                {"Estonian", "et"},
+                {"Filipino", "tl"},
+                {"Finnish", "fi"},
+                {"French", "fr"},
+                {"Galician", "gl"},
+                {"German", "de"},
+                {"Greek", "el"},
+                {"Hebrew", "iw"},
+                {"Hindi", "hi"},
+                {"Hungarian", "hu"},
+                {"Indonesian", "id"},
+                {"Italian", "it"},
+                {"Japanese", "ja"},
+                {"Korean", "ko"},
+                {"Latvian", "lv"},
+                {"Lithuanian", "lt"},
+                {"Maltese", "mt"},
+                {"Norwegian", "no"},
+                {"Polish", "pl"},
+                {"Portuguese", "pt"},
+                {"Romanian", "ro"},
+                {"Russian", "ru"},
+                {"Serbian", "sr"},
+                {"Slovak", "sk"},
+                {"Slovenian", "sl"},
+                {"Spanish", "es"},
+                {"Swedish", "sv"},
+                {"Thai", "th"},
+                {"Turkish", "tr"},
+                {"Ukrainian", "uk"},
+                {"Vietnamese", "vi"}
+            };
             return offsets;
         }
 

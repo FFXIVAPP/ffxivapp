@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,31 +14,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
+#endregion
+
 namespace FFXIVAPP.Classes
 {
     public class GridViewSort
     {
         #region Public Attached Properties
 
-        /// <summary>
-        /// </summary>
-        /// <param name="obj"> </param>
-        /// <returns> </returns>
-        public static ICommand GetCommand(DependencyObject obj)
-        {
-            return (ICommand) obj.GetValue(CommandProperty);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="obj"> </param>
-        /// <param name="value"> </param>
-        public static void SetCommand(DependencyObject obj, ICommand value)
-        {
-            obj.SetValue(CommandProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof (ICommand), typeof (GridViewSort), new UIPropertyMetadata(null, (o, e) =>
         {
             var listView = o as ItemsControl;
@@ -56,17 +41,6 @@ namespace FFXIVAPP.Classes
             }
         }));
 
-        public static bool GetAutoSort(DependencyObject obj)
-        {
-            return (bool) obj.GetValue(AutoSortProperty);
-        }
-
-        public static void SetAutoSort(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AutoSortProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for AutoSort.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AutoSortProperty = DependencyProperty.RegisterAttached("AutoSort", typeof (bool), typeof (GridViewSort), new UIPropertyMetadata(false, (o, e) =>
         {
             var listView = o as ListView;
@@ -88,6 +62,43 @@ namespace FFXIVAPP.Classes
             }
         }));
 
+        public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.RegisterAttached("PropertyName", typeof (string), typeof (GridViewSort), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty ShowSortGlyphProperty = DependencyProperty.RegisterAttached("ShowSortGlyph", typeof (bool), typeof (GridViewSort), new UIPropertyMetadata(true));
+        public static readonly DependencyProperty SortGlyphAscendingProperty = DependencyProperty.RegisterAttached("SortGlyphAscending", typeof (ImageSource), typeof (GridViewSort), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty SortGlyphDescendingProperty = DependencyProperty.RegisterAttached("SortGlyphDescending", typeof (ImageSource), typeof (GridViewSort), new UIPropertyMetadata(null));
+
+        /// <summary>
+        /// </summary>
+        /// <param name="obj"> </param>
+        /// <returns> </returns>
+        public static ICommand GetCommand(DependencyObject obj)
+        {
+            return (ICommand) obj.GetValue(CommandProperty);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="obj"> </param>
+        /// <param name="value"> </param>
+        public static void SetCommand(DependencyObject obj, ICommand value)
+        {
+            obj.SetValue(CommandProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+
+        public static bool GetAutoSort(DependencyObject obj)
+        {
+            return (bool) obj.GetValue(AutoSortProperty);
+        }
+
+        public static void SetAutoSort(DependencyObject obj, bool value)
+        {
+            obj.SetValue(AutoSortProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for AutoSort.  This enables animation, styling, binding, etc...
+
         public static string GetPropertyName(DependencyObject obj)
         {
             return (string) obj.GetValue(PropertyNameProperty);
@@ -99,7 +110,6 @@ namespace FFXIVAPP.Classes
         }
 
         // Using a DependencyProperty as the backing store for PropertyName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.RegisterAttached("PropertyName", typeof (string), typeof (GridViewSort), new UIPropertyMetadata(null));
 
         public static bool GetShowSortGlyph(DependencyObject obj)
         {
@@ -112,7 +122,6 @@ namespace FFXIVAPP.Classes
         }
 
         // Using a DependencyProperty as the backing store for ShowSortGlyph.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowSortGlyphProperty = DependencyProperty.RegisterAttached("ShowSortGlyph", typeof (bool), typeof (GridViewSort), new UIPropertyMetadata(true));
 
         public static ImageSource GetSortGlyphAscending(DependencyObject obj)
         {
@@ -125,7 +134,6 @@ namespace FFXIVAPP.Classes
         }
 
         // Using a DependencyProperty as the backing store for SortGlyphAscending.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SortGlyphAscendingProperty = DependencyProperty.RegisterAttached("SortGlyphAscending", typeof (ImageSource), typeof (GridViewSort), new UIPropertyMetadata(null));
 
         public static ImageSource GetSortGlyphDescending(DependencyObject obj)
         {
@@ -138,11 +146,12 @@ namespace FFXIVAPP.Classes
         }
 
         // Using a DependencyProperty as the backing store for SortGlyphDescending.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SortGlyphDescendingProperty = DependencyProperty.RegisterAttached("SortGlyphDescending", typeof (ImageSource), typeof (GridViewSort), new UIPropertyMetadata(null));
 
         #endregion
 
         #region Private Attached Properties
+
+        private static readonly DependencyProperty SortedColumnHeaderProperty = DependencyProperty.RegisterAttached("SortedColumnHeader", typeof (GridViewColumnHeader), typeof (GridViewSort), new UIPropertyMetadata(null));
 
         /// <summary>
         /// </summary>
@@ -163,7 +172,6 @@ namespace FFXIVAPP.Classes
         }
 
         // Using a DependencyProperty as the backing store for SortedColumn.  This enables animation, styling, binding, etc...
-        private static readonly DependencyProperty SortedColumnHeaderProperty = DependencyProperty.RegisterAttached("SortedColumnHeader", typeof (GridViewColumnHeader), typeof (GridViewSort), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -323,7 +331,7 @@ namespace FFXIVAPP.Classes
                 var x1 = _columnHeader.ActualWidth - 13;
                 var x2 = x1 + 10;
                 var x3 = x1 + 5;
-                var y1 = _columnHeader.ActualHeight/2 - 3;
+                var y1 = _columnHeader.ActualHeight / 2 - 3;
                 var y2 = y1 + 5;
 
                 if (_direction == ListSortDirection.Ascending)
@@ -353,7 +361,7 @@ namespace FFXIVAPP.Classes
                 if (_sortGlyph != null)
                 {
                     var x = _columnHeader.ActualWidth - 13;
-                    var y = _columnHeader.ActualHeight/2 - 5;
+                    var y = _columnHeader.ActualHeight / 2 - 5;
                     var rect = new Rect(x, y, 10, 10);
                     drawingContext.DrawImage(_sortGlyph, rect);
                 }

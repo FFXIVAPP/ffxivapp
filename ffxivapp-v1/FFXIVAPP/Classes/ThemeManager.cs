@@ -4,24 +4,42 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using MahApps.Metro;
 
+#endregion
+
 namespace FFXIVAPP.Classes
 {
     internal static class ThemeManager
     {
-        private static readonly ResourceDictionary LightResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")};
-        private static readonly ResourceDictionary DarkResource = new ResourceDictionary {Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")};
+        private static readonly ResourceDictionary LightResource = new ResourceDictionary {
+            Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")
+        };
+
+        private static readonly ResourceDictionary DarkResource = new ResourceDictionary {
+            Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")
+        };
 
         private static IEnumerable<Accent> _accents;
 
         public static IEnumerable<Accent> DefaultAccents
         {
-            get { return _accents ?? (_accents = new List<Accent> {new Accent("Red", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml")), new Accent("Green", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml")), new Accent("Blue", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml")), new Accent("Purple", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Purple.xaml")), new Accent("Orange", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml")),}); }
+            get
+            {
+                return _accents ?? (_accents = new List<Accent> {
+                    new Accent("Red", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml")),
+                    new Accent("Green", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml")),
+                    new Accent("Blue", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml")),
+                    new Accent("Purple", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Purple.xaml")),
+                    new Accent("Orange", new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml")),
+                });
+            }
         }
 
         public static void ChangeTheme(Application app, Accent accent, Theme theme)

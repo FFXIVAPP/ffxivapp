@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Models.Fights;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
@@ -30,7 +34,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
             ParseControl.Instance.LastKilled = fight.MobName;
             Stats.GetStat("Killed").Value++;
-            Stats.GetStat("AvgHP").Value = Stats.GetStat("Total").Value/Stats.GetStat("Killed").Value;
+            Stats.GetStat("AvgHP").Value = Stats.GetStat("Total").Value / Stats.GetStat("Killed").Value;
         }
     }
 }

@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Media;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

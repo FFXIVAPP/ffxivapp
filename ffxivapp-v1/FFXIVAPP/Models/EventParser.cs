@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,8 @@ using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Models
 {
@@ -22,8 +26,8 @@ namespace FFXIVAPP.Models
         public static UInt16 AllEvents = 0xFFFF;
         public static UInt16 UnknownEvent;
         private static EventParser _instance;
-        private readonly SortedDictionary<UInt16, EventCode> _eventCodes = new SortedDictionary<UInt16, EventCode>();
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly SortedDictionary<UInt16, EventCode> _eventCodes = new SortedDictionary<UInt16, EventCode>();
 
         /// <summary>
         /// </summary>
@@ -163,7 +167,12 @@ namespace FFXIVAPP.Models
             {
                 LoadGroups(group, thisGroup);
             }
-            var codes = from e in root.Elements("ChatCode") select new EventCode {Description = (string) e.Attribute("Desc"), Code = Convert.ToUInt16((string) e.Attribute("ID"), 16), Group = thisGroup};
+            var codes = from e in root.Elements("ChatCode")
+                        select new EventCode {
+                            Description = (string) e.Attribute("Desc"),
+                            Code = Convert.ToUInt16((string) e.Attribute("ID"), 16),
+                            Group = thisGroup
+                        };
             foreach (var c in codes)
             {
                 _eventCodes.Add(c.Code, c);
@@ -186,7 +195,9 @@ namespace FFXIVAPP.Models
             {
                 return new Event(ec, line);
             }
-            var unknownEventCode = new EventCode {Code = code};
+            var unknownEventCode = new EventCode {
+                Code = code
+            };
             return new Event(unknownEventCode, line);
         }
 

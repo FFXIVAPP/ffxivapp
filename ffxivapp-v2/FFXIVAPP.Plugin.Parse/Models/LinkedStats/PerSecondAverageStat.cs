@@ -4,29 +4,28 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
     public class PerSecondAverageStat : LinkedStat
     {
-        private DateTime FirstEventReceived { get; set; }
-        private DateTime LastEventReceived { get; set; }
-
         public PerSecondAverageStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
             FirstEventReceived = DateTime.Now;
             SetupDepends(dependencies[0]);
         }
 
-        public PerSecondAverageStat(string name, decimal value) : base(name, 0m)
-        {
-        }
+        public PerSecondAverageStat(string name, decimal value) : base(name, 0m) {}
 
-        public PerSecondAverageStat(string name) : base(name, 0m)
-        {
-        }
+        public PerSecondAverageStat(string name) : base(name, 0m) {}
+        private DateTime FirstEventReceived { get; set; }
+        private DateTime LastEventReceived { get; set; }
 
         /// <summary>
         /// </summary>
@@ -53,7 +52,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived).TotalSeconds);
             if (timeDifference >= 1)
             {
-                Value = nvalue/timeDifference;
+                Value = nvalue / timeDifference;
             }
         }
     }

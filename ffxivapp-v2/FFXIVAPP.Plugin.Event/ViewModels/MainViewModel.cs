@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -15,6 +17,8 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using FFXIVAPP.Plugin.Event.Views;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Event.ViewModels
 {
@@ -84,7 +88,10 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             {
                 return;
             }
-            var valuePair = new XValuePair {Key = MainView.View.TRegEx.Text, Value = MainView.View.TSound.Text};
+            var valuePair = new XValuePair {
+                Key = MainView.View.TRegEx.Text,
+                Value = MainView.View.TSound.Text
+            };
             if (String.IsNullOrWhiteSpace(selectedKey))
             {
                 var found = PluginViewModel.Instance.Events.Any(pair => pair.Key == valuePair.Key);

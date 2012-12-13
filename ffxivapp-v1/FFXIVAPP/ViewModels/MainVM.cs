@@ -4,21 +4,20 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Properties;
 using FFXIVAPP.Views;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class MainVM
     {
-        public ICommand ResetStatsCommand { get; private set; }
-        public ICommand SetProcessCommand { get; private set; }
-        public ICommand RefreshListCommand { get; private set; }
-        public ICommand ResetExpCommand { get; private set; }
-
         public MainVM()
         {
             ResetStatsCommand = new DelegateCommand(ResetStats);
@@ -86,5 +85,10 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand ResetStatsCommand { get; private set; }
+        public ICommand SetProcessCommand { get; private set; }
+        public ICommand RefreshListCommand { get; private set; }
+        public ICommand ResetExpCommand { get; private set; }
     }
 }

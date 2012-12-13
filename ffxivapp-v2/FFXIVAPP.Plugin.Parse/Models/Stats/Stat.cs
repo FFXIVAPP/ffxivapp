@@ -4,9 +4,13 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {
@@ -14,6 +18,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
     {
         private string _name;
         private T _value;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"> </param>
+        /// <param name="value"> </param>
+        protected Stat(string name = "", T value = default(T))
+        {
+            Name = name;
+            Value = value;
+        }
 
         public string Name
         {
@@ -42,16 +56,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         public event EventHandler<StatChangedEvent> OnValueChanged = delegate { };
 
         #endregion
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        /// <param name="value"> </param>
-        protected Stat(string name = "", T value = default(T))
-        {
-            Name = name;
-            Value = value;
-        }
 
         /// <summary>
         /// </summary>

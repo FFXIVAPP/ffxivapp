@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +24,8 @@ using FFXIVAPP.Plugin.Parse.Utilities;
 using FFXIVAPP.Plugin.Parse.Views;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Parse
 {
     public class Plugin : IPlugin, INotifyPropertyChanged
@@ -37,10 +41,10 @@ namespace FFXIVAPP.Plugin.Parse
 
         #endregion
 
-        private MessageBoxResult _popupResult;
         private IPluginHost _host;
         private Dictionary<string, string> _locale;
         private string _name;
+        private MessageBoxResult _popupResult;
 
         public MessageBoxResult PopupResult
         {
@@ -118,7 +122,10 @@ namespace FFXIVAPP.Plugin.Parse
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {Header = Name, Content = content};
+            var tabItem = new TabItem {
+                Header = Name,
+                Content = content
+            };
             //do your gui stuff here
             //content gives you access to the base xaml
             return tabItem;

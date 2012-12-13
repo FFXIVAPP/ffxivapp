@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +13,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Models;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Event
 {
@@ -28,8 +32,8 @@ namespace FFXIVAPP.Plugin.Event
         #region Property Bindings
 
         private static PluginViewModel _instance;
-        private Dictionary<string, string> _locale;
         private ObservableCollection<XValuePair> _events;
+        private Dictionary<string, string> _locale;
         private ObservableCollection<string> _soundFiles;
 
         public static PluginViewModel Instance

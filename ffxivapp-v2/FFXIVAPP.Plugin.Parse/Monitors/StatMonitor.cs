@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -14,6 +16,8 @@ using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
 using FFXIVAPP.Plugin.Parse.Models.Timelines;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Monitors
 {
@@ -26,8 +30,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         internal static readonly TotalStat PartyTotalTaken = new TotalStat("PartyTotalTaken");
         internal static readonly TotalStat PartyTotalRegTaken = new TotalStat("PartyTotalRegTaken");
         internal static readonly TotalStat PartyTotalCritTaken = new TotalStat("PartyTotalCritTaken");
+
         private static readonly string[] removeCS = new[] {"Miser's Mistress", "Dodore's Minion"};
+
         private static readonly string[] addCS = new[] {"Uraeus"};
+
         private static readonly string[] cleanParts = new[] {"head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"};
 
 
@@ -93,9 +100,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleUnknownEvent(Event e)
-        {
-        }
+        protected override void HandleUnknownEvent(Event e) {}
 
         /// <summary>
         /// </summary>

@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Plugin.Log.Views
 {
     /// <summary>
-    ///   Interaction logic for SettingsView.xaml
+    ///     Interaction logic for SettingsView.xaml
     /// </summary>
     public partial class SettingsView
     {

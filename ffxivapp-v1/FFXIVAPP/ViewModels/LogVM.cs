@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +24,8 @@ using FFXIVAPP.Controls;
 using FFXIVAPP.Properties;
 using FFXIVAPP.Views;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class LogVM
@@ -33,12 +37,6 @@ namespace FFXIVAPP.ViewModels
         private static FlowDoc _rtb;
         public static readonly Dictionary<string, FlowDocument> DFlowDoc = new Dictionary<string, FlowDocument>();
         public static readonly Dictionary<string, FlowDocumentReader> DFlowDocReader = new Dictionary<string, FlowDocumentReader>();
-        public ICommand ManualTranslateCommand { get; private set; }
-        public ICommand ShowAddTabCommand { get; private set; }
-        public ICommand CancelAddTabCommand { get; private set; }
-        public ICommand AddTabCommand { get; private set; }
-        public ICommand DeleteTabCommand { get; private set; }
-        public ICommand CheckTabsCommand { get; private set; }
 
         public LogVM()
         {
@@ -301,5 +299,12 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand ManualTranslateCommand { get; private set; }
+        public ICommand ShowAddTabCommand { get; private set; }
+        public ICommand CancelAddTabCommand { get; private set; }
+        public ICommand AddTabCommand { get; private set; }
+        public ICommand DeleteTabCommand { get; private set; }
+        public ICommand CheckTabsCommand { get; private set; }
     }
 }

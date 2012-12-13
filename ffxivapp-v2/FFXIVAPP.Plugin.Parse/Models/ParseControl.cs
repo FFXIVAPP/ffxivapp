@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.Timelines;
 using FFXIVAPP.Plugin.Parse.Monitors;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models
 {
@@ -17,14 +21,14 @@ namespace FFXIVAPP.Plugin.Parse.Models
         #region Property Bindings
 
         private static ParseControl _instance;
-        private Timeline _timeline;
+        private string _lastKilled = "";
         private StatMonitor _statMonitor;
+        private Timeline _timeline;
         private TimelineMonitor _timelineMonitor;
         private Dictionary<string, string> _totalA;
         private Dictionary<string, string> _totalD;
-        private Dictionary<string, string> _totalH;
         private Dictionary<string, string> _totalDPS;
-        private string _lastKilled = "";
+        private Dictionary<string, string> _totalH;
 
         public static ParseControl Instance
         {

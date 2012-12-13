@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -13,8 +17,13 @@ namespace FFXIVAPP.Stats
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public StatGroupPropertyDescriptor(string name) : base(name)
+        public StatGroupPropertyDescriptor(string name) : base(name) {}
+
+        /// <summary>
+        /// </summary>
+        public override Type PropertyType
         {
+            get { return Name.ToLower() == "name" ? typeof (String) : typeof (StatGroup); }
         }
 
         /// <summary>
@@ -45,13 +54,6 @@ namespace FFXIVAPP.Stats
         public override void ResetValue(object component)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// </summary>
-        public override Type PropertyType
-        {
-            get { return Name.ToLower() == "name" ? typeof (String) : typeof (StatGroup); }
         }
     }
 }

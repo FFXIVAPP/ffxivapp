@@ -7,7 +7,7 @@
 namespace FFXIVAPP.Plugin.Parse.Controls
 {
     /// <summary>
-    ///   Interaction logic for PlayerInfoBox.xaml
+    ///     Interaction logic for PlayerInfoBox.xaml
     /// </summary>
     public partial class PlayerInfoBox
     {

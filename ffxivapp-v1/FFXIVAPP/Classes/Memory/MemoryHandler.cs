@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,22 +14,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using NLog;
 
+#endregion
+
 namespace FFXIVAPP.Classes.Memory
 {
     public class MemoryHandler
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// </summary>
-        public struct MemoryBlock
-        {
-            public long Start;
-            public long Length;
-        }
-
-        private Process Process { get; set; }
-        public uint Address { private get; set; }
 
         /// <summary>
         /// </summary>
@@ -38,6 +31,9 @@ namespace FFXIVAPP.Classes.Memory
             Process = proc;
             Address = address;
         }
+
+        private Process Process { get; set; }
+        public uint Address { private get; set; }
 
         /// <summary>
         /// </summary>
@@ -160,7 +156,10 @@ namespace FFXIVAPP.Classes.Memory
             try
             {
                 var modules = GetModules(proc);
-                return (from module in modules let baseAddress = module.BaseAddress.ToInt32() where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address) select module).FirstOrDefault();
+                return (from module in modules
+                        let baseAddress = module.BaseAddress.ToInt32()
+                        where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address)
+                        select module).FirstOrDefault();
             }
             catch
             {
@@ -206,7 +205,10 @@ namespace FFXIVAPP.Classes.Memory
         {
             var counter = new UnsafeNativeMethods.ProcessMemoryCounters();
             UnsafeNativeMethods.GetProcessMemoryInfo(proc.Handle, out counter, Marshal.SizeOf(counter));
-            var block = new MemoryBlock {Start = proc.MainModule.BaseAddress.ToInt64(), Length = counter.PagefileUsage};
+            var block = new MemoryBlock {
+                Start = proc.MainModule.BaseAddress.ToInt64(),
+                Length = counter.PagefileUsage
+            };
             return block;
         }
 
@@ -529,6 +531,14 @@ namespace FFXIVAPP.Classes.Memory
                 byAr[x] = Convert.ToByte(chAr[x]);
             }
             return byAr;
+        }
+
+        /// <summary>
+        /// </summary>
+        public struct MemoryBlock
+        {
+            public long Length;
+            public long Start;
         }
     }
 }

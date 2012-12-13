@@ -4,12 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
-using FFXIVAPP.Common.Utilities;
 using MahApps.Metro;
-using NLog;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
+
+#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

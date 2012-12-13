@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,24 +35,18 @@ using Color = System.Windows.Media.Color;
 using FontFamily = System.Windows.Media.FontFamily;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 
+#endregion
+
 namespace FFXIVAPP
 {
     /// <summary>
-    ///   Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : IDisposable
     {
         private static WebBrowser _ga = new WebBrowser();
-        public readonly string Lpath = "./Logs/";
-        public readonly string Ipath = "./ScreenShots/";
-        public int Counter;
-        public string Mysql = "";
-        private readonly AutomaticUpdates _autoUpdates = new AutomaticUpdates();
         private static readonly DispatcherTimer ExpTimer = new DispatcherTimer();
         public static NotifyIcon MyNotifyIcon;
-        private Color _tsColor;
-        private Color _bColor;
-        private readonly XDocument _xRegEx = XDocument.Load("./Settings/RegularExpressions.xml");
         public static readonly List<string[]> BattleLog = new List<string[]>();
         public static readonly List<string[]> HealingLog = new List<string[]>();
         public static string Lang = "en";
@@ -58,6 +54,14 @@ namespace FFXIVAPP
         public static DateTime StartTime;
         private static TimeSpan _timeElapsed;
         public static int TotalExp;
+        public readonly string Ipath = "./ScreenShots/";
+        public readonly string Lpath = "./Logs/";
+        private readonly AutomaticUpdates _autoUpdates = new AutomaticUpdates();
+        private readonly XDocument _xRegEx = XDocument.Load("./Settings/RegularExpressions.xml");
+        public int Counter;
+        public string Mysql = "";
+        private Color _bColor;
+        private Color _tsColor;
 
         public MainWindow()
         {
@@ -182,19 +186,27 @@ namespace FFXIVAPP
             switch (Lang)
             {
                 case "ja":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/Japanese.xaml")};
+                    dict = new ResourceDictionary {
+                        Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/Japanese.xaml")
+                    };
                     Settings.Default.TranslateTo = "Japanese";
                     break;
                 case "de":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/German.xaml")};
+                    dict = new ResourceDictionary {
+                        Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/German.xaml")
+                    };
                     Settings.Default.TranslateTo = "German";
                     break;
                 case "fr":
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/French.xaml")};
+                    dict = new ResourceDictionary {
+                        Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/French.xaml")
+                    };
                     Settings.Default.TranslateTo = "French";
                     break;
                 default:
-                    dict = new ResourceDictionary {Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/English.xaml")};
+                    dict = new ResourceDictionary {
+                        Source = new Uri("pack://application:,,,/FFXIVAPP;component/Localization/English.xaml")
+                    };
                     break;
             }
             Resources.MergedDictionaries.Add(dict);
@@ -210,7 +222,10 @@ namespace FFXIVAPP
             {
                 using (var iconStream = streamResourceInfo.Stream)
                 {
-                    MyNotifyIcon = new NotifyIcon {Icon = new Icon(iconStream), Visible = true};
+                    MyNotifyIcon = new NotifyIcon {
+                        Icon = new Icon(iconStream),
+                        Visible = true
+                    };
                     iconStream.Dispose();
                     MyNotifyIcon.Text = "FFXIVAPP";
                     var myNotify = new ContextMenu();
@@ -235,7 +250,10 @@ namespace FFXIVAPP
             if (File.Exists(_xATFile))
             {
                 var _xATCodes = XDocument.Load(_xATFile);
-                var items = _xATCodes.Descendants("Code").Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute(Settings.Default.Language)});
+                var items = _xATCodes.Descendants("Code").Select(item => new XValuePairs {
+                    Key = (string) item.Attribute("Key"),
+                    Value = (string) item.Attribute(Settings.Default.Language)
+                });
                 foreach (var item in items)
                 {
                     Constants.XATCodes.Add(item.Key, item.Value);
@@ -247,7 +265,10 @@ namespace FFXIVAPP
             if (resource != null)
             {
                 var xdoc = XElement.Load(resource.Stream);
-                var items = xdoc.Descendants("ChatCode").Select(item => new XValuePairs {ID = (string) item.Attribute("ID"), Desc = (string) item.Attribute("Desc")});
+                var items = xdoc.Descendants("ChatCode").Select(item => new XValuePairs {
+                    ID = (string) item.Attribute("ID"),
+                    Desc = (string) item.Attribute("Desc")
+                });
                 foreach (var item in items)
                 {
                     Constants.XChatCodes.Add(item.ID, item.Desc);
@@ -267,7 +288,10 @@ namespace FFXIVAPP
         /// <param name="type"> </param>
         private void ProcessRegEx(string type)
         {
-            var items = _xRegEx.Descendants(type).Select(item => new XValuePairs {ID = (string) item.Attribute("ID"), Value = item.FirstNode.ToString()});
+            var items = _xRegEx.Descendants(type).Select(item => new XValuePairs {
+                ID = (string) item.Attribute("ID"),
+                Value = item.FirstNode.ToString()
+            });
             foreach (var item in items)
             {
                 var v = (item.Value.Length == 12) ? "" : item.Value.Substring(9, item.Value.Length - 12);
@@ -416,14 +440,25 @@ namespace FFXIVAPP
         /// <param name="setting"> </param>
         private void LoadSettings(string setting)
         {
-            var items = Constants.XSettings.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value"), RegEx = (string) item.Attribute("RegEx")});
+            var items = Constants.XSettings.Descendants(setting).Select(item => new XValuePairs {
+                Key = (string) item.Attribute("Key"),
+                Value = (string) item.Attribute("Value"),
+                RegEx = (string) item.Attribute("RegEx")
+            });
             switch (setting)
             {
                 case "Color":
-                    items = Constants.XColors.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value"), Desc = (string) item.Attribute("Desc")});
+                    items = Constants.XColors.Descendants(setting).Select(item => new XValuePairs {
+                        Key = (string) item.Attribute("Key"),
+                        Value = (string) item.Attribute("Value"),
+                        Desc = (string) item.Attribute("Desc")
+                    });
                     break;
                 case "Event":
-                    items = Constants.XEvents.Descendants(setting).Select(item => new XValuePairs {Key = (string) item.Attribute("Key"), Value = (string) item.Attribute("Value")});
+                    items = Constants.XEvents.Descendants(setting).Select(item => new XValuePairs {
+                        Key = (string) item.Attribute("Key"),
+                        Value = (string) item.Attribute("Value")
+                    });
                     break;
             }
             foreach (var item in items.Where(item => !String.IsNullOrWhiteSpace(item.Key) && !String.IsNullOrWhiteSpace(item.Value)))
@@ -600,7 +635,7 @@ namespace FFXIVAPP
         {
             ExpTimer.Interval = TimeSpan.FromMilliseconds(1000);
             _timeElapsed = DateTime.Now - StartTime;
-            var expPHour = Convert.ToInt32(TotalExp/(_timeElapsed.TotalMinutes/60));
+            var expPHour = Convert.ToInt32(TotalExp / (_timeElapsed.TotalMinutes / 60));
             var t = ResourceHelper.StringR("loc_Total");
             MainV.View.Exp.Content = t + ": " + TotalExp.ToString(CultureInfo.InvariantCulture) + "   " + t + "/H: " + expPHour.ToString(CultureInfo.InvariantCulture);
             GC.Collect();
@@ -656,7 +691,9 @@ namespace FFXIVAPP
         {
             _tsColor = Settings.Default.Color_TimeStamp;
             _bColor = Settings.Default.Color_ChatlogBackground;
-            var tColor = new SolidColorBrush {Color = _bColor};
+            var tColor = new SolidColorBrush {
+                Color = _bColor
+            };
             ChatView.Log._FD.Background = tColor;
             ParseView.MA._FD.Background = tColor;
             LogView.All._FD.Background = tColor;
@@ -747,9 +784,7 @@ namespace FFXIVAPP
 
         #region Implementation of IDisposable
 
-        public void Dispose()
-        {
-        }
+        public void Dispose() {}
 
         #endregion
     }

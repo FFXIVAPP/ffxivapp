@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -19,6 +21,8 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {
@@ -38,14 +42,14 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
+        private static string _key = "";
+        private static string _value = "";
         public ICommand ChangeThemeCommand { get; private set; }
         public ICommand DefaultSettingsCommand { get; private set; }
         public ICommand GetCICUIDCommand { get; private set; }
         public ICommand SaveCharacterCommand { get; private set; }
         public ICommand ColorSelectionCommand { get; private set; }
         public ICommand UpdateColorCommand { get; private set; }
-        private static string _key = "";
-        private static string _value = "";
 
         #endregion
 
@@ -108,9 +112,7 @@ namespace FFXIVAPP.Client.ViewModels
                     request.Headers.Add("Accept-Language", "en;q=0.8");
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
-                    if (response.StatusCode != HttpStatusCode.OK || stream == null)
-                    {
-                    }
+                    if (response.StatusCode != HttpStatusCode.OK || stream == null) {}
                     else
                     {
                         var doc = new HtmlDocument();

@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
+#endregion
 
 namespace FFXIVAPP.Common.Utilities
 {
@@ -24,8 +28,8 @@ namespace FFXIVAPP.Common.Utilities
         {
             var actualHeight = source.RenderSize.Height;
             var actualWidth = source.RenderSize.Width;
-            var renderHeight = actualHeight*scale;
-            var renderWidth = actualWidth*scale;
+            var renderHeight = actualHeight * scale;
+            var renderWidth = actualWidth * scale;
             var renderTarget = new RenderTargetBitmap((int) renderWidth, (int) renderHeight, 96, 96, PixelFormats.Pbgra32);
             var sourceBrush = new VisualBrush(source);
             var drawingVisual = new DrawingVisual();
@@ -36,7 +40,9 @@ namespace FFXIVAPP.Common.Utilities
                 drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
             }
             renderTarget.Render(drawingVisual);
-            var jpgEncoder = new JpegBitmapEncoder {QualityLevel = quality};
+            var jpgEncoder = new JpegBitmapEncoder {
+                QualityLevel = quality
+            };
             jpgEncoder.Frames.Add(BitmapFrame.Create(renderTarget));
             Byte[] imageArray;
             using (var outputStream = new MemoryStream())

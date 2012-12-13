@@ -4,35 +4,45 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
 
+#endregion
+
 namespace FFXIVAPP.Plugin.Parse.Models
 {
     internal class Expressions : INotifyPropertyChanged
     {
+        private Match _mAction;
+        private Match _mAdditional;
+        private Match _mBlock;
+        private Match _mCounter;
+        private Match _mEvade;
+        private Match _mParry;
+        private Match _mResist;
+        private Match _mUsed;
         private Match _pAction;
-        private Match _pUsed;
         private Match _pAdditional;
-        private Match _pCounter;
         private Match _pBlock;
-        private Match _pParry;
-        private Match _pResist;
+        private Match _pCounter;
         private Match _pEvade;
+        private Match _pMulti;
         private Match _pMultiFlag;
         private string[] _pMultiFlagAbility;
-        private Match _pMulti;
-        private Match _mAction;
-        private Match _mResist;
-        private Match _mEvade;
-        private Match _mUsed;
-        private Match _mAdditional;
-        private Match _mCounter;
-        private Match _mBlock;
-        private Match _mParry;
+        private Match _pParry;
+        private Match _pResist;
+        private Match _pUsed;
+
+        public Expressions(string line)
+        {
+            Cleaned = line;
+            Initialize();
+        }
 
         private string Cleaned { get; set; }
         public string Counter { get; private set; }
@@ -230,12 +240,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 _mEvade = value;
                 RaisePropertyChanged();
             }
-        }
-
-        public Expressions(string line)
-        {
-            Cleaned = line;
-            Initialize();
         }
 
         private void Initialize()

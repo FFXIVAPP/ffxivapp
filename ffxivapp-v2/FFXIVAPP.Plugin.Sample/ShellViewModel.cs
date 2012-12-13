@@ -1,9 +1,13 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // ShellViewModel.cs
 
+#region Usings
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample
 {
@@ -29,9 +33,7 @@ namespace FFXIVAPP.Plugin.Sample
             Initializer.LoadSettings();
         }
 
-        internal static void Loaded(object sender, RoutedEventArgs e)
-        {
-        }
+        internal static void Loaded(object sender, RoutedEventArgs e) {}
 
         #region Loading Functions
 

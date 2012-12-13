@@ -4,9 +4,13 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+
+#endregion
 
 namespace FFXIVAPP.Common.ViewModelBase
 {
@@ -28,17 +32,13 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
-        public DelegateCommand(Action executeMethod) : this(executeMethod, null, false)
-        {
-        }
+        public DelegateCommand(Action executeMethod) : this(executeMethod, null, false) {}
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
-        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false)
-        {
-        }
+        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false) {}
 
         /// <summary>
         /// </summary>
@@ -62,24 +62,6 @@ namespace FFXIVAPP.Common.ViewModelBase
 
         /// <summary>
         /// </summary>
-        /// <returns> </returns>
-        private bool CanExecute()
-        {
-            return _canExecuteMethod == null || _canExecuteMethod();
-        }
-
-        /// <summary>
-        /// </summary>
-        private void Execute()
-        {
-            if (_executeMethod != null)
-            {
-                _executeMethod();
-            }
-        }
-
-        /// <summary>
-        /// </summary>
         public bool IsAutomaticRequeryDisabled
         {
             get { return _isAutomaticRequeryDisabled; }
@@ -98,6 +80,24 @@ namespace FFXIVAPP.Common.ViewModelBase
                     CommandManagerHelper.AddHandlersToRequerySuggested(_canExecuteChangedHandlers);
                 }
                 _isAutomaticRequeryDisabled = value;
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <returns> </returns>
+        private bool CanExecute()
+        {
+            return _canExecuteMethod == null || _canExecuteMethod();
+        }
+
+        /// <summary>
+        /// </summary>
+        private void Execute()
+        {
+            if (_executeMethod != null)
+            {
+                _executeMethod();
             }
         }
 
@@ -162,10 +162,10 @@ namespace FFXIVAPP.Common.ViewModelBase
 
         #region Data
 
-        private readonly Action _executeMethod;
         private readonly Func<bool> _canExecuteMethod;
-        private bool _isAutomaticRequeryDisabled;
+        private readonly Action _executeMethod;
         private List<WeakReference> _canExecuteChangedHandlers;
+        private bool _isAutomaticRequeryDisabled;
 
         #endregion
     }
@@ -178,9 +178,7 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
-        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false)
-        {
-        }
+        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false) {}
 
         /// <summary>
         /// </summary>
@@ -201,6 +199,28 @@ namespace FFXIVAPP.Common.ViewModelBase
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// </summary>
+        public bool IsAutomaticRequeryDisabled
+        {
+            get { return _isAutomaticRequeryDisabled; }
+            set
+            {
+                if (_isAutomaticRequeryDisabled != value)
+                {
+                    if (value)
+                    {
+                        CommandManagerHelper.RemoveHandlersFromRequerySuggested(_canExecuteChangedHandlers);
+                    }
+                    else
+                    {
+                        CommandManagerHelper.AddHandlersToRequerySuggested(_canExecuteChangedHandlers);
+                    }
+                    _isAutomaticRequeryDisabled = value;
+                }
+            }
+        }
 
         /// <summary>
         /// </summary>
@@ -234,28 +254,6 @@ namespace FFXIVAPP.Common.ViewModelBase
         private void OnCanExecuteChanged()
         {
             CommandManagerHelper.CallWeakReferenceHandlers(_canExecuteChangedHandlers);
-        }
-
-        /// <summary>
-        /// </summary>
-        public bool IsAutomaticRequeryDisabled
-        {
-            get { return _isAutomaticRequeryDisabled; }
-            set
-            {
-                if (_isAutomaticRequeryDisabled != value)
-                {
-                    if (value)
-                    {
-                        CommandManagerHelper.RemoveHandlersFromRequerySuggested(_canExecuteChangedHandlers);
-                    }
-                    else
-                    {
-                        CommandManagerHelper.AddHandlersToRequerySuggested(_canExecuteChangedHandlers);
-                    }
-                    _isAutomaticRequeryDisabled = value;
-                }
-            }
         }
 
         #endregion
@@ -309,10 +307,10 @@ namespace FFXIVAPP.Common.ViewModelBase
 
         #region Data
 
-        private readonly Action<T> _executeMethod;
         private readonly Func<T, bool> _canExecuteMethod;
-        private bool _isAutomaticRequeryDisabled;
+        private readonly Action<T> _executeMethod;
         private List<WeakReference> _canExecuteChangedHandlers;
+        private bool _isAutomaticRequeryDisabled;
 
         #endregion
     }

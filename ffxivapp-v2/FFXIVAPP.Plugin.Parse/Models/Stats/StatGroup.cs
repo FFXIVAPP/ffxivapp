@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -14,6 +16,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {
@@ -42,8 +46,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
 
         #region Declarations
 
-        private readonly StatContainer _statList = new StatContainer();
         private readonly ConcurrentDictionary<string, StatGroup> _children = new ConcurrentDictionary<string, StatGroup>();
+        private readonly StatContainer _statList = new StatContainer();
 
         #endregion
 
@@ -121,7 +125,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             TryGetGroup(name, out result);
             if (result == null)
             {
-                AddGroup(new StatGroup(name) {IncludeSelf = false});
+                AddGroup(new StatGroup(name) {
+                    IncludeSelf = false
+                });
             }
             return TryGetGroup(name, out result) ? result : null;
         }

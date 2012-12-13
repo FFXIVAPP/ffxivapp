@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -17,6 +19,8 @@ using System.Windows.Threading;
 using FFXIVAPP.Properties;
 using HtmlAgilityPack;
 
+#endregion
+
 namespace FFXIVAPP.Classes.Converters
 {
     internal class NameToAvatarConverter : IMultiValueConverter
@@ -24,24 +28,6 @@ namespace FFXIVAPP.Classes.Converters
         private const String LodestoneUrl = "http://lodestone.finalfantasyxiv.com/rc/search/search?tgt=77&q=\"{0}\"&cms=&cw={1}";
         private const String DefaultAvatar = "pack://application:,,,/FFXIVAPP;component/Media/Images/NoImage.jpg";
         private bool _cachingEnabled = true;
-
-        /// <summary>
-        /// </summary>
-        private String CachePath
-        {
-            get
-            {
-                try
-                {
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Assembly.GetEntryAssembly().GetName().Name, "./Avatars/");
-                }
-                catch
-                {
-                    _cachingEnabled = false;
-                    return "./Avatars/";
-                }
-            }
-        }
 
         /// <summary>
         /// </summary>
@@ -94,9 +80,7 @@ namespace FFXIVAPP.Classes.Converters
                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 var response = (HttpWebResponse) request.GetResponse();
                 var s = response.GetResponseStream();
-                if (response.StatusCode != HttpStatusCode.OK || s == null)
-                {
-                }
+                if (response.StatusCode != HttpStatusCode.OK || s == null) {}
                 else
                 {
                     var doc = new HtmlDocument();
@@ -122,6 +106,18 @@ namespace FFXIVAPP.Classes.Converters
 
         /// <summary>
         /// </summary>
+        /// <param name="value"> </param>
+        /// <param name="targetTypes"> </param>
+        /// <param name="parameter"> </param>
+        /// <param name="culture"> </param>
+        /// <returns> </returns>
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// </summary>
         /// <param name="name"> </param>
         /// <param name="imageUri"> </param>
         /// <returns> </returns>
@@ -141,18 +137,24 @@ namespace FFXIVAPP.Classes.Converters
             return DefaultAvatar;
         }
 
+        #endregion
+
         /// <summary>
         /// </summary>
-        /// <param name="value"> </param>
-        /// <param name="targetTypes"> </param>
-        /// <param name="parameter"> </param>
-        /// <param name="culture"> </param>
-        /// <returns> </returns>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        private String CachePath
         {
-            throw new NotImplementedException();
+            get
+            {
+                try
+                {
+                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Assembly.GetEntryAssembly().GetName().Name, "./Avatars/");
+                }
+                catch
+                {
+                    _cachingEnabled = false;
+                    return "./Avatars/";
+                }
+            }
         }
-
-        #endregion
     }
 }

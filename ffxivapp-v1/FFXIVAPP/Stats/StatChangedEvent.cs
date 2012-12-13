@@ -4,16 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
     public class StatChangedEvent : EventArgs
     {
-        private Stat<Decimal> SourceStat { get; set; }
-        public object OldValue { get; private set; }
-        public object NewValue { get; private set; }
-
         /// <summary>
         /// </summary>
         /// <param name="sourceStat"> </param>
@@ -25,5 +25,9 @@ namespace FFXIVAPP.Stats
             OldValue = oldValue;
             NewValue = newValue;
         }
+
+        private Stat<Decimal> SourceStat { get; set; }
+        public object OldValue { get; private set; }
+        public object NewValue { get; private set; }
     }
 }

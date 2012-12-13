@@ -4,12 +4,16 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
+
+#endregion
 
 namespace FFXIVAPP.Models
 {
@@ -18,9 +22,7 @@ namespace FFXIVAPP.Models
         /// <summary>
         /// </summary>
         /// <param name="fights"> </param>
-        public FightList(params Fight[] fights) : base(fights)
-        {
-        }
+        public FightList(params Fight[] fights) : base(fights) {}
 
         /// <summary>
         /// </summary>
@@ -140,7 +142,10 @@ namespace FFXIVAPP.Models
             {
                 return;
             }
-            var dispatcher = (from eh in collectionChanged.GetInvocationList() let dpo = eh.Target as DispatcherObject where dpo != null select dpo.Dispatcher).FirstOrDefault();
+            var dispatcher = (from eh in collectionChanged.GetInvocationList()
+                              let dpo = eh.Target as DispatcherObject
+                              where dpo != null
+                              select dpo.Dispatcher).FirstOrDefault();
             if (dispatcher != null && dispatcher.CheckAccess() == false)
             {
                 dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => DoCollectionChanged(howSo, whatChanged)));

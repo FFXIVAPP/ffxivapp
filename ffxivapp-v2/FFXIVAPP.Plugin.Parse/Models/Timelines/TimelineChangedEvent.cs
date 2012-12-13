@@ -4,16 +4,17 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Plugin.Parse.Enums;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Timelines
 {
     public class TimelineChangedEvent : EventArgs
     {
-        private TimelineEventType EventType { get; set; }
-        private object[] EventArgs { get; set; }
-
         /// <summary>
         /// </summary>
         /// <param name="eventType"> </param>
@@ -23,5 +24,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             EventType = eventType;
             EventArgs = eventArgs;
         }
+
+        private TimelineEventType EventType { get; set; }
+        private object[] EventArgs { get; set; }
     }
 }

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using FFXIVAPP.Client.Memory;
 
+#endregion
+
 namespace FFXIVAPP.Client
 {
     [Export(typeof (AppViewModel))]
@@ -23,18 +27,18 @@ namespace FFXIVAPP.Client
 
         private static AppViewModel _instance;
         private string _appTitle;
-        private Dictionary<string, string> _locale;
-        private ObservableCollection<UIElement> _pluginTabItems;
-        private string _selected;
-        private Style _tabControlCollapsedHeader;
-        private string _configurationsPath;
-        private string _logsPath;
-        private string _screenShotsPath;
         private List<ChatEntry> _chatHistory;
+        private string _configurationsPath;
+        private string _currentVersion;
         private bool _hasNewVersion;
         private string _latestVersion;
-        private string _currentVersion;
+        private Dictionary<string, string> _locale;
+        private string _logsPath;
+        private ObservableCollection<UIElement> _pluginTabItems;
         private List<Pointers> _pointers;
+        private string _screenShotsPath;
+        private string _selected;
+        private Style _tabControlCollapsedHeader;
 
         public static AppViewModel Instance
         {

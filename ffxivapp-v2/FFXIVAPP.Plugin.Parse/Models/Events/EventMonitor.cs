@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Events
 {
@@ -15,8 +19,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
     {
         #region Property Bindings
 
-        private DateTime _lastEventReceived;
         private ushort _filter;
+        private DateTime _lastEventReceived;
         private ParseControl _parseControl;
 
         private DateTime LastEventReceived
@@ -112,16 +116,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleEvent(Event e)
-        {
-        }
+        protected virtual void HandleEvent(Event e) {}
 
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleUnknownEvent(Event e)
-        {
-        }
+        protected virtual void HandleUnknownEvent(Event e) {}
 
         public event EventHandler<StatChangedEvent> OnStatChanged = delegate { };
 

@@ -1,12 +1,16 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // LocaleHelper.cs
 
+#region Usings
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using FFXIVAPP.Plugin.Sample.Localization;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample.Helpers
 {

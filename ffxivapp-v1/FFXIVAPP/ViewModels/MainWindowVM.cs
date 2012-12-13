@@ -4,19 +4,21 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.IO;
 using System.Windows.Input;
 using FFXIVAPP.Classes;
 using FFXIVAPP.Classes.Helpers;
 
+#endregion
+
 namespace FFXIVAPP.ViewModels
 {
     public class MainWindowVM
     {
         private static string _currentView = "main";
-        public ICommand SwitchViewCommand { get; private set; }
-        public ICommand ScreenShotCommand { get; private set; }
 
         public MainWindowVM()
         {
@@ -89,5 +91,8 @@ namespace FFXIVAPP.ViewModels
         }
 
         #endregion
+
+        public ICommand SwitchViewCommand { get; private set; }
+        public ICommand ScreenShotCommand { get; private set; }
     }
 }

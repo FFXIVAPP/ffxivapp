@@ -1,7 +1,11 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // German.cs
 
+#region Usings
+
 using System.Windows;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample.Localization
 {

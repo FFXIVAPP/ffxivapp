@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,8 @@ using NLog;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Properties
 {
@@ -59,7 +63,12 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             {
                 var xKey = item;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {new XValuePair {Key = "Value", Value = xValue}};
+                var keyPairList = new List<XValuePair> {
+                    new XValuePair {
+                        Key = "Value",
+                        Value = xValue
+                    }
+                };
                 XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");

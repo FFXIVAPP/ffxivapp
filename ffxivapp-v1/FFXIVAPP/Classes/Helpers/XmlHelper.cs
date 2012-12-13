@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Linq;
 using System.Xml.Linq;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Helpers
 {
@@ -65,7 +69,8 @@ namespace FFXIVAPP.Classes.Helpers
         /// <param name="mNode"> </param>
         public static void DeleteXMLNode(XDocument xDoc, string mNode)
         {
-            var q = from node in xDoc.Descendants(mNode) select node;
+            var q = from node in xDoc.Descendants(mNode)
+                    select node;
             q.ToList().ForEach(x => x.Remove());
         }
     }

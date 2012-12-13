@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Models;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Utilities
 {

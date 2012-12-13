@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {

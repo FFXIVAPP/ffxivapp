@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Linq;
 using MahApps.Metro;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Helpers
 {
@@ -31,9 +35,7 @@ namespace FFXIVAPP.Classes.Helpers
                         break;
                 }
             }
-            catch
-            {
-            }
+            catch {}
         }
     }
 }

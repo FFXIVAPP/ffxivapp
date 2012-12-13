@@ -4,13 +4,17 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System.Windows;
 using System.Windows.Threading;
+
+#endregion
 
 namespace Updater
 {
     /// <summary>
-    ///   Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {

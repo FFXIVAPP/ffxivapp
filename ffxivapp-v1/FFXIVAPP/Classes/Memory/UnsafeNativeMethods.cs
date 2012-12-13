@@ -4,41 +4,18 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace FFXIVAPP.Classes.Memory
 {
     public static class UnsafeNativeMethods
     {
         public const int ProcessAllAccess = 0x1F0FFF;
-
-        [StructLayout(LayoutKind.Sequential, Size = 40)]
-        internal struct ProcessMemoryCounters
-        {
-            private readonly int cb;
-            private readonly int PageFaultCount;
-            private readonly int PeakWorkingSetSize;
-            private readonly int WorkingSetSize;
-            private readonly int QuotaPeakPagedPoolUsage;
-            private readonly int QuotaPagedPoolUsage;
-            private readonly int QuotaPeakNonPagedPoolUsage;
-            private readonly int QuotaNonPagedPoolUsage;
-            public readonly int PagefileUsage;
-            private readonly int PeakPagefileUsage;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MemoryBasicInformation
-        {
-            public readonly int BaseAddress;
-            private readonly int AllocationBase;
-            private readonly int AllocationProtect;
-            public readonly int RegionSize;
-            public readonly int State;
-            public readonly int Protect;
-            private readonly int Type;
-        }
 
         /// <summary>
         /// </summary>
@@ -149,5 +126,32 @@ namespace FFXIVAPP.Classes.Memory
         /// <returns> </returns>
         [DllImport("kernel32.dll")]
         internal static extern int VirtualQueryEx(IntPtr hProcess, uint lpAddress, out MemoryBasicInformation lpBuffer, int dwLength);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MemoryBasicInformation
+        {
+            public readonly int BaseAddress;
+            private readonly int AllocationBase;
+            private readonly int AllocationProtect;
+            public readonly int RegionSize;
+            public readonly int State;
+            public readonly int Protect;
+            private readonly int Type;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Size = 40)]
+        internal struct ProcessMemoryCounters
+        {
+            private readonly int cb;
+            private readonly int PageFaultCount;
+            private readonly int PeakWorkingSetSize;
+            private readonly int WorkingSetSize;
+            private readonly int QuotaPeakPagedPoolUsage;
+            private readonly int QuotaPagedPoolUsage;
+            private readonly int QuotaPeakNonPagedPoolUsage;
+            private readonly int QuotaNonPagedPoolUsage;
+            public readonly int PagefileUsage;
+            private readonly int PeakPagefileUsage;
+        }
     }
 }

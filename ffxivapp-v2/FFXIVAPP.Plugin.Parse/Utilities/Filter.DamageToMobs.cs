@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,6 +15,8 @@ using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Properties;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Utilities
 {
@@ -163,9 +167,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 line.Hit = !line.Miss;
             }
-            if (line.Counter)
-            {
-            }
+            if (line.Counter) {}
             else
             {
                 ParseControl.Instance.Timeline.GetSetMob(line.Target).SetPlayerStat(line);

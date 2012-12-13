@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Plugin.Event.Properties;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Event
 {
@@ -56,7 +60,10 @@ namespace FFXIVAPP.Plugin.Event
                         return;
                     }
                     xValue = String.IsNullOrWhiteSpace(xValue) ? "aruba.wav" : xValue;
-                    var valuePair = new XValuePair {Key = xKey, Value = xValue};
+                    var valuePair = new XValuePair {
+                        Key = xKey,
+                        Value = xValue
+                    };
                     var found = PluginViewModel.Instance.Events.Any(pair => pair.Key == valuePair.Key);
                     if (!found)
                     {

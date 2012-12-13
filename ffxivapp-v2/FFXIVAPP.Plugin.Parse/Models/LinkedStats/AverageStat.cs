@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
@@ -17,13 +21,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends(dependencies[0]);
         }
 
-        public AverageStat(string name, decimal value) : base(name, 0m)
-        {
-        }
+        public AverageStat(string name, decimal value) : base(name, 0m) {}
 
-        public AverageStat(string name) : base(name, 0m)
-        {
-        }
+        public AverageStat(string name) : base(name, 0m) {}
 
         /// <summary>
         /// </summary>
@@ -41,7 +41,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
         public override void DoDependencyValueChanged(object sender, object previousValue, object newValue)
         {
             var value = (decimal) newValue;
-            Value = value/++_numUpdates;
+            Value = value / ++_numUpdates;
         }
     }
 }

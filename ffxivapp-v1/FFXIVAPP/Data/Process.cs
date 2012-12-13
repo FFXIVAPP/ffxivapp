@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections;
 using System.Globalization;
@@ -15,6 +17,8 @@ using FFXIVAPP.Classes.RegExs;
 using FFXIVAPP.Models;
 using FFXIVAPP.Properties;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Data
 {
@@ -315,9 +319,7 @@ namespace FFXIVAPP.Data
                 {
                     d.Hit = !d.Miss;
                 }
-                if (d.Counter)
-                {
-                }
+                if (d.Counter) {}
                 else
                 {
                     FFXIV.Instance.Timeline.GetSetMob(d.Target).GetSetPlayer(d);
@@ -473,9 +475,7 @@ namespace FFXIVAPP.Data
                 {
                     d.Hit = !d.Miss;
                 }
-                if (d.Counter)
-                {
-                }
+                if (d.Counter) {}
                 else
                 {
                     FFXIV.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, d.Source);
@@ -596,12 +596,7 @@ namespace FFXIVAPP.Data
             if (!String.IsNullOrWhiteSpace(q) && !String.IsNullOrWhiteSpace(json))
             {
                 Func<bool> sendJson = () => FFXIV.SubmitData(q, json);
-                sendJson.BeginInvoke(result =>
-                {
-                    if (!sendJson.EndInvoke(result))
-                    {
-                    }
-                }, null);
+                sendJson.BeginInvoke(result => { if (!sendJson.EndInvoke(result)) {} }, null);
             }
 
             #endregion

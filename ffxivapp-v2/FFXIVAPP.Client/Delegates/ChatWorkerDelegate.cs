@@ -4,11 +4,15 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client.Delegates
 {

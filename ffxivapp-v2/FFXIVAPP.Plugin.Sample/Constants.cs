@@ -1,12 +1,16 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Constants.cs
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Sample
 {

@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,28 +17,27 @@ using System.Timers;
 using NLog;
 using Timer = System.Timers.Timer;
 
+#endregion
+
 namespace FFXIVAPP.Classes.Memory
 {
     public class ChatWorker
     {
-        public event NewLineEvnetHandler OnNewline;
-
         public delegate void NewLineEvnetHandler(ChatEntry cle);
-
-        public event RawLineEvnetHandler OnRawline;
 
         public delegate void RawLineEvnetHandler(ChatEntry cle);
 
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly MemoryHandler _handler;
         private readonly Offsets _o;
-        private readonly SynchronizationContext _sync = SynchronizationContext.Current;
-        private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly Timer _scanTimer;
-        private bool _isScanning;
-        private int _lastCount;
-        private uint _lastChatNum;
+        private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly List<uint> _spots = new List<uint>();
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private readonly SynchronizationContext _sync = SynchronizationContext.Current;
+        private bool _isScanning;
+        private uint _lastChatNum;
+        private int _lastCount;
 
         /// <summary>
         /// </summary>
@@ -51,6 +52,9 @@ namespace FFXIVAPP.Classes.Memory
             _handler = new MemoryHandler(p, 0);
             _o = o;
         }
+
+        public event NewLineEvnetHandler OnNewline;
+        public event RawLineEvnetHandler OnRawline;
 
         /// <summary>
         /// </summary>
@@ -139,7 +143,7 @@ namespace FFXIVAPP.Classes.Memory
             if (_lastCount != cp.LineCount1)
             {
                 _spots.Clear();
-                var index = (int) (cp.OffsetArrayPos - cp.OffsetArrayStart)/4;
+                var index = (int) (cp.OffsetArrayPos - cp.OffsetArrayStart) / 4;
                 var lengths = new List<int>();
                 try
                 {
@@ -154,14 +158,14 @@ namespace FFXIVAPP.Classes.Memory
                         }
                         else
                         {
-                            _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1)*4);
+                            _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1) * 4);
                             var p = _handler.GetInt32();
-                            _handler.Address = cp.OffsetArrayStart + (uint) (getline*4);
+                            _handler.Address = cp.OffsetArrayStart + (uint) (getline * 4);
                             var c = _handler.GetInt32();
                             lineLen = c - p;
                         }
                         lengths.Add(lineLen);
-                        _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1)*4);
+                        _handler.Address = cp.OffsetArrayStart + (uint) ((getline - 1) * 4);
                         _spots.Add(cp.LogStart + (uint) _handler.GetInt32());
                     }
                     var limit = _spots.Count;

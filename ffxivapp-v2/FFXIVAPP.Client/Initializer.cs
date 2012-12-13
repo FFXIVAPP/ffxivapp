@@ -4,13 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
@@ -19,6 +20,8 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using HtmlAgilityPack;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client
 {
@@ -264,9 +267,13 @@ namespace FFXIVAPP.Client
             }
             var process = Process.GetProcessById(id);
             var pointers = AppViewModel.Instance.Pointers;
-            if(!pointers.Any())
+            if (!pointers.Any())
             {
-                pointers.Add(new Pointers { Key = "CHATLOG", Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000????????????A8", Offset = 92 });
+                pointers.Add(new Pointers {
+                    Key = "CHATLOG",
+                    Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000????????????A8",
+                    Offset = 92
+                });
                 //pointers.Add(new Pointers { Key = "CHARMAP", Value = "00DB0FC93F6F12833A52070A01", Offset = 205 });
                 //pointers.Add(new Pointers { Key = "TARGET", Value = "0000000005000000????????0000000000000000000000000000000004", Offset = 128 });
             }

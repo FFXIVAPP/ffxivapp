@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +16,8 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+
+#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -30,8 +34,14 @@ namespace FFXIVAPP.Client.Helpers
                 var xValue = color.Value[0];
                 var xDescription = color.Value[1];
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair {Key = "Value", Value = xValue});
-                keyPairList.Add(new XValuePair {Key = "Description", Value = xDescription});
+                keyPairList.Add(new XValuePair {
+                    Key = "Value",
+                    Value = xValue
+                });
+                keyPairList.Add(new XValuePair {
+                    Key = "Description",
+                    Value = xDescription
+                });
                 XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);
             }
             Constants.XColors.Save(AppViewModel.Instance.ConfigurationsPath + "Colors.xml");

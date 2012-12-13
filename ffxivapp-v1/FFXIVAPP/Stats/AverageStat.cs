@@ -4,7 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
+
+#endregion
 
 namespace FFXIVAPP.Stats
 {
@@ -23,17 +27,15 @@ namespace FFXIVAPP.Stats
 
         /// <summary>
         /// </summary>
+        /// <param name="name"> </param>
+        public AverageStat(string name) : base(name, 0) {}
+
+        /// <summary>
+        /// </summary>
         /// <param name="total"> </param>
         private void SetupDepends(Stat<decimal> total)
         {
             AddDependency(total);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        public AverageStat(string name) : base(name, 0)
-        {
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace FFXIVAPP.Stats
         public override void DoDependencyValueChanged(object sender, object o, object n)
         {
             var newValue = (Decimal) n;
-            Value = newValue/++_numUpdates;
+            Value = newValue / ++_numUpdates;
         }
     }
 }

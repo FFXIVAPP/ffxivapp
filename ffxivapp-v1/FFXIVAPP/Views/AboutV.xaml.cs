@@ -4,6 +4,8 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -12,10 +14,12 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
+#endregion
+
 namespace FFXIVAPP.Views
 {
     /// <summary>
-    ///   Interaction logic for AboutV.xaml
+    ///     Interaction logic for AboutV.xaml
     /// </summary>
     public partial class AboutV
     {
@@ -31,7 +35,7 @@ namespace FFXIVAPP.Views
 
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             _version = version.ToString();
-            _buildDate = new DateTime((version.Build - 1)*TimeSpan.TicksPerDay + version.Revision*TimeSpan.TicksPerSecond*2).AddYears(1999).ToString(CultureInfo.InvariantCulture);
+            _buildDate = new DateTime((version.Build - 1) * TimeSpan.TicksPerDay + version.Revision * TimeSpan.TicksPerSecond * 2).AddYears(1999).ToString(CultureInfo.InvariantCulture);
 
             BuildChanges();
         }

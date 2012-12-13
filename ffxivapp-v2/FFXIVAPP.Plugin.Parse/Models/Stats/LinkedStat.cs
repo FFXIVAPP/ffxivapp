@@ -4,8 +4,12 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {
@@ -28,12 +32,35 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             SetupStats(dependencies);
         }
 
-        protected LinkedStat(string name, decimal value) : base(name, 0m)
+        protected LinkedStat(string name, decimal value) : base(name, 0m) {}
+
+        protected LinkedStat(string name) : base(name, 0m) {}
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dependency"> </param>
+        public virtual void AddDependency(Stat<decimal> dependency)
         {
+            _dependencyList.Add(dependency);
+            dependency.OnValueChanged += DependencyValueChanged;
         }
 
-        protected LinkedStat(string name) : base(name, 0m)
+        /// <summary>
+        /// </summary>
+        /// <returns> </returns>
+        public IEnumerable<Stat<decimal>> GetDependencies()
         {
+            return _dependencyList.AsReadOnly();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"> </param>
+        /// <param name="previousValue"> </param>
+        /// <param name="newValue"> </param>
+        public virtual void DoDependencyValueChanged(object sender, object previousValue, object newValue)
+        {
+            Value = (decimal) newValue;
         }
 
         /// <summary>
@@ -45,15 +72,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             {
                 AddDependency(dependency);
             }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="dependency"> </param>
-        public virtual void AddDependency(Stat<decimal> dependency)
-        {
-            _dependencyList.Add(dependency);
-            dependency.OnValueChanged += DependencyValueChanged;
         }
 
         /// <summary>
@@ -77,30 +95,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
 
         /// <summary>
         /// </summary>
-        /// <returns> </returns>
-        public IEnumerable<Stat<decimal>> GetDependencies()
-        {
-            return _dependencyList.AsReadOnly();
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
         private void DependencyValueChanged(object sender, StatChangedEvent e)
         {
             OnDependencyValueChanged(this, new StatChangedEvent(sender, e.PreviousValue, e.NewValue));
             DoDependencyValueChanged(sender, e.PreviousValue, e.NewValue);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="previousValue"> </param>
-        /// <param name="newValue"> </param>
-        public virtual void DoDependencyValueChanged(object sender, object previousValue, object newValue)
-        {
-            Value = (decimal) newValue;
         }
     }
 }
