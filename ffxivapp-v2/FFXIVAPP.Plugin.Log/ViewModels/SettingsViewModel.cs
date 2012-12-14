@@ -68,7 +68,9 @@ namespace FFXIVAPP.Plugin.Log.ViewModels
                 xValue = SettingsView.View.Codes.SelectedItems.Cast<object>().Aggregate("", (current, item) => current + (item.ToString().Split(',')[0] + ",")).Replace("[", "");
                 xValue = xValue.Substring(0, xValue.Length - 1);
             }
-            if (xKey == "" || xValue == "" || xRegularExpression == "") {}
+            if (xKey == "" || xValue == "" || xRegularExpression == "")
+            {
+            }
             else
             {
                 TabItemHelper.AddTabByName(xKey, xValue, xRegularExpression);

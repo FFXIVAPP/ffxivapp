@@ -122,7 +122,8 @@ namespace FFXIVAPP.Plugin.Parse
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = Name,
                 Content = content
             };
@@ -151,7 +152,10 @@ namespace FFXIVAPP.Plugin.Parse
                 {
                     if (Constants.Abilities.Contains(chatEntry.Code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[] {timeStampColor, "#" + color}, MainView.View.AbilityChatFD._FDR);
+                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        {
+                            timeStampColor, "#" + color
+                        }, MainView.View.AbilityChatFD._FDR);
                     }
                 }
                 if (chatEntry.Code == "0020")

@@ -14,11 +14,17 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
     public class TotalStat : LinkedStat
     {
-        public TotalStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m) {}
+        public TotalStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
+        {
+        }
 
-        public TotalStat(string name, decimal value) : base(name, 0m) {}
+        public TotalStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public TotalStat(string name) : base(name, 0m) {}
+        public TotalStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

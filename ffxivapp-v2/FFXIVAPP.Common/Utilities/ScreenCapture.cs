@@ -40,7 +40,8 @@ namespace FFXIVAPP.Common.Utilities
                 drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
             }
             renderTarget.Render(drawingVisual);
-            var jpgEncoder = new JpegBitmapEncoder {
+            var jpgEncoder = new JpegBitmapEncoder
+            {
                 QualityLevel = quality
             };
             jpgEncoder.Frames.Add(BitmapFrame.Create(renderTarget));

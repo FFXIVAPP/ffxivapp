@@ -252,7 +252,8 @@ namespace FFXIVAPP.Client.Memory
         {
             var counter = new UnsafeNativeMethods.ProcessMemoryCounters();
             UnsafeNativeMethods.GetProcessMemoryInfo(process.Handle, out counter, Marshal.SizeOf(counter));
-            var block = new MemoryBlock {
+            var block = new MemoryBlock
+            {
                 Start = process.MainModule.BaseAddress.ToInt64(),
                 Length = counter.PagefileUsage
             };

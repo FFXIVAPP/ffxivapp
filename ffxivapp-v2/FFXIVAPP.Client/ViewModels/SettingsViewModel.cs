@@ -112,7 +112,9 @@ namespace FFXIVAPP.Client.ViewModels
                     request.Headers.Add("Accept-Language", "en;q=0.8");
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
-                    if (response.StatusCode != HttpStatusCode.OK || stream == null) {}
+                    if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                    {
+                    }
                     else
                     {
                         var doc = new HtmlDocument();

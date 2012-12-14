@@ -24,7 +24,10 @@ namespace FFXIVAPP.Plugin.Log
     {
         #region Declarations
 
-        private static readonly string[] TranslateKeys = new[] {"Say", "Tell", "Party", "LS", "Shout"};
+        private static readonly string[] TranslateKeys = new[]
+        {
+            "Say", "Tell", "Party", "LS", "Shout"
+        };
 
         #endregion
 

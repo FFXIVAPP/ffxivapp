@@ -75,7 +75,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         private string _description;
         private EventGroup _group;
 
-        public EventCode() {}
+        public EventCode()
+        {
+        }
 
         /// <summary>
         /// </summary>

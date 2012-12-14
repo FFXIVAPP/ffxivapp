@@ -20,9 +20,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             AddDependency(dependencies[0]);
         }
 
-        public MaxStat(string name, decimal value) : base(name, 0m) {}
+        public MaxStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public MaxStat(string name) : base(name, 0m) {}
+        public MaxStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

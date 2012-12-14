@@ -31,11 +31,20 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         internal static readonly TotalStat PartyTotalRegTaken = new TotalStat("PartyTotalRegTaken");
         internal static readonly TotalStat PartyTotalCritTaken = new TotalStat("PartyTotalCritTaken");
 
-        private static readonly string[] removeCS = new[] {"Miser's Mistress", "Dodore's Minion"};
+        private static readonly string[] removeCS = new[]
+        {
+            "Miser's Mistress", "Dodore's Minion"
+        };
 
-        private static readonly string[] addCS = new[] {"Uraeus"};
+        private static readonly string[] addCS = new[]
+        {
+            "Uraeus"
+        };
 
-        private static readonly string[] cleanParts = new[] {"head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"};
+        private static readonly string[] cleanParts = new[]
+        {
+            "head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"
+        };
 
 
         /// <summary>
@@ -100,7 +109,9 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleUnknownEvent(Event e) {}
+        protected override void HandleUnknownEvent(Event e)
+        {
+        }
 
         /// <summary>
         /// </summary>

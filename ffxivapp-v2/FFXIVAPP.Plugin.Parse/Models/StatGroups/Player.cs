@@ -18,7 +18,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Player : StatGroup
     {
-        private static readonly IList<string> LD = new[] {"Counter", "Block", "Parry", "Resist", "Evade"};
+        private static readonly IList<string> LD = new[]
+        {
+            "Counter", "Block", "Parry", "Resist", "Evade"
+        };
 
         public Player(string name) : base(name)
         {

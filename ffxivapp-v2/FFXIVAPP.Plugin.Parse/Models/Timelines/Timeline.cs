@@ -69,10 +69,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             FightingRightNow = false;
             Fights = new List();
             Overall = new StatGroup("Overall");
-            Party = new StatGroup("Party") {
+            Party = new StatGroup("Party")
+            {
                 IncludeSelf = false
             };
-            Monster = new StatGroup("Monster") {
+            Monster = new StatGroup("Monster")
+            {
                 IncludeSelf = false
             };
         }

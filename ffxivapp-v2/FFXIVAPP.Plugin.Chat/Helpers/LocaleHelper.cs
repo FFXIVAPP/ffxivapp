@@ -19,7 +19,10 @@ namespace FFXIVAPP.Plugin.Chat.Helpers
 {
     internal static class LocaleHelper
     {
-        private static readonly string[] Supported = new[] {"en"};
+        private static readonly string[] Supported = new[]
+        {
+            "en"
+        };
 
         /// <summary>
         /// </summary>

@@ -125,7 +125,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             TryGetGroup(name, out result);
             if (result == null)
             {
-                AddGroup(new StatGroup(name) {
+                AddGroup(new StatGroup(name)
+                {
                     IncludeSelf = false
                 });
             }
@@ -170,12 +171,18 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
                 {
                     continue;
                 }
-                var constructorInfo = linkedStat.GetType().GetConstructor(new[] {typeof (String)});
+                var constructorInfo = linkedStat.GetType().GetConstructor(new[]
+                {
+                    typeof (String)
+                });
                 if (constructorInfo == null)
                 {
                     continue;
                 }
-                var subStat = (NumericStat) constructorInfo.Invoke(new object[] {linkedStat.Name});
+                var subStat = (NumericStat) constructorInfo.Invoke(new object[]
+                {
+                    linkedStat.Name
+                });
                 if (subStat == null)
                 {
                     continue;

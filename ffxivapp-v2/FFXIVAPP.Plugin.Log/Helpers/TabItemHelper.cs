@@ -23,7 +23,8 @@ namespace FFXIVAPP.Plugin.Log.Helpers
         public static void AddTabByName(string xKey, string xValue, string xRegularExpression)
         {
             xKey = Regex.Replace(xKey, "[^a-zA-Z]", "");
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = xKey
             };
             var flowDoc = new xFlowDocument();

@@ -102,7 +102,10 @@ namespace FFXIVAPP.Client
                     {
                         xDescription = Common.Constants.ChatCodes[xKey];
                     }
-                    Common.Constants.Colors.Add(xKey, new[] {xValue, xDescription});
+                    Common.Constants.Colors.Add(xKey, new[]
+                    {
+                        xValue, xDescription
+                    });
                 }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedColors : {0} KeyValuePairs", Common.Constants.AutoTranslate.Count));
             }
@@ -269,7 +272,8 @@ namespace FFXIVAPP.Client
             var pointers = AppViewModel.Instance.Pointers;
             if (!pointers.Any())
             {
-                pointers.Add(new Pointers {
+                pointers.Add(new Pointers
+                {
                     Key = "CHATLOG",
                     Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000????????????A8",
                     Offset = 92

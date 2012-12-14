@@ -22,7 +22,10 @@ namespace FFXIVAPP.Client.Delegates
         /// </summary>
         public static void OnNewLine(ChatEntry chatEntry)
         {
-            var entry = new object[] {chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp};
+            var entry = new object[]
+            {
+                chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp
+            };
             AppViewModel.Instance.ChatHistory.Add(chatEntry);
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {

@@ -21,9 +21,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends(dependencies[0]);
         }
 
-        public AverageStat(string name, decimal value) : base(name, 0m) {}
+        public AverageStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public AverageStat(string name) : base(name, 0m) {}
+        public AverageStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

@@ -34,11 +34,13 @@ namespace FFXIVAPP.Client.Helpers
                 var xValue = color.Value[0];
                 var xDescription = color.Value[1];
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair {
+                keyPairList.Add(new XValuePair
+                {
                     Key = "Value",
                     Value = xValue
                 });
-                keyPairList.Add(new XValuePair {
+                keyPairList.Add(new XValuePair
+                {
                     Key = "Description",
                     Value = xDescription
                 });

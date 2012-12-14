@@ -42,7 +42,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 case "show-mob":
                     var results = new Dictionary<string, int>();
-                    temp = new List<string> {
+                    temp = new List<string>
+                    {
                         String.Format("/{0} * {1} *", cm, sub)
                     };
                     foreach (var player in ptline)
@@ -66,7 +67,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         case "ability":
 
                             t = PluginViewModel.Instance.Locale["parse_partytab"];
-                            temp = new List<string> {
+                            temp = new List<string>
+                            {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("Total")).Take(limit))
@@ -77,7 +79,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             break;
                         case "healing":
                             t = PluginViewModel.Instance.Locale["parse_healingtab"];
-                            temp = new List<string> {
+                            temp = new List<string>
+                            {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("HTotal")).Take(limit))
@@ -88,7 +91,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             break;
                         case "damage":
                             t = PluginViewModel.Instance.Locale["parse_damagetab"];
-                            temp = new List<string> {
+                            temp = new List<string>
+                            {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("DTTotal")).Take(limit))
@@ -99,7 +103,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             break;
                         case "dps":
                             t = "DPS";
-                            temp = new List<string> {
+                            temp = new List<string>
+                            {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderBy(i => Math.Ceiling((decimal) i.GetStatValue("DPS"))).Take(limit))

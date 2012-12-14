@@ -36,7 +36,9 @@ namespace FFXIVAPP.Plugin.Chat
             Initializer.LoadSettings();
         }
 
-        internal static void Loaded(object sender, RoutedEventArgs e) {}
+        internal static void Loaded(object sender, RoutedEventArgs e)
+        {
+        }
 
         #region Loading Functions
 

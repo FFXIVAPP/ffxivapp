@@ -141,7 +141,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         /// <summary>
         /// </summary>
-        public EventGroup() {}
+        public EventGroup()
+        {
+        }
 
         /// <summary>
         /// </summary>

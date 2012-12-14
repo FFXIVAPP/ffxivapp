@@ -21,9 +21,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             GotValue = false;
         }
 
-        public MinStat(string name, decimal value) : base(name, 0m) {}
+        public MinStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public MinStat(string name) : base(name, 0m) {}
+        public MinStat(string name) : base(name, 0m)
+        {
+        }
+
         private bool GotValue { get; set; }
 
         /// <summary>

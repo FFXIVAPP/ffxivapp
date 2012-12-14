@@ -23,7 +23,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Fights
         /// <summary>
         /// </summary>
         /// <param name="fights"> </param>
-        public List(params Fight[] fights) : base(fights) {}
+        public List(params Fight[] fights) : base(fights)
+        {
+        }
 
         /// <summary>
         /// </summary>

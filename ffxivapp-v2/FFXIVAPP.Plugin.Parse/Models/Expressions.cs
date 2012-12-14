@@ -144,7 +144,13 @@ namespace FFXIVAPP.Plugin.Parse.Models
 
         public string[] pMultiFlagAbility
         {
-            get { return _pMultiFlagAbility ?? (_pMultiFlagAbility = new[] {""}); }
+            get
+            {
+                return _pMultiFlagAbility ?? (_pMultiFlagAbility = new[]
+                {
+                    ""
+                });
+            }
             private set
             {
                 _pMultiFlagAbility = value;

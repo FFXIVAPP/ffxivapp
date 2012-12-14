@@ -93,18 +93,21 @@ namespace FFXIVAPP.Client
                                     //var xRaw = entry.Raw;
                                     var xTimeStamp = entry.TimeStamp.ToString("[HH:mm:ss]");
                                     var keyPairList = new List<XValuePair>();
-                                    keyPairList.Add(new XValuePair {
+                                    keyPairList.Add(new XValuePair
+                                    {
                                         Key = "Bytes",
                                         Value = xBytes
                                     });
                                     //keyPairList.Add(new XValuePair {Key = "Combined", Value = xCombined});
                                     //keyPairList.Add(new XValuePair {Key = "JP", Value = xJP});
-                                    keyPairList.Add(new XValuePair {
+                                    keyPairList.Add(new XValuePair
+                                    {
                                         Key = "Line",
                                         Value = xLine
                                     });
                                     //keyPairList.Add(new XValuePair {Key = "Raw", Value = xRaw});
-                                    keyPairList.Add(new XValuePair {
+                                    keyPairList.Add(new XValuePair
+                                    {
                                         Key = "TimeStamp",
                                         Value = xTimeStamp
                                     });

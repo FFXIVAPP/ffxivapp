@@ -17,7 +17,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Monster : StatGroup
     {
-        private static readonly IList<string> LD = new[] {"Counter", "Block", "Parry", "Resist", "Evade"};
+        private static readonly IList<string> LD = new[]
+        {
+            "Counter", "Block", "Parry", "Resist", "Evade"
+        };
 
 
         /// <summary>

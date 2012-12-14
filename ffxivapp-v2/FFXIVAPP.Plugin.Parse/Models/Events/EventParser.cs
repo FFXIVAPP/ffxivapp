@@ -174,7 +174,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 return new Event(eventCode, line);
             }
-            var unknownEventCode = new EventCode {
+            var unknownEventCode = new EventCode
+            {
                 Code = code
             };
             return new Event(unknownEventCode, line);

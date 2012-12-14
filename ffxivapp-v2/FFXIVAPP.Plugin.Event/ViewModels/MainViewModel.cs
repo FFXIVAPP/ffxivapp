@@ -88,7 +88,8 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             {
                 return;
             }
-            var valuePair = new XValuePair {
+            var valuePair = new XValuePair
+            {
                 Key = MainView.View.TRegEx.Text,
                 Value = MainView.View.TSound.Text
             };

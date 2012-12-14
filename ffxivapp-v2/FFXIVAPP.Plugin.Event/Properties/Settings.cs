@@ -38,13 +38,17 @@ namespace FFXIVAPP.Plugin.Event.Properties
         public override void Save()
         {
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0) {}
+            if (Constants.Settings.Count == 0)
+            {
+            }
             foreach (var item in Constants.Settings)
             {
                 var xKey = item;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {
-                    new XValuePair {
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
                         Key = "Value",
                         Value = xValue
                     }
@@ -57,7 +61,8 @@ namespace FFXIVAPP.Plugin.Event.Properties
                 var xKey = item.Key;
                 var xValue = item.Value;
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair {
+                keyPairList.Add(new XValuePair
+                {
                     Key = "Value",
                     Value = xValue
                 });

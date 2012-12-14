@@ -24,9 +24,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends();
         }
 
-        public PercentStat(string name, decimal value) : base(name, 0m) {}
+        public PercentStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public PercentStat(string name) : base(name, 0m) {}
+        public PercentStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

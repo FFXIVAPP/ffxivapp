@@ -21,9 +21,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends(dependencies[0]);
         }
 
-        public PerSecondAverageStat(string name, decimal value) : base(name, 0m) {}
+        public PerSecondAverageStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public PerSecondAverageStat(string name) : base(name, 0m) {}
+        public PerSecondAverageStat(string name) : base(name, 0m)
+        {
+        }
+
         private DateTime FirstEventReceived { get; set; }
         private DateTime LastEventReceived { get; set; }
 

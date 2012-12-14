@@ -116,7 +116,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 line.Hit = !line.Miss;
             }
-            if (line.Counter) {}
+            if (line.Counter)
+            {
+            }
             else
             {
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);

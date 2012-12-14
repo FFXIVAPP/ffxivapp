@@ -50,11 +50,13 @@ namespace FFXIVAPP.Plugin.Log.Properties
                 var xValue = flowDoc.Codes.Items.Cast<object>().Aggregate("", (c, code) => c + "," + code).Substring(1);
                 var xRegularExpression = flowDoc.RegEx.Text;
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair {
+                keyPairList.Add(new XValuePair
+                {
                     Key = "Value",
                     Value = xValue
                 });
-                keyPairList.Add(new XValuePair {
+                keyPairList.Add(new XValuePair
+                {
                     Key = "RegularExpression",
                     Value = xRegularExpression
                 });
@@ -83,8 +85,10 @@ namespace FFXIVAPP.Plugin.Log.Properties
             {
                 var xKey = i;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {
-                    new XValuePair {
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
                         Key = "Value",
                         Value = xValue
                     }

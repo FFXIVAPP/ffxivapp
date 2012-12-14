@@ -38,13 +38,17 @@ namespace FFXIVAPP.Plugin.Chat.Properties
         public override void Save()
         {
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0) {}
+            if (Constants.Settings.Count == 0)
+            {
+            }
             foreach (var item in Constants.Settings)
             {
                 var xKey = item;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {
-                    new XValuePair {
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
                         Key = "Value",
                         Value = xValue
                     }

@@ -125,7 +125,8 @@ namespace FFXIVAPP.Plugin.Log
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = Name,
                 Content = content
             };
@@ -154,7 +155,10 @@ namespace FFXIVAPP.Plugin.Log
                 var color = (Common.Constants.Colors.ContainsKey(chatEntry.Code)) ? Common.Constants.Colors[chatEntry.Code][0] : "FFFFFF";
                 var isLS = Constants.Linkshells.ContainsKey(chatEntry.Code);
                 line = isLS ? Constants.Linkshells[chatEntry.Code] + line : line;
-                Common.Constants.FD.AppendFlow(timeStamp, line, new[] {timeStampColor, "#" + color}, MainView.View.AllFD._FDR);
+                Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                {
+                    timeStampColor, "#" + color
+                }, MainView.View.AllFD._FDR);
                 foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument) ((TabItem) ti).Content))
                 {
                     var resuccess = false;
@@ -185,7 +189,10 @@ namespace FFXIVAPP.Plugin.Log
                     }
                     if (resuccess && flowDoc.Codes.Items.Contains(chatEntry.Code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[] {timeStampColor, "#" + color}, flowDoc._FDR);
+                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        {
+                            timeStampColor, "#" + color
+                        }, flowDoc._FDR);
                     }
                 }
             }
@@ -237,9 +244,15 @@ namespace FFXIVAPP.Plugin.Log
                         asciiString += chatEntry.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
                     }
                     asciiString = asciiString.Trim();
-                    Common.Constants.FD.AppendFlow("", asciiString, new[] {"", "#FFFFFFFF"}, MainView.View.DebugFD._FDR);
+                    Common.Constants.FD.AppendFlow("", asciiString, new[]
+                    {
+                        "", "#FFFFFFFF"
+                    }, MainView.View.DebugFD._FDR);
                 }
-                Common.Constants.FD.AppendFlow("", chatEntry.Raw, new[] {"", "#FFFFFFFF"}, MainView.View.DebugFD._FDR);
+                Common.Constants.FD.AppendFlow("", chatEntry.Raw, new[]
+                {
+                    "", "#FFFFFFFF"
+                }, MainView.View.DebugFD._FDR);
             }
             catch (Exception ex)
             {

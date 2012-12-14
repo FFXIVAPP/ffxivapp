@@ -118,7 +118,8 @@ namespace FFXIVAPP.Plugin.Chat
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = Name,
                 Content = content
             };

@@ -91,7 +91,10 @@ namespace FFXIVAPP.Plugin.Log.ViewModels
                 return;
             }
             var command = String.Format("{0} {1}", chatMode, tmpTranString);
-            Plugin.PHost.Commands(Plugin.PName, new[] {command});
+            Plugin.PHost.Commands(Plugin.PName, new[]
+            {
+                command
+            });
         }
 
         #endregion

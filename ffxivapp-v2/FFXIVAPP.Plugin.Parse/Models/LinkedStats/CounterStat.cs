@@ -8,9 +8,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
 {
     public class CounterStat : NumericStat
     {
-        public CounterStat(string name, decimal value) : base(name, 0m) {}
+        public CounterStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public CounterStat(string name) : base(name, 0m) {}
+        public CounterStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

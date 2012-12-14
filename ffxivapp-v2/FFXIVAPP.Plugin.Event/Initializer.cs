@@ -60,7 +60,8 @@ namespace FFXIVAPP.Plugin.Event
                         return;
                     }
                     xValue = String.IsNullOrWhiteSpace(xValue) ? "aruba.wav" : xValue;
-                    var valuePair = new XValuePair {
+                    var valuePair = new XValuePair
+                    {
                         Key = xKey,
                         Value = xValue
                     };

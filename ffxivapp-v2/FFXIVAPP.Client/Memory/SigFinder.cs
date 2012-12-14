@@ -109,7 +109,8 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (!IsSystemModule(info.BaseAddress) && info.State == MemCommit && (info.Protect & PageGuard) == 0 && (info.Protect & PageNoaccess) == 0)
                     {
-                        var region = new MemRegion {
+                        var region = new MemRegion
+                        {
                             Start = info.BaseAddress,
                             Length = info.RegionSize
                         };
@@ -122,7 +123,8 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (_regions[i].Length > 512 * 1024)
                     {
-                        var region = new MemRegion {
+                        var region = new MemRegion
+                        {
                             Start = _regions[i].Start + 512 * 1024,
                             Length = 512 * 1024
                         };

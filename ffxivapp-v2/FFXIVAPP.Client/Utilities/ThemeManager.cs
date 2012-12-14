@@ -19,11 +19,13 @@ namespace FFXIVAPP.Client.Utilities
 {
     internal static class ThemeManager
     {
-        private static readonly ResourceDictionary LightResource = new ResourceDictionary {
+        private static readonly ResourceDictionary LightResource = new ResourceDictionary
+        {
             Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml")
         };
 
-        private static readonly ResourceDictionary DarkResource = new ResourceDictionary {
+        private static readonly ResourceDictionary DarkResource = new ResourceDictionary
+        {
             Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")
         };
 
@@ -31,7 +33,10 @@ namespace FFXIVAPP.Client.Utilities
         {
             get
             {
-                var accents = new[] {"Red", "Green", "Blue", "Purple", "Orange"};
+                var accents = new[]
+                {
+                    "Red", "Green", "Blue", "Purple", "Orange"
+                };
                 const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
                 return accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent)))).ToList();
             }

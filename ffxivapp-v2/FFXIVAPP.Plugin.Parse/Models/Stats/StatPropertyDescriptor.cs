@@ -15,7 +15,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
 {
     public class StatPropertyDescriptor : PropertyDescriptor
     {
-        public StatPropertyDescriptor(string name) : base(name, null) {}
+        public StatPropertyDescriptor(string name) : base(name, null)
+        {
+        }
 
         #region Overrides of PropertyDescriptor
 

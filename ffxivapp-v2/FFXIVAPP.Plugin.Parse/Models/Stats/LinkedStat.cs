@@ -32,9 +32,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             SetupStats(dependencies);
         }
 
-        protected LinkedStat(string name, decimal value) : base(name, 0m) {}
+        protected LinkedStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        protected LinkedStat(string name) : base(name, 0m) {}
+        protected LinkedStat(string name) : base(name, 0m)
+        {
+        }
 
         /// <summary>
         /// </summary>

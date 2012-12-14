@@ -47,11 +47,13 @@ namespace FFXIVAPP.Common.Helpers
                     var timeStampColor = _stb.Convert(String.IsNullOrWhiteSpace(colors[0]) ? "#FFFFFFFF" : colors[0]);
                     var lineColor = _stb.Convert(String.IsNullOrWhiteSpace(colors[1]) ? "#FFFFFFFF" : colors[1]);
                     var paraGraph = new Paragraph();
-                    var timeStamp = new Span(new Run(time)) {
+                    var timeStamp = new Span(new Run(time))
+                    {
                         Foreground = (Brush) timeStampColor,
                         FontWeight = FontWeights.Bold
                     };
-                    var coloredLine = new Span(new Run(line)) {
+                    var coloredLine = new Span(new Run(line))
+                    {
                         Foreground = (Brush) lineColor
                     };
                     paraGraph.Inlines.Add(timeStamp);

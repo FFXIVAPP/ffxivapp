@@ -21,7 +21,10 @@ namespace FFXIVAPP.Plugin.Parse
     {
         public const string BaseDirectory = "./Plugins/FFXIVAPP.Plugin.Parse/";
 
-        public static readonly string[] Abilities = new[] {"0053", "0054", "0055"};
+        public static readonly string[] Abilities = new[]
+        {
+            "0053", "0054", "0055"
+        };
 
         #region Assembly Property Bindings
 

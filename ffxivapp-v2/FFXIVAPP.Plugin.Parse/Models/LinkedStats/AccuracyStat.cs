@@ -22,9 +22,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
             SetupDepends();
         }
 
-        public AccuracyStat(string name, decimal value) : base(name, 0m) {}
+        public AccuracyStat(string name, decimal value) : base(name, 0m)
+        {
+        }
 
-        public AccuracyStat(string name) : base(name, 0m) {}
+        public AccuracyStat(string name) : base(name, 0m)
+        {
+        }
+
         private Stat<decimal> HitStat { get; set; }
         private Stat<decimal> MissStat { get; set; }
 

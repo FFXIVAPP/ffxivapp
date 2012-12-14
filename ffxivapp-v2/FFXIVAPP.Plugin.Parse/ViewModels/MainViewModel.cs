@@ -81,7 +81,10 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 {
                     continue;
                 }
-                items.Add(count, new[] {xKey, xLine, xTimeStamp});
+                items.Add(count, new[]
+                {
+                    xKey, xLine, xTimeStamp
+                });
                 ++count;
             }
             count = 0;
@@ -97,7 +100,10 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 {
                     if (Constants.Abilities.Contains(code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[] {timeStampColor, "#" + color}, MainView.View.AbilityChatFD._FDR);
+                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        {
+                            timeStampColor, "#" + color
+                        }, MainView.View.AbilityChatFD._FDR);
                     }
                 }
                 Func<bool> funcParse = delegate

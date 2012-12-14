@@ -116,12 +116,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleEvent(Event e) {}
+        protected virtual void HandleEvent(Event e)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleUnknownEvent(Event e) {}
+        protected virtual void HandleUnknownEvent(Event e)
+        {
+        }
 
         public event EventHandler<StatChangedEvent> OnStatChanged = delegate { };
 

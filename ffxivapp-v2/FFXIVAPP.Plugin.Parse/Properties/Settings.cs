@@ -63,8 +63,10 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             {
                 var xKey = item;
                 var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair> {
-                    new XValuePair {
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
                         Key = "Value",
                         Value = xValue
                     }
