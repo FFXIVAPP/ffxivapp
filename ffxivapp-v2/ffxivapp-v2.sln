@@ -65,9 +65,7 @@ Global
 		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Debug|x86.ActiveCfg = Debug|x86
-		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Debug|x86.Build.0 = Debug|x86
 		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Release|x86.ActiveCfg = Release|x86
-		{5FBF9918-92C5-44C6-AF13-117556DBE855}.Release|x86.Build.0 = Release|x86
 		{5FBF9918-92C5-44C6-AF13-117556DBE855}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

@@ -39,24 +39,24 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Private Structs
+        #region Constants
 
-        private struct MemRegion
-        {
-            public long Length;
-            public long Start;
-        }
+        private const int MemCommit = 0x1000;
+        private const int PageNoAccess = 0x01;
+        private const int PageReadwrite = 0x04;
+        private const int PageWritecopy = 0x08;
+        private const int PageExecuteReadwrite = 0x40;
+        private const int PageExecuteWritecopy = 0x80;
+        private const int PageGuard = 0x100;
+        private const int Writable = PageReadwrite | PageWritecopy | PageExecuteReadwrite | PageExecuteWritecopy | PageGuard;
 
         #endregion
 
         #region Declarations
 
-        private const int MemCommit = 0x1000;
-        private const int PageNoaccess = 0x01;
-        private const int PageGuard = 0x100;
         private readonly Process _process;
         private byte[] _memDump;
-        private List<MemRegion> _regions;
+        private List<UnsafeNativeMethods.MemoryBasicInformation> _regions;
 
         #endregion
 
@@ -75,25 +75,25 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="pointers"> </param>
         private void LoadOffsets(List<Pointers> pointers)
         {
-            if (_process == null)
+            Func<bool> d = delegate
             {
-                return;
-            }
-            LoadRegions();
-            Locations = new Dictionary<string, uint>();
-            if (pointers.Any())
-            {
-                foreach (var pointer in pointers)
+                if (_process == null)
                 {
-                    Locations.Add(pointer.Key, (uint) (FindByteString(pointer.Value) + pointer.Offset));
+                    return false;
                 }
-            }
-            else
-            {
-                Locations.Add("CHATLOG", (uint) FindByteString("81000000??????00????????????????????0000????0000????0000????????????????08000000??00000014000000") + 16);
-            }
-            //Locations.Add("CHATLOG", (uint)FindByteString("40000000060000000000000000010212020203"));
-            _memDump = null;
+                LoadRegions();
+                Locations = new Dictionary<string, uint>();
+                if (pointers.Any())
+                {
+                    foreach (var pointer in pointers)
+                    {
+                        Locations.Add(pointer.Key, (uint) (FindByteString(pointer.Value) + pointer.Offset));
+                    }
+                }
+                _memDump = null;
+                return true;
+            };
+            d.BeginInvoke(null, null);
         }
 
         /// <summary>
@@ -102,38 +102,24 @@ namespace FFXIVAPP.Client.Memory
         {
             try
             {
-                _regions = new List<MemRegion>();
+                _regions = new List<UnsafeNativeMethods.MemoryBasicInformation>();
                 var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                uint address = 0;
-                while (UnsafeNativeMethods.VirtualQueryEx(_process.Handle, address, out info, Marshal.SizeOf(info)) != 0 && address < 0xFFFFFFFF && (address + info.RegionSize) > address)
+                var address = 0;
+                while (UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint)address, out info, (uint)Marshal.SizeOf(info)) != 0 && address < 4294967295)
                 {
-                    if (!IsSystemModule(info.BaseAddress) && info.State == MemCommit && (info.Protect & PageGuard) == 0 && (info.Protect & PageNoaccess) == 0)
+                    if (!IsSystemModule(info.BaseAddress))
                     {
-                        var region = new MemRegion
+                        var result = UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint)address, out info, (uint)Marshal.SizeOf(info));
+                        if (0 == result)
                         {
-                            Start = info.BaseAddress,
-                            Length = info.RegionSize
-                        };
-                        _regions.Add(region);
-                    }
-                    address = (uint) info.BaseAddress + (uint) info.RegionSize;
-                }
-                var i = 0;
-                while (i < _regions.Count - 1)
-                {
-                    if (_regions[i].Length > 512 * 1024)
-                    {
-                        var region = new MemRegion
+                            break;
+                        }
+                        if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard))
                         {
-                            Start = _regions[i].Start + 512 * 1024,
-                            Length = 512 * 1024
-                        };
-                        _regions.Add(region);
-                        region = _regions[i];
-                        region.Length = (512 * 1024);
-                        _regions[i] = region;
+                            _regions.Add(info);
+                        }
                     }
-                    i++;
+                    address = info.BaseAddress + info.RegionSize;
                 }
             }
             catch (Exception ex)
@@ -175,7 +161,7 @@ namespace FFXIVAPP.Client.Memory
                 var pointerStart = prefix.Replace("-", String.Empty);
                 var address = FindByteString(String.Format("{0}-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-{1}", prefix, suffix));
                 var temp = (address - _process.MainModule.BaseAddress.ToInt32()) + (pointerStart.Length / 2);
-                return BitConverter.ToInt32(_memDump, (int) temp);
+                return BitConverter.ToInt32(_memDump, (int)temp);
             }
             catch
             {
@@ -247,12 +233,12 @@ namespace FFXIVAPP.Client.Memory
             {
                 for (var i = 0; i < _regions.Count; i++)
                 {
-                    _memDump = new MemoryHandler(_process, (uint) _regions[i].Start).GetByteArray((int) _regions[i].Length);
+                    _memDump = new MemoryHandler(_process, (uint)_regions[i].BaseAddress).GetByteArray(_regions[i].RegionSize);
                     for (var x = 0; x < _memDump.Length; x++)
                     {
                         if (MaskCheck(x, pattern, mask))
                         {
-                            return ((int) _regions[i].Start + x);
+                            return (_regions[i].BaseAddress + x);
                         }
                     }
                 }

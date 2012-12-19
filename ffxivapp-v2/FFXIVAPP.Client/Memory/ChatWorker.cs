@@ -127,6 +127,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="e"> </param>
         private void ScannerDoWork(object sender, DoWorkEventArgs e)
         {
+            if (!_offsets.Locations.ContainsKey("CHATLOG"))
+            {
+                return;
+            }
             _isScanning = true;
             _handler.Address = _offsets.Locations["CHATLOG"];
             var chatPointers = _handler.GetStructure<ChatPointers>();

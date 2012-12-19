@@ -146,18 +146,18 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="dwLength"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll")]
-        public static extern int VirtualQueryEx(IntPtr hProcess, uint lpAddress, out MemoryBasicInformation lpBuffer, int dwLength);
+        public static extern int VirtualQueryEx(IntPtr hProcess, uint lpAddress, out MemoryBasicInformation lpBuffer, uint dwLength);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MemoryBasicInformation
         {
             public readonly int BaseAddress;
-            private readonly int AllocationBase;
-            private readonly int AllocationProtect;
+            public readonly int AllocationBase;
+            public readonly int AllocationProtect;
             public readonly int RegionSize;
             public readonly int State;
             public readonly int Protect;
-            private readonly int Type;
+            public readonly int Type;
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 40)]
