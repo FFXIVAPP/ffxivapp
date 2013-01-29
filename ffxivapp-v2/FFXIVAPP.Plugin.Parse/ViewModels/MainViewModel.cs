@@ -72,7 +72,8 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
             var count = 0;
             var sampleXml = XDocument.Load(Constants.BaseDirectory + "sample.xml");
             var items = new Dictionary<int, string[]>();
-            foreach (var xElement in sampleXml.Descendants().Elements("Entry"))
+            foreach (var xElement in sampleXml.Descendants()
+                                              .Elements("Entry"))
             {
                 var xKey = (string) xElement.Attribute("Key");
                 var xLine = (string) xElement.Element("Line");

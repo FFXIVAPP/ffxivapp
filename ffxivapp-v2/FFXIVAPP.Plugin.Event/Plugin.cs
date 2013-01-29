@@ -129,7 +129,9 @@ namespace FFXIVAPP.Plugin.Event
                 Content = content
             };
             //do your gui stuff here
-            var files = Directory.GetFiles(Constants.BaseDirectory).Where(file => Regex.IsMatch(file, @"^.+\.(wav)$")).Select(file => new FileInfo(file));
+            var files = Directory.GetFiles(Constants.BaseDirectory)
+                                 .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
+                                 .Select(file => new FileInfo(file));
             foreach (var file in files)
             {
                 PluginViewModel.Instance.SoundFiles.Add(file.Name);
@@ -171,7 +173,8 @@ namespace FFXIVAPP.Plugin.Event
                     {
                         continue;
                     }
-                    var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != line).Count();
+                    var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != line)
+                                               .Count();
                     SoundPlayerHelper.Play(Constants.BaseDirectory, PluginViewModel.Instance.Events[index].Value);
                 }
             }

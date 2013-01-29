@@ -86,7 +86,8 @@ namespace FFXIVAPP.Client
                                 foreach (var entry in AppViewModel.Instance.ChatHistory)
                                 {
                                     var xCode = entry.Code;
-                                    var xBytes = entry.Bytes.Aggregate("", (current, bytes) => current + (bytes + " ")).Trim();
+                                    var xBytes = entry.Bytes.Aggregate("", (current, bytes) => current + (bytes + " "))
+                                                      .Trim();
                                     //var xCombined = entry.Combined;
                                     //var xJP = entry.JP.ToString();
                                     var xLine = entry.Line;

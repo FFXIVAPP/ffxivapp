@@ -135,7 +135,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         var whoLeft = eventArgs.Any() ? eventArgs.First() as string : String.Empty;
                         break;
                     case TimelineEventType.MobFighting:
-                        if (mobName != null && (mobName.ToLower().Contains("target") || mobName == ""))
+                        if (mobName != null && (mobName.ToLower()
+                                                       .Contains("target") || mobName == ""))
                         {
                             break;
                         }
@@ -151,13 +152,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         Fight killed;
                         if (Fights.TryGetLastOrCurrent(mobName, out killed))
                         {
-                            GetSetMob(mobName).SetKillStat(killed);
+                            GetSetMob(mobName)
+                                .SetKillStat(killed);
                         }
                         else
                         {
                             var outOfOrderFight = new Fight(mobName);
                             Fights.Add(outOfOrderFight);
-                            GetSetMob(mobName).SetKillStat(outOfOrderFight);
+                            GetSetMob(mobName)
+                                .SetKillStat(outOfOrderFight);
                         }
                         FightingRightNow = false;
                         break;

@@ -60,7 +60,8 @@ namespace FFXIVAPP.Client.Memory
 
         public ChatCleaner(byte[] bytes, CultureInfo ci, out bool jp)
         {
-            Result = Process(bytes, ci, out jp).Trim();
+            Result = Process(bytes, ci, out jp)
+                .Trim();
         }
 
         /// <summary>
@@ -76,7 +77,8 @@ namespace FFXIVAPP.Client.Memory
             {
                 var autoTranslateList = new List<byte>();
                 var newList = new List<byte>();
-                var check = Encoding.UTF8.GetString(bytes.Take(4).ToArray());
+                var check = Encoding.UTF8.GetString(bytes.Take(4)
+                                                         .ToArray());
                 for (var x = 0; x < bytes.Count(); x++)
                 {
                     //if (bytes[x] == 2)
@@ -164,16 +166,19 @@ namespace FFXIVAPP.Client.Memory
                     }
                     newList.Add(bytes[x]);
                 }
-                var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray())).Replace("  ", " ");
+                var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
+                                         .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
                 var jpc = (ci.TwoLetterISOLanguageName == "ja");
-                return jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray())).Replace("  ", " ") : cleaned;
+                return jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
+                                        .Replace("  ", " ") : cleaned;
             }
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                return HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray())).Replace("  ", " ");
+                return HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
+                                  .Replace("  ", " ");
             }
         }
 

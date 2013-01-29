@@ -29,7 +29,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (match.Success)
             {
                 case true:
-                    if (expressions.pMultiFlagAbility.Any(s => cleaned.ToLower().Contains(s.ToLower())))
+                    if (expressions.pMultiFlagAbility.Any(s => cleaned.ToLower()
+                                                                      .Contains(s.ToLower())))
                     {
                         _lastAttacked = StringHelper.TitleCase((Convert.ToString(match.Groups["target"].Value)));
                         _lastAttacker = Convert.ToString(match.Groups["source"].Value);
@@ -86,7 +87,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                                                 line.Source = _lastAttacker;
                                                                 line.Target = _lastAttacked;
                                                                 line.Hit = true;
-                                                                ParseControl.Instance.Timeline.GetSetPlayer(_lastAttacker).SetAbilityStat(line);
+                                                                ParseControl.Instance.Timeline.GetSetPlayer(_lastAttacker)
+                                                                            .SetAbilityStat(line);
                                                             }
                                                             return;
                                                         case false:
@@ -172,12 +174,18 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             else
             {
-                ParseControl.Instance.Timeline.GetSetMob(line.Target).SetPlayerStat(line);
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source).SetAbilityStat(line);
+                ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                            .SetPlayerStat(line);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                            .SetAbilityStat(line);
                 _lastAttacker = line.Source;
                 _lastAttacked = line.Target;
-                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Source).GetStatValue("Total").ToString();
-                var dps = ParseControl.Instance.Timeline.Party.GetGroup(line.Source).GetStatValue("DPS").ToString();
+                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Source)
+                                        .GetStatValue("Total")
+                                        .ToString();
+                var dps = ParseControl.Instance.Timeline.Party.GetGroup(line.Source)
+                                      .GetStatValue("DPS")
+                                      .ToString();
                 switch (ParseControl.Instance.TotalA.ContainsKey(line.Source))
                 {
                     case true:

@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // ShellViewModel.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -33,7 +36,9 @@ namespace FFXIVAPP.Plugin.Sample
             Initializer.LoadSettings();
         }
 
-        internal static void Loaded(object sender, RoutedEventArgs e) {}
+        internal static void Loaded(object sender, RoutedEventArgs e)
+        {
+        }
 
         #region Loading Functions
 

@@ -29,7 +29,8 @@ namespace FFXIVAPP.Common.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var brushConverter = new BrushConverter();
-            value = (value.ToString().StartsWith("#")) ? value : "#" + value;
+            value = (value.ToString()
+                          .StartsWith("#")) ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
             try
             {
@@ -61,7 +62,8 @@ namespace FFXIVAPP.Common.Converters
         public object Convert(object value)
         {
             var brushConverter = new BrushConverter();
-            value = (value.ToString().Substring(0, 1) == "#") ? value : "#" + value;
+            value = (value.ToString()
+                          .Substring(0, 1) == "#") ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
             try
             {

@@ -20,7 +20,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
 
         public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
-            var descriptors = StatGroup.Stats.Select(stat => new StatPropertyDescriptor(stat.Name)).Cast<PropertyDescriptor>().ToList();
+            var descriptors = StatGroup.Stats.Select(stat => new StatPropertyDescriptor(stat.Name))
+                                       .Cast<PropertyDescriptor>()
+                                       .ToList();
             descriptors.Add(new StatPropertyDescriptor("Name"));
             descriptors.AddRange(StatGroup.Children.Select(p => new StatGroupPropertyDescriptor(p.Name)));
             return new PropertyDescriptorCollection(descriptors.ToArray());

@@ -70,7 +70,8 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             {
                 return;
             }
-            var thing = StringHelper.TitleCase(matches.Groups["item"].Value).Replace("」", "");
+            var thing = StringHelper.TitleCase(matches.Groups["item"].Value)
+                                    .Replace("」", "");
             SetDrop(thing);
         }
 

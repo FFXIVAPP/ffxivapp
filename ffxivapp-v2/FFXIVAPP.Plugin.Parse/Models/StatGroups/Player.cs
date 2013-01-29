@@ -88,7 +88,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DPS", new PerSecondAverageStat("DPS", stats["Total"]));
             stats.Add("HPS", new PerSecondAverageStat("HPS", stats["HTotal"]));
             stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["DTTotal"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
 
         /// <summary>
@@ -139,7 +140,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("ResistPer", new PercentStat("ResistPer", stats["Resist"], stats["Used"]));
             stats.Add("Evade", new CounterStat("Evade"));
             stats.Add("EvadePer", new PercentStat("EvadePer", stats["Evade"], stats["Used"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
 
         /// <summary>
@@ -167,7 +169,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("Low", new MinStat("Low", stats["Total"]));
             stats.Add("High", new MaxStat("High", stats["Total"]));
             stats.Add("Avg", new AverageStat("Avg", stats["Total"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
 
         /// <summary>
@@ -213,7 +216,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("ResistPer", new PercentStat("ResistPer", stats["Resist"], stats["Used"]));
             stats.Add("Evade", new CounterStat("Evade"));
             stats.Add("EvadePer", new PercentStat("EvadePer", stats["Evade"], stats["Used"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
     }
 }

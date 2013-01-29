@@ -62,7 +62,8 @@ namespace FFXIVAPP.Client
                     continue;
                 }
                 var xDoc = XDocument.Load(settings);
-                foreach (var xElement in xDoc.Descendants().Elements("Main"))
+                foreach (var xElement in xDoc.Descendants()
+                                             .Elements("Main"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -103,7 +104,8 @@ namespace FFXIVAPP.Client
             try
             {
                 var pAssembly = Assembly.LoadFile(fileName);
-                var pType = pAssembly.GetType(pAssembly.GetName().Name + ".Plugin");
+                var pType = pAssembly.GetType(pAssembly.GetName()
+                                                       .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {

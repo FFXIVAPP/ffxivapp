@@ -175,7 +175,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
 
         public decimal GetStatValue(string name)
         {
-            return HasStat(name) ? GetStat(name).Value : -1;
+            return HasStat(name) ? GetStat(name)
+                                       .Value : -1;
         }
 
         public void AddStats(IEnumerable<Stat<decimal>> stats)

@@ -52,7 +52,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             var statGroup = (StatGroup) component;
             if (statGroup.Stats.HasStat(Name))
             {
-                statGroup.Stats.GetStat(Name).Value = 0;
+                statGroup.Stats.GetStat(Name)
+                         .Value = 0;
             }
         }
 

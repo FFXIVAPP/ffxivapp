@@ -71,7 +71,8 @@ namespace FFXIVAPP.Plugin.Chat.Properties
         {
             try
             {
-                var type = Default[key].GetType().Name;
+                var type = Default[key].GetType()
+                                       .Name;
                 switch (type)
                 {
                     case "Boolean":

@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Initializer.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -23,7 +26,8 @@ namespace FFXIVAPP.Plugin.Sample
         {
             if (Constants.XSettings != null)
             {
-                foreach (var xElement in Constants.XSettings.Descendants().Elements("Setting"))
+                foreach (var xElement in Constants.XSettings.Descendants()
+                                                  .Elements("Setting"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");

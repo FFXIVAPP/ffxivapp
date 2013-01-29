@@ -122,8 +122,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             else
             {
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Target).SetDamageStat(line);
-                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Target).GetStatValue("DTTotal").ToString();
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
+                            .SetDamageStat(line);
+                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Target)
+                                        .GetStatValue("DTTotal")
+                                        .ToString();
                 switch (ParseControl.Instance.TotalD.ContainsKey(line.Target))
                 {
                     case true:

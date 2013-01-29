@@ -26,7 +26,8 @@ namespace FFXIVAPP.Plugin.Chat
         {
             if (Constants.XSettings != null)
             {
-                foreach (var xElement in Constants.XSettings.Descendants().Elements("Setting"))
+                foreach (var xElement in Constants.XSettings.Descendants()
+                                                  .Elements("Setting"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");

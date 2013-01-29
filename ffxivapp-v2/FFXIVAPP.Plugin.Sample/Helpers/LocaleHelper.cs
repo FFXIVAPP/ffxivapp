@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // LocaleHelper.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -16,7 +19,10 @@ namespace FFXIVAPP.Plugin.Sample.Helpers
 {
     internal static class LocaleHelper
     {
-        private static readonly string[] Supported = new[] {"en"};
+        private static readonly string[] Supported = new[]
+        {
+            "en"
+        };
 
         /// <summary>
         /// </summary>
@@ -47,7 +53,8 @@ namespace FFXIVAPP.Plugin.Sample.Helpers
             {
                 dictionary = English.Context();
             }
-            return dictionary.Cast<DictionaryEntry>().ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            return dictionary.Cast<DictionaryEntry>()
+                             .ToDictionary(item => (string) item.Key, item => (string) item.Value);
         }
     }
 }

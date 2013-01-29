@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Constants.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -52,7 +55,8 @@ namespace FFXIVAPP.Plugin.Sample
         {
             get
             {
-                var att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
+                var att = Assembly.GetCallingAssembly()
+                                  .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyTitleAttribute) att[0]).Title;
             }
         }
@@ -61,7 +65,8 @@ namespace FFXIVAPP.Plugin.Sample
         {
             get
             {
-                var att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
+                var att = Assembly.GetCallingAssembly()
+                                  .GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyDescriptionAttribute) att[0]).Description;
             }
         }
@@ -70,14 +75,20 @@ namespace FFXIVAPP.Plugin.Sample
         {
             get
             {
-                var att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
+                var att = Assembly.GetCallingAssembly()
+                                  .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
             }
         }
 
         internal static Version PluginVersion
         {
-            get { return Assembly.GetCallingAssembly().GetName().Version; }
+            get
+            {
+                return Assembly.GetCallingAssembly()
+                               .GetName()
+                               .Version;
+            }
         }
 
         #endregion

@@ -53,8 +53,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             IsValid = true;
             if (line.Type == expressions.Type)
             {
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source).SetHealingStat(line);
-                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Source).GetStatValue("HTotal").ToString();
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                            .SetHealingStat(line);
+                var total = ParseControl.Instance.Timeline.Party.GetGroup(line.Source)
+                                        .GetStatValue("HTotal")
+                                        .ToString();
                 switch (ParseControl.Instance.TotalH.ContainsKey(line.Source))
                 {
                     case true:

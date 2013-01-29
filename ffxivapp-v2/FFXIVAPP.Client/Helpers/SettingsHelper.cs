@@ -56,7 +56,8 @@ namespace FFXIVAPP.Client.Helpers
         {
             try
             {
-                var att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof (AssemblyCompanyAttribute), false);
+                var att = Assembly.GetCallingAssembly()
+                                  .GetCustomAttributes(typeof (AssemblyCompanyAttribute), false);
                 var companyName = ((AssemblyCompanyAttribute) att[0]).Company;
                 var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 var combinedPath = Path.Combine(appDataPath, companyName);

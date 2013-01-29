@@ -21,7 +21,8 @@ namespace FFXIVAPP.Client.Helpers
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp)
+                                   .ToLocalTime();
             return dtDateTime;
         }
     }

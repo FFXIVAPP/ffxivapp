@@ -63,7 +63,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("CHigh", new MaxStat("CHigh", stats["Crit"]));
             stats.Add("Avg", new AverageStat("Avg", stats["Reg"]));
             stats.Add("CAvg", new AverageStat("CAvg", stats["Crit"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
 
         /// <summary>
@@ -94,7 +95,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("ResistPer", new PercentStat("ResistPer", stats["Resist"], stats["Used"]));
             stats.Add("Evade", new CounterStat("Evade"));
             stats.Add("EvadePer", new PercentStat("EvadePer", stats["Evade"], stats["Used"]));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
 
         /// <summary>
@@ -106,7 +108,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("Total", new CounterStat("Total"));
             TotalDrops.AddDependency(stats["Total"]);
             stats.Add("DropPer", new PercentStat("DropPer", stats["Total"], Killed));
-            return stats.Select(s => s.Value).ToList();
+            return stats.Select(s => s.Value)
+                        .ToList();
         }
     }
 }

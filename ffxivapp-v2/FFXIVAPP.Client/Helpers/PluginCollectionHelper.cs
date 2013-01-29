@@ -41,7 +41,8 @@ namespace FFXIVAPP.Client.Helpers
         /// <returns> </returns>
         public PluginInstance Find(string plugin)
         {
-            return List.Cast<PluginInstance>().FirstOrDefault(pluginInstance => (pluginInstance.Instance.Name.Equals(plugin)) || pluginInstance.AssemblyPath.Equals(plugin));
+            return List.Cast<PluginInstance>()
+                       .FirstOrDefault(pluginInstance => (pluginInstance.Instance.Name.Equals(plugin)) || pluginInstance.AssemblyPath.Equals(plugin));
         }
     }
 }

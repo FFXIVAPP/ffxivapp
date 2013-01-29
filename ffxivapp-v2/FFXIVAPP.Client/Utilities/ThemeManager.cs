@@ -38,7 +38,8 @@ namespace FFXIVAPP.Client.Utilities
                     "Red", "Green", "Blue", "Purple", "Orange"
                 };
                 const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
-                return accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent)))).ToList();
+                return accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))
+                              .ToList();
             }
         }
 

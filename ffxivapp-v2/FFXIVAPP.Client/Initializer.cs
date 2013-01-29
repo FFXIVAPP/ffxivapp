@@ -48,7 +48,8 @@ namespace FFXIVAPP.Client
         {
             if (Constants.XChatCodes != null)
             {
-                foreach (var xElement in Constants.XChatCodes.Descendants().Elements("Code"))
+                foreach (var xElement in Constants.XChatCodes.Descendants()
+                                                  .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xDescription = (string) xElement.Element("Description");
@@ -69,7 +70,8 @@ namespace FFXIVAPP.Client
         {
             if (Constants.XAutoTranslate != null)
             {
-                foreach (var xElement in Constants.XAutoTranslate.Descendants().Elements("Code"))
+                foreach (var xElement in Constants.XAutoTranslate.Descendants()
+                                                  .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
@@ -89,7 +91,8 @@ namespace FFXIVAPP.Client
         {
             if (Constants.XColors != null)
             {
-                foreach (var xElement in Constants.XColors.Descendants().Elements("Color"))
+                foreach (var xElement in Constants.XColors.Descendants()
+                                                  .Elements("Color"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -129,7 +132,9 @@ namespace FFXIVAPP.Client
         {
             Func<bool> updateCheck = delegate
             {
-                var current = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                var current = Assembly.GetExecutingAssembly()
+                                      .GetName()
+                                      .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
                 var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/version/?v={0}", current));
                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
@@ -224,8 +229,10 @@ namespace FFXIVAPP.Client
                 MainView.View.PIDSelect.Items.Add(process.Id);
             }
             MainView.View.PIDSelect.SelectedIndex = 0;
-            PID(Common.Constants.ProcessIDs.First().Id);
-            return Common.Constants.ProcessIDs.First().Id;
+            PID(Common.Constants.ProcessIDs.First()
+                      .Id);
+            return Common.Constants.ProcessIDs.First()
+                         .Id;
         }
 
         /// <summary>

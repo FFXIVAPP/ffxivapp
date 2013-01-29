@@ -55,7 +55,9 @@ namespace FFXIVAPP.Common.Converters
                 try
                 {
                     var location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    var applicationName = Assembly.GetEntryAssembly().GetName().Name;
+                    var applicationName = Assembly.GetEntryAssembly()
+                                                  .GetName()
+                                                  .Name;
                     return Path.Combine(location, applicationName, "./Avatars/");
                 }
                 catch

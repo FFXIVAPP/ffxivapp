@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // French.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 

@@ -84,7 +84,8 @@ namespace FFXIVAPP.Plugin.Event.Properties
         {
             try
             {
-                var type = Default[key].GetType().Name;
+                var type = Default[key].GetType()
+                                       .Name;
                 switch (type)
                 {
                     case "Boolean":

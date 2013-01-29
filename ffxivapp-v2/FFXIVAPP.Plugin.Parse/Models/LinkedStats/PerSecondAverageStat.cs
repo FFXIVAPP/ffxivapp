@@ -54,7 +54,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
                 FirstEventReceived = DateTime.Now;
             }
             LastEventReceived = DateTime.Now;
-            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived).TotalSeconds);
+            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract(FirstEventReceived)
+                                                                    .TotalSeconds);
             if (timeDifference >= 1)
             {
                 Value = nvalue / timeDifference;

@@ -105,11 +105,11 @@ namespace FFXIVAPP.Client.Memory
                 _regions = new List<UnsafeNativeMethods.MemoryBasicInformation>();
                 var info = new UnsafeNativeMethods.MemoryBasicInformation();
                 var address = 0;
-                while (UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint)address, out info, (uint)Marshal.SizeOf(info)) != 0 && address < 4294967295)
+                while (UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint) address, out info, (uint) Marshal.SizeOf(info)) != 0 && address < 4294967295)
                 {
                     if (!IsSystemModule(info.BaseAddress))
                     {
-                        var result = UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint)address, out info, (uint)Marshal.SizeOf(info));
+                        var result = UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint) address, out info, (uint) Marshal.SizeOf(info));
                         if (0 == result)
                         {
                             break;
@@ -161,7 +161,7 @@ namespace FFXIVAPP.Client.Memory
                 var pointerStart = prefix.Replace("-", String.Empty);
                 var address = FindByteString(String.Format("{0}-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-([0-9|A-F][0-9|A-F])-{1}", prefix, suffix));
                 var temp = (address - _process.MainModule.BaseAddress.ToInt32()) + (pointerStart.Length / 2);
-                return BitConverter.ToInt32(_memDump, (int)temp);
+                return BitConverter.ToInt32(_memDump, (int) temp);
             }
             catch
             {
@@ -213,12 +213,14 @@ namespace FFXIVAPP.Client.Memory
             {
                 throw new Exception("Process value is null.");
             }
-            search = search.Replace("([0-9|A-F][0-9|A-F])", "??").Replace("-", String.Empty);
+            search = search.Replace("([0-9|A-F][0-9|A-F])", "??")
+                           .Replace("-", String.Empty);
             var mask = String.Empty;
             var pattern = new byte[(search.Length / 2)];
             for (var x = 0; x < pattern.Length; x++)
             {
-                if (search.Substring(x * 2, 2).Contains("??"))
+                if (search.Substring(x * 2, 2)
+                          .Contains("??"))
                 {
                     mask += "?";
                     pattern[x] = 0xFF;
@@ -233,7 +235,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 for (var i = 0; i < _regions.Count; i++)
                 {
-                    _memDump = new MemoryHandler(_process, (uint)_regions[i].BaseAddress).GetByteArray(_regions[i].RegionSize);
+                    _memDump = new MemoryHandler(_process, (uint) _regions[i].BaseAddress).GetByteArray(_regions[i].RegionSize);
                     for (var x = 0; x < _memDump.Length; x++)
                     {
                         if (MaskCheck(x, pattern, mask))

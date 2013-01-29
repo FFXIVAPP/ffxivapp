@@ -27,7 +27,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subGroup.Stats.AddStats(DropStatList());
                 dropGroup.AddGroup(subGroup);
             }
-            subGroup.Stats.GetStat("Total").Value += 1;
+            subGroup.Stats.GetStat("Total")
+                    .Value += 1;
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿// FFXIVAPP.Plugin.Sample
 // Plugin.cs
+//  
+// Created by Ryan Wilson.
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -115,7 +118,8 @@ namespace FFXIVAPP.Plugin.Sample
         {
             var content = new ShellView();
             content.Loaded += ShellViewModel.Loaded;
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = Name,
                 Content = content
             };

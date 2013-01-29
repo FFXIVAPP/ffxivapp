@@ -53,7 +53,8 @@ namespace FFXIVAPP.Client.Helpers
             {
                 dictionary = English.Context();
             }
-            var result = dictionary.Cast<DictionaryEntry>().ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            var result = dictionary.Cast<DictionaryEntry>()
+                                   .ToDictionary(item => (string) item.Key, item => (string) item.Value);
             AppViewModel.Instance.Locale = result;
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {

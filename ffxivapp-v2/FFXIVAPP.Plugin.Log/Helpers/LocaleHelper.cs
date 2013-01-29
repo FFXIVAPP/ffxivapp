@@ -53,7 +53,8 @@ namespace FFXIVAPP.Plugin.Log.Helpers
             {
                 dictionary = English.Context();
             }
-            return dictionary.Cast<DictionaryEntry>().ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            return dictionary.Cast<DictionaryEntry>()
+                             .ToDictionary(item => (string) item.Key, item => (string) item.Value);
         }
     }
 }
