@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SyndicatedLife")]
 [assembly: AssemblyProduct("FFXIVAPP.Plugin.Chat")]
-[assembly: AssemblyCopyright("Copyright © 2007-2012 Ryan Wilson")]
+[assembly: AssemblyCopyright("Copyright © 2007-2013 Ryan Wilson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

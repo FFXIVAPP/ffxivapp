@@ -60,6 +60,11 @@ namespace FFXIVAPP.Common.Helpers
                     paraGraph.Inlines.Add(coloredLine);
                     flow.Document.Blocks.Add(paraGraph);
                     flow.Document.Blocks.LastBlock.Loaded += BlockLoaded;
+                    if (flow.Document.Blocks.Count <= 500)
+                    {
+                        return;
+                    }
+                    flow.Document.Blocks.Clear();
                 });
                 return true;
             };

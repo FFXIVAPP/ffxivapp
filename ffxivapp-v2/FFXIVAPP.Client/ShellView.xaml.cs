@@ -46,6 +46,7 @@ namespace FFXIVAPP.Client
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
+            Initializer.SetPointers();
             Initializer.StartLogging();
         }
 
@@ -77,6 +78,7 @@ namespace FFXIVAPP.Client
                 switch (PopupHelper.Result)
                 {
                     case MessageBoxResult.Yes:
+                        Initializer.StopLogging();
                         Func<bool> exportHistory = delegate
                         {
                             try

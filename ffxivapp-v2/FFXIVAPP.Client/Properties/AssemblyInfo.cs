@@ -21,7 +21,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SyndicatedLife")]
 [assembly: AssemblyProduct("FFXIVAPP.Client")]
-[assembly: AssemblyCopyright("Copyright © 2007-2012 Ryan Wilson")]
+[assembly: AssemblyCopyright("Copyright © 2007-2013 Ryan Wilson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
