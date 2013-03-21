@@ -2,16 +2,18 @@
 // MainViewModel.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Events;
@@ -21,6 +23,7 @@ using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -48,6 +51,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
 
         public ICommand ProcessSampleCommand { get; private set; }
         public ICommand ResetStatsCommand { get; private set; }
+        public ICommand Convert2JsonCommand { get; private set; }
 
         #endregion
 
@@ -55,6 +59,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
         {
             ProcessSampleCommand = new DelegateCommand(ProcessSample);
             ResetStatsCommand = new DelegateCommand(ResetStats);
+            Convert2JsonCommand = new DelegateCommand(Convert2Json);
         }
 
         #region Loading Functions
@@ -151,6 +156,90 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 PluginViewModel.Instance.PopupResultChanged -= resultChanged;
             };
             PluginViewModel.Instance.PopupResultChanged += resultChanged;
+        }
+
+        private static void Convert2Json()
+        {
+            dynamic results = new Dictionary<string, object>();
+            var timeline = ParseControl.Instance.Timeline.Party;
+            var playerNames = timeline.Select(p => p.Name)
+                                      .ToList();
+            foreach (var playerName in playerNames)
+            {
+                var player = timeline.GetGroup(playerName);
+                results.Add(playerName, new Dictionary<string, object>
+                {
+                    {
+                        "Stats", new Dictionary<string, object>()
+                    },
+                    {
+                        "Abilities", new Dictionary<string, object>()
+                    },
+                    {
+                        "Monsters", new Dictionary<string, object>()
+                    },
+                    {
+                        "Healing", new Dictionary<string, object>()
+                    },
+                    {
+                        "Players", new Dictionary<string, object>()
+                    },
+                    {
+                        "Damage", new Dictionary<string, object>()
+                    }
+                });
+                results[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
+                var playerAbilities = player.GetGroup("Abilities");
+                foreach (var playerAbility in playerAbilities)
+                {
+                    results[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
+                }
+                var playerMonsters = player.GetGroup("Monsters");
+                foreach (var playerMonster in playerMonsters)
+                {
+                    results[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
+                    {
+                        {
+                            "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
+                        },
+                        {
+                            "Abilities", playerMonster.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                        }
+                    });
+                }
+                var playerHealings = player.GetGroup("Healing");
+                foreach (var playerHealing in playerHealings)
+                {
+                    results[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
+                }
+                var playerPlayers = player.GetGroup("Players");
+                foreach (var playerPlayer in playerPlayers)
+                {
+                    results[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
+                    {
+                        {
+                            "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
+                        },
+                        {
+                            "Abilities", playerPlayer.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                        }
+                    });
+                }
+                var playerDamages = player.GetGroup("Damage");
+                foreach (var playerDamage in playerDamages)
+                {
+                    results[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
+                    {
+                        {
+                            "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
+                        },
+                        {
+                            "Abilities", playerDamage.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                        }
+                    });
+                }
+            }
+            Clipboard.SetText(JsonConvert.SerializeObject(results));
         }
 
         #endregion

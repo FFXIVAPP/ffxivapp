@@ -298,6 +298,10 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void StopLogging()
         {
+            if (_chatWorker == null)
+            {
+                return;
+            }
             _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
             _chatWorker.StopLogging();
             _chatWorker.Dispose();

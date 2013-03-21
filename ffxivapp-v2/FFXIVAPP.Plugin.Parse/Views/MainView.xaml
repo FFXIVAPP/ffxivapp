@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:FFXIVAPP.Common.Controls;assembly=FFXIVAPP.Common"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
              xmlns:Views="clr-namespace:FFXIVAPP.Plugin.Parse.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -31,7 +31,8 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
-            <TabItem Header="{Binding Locale[parse_basictab], Source={StaticResource PluginViewModel}}">
+            <TabItem Header="{Binding Locale[parse_basictab],
+                                      Source={StaticResource PluginViewModel}}">
                 <Views:ParseBasicView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_abilitychattab],
@@ -89,6 +90,9 @@
                        Height="16"
                        Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
             </Button>
+            <Button Margin="3 0 0 0"
+                    Command="{Binding Convert2JsonCommand}"
+                    Content="Convert 2 Json" />
             <Button Margin="3 0 0 0"
                     Command="{Binding ProcessSampleCommand}"
                     Content="sample.xml"
