@@ -152,7 +152,7 @@ namespace FFXIVAPP.Plugin.Parse
                 {
                     if (Constants.Abilities.Contains(chatEntry.Code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                         {
                             timeStampColor, "#" + color
                         }, MainView.View.AbilityChatFD._FDR);

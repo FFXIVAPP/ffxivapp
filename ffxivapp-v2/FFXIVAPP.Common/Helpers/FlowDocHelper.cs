@@ -35,10 +35,11 @@ namespace FFXIVAPP.Common.Helpers
         /// <summary>
         /// </summary>
         /// <param name="time"> </param>
+        /// <param name="playerName"></param>
         /// <param name="line"> </param>
         /// <param name="colors"> </param>
         /// <param name="flow"> </param>
-        public void AppendFlow(string time, string line, string[] colors, FlowDocumentReader flow)
+        public void AppendFlow(string time, string playerName, string line, string[] colors, FlowDocumentReader flow)
         {
             Func<bool> funcAppend = delegate
             {
@@ -57,7 +58,16 @@ namespace FFXIVAPP.Common.Helpers
                         Foreground = (Brush) lineColor
                     };
                     paraGraph.Inlines.Add(timeStamp);
-                    paraGraph.Inlines.Add(coloredLine);
+                    if (!String.IsNullOrWhiteSpace(playerName))
+                    {
+                        var playerColor = _stb.Convert("#FFFF00FF");
+                        var playerLine = new Span(new Run("[" + playerName + "] "))
+                        {
+                            Foreground = (Brush) playerColor
+                        };
+                        paraGraph.Inlines.Add(playerLine);
+                    }
+                    paraGraph.Inlines.Add(coloredLine);   
                     flow.Document.Blocks.Add(paraGraph);
                     flow.Document.Blocks.LastBlock.Loaded += BlockLoaded;
                     if (flow.Document.Blocks.Count <= 500)

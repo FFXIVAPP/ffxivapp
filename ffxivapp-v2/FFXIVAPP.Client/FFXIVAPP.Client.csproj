@@ -213,6 +213,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\ChatCodes.xml" />
     <Resource Include="Defaults\ChatHistory.xml" />
     <Content Include="Licenses\License.FFXIVAPP.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -245,7 +246,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ChatCodes.xml" />
+    <None Include="Resources\ChatCodesOld.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Media\Icons\FFXIVAPP.ico" />

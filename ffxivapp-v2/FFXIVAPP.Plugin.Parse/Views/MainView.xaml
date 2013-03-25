@@ -90,9 +90,11 @@
                        Height="16"
                        Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
             </Button>
-            <Button Margin="3 0 0 0"
-                    Command="{Binding Convert2JsonCommand}"
-                    Content="Convert 2 Json" />
+            <!--
+                <Button Margin="3 0 0 0"
+                Command="{Binding Convert2JsonCommand}"
+                Content="Convert 2 Json" />
+            -->
             <Button Margin="3 0 0 0"
                     Command="{Binding ProcessSampleCommand}"
                     Content="sample.xml"

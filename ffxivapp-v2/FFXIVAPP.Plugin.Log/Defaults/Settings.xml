@@ -1,23 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <Tab Key="Say">
-    <Value>0001</Value>
+    <Value>000A</Value>
     <RegularExpression>*</RegularExpression>
   </Tab>
   <Tab Key="Tell">
-    <Value>000D,0003</Value>
+    <Value>000C,000D</Value>
     <RegularExpression>*</RegularExpression>
   </Tab>
   <Tab Key="Party">
-    <Value>0004</Value>
-    <RegularExpression>*</RegularExpression>
-  </Tab>
-  <Tab Key="LS">
-    <Value>000E,0005,000F,0006,0010,0007,0011,0008,0012,0013,000A,0014,000B,0015,000C</Value>
+    <Value>000E</Value>
     <RegularExpression>*</RegularExpression>
   </Tab>
   <Tab Key="Shout">
-    <Value>0002</Value>
+    <Value>000B</Value>
     <RegularExpression>*</RegularExpression>
   </Tab>
 </Settings>

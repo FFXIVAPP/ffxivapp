@@ -28,7 +28,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="parseControl"> </param>
         public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl)
         {
-            Filter = ((UInt16) EventType.Notice | (UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventDirection.On);
+            Filter = ((UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventDirection.On);
         }
 
         /// <summary>

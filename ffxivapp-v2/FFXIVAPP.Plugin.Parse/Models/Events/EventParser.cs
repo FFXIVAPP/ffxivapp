@@ -87,32 +87,26 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 switch (type)
                 {
-                    case "Attack":
-                        thisGroup.Type = EventType.Attack;
+                    case "Damage":
+                        thisGroup.Type = EventType.Damage;
                         break;
-                    case "Heal":
-                        thisGroup.Type = EventType.Heal;
+                    case "Failed":
+                        thisGroup.Type = EventType.Failed;
                         break;
-                    case "Buff":
-                        thisGroup.Type = EventType.Buff;
+                    case "Actions":
+                        thisGroup.Type = EventType.Actions;
                         break;
-                    case "Debuff":
-                        thisGroup.Type = EventType.Debuff;
+                    case "Items":
+                        thisGroup.Type = EventType.Items;
                         break;
-                    case "SkillPoints":
-                        thisGroup.Type = EventType.SkillPoints;
+                    case "Cure":
+                        thisGroup.Type = EventType.Cure;
                         break;
-                    case "Crafting":
-                        thisGroup.Type = EventType.Crafting;
+                    case "Benficial":
+                        thisGroup.Type = EventType.Benficial;
                         break;
-                    case "Gathering":
-                        thisGroup.Type = EventType.Gathering;
-                        break;
-                    case "Chat":
-                        thisGroup.Type = EventType.Chat;
-                        break;
-                    case "Notice":
-                        thisGroup.Type = EventType.Notice;
+                    case "Detrimental":
+                        thisGroup.Type = EventType.Detrimental;
                         break;
                 }
             }
@@ -126,11 +120,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                     case "Party":
                         thisGroup.Subject = EventSubject.Party;
                         break;
-                    case "Enemy":
-                        thisGroup.Subject = EventSubject.Enemy;
-                        break;
                     case "Other":
                         thisGroup.Subject = EventSubject.Other;
+                        break;
+                    case "Engaged":
+                        thisGroup.Subject = EventSubject.Engaged;
+                        break;
+                    case "UnEngaged":
+                        thisGroup.Subject = EventSubject.UnEngaged;
                         break;
                 }
             }

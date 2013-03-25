@@ -36,7 +36,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
             #region Damage to Mobs
 
-            if (e.Type == EventType.Attack && e.Direction == EventDirection.By)
+            if (e.Type == EventType.Damage && e.Direction == EventDirection.By)
             {
                 ProcessDamageToMobs(expressions, cleaned);
             }
@@ -45,7 +45,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
             #region Damage by Mobs
 
-            if (e.Type == EventType.Attack && e.Direction == EventDirection.On)
+            if (e.Type == EventType.Damage && e.Direction == EventDirection.On)
             {
                 ProcessDamageByMobs(expressions, cleaned);
             }
@@ -54,7 +54,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
             #region Healing by Party
 
-            if (e.Type == EventType.Heal)
+            if (e.Type == EventType.Cure)
             {
                 ProcessHealingByParty(expressions, cleaned);
             }

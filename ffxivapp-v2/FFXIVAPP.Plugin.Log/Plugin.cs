@@ -155,7 +155,13 @@ namespace FFXIVAPP.Plugin.Log
                 var color = (Common.Constants.Colors.ContainsKey(chatEntry.Code)) ? Common.Constants.Colors[chatEntry.Code][0] : "FFFFFF";
                 var isLS = Constants.Linkshells.ContainsKey(chatEntry.Code);
                 line = isLS ? Constants.Linkshells[chatEntry.Code] + line : line;
-                Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                var playerName = "";
+                if (CheckMode(chatEntry.Code, Common.Constants.ChatPublic))
+                {
+                    playerName = line.Substring(0, line.IndexOf(":", StringComparison.Ordinal));
+                    line = line.Replace(playerName + ":", "");
+                }
+                Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
                 {
                     timeStampColor, "#" + color
                 }, MainView.View.AllFD._FDR);
@@ -189,7 +195,7 @@ namespace FFXIVAPP.Plugin.Log
                     }
                     if (resuccess && flowDoc.Codes.Items.Contains(chatEntry.Code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
                         {
                             timeStampColor, "#" + color
                         }, flowDoc._FDR);
@@ -244,12 +250,13 @@ namespace FFXIVAPP.Plugin.Log
                         asciiString += chatEntry.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
                     }
                     asciiString = asciiString.Trim();
-                    Common.Constants.FD.AppendFlow("", asciiString, new[]
+                    Common.Constants.FD.AppendFlow("", "", asciiString, new[]
                     {
                         "", "#FFFFFFFF"
                     }, MainView.View.DebugFD._FDR);
                 }
-                Common.Constants.FD.AppendFlow("", chatEntry.Raw, new[]
+                var raw = String.Format("{0}[{1}]{2}", chatEntry.Raw.Substring(0, 8), chatEntry.Code, chatEntry.Raw.Substring(12));
+                Common.Constants.FD.AppendFlow("", "", raw, new[]
                 {
                     "", "#FFFFFFFF"
                 }, MainView.View.DebugFD._FDR);

@@ -106,7 +106,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 {
                     if (Constants.Abilities.Contains(code))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, line, new[]
+                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                         {
                             timeStampColor, "#" + color
                         }, MainView.View.AbilityChatFD._FDR);

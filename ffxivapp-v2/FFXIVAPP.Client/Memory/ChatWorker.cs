@@ -77,7 +77,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offsets"> </param>
         public ChatWorker(Process process, SigFinder offsets)
         {
-            _scanTimer = new Timer(100);
+            _scanTimer = new Timer(10);
             _scanTimer.Elapsed += ScanTimerElapsed;
             _scanner.DoWork += ScannerDoWork;
             _scanner.RunWorkerCompleted += ScannerRunWorkerCompleted;

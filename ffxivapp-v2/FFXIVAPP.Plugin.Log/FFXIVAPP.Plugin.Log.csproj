@@ -85,6 +85,7 @@
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TabItemHelper.cs" />
+    <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Localization\English.cs" />

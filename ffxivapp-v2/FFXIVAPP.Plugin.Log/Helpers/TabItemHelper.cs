@@ -37,6 +37,8 @@ namespace FFXIVAPP.Plugin.Log.Helpers
             flowDoc._FDR.SetBinding(FlowDocumentReader.ZoomProperty, binding);
             tabItem.Content = flowDoc;
             PluginViewModel.Instance.Tabs.Add(tabItem);
+            ThemeHelper.SetupFont(ref flowDoc);
+            ThemeHelper.SetupColor(ref flowDoc);
         }
     }
 }

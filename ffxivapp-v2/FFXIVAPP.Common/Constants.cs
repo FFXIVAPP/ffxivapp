@@ -27,29 +27,34 @@ namespace FFXIVAPP.Common
         public const string DefaultAvatar = AppPack + "Resources/Media/Images/DefaultAvatar.jpg";
         public static readonly FlowDocHelper FD = new FlowDocHelper();
 
+        public static readonly string[] ChatPublic =
+        {
+            "000A", "000C", "000D", "000E"
+        };
+
         public static readonly string[] ChatSay =
         {
-            "0001"
+            "000A"
         };
 
         public static readonly string[] ChatTell =
         {
-            "000D", "0003"
+            "000C", "000D"
         };
 
         public static readonly string[] ChatParty =
         {
-            "0004"
+            "000E"
         };
 
         public static readonly string[] ChatShout =
         {
-            "0002"
+            "000B"
         };
 
         public static readonly string[] ChatLS =
         {
-            "000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C"
+            //"000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C"
         };
 
         #region Property Bindings

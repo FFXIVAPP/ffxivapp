@@ -40,7 +40,16 @@ namespace FFXIVAPP.Client
 
         public static XDocument XChatCodes
         {
-            get { return _xChatCodes ?? (_xChatCodes = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml")); }
+            get
+            {
+                if (_xChatCodes == null)
+                {
+                    const string file = "./Configurations/ChatCodes.xml";
+                    var found = File.Exists(file);
+                    _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                }
+                return _xChatCodes;
+            }
             set { _xChatCodes = value; }
         }
 

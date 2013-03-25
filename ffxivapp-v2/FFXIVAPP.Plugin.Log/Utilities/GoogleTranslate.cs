@@ -38,7 +38,7 @@ namespace FFXIVAPP.Plugin.Log.Utilities
             {
                 return;
             }
-            Common.Constants.FD.AppendFlow(player, result, new[]
+            Common.Constants.FD.AppendFlow(player, "", result, new[]
             {
                 timeStampColor, "#EAFF00"
             }, MainView.View.TranslatedFD._FDR);

@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Common="clr-namespace:FFXIVAPP.Common;assembly=FFXIVAPP.Common"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Log="clr-namespace:FFXIVAPP.Plugin.Log"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Log.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Log.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -139,14 +139,16 @@
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToEcho,
-                                                                           Source={StaticResource Settings}}" />
+                                                                           Source={StaticResource Settings}}"
+                                                       IsEnabled="False" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_sendtogame],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToGame,
-                                                                           Source={StaticResource Settings}}" />
+                                                                           Source={StaticResource Settings}}"
+                                                       IsEnabled="False" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_sendromanization],

@@ -81,32 +81,18 @@ namespace FFXIVAPP.Plugin.Log
         /// </summary>
         public static void ApplyTheming()
         {
-            SetupFont(ref MainView.View.AllFD);
-            SetupFont(ref MainView.View.TranslatedFD);
-            SetupFont(ref MainView.View.DebugFD);
-            SetupColor(ref MainView.View.AllFD);
-            SetupColor(ref MainView.View.TranslatedFD);
-            SetupColor(ref MainView.View.DebugFD);
+            ThemeHelper.SetupFont(ref MainView.View.AllFD);
+            ThemeHelper.SetupFont(ref MainView.View.TranslatedFD);
+            ThemeHelper.SetupFont(ref MainView.View.DebugFD);
+            ThemeHelper.SetupColor(ref MainView.View.AllFD);
+            ThemeHelper.SetupColor(ref MainView.View.TranslatedFD);
+            ThemeHelper.SetupColor(ref MainView.View.DebugFD);
             foreach (TabItem s in PluginViewModel.Instance.Tabs)
             {
                 var flowDocument = (xFlowDocument) s.Content;
-                SetupFont(ref flowDocument);
-                SetupColor(ref flowDocument);
+                ThemeHelper.SetupFont(ref flowDocument);
+                ThemeHelper.SetupColor(ref flowDocument);
             }
-        }
-
-        private static void SetupFont(ref xFlowDocument flowDoc)
-        {
-            var font = Settings.Default.ChatFont;
-            flowDoc._FD.FontFamily = new FontFamily(font.Name);
-            flowDoc._FD.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
-            flowDoc._FD.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
-            flowDoc._FD.FontSize = font.Size;
-        }
-
-        private static void SetupColor(ref xFlowDocument flowDoc)
-        {
-            flowDoc._FD.Background = new SolidColorBrush(Settings.Default.ChatBackgroundColor);
         }
     }
 }
