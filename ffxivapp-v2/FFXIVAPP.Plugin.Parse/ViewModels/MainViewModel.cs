@@ -160,14 +160,19 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
 
         private static void Convert2Json()
         {
-            dynamic results = new Dictionary<string, object>();
-            var timeline = ParseControl.Instance.Timeline.Party;
-            var playerNames = timeline.Select(p => p.Name)
-                                      .ToList();
+            #region Generate Overall-Player-Monster
+
+            dynamic overallStats = new Dictionary<string, object>();
+            dynamic playerStats = new Dictionary<string, object>();
+            dynamic monsterStats = new Dictionary<string, object>();
+            overallStats.Add("Stats", ParseControl.Instance.Timeline.Overall.Stats.ToDictionary(s => s.Name, s => s.Value));
+            var partyTimeline = ParseControl.Instance.Timeline.Party;
+            var playerNames = partyTimeline.Select(p => p.Name)
+                                           .ToList();
             foreach (var playerName in playerNames)
             {
-                var player = timeline.GetGroup(playerName);
-                results.Add(playerName, new Dictionary<string, object>
+                var player = partyTimeline.GetGroup(playerName);
+                playerStats.Add(playerName, new Dictionary<string, object>
                 {
                     {
                         "Stats", new Dictionary<string, object>()
@@ -188,16 +193,16 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                         "Damage", new Dictionary<string, object>()
                     }
                 });
-                results[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
+                playerStats[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
                 var playerAbilities = player.GetGroup("Abilities");
                 foreach (var playerAbility in playerAbilities)
                 {
-                    results[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
+                    playerStats[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
                 var playerMonsters = player.GetGroup("Monsters");
                 foreach (var playerMonster in playerMonsters)
                 {
-                    results[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
+                    playerStats[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
                     {
                         {
                             "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
@@ -210,12 +215,12 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 var playerHealings = player.GetGroup("Healing");
                 foreach (var playerHealing in playerHealings)
                 {
-                    results[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
+                    playerStats[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
                 var playerPlayers = player.GetGroup("Players");
                 foreach (var playerPlayer in playerPlayers)
                 {
-                    results[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
+                    playerStats[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
                     {
                         {
                             "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
@@ -228,7 +233,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 var playerDamages = player.GetGroup("Damage");
                 foreach (var playerDamage in playerDamages)
                 {
-                    results[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
+                    playerStats[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
                     {
                         {
                             "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
@@ -239,6 +244,51 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                     });
                 }
             }
+            var monsterTimeline = ParseControl.Instance.Timeline.Monster;
+            var monsterNames = monsterTimeline.Select(p => p.Name)
+                                              .ToList();
+            foreach (var monsterName in monsterNames)
+            {
+                var monster = monsterTimeline.GetGroup(monsterName);
+                monsterStats.Add(monsterName, new Dictionary<string, object>
+                {
+                    {
+                        "Stats", new Dictionary<string, object>()
+                    },
+                    {
+                        "Abilities", new Dictionary<string, object>()
+                    },
+                    {
+                        "Drops", new Dictionary<string, object>()
+                    }
+                });
+                monsterStats[monsterName]["Stats"] = monster.Stats.ToDictionary(s => s.Name, s => s.Value);
+                var monsterAbilities = monster.GetGroup("Abilities");
+                foreach (var monsterAbility in monsterAbilities)
+                {
+                    monsterStats[monsterName]["Abilities"].Add(monsterAbility.Name, monsterAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
+                }
+                var monsterDrops = monster.GetGroup("Drops");
+                foreach (var monsterDrop in monsterDrops)
+                {
+                    monsterStats[monsterName]["Drops"].Add(monsterDrop.Name, monsterDrop.Stats.ToDictionary(s => s.Name, s => s.Value));
+                }
+            }
+            dynamic results = new Dictionary<string, object>
+            {
+                {
+                    "Overall", overallStats
+                },
+                {
+                    "Player", playerStats
+                },
+                {
+                    "Monster", monsterStats
+                }
+            };
+
+            #endregion
+
             Clipboard.SetText(JsonConvert.SerializeObject(results));
         }
 
