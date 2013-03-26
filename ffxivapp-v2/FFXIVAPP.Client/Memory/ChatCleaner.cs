@@ -160,11 +160,39 @@ namespace FFXIVAPP.Client.Memory
                     //        newList.Add(bytes[x]);
                     //    }
                     //}
-                    if (bytes[x] > 127)
+                    if (bytes[x] == 2)
                     {
-                        jp = true;
+                        x = x + 3;
+                        if (bytes[x] == 1)
+                        {
+                            x++;
+                        }
+                        autoTranslateList.Add(Convert.ToByte('['));
+                        while (bytes[x] != 3)
+                        {
+                            autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
+                            x++;
+                        }
+                        autoTranslateList.Add(Convert.ToByte(']'));
+                        string aCheckStr;
+                        var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
+                                                         .ToArray();
+                        if (!Common.Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
+                        {
+                            aCheckStr = "";
+                        }
+                        var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
+                        newList.AddRange(atbyte);
+                        autoTranslateList.Clear();
                     }
-                    newList.Add(bytes[x]);
+                    else
+                    {
+                        if (bytes[x] > 127)
+                        {
+                            jp = true;
+                        }
+                        newList.Add(bytes[x]);
+                    }
                 }
                 var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
                                          .Replace("  ", " ");

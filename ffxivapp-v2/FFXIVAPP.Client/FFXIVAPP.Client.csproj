@@ -216,7 +216,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Resources\ChatCodes.xml" />
+    <Resource Include="Resources\ChatCodes.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
     <Content Include="Licenses\License.FFXIVAPP.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

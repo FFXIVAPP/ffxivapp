@@ -98,7 +98,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// </summary>
         /// <param name="filter"> </param>
         /// <returns> </returns>
-        public bool MatchesFilter(UInt16 filter)
+        public bool MatchesFilter(UInt16 filter, Event e)
         {
             return (((UInt16) Subject & filter) != 0 && ((UInt16) Type & filter) != 0 && ((UInt16) Direction & filter) != 0);
         }

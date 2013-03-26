@@ -15,6 +15,7 @@ namespace FFXIVAPP.Plugin.Parse.Enums
         Items = 0x0400,
         Cure = 0x0800,
         Benficial = 0x1000,
-        Detrimental = 0x2000
+        Detrimental = 0x2000,
+        Chat = 0x4000
     }
 }

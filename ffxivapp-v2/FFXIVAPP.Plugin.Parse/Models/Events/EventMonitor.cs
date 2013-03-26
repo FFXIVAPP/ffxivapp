@@ -91,7 +91,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// <param name="e"> </param>
         private void FilterEvent(object source, Event e)
         {
-            if (!e.MatchesFilter(Filter))
+            if (!e.MatchesFilter(Filter, e))
             {
                 return;
             }
@@ -105,7 +105,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// <param name="e"> </param>
         private void FilterUnknownEvent(object source, Event e)
         {
-            if (!e.MatchesFilter(Filter))
+            if (!e.MatchesFilter(Filter, e))
             {
                 return;
             }
