@@ -9,7 +9,7 @@ namespace FFXIVAPP.Plugin.Parse.Enums
     public enum EventType
     {
         Unknown = 0x0000,
-        Damage = 0x0080,
+        Damage = 0x080,
         Failed = 0x00100,
         Actions = 0x0200,
         Items = 0x0400,

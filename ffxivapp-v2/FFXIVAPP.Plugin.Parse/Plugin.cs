@@ -11,10 +11,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
+using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -148,15 +150,12 @@ namespace FFXIVAPP.Plugin.Parse
                 var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
                 var line = chatEntry.Line.Replace("  ", " ");
                 var color = (Common.Constants.Colors.ContainsKey(chatEntry.Code)) ? Common.Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                if (line.Contains("readies") || line.Contains("prépare") || line.Contains("をしようとしている。"))
+                if (Constants.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
                 {
-                    if (Constants.Abilities.Contains(chatEntry.Code))
-                    {
-                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                    Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                         {
                             timeStampColor, "#" + color
                         }, MainView.View.AbilityChatFD._FDR);
-                    }
                 }
                 if (chatEntry.Code == "0020")
                 {

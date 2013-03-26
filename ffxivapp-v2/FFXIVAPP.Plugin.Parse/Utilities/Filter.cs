@@ -12,6 +12,7 @@ using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
+using FFXIVAPP.Plugin.Parse.Views;
 
 #endregion
 

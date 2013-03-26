@@ -53,7 +53,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
         }
 
-        private EventSubject Subject
+        public EventSubject Subject
         {
             get { return EventCode != null ? EventCode.Subject : EventSubject.Unknown; }
         }
@@ -68,9 +68,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             get { return EventCode != null ? EventCode.Direction : EventDirection.Unknown; }
         }
 
-        public UInt16 Code
+        public ulong Code
         {
-            get { return (ushort) (EventCode != null ? EventCode.Code : 0x0000); }
+            get { return (ulong) (EventCode != null ? EventCode.Code : 0x0000); }
         }
 
         public bool IsUnknown

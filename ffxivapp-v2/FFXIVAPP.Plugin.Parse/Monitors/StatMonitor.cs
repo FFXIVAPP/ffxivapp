@@ -53,7 +53,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            Filter = ((UInt16) EventDirection.By | (UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventType.Damage | (UInt16) EventType.Cure | (UInt16) EventDirection.On);
+            Filter = ((UInt16) EventSubject.You | (UInt16) EventSubject.Party | (UInt16) EventSubject.Engaged | (UInt16) EventSubject.UnEngaged);
         }
 
         /// <summary>
@@ -111,6 +111,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleUnknownEvent(Event e)
         {
+            var line = e.RawLine;
         }
 
         /// <summary>

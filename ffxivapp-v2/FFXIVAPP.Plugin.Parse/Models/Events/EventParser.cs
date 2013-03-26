@@ -36,8 +36,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         #region Declarations
 
         public const UInt16 DirectionMask = 0x0003;
-        public const UInt16 SubjectMask = 0x003C;
-        public const UInt16 TypeMask = 0x7FC0;
+        public const UInt16 SubjectMask = 0x007C;
+        public const UInt16 TypeMask = 0x3F80;
         public static UInt16 AllEvents = 0xFFFF;
         public static UInt16 UnknownEvent;
         private static EventParser _instance;

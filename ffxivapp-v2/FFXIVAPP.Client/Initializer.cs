@@ -101,9 +101,12 @@ namespace FFXIVAPP.Client
                     {
                         return;
                     }
-                    if (String.IsNullOrWhiteSpace(xDescription))
+                    if (Common.Constants.ChatCodes.ContainsKey(xKey))
                     {
-                        xDescription = Common.Constants.ChatCodes[xKey];
+                        if (xDescription.ToLower().Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
+                        {
+                            xDescription = Common.Constants.ChatCodes[xKey];
+                        }
                     }
                     Common.Constants.Colors.Add(xKey, new[]
                     {

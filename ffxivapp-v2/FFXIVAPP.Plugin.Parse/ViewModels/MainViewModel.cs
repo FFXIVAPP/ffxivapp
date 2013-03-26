@@ -13,11 +13,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
@@ -102,15 +104,12 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                 timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
                 var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
-                if (line.Contains("readies") || line.Contains("prépare") || line.Contains("をしようとしている。"))
+                if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
                 {
-                    if (Constants.Abilities.Contains(code))
+                    Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                        {
-                            timeStampColor, "#" + color
-                        }, MainView.View.AbilityChatFD._FDR);
-                    }
+                        timeStampColor, "#" + color
+                    }, MainView.View.AbilityChatFD._FDR);
                 }
                 Func<bool> funcParse = delegate
                 {
