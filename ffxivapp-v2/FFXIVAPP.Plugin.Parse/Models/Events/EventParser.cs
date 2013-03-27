@@ -198,7 +198,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
             lock (eventHandler)
             {
-                System.Threading.Thread.Sleep(6);
+                //System.Threading.Thread.Sleep(7);
                 eventHandler(this, @event);
             }
         }

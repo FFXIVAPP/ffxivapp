@@ -17,6 +17,7 @@ using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
+using FFXIVAPP.Plugin.Parse.ViewModels;
 
 #endregion
 
@@ -36,32 +37,26 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         public static void Process(string cleaned, Event e)
         {
             IsValid = false;
-            //var expressions = new Expressions(cleaned);
-            
-            //matches = Regex.Match(cleaned, @"^( ⇒ )?(?<crit>Critical! )?((?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for |((T|t)he )?(?<target>.+) takes )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$");
-            //matches = Regex.Match(cleaned, @"^(You miss | ⇒ The attack misses )((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
+            var expressions = new Expressions(cleaned);
 
-            var line = new Line();
-
-            if (e.Subject == EventSubject.You)
+            switch (e.Type)
             {
-                switch (e.Type)
-                {
-                    case EventType.Actions:
-                        var actions = Regex.Match(cleaned, @"^You use (?<action>.+)\.$");
-                        if (actions.Success)
-                        {
-                            ParseControl.Instance.Timeline.GetSetPlayer(Common.Constants.CharacterName);
-                            Logging.Log(NLog.LogManager.GetCurrentClassLogger(), String.Format("Action -> {0}", actions.Groups["action"].Value));
-                        }
-                        break;
-                    case EventType.Damage:
-                        if (e.Direction == EventDirection.From)
-                        {
-                            Logging.Log(NLog.LogManager.GetCurrentClassLogger(), String.Format("Damage Line -> {0}", cleaned));
-                        }
-                        break;
-                }
+                case EventType.Damage:
+                    ProcessDamage(e, expressions);
+                    break;
+                case EventType.Failed:
+                    ProcessFailed(e, expressions);
+                    break;
+                case EventType.Actions:
+                    ProcessActions(e, expressions);
+                    break;
+                case EventType.Items:
+                case EventType.Cure:
+                case EventType.Benficial:
+                case EventType.Detrimental:
+                default:
+                    _lastAction = "";
+                    break;
             }
 
             #region Save Parse to XML

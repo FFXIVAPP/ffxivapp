@@ -96,9 +96,12 @@
     <Compile Include="Models\LinkedStats\AccuracyStat.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.Healing.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
+    <Compile Include="Utilities\Filter.Actions.cs" />
     <Compile Include="Utilities\Filter.cs" />
+    <Compile Include="Utilities\Filter.Damage.cs" />
     <Compile Include="Utilities\Filter.DamageByMobs.cs" />
     <Compile Include="Utilities\Filter.DamageToMobs.cs" />
+    <Compile Include="Utilities\Filter.Failed.cs" />
     <Compile Include="Utilities\Filter.HealingByParty.cs" />
     <Compile Include="Helpers\ParseHelper.cs" />
     <Compile Include="Initializer.cs" />

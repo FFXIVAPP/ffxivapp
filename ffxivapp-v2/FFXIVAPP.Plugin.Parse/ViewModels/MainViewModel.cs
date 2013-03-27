@@ -94,34 +94,28 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 });
                 ++count;
             }
-            count = 0;
-            foreach (var d in items.Select(item => (Func<bool>) delegate
+            Func<bool> dFunc = delegate
             {
-                var code = item.Value[0];
-                var line = item.Value[1];
-                var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-                timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
-                var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
-                if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
+                foreach (var item in items)
                 {
-                    Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                    var code = item.Value[0];
+                    var line = item.Value[1];
+                    var timeStampColor = Settings.Default.TimeStampColor.ToString();
+                    var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
+                    timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
+                    var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
+                    if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
+                    {
+                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                     {
                         timeStampColor, "#" + color
                     }, MainView.View.AbilityChatFD._FDR);
-                }
-                Func<bool> funcParse = delegate
-                {
+                    }
                     EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
-                    return true;
-                };
-                funcParse.BeginInvoke(null, null);
-                ++count;
+                }
                 return true;
-            }))
-            {
-                d.BeginInvoke(null, null);
-            }
+            };
+            dFunc.BeginInvoke(null, null);
         }
 
         /// <summary>

@@ -15,6 +15,11 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class MonsterRegEx
     {
+
+
+        /// <summary>
+        /// 1.0 REGEX
+        /// </summary>
         public static readonly Regex ActionEn = new Regex(@"(?!.+misses(\.)? )^(?<crit>Critical! )?(The )?(?<source>[\w\s']+(?='s))('s) (?<action>.+(?= hits)) (?<hit>hits) (?<target>you(?!.+'s.+for)|\w+\s\w+) (from the (?<direction>\w+) )?for (?<amount>\d+).+\.$|(The )?(?<source>[\w\s]+(?='s))('s) (?<action>.+(?= misses)) (?<hit>misses) (?<target>you(?!.+'s.+from)|\w+\s\w+)( from the (?<direction>\w+)\.$|\.$)", SharedRegEx.DefaultOptions);
 
         public static readonly Regex ActionFr = new Regex(@"(?!.+échou\.)(?!.+résiste.+)^(?<crit>Coup critique! )?(L[aes]{0,2} |([LEAD]'))?(?<source>.+(?= util)) util\w+ (une? )?((?<action>.+(?= sur)) (?<hit>sur) (?<target>\w+\s\w+) (\((?<direction>.+(?=\)))\) et inflige (?<amount>\d+).+$|et inflige (?<amount>\d+).+$))", SharedRegEx.DefaultOptions);

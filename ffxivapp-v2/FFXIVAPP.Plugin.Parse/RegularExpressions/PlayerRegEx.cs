@@ -15,6 +15,15 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class PlayerRegEx
     {
+        public static readonly Regex DamageEn = new Regex(@"^( ⇒ )?(?<crit>Critical! )?((?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for |((T|t)he )?(?<target>.+) takes )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+
+        public static readonly Regex FailedEn = new Regex(@"^((?<source>You|.+) miss(es)? | ⇒ The attack misses )((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
+
+        public static readonly Regex ActionsEn = new Regex(@"^(?<source>You|.+) uses? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
+
+        /// <summary>
+        /// 1.0 REGEX
+        /// </summary>
         public static readonly Regex ActionEn = new Regex(@"((?!.+misses\.)^(?<crit>Critical! )?(?<source>Your|\w+\s\w+)('s)? (?<action>.+(?= hits)) (?<hit>hits) (the )?((?!.+from)((?<target>.+)'s (?<part>.+)|(?<target>.+)) for |((?<target>.+)'s (?<part>.+)|(?<target>.+)) from the (?<direction>\w+) for )(?<amount>\d+) points? of damage\.$)|(^(?<source>Your|\w+\s\w+)('s)? (?<action>.+(?= misses)) (?<miss>misses) (the )?((?!.+from)((?<target>.+)'s (?<part>.+)|(?<target>.+))\.$|((?<target>.+)'s (?<part>.+)|(?<target>.+)) from the (?<direction>\w+)\.$))", SharedRegEx.DefaultOptions);
 
         public static readonly Regex ActionFr = new Regex(@"(?!.+échou\.)^(?<crit>Coup critique! )?(?<source>.+) utilisez?( une?)? ((?<action>.+(?= sur)) (?<hit>sur) ((([lead]')|(l[aes]{0,2} )?)?(?<target>.+(?= \()) \((?<direction>.+(?=\)))\) (?<hit>et) inflige (?<amount>\d+).+$|(([lead]')|(l[aes]{0,2} )?)?(?<target>.+(?= et)) et inflige (?<amount>\d+).+\.$)|(?<action>.+(?= et inflige)) (?<hit>et) inflige (?<amount>\d+).+dégâts ((a|à)(\w+)? )?(([lead]')|(l[aes]{0,2} )?)?(?<target>.+(?=\.$))\.$)|((?<source>\w+\s\w+) util\w+ (une? )?(?<action>.+(?= sur)) (?<hit>sur) (([lead]')|(l[aes]{0,2} )?)?((?<target>.+(?= \()) \((?<direction>.+(?=\)))\)|(?<target>.+)) (?<miss>mais) échoue!$)", SharedRegEx.DefaultOptions);

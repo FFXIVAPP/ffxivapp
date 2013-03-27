@@ -2,7 +2,7 @@
 // StatMonitor.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -53,7 +53,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            Filter = ((UInt32) EventType.Actions | (UInt32) EventType.Damage | EventParser.DirectionMask | (UInt32) EventSubject.You);
+            Filter = (EventParser.TypeMask | EventParser.DirectionMask | (UInt32) EventSubject.You | (UInt32) EventSubject.Party);
         }
 
         /// <summary>

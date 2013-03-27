@@ -86,7 +86,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Other" Subject="Other">
+    <Group Name="To Other" Subject="Other" Direction="To">
       <Code Key="1029">
         <Description>Unknown</Description>
       </Code>
@@ -99,6 +99,8 @@
       <Code Key="11A9">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Other" Subject="Other" Direction="From">
       <Code Key="1229">
         <Description>Unknown</Description>
       </Code>
@@ -166,7 +168,7 @@
     </Group>
   </Group>
   <Group Name="Failed" Type="Failed">
-    <Group Name="You" Subject="You">
+    <Group Name="To You" Subject="You" Direction="To">
       <Code Key="042A">
         <Description>Unknown</Description>
       </Code>
@@ -179,6 +181,8 @@
       <Code Key="05AA">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From You" Subject="You" Direction="From">
       <Code Key="062A">
         <Description>Unknown</Description>
       </Code>
@@ -192,7 +196,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Party" Subject="Party">
+    <Group Name="To Party" Subject="Party" Direction="To">
       <Code Key="082A">
         <Description>Unknown</Description>
       </Code>
@@ -205,6 +209,8 @@
       <Code Key="09AA">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Party" Subject="Party" Direction="From">
       <Code Key="0A2A">
         <Description>Unknown</Description>
       </Code>
@@ -218,7 +224,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Other" Subject="Other">
+    <Group Name="To Other" Subject="Other" Direction="To">
       <Code Key="102A">
         <Description>Unknown</Description>
       </Code>
@@ -231,6 +237,8 @@
       <Code Key="11AA">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Other" Subject="Other" Direction="From">
       <Code Key="122A">
         <Description>Unknown</Description>
       </Code>
@@ -354,7 +362,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Other" Subject="Other">
+    <Group Name="To Other" Subject="Other" Direction="To">
       <Code Key="102B">
         <Description>Other -> Did/Casted</Description>
       </Code>
@@ -367,6 +375,8 @@
       <Code Key="11AB">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Other" Subject="Other" Direction="From">
       <Code Key="122B">
         <Description>Other -> Did/Begins (Other)</Description>
       </Code>

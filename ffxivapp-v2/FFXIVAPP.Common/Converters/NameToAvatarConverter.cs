@@ -82,6 +82,7 @@ namespace FFXIVAPP.Common.Converters
                 return null;
             }
             var source = new BitmapImage(new Uri(DefaultAvatar));
+            return source;
             var image = values[0] as Image;
             var name = values[1] as String;
             if (image == null || name == null)

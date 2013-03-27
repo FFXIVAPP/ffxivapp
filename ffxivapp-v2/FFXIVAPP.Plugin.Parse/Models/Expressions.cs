@@ -18,25 +18,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     internal class Expressions : INotifyPropertyChanged
     {
-        private Match _mAction;
-        private Match _mAdditional;
-        private Match _mBlock;
-        private Match _mCounter;
-        private Match _mEvade;
-        private Match _mParry;
-        private Match _mResist;
-        private Match _mUsed;
-        private Match _pAction;
-        private Match _pAdditional;
-        private Match _pBlock;
-        private Match _pCounter;
-        private Match _pEvade;
-        private Match _pMulti;
-        private Match _pMultiFlag;
-        private string[] _pMultiFlagAbility;
-        private Match _pParry;
-        private Match _pResist;
-        private Match _pUsed;
+        private Match _pDamage;
+        private Match _pFailed;
+        private Match _pActions;
 
         public Expressions(string line)
         {
@@ -44,7 +28,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             Initialize();
         }
 
-        private string Cleaned { get; set; }
+        public string Cleaned { get; set; }
         public string Counter { get; private set; }
         public string Added { get; private set; }
         public string Type { get; private set; }
@@ -52,198 +36,32 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public string Attack { get; private set; }
         public string You { get; private set; }
 
-        public Match pAction
+        public Match pDamage
         {
-            get { return _pAction ?? (_pAction = Regex.Match("ph", @"^\.$")); }
+            get { return _pDamage ?? (_pDamage = Regex.Match("ph", @"^\.$")); }
             private set
             {
-                _pAction = value;
+                _pDamage = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pUsed
+        public Match pFailed
         {
-            get { return _pUsed ?? (_pUsed = Regex.Match("ph", @"^\.$")); }
+            get { return _pFailed ?? (_pFailed = Regex.Match("ph", @"^\.$")); }
             private set
             {
-                _pUsed = value;
+                _pFailed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pAdditional
+        public Match pActions
         {
-            get { return _pAdditional ?? (_pAdditional = Regex.Match("ph", @"^\.$")); }
+            get { return _pActions ?? (_pActions = Regex.Match("ph", @"^\.$")); }
             private set
             {
-                _pAdditional = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pCounter
-        {
-            get { return _pCounter ?? (_pCounter = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pCounter = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pBlock
-        {
-            get { return _pBlock ?? (_pBlock = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pBlock = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pParry
-        {
-            get { return _pParry ?? (_pParry = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pParry = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pResist
-        {
-            get { return _pResist ?? (_pResist = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pResist = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pEvade
-        {
-            get { return _pEvade ?? (_pAction = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pEvade = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pMultiFlag
-        {
-            get { return _pMultiFlag ?? (_pMultiFlag = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pMultiFlag = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string[] pMultiFlagAbility
-        {
-            get
-            {
-                return _pMultiFlagAbility ?? (_pMultiFlagAbility = new[]
-                {
-                    ""
-                });
-            }
-            private set
-            {
-                _pMultiFlagAbility = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match pMulti
-        {
-            get { return _pMulti ?? (_pMulti = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _pMulti = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mAction
-        {
-            get { return _mAction ?? (_mAction = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mAction = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mUsed
-        {
-            get { return _mUsed ?? (_mUsed = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mUsed = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mAdditional
-        {
-            get { return _mAdditional ?? (_mAdditional = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mAdditional = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mCounter
-        {
-            get { return _mCounter ?? (_mCounter = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mCounter = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mBlock
-        {
-            get { return _mBlock ?? (_mBlock = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mBlock = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mParry
-        {
-            get { return _mParry ?? (_mParry = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mParry = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mResist
-        {
-            get { return _mResist ?? (_mResist = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mResist = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Match mEvade
-        {
-            get { return _mEvade ?? (_mEvade = Regex.Match("ph", @"^\.$")); }
-            private set
-            {
-                _mEvade = value;
+                _pActions = value;
                 RaisePropertyChanged();
             }
         }
@@ -253,20 +71,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
             switch (Common.Constants.GameLanguage)
             {
                 case "French":
-                    pAction = PlayerRegEx.ActionFr.Match(Cleaned);
-                    pUsed = PlayerRegEx.UsedFr.Match(Cleaned);
-                    pAdditional = PlayerRegEx.AdditionalFr.Match(Cleaned);
-                    pCounter = PlayerRegEx.CounterFr.Match(Cleaned);
-                    pBlock = PlayerRegEx.BlockFr.Match(Cleaned);
-                    pParry = PlayerRegEx.ParryFr.Match(Cleaned);
-                    pResist = PlayerRegEx.ResistFr.Match(Cleaned);
-                    pEvade = PlayerRegEx.EvadeFr.Match(Cleaned);
-                    pMultiFlag = PlayerRegEx.MultiFlagFr.Match(Cleaned);
-                    pMultiFlagAbility = ParseHelper.MultiFr;
-                    pMulti = PlayerRegEx.MultiFr.Match(Cleaned);
-                    mAction = MonsterRegEx.ActionFr.Match(Cleaned);
-                    mResist = MonsterRegEx.ResistFr.Match(Cleaned);
-                    mEvade = MonsterRegEx.EvadeFr.Match(Cleaned);
+                    //pDamage = PlayerRegEx.DamageFr.Match(Cleaned);
+                    //pFailed = PlayerRegEx.FailedFr.Match(Cleaned);
+                    //pActions = PlayerRegEx.ActionsFr.Match(Cleaned);
                     Counter = "Contre";
                     Added = "Effet Supplémentaire";
                     Type = "PV";
@@ -275,20 +82,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     You = @"^[Vv]ous$";
                     break;
                 case "Japanese":
-                    pAction = PlayerRegEx.ActionJa.Match(Cleaned);
-                    pUsed = PlayerRegEx.UsedJa.Match(Cleaned);
-                    pAdditional = PlayerRegEx.AdditionalJa.Match(Cleaned);
-                    pCounter = PlayerRegEx.CounterJa.Match(Cleaned);
-                    pBlock = PlayerRegEx.BlockJa.Match(Cleaned);
-                    pParry = PlayerRegEx.ParryJa.Match(Cleaned);
-                    pResist = PlayerRegEx.ResistJa.Match(Cleaned);
-                    pEvade = PlayerRegEx.EvadeJa.Match(Cleaned);
-                    pMultiFlag = PlayerRegEx.MultiFlagJa.Match(Cleaned);
-                    pMultiFlagAbility = ParseHelper.MultiJa;
-                    pMulti = PlayerRegEx.MultiJa.Match(Cleaned);
-                    mAction = MonsterRegEx.ActionJa.Match(Cleaned);
-                    mResist = MonsterRegEx.ResistJa.Match(Cleaned);
-                    mEvade = MonsterRegEx.EvadeJa.Match(Cleaned);
+                    //pDamage = PlayerRegEx.DamageJa.Match(Cleaned);
+                    //pFailed = PlayerRegEx.FailedJa.Match(Cleaned);
+                    //pActions = PlayerRegEx.ActionsJa.Match(Cleaned);
                     Counter = "カウンター";
                     Added = "追加効果";
                     Type = "ＨＰ";
@@ -297,20 +93,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     You = @"^\.$";
                     break;
                 case "German":
-                    pAction = PlayerRegEx.ActionDe.Match(Cleaned);
-                    pUsed = PlayerRegEx.UsedDe.Match(Cleaned);
-                    pAdditional = PlayerRegEx.AdditionalDe.Match(Cleaned);
-                    pCounter = PlayerRegEx.CounterDe.Match(Cleaned);
-                    pBlock = PlayerRegEx.BlockDe.Match(Cleaned);
-                    pParry = PlayerRegEx.ParryDe.Match(Cleaned);
-                    pResist = PlayerRegEx.ResistDe.Match(Cleaned);
-                    pEvade = PlayerRegEx.EvadeDe.Match(Cleaned);
-                    pMultiFlag = PlayerRegEx.MultiFlagDe.Match(Cleaned);
-                    pMultiFlagAbility = ParseHelper.MultiDe;
-                    pMulti = PlayerRegEx.MultiDe.Match(Cleaned);
-                    mAction = MonsterRegEx.ActionDe.Match(Cleaned);
-                    mResist = MonsterRegEx.ResistDe.Match(Cleaned);
-                    mEvade = MonsterRegEx.EvadeDe.Match(Cleaned);
+                    //pDamage = PlayerRegEx.DamageDe.Match(Cleaned);
+                    //pFailed = PlayerRegEx.FailedDe.Match(Cleaned);
+                    //pActions = PlayerRegEx.ActionsDe.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Zusatzefeckt";
                     Type = "HP";
@@ -319,20 +104,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     You = @"^[Dd]u$";
                     break;
                 default:
-                    pAction = PlayerRegEx.ActionEn.Match(Cleaned);
-                    pUsed = PlayerRegEx.UsedEn.Match(Cleaned);
-                    pAdditional = PlayerRegEx.AdditionalEn.Match(Cleaned);
-                    pCounter = PlayerRegEx.CounterEn.Match(Cleaned);
-                    pBlock = PlayerRegEx.BlockEn.Match(Cleaned);
-                    pParry = PlayerRegEx.ParryEn.Match(Cleaned);
-                    pResist = PlayerRegEx.ResistEn.Match(Cleaned);
-                    pEvade = PlayerRegEx.EvadeEn.Match(Cleaned);
-                    pMultiFlag = PlayerRegEx.MultiFlagEn.Match(Cleaned);
-                    pMultiFlagAbility = ParseHelper.MultiEn;
-                    pMulti = PlayerRegEx.MultiEn.Match(Cleaned);
-                    mAction = MonsterRegEx.ActionEn.Match(Cleaned);
-                    mResist = MonsterRegEx.ResistEn.Match(Cleaned);
-                    mEvade = MonsterRegEx.EvadeEn.Match(Cleaned);
+                    pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
+                    pFailed = PlayerRegEx.FailedEn.Match(Cleaned);
+                    pActions = PlayerRegEx.ActionsEn.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Additional Effect";
                     Type = "HP";
