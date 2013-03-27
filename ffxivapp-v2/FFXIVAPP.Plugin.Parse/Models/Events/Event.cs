@@ -70,7 +70,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         public ulong Code
         {
-            get { return (ulong) (EventCode != null ? EventCode.Code : 0x0000); }
+            get { return (EventCode != null ? EventCode.Code : 0x000000); }
         }
 
         public bool IsUnknown
@@ -98,9 +98,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// </summary>
         /// <param name="filter"> </param>
         /// <returns> </returns>
-        public bool MatchesFilter(UInt16 filter, Event e)
+        public bool MatchesFilter(UInt32 filter, Event e)
         {
-            return (((UInt16) Subject & filter) != 0 && ((UInt16) Type & filter) != 0 && ((UInt16) Direction & filter) != 0);
+            return (((UInt32) Subject & filter) != 0 && ((UInt32) Type & filter) != 0 && ((UInt32) Direction & filter) != 0);
         }
 
         #endregion

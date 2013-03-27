@@ -43,7 +43,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
         }
 
-        public UInt16 Flags
+        public UInt32 Flags
         {
             get
             {
@@ -51,30 +51,30 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                 {
                     return _flags;
                 }
-                UInt16 combinedFlags = 0x0000;
+                UInt32 combinedFlags = 0x000000;
                 if ((_flags & EventParser.DirectionMask) != 0)
                 {
-                    combinedFlags |= (UInt16) (_flags & EventParser.DirectionMask);
+                    combinedFlags |= (_flags & EventParser.DirectionMask);
                 }
                 else
                 {
-                    combinedFlags |= (UInt16) Parent.Direction;
+                    combinedFlags |= (UInt32) Parent.Direction;
                 }
                 if ((_flags & EventParser.SubjectMask) != 0)
                 {
-                    combinedFlags |= (UInt16) (_flags & EventParser.SubjectMask);
+                    combinedFlags |= (_flags & EventParser.SubjectMask);
                 }
                 else
                 {
-                    combinedFlags |= (UInt16) Parent.Subject;
+                    combinedFlags |= (UInt32) Parent.Subject;
                 }
                 if ((_flags & EventParser.TypeMask) != 0)
                 {
-                    combinedFlags |= (UInt16) (_flags & EventParser.TypeMask);
+                    combinedFlags |= (_flags & EventParser.TypeMask);
                 }
                 else
                 {
-                    combinedFlags |= (UInt16) Parent.Type;
+                    combinedFlags |= (UInt32) Parent.Type;
                 }
                 return combinedFlags;
             }
@@ -85,7 +85,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             get { return (EventDirection) (Flags & EventParser.DirectionMask); }
             set
             {
-                _flags = (UInt16) ((_flags & ~EventParser.DirectionMask) | (UInt16) value);
+                _flags = ((_flags & ~EventParser.DirectionMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
@@ -95,7 +95,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             get { return (EventSubject) (Flags & EventParser.SubjectMask); }
             set
             {
-                _flags = (UInt16) ((_flags & ~EventParser.SubjectMask) | (UInt16) value);
+                _flags = ((_flags & ~EventParser.SubjectMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
@@ -105,7 +105,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             get { return (EventType) (Flags & EventParser.TypeMask); }
             set
             {
-                _flags = (UInt16) ((_flags & ~EventParser.TypeMask) | (UInt16) value);
+                _flags = ((_flags & ~EventParser.TypeMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
@@ -134,7 +134,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         #region Declarations
 
         private readonly List<EventGroup> _children = new List<EventGroup>();
-        private UInt16 _flags;
+        private UInt32 _flags;
         private EventGroup _parent;
 
         #endregion

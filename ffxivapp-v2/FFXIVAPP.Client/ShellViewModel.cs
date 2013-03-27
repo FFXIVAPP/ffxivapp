@@ -7,12 +7,20 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Linq;
+using FFXIVAPP.Client.Delegates;
+using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 

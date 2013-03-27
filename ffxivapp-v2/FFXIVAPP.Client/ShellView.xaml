@@ -4,13 +4,13 @@
                       xmlns:Behaviors="clr-namespace:FFXIVAPP.Client.Behaviors"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:MetroPopup="clr-namespace:FFXIVAPP.Client.Controls"
                       xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
                       xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
                       xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       Title="{Binding AppTitle,
                                       Source={StaticResource AppProperties}}"
                       Width="{Binding Width,
@@ -22,8 +22,6 @@
                       MinWidth="720"
                       MinHeight="480"
                       Closing="MetroWindowClosing"
-                      d:DesignHeight="720"
-                      d:DesignWidth="480"
                       Icon="Resources/Media/Icons/FFXIVAPP.ico"
                       Left="{Binding Left,
                                      Mode=TwoWay,
@@ -35,6 +33,8 @@
                                     Mode=TwoWay,
                                     Source={x:Static Properties:Settings.Default}}"
                       WindowStyle="None"
+                      d:DesignHeight="720"
+                      d:DesignWidth="480"
                       mc:Ignorable="d">
 
     <Controls:MetroWindow.Resources>

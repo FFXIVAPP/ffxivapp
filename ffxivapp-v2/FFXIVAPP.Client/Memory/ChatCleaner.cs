@@ -162,28 +162,36 @@ namespace FFXIVAPP.Client.Memory
                     //}
                     if (bytes[x] == 2)
                     {
-                        x = x + 3;
-                        if (bytes[x] == 1)
+                        //2 46 5 7 242 2 210 3
+                        //2 29 1 3
+                        var length = bytes[x + 2];
+                        if (length > 1)
                         {
-                            x++;
+                            x = x + 3;
+                            autoTranslateList.Add(Convert.ToByte('['));
+                            while (bytes[x] != 3)
+                            {
+                                autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
+                                x++;
+                            }
+                            autoTranslateList.Add(Convert.ToByte(']'));
+                            string aCheckStr;
+                            var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
+                                                             .ToArray();
+                            if (!Common.Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
+                            {
+                                aCheckStr = "";
+                            }
+                            var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
+                            newList.AddRange(atbyte);
+                            autoTranslateList.Clear(); 
                         }
-                        autoTranslateList.Add(Convert.ToByte('['));
-                        while (bytes[x] != 3)
+                        else
                         {
-                            autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
-                            x++;
+                            x = x + 4;
+                            newList.Add(32);
+                            newList.Add(bytes[x]);
                         }
-                        autoTranslateList.Add(Convert.ToByte(']'));
-                        string aCheckStr;
-                        var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
-                                                         .ToArray();
-                        if (!Common.Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
-                        {
-                            aCheckStr = "";
-                        }
-                        var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
-                        newList.AddRange(atbyte);
-                        autoTranslateList.Clear();
                     }
                     else
                     {

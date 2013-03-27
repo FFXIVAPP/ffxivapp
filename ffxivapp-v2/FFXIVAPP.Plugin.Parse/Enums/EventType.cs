@@ -8,14 +8,14 @@ namespace FFXIVAPP.Plugin.Parse.Enums
 {
     public enum EventType
     {
-        Unknown = 0x0000,
-        Damage = 0x080,
-        Failed = 0x00100,
-        Actions = 0x0200,
-        Items = 0x0400,
-        Cure = 0x0800,
-        Benficial = 0x1000,
-        Detrimental = 0x2000,
-        Chat = 0x4000
+        Unknown = 0x000000,
+        Damage = 0x000100,
+        Failed = 0x000200,
+        Actions = 0x000400,
+        Items = 0x000800,
+        Cure = 0x001000,
+        Benficial = 0x002000,
+        Detrimental = 0x004000,
+        Chat = 0x008000
     }
 }

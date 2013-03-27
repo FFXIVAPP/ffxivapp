@@ -99,6 +99,7 @@
                     Command="{Binding ProcessSampleCommand}"
                     Content="sample.xml"
                     IsEnabled="{Binding SampleOK}" />
+
         </DockPanel>
     </Grid>
 </UserControl>

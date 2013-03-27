@@ -153,9 +153,9 @@ namespace FFXIVAPP.Plugin.Parse
                 if (Constants.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
                 {
                     Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                        {
-                            timeStampColor, "#" + color
-                        }, MainView.View.AbilityChatFD._FDR);
+                    {
+                        timeStampColor, "#" + color
+                    }, MainView.View.AbilityChatFD._FDR);
                 }
                 if (chatEntry.Code == "0020")
                 {
@@ -168,7 +168,7 @@ namespace FFXIVAPP.Plugin.Parse
                 }
                 Func<bool> funcParse = delegate
                 {
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(chatEntry.Code, 16), line);
+                    EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatEntry.Code, 16), line);
                     return true;
                 };
                 funcParse.BeginInvoke(null, null);

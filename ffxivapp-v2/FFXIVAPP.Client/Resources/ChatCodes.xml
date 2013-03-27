@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Codes>
   <Group Name="Chat" Type="Chat">
-    <Group Name="By You" Subject="You" Direction="On">
+    <Group Name="From You" Subject="You" Direction="From">
       <Code Key="000A">
         <Description>Say</Description>
       </Code>
@@ -11,24 +11,26 @@
       <Code Key="000E">
         <Description>Party</Description>
       </Code>
+      <Code Key="000C">
+        <Description>Tell (Out)</Description>
+      </Code>
+    </Group>
+    <Group Name="To You" Subject="You" Direction="To">
+      <Code Key="000D">
+        <Description>Tell (In)</Description>
+      </Code>
+    </Group>
+    <Group Name="Emotes" Subject="You" Direction="Multi">
       <Code Key="001D">
         <Description>Standard Emotes</Description>
       </Code>
       <Code Key="001C">
         <Description>Custom Emotes</Description>
       </Code>
-      <Code Key="000C">
-        <Description>Tell (Out)</Description>
-      </Code>
-    </Group>
-    <Group Name="By You" Subject="You" Direction="By">
-      <Code Key="000D">
-        <Description>Tell (In)</Description>
-      </Code>
     </Group>
   </Group>
   <Group Name="Damage" Type="Damage">
-    <Group Name="You" Subject="You">
+    <Group Name="To You" Subject="You" Direction="To">
       <Code Key="0429">
         <Description>Unknown</Description>
       </Code>
@@ -41,6 +43,8 @@
       <Code Key="05A9">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From You" Subject="You" Direction="From">
       <Code Key="0629">
         <Description>Unknown</Description>
       </Code>
@@ -54,7 +58,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Party" Subject="Party">
+    <Group Name="To Party" Subject="Party" Direction="To">
       <Code Key="0829">
         <Description>Unknown</Description>
       </Code>
@@ -67,6 +71,8 @@
       <Code Key="09A9">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Party" Subject="Party" Direction="From">
       <Code Key="0A29">
         <Description>Unknown</Description>
       </Code>
@@ -292,7 +298,7 @@
     </Group>
   </Group>
   <Group Name="Actions" Type="Actions">
-    <Group Name="You" Subject="You">
+    <Group Name="To You" Subject="You" Direction="To">
       <Code Key="042B">
         <Description>You -> Did/Casted</Description>
       </Code>
@@ -305,6 +311,8 @@
       <Code Key="05AB">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From You" Subject="You" Direction="From">
       <Code Key="062B">
         <Description>You -> Did/Begins (Other)</Description>
       </Code>
@@ -318,7 +326,7 @@
         <Description>Unknown</Description>
       </Code>
     </Group>
-    <Group Name="Party" Subject="Party">
+    <Group Name="To Party" Subject="Party" Direction="To">
       <Code Key="082B">
         <Description>Party -> Did/Casted</Description>
       </Code>
@@ -331,6 +339,8 @@
       <Code Key="09AB">
         <Description>Unknown</Description>
       </Code>
+    </Group>
+    <Group Name="From Party" Subject="Party" Direction="From">
       <Code Key="0A2B">
         <Description>Party -> Did/Begins (Other)</Description>
       </Code>

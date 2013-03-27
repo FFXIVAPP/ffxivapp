@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
     {
         #region Property Bindings
 
-        private ushort _filter;
+        private uint _filter;
         private DateTime _lastEventReceived;
         private ParseControl _parseControl;
 
@@ -33,7 +33,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
         }
 
-        protected UInt16 Filter
+        protected UInt32 Filter
         {
             private get { return _filter; }
             set

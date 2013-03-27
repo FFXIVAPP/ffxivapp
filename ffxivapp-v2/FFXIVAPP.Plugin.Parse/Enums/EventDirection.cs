@@ -8,8 +8,9 @@ namespace FFXIVAPP.Plugin.Parse.Enums
 {
     public enum EventDirection
     {
-        Unknown = 0x0000,
-        On = 0x0001,
-        By = 0x0002
+        Unknown = 0x000000,
+        From = 0x000001,
+        To = 0x000002,
+        Multi = 0x000004
     }
 }

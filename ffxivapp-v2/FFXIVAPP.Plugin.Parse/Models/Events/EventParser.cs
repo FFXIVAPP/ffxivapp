@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
     {
         #region Property Bindings
 
-        private SortedDictionary<UInt16, EventCode> EventCodes
+        private SortedDictionary<UInt32, EventCode> EventCodes
         {
             get { return _eventCodes; }
         }
@@ -35,13 +35,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         #region Declarations
 
-        public const UInt16 DirectionMask = 0x0003;
-        public const UInt16 SubjectMask = 0x007C;
-        public const UInt16 TypeMask = 0x7F80;
-        public static UInt16 AllEvents = 0xFFFF;
-        public static UInt16 UnknownEvent;
+        public const UInt32 DirectionMask = 0x000007;
+        public const UInt32 SubjectMask = 0x0000F8;
+        public const UInt32 TypeMask = 0x00FF00;
+        public static UInt32 AllEvents = 0xFFFFFF;
+        public static UInt32 UnknownEvent = 0x000000;
         private static EventParser _instance;
-        private readonly SortedDictionary<UInt16, EventCode> _eventCodes = new SortedDictionary<UInt16, EventCode>();
+        private readonly SortedDictionary<UInt32, EventCode> _eventCodes = new SortedDictionary<UInt32, EventCode>();
 
         #endregion
 
@@ -138,11 +138,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 switch (direction)
                 {
-                    case "By":
-                        thisGroup.Direction = EventDirection.By;
+                    case "From":
+                        thisGroup.Direction = EventDirection.From;
                         break;
-                    case "On":
-                        thisGroup.Direction = EventDirection.On;
+                    case "To":
+                        thisGroup.Direction = EventDirection.To;
+                        break;
+                    case "Multi":
+                        thisGroup.Direction = EventDirection.Multi;
                         break;
                 }
             }
@@ -152,7 +155,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
             foreach (var xElement in root.Elements("Code"))
             {
-                var xKey = Convert.ToUInt16((string) xElement.Attribute("Key"), 16);
+                var xKey = Convert.ToUInt32((string) xElement.Attribute("Key"), 16);
                 var xDescription = (string) xElement.Element("Description");
                 _eventCodes.Add(xKey, new EventCode(xDescription, xKey, thisGroup));
             }
@@ -167,7 +170,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// <param name="code"> </param>
         /// <param name="line"> </param>
         /// <returns> </returns>
-        private Event Parse(UInt16 code, string line)
+        private Event Parse(UInt32 code, string line)
         {
             EventCode eventCode;
             if (EventCodes.TryGetValue(code, out eventCode))
@@ -185,7 +188,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// </summary>
         /// <param name="code"> </param>
         /// <param name="line"> </param>
-        public void ParseAndPublish(UInt16 code, string line)
+        public void ParseAndPublish(UInt32 code, string line)
         {
             var @event = Parse(code, line);
             var eventHandler = @event.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
@@ -195,6 +198,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
             lock (eventHandler)
             {
+                System.Threading.Thread.Sleep(6);
                 eventHandler(this, @event);
             }
         }

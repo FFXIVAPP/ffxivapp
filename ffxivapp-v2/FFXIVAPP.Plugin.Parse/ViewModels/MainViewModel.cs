@@ -2,14 +2,13 @@
 // MainViewModel.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -113,7 +112,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 }
                 Func<bool> funcParse = delegate
                 {
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt16(code, 16), line);
+                    EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
                     return true;
                 };
                 funcParse.BeginInvoke(null, null);
@@ -207,7 +206,8 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                             "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
                         },
                         {
-                            "Abilities", playerMonster.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                            "Abilities", playerMonster.GetGroup("Abilities")
+                                                      .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
@@ -225,7 +225,8 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                             "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
                         },
                         {
-                            "Abilities", playerPlayer.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                            "Abilities", playerPlayer.GetGroup("Abilities")
+                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
@@ -238,7 +239,8 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                             "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
                         },
                         {
-                            "Abilities", playerDamage.GetGroup("Abilities").ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                            "Abilities", playerDamage.GetGroup("Abilities")
+                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
