@@ -24,57 +24,72 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         private static void ProcessFailed(Event e, Expressions exp)
         {
             var line = new Line();
-            Match failed;
-            if (e.Direction == EventDirection.From)
+            var failed = Regex.Match("ph", @"^\.$");
+            switch (e.Direction)
             {
-                failed = exp.pFailed;
-                switch (e.Subject)
-                {
-                    case EventSubject.You:
-                        if (failed.Success)
-                        {
-                            line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                        }
-                        break;
-                    case EventSubject.Party:
-                        if (failed.Success)
-                        {
-                            line.Source = _lastAttacker;
-                        }
-                        break;
-                    case EventSubject.Other:
-                        if (failed.Success)
-                        {
-                            line.Source = _lastAttacker;
-                        }
-                        break;
-                    case EventSubject.Engaged:
-                        break;
-                    case EventSubject.UnEngaged:
-                        break;
-                }
-                if (failed.Success)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Failed Line -> {0}", exp.Cleaned));
-                    line.Miss = true;
-                    switch (failed.Groups["source"].Success)
+                case EventDirection.From:
+                    failed = exp.pFailed;
+                    switch (e.Subject)
                     {
-                        case true:
-                            line.Action = "Attack";
+                        case EventSubject.You:
+                            if (failed.Success)
+                            {
+                                line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                UpdatePlayerFailed(failed, line, exp);
+                            }
                             break;
-                        case false:
-                            line.Action = String.IsNullOrWhiteSpace(_lastAction) ? "Attack" : _lastAction;
+                        case EventSubject.Party:
+                        case EventSubject.Other:
+                            if (failed.Success)
+                            {
+                                line.Source = _lastAttacker;
+                                UpdatePlayerFailed(failed, line, exp);
+                            }
+                            break;
+                        case EventSubject.Engaged:
+                        case EventSubject.UnEngaged:
                             break;
                     }
-                    line.Target = StringHelper.TitleCase(Convert.ToString(failed.Groups["target"].Value));
-                    ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
-                    ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                .SetPlayerStat(line);
-                    ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                .SetAbilityStat(line);
-                }
-                _lastAction = "";
+                    _lastAction = "";
+                    break;
+                case EventDirection.To:
+                    failed = exp.mFailed;
+                    switch (e.Subject)
+                    {
+                        case EventSubject.You:
+                        case EventSubject.Party:
+                        case EventSubject.Other:
+                        case EventSubject.Engaged:
+                        case EventSubject.UnEngaged:
+                            break;
+                    }
+                    _lastAction = "";
+                    break;
             }
+            if (!failed.Success)
+            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Unknown Failed Line -> {0}:{1}", String.Format("{0:X4}", e.Code), exp.Cleaned));
+            }
+        }
+
+        private static void UpdatePlayerFailed(Match failed, Line line, Expressions exp)
+        {
+            line.Miss = true;
+            switch (failed.Groups["source"].Success)
+            {
+                case true:
+                    line.Action = "Attack";
+                    break;
+                case false:
+                    line.Action = String.IsNullOrWhiteSpace(_lastAction) ? "Attack" : _lastAction;
+                    break;
+            }
+            line.Target = StringHelper.TitleCase(Convert.ToString(failed.Groups["target"].Value));
+            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+            ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                        .SetPlayerStat(line);
+            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                        .SetAbilityStat(line);
         }
     }
 }

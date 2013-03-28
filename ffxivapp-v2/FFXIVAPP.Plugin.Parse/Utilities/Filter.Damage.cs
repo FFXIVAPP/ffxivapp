@@ -14,6 +14,7 @@ using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
+using NLog;
 
 #endregion
 
@@ -24,59 +25,102 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         private static void ProcessDamage(Event e, Expressions exp)
         {
             var line = new Line();
-            Match damage;
-            if (e.Direction == EventDirection.From)
+            var damage = Regex.Match("ph", @"^\.$");
+            switch (e.Direction)
             {
-                damage = exp.pDamage;
-                switch (e.Subject)
-                {
-                    case EventSubject.You:
-                        if (damage.Success)
-                        {
-                            line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                        }
-                        break;
-                    case EventSubject.Party:
-                        if (damage.Success)
-                        {
-                            line.Source = _lastAttacker;
-                        }
-                        break;
-                    case EventSubject.Other:
-                        if (damage.Success)
-                        {
-                            line.Source = _lastAttacker;
-                        }
-                        break;
-                    case EventSubject.Engaged:
-                        break;
-                    case EventSubject.UnEngaged:
-                        break;
-                }
-                if (damage.Success)
-                {
-                    Logging.Log(NLog.LogManager.GetCurrentClassLogger(), String.Format("Damage Line -> {0}", exp.Cleaned));
-                    line.Hit = true;
-                    switch (damage.Groups["source"].Success)
+                case EventDirection.From:
+                    damage = exp.pDamage;
+                    switch (e.Subject)
                     {
-                        case true:
-                            line.Action = "Attack";
+                        case EventSubject.You:
+                            if (damage.Success)
+                            {
+                                line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                UpdatePlayerDamage(damage, line, exp);
+                            }
                             break;
-                        case false:
-                            line.Action = String.IsNullOrWhiteSpace(_lastAction) ? "Attack" : _lastAction;
+                        case EventSubject.Party:
+                        case EventSubject.Other:
+                            if (damage.Success)
+                            {
+                                line.Source = _lastAttacker;
+                                UpdatePlayerDamage(damage, line, exp);
+                            }
+                            break;
+                        case EventSubject.Engaged:
+                        case EventSubject.UnEngaged:
                             break;
                     }
-                    line.Amount = Convert.ToDecimal(damage.Groups["amount"].Value);
-                    line.Crit = damage.Groups["crit"].Success;
-                    line.Target = StringHelper.TitleCase(Convert.ToString(damage.Groups["target"].Value));
-                    ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
-                    ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                .SetPlayerStat(line);
-                    ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                .SetAbilityStat(line);
-                }
-                _lastAction = "";
+                    _lastAction = "";
+                    break;
+                case EventDirection.To:
+                    damage = exp.mDamage;
+                    switch (e.Subject)
+                    {
+                        case EventSubject.You:
+                        case EventSubject.Party:
+                        case EventSubject.Other:
+                            break;
+                        case EventSubject.Engaged:
+                        case EventSubject.UnEngaged:
+                            if (damage.Success)
+                            {
+                                UpdateMonsterDamage(damage, line, exp);
+                            }
+                            break;
+                    }
+                    _lastAction = "";
+                    break;
             }
+            if (!damage.Success)
+            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Unknown Failed Line -> {0}:{1}", String.Format("{0:X4}", e.Code), exp.Cleaned));
+            }
+        }
+
+        private static void UpdatePlayerDamage(Match damage, Line line, Expressions exp)
+        {
+            line.Hit = true;
+            switch (damage.Groups["source"].Success)
+            {
+                case true:
+                    line.Action = "Attack";
+                    break;
+                case false:
+                    line.Action = String.IsNullOrWhiteSpace(_lastAction) ? "Attack" : _lastAction;
+                    break;
+            }
+            line.Amount = Convert.ToDecimal(damage.Groups["amount"].Value);
+            line.Crit = damage.Groups["crit"].Success;
+            line.Target = StringHelper.TitleCase(Convert.ToString(damage.Groups["target"].Value));
+            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+            ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                        .SetPlayerStat(line);
+            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                        .SetAbilityStat(line);
+        }
+
+        private static void UpdateMonsterDamage(Match damage, Line line, Expressions exp)
+        {
+            line.Hit = true;
+            switch (damage.Groups["source"].Success)
+            {
+                case true:
+                    line.Action = "Attack";
+                    break;
+                case false:
+                    line.Action = String.IsNullOrWhiteSpace(_lastAction) ? "Attack" : _lastAction;
+                    break;
+            }
+            line.Amount = Convert.ToDecimal(damage.Groups["amount"].Value);
+            line.Crit = damage.Groups["crit"].Success;
+            line.Target = StringHelper.TitleCase(Convert.ToString(damage.Groups["target"].Value));
+            if (line.Target.ToLower() == "you")
+            {
+                line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+            }
+            //ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
+            //ParseControl.Instance.Timeline.GetSetPlayer(line.Target).SetDamageStat(line);
         }
     }
 }

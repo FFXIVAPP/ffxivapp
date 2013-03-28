@@ -14,6 +14,7 @@ using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
+using NLog;
 
 #endregion
 
@@ -28,36 +29,43 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    actions = exp.pActions;
                     if (actions.Success)
                     {
                         line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                        UpdatePlayerActions(actions, line, exp);
                     }
                     break;
                 case EventSubject.Party:
-                    if (actions.Success)
-                    {
-                        line.Source = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
-                        _lastAttacker = line.Source;
-                    }
-                    break;
                 case EventSubject.Other:
+                    actions = exp.pActions;
                     if (actions.Success)
                     {
                         line.Source = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
                         _lastAttacker = line.Source;
+                        UpdatePlayerActions(actions, line, exp);
                     }
                     break;
                 case EventSubject.Engaged:
-                    break;
                 case EventSubject.UnEngaged:
+                    actions = exp.mActions;
+                    if (actions.Success)
+                    {
+                        _lastAttacker = line.Source;
+                        _lastAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                    }
                     break;
             }
-            if (actions.Success)
+            if (!actions.Success)
             {
-                Logging.Log(NLog.LogManager.GetCurrentClassLogger(), String.Format("Action Line -> {0}", exp.Cleaned));
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
-                _lastAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Unknown Action Line -> {0}:{1}", String.Format("{0:X4}", e.Code), exp.Cleaned));
             }
+        }
+
+        private static void UpdatePlayerActions(Match actions, Line line, Expressions exp)
+        {
+            ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
+            _lastAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
         }
     }
 }

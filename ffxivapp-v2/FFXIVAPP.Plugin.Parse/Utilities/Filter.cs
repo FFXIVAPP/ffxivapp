@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         public static void Process(string cleaned, Event e)
         {
             IsValid = false;
-            var expressions = new Expressions(cleaned);
+            var expressions = new Expressions(e, cleaned);
 
             switch (e.Type)
             {

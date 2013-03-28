@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Helpers;
+using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
 
 #endregion
@@ -18,16 +19,21 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     internal class Expressions : INotifyPropertyChanged
     {
+        private Match _mDamage;
+        private Match _mFailed;
+        private Match _mActions;
         private Match _pDamage;
         private Match _pFailed;
         private Match _pActions;
 
-        public Expressions(string line)
+        public Expressions(Event e, string cleaned)
         {
-            Cleaned = line;
+            Event = e;
+            Cleaned = cleaned;
             Initialize();
         }
 
+        public Event Event { get; set; }
         public string Cleaned { get; set; }
         public string Counter { get; private set; }
         public string Added { get; private set; }
@@ -35,6 +41,36 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public string RAttack { get; private set; }
         public string Attack { get; private set; }
         public string You { get; private set; }
+
+        public Match mDamage
+        {
+            get { return _mDamage ?? (_mDamage = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _mDamage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Match mFailed
+        {
+            get { return _mFailed ?? (_mFailed = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _mFailed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Match mActions
+        {
+            get { return _mActions ?? (_mActions = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _mActions = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public Match pDamage
         {
@@ -107,6 +143,9 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
                     pFailed = PlayerRegEx.FailedEn.Match(Cleaned);
                     pActions = PlayerRegEx.ActionsEn.Match(Cleaned);
+                    mDamage = MonsterRegEx.DamageEn.Match(Cleaned);
+                    mFailed = MonsterRegEx.FailedEn.Match(Cleaned);
+                    mActions = MonsterRegEx.ActionsEn.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Additional Effect";
                     Type = "HP";
