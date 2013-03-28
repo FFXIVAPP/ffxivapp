@@ -35,9 +35,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         #region Declarations
 
-        public const UInt32 DirectionMask = 0x000007;
-        public const UInt32 SubjectMask = 0x0000F8;
-        public const UInt32 TypeMask = 0x00FF00;
+        public const UInt32 DirectionMask = 0x00003F;
+        public const UInt32 SubjectMask = 0x000FC0;
+        public const UInt32 TypeMask = 0x0FF000;
         public static UInt32 AllEvents = 0xFFFFFF;
         public static UInt32 UnknownEvent = 0x000000;
         private static EventParser _instance;
@@ -126,6 +126,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                     case "Other":
                         thisGroup.Subject = EventSubject.Other;
                         break;
+                    case "NPC":
+                        thisGroup.Subject = EventSubject.NPC;
+                        break;
                     case "Engaged":
                         thisGroup.Subject = EventSubject.Engaged;
                         break;
@@ -138,14 +141,23 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 switch (direction)
                 {
-                    case "From":
-                        thisGroup.Direction = EventDirection.From;
+                    case "Self":
+                        thisGroup.Direction = EventDirection.Self;
                         break;
-                    case "To":
-                        thisGroup.Direction = EventDirection.To;
+                    case "Party":
+                        thisGroup.Direction = EventDirection.Party;
                         break;
-                    case "Multi":
-                        thisGroup.Direction = EventDirection.Multi;
+                    case "Other":
+                        thisGroup.Direction = EventDirection.Other;
+                        break;
+                    case "NPC":
+                        thisGroup.Direction = EventDirection.NPC;
+                        break;
+                    case "Engaged":
+                        thisGroup.Direction = EventDirection.Engaged;
+                        break;
+                    case "UnEngaged":
+                        thisGroup.Direction = EventDirection.UnEngaged;
                         break;
                 }
             }

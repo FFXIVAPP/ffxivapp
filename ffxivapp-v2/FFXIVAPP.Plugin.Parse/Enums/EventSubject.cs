@@ -9,10 +9,11 @@ namespace FFXIVAPP.Plugin.Parse.Enums
     public enum EventSubject
     {
         Unknown = 0x000000,
-        You = 0x000008,
-        Party = 0x000010,
-        Other = 0x000020,
-        Engaged = 0x000040,
-        UnEngaged = 0x000080
+        You = 0x000040,
+        Party = 0x000080,
+        Other = 0x000100,
+        NPC = 0x000200,
+        Engaged = 0x000400,
+        UnEngaged = 0x000800
     }
 }

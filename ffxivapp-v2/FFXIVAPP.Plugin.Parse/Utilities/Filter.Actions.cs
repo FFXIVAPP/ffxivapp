@@ -25,35 +25,39 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         private static void ProcessActions(Event e, Expressions exp)
         {
             var line = new Line();
-            var actions = exp.pActions;
+            var actions = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {
                 case EventSubject.You:
-                    actions = exp.pActions;
-                    if (actions.Success)
-                    {
-                        line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                        UpdatePlayerActions(actions, line, exp);
-                    }
-                    break;
                 case EventSubject.Party:
                 case EventSubject.Other:
-                    actions = exp.pActions;
-                    if (actions.Success)
+                    switch (e.Direction)
                     {
-                        line.Source = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
-                        _lastAttacker = line.Source;
-                        UpdatePlayerActions(actions, line, exp);
+                        case EventDirection.Self:
+                        case EventDirection.Party:
+                        case EventDirection.Other:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
+                                if (e.Subject == EventSubject.You)
+                                {
+                                    line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                }
+                                _lastAttacker = line.Source;
+                                UpdatePlayerActions(actions, line, exp);
+                            }
+                            break;
+                            break;
+                        case EventDirection.NPC:
+                            break;
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            break;
                     }
                     break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
-                    actions = exp.mActions;
-                    if (actions.Success)
-                    {
-                        _lastAttacker = line.Source;
-                        _lastAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
-                    }
                     break;
             }
             if (!actions.Success)

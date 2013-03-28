@@ -9,8 +9,11 @@ namespace FFXIVAPP.Plugin.Parse.Enums
     public enum EventDirection
     {
         Unknown = 0x000000,
-        From = 0x000001,
-        To = 0x000002,
-        Multi = 0x000004
+        Self = 0x000001,
+        Party = 0x000002,
+        Other = 0x000004,
+        NPC = 0x000008,
+        Engaged = 0x000010,
+        UnEngaged = 0x000020
     }
 }

@@ -25,45 +25,37 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         {
             var line = new Line();
             var failed = Regex.Match("ph", @"^\.$");
-            switch (e.Direction)
+            switch (e.Subject)
             {
-                case EventDirection.From:
-                    failed = exp.pFailed;
-                    switch (e.Subject)
+                case EventSubject.You:
+                case EventSubject.Party:
+                case EventSubject.Other:
+                    switch (e.Direction)
                     {
-                        case EventSubject.You:
-                            if (failed.Success)
-                            {
-                                line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                                UpdatePlayerFailed(failed, line, exp);
-                            }
+                        case EventDirection.Self:
+                        case EventDirection.Party:
+                        case EventDirection.Other:
+                        case EventDirection.NPC:
                             break;
-                        case EventSubject.Party:
-                        case EventSubject.Other:
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                             failed = exp.pFailed;
                             if (failed.Success)
                             {
                                 line.Source = _lastAttacker;
+                                if (e.Subject == EventSubject.You)
+                                {
+                                    line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                }
                                 UpdatePlayerFailed(failed, line, exp);
                             }
                             break;
-                        case EventSubject.Engaged:
-                        case EventSubject.UnEngaged:
-                            break;
                     }
-                    _lastAction = "";
                     break;
-                case EventDirection.To:
-                    failed = exp.mFailed;
-                    switch (e.Subject)
-                    {
-                        case EventSubject.You:
-                        case EventSubject.Party:
-                        case EventSubject.Other:
-                        case EventSubject.Engaged:
-                        case EventSubject.UnEngaged:
-                            break;
-                    }
-                    _lastAction = "";
+                case EventSubject.NPC:
+                    break;
+                case EventSubject.Engaged:
+                case EventSubject.UnEngaged:
                     break;
             }
             if (!failed.Success)
