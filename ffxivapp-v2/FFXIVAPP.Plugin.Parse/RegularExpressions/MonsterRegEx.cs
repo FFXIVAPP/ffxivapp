@@ -15,7 +15,7 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class MonsterRegEx
     {
-        public static readonly Regex DamageEn = new Regex(@"^(?!( ⇒ )?(Parried|Blocked))( ⇒ )?(?<crit>Critical! )?(((T|t)he )?(?<source>|.+) hits (?<target>you|.+) for |(?<target>You|.+) takes? )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static readonly Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(((T|t)he )?(?<source>|.+) hits (?<target>you|.+) for |(?<target>You|.+) takes? )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
         public static readonly Regex FailedEn = new Regex(@"^( ⇒ The attack|((T|t)he )?(?<source>|.+)) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
 

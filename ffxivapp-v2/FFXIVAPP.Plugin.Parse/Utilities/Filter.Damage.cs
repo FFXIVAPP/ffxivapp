@@ -127,7 +127,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     break;
             }
             line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+            line.Block = damage.Groups["block"].Success;
             line.Crit = damage.Groups["crit"].Success;
+            line.Parry = damage.Groups["parry"].Success;
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
             ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
                         .SetDamageStat(line);
