@@ -2,7 +2,7 @@
 // Filter.Actions.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -13,7 +13,6 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
-using FFXIVAPP.Plugin.Parse.RegularExpressions;
 using NLog;
 
 #endregion
@@ -30,12 +29,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 case EventSubject.You:
                 case EventSubject.Party:
-                case EventSubject.Other:
                     switch (e.Direction)
                     {
                         case EventDirection.Self:
+                        case EventDirection.You:
                         case EventDirection.Party:
-                        case EventDirection.Other:
                             actions = exp.pActions;
                             if (actions.Success)
                             {
@@ -44,32 +42,54 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 {
                                     line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
                                 }
-                                _lastAttacker = line.Source;
+                                _lastPlayer = line.Source;
                                 UpdatePlayerActions(actions, line, exp);
                             }
                             break;
-                            break;
+                        case EventDirection.Other:
                         case EventDirection.NPC:
-                            break;
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
                             break;
                     }
                     break;
+                case EventSubject.Other:
+                case EventSubject.NPC:
+                    break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                        case EventDirection.You:
+                        case EventDirection.Party:
+                            actions = exp.mActions;
+                            if (actions.Success)
+                            {
+                                _lastMob = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
+                                _lastMobAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                            }
+                            break;
+                        case EventDirection.Other:
+                        case EventDirection.NPC:
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            break;
+                    }
                     break;
             }
-            if (!actions.Success)
+            if (actions.Success)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Unknown Action Line -> {0}:{1}", String.Format("{0:X4}", e.Code), exp.Cleaned));
+                return;
             }
+            var data = String.Format("Unknown Action Line -> [Subject:{0}][Direction:{1}] {2}:{3}", e.Subject, e.Direction, String.Format("{0:X4}", e.Code), exp.Cleaned);
+            Logging.Log(LogManager.GetCurrentClassLogger(), data);
         }
 
         private static void UpdatePlayerActions(Match actions, Line line, Expressions exp)
         {
             ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
-            _lastAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+            _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
         }
     }
 }

@@ -107,9 +107,9 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                     if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
                     {
                         Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                    {
-                        timeStampColor, "#" + color
-                    }, MainView.View.AbilityChatFD._FDR);
+                        {
+                            timeStampColor, "#" + color
+                        }, MainView.View.AbilityChatFD._FDR);
                     }
                     EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
                 }

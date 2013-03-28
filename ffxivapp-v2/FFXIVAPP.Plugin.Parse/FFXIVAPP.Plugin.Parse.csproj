@@ -97,12 +97,12 @@
     <Compile Include="Models\StatGroups\Player.Stats.Healing.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
     <Compile Include="Utilities\Filter.Actions.cs" />
+    <Compile Include="Utilities\Filter.Beneficial.cs" />
     <Compile Include="Utilities\Filter.cs" />
+    <Compile Include="Utilities\Filter.Cure.cs" />
     <Compile Include="Utilities\Filter.Damage.cs" />
-    <Compile Include="Utilities\Filter.DamageByMobs.cs" />
-    <Compile Include="Utilities\Filter.DamageToMobs.cs" />
+    <Compile Include="Utilities\Filter.Detrimental.cs" />
     <Compile Include="Utilities\Filter.Failed.cs" />
-    <Compile Include="Utilities\Filter.HealingByParty.cs" />
     <Compile Include="Helpers\ParseHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
@@ -216,6 +216,7 @@
     <Content Include="Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Utilities\Filter.Items.cs" />
     <Resource Include="Media\Images\Refresh.png" />
     <Resource Include="Media\Images\About.png" />
     <Resource Include="Media\Images\Main.png" />

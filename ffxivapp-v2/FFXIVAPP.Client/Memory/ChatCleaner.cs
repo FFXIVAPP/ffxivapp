@@ -184,7 +184,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                             var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
                             newList.AddRange(atbyte);
-                            autoTranslateList.Clear(); 
+                            autoTranslateList.Clear();
                         }
                         else
                         {

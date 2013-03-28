@@ -2,7 +2,7 @@
 // StatMonitor.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -10,7 +10,6 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
-using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
@@ -53,7 +52,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            Filter = (EventParser.TypeMask | EventParser.DirectionMask | (UInt32) EventSubject.You | (UInt32) EventSubject.Party | (UInt32) EventSubject.Engaged | (UInt32) EventSubject.UnEngaged);
+            Filter = EventParser.AllEvents;
         }
 
         /// <summary>

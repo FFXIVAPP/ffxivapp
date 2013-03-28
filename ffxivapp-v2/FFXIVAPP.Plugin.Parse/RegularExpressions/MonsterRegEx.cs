@@ -15,14 +15,14 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class MonsterRegEx
     {
-        public static readonly Regex DamageEn = new Regex(@"^(?!(Parried|Blocked))( ⇒ )?(?<crit>Critical! )?(((T|t)he )?(?<source>|.+) hits (?<target>you|.+) for |(?<target>You|.+) takes? )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static readonly Regex DamageEn = new Regex(@"^(?!( ⇒ )?(Parried|Blocked))( ⇒ )?(?<crit>Critical! )?(((T|t)he )?(?<source>|.+) hits (?<target>you|.+) for |(?<target>You|.+) takes? )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
         public static readonly Regex FailedEn = new Regex(@"^( ⇒ The attack|((T|t)he )?(?<source>|.+)) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
 
         public static readonly Regex ActionsEn = new Regex(@"^((T|t)he )?(?<source>|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 
         /// <summary>
-        /// 1.0 REGEX
+        ///     1.0 REGEX
         /// </summary>
         public static readonly Regex ActionEn = new Regex(@"(?!.+misses(\.)? )^(?<crit>Critical! )?(The )?(?<source>[\w\s']+(?='s))('s) (?<action>.+(?= hits)) (?<hit>hits) (?<target>you(?!.+'s.+for)|\w+\s\w+) (from the (?<direction>\w+) )?for (?<amount>\d+).+\.$|(The )?(?<source>[\w\s]+(?='s))('s) (?<action>.+(?= misses)) (?<hit>misses) (?<target>you(?!.+'s.+from)|\w+\s\w+)( from the (?<direction>\w+)\.$|\.$)", SharedRegEx.DefaultOptions);
 

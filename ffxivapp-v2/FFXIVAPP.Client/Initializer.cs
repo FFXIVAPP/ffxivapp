@@ -103,7 +103,8 @@ namespace FFXIVAPP.Client
                     }
                     if (Common.Constants.ChatCodes.ContainsKey(xKey))
                     {
-                        if (xDescription.ToLower().Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
+                        if (xDescription.ToLower()
+                                        .Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
                         {
                             xDescription = Common.Constants.ChatCodes[xKey];
                         }

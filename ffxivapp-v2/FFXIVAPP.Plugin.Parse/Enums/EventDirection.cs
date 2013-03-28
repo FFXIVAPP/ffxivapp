@@ -10,10 +10,11 @@ namespace FFXIVAPP.Plugin.Parse.Enums
     {
         Unknown = 0x000000,
         Self = 0x000001,
-        Party = 0x000002,
-        Other = 0x000004,
-        NPC = 0x000008,
-        Engaged = 0x000010,
-        UnEngaged = 0x000020
+        You = 0x000002,
+        Party = 0x000004,
+        Other = 0x000008,
+        NPC = 0x000010,
+        Engaged = 0x000020,
+        UnEngaged = 0x000040
     }
 }

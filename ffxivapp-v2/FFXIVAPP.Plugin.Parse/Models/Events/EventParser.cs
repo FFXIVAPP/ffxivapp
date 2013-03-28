@@ -35,9 +35,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         #region Declarations
 
-        public const UInt32 DirectionMask = 0x00003F;
-        public const UInt32 SubjectMask = 0x000FC0;
-        public const UInt32 TypeMask = 0x0FF000;
+        public const UInt32 DirectionMask = 0x00007F;
+        public const UInt32 SubjectMask = 0x001F80;
+        public const UInt32 TypeMask = 0x1FE000;
         public static UInt32 AllEvents = 0xFFFFFF;
         public static UInt32 UnknownEvent = 0x000000;
         private static EventParser _instance;
@@ -144,6 +144,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                     case "Self":
                         thisGroup.Direction = EventDirection.Self;
                         break;
+                    case "You":
+                        thisGroup.Direction = EventDirection.You;
+                        break;
                     case "Party":
                         thisGroup.Direction = EventDirection.Party;
                         break;
@@ -210,7 +213,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
             lock (eventHandler)
             {
-                //System.Threading.Thread.Sleep(7);
                 eventHandler(this, @event);
             }
         }

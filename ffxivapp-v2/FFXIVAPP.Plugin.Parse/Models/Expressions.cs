@@ -9,7 +9,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.RegularExpressions;
 
@@ -19,12 +18,14 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     internal class Expressions : INotifyPropertyChanged
     {
+        private Match _mActions;
         private Match _mDamage;
         private Match _mFailed;
-        private Match _mActions;
+        private Match _pActions;
         private Match _pDamage;
         private Match _pFailed;
-        private Match _pActions;
+        private Match _pItems;
+        private Match _pCure;
 
         public Expressions(Event e, string cleaned)
         {
@@ -102,6 +103,26 @@ namespace FFXIVAPP.Plugin.Parse.Models
             }
         }
 
+        public Match pItems
+        {
+            get { return _pItems ?? (_pItems = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _pItems = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Match pCure
+        {
+            get { return _pCure ?? (_pCure = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _pCure = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private void Initialize()
         {
             switch (Common.Constants.GameLanguage)
@@ -143,6 +164,8 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
                     pFailed = PlayerRegEx.FailedEn.Match(Cleaned);
                     pActions = PlayerRegEx.ActionsEn.Match(Cleaned);
+                    pItems = PlayerRegEx.ItemsEn.Match(Cleaned);
+                    pCure = PlayerRegEx.CureEn.Match(Cleaned);
                     mDamage = MonsterRegEx.DamageEn.Match(Cleaned);
                     mFailed = MonsterRegEx.FailedEn.Match(Cleaned);
                     mActions = MonsterRegEx.ActionsEn.Match(Cleaned);

@@ -8,10 +8,6 @@
 
 using System;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Controls;
 using MahApps.Metro;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 

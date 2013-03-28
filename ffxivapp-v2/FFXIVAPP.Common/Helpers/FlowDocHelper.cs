@@ -67,7 +67,7 @@ namespace FFXIVAPP.Common.Helpers
                         };
                         paraGraph.Inlines.Add(playerLine);
                     }
-                    paraGraph.Inlines.Add(coloredLine);   
+                    paraGraph.Inlines.Add(coloredLine);
                     flow.Document.Blocks.Add(paraGraph);
                     flow.Document.Blocks.LastBlock.Loaded += BlockLoaded;
                     if (flow.Document.Blocks.Count <= 500)

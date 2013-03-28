@@ -6,18 +6,12 @@
 
 #region Usings
 
-using System;
 using System.Collections;
-using System.Text.RegularExpressions;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.RegularExpressions;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
-using FFXIVAPP.Plugin.Parse.ViewModels;
 
 #endregion
 
@@ -26,16 +20,19 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
     public static partial class Filter
     {
         private static readonly Hashtable Offsets = ParseHelper.GetJob();
-        private static string _lastAttacker = "";
-        private static string _lastAttacked = "";
-        private static string _lastAction = "";
-        private static string _lastDirection = "";
+        private static Event _lastEvent;
+        private static string _lastPlayer = "";
+        private static string _lastPlayerAction = "";
+        private static string _lastMob = "";
+        private static string _lastMobAction = "";
         private static bool IsMulti { get; set; }
         private static string MultiFlag { get; set; }
         private static bool IsValid { get; set; }
 
         public static void Process(string cleaned, Event e)
         {
+            _lastEvent = _lastEvent ?? e;
+
             IsValid = false;
             var expressions = new Expressions(e, cleaned);
 
@@ -51,13 +48,20 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     ProcessActions(e, expressions);
                     break;
                 case EventType.Items:
+                    ProcessItems(e, expressions);
+                    break;
                 case EventType.Cure:
+                    ProcessCure(e, expressions);
+                    break;
                 case EventType.Benficial:
+                    ProcessBeneficial(e, expressions);
+                    break;
                 case EventType.Detrimental:
-                default:
-                    _lastAction = "";
+                    ProcessDetrimental(e, expressions);
                     break;
             }
+
+            _lastEvent = e;
 
             #region Save Parse to XML
 

@@ -133,7 +133,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("Counter", new CounterStat("Counter"));
             stats.Add("CounterPer", new PercentStat("CounterPer", stats["Counter"], stats["Used"]));
             stats.Add("Block", new CounterStat("Block"));
-            stats.Add("keBlockPer", new PercentStat("BlockPer", stats["Block"], stats["Used"]));
+            stats.Add("BlockPer", new PercentStat("BlockPer", stats["Block"], stats["Used"]));
             stats.Add("Parry", new CounterStat("Parry"));
             stats.Add("ParryPer", new PercentStat("ParryPer", stats["Parry"], stats["Used"]));
             stats.Add("Resist", new CounterStat("Resist"));
@@ -209,7 +209,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("Counter", new CounterStat("Counter"));
             stats.Add("CounterPer", new PercentStat("CounterPer", stats["Counter"], stats["Used"]));
             stats.Add("Block", new CounterStat("Block"));
-            stats.Add("keBlockPer", new PercentStat("BlockPer", stats["Block"], stats["Used"]));
+            stats.Add("BlockPer", new PercentStat("BlockPer", stats["Block"], stats["Used"]));
             stats.Add("Parry", new CounterStat("Parry"));
             stats.Add("ParryPer", new PercentStat("ParryPer", stats["Parry"], stats["Used"]));
             stats.Add("Resist", new CounterStat("Resist"));
