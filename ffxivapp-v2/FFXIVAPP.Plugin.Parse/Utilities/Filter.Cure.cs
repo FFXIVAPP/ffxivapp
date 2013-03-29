@@ -61,7 +61,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             line.Action = _lastPlayerAction;
             line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
             line.Crit = cure.Groups["crit"].Success;
-            line.Target = StringHelper.TitleCase(Convert.ToString(cure.Groups["target"].Value));
+            line.Target = Convert.ToString(cure.Groups["target"].Value);
             if (line.Target.ToLower() == "you")
             {
                 line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;

@@ -51,7 +51,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                 {
                     return _flags;
                 }
-                UInt32 combinedFlags = 0x000000;
+                UInt32 combinedFlags = 0x00000000;
                 if ((_flags & EventParser.DirectionMask) != 0)
                 {
                     combinedFlags |= (_flags & EventParser.DirectionMask);

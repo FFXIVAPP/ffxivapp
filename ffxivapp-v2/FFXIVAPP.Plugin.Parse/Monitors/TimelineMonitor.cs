@@ -50,20 +50,20 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="line"> </param>
         private void CheckDrops(string line)
         {
-            Match matches;
+            var matches = Regex.Match("ph", @"^\.$");
             switch (Common.Constants.GameLanguage)
             {
                 case "French":
-                    matches = PlayerRegEx.ObtainsFr.Match(line);
+                    //matches = PlayerRegEx.ObtainsFr.Match(line);
                     break;
                 case "Japanese":
-                    matches = PlayerRegEx.ObtainsJa.Match(line);
+                    //matches = PlayerRegEx.ObtainsJa.Match(line);
                     break;
                 case "German":
-                    matches = PlayerRegEx.ObtainsDe.Match(line);
+                    //matches = PlayerRegEx.ObtainsDe.Match(line);
                     break;
                 default:
-                    matches = PlayerRegEx.ObtainsEn.Match(line);
+                    //matches = PlayerRegEx.ObtainsEn.Match(line);
                     break;
             }
             if (!matches.Success)
@@ -108,30 +108,30 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="line"> </param>
         private void CheckParty(string line)
         {
-            Match join;
-            Match disband;
-            Match left;
+            var join = Regex.Match("ph", @"^\.$");
+            var disband = Regex.Match("ph", @"^\.$");
+            var left = Regex.Match("ph", @"^\.$");
             switch (Common.Constants.GameLanguage)
             {
                 case "French":
-                    join = PlayerRegEx.JoinFr.Match(line);
-                    disband = PlayerRegEx.DisbandFr.Match(line);
-                    left = PlayerRegEx.LeftFr.Match(line);
+                    //join = PlayerRegEx.JoinFr.Match(line);
+                    //disband = PlayerRegEx.DisbandFr.Match(line);
+                    //left = PlayerRegEx.LeftFr.Match(line);
                     break;
                 case "Japanese":
-                    join = PlayerRegEx.JoinJa.Match(line);
-                    disband = PlayerRegEx.DisbandJa.Match(line);
-                    left = PlayerRegEx.LeftJa.Match(line);
+                    //join = PlayerRegEx.JoinJa.Match(line);
+                    //disband = PlayerRegEx.DisbandJa.Match(line);
+                    //left = PlayerRegEx.LeftJa.Match(line);
                     break;
                 case "German":
-                    join = PlayerRegEx.JoinDe.Match(line);
-                    disband = PlayerRegEx.DisbandDe.Match(line);
-                    left = PlayerRegEx.LeftDe.Match(line);
+                    //join = PlayerRegEx.JoinDe.Match(line);
+                    //disband = PlayerRegEx.DisbandDe.Match(line);
+                    //left = PlayerRegEx.LeftDe.Match(line);
                     break;
                 default:
-                    join = PlayerRegEx.JoinEn.Match(line);
-                    disband = PlayerRegEx.DisbandEn.Match(line);
-                    left = PlayerRegEx.LeftEn.Match(line);
+                    //join = PlayerRegEx.JoinEn.Match(line);
+                    //disband = PlayerRegEx.DisbandEn.Match(line);
+                    //left = PlayerRegEx.LeftEn.Match(line);
                     break;
             }
             string who;
@@ -162,21 +162,21 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="line"> </param>
         private void CheckFight(string line)
         {
-            Match matches;
+            var matches = Regex.Match("ph", @"^\.$");
             var you = Common.Constants.CharacterName;
             switch (Common.Constants.GameLanguage)
             {
                 case "French":
-                    matches = PlayerRegEx.DefeatsFr.Match(line);
+                    //matches = PlayerRegEx.DefeatsFr.Match(line);
                     break;
                 case "Japanese":
-                    matches = PlayerRegEx.DefeatsJa.Match(line);
+                    //matches = PlayerRegEx.DefeatsJa.Match(line);
                     break;
                 case "German":
-                    matches = PlayerRegEx.DefeatsDe.Match(line);
+                    //matches = PlayerRegEx.DefeatsDe.Match(line);
                     break;
                 default:
-                    matches = PlayerRegEx.DefeatsEn.Match(line);
+                    //matches = PlayerRegEx.DefeatsEn.Match(line);
                     break;
             }
             if (!matches.Success)

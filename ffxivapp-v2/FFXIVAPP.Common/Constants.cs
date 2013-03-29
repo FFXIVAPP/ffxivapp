@@ -106,6 +106,8 @@ namespace FFXIVAPP.Common
 
         public static Process[] ProcessIDs { get; set; }
 
+        public static bool EnableNLog { get; set; }
+
         #endregion
     }
 }

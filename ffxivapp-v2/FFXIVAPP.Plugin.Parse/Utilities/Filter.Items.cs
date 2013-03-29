@@ -32,7 +32,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     items = exp.pItems;
                     if (items.Success)
                     {
-                        line.Source = StringHelper.TitleCase(Convert.ToString(items.Groups["source"].Value));
+                        line.Source = Convert.ToString(items.Groups["source"].Value);
                         if (e.Subject == EventSubject.You)
                         {
                             line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;

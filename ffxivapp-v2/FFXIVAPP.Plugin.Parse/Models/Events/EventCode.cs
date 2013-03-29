@@ -51,7 +51,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         public UInt32 Flags
         {
-            get { return (ushort) (Group == null ? 0x000000 : Group.Flags); }
+            get { return (ushort) (Group == null ? 0x00000000 : Group.Flags); }
         }
 
         public EventDirection Direction

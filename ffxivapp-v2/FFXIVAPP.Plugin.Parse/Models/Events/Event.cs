@@ -70,7 +70,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         public ulong Code
         {
-            get { return (EventCode != null ? EventCode.Code : 0x000000); }
+            get { return (EventCode != null ? EventCode.Code : 0x00000000); }
         }
 
         public bool IsUnknown

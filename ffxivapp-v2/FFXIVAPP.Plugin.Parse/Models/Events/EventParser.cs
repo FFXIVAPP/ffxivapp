@@ -35,11 +35,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         #region Declarations
 
-        public const UInt32 DirectionMask = 0x00007F;
-        public const UInt32 SubjectMask = 0x001F80;
-        public const UInt32 TypeMask = 0x1FE000;
-        public static UInt32 AllEvents = 0xFFFFFF;
-        public static UInt32 UnknownEvent = 0x000000;
+        public const UInt32 DirectionMask = 0x0000007F;
+        public const UInt32 SubjectMask = 0x00001F80;
+        public const UInt32 TypeMask = 0x1FFFE000;
+        public static UInt32 AllEvents = 0xFFFFFFFF;
+        public static UInt32 UnknownEvent = 0x00000000;
         private static EventParser _instance;
         private readonly SortedDictionary<UInt32, EventCode> _eventCodes = new SortedDictionary<UInt32, EventCode>();
 
@@ -108,8 +108,32 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                     case "Detrimental":
                         thisGroup.Type = EventType.Detrimental;
                         break;
-                    case "Chat":
-                        thisGroup.Type = EventType.Chat;
+                    case "System":
+                        thisGroup.Type = EventType.System;
+                        break;
+                    case "Battle":
+                        thisGroup.Type = EventType.Battle;
+                        break;
+                    case "Synthesis":
+                        thisGroup.Type = EventType.Synthesis;
+                        break;
+                    case "Gathering":
+                        thisGroup.Type = EventType.Gathering;
+                        break;
+                    case "Error":
+                        thisGroup.Type = EventType.Error;
+                        break;
+                    case "Echo":
+                        thisGroup.Type = EventType.Echo;
+                        break;
+                    case "Dialogue":
+                        thisGroup.Type = EventType.Dialogue;
+                        break;
+                    case "Loot":
+                        thisGroup.Type = EventType.Loot;
+                        break;
+                    case "Progression":
+                        thisGroup.Type = EventType.Progression;
                         break;
                 }
             }

@@ -124,6 +124,7 @@ namespace FFXIVAPP.Client
             Common.Constants.GameLanguage = Settings.Default.GameLanguage;
             Common.Constants.ServerName = Settings.Default.ServerName;
             Common.Constants.ServerNumber = Settings.Default.ServerNumber;
+            Common.Constants.EnableNLog = Settings.Default.EnableNLog;
         }
 
         public static void SetCharacter()

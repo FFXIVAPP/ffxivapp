@@ -66,7 +66,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             if (damage.Success)
                             {
                                 line.Source = _lastMob;
-                                line.Target = StringHelper.TitleCase(Convert.ToString(damage.Groups["target"].Value));
+                                line.Target = Convert.ToString(damage.Groups["target"].Value);
                                 if (line.Target.ToLower() == "you")
                                 {
                                     line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
@@ -106,7 +106,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
             line.Crit = damage.Groups["crit"].Success;
-            line.Target = StringHelper.TitleCase(Convert.ToString(damage.Groups["target"].Value));
+            line.Target = Convert.ToString(damage.Groups["target"].Value);
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
             ParseControl.Instance.Timeline.GetSetMob(line.Target)
                         .SetPlayerStat(line);

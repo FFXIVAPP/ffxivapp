@@ -9,6 +9,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 

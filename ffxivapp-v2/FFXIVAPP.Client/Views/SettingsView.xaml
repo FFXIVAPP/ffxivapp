@@ -40,6 +40,13 @@
                                                                        Source={x:Static Properties:Settings.Default}}" />
                         </StackPanel>
                     </GroupBox>
+                    <GroupBox Header="{Binding Locale[app_enablenlog],
+                                               Source={StaticResource AppProperties}}">
+                        <StackPanel>
+                            <Controls:ToggleSwitch IsChecked="{Binding EnableNLog,
+                                                                       Source={x:Static Properties:Settings.Default}}" />
+                        </StackPanel>
+                    </GroupBox>
                     <Button Margin="5"
                             Command="{Binding DefaultSettingsCommand}"
                             Content="{Binding Locale[app_defaultsettings],

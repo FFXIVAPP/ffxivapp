@@ -14,11 +14,12 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Line
     {
+        private string _job;
+        private string _source;
+        private string _target;
         private string _action;
         private string _direction;
-        private string _job;
         private string _part;
-
 
         public string Job
         {
@@ -26,8 +27,17 @@ namespace FFXIVAPP.Plugin.Parse.Models
             set { _job = StringHelper.TitleCase(value); }
         }
 
-        public string Source { get; set; }
-        public string Target { get; set; }
+        public string Source
+        {
+            get { return _source; }
+            set { _source = StringHelper.TitleCase(value); }
+        }
+
+        public string Target
+        {
+            get { return _target; }
+            set { _target = StringHelper.TitleCase(value); }
+        }
 
         public string Action
         {
@@ -48,6 +58,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         }
 
         public decimal Amount { get; set; }
+        public int Modifier { get; set; }
         public string Type { get; set; }
         public bool Hit { get; set; }
         public bool Miss { get; set; }

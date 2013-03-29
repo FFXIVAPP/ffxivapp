@@ -54,7 +54,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     break;
                 case EventSubject.Other:
                 case EventSubject.NPC:
-                    break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
                     switch (e.Direction)
@@ -62,7 +61,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         case EventDirection.Self:
                         case EventDirection.You:
                         case EventDirection.Party:
-                            break;
                         case EventDirection.Other:
                         case EventDirection.NPC:
                         case EventDirection.Engaged:
@@ -93,7 +91,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     line.Action = String.IsNullOrWhiteSpace(_lastPlayerAction) ? "Attack" : _lastPlayerAction;
                     break;
             }
-            line.Target = StringHelper.TitleCase(Convert.ToString(failed.Groups["target"].Value));
+            line.Target = Convert.ToString(failed.Groups["target"].Value);
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
             ParseControl.Instance.Timeline.GetSetMob(line.Target)
                         .SetPlayerStat(line);

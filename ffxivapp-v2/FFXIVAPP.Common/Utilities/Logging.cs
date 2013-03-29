@@ -17,6 +17,10 @@ namespace FFXIVAPP.Common.Utilities
     {
         public static void Log(Logger logger, string message = "", Exception ex = null)
         {
+            if (!Constants.EnableNLog)
+            {
+                return;
+            }
             message = message == "" ? " :: Log Message Undefined :: " : message;
             if (ex == null)
             {

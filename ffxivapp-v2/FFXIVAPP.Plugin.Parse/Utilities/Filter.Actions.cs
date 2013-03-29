@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 if (e.Subject == EventSubject.You)
                                 {
                                     line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
