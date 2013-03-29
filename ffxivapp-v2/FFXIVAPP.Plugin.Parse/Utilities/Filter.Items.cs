@@ -29,16 +29,28 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 case EventSubject.You:
                 case EventSubject.Party:
-                    items = exp.pItems;
-                    if (items.Success)
+                    switch (e.Direction)
                     {
-                        line.Source = Convert.ToString(items.Groups["source"].Value);
-                        if (e.Subject == EventSubject.You)
-                        {
-                            line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                        }
-                        _lastPlayer = line.Source;
-                        _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                        case EventDirection.Self:
+                        case EventDirection.You:
+                        case EventDirection.Party:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                if (e.Subject == EventSubject.You)
+                                {
+                                    line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                }
+                                _lastPlayer = line.Source;
+                                _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                        case EventDirection.Other:
+                        case EventDirection.NPC:
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            break;
                     }
                     break;
                 case EventSubject.Other:

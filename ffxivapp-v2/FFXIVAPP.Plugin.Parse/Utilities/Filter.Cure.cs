@@ -28,15 +28,27 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 case EventSubject.You:
                 case EventSubject.Party:
-                    cure = exp.pCure;
-                    if (cure.Success)
+                    switch (e.Direction)
                     {
-                        line.Source = _lastPlayer;
-                        if (e.Subject == EventSubject.You)
-                        {
-                            line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                        }
-                        UpdatePlayerHealing(cure, line, exp);
+                        case EventDirection.Self:
+                        case EventDirection.You:
+                        case EventDirection.Party:
+                            cure = exp.pCure;
+                            if (cure.Success)
+                            {
+                                line.Source = _lastPlayer;
+                                if (e.Subject == EventSubject.You)
+                                {
+                                    line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                }
+                                UpdatePlayerHealing(cure, line, exp);
+                            }
+                            break;
+                        case EventDirection.Other:
+                        case EventDirection.NPC:
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            break;
                     }
                     break;
                 case EventSubject.Other:
