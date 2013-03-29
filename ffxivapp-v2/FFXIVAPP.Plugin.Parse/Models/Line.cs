@@ -6,6 +6,7 @@
 
 #region Usings
 
+using System;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -14,46 +15,46 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Line
     {
-        private string _job;
-        private string _source;
-        private string _target;
         private string _action;
         private string _direction;
+        private string _job;
         private string _part;
+        private string _source;
+        private string _target;
 
         public string Job
         {
-            get { return _job; }
+            get { return _job ?? ""; }
             set { _job = StringHelper.TitleCase(value); }
         }
 
         public string Source
         {
-            get { return _source; }
+            get { return _source ?? ""; }
             set { _source = StringHelper.TitleCase(value); }
         }
 
         public string Target
         {
-            get { return _target; }
+            get { return _target ?? ""; }
             set { _target = StringHelper.TitleCase(value); }
         }
 
         public string Action
         {
-            get { return _action; }
+            get { return _action ?? ""; }
             set { _action = StringHelper.TitleCase(value); }
         }
 
         public string Direction
         {
-            get { return _direction; }
+            get { return _direction ?? ""; }
             set { _direction = StringHelper.TitleCase(value); }
         }
 
         public string Part
         {
-            get { return _part; }
+            get { return _part ?? ""; }
             set { _part = StringHelper.TitleCase(value); }
         }
 
@@ -69,5 +70,10 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public bool Resist { get; set; }
         public bool Evade { get; set; }
         public bool Partial { get; set; }
+
+        public bool IsEmpty()
+        {
+            return String.IsNullOrWhiteSpace(Source) || String.IsNullOrWhiteSpace(Target) || String.IsNullOrWhiteSpace(Action);
+        }
     }
 }

@@ -9,8 +9,8 @@
 using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
+using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using NLog;
@@ -82,8 +82,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 return;
             }
-            var data = String.Format("Unknown Action Line -> [Subject:{0}][Direction:{1}] {2}:{3}", e.Subject, e.Direction, String.Format("{0:X4}", e.Code), exp.Cleaned);
-            Logging.Log(LogManager.GetCurrentClassLogger(), data);
+            ClearLast(true);
+            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }
 
         private static void UpdatePlayerActions(Match actions, Line line, Expressions exp)

@@ -188,6 +188,9 @@ namespace FFXIVAPP.Client
                 case "ServerNumber":
                     Common.Constants.ServerNumber = Settings.Default.ServerNumber;
                     break;
+                case "EnableNLog":
+                    Common.Constants.EnableNLog = Settings.Default.EnableNLog;
+                    break;
             }
             //SettingsHelper.Save();
         }

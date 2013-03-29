@@ -16,16 +16,20 @@ using FFXIVAPP.Plugin.Parse.RegularExpressions;
 
 namespace FFXIVAPP.Plugin.Parse.Models
 {
-    internal class Expressions : INotifyPropertyChanged
+    public class Expressions : INotifyPropertyChanged
     {
         private Match _mActions;
         private Match _mDamage;
+        private Match _mDamageAuto;
         private Match _mFailed;
+        private Match _mFailedAuto;
         private Match _pActions;
-        private Match _pDamage;
-        private Match _pFailed;
-        private Match _pItems;
         private Match _pCure;
+        private Match _pDamage;
+        private Match _pDamageAuto;
+        private Match _pFailed;
+        private Match _pFailedAuto;
+        private Match _pItems;
 
         public Expressions(Event e, string cleaned)
         {
@@ -53,12 +57,32 @@ namespace FFXIVAPP.Plugin.Parse.Models
             }
         }
 
+        public Match mDamageAuto
+        {
+            get { return _mDamageAuto ?? (_mDamageAuto = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _mDamageAuto = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public Match mFailed
         {
             get { return _mFailed ?? (_mFailed = Regex.Match("ph", @"^\.$")); }
             private set
             {
                 _mFailed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Match mFailedAuto
+        {
+            get { return _mFailedAuto ?? (_mFailedAuto = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _mFailedAuto = value;
                 RaisePropertyChanged();
             }
         }
@@ -83,12 +107,32 @@ namespace FFXIVAPP.Plugin.Parse.Models
             }
         }
 
+        public Match pDamageAuto
+        {
+            get { return _pDamageAuto ?? (_pDamageAuto = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _pDamageAuto = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public Match pFailed
         {
             get { return _pFailed ?? (_pFailed = Regex.Match("ph", @"^\.$")); }
             private set
             {
                 _pFailed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Match pFailedAuto
+        {
+            get { return _pFailedAuto ?? (_pFailedAuto = Regex.Match("ph", @"^\.$")); }
+            private set
+            {
+                _pFailedAuto = value;
                 RaisePropertyChanged();
             }
         }
@@ -162,12 +206,16 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     break;
                 default:
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
+                    pDamageAuto = PlayerRegEx.DamageAutoEn.Match(Cleaned);
                     pFailed = PlayerRegEx.FailedEn.Match(Cleaned);
+                    pFailedAuto = PlayerRegEx.FailedAutoEn.Match(Cleaned);
                     pActions = PlayerRegEx.ActionsEn.Match(Cleaned);
                     pItems = PlayerRegEx.ItemsEn.Match(Cleaned);
                     pCure = PlayerRegEx.CureEn.Match(Cleaned);
                     mDamage = MonsterRegEx.DamageEn.Match(Cleaned);
+                    mDamageAuto = MonsterRegEx.DamageAutoEn.Match(Cleaned);
                     mFailed = MonsterRegEx.FailedEn.Match(Cleaned);
+                    mFailedAuto = MonsterRegEx.FailedAutoEn.Match(Cleaned);
                     mActions = MonsterRegEx.ActionsEn.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Additional Effect";

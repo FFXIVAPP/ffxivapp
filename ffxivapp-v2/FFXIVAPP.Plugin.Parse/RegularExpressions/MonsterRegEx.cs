@@ -15,9 +15,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class MonsterRegEx
     {
-        public static readonly Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(((T|t)he )?(?<source>|.+) hits (?<target>you|.+) for |(?<target>You|.+) takes? )(?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static readonly Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<target>You|.+) takes? (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex FailedEn = new Regex(@"^( ⇒ The attack|((T|t)he )?(?<source>|.+)) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
+        public static readonly Regex DamageAutoEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<source>|.+) hits? (?<target>you|.+) for (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+
+        public static readonly Regex FailedEn = new Regex(@"^( ⇒ )?The attack misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
+
+        public static readonly Regex FailedAutoEn = new Regex(@"^((T|t)he )?(?<source>|.+) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
 
         public static readonly Regex ActionsEn = new Regex(@"^((T|t)he )?(?<source>|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 

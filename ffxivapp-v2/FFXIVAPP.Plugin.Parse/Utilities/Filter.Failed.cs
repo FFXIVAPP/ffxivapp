@@ -8,9 +8,8 @@
 
 using System;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
+using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using NLog;
@@ -40,14 +39,28 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
                             failed = exp.pFailed;
-                            if (failed.Success)
+                            switch (failed.Success)
                             {
-                                line.Source = _lastPlayer;
-                                if (e.Subject == EventSubject.You)
-                                {
-                                    line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-                                }
-                                UpdatePlayerFailed(failed, line, exp);
+                                case true:
+                                    line.Source = _lastPlayer;
+                                    if (e.Subject == EventSubject.You)
+                                    {
+                                        line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                    }
+                                    UpdatePlayerFailed(failed, line, exp);
+                                    break;
+                                case false:
+                                    failed = exp.mFailedAuto;
+                                    if (failed.Success)
+                                    {
+                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
+                                        if (e.Subject == EventSubject.You)
+                                        {
+                                            line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                                        }
+                                        UpdatePlayerFailed(failed, line, exp);
+                                    }
+                                    break;
                             }
                             break;
                     }
@@ -69,14 +82,12 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     }
                     break;
             }
-            _lastPlayerAction = "";
-            _lastMobAction = "";
             if (failed.Success)
             {
                 return;
             }
-            var data = String.Format("Unknown Failed Line -> [Subject:{0}][Direction:{1}] {2}:{3}", e.Subject, e.Direction, String.Format("{0:X4}", e.Code), exp.Cleaned);
-            Logging.Log(LogManager.GetCurrentClassLogger(), data);
+            ClearLast();
+            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Failed", e, exp);
         }
 
         private static void UpdatePlayerFailed(Match failed, Line line, Expressions exp)
@@ -88,10 +99,15 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     line.Action = "Attack";
                     break;
                 case false:
-                    line.Action = String.IsNullOrWhiteSpace(_lastPlayerAction) ? "Attack" : _lastPlayerAction;
+                    line.Action = _lastPlayerAction;
                     break;
             }
             line.Target = Convert.ToString(failed.Groups["target"].Value);
+            if (line.IsEmpty())
+            {
+                return;
+            }
+            _lastPlayer = line.Source;
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
             ParseControl.Instance.Timeline.GetSetMob(line.Target)
                         .SetPlayerStat(line);

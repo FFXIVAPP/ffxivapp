@@ -72,5 +72,17 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
             #endregion
         }
+
+        private static void ClearLast(bool clearNames = false)
+        {
+            _lastPlayerAction = "";
+            _lastMobAction = "";
+            if (!clearNames)
+            {
+                return;
+            }
+            _lastPlayer = "";
+            _lastMob = "";
+        }
     }
 }

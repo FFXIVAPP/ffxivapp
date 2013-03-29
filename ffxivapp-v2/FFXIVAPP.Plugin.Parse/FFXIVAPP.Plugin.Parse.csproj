@@ -90,6 +90,7 @@
     <Compile Include="Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ParsingLogHelper.cs" />
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Drops.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.Damage.cs" />

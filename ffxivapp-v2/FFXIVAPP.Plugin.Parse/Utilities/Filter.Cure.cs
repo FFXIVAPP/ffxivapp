@@ -8,9 +8,8 @@
 
 using System;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
+using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using NLog;
@@ -46,14 +45,12 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 case EventSubject.UnEngaged:
                     break;
             }
-            _lastPlayerAction = "";
-            _lastMobAction = "";
             if (cure.Success)
             {
                 return;
             }
-            var data = String.Format("Unknown Cure Line -> [Subject:{0}][Direction:{1}] {2}:{3}", e.Subject, e.Direction, String.Format("{0:X4}", e.Code), exp.Cleaned);
-            Logging.Log(LogManager.GetCurrentClassLogger(), data);
+            ClearLast();
+            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Cure", e, exp);
         }
 
         private static void UpdatePlayerHealing(Match cure, Line line, Expressions exp)
@@ -67,6 +64,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
             }
             line.Type = Convert.ToString(cure.Groups["type"].Value.ToUpper());
+            if (line.IsEmpty())
+            {
+                return;
+            }
+            _lastPlayer = line.Source;
             ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                         .SetHealingStat(line);
         }
