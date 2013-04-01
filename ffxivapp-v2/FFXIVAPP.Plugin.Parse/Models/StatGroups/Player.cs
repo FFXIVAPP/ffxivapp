@@ -40,6 +40,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             var stats = new Dictionary<string, Stat<decimal>>();
             stats.Add("Total", new TotalStat("Total"));
+            stats.Add("Used", new CounterStat("Used"));
             stats.Add("Reg", new TotalStat("Reg"));
             stats.Add("Crit", new TotalStat("Crit"));
             stats.Add("HTotal", new TotalStat("HTotal"));
@@ -58,7 +59,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DTHit", new TotalStat("DTHit"));
             stats.Add("DTCHit", new TotalStat("DTCHit"));
             stats.Add("Miss", new TotalStat("Miss"));
-            stats.Add("Acc", new AccuracyStat("Acc", stats["Hit"], stats["Miss"]));
+            stats.Add("Acc", new AccuracyStat("Acc", stats["Used"], stats["Miss"]));
             stats.Add("Counter", new CounterStat("Counter"));
             stats.Add("Block", new CounterStat("Block"));
             stats.Add("Parry", new CounterStat("Parry"));
@@ -199,6 +200,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
             stats.Add("Hit", new CounterStat("Hit"));
             stats.Add("Miss", new CounterStat("Miss"));
+            stats.Add("Acc", new AccuracyStat("Acc", stats["Used"], stats["Miss"]));
             stats.Add("CHit", new CounterStat("CHit"));
             stats.Add("Low", new MinStat("Low", stats["Reg"]));
             stats.Add("High", new MaxStat("High", stats["Reg"]));

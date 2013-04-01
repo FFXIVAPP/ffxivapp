@@ -46,15 +46,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 UpdatePlayerActions(actions, line, exp);
                             }
                             break;
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                        case EventDirection.Engaged:
-                        case EventDirection.UnEngaged:
-                            break;
                     }
-                    break;
-                case EventSubject.Other:
-                case EventSubject.NPC:
                     break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
@@ -70,18 +62,15 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 _lastMobAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                             }
                             break;
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                        case EventDirection.Engaged:
-                        case EventDirection.UnEngaged:
-                            break;
                     }
                     break;
             }
             if (actions.Success)
             {
+                _isMulti = MultiTarget.IsMulti(StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value)));
                 return;
             }
+            _isMulti = false;
             ClearLast(true);
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }

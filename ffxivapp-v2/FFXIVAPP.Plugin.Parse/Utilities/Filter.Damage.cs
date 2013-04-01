@@ -30,12 +30,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 case EventSubject.Party:
                     switch (e.Direction)
                     {
-                        case EventDirection.Self:
-                        case EventDirection.You:
-                        case EventDirection.Party:
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                            break;
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
                             damage = exp.pDamage;
@@ -53,6 +47,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     damage = exp.pDamageAuto;
                                     if (damage.Success)
                                     {
+                                        _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         if (e.Subject == EventSubject.You)
                                         {
@@ -64,9 +59,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             }
                             break;
                     }
-                    break;
-                case EventSubject.Other:
-                case EventSubject.NPC:
                     break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
@@ -91,6 +83,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     damage = exp.mDamageAuto;
                                     if (damage.Success)
                                     {
+                                        _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         if (line.Target.ToLower() == "you")
@@ -101,11 +94,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     }
                                     break;
                             }
-                            break;
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                        case EventDirection.Engaged:
-                        case EventDirection.UnEngaged:
                             break;
                     }
                     break;
@@ -133,9 +121,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
             line.Crit = damage.Groups["crit"].Success;
             line.Target = Convert.ToString(damage.Groups["target"].Value);
-            if (line.IsEmpty())
+            if (!_autoAction)
             {
-                return;
+                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                {
+                    ClearLast(true);
+                    return;
+                }
             }
             _lastPlayer = line.Source;
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
@@ -161,9 +153,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             line.Block = damage.Groups["block"].Success;
             line.Crit = damage.Groups["crit"].Success;
             line.Parry = damage.Groups["parry"].Success;
-            if (line.IsEmpty())
+            if (!_autoAction)
             {
-                return;
+                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                {
+                    ClearLast(true);
+                    return;
+                }
             }
             _lastPlayer = line.Target;
             ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);

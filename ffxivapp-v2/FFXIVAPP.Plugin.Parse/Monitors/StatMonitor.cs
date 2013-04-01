@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
+using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
@@ -54,7 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            Filter = EventParser.AllEvents;
+            Filter = (EventParser.TypeMask | (UInt32)EventSubject.You | (UInt32)EventSubject.Party | (UInt32)EventSubject.Engaged | (UInt32)EventSubject.UnEngaged | (UInt32)EventDirection.Self | (UInt32)EventDirection.You | (UInt32)EventDirection.Party | (UInt32)EventDirection.Engaged | (UInt32)EventDirection.UnEngaged);
         }
 
         /// <summary>

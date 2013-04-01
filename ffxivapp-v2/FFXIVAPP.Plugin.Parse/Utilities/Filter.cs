@@ -25,15 +25,14 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         private static string _lastPlayerAction = "";
         private static string _lastMob = "";
         private static string _lastMobAction = "";
-        private static bool IsMulti { get; set; }
-        private static string MultiFlag { get; set; }
-        private static bool IsValid { get; set; }
+        private static bool _autoAction;
+        private static bool _isMulti;
 
         public static void Process(string cleaned, Event e)
         {
             _lastEvent = _lastEvent ?? e;
+            _autoAction = false;
 
-            IsValid = false;
             var expressions = new Expressions(e, cleaned);
 
             switch (e.Type)
@@ -65,7 +64,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
             #region Save Parse to XML
 
-            if (Settings.Default.ExportXML & IsValid)
+            if (Settings.Default.ExportXML)
             {
                 //ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
             }

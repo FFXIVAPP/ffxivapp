@@ -46,6 +46,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.AddStats(AbilityStatList("ma", subMonsterGroup));
                 monsters.AddGroup(subMonsterAbilityGroup);
             }
+            Stats.GetStat("Used")
+                 .Value += 1;
             subAbilityGroup.Stats.GetStat("Used")
                            .Value += 1;
             subMonsterGroup.Stats.GetStat("Used")

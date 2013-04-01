@@ -46,15 +46,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                        case EventDirection.Engaged:
-                        case EventDirection.UnEngaged:
-                            break;
                     }
                     break;
-                case EventSubject.Other:
-                case EventSubject.NPC:
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
                     break;

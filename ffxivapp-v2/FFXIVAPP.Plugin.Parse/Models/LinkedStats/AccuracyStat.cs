@@ -17,7 +17,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
     {
         public AccuracyStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
-            HitStat = dependencies[0];
+            UsedStat = dependencies[0];
             MissStat = dependencies[1];
             SetupDepends();
         }
@@ -30,16 +30,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
         {
         }
 
-        private Stat<decimal> HitStat { get; set; }
+        private Stat<decimal> UsedStat { get; set; }
         private Stat<decimal> MissStat { get; set; }
 
         /// <summary>
         /// </summary>
         private void SetupDepends()
         {
-            AddDependency(HitStat);
+            AddDependency(UsedStat);
             AddDependency(MissStat);
-            if (HitStat.Value > 0 && MissStat.Value > 0)
+            if (UsedStat.Value > 0 && MissStat.Value > 0)
             {
                 UpdateAccuracy();
             }
@@ -49,13 +49,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
         /// </summary>
         private void UpdateAccuracy()
         {
-            if (HitStat.Value == 0 && MissStat.Value == 0)
+            if (UsedStat.Value == 0 && MissStat.Value == 0)
             {
                 Value = 0;
                 return;
             }
-            var total = Convert.ToDouble(HitStat.Value + MissStat.Value);
-            Value = Convert.ToDecimal((Convert.ToDouble(HitStat.Value) / total));
+            var totalHits = Convert.ToDouble(UsedStat.Value - MissStat.Value);
+            Value = Convert.ToDecimal(totalHits / (Convert.ToDouble(UsedStat.Value)));
         }
 
         /// <summary>

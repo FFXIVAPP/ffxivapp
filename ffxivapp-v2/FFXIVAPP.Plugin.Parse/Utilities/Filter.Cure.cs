@@ -44,17 +44,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 UpdatePlayerHealing(cure, line, exp);
                             }
                             break;
-                        case EventDirection.Other:
-                        case EventDirection.NPC:
-                        case EventDirection.Engaged:
-                        case EventDirection.UnEngaged:
-                            break;
                     }
-                    break;
-                case EventSubject.Other:
-                case EventSubject.NPC:
-                case EventSubject.Engaged:
-                case EventSubject.UnEngaged:
                     break;
             }
             if (cure.Success)
@@ -76,8 +66,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
             }
             line.Type = Convert.ToString(cure.Groups["type"].Value.ToUpper());
-            if (line.IsEmpty())
+            if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions && _lastEvent.Type != EventType.Items))
             {
+                ClearLast(true);
                 return;
             }
             _lastPlayer = line.Source;

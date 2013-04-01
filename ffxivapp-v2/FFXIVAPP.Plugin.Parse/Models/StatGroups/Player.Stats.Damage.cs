@@ -81,6 +81,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                          .Value += 1;
                 }
             }
+            else
+            {
+                Stats.GetStat("Miss")
+                     .Value += 1;
+                subMonsterGroup.Stats.GetStat("Miss")
+                               .Value += 1;
+                subMonsterAbilityGroup.Stats.GetStat("Miss")
+                                      .Value += 1;
+            }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
                                        .Where(stat => Equals(stat.GetValue(line), true)))
             {

@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static readonly Regex DamageAutoEn = new Regex(@"^(?<crit>Critical! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex FailedEn = new Regex(@"^( ⇒ )?The attack miss(es)? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
+        public static readonly Regex FailedEn = new Regex(@"^( ⇒ )?The attack miss(es)?( ((T|t)he )?(?<target>.+))?\.$", SharedRegEx.DefaultOptions);
 
         public static readonly Regex FailedAutoEn = new Regex(@"^(?<source>You|.+) miss(es)? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
