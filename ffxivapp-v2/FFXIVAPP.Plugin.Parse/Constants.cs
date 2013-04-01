@@ -73,6 +73,7 @@ namespace FFXIVAPP.Plugin.Parse
         #region Property Bindings
 
         private static XDocument _xSettings;
+        private static XDocument _xRegEx;
         private static List<string> _settings;
 
         public static XDocument XSettings
@@ -88,6 +89,21 @@ namespace FFXIVAPP.Plugin.Parse
                 return _xSettings;
             }
             set { _xSettings = value; }
+        }
+
+        public static XDocument XRegEx
+        {
+            get
+            {
+                const string file = "./Plugins/FFXIVAPP.Plugin.Parse/RegularExpressions.xml";
+                if (_xRegEx == null)
+                {
+                    var found = File.Exists(file);
+                    _xRegEx = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.ParsePack + "/Defaults/RegularExpressions.xml");
+                }
+                return _xRegEx;
+            }
+            set { _xRegEx = value; }
         }
 
         public static List<string> Settings

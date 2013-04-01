@@ -33,7 +33,7 @@ namespace FFXIVAPP.Plugin.Chat
                     var xValue = (string) xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
-                        return;
+                        continue;
                     }
                     Settings.SetValue(xKey, xValue);
                     if (!Constants.Settings.Contains(xKey))

@@ -28,6 +28,40 @@
         <Description>Custom Emotes</Description>
       </Code>
     </Group>
+    <Group Name="Defeats" Type="Defeats">
+      <Group Name="06BA" Subject="You" Direction="Engaged">
+        <Code Key="06BA">
+          <Description>Defeats (You -> Engaged)</Description>
+        </Code>
+      </Group>
+      <Group Name="073A" Subject="You" Direction="UnEngaged">
+        <Code Key="073A">
+          <Description>Defeats (You -> UnEngaged)</Description>
+        </Code>
+      </Group>
+      <Group Name="0ABA" Subject="Party" Direction="Engaged">
+        <Code Key="0ABA">
+          <Description>Defeats (Party -> Engaged)</Description>
+        </Code>
+      </Group>
+      <Group Name="0B3A" Subject="Party" Direction="UnEngaged">
+        <Code Key="0B3A">
+          <Description>Defeats (Party -> UnEngaged)</Description>
+        </Code>
+      </Group>
+    </Group>
+  </Group>
+  <Group Name="Loot" Type="Loot">
+    <Group Name="043E" Subject="You" Direction="Self">
+      <Code Key="043E">
+        <Description>You Obtain X</Description>
+      </Code>
+    </Group>
+    <Group Name="083E" Subject="Party" Direction="Self">
+      <Code Key="083E">
+        <Description>Party Member Obtains X</Description>
+      </Code>
+    </Group>
   </Group>
   <Group Name="Damage" Type="Damage">
     <Group Name="0429" Subject="You" Direction="Self">

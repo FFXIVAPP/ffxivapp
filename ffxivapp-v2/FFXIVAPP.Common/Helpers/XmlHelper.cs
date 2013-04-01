@@ -36,7 +36,7 @@ namespace FFXIVAPP.Common.Helpers
             var newElement = new XElement(xNode, new XAttribute("Key", xKey));
             foreach (var s in xValuePairs)
             {
-                newElement.Add(new XElement(s.Key, s.Value));
+                newElement.Add(new XElement(s.Key, SanitizeXmlString(s.Value)));
             }
             element.Add(newElement);
         }

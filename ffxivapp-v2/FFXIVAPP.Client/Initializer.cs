@@ -55,7 +55,7 @@ namespace FFXIVAPP.Client
                     var xDescription = (string) xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xDescription))
                     {
-                        return;
+                        continue;
                     }
                     Common.Constants.ChatCodes.Add(xKey, xDescription);
                 }
@@ -77,7 +77,7 @@ namespace FFXIVAPP.Client
                     var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
-                        return;
+                        continue;
                     }
                     Common.Constants.AutoTranslate.Add(xKey, xValue);
                 }
@@ -99,7 +99,7 @@ namespace FFXIVAPP.Client
                     var xDescription = (string) xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
-                        return;
+                        continue;
                     }
                     if (Common.Constants.ChatCodes.ContainsKey(xKey))
                     {

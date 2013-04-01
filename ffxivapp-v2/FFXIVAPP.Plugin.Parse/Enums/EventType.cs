@@ -24,6 +24,7 @@ namespace FFXIVAPP.Plugin.Parse.Enums
         Echo = 0x02000000,
         Dialogue = 0x04000000,
         Loot = 0x08000000,
-        Progression = 0x10000000
+        Progression = 0x10000000,
+        Defeats = 0x20000000
     }
 }

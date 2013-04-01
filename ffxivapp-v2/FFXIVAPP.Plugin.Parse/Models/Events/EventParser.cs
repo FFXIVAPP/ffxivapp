@@ -37,9 +37,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
 
         public const UInt32 DirectionMask = 0x0000007F;
         public const UInt32 SubjectMask = 0x00001F80;
-        public const UInt32 TypeMask = 0x1FFFE000;
-        public static UInt32 AllEvents = 0xFFFFFFFF;
-        public static UInt32 UnknownEvent = 0x00000000;
+        public const UInt32 TypeMask = 0x3FFFE000;
+        public const UInt32 AllEvents = 0xFFFFFFFF;
+        public const UInt32 UnknownEvent = 0x00000000;
         private static EventParser _instance;
         private readonly SortedDictionary<UInt32, EventCode> _eventCodes = new SortedDictionary<UInt32, EventCode>();
 
@@ -134,6 +134,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                         break;
                     case "Progression":
                         thisGroup.Type = EventType.Progression;
+                        break;
+                    case "Defeats":
+                        thisGroup.Type = EventType.Defeats;
                         break;
                 }
             }

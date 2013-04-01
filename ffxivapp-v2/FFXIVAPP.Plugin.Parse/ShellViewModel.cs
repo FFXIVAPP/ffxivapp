@@ -34,6 +34,8 @@ namespace FFXIVAPP.Plugin.Parse
         public ShellViewModel()
         {
             Initializer.LoadSettings();
+            Initializer.LoadPlayerRegEx();
+            Initializer.LoadMonsterRegEx();
         }
 
         internal static void Loaded(object sender, RoutedEventArgs e)

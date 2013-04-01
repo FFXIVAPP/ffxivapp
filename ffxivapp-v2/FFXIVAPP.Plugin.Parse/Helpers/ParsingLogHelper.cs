@@ -18,9 +18,14 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 {
     public static class ParsingLogHelper
     {
-        public static void Log(Logger logger, string type, Event e, Expressions exp)
+        public static void Log(Logger logger, string type, Event e, Expressions exp = null)
         {
-            var data = String.Format("Unknown {0} Line -> [Subject:{1}][Direction:{2}] {3}:{4}", type, e.Subject, e.Direction, String.Format("{0:X4}", e.Code), exp.Cleaned);
+            var cleaned = "";
+            if (exp != null)
+            {
+                cleaned = exp.Cleaned;
+            }
+            var data = String.Format("Unknown {0} Line -> [Subject:{1}][Direction:{2}] {3}:{4}", type, e.Subject, e.Direction, String.Format("{0:X4}", e.Code), cleaned);
             Logging.Log(logger, data);
         }
     }

@@ -15,26 +15,96 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 {
     internal static class MonsterRegEx
     {
-        public static readonly Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<target>You|.+) takes? (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        //ENGLISH REGULAR EXPRESSIONS
+        public static Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<target>You|.+) takes? (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex DamageAutoEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<source>|.+) hits? (?<target>you|.+) for (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<source>|.+) hits? (?<target>you|.+) for (?<amount>\d+) (\((?<givetake>\+|-)(?<modifier>\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex FailedEn = new Regex(@"^( ⇒ )?The attack misses( (?<target>you|.+))?\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedEn = new Regex(@"^( ⇒ )?The attack misses( (?<target>you|.+))?\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex FailedAutoEn = new Regex(@"^((T|t)he )?(?<source>|.+) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoEn = new Regex(@"^((T|t)he )?(?<source>|.+) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex ActionsEn = new Regex(@"^((T|t)he )?(?<source>|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex ActionsEn = new Regex(@"^((T|t)he )?(?<source>|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex ItemsEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ItemsEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex CureEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex CureEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex BeneficialGainEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex BeneficialLoseEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex DetrimentalGainEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static readonly Regex DetrimentalLoseEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        //FRENCH REGULAR EXPRESSIONS
+        public static Regex DamageFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DamageAutoFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedAutoFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ActionsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ItemsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex CureFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialGainFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialLoseFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalGainFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalLoseFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        //JAPANESE REGULAR EXPRESSIONS
+        public static Regex DamageJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DamageAutoJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedAutoJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ActionsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ItemsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex CureJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialGainJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialLoseJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalGainJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalLoseJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        //GERMAN REGULAR EXPRESSIONS
+        public static Regex DamageDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DamageAutoDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex FailedAutoDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ActionsDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ItemsDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex CureDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialGainDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex BeneficialLoseDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalGainDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex DetrimentalLoseDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
     }
 }

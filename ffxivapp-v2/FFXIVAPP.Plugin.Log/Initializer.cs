@@ -42,7 +42,7 @@ namespace FFXIVAPP.Plugin.Log
                     var xValue = (string) xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
-                        return;
+                        continue;
                     }
                     Settings.SetValue(xKey, xValue);
                     if (!Constants.Settings.Contains(xKey))
@@ -67,7 +67,7 @@ namespace FFXIVAPP.Plugin.Log
                     var xRegularExpression = (string) xElement.Element("RegularExpression");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
-                        return;
+                        continue;
                     }
                     xRegularExpression = String.IsNullOrWhiteSpace(xRegularExpression) ? "*" : xRegularExpression;
                     TabItemHelper.AddTabByName(xKey, xValue, xRegularExpression);

@@ -207,6 +207,7 @@
     <Compile Include="Models\StatGroups\Monster.Stats.Kill.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Players.cs" />
     <Resource Include="Defaults\Settings.xml" />
+    <Resource Include="Defaults\RegularExpressions.xml" />
     <Content Include="PluginInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

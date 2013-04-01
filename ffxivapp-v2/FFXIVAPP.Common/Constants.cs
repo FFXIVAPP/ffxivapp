@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -56,6 +57,23 @@ namespace FFXIVAPP.Common
         {
             //"000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C"
         };
+
+        public static bool IsValidRegex(string pattern)
+        {
+            if (String.IsNullOrWhiteSpace(pattern))
+            {
+                return false;
+            }
+            try
+            {
+                var regex = new Regex(pattern);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
 
         #region Property Bindings
 
