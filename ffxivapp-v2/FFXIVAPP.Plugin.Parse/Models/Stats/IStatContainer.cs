@@ -22,6 +22,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         bool TryGetStat(string name, out object result);
         decimal SetOrAddStat(string name, decimal value);
         decimal GetStatValue(string name);
+        void IncrementStat(string name, decimal value);
         void AddStats(IEnumerable<Stat<decimal>> stats);
     }
 }

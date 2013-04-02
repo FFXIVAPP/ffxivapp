@@ -78,7 +78,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("Reg", new CounterStat("Reg"));
             stats.Add("Crit", new CounterStat("Crit"));
             stats.Add("Hit", new CounterStat("Hit"));
+            stats.Add("Miss", new CounterStat("Miss"));
             stats.Add("CHit", new CounterStat("CHit"));
+            stats.Add("Acc", new AccuracyStat("Acc", stats["Used"], stats["Miss"]));
             stats.Add("Low", new MinStat("Low", stats["Reg"]));
             stats.Add("High", new MaxStat("High", stats["Reg"]));
             stats.Add("CLow", new MinStat("CLow", stats["Crit"]));

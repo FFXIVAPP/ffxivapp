@@ -179,6 +179,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
                                        .Value : -1;
         }
 
+        public void IncrementStat(string name, decimal value = 1)
+        {
+            if (!HasStat(name))
+            {
+                return;
+            }
+            var result = GetStat(name);
+            result.Value += value;
+        }
+
         public void AddStats(IEnumerable<Stat<decimal>> stats)
         {
             foreach (var stat in stats)

@@ -30,39 +30,34 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subGroup.Stats.AddStats(DamageStatList());
                 abilityGroup.AddGroup(subGroup);
             }
-            subGroup.Stats.GetStat("Total")
-                    .Value += line.Amount;
-            Stats.GetStat("Total")
-                 .Value += line.Amount;
-            subGroup.Stats.GetStat("Used")
-                    .Value += 1;
-            if (line.Crit)
+            subGroup.Stats.IncrementStat("Used");
+            if (line.Hit)
             {
-                subGroup.Stats.GetStat("CHit")
-                        .Value += 1;
-                subGroup.Stats.GetStat("Crit")
-                        .Value += line.Amount;
-                Stats.GetStat("CHit")
-                     .Value += 1;
-                Stats.GetStat("Crit")
-                     .Value += line.Amount;
+                subGroup.Stats.IncrementStat("Total",line.Amount);
+                Stats.IncrementStat("Total", line.Amount);
+                if (line.Crit)
+                {
+                    subGroup.Stats.IncrementStat("CHit");
+                    subGroup.Stats.IncrementStat("Crit", line.Amount);
+                    Stats.IncrementStat("CHit");
+                    Stats.IncrementStat("Crit", line.Amount);
+                }
+                else
+                {
+                    subGroup.Stats.IncrementStat("Hit");
+                    subGroup.Stats.IncrementStat("Reg", line.Amount);
+                    Stats.IncrementStat("Hit");
+                    Stats.IncrementStat("Reg", line.Amount);
+                }
             }
             else
             {
-                subGroup.Stats.GetStat("Hit")
-                        .Value += 1;
-                subGroup.Stats.GetStat("Reg")
-                        .Value += line.Amount;
-                Stats.GetStat("Hit")
-                     .Value += 1;
-                Stats.GetStat("Reg")
-                     .Value += line.Amount;
+                subGroup.Stats.IncrementStat("Miss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
                                        .Where(stat => Equals(stat.GetValue(line), true)))
             {
-                subGroup.Stats.GetStat(stat.Name)
-                        .Value += 1;
+                subGroup.Stats.IncrementStat(stat.Name);
             }
         }
     }

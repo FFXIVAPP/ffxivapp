@@ -119,7 +119,18 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     break;
             }
             line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+            line.Block = damage.Groups["block"].Success;
             line.Crit = damage.Groups["crit"].Success;
+            line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+            line.Parry = damage.Groups["parry"].Success;
+            if (damage.Groups["givetake"].Success && line.Modifier != 0)
+            {
+                var plusOrMinus = damage.Groups["givetake"].Value;
+                if (plusOrMinus == "-")
+                {
+                    line.Modifier = (line.Modifier - (line.Modifier * 2));
+                }
+            }
             line.Target = Convert.ToString(damage.Groups["target"].Value);
             if (!_autoAction)
             {
@@ -152,6 +163,15 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
             line.Block = damage.Groups["block"].Success;
             line.Crit = damage.Groups["crit"].Success;
+            line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+            if (damage.Groups["givetake"].Success && line.Modifier != 0)
+            {
+                var plusOrMinus = damage.Groups["givetake"].Value;
+                if (plusOrMinus == "-")
+                {
+                    line.Modifier = (line.Modifier - (line.Modifier * 2));
+                }
+            }
             line.Parry = damage.Groups["parry"].Success;
             if (!_autoAction)
             {

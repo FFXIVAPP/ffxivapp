@@ -46,83 +46,52 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.AddStats(AbilityStatList("ma", subMonsterGroup));
                 monsters.AddGroup(subMonsterAbilityGroup);
             }
-            Stats.GetStat("Used")
-                 .Value += 1;
-            subAbilityGroup.Stats.GetStat("Used")
-                           .Value += 1;
-            subMonsterGroup.Stats.GetStat("Used")
-                           .Value += 1;
-            subMonsterAbilityGroup.Stats.GetStat("Used")
-                                  .Value += 1;
+            Stats.IncrementStat("Used");
+            subAbilityGroup.Stats.IncrementStat("Used");
+            subMonsterGroup.Stats.IncrementStat("Used");
+            subMonsterAbilityGroup.Stats.IncrementStat("Used");
             if (line.Hit)
             {
-                Stats.GetStat("Total")
-                     .Value += line.Amount;
-                subAbilityGroup.Stats.GetStat("Total")
-                               .Value += line.Amount;
-                subMonsterGroup.Stats.GetStat("Total")
-                               .Value += line.Amount;
-                subMonsterAbilityGroup.Stats.GetStat("Total")
-                                      .Value += line.Amount;
+                Stats.IncrementStat("Total", line.Amount);
+                subAbilityGroup.Stats.IncrementStat("Total", line.Amount);
+                subMonsterGroup.Stats.IncrementStat("Total", line.Amount);
+                subMonsterAbilityGroup.Stats.IncrementStat("Total", line.Amount);
                 if (line.Crit)
                 {
-                    Stats.GetStat("Crit")
-                         .Value += line.Amount;
-                    subAbilityGroup.Stats.GetStat("Crit")
-                                   .Value += line.Amount;
-                    subMonsterGroup.Stats.GetStat("Crit")
-                                   .Value += line.Amount;
-                    subMonsterAbilityGroup.Stats.GetStat("Crit")
-                                          .Value += line.Amount;
-                    Stats.GetStat("CHit")
-                         .Value += 1;
-                    subAbilityGroup.Stats.GetStat("CHit")
-                                   .Value += 1;
-                    subMonsterGroup.Stats.GetStat("CHit")
-                                   .Value += 1;
-                    subMonsterAbilityGroup.Stats.GetStat("CHit")
-                                          .Value += 1;
+                    Stats.IncrementStat("Crit", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("Crit", line.Amount);
+                    subMonsterGroup.Stats.IncrementStat("Crit", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("Crit", line.Amount);
+                    Stats.IncrementStat("CHit");
+                    subAbilityGroup.Stats.IncrementStat("CHit");
+                    subMonsterGroup.Stats.IncrementStat("CHit");
+                    subMonsterAbilityGroup.Stats.IncrementStat("CHit");
                 }
                 else
                 {
-                    Stats.GetStat("Reg")
-                         .Value += line.Amount;
-                    subAbilityGroup.Stats.GetStat("Reg")
-                                   .Value += line.Amount;
-                    subMonsterGroup.Stats.GetStat("Reg")
-                                   .Value += line.Amount;
-                    subMonsterAbilityGroup.Stats.GetStat("Reg")
-                                          .Value += line.Amount;
-                    Stats.GetStat("Hit")
-                         .Value += 1;
-                    subAbilityGroup.Stats.GetStat("Hit")
-                                   .Value += 1;
-                    subMonsterGroup.Stats.GetStat("Hit")
-                                   .Value += 1;
-                    subMonsterAbilityGroup.Stats.GetStat("Hit")
-                                          .Value += 1;
+                    Stats.IncrementStat("Reg", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("Reg", line.Amount);
+                    subMonsterGroup.Stats.IncrementStat("Reg", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("Reg", line.Amount);
+                    Stats.IncrementStat("Hit");
+                    subAbilityGroup.Stats.IncrementStat("Hit");
+                    subMonsterGroup.Stats.IncrementStat("Hit");
+                    subMonsterAbilityGroup.Stats.IncrementStat("Hit");
                 }
             }
             else
             {
-                Stats.GetStat("Miss")
-                     .Value += 1;
-                subAbilityGroup.Stats.GetStat("Miss")
-                               .Value += 1;
-                subMonsterGroup.Stats.GetStat("Miss")
-                               .Value += 1;
-                subMonsterAbilityGroup.Stats.GetStat("Miss")
-                                      .Value += 1;
+                Stats.IncrementStat("Miss");
+                subAbilityGroup.Stats.IncrementStat("Miss");
+                subMonsterGroup.Stats.IncrementStat("Miss");
+                subMonsterAbilityGroup.Stats.IncrementStat("Miss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
                                        .Where(stat => Equals(stat.GetValue(line), true)))
             {
-                subAbilityGroup.Stats.GetStat(stat.Name)
-                               .Value += 1;
-                subMonsterGroup.Stats.GetStat(stat.Name)
-                               .Value += 1;
-                subMonsterAbilityGroup.Stats.GetStat(stat.Name)
-                                      .Value += 1;
+                subAbilityGroup.Stats.IncrementStat(stat.Name);
+                subMonsterGroup.Stats.IncrementStat(stat.Name);
+                subMonsterAbilityGroup.Stats.IncrementStat(stat.Name);
             }
         }
     }

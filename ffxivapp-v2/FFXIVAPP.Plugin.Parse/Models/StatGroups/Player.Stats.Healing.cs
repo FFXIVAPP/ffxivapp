@@ -43,14 +43,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subPlayerAbilityGroup.Stats.AddStats(HealingStatList("pa", subPlayerGroup));
                 abilities.AddGroup(subPlayerAbilityGroup);
             }
-            Stats.GetStat("HTotal")
-                 .Value += line.Amount;
-            subAbilityGroup.Stats.GetStat("Total")
-                           .Value += line.Amount;
-            subPlayerGroup.Stats.GetStat("Total")
-                          .Value += line.Amount;
-            subPlayerAbilityGroup.Stats.GetStat("Total")
-                                 .Value += line.Amount;
+            Stats.IncrementStat("HTotal", line.Amount);
+            subAbilityGroup.Stats.IncrementStat("Total", line.Amount);
+            subPlayerGroup.Stats.IncrementStat("Total", line.Amount);
+            subPlayerAbilityGroup.Stats.IncrementStat("Total", line.Amount);
         }
     }
 }

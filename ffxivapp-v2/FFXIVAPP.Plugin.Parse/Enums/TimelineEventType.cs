@@ -13,9 +13,9 @@ namespace FFXIVAPP.Plugin.Parse.Enums
         PartyDisband,
         MobFighting,
         MobKilled,
-        BuffActivated,
-        BuffDeactivated,
-        DebuffActivated,
-        DebuffDeactivated,
+        BeneficialGain,
+        BeneficialLose,
+        DetrimentalGain,
+        DetrimentalLose,
     };
 }

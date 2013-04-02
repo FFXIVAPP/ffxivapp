@@ -59,7 +59,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         }
 
         public decimal Amount { get; set; }
-        public int Modifier { get; set; }
+        public decimal Modifier { get; set; }
         public string Type { get; set; }
         public bool Hit { get; set; }
         public bool Miss { get; set; }
@@ -69,7 +69,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public bool Parry { get; set; }
         public bool Resist { get; set; }
         public bool Evade { get; set; }
-        public bool Partial { get; set; }
 
         public bool IsEmpty()
         {
