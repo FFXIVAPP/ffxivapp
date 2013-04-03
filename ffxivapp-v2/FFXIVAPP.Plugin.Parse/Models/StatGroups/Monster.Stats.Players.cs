@@ -33,7 +33,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             subGroup.Stats.IncrementStat("Used");
             if (line.Hit)
             {
-                subGroup.Stats.IncrementStat("Total",line.Amount);
+                subGroup.Stats.IncrementStat("Total", line.Amount);
                 Stats.IncrementStat("Total", line.Amount);
                 if (line.Crit)
                 {

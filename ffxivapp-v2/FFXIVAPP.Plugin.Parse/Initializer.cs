@@ -62,9 +62,9 @@ namespace FFXIVAPP.Plugin.Parse
             foreach (var xElement in Constants.XRegEx.Descendants()
                                               .Elements("Player"))
             {
-                var xKey = (string)xElement.Attribute("Key");
-                var xLanguage = (string)xElement.Attribute("Language");
-                var xValue = (string)xElement.Element("Value");
+                var xKey = (string) xElement.Attribute("Key");
+                var xLanguage = (string) xElement.Attribute("Language");
+                var xValue = (string) xElement.Element("Value");
                 if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                 {
                     continue;
@@ -267,9 +267,9 @@ namespace FFXIVAPP.Plugin.Parse
             foreach (var xElement in Constants.XRegEx.Descendants()
                                               .Elements("Monster"))
             {
-                var xKey = (string)xElement.Attribute("Key");
-                var xLanguage = (string)xElement.Attribute("Language");
-                var xValue = (string)xElement.Element("Value");
+                var xKey = (string) xElement.Attribute("Key");
+                var xLanguage = (string) xElement.Attribute("Language");
+                var xValue = (string) xElement.Element("Value");
                 if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                 {
                     continue;

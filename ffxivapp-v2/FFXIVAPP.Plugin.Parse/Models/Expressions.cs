@@ -18,28 +18,28 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Expressions : INotifyPropertyChanged
     {
-        private Match _mDamage;
-        private Match _mDamageAuto;
-        private Match _mFailed;
-        private Match _mFailedAuto;
         private Match _mActions;
-        private Match _mItems;
-        private Match _mCure;
         private Match _mBeneficialGain;
         private Match _mBeneficialLose;
+        private Match _mCure;
+        private Match _mDamage;
+        private Match _mDamageAuto;
         private Match _mDetrimentalGain;
         private Match _mDetrimentalLose;
-        private Match _pDamage;
-        private Match _pDamageAuto;
-        private Match _pFailed;
-        private Match _pFailedAuto;
+        private Match _mFailed;
+        private Match _mFailedAuto;
+        private Match _mItems;
         private Match _pActions;
-        private Match _pItems;
-        private Match _pCure;
         private Match _pBeneficialGain;
         private Match _pBeneficialLose;
+        private Match _pCure;
+        private Match _pDamage;
+        private Match _pDamageAuto;
         private Match _pDetrimentalGain;
         private Match _pDetrimentalLose;
+        private Match _pFailed;
+        private Match _pFailedAuto;
+        private Match _pItems;
 
         public Expressions(Event e, string cleaned)
         {

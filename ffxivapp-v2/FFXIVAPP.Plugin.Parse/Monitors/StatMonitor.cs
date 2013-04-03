@@ -57,7 +57,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            Filter = (EventParser.TypeMask | (UInt32)EventSubject.You | (UInt32)EventSubject.Party | (UInt32)EventSubject.Engaged | (UInt32)EventSubject.UnEngaged | (UInt32)EventDirection.Self | (UInt32)EventDirection.You | (UInt32)EventDirection.Party | (UInt32)EventDirection.Engaged | (UInt32)EventDirection.UnEngaged);
+            Filter = (EventParser.TypeMask | (UInt32) EventSubject.You | (UInt32) EventSubject.Party | (UInt32) EventSubject.Engaged | (UInt32) EventSubject.UnEngaged | (UInt32) EventDirection.Self | (UInt32) EventDirection.You | (UInt32) EventDirection.Party | (UInt32) EventDirection.Engaged | (UInt32) EventDirection.UnEngaged);
         }
 
         /// <summary>
