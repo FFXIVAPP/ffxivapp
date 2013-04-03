@@ -24,6 +24,10 @@ namespace FFXIVAPP.Common.Helpers
         /// <returns> </returns>
         public static string TitleCase(string s, bool all = true)
         {
+            if (String.IsNullOrWhiteSpace(s.Trim()))
+            {
+                return "";
+            }
             var result = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(all ? s.ToLower() : s);
             var reg = SharedRegEx.Romans.Match(s);
             if (reg.Success)
