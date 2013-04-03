@@ -26,9 +26,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         internal static readonly TotalStat TotalOverallDamage = new TotalStat("TotalOverallDamage");
         internal static readonly TotalStat TotalOverallHealing = new TotalStat("TotalOverallHealing");
         internal static readonly TotalStat TotalOverallDamageTaken = new TotalStat("TotalOverallDamageTaken");
+        internal static readonly TotalStat TotalOverallTP = new TotalStat("TotalOverallTP");
+        internal static readonly TotalStat TotalOverallMP = new TotalStat("TotalOverallMP");
         internal static readonly TotalStat RegularDamage = new TotalStat("RegularDamage");
         internal static readonly TotalStat CriticalDamage = new TotalStat("CriticalDamage");
-        internal static readonly TotalStat Healing = new TotalStat("Healing");
+        internal static readonly TotalStat RegularHealing = new TotalStat("RegularHealing");
         internal static readonly TotalStat CriticalHealing = new TotalStat("CriticalHealing");
         internal static readonly TotalStat RegularDamageTaken = new TotalStat("RegularDamageTaken");
         internal static readonly TotalStat CriticalDamageTaken = new TotalStat("CriticalDamageTaken");
@@ -65,9 +67,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamage);
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamageTaken);
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallHealing);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallTP);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallMP);
             ParseControl.Timeline.Overall.Stats.Add(RegularDamage);
             ParseControl.Timeline.Overall.Stats.Add(CriticalDamage);
-            ParseControl.Timeline.Overall.Stats.Add(Healing);
+            ParseControl.Timeline.Overall.Stats.Add(RegularHealing);
             ParseControl.Timeline.Overall.Stats.Add(CriticalHealing);
             ParseControl.Timeline.Overall.Stats.Add(RegularDamageTaken);
             ParseControl.Timeline.Overall.Stats.Add(CriticalDamageTaken);
@@ -82,9 +86,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             TotalOverallDamage.Reset();
             TotalOverallDamageTaken.Reset();
             TotalOverallHealing.Reset();
+            TotalOverallTP.Reset();
+            TotalOverallMP.Reset();
             RegularDamage.Reset();
             CriticalDamage.Reset();
-            Healing.Reset();
+            RegularHealing.Reset();
             CriticalHealing.Reset();
             RegularDamageTaken.Reset();
             CriticalDamageTaken.Reset();
