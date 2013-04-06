@@ -43,9 +43,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         public static Regex DefeatsEn = new Regex(@"^(?<source>You|.+) defeats? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         //FRENCH REGULAR EXPRESSIONS
-        public static Regex DamageFr = new Regex(@"( ⇒ )?((?<crit>Critique)! )?(L[ae] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(L[ae] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoFr = new Regex(@"( ⇒ )?((?<crit>Critique)! )?(?<source>Vous|.+) infligez? \w+ (l[ae] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(?<source>Vous|.+) infligez? \w+ (l[ae] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
