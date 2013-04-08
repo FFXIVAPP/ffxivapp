@@ -18,11 +18,11 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         //ENGLISH REGULAR EXPRESSIONS
         public static Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedEn = new Regex(@"^( ⇒ )?The attack miss(es)?( ((T|t)he )?(?<target>.+))?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedAutoEn = new Regex(@"^(?<source>You|.+) miss(es)? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoEn = new Regex(@"^(?! ⇒)(?<source>You|.+) miss(es)? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ActionsEn = new Regex(@"^(?<source>You|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 
@@ -43,13 +43,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         public static Regex DefeatsEn = new Regex(@"^(?<source>You|.+) defeats? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         //FRENCH REGULAR EXPRESSIONS
-        public static Regex DamageFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(L[ae] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(L[aes] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(?<source>Vous|.+) infligez? \w+ (l[ae] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoFr = new Regex(@"^(?! ⇒)((?<crit>Critique ?)! )?(?<source>Vous|.+) infligez? \w+ (l[aes] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedFr = new Regex(@"^( ⇒ )?L'attaque manquez? (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedAutoFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoFr = new Regex(@"^(?! ⇒)(?<source>Vous|.+) manquez? (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ActionsFr = new Regex(@"^(?<source>Vous|.+) (utilisez?|lance) (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 

@@ -60,8 +60,18 @@ namespace FFXIVAPP.Client
         [STAThread]
         [DebuggerNonUserCode]
         [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
+        [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         public static void Main()
         {
+            //if (AppDomain.CurrentDomain.FriendlyName != "FFXIVAPP.Shadowed")
+            //{
+            //    var domain = AppDomain.CreateDomain("FFXIVAPP.Shadowed");
+            //    domain.DoCallBack(delegate
+            //    {
+            //        var app = new App();
+            //        app.Run();
+            //    });
+            //}
             var app = new App();
             app.Run();
         }

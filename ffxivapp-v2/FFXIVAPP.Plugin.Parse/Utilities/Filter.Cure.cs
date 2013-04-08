@@ -57,12 +57,12 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdatePlayerHealing(Match cure, Line line, Expressions exp)
         {
-            line.Action = _lastPlayerAction;
+            line.Action = _lastPlayerAction;if (Regex.IsMatch(line.Target.ToLower(),exp.You))
             line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
             line.Crit = cure.Groups["crit"].Success;
             line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
             line.Target = Convert.ToString(cure.Groups["target"].Value);
-            if (line.Target.ToLower() == "you")
+            if (Regex.IsMatch(line.Target.ToLower(), exp.You))
             {
                 line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
             }

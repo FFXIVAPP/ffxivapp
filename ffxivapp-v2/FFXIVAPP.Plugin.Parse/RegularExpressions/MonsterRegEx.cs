@@ -18,11 +18,11 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         //ENGLISH REGULAR EXPRESSIONS
         public static Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<target>You|.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<source>|.+) hits? (?<target>you|.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<source>|.+) hits? (?<target>you|.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedEn = new Regex(@"^( ⇒ )?The attack misses( (?<target>you|.+))?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedAutoEn = new Regex(@"^((T|t)he )?(?<source>|.+) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoEn = new Regex(@"^(?! ⇒)((T|t)he )?(?<source>.+) misses (?<target>you|.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ActionsEn = new Regex(@"^((T|t)he )?(?<source>|.+) (use|cast)s? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 
@@ -43,9 +43,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex DamageAutoFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedFr = new Regex(@"^( ⇒ )?L'attaque ((?<target>vous) manque|manquez? (?<target>vous|.+))\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedAutoFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoFr = new Regex(@"^(?! ⇒)(L[aes] |[LEAD]')?(?<source>.+) ((?<target>vous) manque|manquez? (?<target>vous|.+))\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ActionsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 

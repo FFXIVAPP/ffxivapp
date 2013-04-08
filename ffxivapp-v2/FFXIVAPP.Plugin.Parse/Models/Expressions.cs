@@ -407,7 +407,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     Type = "HP";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
-                    You = @"^[Yy]our?$";
+                    You = @"^[Yy]ou?$";
                     break;
             }
         }

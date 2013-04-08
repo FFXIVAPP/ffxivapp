@@ -73,7 +73,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 case true:
                                     line.Source = _lastMob;
                                     line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                    if (line.Target.ToLower() == "you")
+                                    if (Regex.IsMatch(line.Target.ToLower(), exp.You))
                                     {
                                         line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
                                     }
@@ -86,7 +86,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                         _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        if (line.Target.ToLower() == "you")
+                                        if (Regex.IsMatch(line.Target.ToLower(),exp.You))
                                         {
                                             line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
                                         }
@@ -112,7 +112,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (damage.Groups["source"].Success)
             {
                 case true:
-                    line.Action = "Attack";
+                    line.Action = exp.Attack;
                     break;
                 case false:
                     line.Action = _lastPlayerAction;
@@ -146,7 +146,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (damage.Groups["source"].Success)
             {
                 case true:
-                    line.Action = "Attack";
+                    line.Action = exp.Attack;
                     break;
                 case false:
                     line.Action = _lastMobAction;

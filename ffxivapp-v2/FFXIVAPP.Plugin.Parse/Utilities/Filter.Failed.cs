@@ -102,7 +102,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (failed.Groups["source"].Success)
             {
                 case true:
-                    line.Action = "Attack";
+                    line.Action = exp.Attack;
                     break;
                 case false:
                     line.Action = _lastPlayerAction;
@@ -131,14 +131,14 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (failed.Groups["source"].Success)
             {
                 case true:
-                    line.Action = "Attack";
+                    line.Action = exp.Attack;
                     break;
                 case false:
                     line.Action = _lastMobAction;
                     break;
             }
             line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastPlayer;
-            if (line.Target.ToLower() == "you")
+            if (Regex.IsMatch(line.Target.ToLower(), exp.You))
             {
                 line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
             }

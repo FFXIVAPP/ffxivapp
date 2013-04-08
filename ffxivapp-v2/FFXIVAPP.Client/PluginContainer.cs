@@ -106,13 +106,13 @@ namespace FFXIVAPP.Client
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
-                var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
+                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
                     return;
                 }
                 var plugin = new PluginInstance();
-                plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
+                plugin.Instance = (IPlugin)Activator.CreateInstance(pType);
                 plugin.AssemblyPath = fileName;
                 plugin.Instance.Host = this;
                 plugin.Instance.Initialize();
@@ -122,6 +122,11 @@ namespace FFXIVAPP.Client
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
+        }
+
+        private Assembly newDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            throw new NotImplementedException();
         }
 
         #region Implementaion of IPluginHost
