@@ -16,9 +16,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
     internal static class PlayerRegEx
     {
         //ENGLISH REGULAR EXPRESSIONS
-        public static Regex DamageEn = new Regex(@"^( ⇒ )?((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageEn = new Regex(@"^( ⇒ )?(?<parry>Parried! )?(?<block>Blocked! )?(?<crit>Critical! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)((?<parry>Parried)! )?((?<block>Blocked)! )?((?<crit>Critical)! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)(?<parry>Parried! )?(?<block>Blocked! )?(?<crit>Critical! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedEn = new Regex(@"^( ⇒ )?The attack miss(es)?( ((T|t)he )?(?<target>.+))?\.$", SharedRegEx.DefaultOptions);
 
@@ -43,9 +43,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         public static Regex DefeatsEn = new Regex(@"^(?<source>You|.+) defeats? ((T|t)he )?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         //FRENCH REGULAR EXPRESSIONS
-        public static Regex DamageFr = new Regex(@"^( ⇒ )?((?<crit>Critique ?)! )?(L[aes] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageFr = new Regex(@"^( ⇒ )?(?<parry>Parade ?! )?(?<block>Blocage ?! )?(?<crit>Critique ?! )?(L[aes] |[LEAD]')?(?<target>.+) subit (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoFr = new Regex(@"^(?! ⇒)((?<crit>Critique ?)! )?(?<source>Vous|.+) infligez? \w+ (l[aes] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoFr = new Regex(@"^(?! ⇒)(?<parry>Parade ?! )?(?<block>Blocage ?! )?(?<crit>Critique ?! )?(?<source>Vous|.+) infligez? \w+ (l[aes] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedFr = new Regex(@"^( ⇒ )?L'attaque manquez? (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
@@ -55,7 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex ItemsFr = new Regex(@"^(?<source>Vous|.+) utilisez? une? (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex CureFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex CureFr = new Regex(@"^( ⇒ )?(?<crit>Critique ?! )?(?<source>Vous|.+) récupérez? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex BeneficialGainFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
@@ -65,9 +65,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex DetrimentalLoseFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ObtainsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ObtainsFr = new Regex(@"^((?<source>Vous) obtenez|(?<source>.+) obtient)( une?| de la| l[aes])? (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DefeatsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DefeatsFr = new Regex(@"^((?<source>Vous) avez|(?<source>.+) a) vaincu (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         //JAPANESE REGULAR EXPRESSIONS
         public static Regex DamageJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
