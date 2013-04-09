@@ -16,9 +16,9 @@
                     <Border x:Name="border"
                             Margin="2"
                             BorderThickness="1"
-                            CornerRadius="5">
+                            CornerRadius="2">
                         <Label x:Name="root"
-                               FontSize="15">
+                               FontSize="14">
                             <ContentPresenter ContentSource="Header"
                                               RecognizesAccessKey="True" />
                         </Label>
