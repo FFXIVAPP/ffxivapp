@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -162,11 +162,11 @@
                         <StackPanel Grid.Column="1"
                                     Height="Auto"
                                     HorizontalAlignment="Right">
-                            <Label Content="{Binding Total}"
+                            <Label Content="{Binding TotalOverallDamage}"
                                    Style="{StaticResource CommaNumberStyle}" />
-                            <Label Content="{Binding Acc}"
+                            <Label Content="{Binding DamageRegAccuracy}"
                                    Style="{StaticResource PercentStyle}" />
-                            <Label Content="{Binding CritPer}"
+                            <Label Content="{Binding DamageCritPercent}"
                                    Style="{StaticResource PercentStyle}" />
                         </StackPanel>
                     </DockPanel>

@@ -47,7 +47,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
                 Constants.Settings.Add("ShowHealingTab");
                 Constants.Settings.Add("ShowDamageTab");
                 Constants.Settings.Add("ShowMonsterTab");
-                Constants.Settings.Add("ShowDebugTab");
                 Constants.Settings.Add("PlayerAbility");
                 Constants.Settings.Add("PlayerOnMonster");
                 Constants.Settings.Add("PlayerAbilityOnMonsterByPlayer");
@@ -61,17 +60,24 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             }
             foreach (var item in Constants.Settings)
             {
-                var xKey = item;
-                var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair>
+                try
                 {
-                    new XValuePair
+                    var xKey = item;
+                    var xValue = Default[xKey].ToString();
+                    var keyPairList = new List<XValuePair>
                     {
-                        Key = "Value",
-                        Value = xValue
-                    }
-                };
-                XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
+                        new XValuePair
+                        {
+                            Key = "Value",
+                            Value = xValue
+                        }
+                    };
+                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                }
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }
@@ -265,19 +271,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["ShowMonsterTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowDebugTab
-        {
-            get { return ((bool) (this["ShowDebugTab"])); }
-            set
-            {
-                this["ShowDebugTab"] = value;
                 RaisePropertyChanged();
             }
         }

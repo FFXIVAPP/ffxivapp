@@ -6,6 +6,7 @@
 
 #region Usings
 
+using System;
 using System.Linq;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
@@ -22,7 +23,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             var fields = line.GetType()
                              .GetProperties();
-            var damageGroup = GetGroup("Damage");
+            var damageGroup = GetGroup("DamageTakenByAction");
             StatGroup subMonsterGroup;
             if (!damageGroup.TryGetGroup(line.Source, out subMonsterGroup))
             {
@@ -30,7 +31,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterGroup.Stats.AddStats(DamageStatList(null));
                 damageGroup.AddGroup(subMonsterGroup);
             }
-            var abilities = subMonsterGroup.GetGroup("Abilities");
+            var abilities = subMonsterGroup.GetGroup("DamageTakenByMonsterByAction");
             StatGroup subMonsterAbilityGroup;
             if (!abilities.TryGetGroup(line.Action, out subMonsterAbilityGroup))
             {
@@ -38,30 +39,31 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.AddStats(DamageStatList(subMonsterGroup, true));
                 abilities.AddGroup(subMonsterAbilityGroup);
             }
+            Stats.IncrementStat("TotalDamageTakenActionsUsed");
             subMonsterGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
             subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
             if (line.Hit)
             {
+                Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);
                 subMonsterGroup.Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);
                 subMonsterAbilityGroup.Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);
-                Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);
                 if (line.Crit)
                 {
-                    subMonsterGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
+                    Stats.IncrementStat("DamageTakenCritHit");
                     subMonsterGroup.Stats.IncrementStat("DamageTakenCritHit");
-                    subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
                     subMonsterAbilityGroup.Stats.IncrementStat("DamageTakenCritHit");
                     Stats.IncrementStat("CriticalDamageTaken", line.Amount);
-                    Stats.IncrementStat("DamageTakenCritHit");
+                    subMonsterGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
                 }
                 else
                 {
-                    subMonsterGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
+                    Stats.IncrementStat("DamageTakenRegHit");
                     subMonsterGroup.Stats.IncrementStat("DamageTakenRegHit");
-                    subMonsterAbilityGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
                     subMonsterAbilityGroup.Stats.IncrementStat("DamageTakenRegHit");
                     Stats.IncrementStat("RegularDamageTaken", line.Amount);
-                    Stats.IncrementStat("DamageTakenRegHit");
+                    subMonsterGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
                 }
             }
             else
@@ -73,8 +75,19 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
                                        .Where(stat => Equals(stat.GetValue(line), true)))
             {
-                subMonsterGroup.Stats.IncrementStat("DamageTaken" + stat.Name);
-                subMonsterAbilityGroup.Stats.IncrementStat("DamageTaken" + stat.Name);
+                var regStat = String.Format("DamageTaken{0}", stat.Name);
+                Stats.IncrementStat(regStat);
+                subMonsterGroup.Stats.IncrementStat(regStat);
+                subMonsterAbilityGroup.Stats.IncrementStat(regStat);
+                if (line.Modifier == 0)
+                {
+                    continue;
+                }
+                var reduction = Math.Abs((line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount);
+                var reductionStat = String.Format("DamageTaken{0}Reduction", stat.Name);
+                Stats.IncrementStat(reductionStat, reduction);
+                subMonsterGroup.Stats.IncrementStat(reductionStat, reduction);
+                subMonsterAbilityGroup.Stats.IncrementStat(reductionStat, reduction);
             }
         }
     }

@@ -55,7 +55,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.LinkedStats
                 return;
             }
             var totalHits = Convert.ToDouble(UsedStat.Value - MissStat.Value);
-            Value = Convert.ToDecimal(totalHits / (Convert.ToDouble(UsedStat.Value)));
+            if (totalHits > -1)
+            {
+                Value = Convert.ToDecimal(totalHits / (Convert.ToDouble(UsedStat.Value)));
+            }
         }
 
         /// <summary>

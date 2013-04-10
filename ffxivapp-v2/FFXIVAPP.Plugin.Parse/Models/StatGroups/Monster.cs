@@ -31,8 +31,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             InitStats();
         }
 
-        private TotalStat TotalDrops { get; set; }
-        private CounterStat Killed { get; set; }
+        private TotalStat TotalOverallDrops { get; set; }
+        private CounterStat TotalKilled { get; set; }
 
         /// <summary>
         /// </summary>
@@ -47,22 +47,31 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         private IEnumerable<Stat<decimal>> TotalStatList()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
-            TotalDrops = new TotalStat("TotalDrops");
-            Killed = new CounterStat("Killed");
-            stats.Add("TotalDrops", TotalDrops);
-            stats.Add("Killed", Killed);
-            stats.Add("Total", new CounterStat("Total"));
-            stats.Add("Reg", new CounterStat("Reg"));
-            stats.Add("AvgHP", new NumericStat("AvgHP"));
-            stats.Add("Crit", new CounterStat("Crit"));
-            stats.Add("Hit", new CounterStat("Hit"));
-            stats.Add("CHit", new CounterStat("CHit"));
-            stats.Add("Low", new MinStat("Low", stats["Reg"]));
-            stats.Add("High", new MaxStat("High", stats["Reg"]));
-            stats.Add("CLow", new MinStat("CLow", stats["Crit"]));
-            stats.Add("CHigh", new MaxStat("CHigh", stats["Crit"]));
-            stats.Add("Avg", new AverageStat("Avg", stats["Reg"]));
-            stats.Add("CAvg", new AverageStat("CAvg", stats["Crit"]));
+            
+            TotalOverallDrops = new TotalStat("TotalOverallDrops");
+            TotalKilled = new CounterStat("TotalKilled");
+            
+            stats.Add("TotalOverallDrops", TotalOverallDrops);
+            stats.Add("TotalKilled", TotalKilled);
+            stats.Add("AverageHP", new NumericStat("AverageHP"));
+            
+            stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
+            stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
+            stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
+            stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
+            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
+            stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
+            stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
+            stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
+            stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
+            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
+            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["DamageTakenRegHit"]));
+            stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
+            stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
+            stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));
+
             return stats.Select(s => s.Value)
                         .ToList();
         }
@@ -73,30 +82,45 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         private IEnumerable<Stat<decimal>> DamageStatList()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
-            stats.Add("Total", new CounterStat("Total"));
-            stats.Add("Used", new CounterStat("Used"));
-            stats.Add("Reg", new CounterStat("Reg"));
-            stats.Add("Crit", new CounterStat("Crit"));
-            stats.Add("Hit", new CounterStat("Hit"));
-            stats.Add("Miss", new CounterStat("Miss"));
-            stats.Add("CHit", new CounterStat("CHit"));
-            stats.Add("Acc", new AccuracyStat("Acc", stats["Used"], stats["Miss"]));
-            stats.Add("Low", new MinStat("Low", stats["Reg"]));
-            stats.Add("High", new MaxStat("High", stats["Reg"]));
-            stats.Add("CLow", new MinStat("CLow", stats["Crit"]));
-            stats.Add("CHigh", new MaxStat("CHigh", stats["Crit"]));
-            stats.Add("Avg", new AverageStat("Avg", stats["Reg"]));
-            stats.Add("CAvg", new AverageStat("CAvg", stats["Crit"]));
-            stats.Add("Counter", new CounterStat("Counter"));
-            stats.Add("CounterPer", new PercentStat("CounterPer", stats["Counter"], stats["Used"]));
-            stats.Add("Block", new CounterStat("Block"));
-            stats.Add("BlockPer", new PercentStat("BlockPer", stats["Block"], stats["Used"]));
-            stats.Add("Parry", new CounterStat("Parry"));
-            stats.Add("ParryPer", new PercentStat("ParryPer", stats["Parry"], stats["Used"]));
-            stats.Add("Resist", new CounterStat("Resist"));
-            stats.Add("ResistPer", new PercentStat("ResistPer", stats["Resist"], stats["Used"]));
-            stats.Add("Evade", new CounterStat("Evade"));
-            stats.Add("EvadePer", new PercentStat("EvadePer", stats["Evade"], stats["Used"]));
+
+            stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
+            stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
+            stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
+            stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
+            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
+            stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
+            stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
+            stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
+            stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
+            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
+            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["DamageTakenRegHit"]));
+            stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
+            stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
+            stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));
+
+            stats.Add("DamageTakenCounter", new CounterStat("DamageTakenCounter"));
+            stats.Add("DamageTakenCounterPercent", new PercentStat("DamageTakenCounterPercent", stats["DamageTakenCounter"], stats["TotalDamageTakenActionsUsed"]));
+            stats.Add("DamageTakenCounterReduction", new TotalStat("DamageTakenCounterReduction"));
+            stats.Add("DamageTakenCounterReductionAverage", new AverageStat("DamageTakenCounterReductionAverage", stats["DamageTakenCounterReduction"]));
+            stats.Add("DamageTakenBlock", new CounterStat("DamageTakenBlock"));
+            stats.Add("DamageTakenBlockPercent", new PercentStat("DamageTakenBlockPercent", stats["DamageTakenBlock"], stats["TotalDamageTakenActionsUsed"]));
+            stats.Add("DamageTakenBlockReduction", new TotalStat("DamageTakenBlockReduction"));
+            stats.Add("DamageTakenBlockReductionAverage", new AverageStat("DamageTakenBlockReductionAverage", stats["DamageTakenBlockReduction"]));
+            stats.Add("DamageTakenParry", new CounterStat("DamageTakenParry"));
+            stats.Add("DamageTakenParryPercent", new PercentStat("DamageTakenParryPercent", stats["DamageTakenParry"], stats["TotalDamageTakenActionsUsed"]));
+            stats.Add("DamageTakenParryReduction", new TotalStat("DamageTakenParryReduction"));
+            stats.Add("DamageTakenParryReductionAverage", new AverageStat("DamageTakenParryReductionAverage", stats["DamageTakenParryReduction"]));
+            stats.Add("DamageTakenResist", new CounterStat("DamageTakenResist"));
+            stats.Add("DamageTakenResistPercent", new PercentStat("DamageTakenResistPercent", stats["DamageTakenResist"], stats["TotalDamageTakenActionsUsed"]));
+            stats.Add("DamageTakenResistReduction", new TotalStat("DamageTakenResistReduction"));
+            stats.Add("DamageTakenResistReductionAverage", new AverageStat("DamageTakenResistReductionAverage", stats["DamageTakenResistReduction"]));
+            stats.Add("DamageTakenEvade", new CounterStat("DamageTakenEvade"));
+            stats.Add("DamageTakenEvadePercent", new PercentStat("DamageTakenEvadePercent", stats["DamageTakenEvade"], stats["TotalDamageTakenActionsUsed"]));
+            stats.Add("DamageTakenEvadeReduction", new TotalStat("DamageTakenEvadeReduction"));
+            stats.Add("DamageTakenEvadeReductionAverage", new AverageStat("DamageTakenEvadeReductionAverage", stats["DamageTakenEvadeReduction"]));
+
             return stats.Select(s => s.Value)
                         .ToList();
         }
@@ -107,9 +131,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         private IEnumerable<Stat<decimal>> DropStatList()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
-            stats.Add("Total", new CounterStat("Total"));
-            TotalDrops.AddDependency(stats["Total"]);
-            stats.Add("DropPer", new PercentStat("DropPer", stats["Total"], Killed));
+            
+            stats.Add("TotalDrops", new CounterStat("TotalDrops"));
+            stats.Add("DropPercent", new PercentStat("DropPercent", stats["TotalDrops"], TotalKilled));
+
+            TotalOverallDrops.AddDependency(stats["TotalDrops"]);
+
             return stats.Select(s => s.Value)
                         .ToList();
         }

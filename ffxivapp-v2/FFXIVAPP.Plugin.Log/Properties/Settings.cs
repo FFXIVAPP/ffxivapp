@@ -83,19 +83,26 @@ namespace FFXIVAPP.Plugin.Log.Properties
                 Constants.Settings.Add("TShout");
                 Constants.Settings.Add("Zoom");
             }
-            foreach (var i in Constants.Settings)
+            foreach (var item in Constants.Settings)
             {
-                var xKey = i;
-                var xValue = Default[xKey].ToString();
-                var keyPairList = new List<XValuePair>
+                try
                 {
-                    new XValuePair
+                    var xKey = item;
+                    var xValue = Default[xKey].ToString();
+                    var keyPairList = new List<XValuePair>
                     {
-                        Key = "Value",
-                        Value = xValue
-                    }
-                };
-                XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
+                        new XValuePair
+                        {
+                            Key = "Value",
+                            Value = xValue
+                        }
+                    };
+                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                }
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }

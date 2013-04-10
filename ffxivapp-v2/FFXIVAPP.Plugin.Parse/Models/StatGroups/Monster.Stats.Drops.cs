@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <param name="name"> </param>
         public void SetDropStat(string name)
         {
-            var dropGroup = GetGroup("Drops");
+            var dropGroup = GetGroup("DropsByMonster");
             StatGroup subGroup;
             if (!dropGroup.TryGetGroup(name, out subGroup))
             {
@@ -27,7 +27,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subGroup.Stats.AddStats(DropStatList());
                 dropGroup.AddGroup(subGroup);
             }
-            subGroup.Stats.IncrementStat("Total");
+            Stats.IncrementStat("TotalOverallDrops");
+            subGroup.Stats.IncrementStat("TotalDrops");
         }
     }
 }

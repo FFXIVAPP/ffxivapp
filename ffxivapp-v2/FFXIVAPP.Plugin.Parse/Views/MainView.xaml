@@ -71,13 +71,6 @@
                                           Converter={StaticResource VisibilityConverter}}">
                 <Views:ParseMonsterView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_debugtab],
-                                      Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowDebugTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
-                <Views:ParseDebugView />
-            </TabItem>
         </TabControl>
         <DockPanel Grid.Row="1"
                    Margin="3"

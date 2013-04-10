@@ -33,8 +33,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 return;
             }
             ParseControl.Instance.LastKilled = fight.MobName;
-            Stats.IncrementStat("Killed");
-            Stats.SetOrAddStat("AvgHP", Stats.GetStatValue("Total") / Stats.GetStatValue("Killed"));
+            Stats.IncrementStat("TotalKilled");
+            Stats.SetOrAddStat("AverageHP", Stats.GetStatValue("TotalOverallDamage") / Stats.GetStatValue("TotalKilled"));
         }
     }
 }

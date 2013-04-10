@@ -73,15 +73,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             StatMonitor.CriticalDamageTaken.AddDependency(stats["CriticalDamageTaken"]);
 
             //setup global "percent of" stats
-            //stats.Add("PercentOfOverallDamage", new PercentStat("PercentOfOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamage));
-            //stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamage));
-            //stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamage));
-            //stats.Add("PercentOfOverallHealing", new PercentStat("PercentOfOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealing));
-            //stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealing));
-            //stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealing));
-            //stats.Add("PercentOfOverallDamageTaken", new PercentStat("PercentOfOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTaken));
-            //stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTaken));
-            //stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
+            stats.Add("PercentOfOverallDamage", new PercentStat("PercentOfOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamage));
+            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamage));
+            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamage));
+            stats.Add("PercentOfOverallHealing", new PercentStat("PercentOfOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealing));
+            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealing));
+            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealing));
+            stats.Add("PercentOfOverallDamageTaken", new PercentStat("PercentOfOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTaken));
+            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTaken));
+            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
 
             return stats.Select(s => s.Value)
                         .ToList();
@@ -185,7 +185,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageRegHigh", new MaxStat("DamageRegHigh", stats["RegularDamage"]));
             stats.Add("DamageRegAverage", new AverageStat("DamageRegAverage", stats["TotalOverallDamage"]));
             stats.Add("DamageCritHit", new TotalStat("DamageCritHit"));
-            stats.Add("DamageCritPercent", new PercentStat("DamageCritPercent", stats["DamageCritHit"], stats["DamageRegHit"]));
+            stats.Add("DamageCritPercent", new PercentStat("DamageCritPercent", stats["DamageCritHit"], stats["TotalDamageActionsUsed"]));
             stats.Add("DamageCritLow", new MinStat("DamageCritLow", stats["CriticalDamage"]));
             stats.Add("DamageCritHigh", new MaxStat("DamageCritHigh", stats["CriticalDamage"]));
             stats.Add("DamageCritAverage", new AverageStat("DamageCritAverage", stats["CriticalDamage"]));
@@ -223,9 +223,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("CriticalHealing", new TotalStat("CriticalHealing"));
             stats.Add("TotalHealingActionsUsed", new CounterStat("TotalHealingActionsUsed"));
             stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"]));
+            stats.Add("HealingRegHit", new TotalStat("HealingRegHit"));
             stats.Add("HealingRegLow", new MinStat("HealingRegLow", stats["RegularHealing"]));
             stats.Add("HealingRegHigh", new MaxStat("HealingRegHigh", stats["RegularHealing"]));
             stats.Add("HealingRegAverage", new AverageStat("HealingRegAverage", stats["TotalOverallHealing"]));
+            stats.Add("HealingCritHit", new TotalStat("HealingCritHit"));
+            stats.Add("HealingCritPercent", new PercentStat("HealingCritPercent", stats["HealingCritHit"], stats["TotalHealingActionsUsed"]));
             stats.Add("HealingCritLow", new MinStat("HealingCritLow", stats["CriticalHealing"]));
             stats.Add("HealingCritHigh", new MaxStat("HealingCritHigh", stats["CriticalHealing"]));
             stats.Add("HealingCritAverage", new AverageStat("HealingCritAverage", stats["CriticalHealing"]));
@@ -249,6 +252,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
             stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
+            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["TotalDamageTakenActionsUsed"]));
             stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));

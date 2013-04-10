@@ -110,7 +110,6 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_resistperheader", "Resist %");
             Dictionary.Add("parse_showabilitychattab", "Show Ability Chat");
             Dictionary.Add("parse_showdamagetab", "Show Damage");
-            Dictionary.Add("parse_showdebugtab", "Show Debug");
             Dictionary.Add("parse_showhealingtab", "Show Healing");
             Dictionary.Add("parse_showmonstertab", "Show Monster");
             Dictionary.Add("parse_showpartytab", "Show Party");
