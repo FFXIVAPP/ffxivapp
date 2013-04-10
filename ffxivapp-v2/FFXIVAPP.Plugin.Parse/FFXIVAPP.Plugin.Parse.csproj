@@ -94,7 +94,7 @@
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\MultiTarget.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Drops.cs" />
-    <Compile Include="Models\StatGroups\Player.Stats.Damage.cs" />
+    <Compile Include="Models\StatGroups\Player.Stats.DamageTaken.cs" />
     <Compile Include="Models\LinkedStats\AccuracyStat.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.Healing.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
@@ -203,7 +203,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\StatGroups\Player.Stats.Abilities.cs" />
+    <Compile Include="Models\StatGroups\Player.Stats.Damage.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Kill.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Players.cs" />
     <Resource Include="Defaults\Settings.xml" />

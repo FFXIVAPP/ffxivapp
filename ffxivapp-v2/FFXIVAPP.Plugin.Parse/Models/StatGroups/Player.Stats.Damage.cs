@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// Player.Stats.Damage.cs
+// Player.Stats.Abilities.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -18,63 +18,80 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        public void SetDamageStat(Line line)
+        public void SetAbilityStat(Line line)
         {
             var fields = line.GetType()
                              .GetProperties();
-            var damageGroup = GetGroup("Damage");
-            StatGroup subMonsterGroup;
-            if (!damageGroup.TryGetGroup(line.Source, out subMonsterGroup))
+            var abilityGroup = GetGroup("Abilities");
+            StatGroup subAbilityGroup;
+            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
             {
-                subMonsterGroup = new StatGroup(line.Source);
-                subMonsterGroup.Stats.AddStats(DamageStatList("m", null));
-                damageGroup.AddGroup(subMonsterGroup);
+                subAbilityGroup = new StatGroup(line.Action);
+                subAbilityGroup.Stats.AddStats(DamageStatList("a", null));
+                abilityGroup.AddGroup(subAbilityGroup);
             }
-            var abilities = subMonsterGroup.GetGroup("Abilities");
+            var monsterGroup = GetGroup("Monsters");
+            StatGroup subMonsterGroup;
+            if (!monsterGroup.TryGetGroup(line.Target, out subMonsterGroup))
+            {
+                subMonsterGroup = new StatGroup(line.Target);
+                subMonsterGroup.Stats.AddStats(DamageStatList("m", null));
+                monsterGroup.AddGroup(subMonsterGroup);
+            }
+            var monsters = subMonsterGroup.GetGroup("Abilities");
             StatGroup subMonsterAbilityGroup;
-            if (!abilities.TryGetGroup(line.Action, out subMonsterAbilityGroup))
+            if (!monsters.TryGetGroup(line.Action, out subMonsterAbilityGroup))
             {
                 subMonsterAbilityGroup = new StatGroup(line.Action);
-                subMonsterAbilityGroup.Stats.AddStats(DamageStatList("a", subMonsterGroup));
-                abilities.AddGroup(subMonsterAbilityGroup);
+                subMonsterAbilityGroup.Stats.AddStats(DamageStatList("ma", subMonsterGroup));
+                monsters.AddGroup(subMonsterAbilityGroup);
             }
-            subMonsterGroup.Stats.IncrementStat("Used");
-            subMonsterAbilityGroup.Stats.IncrementStat("Used");
+            Stats.IncrementStat("TotalDamageActionsUsed");
+            subAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
+            subMonsterGroup.Stats.IncrementStat("TotalDamageActionsUsed");
+            subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             if (line.Hit)
             {
-                subMonsterGroup.Stats.IncrementStat("Total", line.Amount);
-                subMonsterAbilityGroup.Stats.IncrementStat("Total", line.Amount);
-                Stats.IncrementStat("DTTotal", line.Amount);
+                Stats.IncrementStat("TotalOverallDamage", line.Amount);
+                subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
+                subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
+                subMonsterAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 if (line.Crit)
                 {
-                    subMonsterGroup.Stats.IncrementStat("Crit", line.Amount);
-                    subMonsterGroup.Stats.IncrementStat("CHit");
-                    subMonsterAbilityGroup.Stats.IncrementStat("Crit", line.Amount);
-                    subMonsterAbilityGroup.Stats.IncrementStat("CHit");
-                    Stats.IncrementStat("DTCrit", line.Amount);
-                    Stats.IncrementStat("DTCHit");
+                    Stats.IncrementStat("CriticalDamage", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
+                    subMonsterGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
+                    Stats.IncrementStat("DamageCritHit");
+                    subAbilityGroup.Stats.IncrementStat("DamageCritHit");
+                    subMonsterGroup.Stats.IncrementStat("DamageCritHit");
+                    subMonsterAbilityGroup.Stats.IncrementStat("DamageCritHit");
                 }
                 else
                 {
-                    subMonsterGroup.Stats.IncrementStat("Reg", line.Amount);
-                    subMonsterGroup.Stats.IncrementStat("Hit");
-                    subMonsterAbilityGroup.Stats.IncrementStat("Reg", line.Amount);
-                    subMonsterAbilityGroup.Stats.IncrementStat("Hit");
-                    Stats.IncrementStat("DTReg", line.Amount);
-                    Stats.IncrementStat("DTHit");
+                    Stats.IncrementStat("RegularDamage", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
+                    subMonsterGroup.Stats.IncrementStat("RegularDamage", line.Amount);
+                    subMonsterAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
+                    Stats.IncrementStat("DamageRegHit");
+                    subAbilityGroup.Stats.IncrementStat("DamageRegHit");
+                    subMonsterGroup.Stats.IncrementStat("DamageRegHit");
+                    subMonsterAbilityGroup.Stats.IncrementStat("DamageRegHit");
                 }
             }
             else
             {
-                Stats.IncrementStat("Miss");
-                subMonsterGroup.Stats.IncrementStat("Miss");
-                subMonsterAbilityGroup.Stats.IncrementStat("Miss");
+                Stats.IncrementStat("DamageRegMiss");
+                subAbilityGroup.Stats.IncrementStat("DamageRegMiss");
+                subMonsterGroup.Stats.IncrementStat("DamageRegMiss");
+                subMonsterAbilityGroup.Stats.IncrementStat("DamageRegMiss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
                                        .Where(stat => Equals(stat.GetValue(line), true)))
             {
-                subMonsterGroup.Stats.IncrementStat(stat.Name);
-                subMonsterAbilityGroup.Stats.IncrementStat(stat.Name);
+                subAbilityGroup.Stats.IncrementStat("Damage" + stat.Name);
+                subMonsterGroup.Stats.IncrementStat("Damage" + stat.Name);
+                subMonsterAbilityGroup.Stats.IncrementStat("Damage" + stat.Name);
             }
         }
     }
