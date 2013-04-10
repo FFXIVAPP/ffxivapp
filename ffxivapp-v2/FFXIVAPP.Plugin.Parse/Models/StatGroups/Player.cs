@@ -73,15 +73,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             StatMonitor.CriticalDamageTaken.AddDependency(stats["CriticalDamageTaken"]);
 
             //setup global "percent of" stats
-            stats.Add("PercentOfOverallDamage", new PercentStat("PercentOfOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamage));
-            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamage));
-            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamage));
-            stats.Add("PercentOfOverallHealing", new PercentStat("PercentOfOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealing));
-            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealing));
-            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealing));
-            stats.Add("PercentOfOverallDamageTaken", new PercentStat("PercentOfOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTaken));
-            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTaken));
-            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
+            //stats.Add("PercentOfOverallDamage", new PercentStat("PercentOfOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamage));
+            //stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamage));
+            //stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamage));
+            //stats.Add("PercentOfOverallHealing", new PercentStat("PercentOfOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealing));
+            //stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealing));
+            //stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealing));
+            //stats.Add("PercentOfOverallDamageTaken", new PercentStat("PercentOfOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTaken));
+            //stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTaken));
+            //stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
 
             return stats.Select(s => s.Value)
                         .ToList();
@@ -89,27 +89,26 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 
         /// <summary>
         /// </summary>
-        /// <param name="type"> </param>
         /// <param name="sub"> </param>
+        /// <param name="useSub"></param>
         /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> DamageStatList(string type, StatGroup sub)
+        private IEnumerable<Stat<decimal>> DamageStatList(StatGroup sub, bool useSub = false)
         {
             var stats = DamageStats();
 
             //setup per ability "percent of" stats
-            switch (type)
+            switch (useSub)
             {
-                case "a":
-                case "m":
-                    stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], Stats.GetStat("TotalOverallDamage")));
-                    stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], Stats.GetStat("RegularDamage")));
-                    stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], Stats.GetStat("CriticalDamage")));
-                    break;
-                case "ma":
+                case true:
                     stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], sub.Stats.GetStat("TotalOverallDamage")));
                     stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], sub.Stats.GetStat("RegularDamage")));
                     stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], sub.Stats.GetStat("CriticalDamage")));
                     break;
+                case false:
+                    stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], Stats.GetStat("TotalOverallDamage")));
+                    stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], Stats.GetStat("RegularDamage")));
+                    stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], Stats.GetStat("CriticalDamage")));
+                    break;
             }
 
             return stats.Select(s => s.Value)
@@ -118,26 +117,25 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 
         /// <summary>
         /// </summary>
-        /// <param name="type"> </param>
-        /// <param name="sub"> </param>
-        /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> HealingStatList(string type, StatGroup sub)
+        /// <param name="sub"></param>
+        /// <param name="useSub"></param>
+        /// <returns></returns>
+        private IEnumerable<Stat<decimal>> HealingStatList(StatGroup sub, bool useSub = false)
         {
             var stats = HealingStats();
 
             //setup per healing "percent of" stats
-            switch (type)
+            switch (useSub)
             {
-                case "a":
-                case "p":
-                    stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], Stats.GetStat("TotalOverallHealing")));
-                    stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], Stats.GetStat("RegularHealing")));
-                    stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], Stats.GetStat("CriticalHealing")));
-                    break;
-                case "pa":
+                case true:
                     stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], sub.Stats.GetStat("TotalOverallHealing")));
                     stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], sub.Stats.GetStat("RegularHealing")));
                     stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], sub.Stats.GetStat("CriticalHealing")));
+                    break;
+                case false:
+                    stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], Stats.GetStat("TotalOverallHealing")));
+                    stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], Stats.GetStat("RegularHealing")));
+                    stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], Stats.GetStat("CriticalHealing")));
                     break;
             }
 
@@ -145,27 +143,23 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                         .ToList();
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="type"> </param>
-        /// <param name="sub"> </param>
-        /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> DamageTakenStatList(string type, StatGroup sub)
+
+        private IEnumerable<Stat<decimal>> DamageTakenStatList(StatGroup sub, bool useSub = false)
         {
             var stats = DamageTakenStats();
 
             //setup per damage taken "percent of" stats
-            switch (type)
+            switch (useSub)
             {
-                case "m":
-                    stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Stats.GetStat("TotalOverallDamageTaken")));
-                    stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Stats.GetStat("RegularDamageTaken")));
-                    stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Stats.GetStat("CriticalDamageTaken")));
-                    break;
-                case "a":
+                case true:
                     stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], sub.Stats.GetStat("TotalOverallDamageTaken")));
                     stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], sub.Stats.GetStat("RegularDamageTaken")));
                     stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], sub.Stats.GetStat("CriticalDamageTaken")));
+                    break;
+                case false:
+                    stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Stats.GetStat("TotalOverallDamageTaken")));
+                    stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Stats.GetStat("RegularDamageTaken")));
+                    stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Stats.GetStat("CriticalDamageTaken")));
                     break;
             }
 

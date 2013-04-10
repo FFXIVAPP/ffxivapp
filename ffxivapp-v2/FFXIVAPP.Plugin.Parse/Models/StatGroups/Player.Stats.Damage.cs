@@ -27,7 +27,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
             {
                 subAbilityGroup = new StatGroup(line.Action);
-                subAbilityGroup.Stats.AddStats(DamageStatList("a", null));
+                subAbilityGroup.Stats.AddStats(DamageStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
             var monsterGroup = GetGroup("Monsters");
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (!monsterGroup.TryGetGroup(line.Target, out subMonsterGroup))
             {
                 subMonsterGroup = new StatGroup(line.Target);
-                subMonsterGroup.Stats.AddStats(DamageStatList("m", null));
+                subMonsterGroup.Stats.AddStats(DamageStatList(null));
                 monsterGroup.AddGroup(subMonsterGroup);
             }
             var monsters = subMonsterGroup.GetGroup("Abilities");
@@ -43,7 +43,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (!monsters.TryGetGroup(line.Action, out subMonsterAbilityGroup))
             {
                 subMonsterAbilityGroup = new StatGroup(line.Action);
-                subMonsterAbilityGroup.Stats.AddStats(DamageStatList("ma", subMonsterGroup));
+                subMonsterAbilityGroup.Stats.AddStats(DamageStatList(subMonsterGroup, true));
                 monsters.AddGroup(subMonsterAbilityGroup);
             }
             Stats.IncrementStat("TotalDamageActionsUsed");
