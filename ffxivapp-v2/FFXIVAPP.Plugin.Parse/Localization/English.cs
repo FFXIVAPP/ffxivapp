@@ -60,7 +60,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_DamageEvadePercentHeader", "Evade %");
             Dictionary.Add("parse_DamageEvadeBonusHeader", "E. Mod");
             Dictionary.Add("parse_DamageEvadeBonusAverageHeader", "E. Mod Avg");
-            Dictionary.Add("parse_PercentOfOverallDamageHeader", "% of Total");
+            Dictionary.Add("parse_PercentOfTotalOverallDamageHeader", "% of Total");
             Dictionary.Add("parse_PercentOfRegularDamageHeader", "% of Reg");
             Dictionary.Add("parse_PercentOfCriticalDamageHeader", "% of Crit");
             Dictionary.Add("parse_TotalOverallHealingHeader", "Total");
