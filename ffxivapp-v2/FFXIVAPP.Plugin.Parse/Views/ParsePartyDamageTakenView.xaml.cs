@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// ParseMonsterView.xaml.cs
+// ParsePartyDamageTakenView.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -7,13 +7,13 @@
 namespace FFXIVAPP.Plugin.Parse.Views
 {
     /// <summary>
-    ///     Interaction logic for ParseMonsterView.xaml
+    ///     Interaction logic for ParseDamageView.xaml
     /// </summary>
-    public partial class ParseMonsterView
+    public partial class ParsePartyDamageTakenView
     {
-        public static ParseMonsterView View;
+        public static ParsePartyDamageTakenView View;
 
-        public ParseMonsterView()
+        public ParsePartyDamageTakenView()
         {
             InitializeComponent();
             View = this;

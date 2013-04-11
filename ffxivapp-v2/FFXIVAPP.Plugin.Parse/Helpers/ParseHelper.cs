@@ -6,6 +6,7 @@
 
 #region Usings
 
+using System;
 using System.Collections;
 
 #endregion
@@ -35,6 +36,11 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
         {
             "Ekajatis Zorn", "Halones Groll", "Götterbann", "Zwillingsdrache", "Pfeilsalve", "Chaotischer Tjost"
         };
+
+        public static decimal GetOriginal(decimal amount, decimal modifier)
+        {
+            return Math.Abs((amount * (amount / (100 + modifier))) - amount);
+        }
 
         public static Hashtable GetJob()
         {

@@ -124,8 +124,8 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
         {
             var popupContent = new PopupContent();
             popupContent.PluginName = Plugin.PName;
-            popupContent.Title = PluginViewModel.Instance.Locale["app_warningpopuptitle"];
-            popupContent.Message = PluginViewModel.Instance.Locale["parse_resetstatspopupmessage"];
+            popupContent.Title = PluginViewModel.Instance.Locale["app_WarningMessage"];
+            popupContent.Message = PluginViewModel.Instance.Locale["parse_ResetStatsMessage"];
             popupContent.CanSayNo = true;
             bool popupDisplayed;
             Plugin.PHost.PopupMessage(out popupDisplayed, popupContent);

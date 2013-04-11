@@ -86,13 +86,13 @@
                         <Button x:Name="Popup_Yes"
                                 Width="100"
                                 Margin="2 0"
-                                Content="{Binding Locale[app_yesbutton],
+                                Content="{Binding Locale[app_YesButtonText],
                                                   Source={StaticResource AppProperties}}"
                                 x:FieldModifier="public" />
                         <Button x:Name="Popup_No"
                                 Width="100"
                                 Margin="2 0"
-                                Content="{Binding Locale[app_nobutton],
+                                Content="{Binding Locale[app_NoButtonText],
                                                   Source={StaticResource AppProperties}}"
                                 Visibility="Collapsed"
                                 x:FieldModifier="public" />

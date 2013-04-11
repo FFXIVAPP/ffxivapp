@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseHealingView"
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParsePartyHealingView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
@@ -14,8 +14,8 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <x:Static x:Key="ParseHealingViewModel"
-                  Member="ViewModels:ParseHealingViewModel.Instance" />
+        <x:Static x:Key="ParsePartyHealingViewModel"
+                  Member="ViewModels:ParsePartyHealingViewModel.Instance" />
         <x:Static x:Key="PluginViewModel"
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="Settings"
@@ -26,11 +26,11 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"
-          DataContext="{StaticResource ParseHealingViewModel}">
+          DataContext="{StaticResource ParsePartyHealingViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <Grid>
-                    <ListView x:Name="HealingPlayerTotal"
+                <DockPanel>
+                    <ListView x:Name="PlayerOverallHealing"
                               DataContext="{Binding Timeline.Party,
                                                     Source={StaticResource Parser}}"
                               ItemsSource="{Binding}"
@@ -86,6 +86,16 @@
                                                 Header="{Binding Locale[parse_HealingRegAverageHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="HealingRegAverage" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealingRegMod,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_HealingRegModHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealingRegMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealingRegModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_HealingRegModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealingRegModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding HealingCritHit}"
                                                 Header="{Binding Locale[parse_HealingCritHitHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -108,6 +118,16 @@
                                                 Header="{Binding Locale[parse_HealingCritAverageHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="HealingCritAverage" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealingCritMod,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_HealingCritModHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealingCritMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding HealingCritModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_HealingCritModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="HealingCritModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallHealing,
                                                                                StringFormat=\{0:P2\}}"
                                                 Header="{Binding Locale[parse_PercentOfTotalOverallHealingHeader],
@@ -126,22 +146,22 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+                </DockPanel>
                 <DockPanel DataContext="{Binding SelectedItem,
-                                                 ElementName=HealingPlayerTotal,
+                                                 ElementName=PlayerOverallHealing,
                                                  NotifyOnTargetUpdated=True,
                                                  NotifyOnSourceUpdated=True}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="5"
-                                      IsChecked="{Binding PlayerHealing,
+                                      IsChecked="{Binding PlayerHealingByAction,
                                                           Source={StaticResource Settings}}" />
                             <TextBlock Margin="2"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        FontWeight="Bold"
-                                       Text="{Binding Locale[parse_playerhealingheader],
+                                       Text="{Binding Locale[parse_PlayerHealingByActionText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </StackPanel>
                         <TextBlock x:Name="gui_HealingName"
@@ -151,7 +171,7 @@
                                   ItemsSource="{Binding HealingByAction}"
                                   Utilities:GridViewSort.AutoSort="True"
                                   Utilities:GridViewSort.ShowSortGlyph="False"
-                                  Visibility="{Binding PlayerHealing,
+                                  Visibility="{Binding PlayerHealingByAction,
                                                        Source={StaticResource Settings},
                                                        Converter={StaticResource VisibilityConverter}}">
                             <ListView.View>
@@ -203,6 +223,16 @@
                                                     Header="{Binding Locale[parse_HealingRegAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingRegAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding HealingCritHit}"
                                                     Header="{Binding Locale[parse_HealingCritHitHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -225,6 +255,16 @@
                                                     Header="{Binding Locale[parse_HealingCritAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingCritAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallHealing,
                                                                                    StringFormat=\{0:P2\}}"
                                                     Header="{Binding Locale[parse_PercentOfTotalOverallHealingHeader],
@@ -246,27 +286,27 @@
                     </StackPanel>
                 </DockPanel>
                 <DockPanel DataContext="{Binding SelectedItem,
-                                                 ElementName=HealingPlayerTotal,
+                                                 ElementName=PlayerOverallHealing,
                                                  NotifyOnTargetUpdated=True,
                                                  NotifyOnSourceUpdated=True}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="5"
-                                      IsChecked="{Binding PlayerOnOther,
+                                      IsChecked="{Binding PlayerHealingToPlayers,
                                                           Source={StaticResource Settings}}" />
                             <TextBlock Margin="2"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        FontWeight="Bold"
-                                       Text="{Binding Locale[parse_playeronotherheader],
+                                       Text="{Binding Locale[parse_PlayerHealingToPlayersText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </StackPanel>
-                        <ListView x:Name="HealingPlayers"
+                        <ListView x:Name="PlayerHealingToPlayers"
                                   ItemsSource="{Binding HealingToPlayers}"
                                   Utilities:GridViewSort.AutoSort="True"
                                   Utilities:GridViewSort.ShowSortGlyph="False"
-                                  Visibility="{Binding PlayerOnOther,
+                                  Visibility="{Binding PlayerHealingToPlayers,
                                                        Source={StaticResource Settings},
                                                        Converter={StaticResource VisibilityConverter}}">
                             <ListView.View>
@@ -318,6 +358,16 @@
                                                     Header="{Binding Locale[parse_HealingRegAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingRegAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding HealingCritHit}"
                                                     Header="{Binding Locale[parse_HealingCritHitHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -340,6 +390,16 @@
                                                     Header="{Binding Locale[parse_HealingCritAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingCritAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallHealing,
                                                                                    StringFormat=\{0:P2\}}"
                                                     Header="{Binding Locale[parse_PercentOfTotalOverallHealingHeader],
@@ -361,27 +421,27 @@
                     </StackPanel>
                 </DockPanel>
                 <DockPanel DataContext="{Binding SelectedItem,
-                                                 ElementName=HealingPlayers,
+                                                 ElementName=PlayerHealingToPlayers,
                                                  NotifyOnTargetUpdated=True,
                                                  NotifyOnSourceUpdated=True}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="5"
-                                      IsChecked="{Binding PlayerHealingByPlayerOnOther,
+                                      IsChecked="{Binding PlayerHealingToPlayersByAction,
                                                           Source={StaticResource Settings}}" />
                             <TextBlock Margin="2"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        FontWeight="Bold"
-                                       Text="{Binding Locale[parse_playerhealingbyplayeronotherheader],
+                                       Text="{Binding Locale[parse_PlayerHealingToPlayersByActionText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </StackPanel>
-                        <ListView x:Name="HealingDetails"
+                        <ListView x:Name="PlayerHealingToPlayersByAction"
                                   ItemsSource="{Binding HealingToPlayersByAction}"
                                   Utilities:GridViewSort.AutoSort="True"
                                   Utilities:GridViewSort.ShowSortGlyph="False"
-                                  Visibility="{Binding PlayerHealingByPlayerOnOther,
+                                  Visibility="{Binding PlayerHealingToPlayersByAction,
                                                        Source={StaticResource Settings},
                                                        Converter={StaticResource VisibilityConverter}}">
                             <ListView.View>
@@ -433,6 +493,16 @@
                                                     Header="{Binding Locale[parse_HealingRegAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingRegAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingRegModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingRegModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingRegModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding HealingCritHit}"
                                                     Header="{Binding Locale[parse_HealingCritHitHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -455,6 +525,16 @@
                                                     Header="{Binding Locale[parse_HealingCritAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="HealingCritAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding HealingCritModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_HealingCritModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="HealingCritModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallHealing,
                                                                                    StringFormat=\{0:P2\}}"
                                                     Header="{Binding Locale[parse_PercentOfTotalOverallHealingHeader],

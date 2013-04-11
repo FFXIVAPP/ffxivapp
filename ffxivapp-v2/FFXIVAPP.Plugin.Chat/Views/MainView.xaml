@@ -28,7 +28,7 @@
                 <FlowDocument>
                     <Paragraph FontSize="12">
                         <Run Foreground="{DynamicResource TextBrush}"
-                             Text="{Binding Locale[app_comingsoon],
+                             Text="{Binding Locale[app_ComingSoonText],
                                             Source={StaticResource PluginViewModel}}" />
                     </Paragraph>
                 </FlowDocument>

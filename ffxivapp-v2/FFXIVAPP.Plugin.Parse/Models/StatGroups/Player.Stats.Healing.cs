@@ -6,6 +6,7 @@
 
 #region Usings
 
+using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
 #endregion
@@ -61,6 +62,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
                 subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                if (line.Modifier != 0)
+                {
+                    var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                    var modStat = "HealingCritMod";
+                    Stats.IncrementStat(modStat, mod);
+                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                }
             }
             else
             {
@@ -71,7 +81,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 Stats.IncrementStat("RegularHealing", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount); 
+                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                if (line.Modifier != 0)
+                {
+                    var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                    var modStat = "HealingRegMod";
+                    Stats.IncrementStat(modStat, mod);
+                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                }
             }
         }
     }

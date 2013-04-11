@@ -37,39 +37,39 @@
             </TabItem>
             <TabItem Header="{Binding Locale[parse_ActionLogTabHeader],
                                       Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowAbilityChatTab,
+                     Visibility="{Binding ShowActionLogTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
                 <Controls:xFlowDocument x:Name="AbilityChatFD" />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
                                       Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowPartyTab,
+                     Visibility="{Binding ShowPartyDamageTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
-                <Views:ParsePartyView />
+                <Views:ParsePartyDamageView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
                                       Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowHealingTab,
+                     Visibility="{Binding ShowPartyHealingTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
 
-                <Views:ParseHealingView />
+                <Views:ParsePartyHealingView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowDamageTab,
+                     Visibility="{Binding ShowPartyDamageTakenTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
-                <Views:ParseDamageView />
+                <Views:ParsePartyDamageTakenView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
-                     Visibility="{Binding ShowMonsterTab,
+                     Visibility="{Binding ShowMonsterDamageTakenTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
-                <Views:ParseMonsterView />
+                <Views:ParseMonsterDamageTakenView />
             </TabItem>
         </TabControl>
         <DockPanel Grid.Row="1"

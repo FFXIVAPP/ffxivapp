@@ -15,19 +15,19 @@
                        VerticalAlignment="Top"
                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/Header.png"
                        Stretch="None" />
-                <GroupBox Header="{Binding Locale[app_processidnum], Source={StaticResource AppProperties}}">
+                <GroupBox Header="{Binding Locale[app_ProcessIDHeader], Source={StaticResource AppProperties}}">
                     <StackPanel>
                         <ComboBox x:Name="PIDSelect"
                                   Margin="5" />
                         <Button x:Name="SetProcess"
                                 Margin="5"
                                 Command="{Binding SetProcessCommand}"
-                                Content="{Binding Locale[app_attachprocess],
+                                Content="{Binding Locale[app_AttachProcessButtonText],
                                                   Source={StaticResource AppProperties}}" />
                         <Button x:Name="RefreshList"
                                 Margin="5"
                                 Command="{Binding RefreshListCommand}"
-                                Content="{Binding Locale[app_refreshprocess],
+                                Content="{Binding Locale[app_RefreshProcessButtonText],
                                                   Source={StaticResource AppProperties}}" />
                     </StackPanel>
                 </GroupBox>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseMonsterView"
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.ParseMonsterDamageTakenView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
@@ -14,8 +14,8 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <x:Static x:Key="ParseMonsterViewModel"
-                  Member="ViewModels:ParseMonsterViewModel.Instance" />
+        <x:Static x:Key="ParseMonsterDamageTakenViewModel"
+                  Member="ViewModels:ParseMonsterDamageTakenViewModel.Instance" />
         <x:Static x:Key="PluginViewModel"
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="Settings"
@@ -26,11 +26,11 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"
-          DataContext="{StaticResource ParseMonsterViewModel}">
+          DataContext="{StaticResource ParseMonsterDamageTakenViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <Grid>
-                    <ListView x:Name="MonsterTotal"
+                <DockPanel>
+                    <ListView x:Name="MonsterOverallDamageTaken"
                               DataContext="{Binding Timeline.Monster,
                                                     Source={StaticResource Parser}}"
                               ItemsSource="{Binding}"
@@ -43,6 +43,7 @@
                                         <TextBlock Text="{Binding}" />
                                     </DataTemplate>
                                 </GridView.ColumnHeaderTemplate>
+
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}"
                                                 Header="{Binding Locale[parse_NameHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -107,6 +108,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenRegAverageHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenRegAverage" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenRegMod,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenRegModHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenRegMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenRegModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenRegModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenRegModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritHit}"
                                                 Header="{Binding Locale[parse_DamageTakenCritHitHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -129,6 +140,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenCritAverageHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenCritAverage" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritMod,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenCritModHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenCritMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenCritModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenCritModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounter}"
                                                 Header="{Binding Locale[parse_DamageTakenCounterHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -138,16 +159,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenCounterPercentHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenCounterPercent" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterReduction,
-                                                                               StringFormat=\{0:F0\}}"
-                                                Header="{Binding Locale[parse_DamageTakenCounterReductionHeader],
-                                                                 Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenCounterReduction" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterReductionAverage,
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterMod,
                                                                                StringFormat=\{0:F2\}}"
-                                                Header="{Binding Locale[parse_DamageTakenCounterReductionAverageHeader],
+                                                Header="{Binding Locale[parse_DamageTakenCounterModHeader],
                                                                  Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenCounterReductionAverage" />
+                                                Utilities:GridViewSort.PropertyName="DamageTakenCounterMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenCounterModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenCounterModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlock}"
                                                 Header="{Binding Locale[parse_DamageTakenBlockHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -157,16 +178,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenBlockPercentHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenBlockPercent" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockReduction,
-                                                                               StringFormat=\{0:F0\}}"
-                                                Header="{Binding Locale[parse_DamageTakenBlockReductionHeader],
-                                                                 Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenBlockReduction" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockReductionAverage,
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockMod,
                                                                                StringFormat=\{0:F2\}}"
-                                                Header="{Binding Locale[parse_DamageTakenBlockReductionAverageHeader],
+                                                Header="{Binding Locale[parse_DamageTakenBlockModHeader],
                                                                  Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenBlockReductionAverage" />
+                                                Utilities:GridViewSort.PropertyName="DamageTakenBlockMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenBlockModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenBlockModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParry}"
                                                 Header="{Binding Locale[parse_DamageTakenParryHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -176,16 +197,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenParryPercentHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenParryPercent" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryReduction,
-                                                                               StringFormat=\{0:F0\}}"
-                                                Header="{Binding Locale[parse_DamageTakenParryReductionHeader],
-                                                                 Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenParryReduction" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryReductionAverage,
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryMod,
                                                                                StringFormat=\{0:F2\}}"
-                                                Header="{Binding Locale[parse_DamageTakenParryReductionAverageHeader],
+                                                Header="{Binding Locale[parse_DamageTakenParryModHeader],
                                                                  Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenParryReductionAverage" />
+                                                Utilities:GridViewSort.PropertyName="DamageTakenParryMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenParryModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenParryModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResist}"
                                                 Header="{Binding Locale[parse_DamageTakenResistHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -195,16 +216,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenResistPercentHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenResistPercent" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistReduction,
-                                                                               StringFormat=\{0:F0\}}"
-                                                Header="{Binding Locale[parse_DamageTakenResistReductionHeader],
-                                                                 Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenResistReduction" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistReductionAverage,
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistMod,
                                                                                StringFormat=\{0:F2\}}"
-                                                Header="{Binding Locale[parse_DamageTakenResistReductionAverageHeader],
+                                                Header="{Binding Locale[parse_DamageTakenResistModHeader],
                                                                  Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenResistReductionAverage" />
+                                                Utilities:GridViewSort.PropertyName="DamageTakenResistMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenResistModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenResistModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvade}"
                                                 Header="{Binding Locale[parse_DamageTakenEvadeHeader],
                                                                  Source={StaticResource PluginViewModel}}"
@@ -214,16 +235,16 @@
                                                 Header="{Binding Locale[parse_DamageTakenEvadePercentHeader],
                                                                  Source={StaticResource PluginViewModel}}"
                                                 Utilities:GridViewSort.PropertyName="DamageTakenEvadePercent" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeReduction,
-                                                                               StringFormat=\{0:F0\}}"
-                                                Header="{Binding Locale[parse_DamageTakenEvadeReductionHeader],
-                                                                 Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenEvadeReduction" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeReductionAverage,
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeMod,
                                                                                StringFormat=\{0:F2\}}"
-                                                Header="{Binding Locale[parse_DamageTakenEvadeReductionAverageHeader],
+                                                Header="{Binding Locale[parse_DamageTakenEvadeModHeader],
                                                                  Source={StaticResource PluginViewModel}}"
-                                                Utilities:GridViewSort.PropertyName="DamageTakenEvadeReductionAverage" />
+                                                Utilities:GridViewSort.PropertyName="DamageTakenEvadeMod" />
+                                <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeModAverage,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{Binding Locale[parse_DamageTakenEvadeModAverageHeader],
+                                                                 Source={StaticResource PluginViewModel}}"
+                                                Utilities:GridViewSort.PropertyName="DamageTakenEvadeModAverage" />
                                 <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallDamageTaken,
                                                                                StringFormat=\{0:P2\}}"
                                                 Header="{Binding Locale[parse_PercentOfTotalOverallDamageTakenHeader],
@@ -242,29 +263,29 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+                </DockPanel>
                 <DockPanel DataContext="{Binding SelectedItem,
-                                                 ElementName=MonsterTotal,
+                                                 ElementName=MonsterOverallDamageTaken,
                                                  NotifyOnTargetUpdated=True,
                                                  NotifyOnSourceUpdated=True}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="5"
-                                      IsChecked="{Binding MonsterDamageTakenByAbility,
+                                      IsChecked="{Binding MonsterDamageTakenByAction,
                                                           Source={StaticResource Settings}}" />
                             <TextBlock Margin="2"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        FontWeight="Bold"
-                                       Text="{Binding Locale[parse_monsterdamagetakenbyabilityheader],
+                                       Text="{Binding Locale[parse_MonsterDamageTakenByActionText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </StackPanel>
-                        <ListView x:Name="MonsterDetailAbilities"
+                        <ListView x:Name="MonsterDamageTakenByAction"
                                   ItemsSource="{Binding DamageTakenByAction}"
                                   Utilities:GridViewSort.AutoSort="True"
                                   Utilities:GridViewSort.ShowSortGlyph="False"
-                                  Visibility="{Binding MonsterDamageTakenByAbility,
+                                  Visibility="{Binding MonsterDamageTakenByAction,
                                                        Source={StaticResource Settings},
                                                        Converter={StaticResource VisibilityConverter}}">
                             <ListView.View>
@@ -325,6 +346,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenRegAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenRegAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenRegMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenRegModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenRegMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenRegModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenRegModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenRegModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritHit}"
                                                     Header="{Binding Locale[parse_DamageTakenCritHitHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -347,6 +378,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenCritAverageHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenCritAverage" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritMod,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenCritModHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenCritMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCritModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenCritModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenCritModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounter}"
                                                     Header="{Binding Locale[parse_DamageTakenCounterHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -356,16 +397,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenCounterPercentHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenCounterPercent" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterReduction,
-                                                                                   StringFormat=\{0:F0\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenCounterReductionHeader],
-                                                                     Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenCounterReduction" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterReductionAverage,
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterMod,
                                                                                    StringFormat=\{0:F2\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenCounterReductionAverageHeader],
+                                                    Header="{Binding Locale[parse_DamageTakenCounterModHeader],
                                                                      Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenCounterReductionAverage" />
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenCounterMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenCounterModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenCounterModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenCounterModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlock}"
                                                     Header="{Binding Locale[parse_DamageTakenBlockHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -375,16 +416,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenBlockPercentHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenBlockPercent" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockReduction,
-                                                                                   StringFormat=\{0:F0\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenBlockReductionHeader],
-                                                                     Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenBlockReduction" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockReductionAverage,
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockMod,
                                                                                    StringFormat=\{0:F2\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenBlockReductionAverageHeader],
+                                                    Header="{Binding Locale[parse_DamageTakenBlockModHeader],
                                                                      Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenBlockReductionAverage" />
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenBlockMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenBlockModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenBlockModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenBlockModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParry}"
                                                     Header="{Binding Locale[parse_DamageTakenParryHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -394,16 +435,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenParryPercentHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenParryPercent" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryReduction,
-                                                                                   StringFormat=\{0:F0\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenParryReductionHeader],
-                                                                     Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenParryReduction" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryReductionAverage,
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryMod,
                                                                                    StringFormat=\{0:F2\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenParryReductionAverageHeader],
+                                                    Header="{Binding Locale[parse_DamageTakenParryModHeader],
                                                                      Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenParryReductionAverage" />
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenParryMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenParryModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenParryModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenParryModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResist}"
                                                     Header="{Binding Locale[parse_DamageTakenResistHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -413,16 +454,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenResistPercentHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenResistPercent" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistReduction,
-                                                                                   StringFormat=\{0:F0\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenResistReductionHeader],
-                                                                     Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenResistReduction" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistReductionAverage,
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistMod,
                                                                                    StringFormat=\{0:F2\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenResistReductionAverageHeader],
+                                                    Header="{Binding Locale[parse_DamageTakenResistModHeader],
                                                                      Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenResistReductionAverage" />
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenResistMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenResistModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenResistModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenResistModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvade}"
                                                     Header="{Binding Locale[parse_DamageTakenEvadeHeader],
                                                                      Source={StaticResource PluginViewModel}}"
@@ -432,16 +473,16 @@
                                                     Header="{Binding Locale[parse_DamageTakenEvadePercentHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="DamageTakenEvadePercent" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeReduction,
-                                                                                   StringFormat=\{0:F0\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenEvadeReductionHeader],
-                                                                     Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenEvadeReduction" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeReductionAverage,
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeMod,
                                                                                    StringFormat=\{0:F2\}}"
-                                                    Header="{Binding Locale[parse_DamageTakenEvadeReductionAverageHeader],
+                                                    Header="{Binding Locale[parse_DamageTakenEvadeModHeader],
                                                                      Source={StaticResource PluginViewModel}}"
-                                                    Utilities:GridViewSort.PropertyName="DamageTakenEvadeReductionAverage" />
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenEvadeMod" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding DamageTakenEvadeModAverage,
+                                                                                   StringFormat=\{0:F2\}}"
+                                                    Header="{Binding Locale[parse_DamageTakenEvadeModAverageHeader],
+                                                                     Source={StaticResource PluginViewModel}}"
+                                                    Utilities:GridViewSort.PropertyName="DamageTakenEvadeModAverage" />
                                     <GridViewColumn DisplayMemberBinding="{Binding PercentOfTotalOverallDamageTaken,
                                                                                    StringFormat=\{0:P2\}}"
                                                     Header="{Binding Locale[parse_PercentOfTotalOverallDamageTakenHeader],
@@ -463,7 +504,7 @@
                     </StackPanel>
                 </DockPanel>
                 <DockPanel DataContext="{Binding SelectedItem,
-                                                 ElementName=MonsterTotal,
+                                                 ElementName=MonsterOverallDamageTaken,
                                                  NotifyOnTargetUpdated=True,
                                                  NotifyOnSourceUpdated=True}">
                     <StackPanel>
@@ -476,10 +517,10 @@
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        FontWeight="Bold"
-                                       Text="{Binding Locale[parse_monsterdropsheader],
+                                       Text="{Binding Locale[parse_MonsterDropsByMonsterText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </StackPanel>
-                        <ListView x:Name="MonsterDetailsDrops"
+                        <ListView x:Name="MonsterDropsByMonster"
                                   ItemsSource="{Binding DropsByMonster}"
                                   Utilities:GridViewSort.AutoSort="True"
                                   Utilities:GridViewSort.ShowSortGlyph="False"

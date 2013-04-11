@@ -65,7 +65,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/ScreenShot.png"
-                           ToolTip="{Binding Locale[app_screenshot],
+                           ToolTip="{Binding Locale[app_ScreenShotToolTip],
                                              Source={StaticResource AppProperties}}" />
                 </StackPanel>
             </Button>
@@ -96,7 +96,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
-                           ToolTip="{Binding Locale[app_main],
+                           ToolTip="{Binding Locale[app_MainToolTip],
                                              Source={StaticResource AppProperties}}" />
                 </TabItem.Header>
                 <Views:MainView x:Name="MainV"
@@ -110,7 +110,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
-                           ToolTip="{Binding Locale[app_plugins],
+                           ToolTip="{Binding Locale[app_PluginsToolTip],
                                              Source={StaticResource AppProperties}}" />
                 </TabItem.Header>
                 <TabControl x:Name="PluginsTC"
@@ -131,7 +131,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
-                           ToolTip="{Binding Locale[app_settings],
+                           ToolTip="{Binding Locale[app_SettingsToolTip],
                                              Source={StaticResource AppProperties}}" />
                 </TabItem.Header>
                 <Views:SettingsView x:Name="SettingsV"
@@ -142,7 +142,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
-                           ToolTip="{Binding Locale[app_about],
+                           ToolTip="{Binding Locale[app_AboutToolTip],
                                              Source={StaticResource AppProperties}}" />
                 </TabItem.Header>
                 <Views:AboutView x:Name="AboutV"

@@ -161,10 +161,10 @@
     <Compile Include="Models\Stats\StatGroupTypeDescriptor.cs" />
     <Compile Include="Models\Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Models\LinkedStats\TotalStat.cs" />
-    <Compile Include="ViewModels\ParseMonsterViewModel.cs" />
-    <Compile Include="ViewModels\ParseDamageViewModel.cs" />
-    <Compile Include="ViewModels\ParseHealingViewModel.cs" />
-    <Compile Include="ViewModels\ParsePartyViewModel.cs" />
+    <Compile Include="ViewModels\ParseMonsterDamageTakenViewModel.cs" />
+    <Compile Include="ViewModels\ParsePartyDamageTakenViewModel.cs" />
+    <Compile Include="ViewModels\ParsePartyHealingViewModel.cs" />
+    <Compile Include="ViewModels\ParsePartyDamageViewModel.cs" />
     <Compile Include="ViewModels\ParseBasicViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
@@ -173,17 +173,17 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ParseMonsterView.xaml.cs">
-      <DependentUpon>ParseMonsterView.xaml</DependentUpon>
+    <Compile Include="Views\ParseMonsterDamageTakenView.xaml.cs">
+      <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ParseDamageView.xaml.cs">
-      <DependentUpon>ParseDamageView.xaml</DependentUpon>
+    <Compile Include="Views\ParsePartyDamageTakenView.xaml.cs">
+      <DependentUpon>ParsePartyDamageTakenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ParseHealingView.xaml.cs">
-      <DependentUpon>ParseHealingView.xaml</DependentUpon>
+    <Compile Include="Views\ParsePartyHealingView.xaml.cs">
+      <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ParsePartyView.xaml.cs">
-      <DependentUpon>ParsePartyView.xaml</DependentUpon>
+    <Compile Include="Views\ParsePartyDamageView.xaml.cs">
+      <DependentUpon>ParsePartyDamageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ParseBasicView.xaml.cs">
       <DependentUpon>ParseBasicView.xaml</DependentUpon>
@@ -238,19 +238,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ParseMonsterView.xaml">
+    <Page Include="Views\ParseMonsterDamageTakenView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ParseDamageView.xaml">
+    <Page Include="Views\ParsePartyDamageTakenView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ParseHealingView.xaml">
+    <Page Include="Views\ParsePartyHealingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ParsePartyView.xaml">
+    <Page Include="Views\ParsePartyDamageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -62,8 +62,8 @@ namespace FFXIVAPP.Client.Helpers
                 var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 var combinedPath = Path.Combine(appDataPath, companyName);
                 var popupContent = new PopupContent();
-                popupContent.Title = AppViewModel.Instance.Locale["app_warningpopuptitle"];
-                popupContent.Message = String.Format("{0} : {1}", AppViewModel.Instance.Locale["app_deletepopupmessage"], combinedPath);
+                popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                popupContent.Message = String.Format("{0} : {1}", AppViewModel.Instance.Locale["app_DeleteMessage"], combinedPath);
                 popupContent.CanSayNo = true;
                 PopupHelper.Toggle(popupContent);
                 EventHandler closedDelegate = null;

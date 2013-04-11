@@ -26,7 +26,7 @@
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource ParseBasicViewModel}">
         <ScrollViewer>
-            <Grid>
+            <DockPanel>
                 <StackPanel>
                     <ItemsControl ItemsSource="{Binding Timeline.Party,
                                                         Source={StaticResource Parser}}">
@@ -43,7 +43,7 @@
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </StackPanel>
-            </Grid>
+            </DockPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

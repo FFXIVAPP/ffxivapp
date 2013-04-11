@@ -26,18 +26,18 @@
           DataContext="{StaticResource SettingsViewModel}">
         <TabControl x:Name="SettingsViewTC">
             <TabItem x:Name="SettingsMainTI"
-                     Header="{Binding Locale[app_mainsettings],
+                     Header="{Binding Locale[app_MainSettingsTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[log_enabledebug],
+                        <GroupBox Header="{Binding Locale[log_EnableDebugHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding EnableDebug,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_showasciidebug],
+                        <GroupBox Header="{Binding Locale[log_ShowASCIIDebugHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowAsciiDebug,
@@ -48,7 +48,7 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem x:Name="SettingsTabsTI"
-                     Header="{Binding Locale[app_tabsettings],
+                     Header="{Binding Locale[app_TabSettingsTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -60,13 +60,13 @@
                         <DockPanel Margin="3"
                                    DockPanel.Dock="Top">
                             <Label VerticalContentAlignment="Center"
-                                   Content="{Binding Locale[log_regexlabel],
+                                   Content="{Binding Locale[log_RegExLabel],
                                                      Source={StaticResource PluginViewModel}}" />
                             <TextBox x:Name="TRegEx"
                                      VerticalContentAlignment="Center"
                                      Text="*" />
                             <Label VerticalContentAlignment="Center"
-                                   Content="{Binding Locale[log_tabnamelabel],
+                                   Content="{Binding Locale[log_TabNameLabel],
                                                      Source={StaticResource PluginViewModel}}" />
                             <TextBox x:Name="TName"
                                      VerticalContentAlignment="Center" />
@@ -89,11 +89,11 @@
                                         </DataTemplate>
                                     </GridView.ColumnHeaderTemplate>
                                     <GridViewColumn DisplayMemberBinding="{Binding Key}"
-                                                    Header="{Binding Locale[app_code],
+                                                    Header="{Binding Locale[app_CodeHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="Key" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Value}"
-                                                    Header="{Binding Locale[app_description],
+                                                    Header="{Binding Locale[app_DescriptionHeader],
                                                                      Source={StaticResource PluginViewModel}}"
                                                     Utilities:GridViewSort.PropertyName="Value" />
                                 </GridView>
@@ -105,18 +105,18 @@
                                    LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding AddTabCommand}"
-                                    Content="{Binding Locale[log_addtab],
+                                    Content="{Binding Locale[log_AddTabButtonText],
                                                       Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </DockPanel>
                 </Grid>
             </TabItem>
             <TabItem x:Name="SettingsTranslateTI"
-                     Header="{Binding Locale[log_translatesettings],
+                     Header="{Binding Locale[log_TranslateSettingsTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[log_translateto],
+                        <GroupBox Header="{Binding Locale[log_TranslateToHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <ComboBox x:Name="TranslateTo"
@@ -128,14 +128,14 @@
                                                                   Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_enabletranslate],
+                        <GroupBox Header="{Binding Locale[log_EnableTranslateHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding EnableTranslate,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_sendtoecho],
+                        <GroupBox Header="{Binding Locale[log_SendToEchoHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToEcho,
@@ -143,7 +143,7 @@
                                                        IsEnabled="False" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_sendtogame],
+                        <GroupBox Header="{Binding Locale[log_SendToGameHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToGame,
@@ -151,14 +151,14 @@
                                                        IsEnabled="False" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_sendromanization],
+                        <GroupBox Header="{Binding Locale[log_SendRomanizationHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendRomanization,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_translatejponly],
+                        <GroupBox Header="{Binding Locale[log_TranslateJPOnlyHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TranslateJPOnly,
@@ -168,39 +168,39 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{Binding Locale[log_translateablechat],
+            <TabItem Header="{Binding Locale[log_TranslateableChatTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[log_tsay],
+                        <GroupBox Header="{Binding Locale[log_TranslateSayHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TSay,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_ttell],
+                        <GroupBox Header="{Binding Locale[log_TranslateTellHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TTell,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_tparty],
+                        <GroupBox Header="{Binding Locale[log_TranslatePartyHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TParty,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_tls],
+                        <GroupBox Header="{Binding Locale[log_TranslateLSHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TLS,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_tshout],
+                        <GroupBox Header="{Binding Locale[log_TranslateShoutHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TShout,

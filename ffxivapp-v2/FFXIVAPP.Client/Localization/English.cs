@@ -55,7 +55,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_PluginSettingsTabHeader", "Plugin Settings");
             Dictionary.Add("app_PluginWarningText", "This will let any loaded plugin send commands to your game. Enable this if you trust them.");
             Dictionary.Add("app_ProcessIDHeader", "Current Process ID");
-            Dictionary.Add("app_RefreshButtonText", "Refresh Process List");
+            Dictionary.Add("app_RefreshProcessButtonText", "Refresh Process List");
             Dictionary.Add("app_SaveCharacterButtonText", "Save Character");
             Dictionary.Add("app_SaveHistoryMessage", "Press \"Yes\" to export chat history. Press \"No\" to just exit. Application will exit after exporting.");
             Dictionary.Add("app_SaveLogHeader", "Save Log");

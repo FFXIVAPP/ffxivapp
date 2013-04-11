@@ -37,15 +37,15 @@
                 </TabControl.Resources>
                 <TabControl.ItemsSource>
                     <CompositeCollection>
-                        <TabItem Header="{Binding Locale[log_alllog],
+                        <TabItem Header="{Binding Locale[log_AllTabHeader],
                                                   Source={StaticResource PluginViewModel}}">
                             <Controls:xFlowDocument x:Name="AllFD" />
                         </TabItem>
-                        <TabItem Header="{Binding Locale[log_translatedlog],
+                        <TabItem Header="{Binding Locale[log_TranslatedTabHeader],
                                                   Source={StaticResource PluginViewModel}}">
                             <Controls:xFlowDocument x:Name="TranslatedFD" />
                         </TabItem>
-                        <TabItem Header="{Binding Locale[log_debuglog],
+                        <TabItem Header="{Binding Locale[log_DebugTabHeader],
                                                   Source={StaticResource PluginViewModel}}"
                                  Visibility="{Binding EnableDebug,
                                                       Source={StaticResource Settings},

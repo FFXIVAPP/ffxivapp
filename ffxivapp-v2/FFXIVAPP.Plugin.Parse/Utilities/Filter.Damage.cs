@@ -86,7 +86,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                         _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        if (Regex.IsMatch(line.Target.ToLower(),exp.You))
+                                        if (Regex.IsMatch(line.Target.ToLower(), exp.You))
                                         {
                                             line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
                                         }

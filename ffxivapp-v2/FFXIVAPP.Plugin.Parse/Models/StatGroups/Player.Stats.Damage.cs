@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// Player.Stats.Abilities.cs
+// Player.Stats.Damage.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -8,6 +8,7 @@
 
 using System;
 using System.Linq;
+using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
 #endregion
@@ -67,6 +68,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     subMonsterGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
+                    if (line.Modifier != 0)
+                    {
+                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var modStat = "DamageCritMod";
+                        Stats.IncrementStat(modStat, mod);
+                        subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                        subMonsterGroup.Stats.IncrementStat(modStat, mod);
+                        subMonsterAbilityGroup.Stats.IncrementStat(modStat, mod);
+                    }
                 }
                 else
                 {
@@ -78,6 +88,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     subMonsterGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     subMonsterAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
+                    if (line.Modifier != 0)
+                    {
+                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var modStat = "DamageRegMod";
+                        Stats.IncrementStat(modStat, mod);
+                        subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                        subMonsterGroup.Stats.IncrementStat(modStat, mod);
+                        subMonsterAbilityGroup.Stats.IncrementStat(modStat, mod);
+                    }
                 }
             }
             else
@@ -99,12 +118,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var reduction = (line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount;
-                var reductionStat = String.Format("Damage{0}Reduction", stat.Name);
-                Stats.IncrementStat(reductionStat, reduction);
-                subAbilityGroup.Stats.IncrementStat(reductionStat, reduction);
-                subMonsterGroup.Stats.IncrementStat(reductionStat, reduction);
-                subMonsterAbilityGroup.Stats.IncrementStat(reductionStat, reduction);
+                var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                var modStat = String.Format("Damage{0}Mod", stat.Name);
+                Stats.IncrementStat(modStat, mod);
+                subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                subMonsterGroup.Stats.IncrementStat(modStat, mod);
+                subMonsterAbilityGroup.Stats.IncrementStat(modStat, mod);
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// ParseHealingViewModel.cs
+// ParsePartyHealingViewModel.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -13,15 +13,15 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Plugin.Parse.ViewModels
 {
-    internal sealed class ParseHealingViewModel : INotifyPropertyChanged
+    internal sealed class ParsePartyHealingViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
 
-        private static ParseHealingViewModel _instance;
+        private static ParsePartyHealingViewModel _instance;
 
-        public static ParseHealingViewModel Instance
+        public static ParsePartyHealingViewModel Instance
         {
-            get { return _instance ?? (_instance = new ParseHealingViewModel()); }
+            get { return _instance ?? (_instance = new ParsePartyHealingViewModel()); }
         }
 
         #endregion

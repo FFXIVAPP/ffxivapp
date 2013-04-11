@@ -31,35 +31,35 @@
                         <GroupBox Header="{Binding Locale[parse_ShowActionLogHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding ShowAbilityChatTab,
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowActionLogTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowPartyDamageHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding ShowPartyTab,
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowPartyHealingHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding ShowHealingTab,
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowPartyHealingTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowPartyDamageTakenHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding ShowDamageTab,
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTakenTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageTakenHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding ShowMonsterTab,
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTakenTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>

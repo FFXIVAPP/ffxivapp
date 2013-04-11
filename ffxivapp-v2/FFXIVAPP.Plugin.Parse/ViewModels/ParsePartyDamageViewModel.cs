@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// ParseMonsterViewModel.cs
+// ParsePartyDamageViewModel.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -13,15 +13,15 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Plugin.Parse.ViewModels
 {
-    internal sealed class ParseMonsterViewModel : INotifyPropertyChanged
+    internal sealed class ParsePartyDamageViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
 
-        private static ParseMonsterViewModel _instance;
+        private static ParsePartyDamageViewModel _instance;
 
-        public static ParseMonsterViewModel Instance
+        public static ParsePartyDamageViewModel Instance
         {
-            get { return _instance ?? (_instance = new ParseMonsterViewModel()); }
+            get { return _instance ?? (_instance = new ParsePartyDamageViewModel()); }
         }
 
         #endregion

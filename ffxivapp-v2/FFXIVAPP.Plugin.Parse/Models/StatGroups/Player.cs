@@ -184,32 +184,36 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageRegLow", new MinStat("DamageRegLow", stats["RegularDamage"]));
             stats.Add("DamageRegHigh", new MaxStat("DamageRegHigh", stats["RegularDamage"]));
             stats.Add("DamageRegAverage", new AverageStat("DamageRegAverage", stats["TotalOverallDamage"]));
+            stats.Add("DamageRegMod", new TotalStat("DamageRegMod"));
+            stats.Add("DamageRegModAverage", new AverageStat("DamageRegModAverage", stats["DamageRegMod"]));
             stats.Add("DamageCritHit", new TotalStat("DamageCritHit"));
             stats.Add("DamageCritPercent", new PercentStat("DamageCritPercent", stats["DamageCritHit"], stats["TotalDamageActionsUsed"]));
             stats.Add("DamageCritLow", new MinStat("DamageCritLow", stats["CriticalDamage"]));
             stats.Add("DamageCritHigh", new MaxStat("DamageCritHigh", stats["CriticalDamage"]));
             stats.Add("DamageCritAverage", new AverageStat("DamageCritAverage", stats["CriticalDamage"]));
+            stats.Add("DamageCritMod", new TotalStat("DamageCritMod"));
+            stats.Add("DamageCritModAverage", new AverageStat("DamageCritModAverage", stats["DamageCritMod"]));
 
             stats.Add("DamageCounter", new CounterStat("DamageCounter"));
             stats.Add("DamageCounterPercent", new PercentStat("DamageCounterPercent", stats["DamageCounter"], stats["TotalDamageActionsUsed"]));
-            stats.Add("DamageCounterBonus", new TotalStat("DamageCounterBonus"));
-            stats.Add("DamageCounterBonusAverage", new AverageStat("DamageCounterBonusAverage", stats["DamageCounterBonus"]));
+            stats.Add("DamageCounterMod", new TotalStat("DamageCounterMod"));
+            stats.Add("DamageCounterModAverage", new AverageStat("DamageCounterModAverage", stats["DamageCounterMod"]));
             stats.Add("DamageBlock", new CounterStat("DamageBlock"));
             stats.Add("DamageBlockPercent", new PercentStat("DamageBlockPercent", stats["DamageBlock"], stats["TotalDamageActionsUsed"]));
-            stats.Add("DamageBlockBonus", new TotalStat("DamageBlockBonus"));
-            stats.Add("DamageBlockBonusAverage", new AverageStat("DamageBlockBonusAverage", stats["DamageBlockBonus"]));
+            stats.Add("DamageBlockMod", new TotalStat("DamageBlockMod"));
+            stats.Add("DamageBlockModAverage", new AverageStat("DamageBlockModAverage", stats["DamageBlockMod"]));
             stats.Add("DamageParry", new CounterStat("DamageParry"));
             stats.Add("DamageParryPercent", new PercentStat("DamageParryPercent", stats["DamageParry"], stats["TotalDamageActionsUsed"]));
-            stats.Add("DamageParryBonus", new TotalStat("DamageParryBonus"));
-            stats.Add("DamageParryBonusAverage", new AverageStat("DamageParryBonusAverage", stats["DamageParryBonus"]));
+            stats.Add("DamageParryMod", new TotalStat("DamageParryMod"));
+            stats.Add("DamageParryModAverage", new AverageStat("DamageParryModAverage", stats["DamageParryMod"]));
             stats.Add("DamageResist", new CounterStat("DamageResist"));
             stats.Add("DamageResistPercent", new PercentStat("DamageResistPercent", stats["DamageResist"], stats["TotalDamageActionsUsed"]));
-            stats.Add("DamageResistBonus", new TotalStat("DamageResistBonus"));
-            stats.Add("DamageResistBonusAverage", new AverageStat("DamageResistBonusAverage", stats["DamageResistBonus"]));
+            stats.Add("DamageResistMod", new TotalStat("DamageResistMod"));
+            stats.Add("DamageResistModAverage", new AverageStat("DamageResistModAverage", stats["DamageResistMod"]));
             stats.Add("DamageEvade", new CounterStat("DamageEvade"));
             stats.Add("DamageEvadePercent", new PercentStat("DamageEvadePercent", stats["DamageEvade"], stats["TotalDamageActionsUsed"]));
-            stats.Add("DamageEvadeBonus", new TotalStat("DamageEvadeBonus"));
-            stats.Add("DamageEvadeBonusAverage", new AverageStat("DamageEvadeBonusAverage", stats["DamageEvadeBonus"]));
+            stats.Add("DamageEvadeMod", new TotalStat("DamageEvadeMod"));
+            stats.Add("DamageEvadeModAverage", new AverageStat("DamageEvadeModAverage", stats["DamageEvadeMod"]));
 
             return stats;
         }
@@ -227,11 +231,15 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("HealingRegLow", new MinStat("HealingRegLow", stats["RegularHealing"]));
             stats.Add("HealingRegHigh", new MaxStat("HealingRegHigh", stats["RegularHealing"]));
             stats.Add("HealingRegAverage", new AverageStat("HealingRegAverage", stats["TotalOverallHealing"]));
+            stats.Add("HealingRegMod", new TotalStat("HealingRegMod"));
+            stats.Add("HealingRegModAverage", new AverageStat("HealingRegModAverage", stats["HealingRegMod"]));
             stats.Add("HealingCritHit", new TotalStat("HealingCritHit"));
             stats.Add("HealingCritPercent", new PercentStat("HealingCritPercent", stats["HealingCritHit"], stats["TotalHealingActionsUsed"]));
             stats.Add("HealingCritLow", new MinStat("HealingCritLow", stats["CriticalHealing"]));
             stats.Add("HealingCritHigh", new MaxStat("HealingCritHigh", stats["CriticalHealing"]));
             stats.Add("HealingCritAverage", new AverageStat("HealingCritAverage", stats["CriticalHealing"]));
+            stats.Add("HealingCritMod", new TotalStat("HealingCritMod"));
+            stats.Add("HealingCritModAverage", new AverageStat("HealingCritModAverage", stats["HealingCritMod"]));
 
             return stats;
         }
@@ -251,32 +259,36 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenRegMod", new TotalStat("DamageTakenRegMod"));
+            stats.Add("DamageTakenRegModAverage", new AverageStat("DamageTakenRegModAverage", stats["DamageTakenRegMod"]));
             stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
             stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["TotalDamageTakenActionsUsed"]));
             stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));
+            stats.Add("DamageTakenCritMod", new TotalStat("DamageTakenCritMod"));
+            stats.Add("DamageTakenCritModAverage", new AverageStat("DamageTakenCritModAverage", stats["DamageTakenCritMod"]));
 
             stats.Add("DamageTakenCounter", new CounterStat("DamageTakenCounter"));
             stats.Add("DamageTakenCounterPercent", new PercentStat("DamageTakenCounterPercent", stats["DamageTakenCounter"], stats["TotalDamageTakenActionsUsed"]));
-            stats.Add("DamageTakenCounterReduction", new TotalStat("DamageTakenCounterReduction"));
-            stats.Add("DamageTakenCounterReductionAverage", new AverageStat("DamageTakenCounterReductionAverage", stats["DamageTakenCounterReduction"]));
+            stats.Add("DamageTakenCounterMod", new TotalStat("DamageTakenCounterMod"));
+            stats.Add("DamageTakenCounterModAverage", new AverageStat("DamageTakenCounterModAverage", stats["DamageTakenCounterMod"]));
             stats.Add("DamageTakenBlock", new CounterStat("DamageTakenBlock"));
             stats.Add("DamageTakenBlockPercent", new PercentStat("DamageTakenBlockPercent", stats["DamageTakenBlock"], stats["TotalDamageTakenActionsUsed"]));
-            stats.Add("DamageTakenBlockReduction", new TotalStat("DamageTakenBlockReduction"));
-            stats.Add("DamageTakenBlockReductionAverage", new AverageStat("DamageTakenBlockReductionAverage", stats["DamageTakenBlockReduction"]));
+            stats.Add("DamageTakenBlockMod", new TotalStat("DamageTakenBlockMod"));
+            stats.Add("DamageTakenBlockModAverage", new AverageStat("DamageTakenBlockModAverage", stats["DamageTakenBlockMod"]));
             stats.Add("DamageTakenParry", new CounterStat("DamageTakenParry"));
             stats.Add("DamageTakenParryPercent", new PercentStat("DamageTakenParryPercent", stats["DamageTakenParry"], stats["TotalDamageTakenActionsUsed"]));
-            stats.Add("DamageTakenParryReduction", new TotalStat("DamageTakenParryReduction"));
-            stats.Add("DamageTakenParryReductionAverage", new AverageStat("DamageTakenParryReductionAverage", stats["DamageTakenParryReduction"]));
+            stats.Add("DamageTakenParryMod", new TotalStat("DamageTakenParryMod"));
+            stats.Add("DamageTakenParryModAverage", new AverageStat("DamageTakenParryModAverage", stats["DamageTakenParryMod"]));
             stats.Add("DamageTakenResist", new CounterStat("DamageTakenResist"));
             stats.Add("DamageTakenResistPercent", new PercentStat("DamageTakenResistPercent", stats["DamageTakenResist"], stats["TotalDamageTakenActionsUsed"]));
-            stats.Add("DamageTakenResistReduction", new TotalStat("DamageTakenResistReduction"));
-            stats.Add("DamageTakenResistReductionAverage", new AverageStat("DamageTakenResistReductionAverage", stats["DamageTakenResistReduction"]));
+            stats.Add("DamageTakenResistMod", new TotalStat("DamageTakenResistMod"));
+            stats.Add("DamageTakenResistModAverage", new AverageStat("DamageTakenResistModAverage", stats["DamageTakenResistMod"]));
             stats.Add("DamageTakenEvade", new CounterStat("DamageTakenEvade"));
             stats.Add("DamageTakenEvadePercent", new PercentStat("DamageTakenEvadePercent", stats["DamageTakenEvade"], stats["TotalDamageTakenActionsUsed"]));
-            stats.Add("DamageTakenEvadeReduction", new TotalStat("DamageTakenEvadeReduction"));
-            stats.Add("DamageTakenEvadeReductionAverage", new AverageStat("DamageTakenEvadeReductionAverage", stats["DamageTakenEvadeReduction"]));
+            stats.Add("DamageTakenEvadeMod", new TotalStat("DamageTakenEvadeMod"));
+            stats.Add("DamageTakenEvadeModAverage", new AverageStat("DamageTakenEvadeModAverage", stats["DamageTakenEvadeMod"]));
 
             return stats;
         }

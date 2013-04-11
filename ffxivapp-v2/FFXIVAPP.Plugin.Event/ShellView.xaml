@@ -25,7 +25,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Plugin.Event;component/Media/Images/Main.png"
-                           ToolTip="{Binding Locale[app_main],
+                           ToolTip="{Binding Locale[app_MainToolTip],
                                              Source={StaticResource PluginViewModel}}" />
                 </TabItem.Header>
                 <Views:MainView x:Name="MainV" />
@@ -35,7 +35,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Plugin.Event;component/Media/Images/Settings.png"
-                           ToolTip="{Binding Locale[app_settings],
+                           ToolTip="{Binding Locale[app_SettingsToolTip],
                                              Source={StaticResource PluginViewModel}}" />
                 </TabItem.Header>
                 <Views:SettingsView x:Name="SettingsV" />
@@ -45,7 +45,7 @@
                     <Image Width="20"
                            Height="20"
                            Source="/FFXIVAPP.Plugin.Event;component/Media/Images/About.png"
-                           ToolTip="{Binding Locale[app_about],
+                           ToolTip="{Binding Locale[app_AboutToolTip],
                                              Source={StaticResource PluginViewModel}}" />
                 </TabItem.Header>
                 <Views:AboutView x:Name="AboutV" />
