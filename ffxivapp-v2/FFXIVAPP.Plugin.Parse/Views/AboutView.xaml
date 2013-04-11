@@ -123,13 +123,13 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <Label Content="{Binding Locale[app_descriptionlabel],
+                                <Label Content="{Binding Locale[app_DescriptionLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_copyrightlabel],
+                                <Label Content="{Binding Locale[app_CopyrightLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_versionlabel],
+                                <Label Content="{Binding Locale[app_VersionLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
                             </StackPanel>

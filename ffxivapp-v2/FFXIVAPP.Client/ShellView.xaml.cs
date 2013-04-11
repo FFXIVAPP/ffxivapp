@@ -68,8 +68,8 @@ namespace FFXIVAPP.Client
                 Application.Current.Shutdown();
             }
             var popupContent = new PopupContent();
-            popupContent.Title = AppViewModel.Instance.Locale["app_informationpopuptitle"];
-            popupContent.Message = AppViewModel.Instance.Locale["app_savehistorypopupmessage"];
+            popupContent.Title = AppViewModel.Instance.Locale["app_InformationMessage"];
+            popupContent.Message = AppViewModel.Instance.Locale["app_SaveHistoryMessage"];
             popupContent.CanSayNo = true;
             PopupHelper.Toggle(popupContent);
             EventHandler closedDelegate = null;

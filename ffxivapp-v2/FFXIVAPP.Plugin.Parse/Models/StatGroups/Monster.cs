@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+using FFXIVAPP.Plugin.Parse.Monitors;
 
 #endregion
 
@@ -54,23 +55,23 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("TotalOverallDrops", TotalOverallDrops);
             stats.Add("TotalKilled", TotalKilled);
             stats.Add("AverageHP", new NumericStat("AverageHP"));
-            
-            stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
-            stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
-            stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
-            stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
-            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamageTaken"]));
-            stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
-            stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
-            stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
-            stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
-            stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
-            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
-            stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
-            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["DamageTakenRegHit"]));
-            stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
-            stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
-            stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));
+
+            //setup monster damage taken stats
+            var damageTakenStats = DamageTakenStats();
+            foreach (var damageTakenStat in damageTakenStats)
+            {
+                stats.Add(damageTakenStat.Key, damageTakenStat.Value);
+            }
+
+            //link to main monster stats
+            StatMonitor.TotalOverallDamageTakenMonster.AddDependency(stats["TotalOverallDamageTaken"]);
+            StatMonitor.RegularDamageTakenMonster.AddDependency(stats["RegularDamageTaken"]);
+            StatMonitor.CriticalDamageTakenMonster.AddDependency(stats["CriticalDamageTaken"]);
+
+            //setup global "percent of" stats
+            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTakenMonster));
+            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTakenMonster));
+            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTakenMonster));
 
             return stats.Select(s => s.Value)
                         .ToList();
@@ -79,7 +80,36 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> DamageStatList()
+        private IEnumerable<Stat<decimal>> DamageTakenStatList()
+        {
+            var stats = DamageTakenStats();
+
+            //setup per damage taken "percent of" stats
+            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Stats.GetStat("TotalOverallDamageTaken")));
+            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Stats.GetStat("RegularDamageTaken")));
+            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Stats.GetStat("CriticalDamageTaken")));
+
+            return stats.Select(s => s.Value)
+                        .ToList();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <returns> </returns>
+        private IEnumerable<Stat<decimal>> DropStatList()
+        {
+            var stats = new Dictionary<string, Stat<decimal>>();
+            
+            stats.Add("TotalDrops", new CounterStat("TotalDrops"));
+            stats.Add("DropPercent", new PercentStat("DropPercent", stats["TotalDrops"], TotalKilled));
+
+            TotalOverallDrops.AddDependency(stats["TotalDrops"]);
+
+            return stats.Select(s => s.Value)
+                        .ToList();
+        }
+
+        private static Dictionary<string, Stat<decimal>> DamageTakenStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -87,7 +117,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
             stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
             stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
-            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamageTaken"]));
+            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
             stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
             stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
@@ -95,7 +125,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
             stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));
-            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["DamageTakenRegHit"]));
+            stats.Add("DamageTakenCritPercent", new PercentStat("DamageTakenCritPercent", stats["DamageTakenCritHit"], stats["TotalDamageTakenActionsUsed"]));
             stats.Add("DamageTakenCritLow", new MinStat("DamageTakenCritLow", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritHigh", new MaxStat("DamageTakenCritHigh", stats["CriticalDamageTaken"]));
             stats.Add("DamageTakenCritAverage", new AverageStat("DamageTakenCritAverage", stats["CriticalDamageTaken"]));
@@ -121,24 +151,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenEvadeReduction", new TotalStat("DamageTakenEvadeReduction"));
             stats.Add("DamageTakenEvadeReductionAverage", new AverageStat("DamageTakenEvadeReductionAverage", stats["DamageTakenEvadeReduction"]));
 
-            return stats.Select(s => s.Value)
-                        .ToList();
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> DropStatList()
-        {
-            var stats = new Dictionary<string, Stat<decimal>>();
-            
-            stats.Add("TotalDrops", new CounterStat("TotalDrops"));
-            stats.Add("DropPercent", new PercentStat("DropPercent", stats["TotalDrops"], TotalKilled));
-
-            TotalOverallDrops.AddDependency(stats["TotalDrops"]);
-
-            return stats.Select(s => s.Value)
-                        .ToList();
+            return stats;
         }
     }
 }

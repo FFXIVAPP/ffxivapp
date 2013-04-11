@@ -99,7 +99,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var reduction = Math.Abs((line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount);
+                var reduction = (line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount;
                 var reductionStat = String.Format("Damage{0}Reduction", stat.Name);
                 Stats.IncrementStat(reductionStat, reduction);
                 subAbilityGroup.Stats.IncrementStat(reductionStat, reduction);

@@ -23,12 +23,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             var fields = line.GetType()
                              .GetProperties();
-            var damageGroup = GetGroup("DamageTakenByAction");
+            var damageGroup = GetGroup("DamageTakenByMonsters");
             StatGroup subMonsterGroup;
             if (!damageGroup.TryGetGroup(line.Source, out subMonsterGroup))
             {
                 subMonsterGroup = new StatGroup(line.Source);
-                subMonsterGroup.Stats.AddStats(DamageStatList(null));
+                subMonsterGroup.Stats.AddStats(DamageTakenStatList(null));
                 damageGroup.AddGroup(subMonsterGroup);
             }
             var abilities = subMonsterGroup.GetGroup("DamageTakenByMonsterByAction");
@@ -36,7 +36,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (!abilities.TryGetGroup(line.Action, out subMonsterAbilityGroup))
             {
                 subMonsterAbilityGroup = new StatGroup(line.Action);
-                subMonsterAbilityGroup.Stats.AddStats(DamageStatList(subMonsterGroup, true));
+                subMonsterAbilityGroup.Stats.AddStats(DamageTakenStatList(subMonsterGroup, true));
                 abilities.AddGroup(subMonsterAbilityGroup);
             }
             Stats.IncrementStat("TotalDamageTakenActionsUsed");
@@ -83,7 +83,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var reduction = Math.Abs((line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount);
+                var reduction = (line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount;
                 var reductionStat = String.Format("DamageTaken{0}Reduction", stat.Name);
                 Stats.IncrementStat(reductionStat, reduction);
                 subMonsterGroup.Stats.IncrementStat(reductionStat, reduction);

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             DataContext="{Binding Source={StaticResource AboutViewModel}}"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource AboutViewModel}}"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -69,7 +69,7 @@
                                    VerticalAlignment="Bottom"
                                    Padding="0"
                                    Style="{StaticResource NameHeaderStyle}"
-                                   Text="{Binding Locale[app_versioninformation],
+                                   Text="{Binding Locale[app_VersionHeader],
                                                   Source={StaticResource AppProperties}}" />
                     </DockPanel>
                     <DockPanel />
@@ -95,10 +95,10 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <Label Content="{Binding Locale[app_latestversionlabel],
+                                <Label Content="{Binding Locale[app_LatestLabel],
                                                          Source={StaticResource AppProperties}}"
                                        Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_currentversionlabel],
+                                <Label Content="{Binding Locale[app_CurrentLabel],
                                                          Source={StaticResource AppProperties}}"
                                        Style="{StaticResource LabelStyle}" />
                             </StackPanel>

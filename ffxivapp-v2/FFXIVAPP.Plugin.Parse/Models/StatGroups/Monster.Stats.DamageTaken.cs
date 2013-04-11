@@ -28,7 +28,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (!abilityGroup.TryGetGroup(line.Action, out subGroup))
             {
                 subGroup = new StatGroup(line.Action);
-                subGroup.Stats.AddStats(DamageStatList());
+                subGroup.Stats.AddStats(DamageTakenStatList());
                 abilityGroup.AddGroup(subGroup);
 
             }
@@ -68,7 +68,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var reduction = Math.Abs((line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount);
+                var reduction = (line.Amount * (line.Amount / (100 + line.Modifier))) - line.Amount;
                 var reductionStat = String.Format("DamageTaken{0}Reduction", stat.Name);
                 Stats.IncrementStat(reductionStat, reduction);
                 subGroup.Stats.IncrementStat(reductionStat, reduction);

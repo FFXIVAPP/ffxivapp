@@ -147,13 +147,13 @@
                         <StackPanel x:Name="StatNamesPanel"
                                     Grid.Column="0"
                                     HorizontalAlignment="Left">
-                            <Label Content="{Binding Locale[parse_overalldamagelabel],
+                            <Label Content="{Binding Locale[parse_OverallDamageLabel],
                                                      Source={StaticResource PluginViewModel}}"
                                    Style="{StaticResource StatLabelStyle}" />
-                            <Label Content="{Binding Locale[parse_accuracylabel],
+                            <Label Content="{Binding Locale[parse_OverallAccuracyLabel],
                                                      Source={StaticResource PluginViewModel}}"
                                    Style="{StaticResource StatLabelStyle}" />
-                            <Label Content="{Binding Locale[parse_criticalpercentlabel],
+                            <Label Content="{Binding Locale[parse_OverallCriticalPercentLabel],
                                                      Source={StaticResource PluginViewModel}}"
                                    Style="{StaticResource StatLabelStyle}" />
                         </StackPanel>

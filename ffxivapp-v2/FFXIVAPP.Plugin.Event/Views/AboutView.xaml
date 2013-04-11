@@ -2,11 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Event="clr-namespace:FFXIVAPP.Plugin.Event"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Event.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Event.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -124,13 +124,13 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <Label Content="{Binding Locale[app_descriptionlabel],
+                                <Label Content="{Binding Locale[app_DescriptionLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_copyrightlabel],
+                                <Label Content="{Binding Locale[app_CopyrightLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_versionlabel],
+                                <Label Content="{Binding Locale[app_VersionLabel],
                                                          Source={StaticResource PluginViewModel}}"
                                        Style="{StaticResource LabelStyle}" />
                             </StackPanel>

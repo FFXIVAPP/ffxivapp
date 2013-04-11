@@ -24,39 +24,39 @@
           DataContext="{StaticResource SettingsViewModel}">
         <TabControl x:Name="SettingsViewTC">
             <TabItem x:Name="SettingsTabsTI"
-                     Header="{Binding Locale[app_tabsettings],
+                     Header="{Binding Locale[app_TabSettingsTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[parse_showabilitychattab],
+                        <GroupBox Header="{Binding Locale[parse_ShowActionLogHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowAbilityChatTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_showpartytab],
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowPartyTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_showhealingtab],
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyHealingHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowHealingTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_showdamagetab],
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageTakenHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowDamageTab,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_showmonstertab],
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageTakenHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ShowMonsterTab,
@@ -67,11 +67,11 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem x:Name="SettingsOtherTI"
-                     Header="{Binding Locale[parse_otheroptions],
+                     Header="{Binding Locale[app_OtherOptionsHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[parse_uploadparse],
+                        <GroupBox Header="{Binding Locale[parse_UploadParseHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding UploadParse,
@@ -79,7 +79,7 @@
                                                        IsEnabled="False" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_exportxml],
+                        <GroupBox Header="{Binding Locale[parse_ExportXMLHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding ExportXML,

@@ -27,7 +27,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subAbilityGroup.Stats.AddStats(HealingStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
-            var playerGroup = GetGroup("HealingToPlayer");
+            var playerGroup = GetGroup("HealingToPlayers");
             StatGroup subPlayerGroup;
             if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup))
             {
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subPlayerGroup.Stats.AddStats(HealingStatList(null));
                 playerGroup.AddGroup(subPlayerGroup);
             }
-            var abilities = subPlayerGroup.GetGroup("HealingToPlayerByAction");
+            var abilities = subPlayerGroup.GetGroup("HealingToPlayersByAction");
             StatGroup subPlayerAbilityGroup;
             if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup))
             {

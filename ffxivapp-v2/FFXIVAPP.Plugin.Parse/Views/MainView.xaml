@@ -31,25 +31,25 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
-            <TabItem Header="{Binding Locale[parse_basictab],
+            <TabItem Header="{Binding Locale[parse_BasicTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <Views:ParseBasicView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_abilitychattab],
+            <TabItem Header="{Binding Locale[parse_ActionLogTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowAbilityChatTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
                 <Controls:xFlowDocument x:Name="AbilityChatFD" />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_partytab],
+            <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowPartyTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
                 <Views:ParsePartyView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_healingtab],
+            <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowHealingTab,
                                           Source={StaticResource Settings},
@@ -57,14 +57,14 @@
 
                 <Views:ParseHealingView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_damagetab],
+            <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowDamageTab,
                                           Source={StaticResource Settings},
                                           Converter={StaticResource VisibilityConverter}}">
                 <Views:ParseDamageView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_monstertab],
+            <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowMonsterTab,
                                           Source={StaticResource Settings},
@@ -77,7 +77,7 @@
                    LastChildFill="True">
             <Button Width="28"
                     Command="{Binding ResetStatsCommand}"
-                    ToolTip="{Binding Locale[parse_resetstats],
+                    ToolTip="{Binding Locale[parse_ResetStatsToolTip],
                                       Source={StaticResource PluginViewModel}}">
                 <Image Width="16"
                        Height="16"

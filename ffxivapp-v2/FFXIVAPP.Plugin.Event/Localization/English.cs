@@ -22,13 +22,13 @@ namespace FFXIVAPP.Plugin.Event.Localization
         public static ResourceDictionary Context()
         {
             Dictionary.Clear();
-            Dictionary.Add("event_", "PLACEHOLDER");
-            Dictionary.Add("event_addupdateevent", "Add Or Update Event");
-            Dictionary.Add("event_regex", "RegEx");
-            Dictionary.Add("event_regexlabel", "RegEx:");
-            Dictionary.Add("event_sample", "The scout vulture readies Wing Cutter.");
-            Dictionary.Add("event_sound", "Sound");
-            Dictionary.Add("event_soundlabel", "Sound:");
+            Dictionary.Add("event_PLACEHOLDER", "*PH*");
+            Dictionary.Add("event_AddUpdateEventButtonText", "Add Or Update Event");
+            Dictionary.Add("event_RegExHeader", "RegEx");
+            Dictionary.Add("event_RegExLabel", "RegEx:");
+            Dictionary.Add("event_SampleText", "The scout vulture readies Wing Cutter.");
+            Dictionary.Add("event_SoundHeader", "Sound");
+            Dictionary.Add("event_SoundLabel", "Sound:");
             return Dictionary;
         }
     }
