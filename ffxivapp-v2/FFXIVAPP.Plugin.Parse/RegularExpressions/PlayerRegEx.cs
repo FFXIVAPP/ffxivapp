@@ -55,7 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex ItemsFr = new Regex(@"^(?<source>Vous|.+) utilisez? une? (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex CureFr = new Regex(@"^( ⇒ )?(?<crit>Critique ?! )?(?<source>Vous|.+) récupérez? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex CureFr = new Regex(@"^( ⇒ )?(?<crit>Critique ?! )?(?<target>Vous|.+) récupérez? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex BeneficialGainFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
