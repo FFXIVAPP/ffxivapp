@@ -47,7 +47,7 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex FailedAutoFr = new Regex(@"^(?! ⇒)(L[aes] |[LEAD]')?(?<source>.+) ((?<target>vous) manque|manquez? (?<target>.+))\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ActionsFr = new Regex(@"^(L[aes] |[LEAD]')?(?<source>.+) (utilisez?|lance) (?<action>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex ActionsFr = new Regex(@"^(L[aes] |[LEAD]')?(?<source>.+) (utilise|lance)z? (?<action>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ItemsFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
