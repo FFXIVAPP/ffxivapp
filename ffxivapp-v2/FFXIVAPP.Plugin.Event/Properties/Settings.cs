@@ -41,6 +41,7 @@ namespace FFXIVAPP.Plugin.Event.Properties
             if (Constants.Settings.Count == 0)
             {
             }
+            DefaultSettings();
             foreach (var item in Constants.Settings)
             {
                 try
@@ -78,11 +79,22 @@ namespace FFXIVAPP.Plugin.Event.Properties
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }
 
+        private void DefaultSettings()
+        {
+            Constants.Settings.Clear();
+        }
+
         public new void Reset()
         {
+            DefaultSettings();
             foreach (var key in Constants.Settings)
             {
-                var value = Default.Properties[key].DefaultValue.ToString();
+                var settingsProperty = Default.Properties[key];
+                if (settingsProperty == null)
+                {
+                    continue;
+                }
+                var value = settingsProperty.DefaultValue.ToString();
                 SetValue(key, value);
             }
         }

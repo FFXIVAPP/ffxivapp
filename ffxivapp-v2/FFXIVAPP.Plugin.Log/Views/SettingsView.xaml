@@ -175,35 +175,35 @@
                         <GroupBox Header="{Binding Locale[log_TranslateSayHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding TSay,
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateSay,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_TranslateTellHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding TTell,
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateTell,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_TranslatePartyHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding TParty,
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateParty,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_TranslateLSHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding TLS,
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateLS,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_TranslateShoutHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
-                                <Controls:ToggleSwitch IsChecked="{Binding TShout,
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateShout,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>

@@ -38,26 +38,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         public override void Save()
         {
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0)
-            {
-                Constants.Settings.Add("ExportXML");
-                Constants.Settings.Add("UploadParse");
-                Constants.Settings.Add("ShowActionLogTab");
-                Constants.Settings.Add("ShowPartyDamageTab");
-                Constants.Settings.Add("ShowPartyHealingTab");
-                Constants.Settings.Add("ShowPartyDamageTakenTab");
-                Constants.Settings.Add("ShowMonsterDamageTakenTab");
-                Constants.Settings.Add("PlayerDamageByAction");
-                Constants.Settings.Add("PlayerDamageToMonsters");
-                Constants.Settings.Add("PlayerDamageToMonstersByAction");
-                Constants.Settings.Add("PlayerHealingByAction");
-                Constants.Settings.Add("PlayerHealingToPlayers");
-                Constants.Settings.Add("PlayerHealingToPlayersByAction");
-                Constants.Settings.Add("PlayerDamageTakenByMonsters");
-                Constants.Settings.Add("PlayerDamageTakenByMonstersByAction");
-                Constants.Settings.Add("MonsterDamageTakenByAction");
-                Constants.Settings.Add("MonsterDrops");
-            }
+            DefaultSettings();
             foreach (var item in Constants.Settings)
             {
                 try
@@ -82,11 +63,39 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }
 
+        private void DefaultSettings()
+        {
+            Constants.Settings.Clear();
+            Constants.Settings.Add("ExportXML");
+            Constants.Settings.Add("UploadParse");
+            Constants.Settings.Add("ShowActionLogTab");
+            Constants.Settings.Add("ShowPartyDamageTab");
+            Constants.Settings.Add("ShowPartyHealingTab");
+            Constants.Settings.Add("ShowPartyDamageTakenTab");
+            Constants.Settings.Add("ShowMonsterDamageTakenTab");
+            Constants.Settings.Add("PlayerDamageByAction");
+            Constants.Settings.Add("PlayerDamageToMonsters");
+            Constants.Settings.Add("PlayerDamageToMonstersByAction");
+            Constants.Settings.Add("PlayerHealingByAction");
+            Constants.Settings.Add("PlayerHealingToPlayers");
+            Constants.Settings.Add("PlayerHealingToPlayersByAction");
+            Constants.Settings.Add("PlayerDamageTakenByMonsters");
+            Constants.Settings.Add("PlayerDamageTakenByMonstersByAction");
+            Constants.Settings.Add("MonsterDamageTakenByAction");
+            Constants.Settings.Add("MonsterDrops");
+        }
+
         public new void Reset()
         {
+            DefaultSettings();
             foreach (var key in Constants.Settings)
             {
-                var value = Default.Properties[key].DefaultValue.ToString();
+                var settingsProperty = Default.Properties[key];
+                if (settingsProperty == null)
+                {
+                    continue;
+                }
+                var value = settingsProperty.DefaultValue.ToString();
                 SetValue(key, value);
             }
         }

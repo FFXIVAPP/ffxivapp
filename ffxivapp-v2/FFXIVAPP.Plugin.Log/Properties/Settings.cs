@@ -65,24 +65,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
                 XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Tab", xKey, keyPairList);
             }
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0)
-            {
-                Constants.Settings.Add("EnableDebug");
-                Constants.Settings.Add("ShowASCIIDebug");
-                Constants.Settings.Add("EnableTranslate");
-                Constants.Settings.Add("SendToEcho");
-                Constants.Settings.Add("SendToGame");
-                Constants.Settings.Add("SendRomanization");
-                Constants.Settings.Add("TranslateTo");
-                Constants.Settings.Add("ManualTranslate");
-                Constants.Settings.Add("TranslateJPOnly");
-                Constants.Settings.Add("TSay");
-                Constants.Settings.Add("TTell");
-                Constants.Settings.Add("TParty");
-                Constants.Settings.Add("TLS");
-                Constants.Settings.Add("TShout");
-                Constants.Settings.Add("Zoom");
-            }
+            DefaultSettings();
             foreach (var item in Constants.Settings)
             {
                 try
@@ -107,11 +90,37 @@ namespace FFXIVAPP.Plugin.Log.Properties
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }
 
+        private void DefaultSettings()
+        {
+            Constants.Settings.Clear();
+            Constants.Settings.Add("EnableDebug");
+            Constants.Settings.Add("ShowASCIIDebug");
+            Constants.Settings.Add("EnableTranslate");
+            Constants.Settings.Add("SendToEcho");
+            Constants.Settings.Add("SendToGame");
+            Constants.Settings.Add("SendRomanization");
+            Constants.Settings.Add("TranslateTo");
+            Constants.Settings.Add("ManualTranslate");
+            Constants.Settings.Add("TranslateJPOnly");
+            Constants.Settings.Add("TranslateSay");
+            Constants.Settings.Add("TranslateTell");
+            Constants.Settings.Add("TranslateParty");
+            Constants.Settings.Add("TranslateLS");
+            Constants.Settings.Add("TranslateShout");
+            Constants.Settings.Add("Zoom");
+        }
+
         public new void Reset()
         {
+            DefaultSettings();
             foreach (var key in Constants.Settings)
             {
-                var value = Default.Properties[key].DefaultValue.ToString();
+                var settingsProperty = Default.Properties[key];
+                if (settingsProperty == null)
+                {
+                    continue;
+                }
+                var value = settingsProperty.DefaultValue.ToString();
                 SetValue(key, value);
             }
         }
@@ -316,12 +325,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TSay
+        public bool TranslateSay
         {
-            get { return ((bool) (this["TSay"])); }
+            get { return ((bool) (this["TranslateSay"])); }
             set
             {
-                this["TSay"] = value;
+                this["TranslateSay"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -329,12 +338,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TTell
+        public bool TranslateTell
         {
-            get { return ((bool) (this["TTell"])); }
+            get { return ((bool) (this["TranslateTell"])); }
             set
             {
-                this["TTell"] = value;
+                this["TranslateTell"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -342,12 +351,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TParty
+        public bool TranslateParty
         {
-            get { return ((bool) (this["TParty"])); }
+            get { return ((bool) (this["TranslateParty"])); }
             set
             {
-                this["TParty"] = value;
+                this["TranslateParty"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -355,12 +364,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TLS
+        public bool TranslateLS
         {
-            get { return ((bool) (this["TLS"])); }
+            get { return ((bool) (this["TranslateLS"])); }
             set
             {
-                this["TLS"] = value;
+                this["TranslateLS"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -368,12 +377,12 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TShout
+        public bool TranslateShout
         {
-            get { return ((bool) (this["TShout"])); }
+            get { return ((bool) (this["TranslateShout"])); }
             set
             {
-                this["TShout"] = value;
+                this["TranslateShout"] = value;
                 RaisePropertyChanged();
             }
         }

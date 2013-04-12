@@ -6,6 +6,7 @@ cd "..\build\Debug"
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.IPluginInterface.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip NLog.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip System.Windows.Interactivity.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Licenses\*.txt
@@ -31,6 +32,7 @@ cd "..\Release"
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.IPluginInterface.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip NLog.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip System.Windows.Interactivity.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Licenses\
@@ -56,6 +58,7 @@ cd "..\SmartAssembly"
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.IPluginInterface.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip NLog.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip System.Windows.Interactivity.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Licenses\*.txt

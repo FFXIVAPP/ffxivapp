@@ -213,23 +213,23 @@ namespace FFXIVAPP.Plugin.Log
                 var line = chatEntry.Line.Replace("  ", " ");
                 if (Settings.Default.EnableTranslate)
                 {
-                    if (CheckMode(chatEntry.Code, Common.Constants.ChatSay) && Settings.Default.TSay)
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatSay) && Settings.Default.TranslateSay)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
-                    if (CheckMode(chatEntry.Code, Common.Constants.ChatTell) && Settings.Default.TTell)
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatTell) && Settings.Default.TranslateTell)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
-                    if (CheckMode(chatEntry.Code, Common.Constants.ChatParty) && Settings.Default.TParty)
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatParty) && Settings.Default.TranslateParty)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
-                    if (CheckMode(chatEntry.Code, Common.Constants.ChatShout) && Settings.Default.TShout)
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatShout) && Settings.Default.TranslateShout)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
-                    if (CheckMode(chatEntry.Code, Common.Constants.ChatLS) && Settings.Default.TLS)
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatLS) && Settings.Default.TranslateLS)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
