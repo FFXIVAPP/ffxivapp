@@ -83,6 +83,13 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("PlayerDamageTakenByMonstersByAction");
             Constants.Settings.Add("MonsterDamageTakenByAction");
             Constants.Settings.Add("MonsterDrops");
+            Constants.Settings.Add("ShowCounterInfo");
+            Constants.Settings.Add("ShowBlockInfo");
+            Constants.Settings.Add("ShowParryInfo");
+            Constants.Settings.Add("ShowResistInfo");
+            Constants.Settings.Add("ShowEvadeInfo");
+            Constants.Settings.Add("ShowRegularModInfo");
+            Constants.Settings.Add("ShowCriticalModInfo");
         }
 
         public new void Reset()
@@ -410,6 +417,97 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["MonsterDrops"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowCounterInfo
+        {
+            get { return ((bool)(this["ShowCounterInfo"])); }
+            set
+            {
+                this["ShowCounterInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBlockInfo
+        {
+            get { return ((bool)(this["ShowBlockInfo"])); }
+            set
+            {
+                this["ShowBlockInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowParryInfo
+        {
+            get { return ((bool)(this["ShowParryInfo"])); }
+            set
+            {
+                this["ShowParryInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowResistInfo
+        {
+            get { return ((bool)(this["ShowResistInfo"])); }
+            set
+            {
+                this["ShowResistInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowEvadeInfo
+        {
+            get { return ((bool)(this["ShowEvadeInfo"])); }
+            set
+            {
+                this["ShowEvadeInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowRegularModInfo
+        {
+            get { return ((bool)(this["ShowRegularModInfo"])); }
+            set
+            {
+                this["ShowRegularModInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowCriticalModInfo
+        {
+            get { return ((bool)(this["ShowCriticalModInfo"])); }
+            set
+            {
+                this["ShowCriticalModInfo"] = value;
                 RaisePropertyChanged();
             }
         }

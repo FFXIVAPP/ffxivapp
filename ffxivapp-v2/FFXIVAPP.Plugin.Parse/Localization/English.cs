@@ -164,6 +164,14 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_TotalDropsHeader", "Total");
             Dictionary.Add("parse_DropPercentHeader", "Drop %");
             Dictionary.Add("parse_ResetStatsMessage", "Do you wish to reset and remove all current stats?");
+            Dictionary.Add("parse_ShowCounterInfoHeader", "Show Counter Information");
+            Dictionary.Add("parse_ShowBlockInfoHeader", "Show Block Information");
+            Dictionary.Add("parse_ShowParryInfoHeader", "Show Parry Information");
+            Dictionary.Add("parse_ShowResistInfoHeader", "Show Resist Information");
+            Dictionary.Add("parse_ShowEvadeInfoHeader", "Show Evade Information");
+            Dictionary.Add("parse_ShowRegularModInfoHeader", "Show Regular Modifier Information");
+            Dictionary.Add("parse_ShowCriticalModInfoHeader", "Show Critical Modifier Information");
+            Dictionary.Add("parse_DataDisplaySettingsTabHeader", "Data Display Settings");
             return Dictionary;
         }
     }

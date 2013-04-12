@@ -68,7 +68,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_VersionLabel", "Version:");
             Dictionary.Add("app_WarningMessage", "Warning!");
             Dictionary.Add("app_YesButtonText", "Yes");
-            Dictionary.Add("app_OtherOptionsHeader", "Other Options");
+            Dictionary.Add("app_OtherOptionsTabHeader", "Other Options");
             return Dictionary;
         }
     }

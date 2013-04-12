@@ -67,7 +67,7 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem x:Name="SettingsOtherTI"
-                     Header="{Binding Locale[app_OtherOptionsHeader],
+                     Header="{Binding Locale[app_OtherOptionsTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <ScrollViewer>
                     <StackPanel>
@@ -85,6 +85,63 @@
                                 <Controls:ToggleSwitch IsChecked="{Binding ExportXML,
                                                                            Source={StaticResource Settings}}"
                                                        IsEnabled="False" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsDataDisplayTI"
+                     Header="{Binding Locale[parse_DataDisplaySettingsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_ShowCounterInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowCounterInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowBlockInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowBlockInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowParryInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowParryInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowResistInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowResistInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowEvadeInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowEvadeInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowRegularModInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowRegularModInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowCriticalModInfoHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding ShowCriticalModInfo,
+                                                                           Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
