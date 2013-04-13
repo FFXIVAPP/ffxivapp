@@ -426,7 +426,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowCounterInfo
         {
-            get { return ((bool)(this["ShowCounterInfo"])); }
+            get { return ((bool) (this["ShowCounterInfo"])); }
             set
             {
                 this["ShowCounterInfo"] = value;
@@ -439,7 +439,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowBlockInfo
         {
-            get { return ((bool)(this["ShowBlockInfo"])); }
+            get { return ((bool) (this["ShowBlockInfo"])); }
             set
             {
                 this["ShowBlockInfo"] = value;
@@ -452,7 +452,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowParryInfo
         {
-            get { return ((bool)(this["ShowParryInfo"])); }
+            get { return ((bool) (this["ShowParryInfo"])); }
             set
             {
                 this["ShowParryInfo"] = value;
@@ -465,7 +465,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowResistInfo
         {
-            get { return ((bool)(this["ShowResistInfo"])); }
+            get { return ((bool) (this["ShowResistInfo"])); }
             set
             {
                 this["ShowResistInfo"] = value;
@@ -478,7 +478,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowEvadeInfo
         {
-            get { return ((bool)(this["ShowEvadeInfo"])); }
+            get { return ((bool) (this["ShowEvadeInfo"])); }
             set
             {
                 this["ShowEvadeInfo"] = value;
@@ -491,7 +491,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowRegularModInfo
         {
-            get { return ((bool)(this["ShowRegularModInfo"])); }
+            get { return ((bool) (this["ShowRegularModInfo"])); }
             set
             {
                 this["ShowRegularModInfo"] = value;
@@ -504,7 +504,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("False")]
         public bool ShowCriticalModInfo
         {
-            get { return ((bool)(this["ShowCriticalModInfo"])); }
+            get { return ((bool) (this["ShowCriticalModInfo"])); }
             set
             {
                 this["ShowCriticalModInfo"] = value;

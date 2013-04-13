@@ -87,6 +87,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\EmptyListView.xaml.cs">
+      <DependentUpon>EmptyListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DamageTakenListView.xaml.cs">
+      <DependentUpon>DamageTakenListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HealingListView.xaml.cs">
+      <DependentUpon>HealingListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DamageListView.xaml.cs">
+      <DependentUpon>DamageListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
@@ -223,6 +235,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\EmptyListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DamageTakenListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\HealingListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DamageListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PlayerInfoBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

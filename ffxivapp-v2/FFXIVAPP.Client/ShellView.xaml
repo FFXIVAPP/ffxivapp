@@ -46,7 +46,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/Custom.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Converters:VisibilityConverter x:Key="VisibilityConverter" />
             <Converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />

@@ -81,6 +81,7 @@
     <Compile Include="Controls\xFlowDocument.xaml.cs">
       <DependentUpon>xFlowDocument.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanToWidthConverter.cs" />
     <Compile Include="Converters\IconConverter.cs" />
     <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Converters\StringToBrushConverter.cs" />
