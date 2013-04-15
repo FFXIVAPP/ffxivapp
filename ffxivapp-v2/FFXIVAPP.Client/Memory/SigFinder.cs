@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -63,34 +64,42 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        /// <param name="pointers"> </param>
-        public SigFinder(Process process, List<Pointers> pointers)
+        /// <param name="signatures"> </param>
+        public SigFinder(Process process, List<Signature> signatures)
         {
             _process = process;
-            LoadOffsets(pointers);
+            LoadOffsets(signatures);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="pointers"> </param>
-        private void LoadOffsets(List<Pointers> pointers)
+        /// <param name="signatures"> </param>
+        private void LoadOffsets(List<Signature> signatures)
         {
             Func<bool> d = delegate
             {
+                var sw = new Stopwatch();
+                sw.Start();
                 if (_process == null)
                 {
                     return false;
                 }
                 LoadRegions();
                 Locations = new Dictionary<string, uint>();
-                if (pointers.Any())
+                if (signatures.Any())
                 {
-                    foreach (var pointer in pointers)
-                    {
-                        Locations.Add(pointer.Key, (uint) (FindByteString(pointer.Value) + pointer.Offset));
-                    }
+                    //batch search testing
+                    FindByteStringBatchSearch(signatures);
+                    
+                    //handle pointers with old search
+                    //foreach (var pointer in pointers)
+                    //{
+                    //    Locations.Add(pointer.Name, (uint) (FindByteString(pointer.Pattern) + pointer.Offset));
+                    //}
                 }
                 _memDump = null;
+                sw.Stop();
+                Debug.Print("SigFinder Completion Time: " + sw.Elapsed.TotalSeconds.ToString(CultureInfo.InvariantCulture));
                 return true;
             };
             d.BeginInvoke(null, null);
@@ -251,6 +260,32 @@ namespace FFXIVAPP.Client.Memory
                 return -1;
             }
             return -1;
+        }
+
+        private void FindByteStringBatchSearch(IList<Signature> signatures)
+        {
+            foreach (var signature in signatures)
+            {
+                var search = signature.Value.Replace("([0-9|A-F][0-9|A-F])", "..")
+                                      .Replace("??", "..");
+                signature.RegularExpress = new Regex(search);
+            }
+            for (var i = 0; i < _regions.Count; i++)
+            {
+                _memDump = new MemoryHandler(_process, (uint) _regions[i].BaseAddress).GetByteArray(_regions[i].RegionSize);
+                var pattern = BitConverter.ToString(_memDump);
+                for (var k = signatures.Count - 1; k >= 0; k--)
+                {
+                    var match = signatures[k].RegularExpress.Match(pattern);
+                    if (!match.Success)
+                    {
+                        continue;
+                    }
+                    var pointerAddress = ((match.Index / 3) + _regions[i].BaseAddress);
+                    Locations.Add(signatures[k].Key, (uint) (pointerAddress + signatures[k].Offset));
+                    signatures.RemoveAt(k);
+                }
+            }
         }
 
         #region Implementation of INotifyPropertyChanged

@@ -46,7 +46,7 @@ namespace FFXIVAPP.Client
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
-            Initializer.SetPointers();
+            Initializer.SetSignatures();
             Initializer.StartLogging();
         }
 

@@ -22,7 +22,7 @@ namespace FFXIVAPP.Plugin.Event.Localization
         public static ResourceDictionary Context()
         {
             Dictionary.Clear();
-            Dictionary.Add("loc_", "*PH*");
+            Dictionary.Add("event_", "*PH*");
             return Dictionary;
         }
     }

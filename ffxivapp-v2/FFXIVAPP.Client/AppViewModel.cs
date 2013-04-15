@@ -35,9 +35,9 @@ namespace FFXIVAPP.Client
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private ObservableCollection<UIElement> _pluginTabItems;
-        private List<Pointers> _pointers;
         private string _screenShotsPath;
         private string _selected;
+        private List<Signature> _signatures;
         private Style _tabControlCollapsedHeader;
 
         public static AppViewModel Instance
@@ -196,12 +196,12 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public List<Pointers> Pointers
+        public List<Signature> Signatures
         {
-            get { return _pointers ?? (_pointers = new List<Pointers>()); }
+            get { return _signatures ?? (_signatures = new List<Signature>()); }
             set
             {
-                _pointers = value;
+                _signatures = value;
                 RaisePropertyChanged();
             }
         }

@@ -22,7 +22,7 @@ namespace FFXIVAPP.Plugin.Chat.Localization
         public static ResourceDictionary Context()
         {
             Dictionary.Clear();
-            Dictionary.Add("loc_", "*PH*");
+            Dictionary.Add("chat_", "*PH*");
             return Dictionary;
         }
     }

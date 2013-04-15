@@ -1,0 +1,765 @@
+﻿<StackPanel x:Class="FFXIVAPP.Plugin.Parse.Controls.BasicDisplaySettings"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+            xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+            xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties">
+
+    <StackPanel.Resources>
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+    </StackPanel.Resources>
+
+    <GroupBox Header="{Binding Locale[parse_ShowTotalOverallDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowRegularDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicRegularDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowCriticalDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowTotalDamageActionsUsedInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalDamageActionsUsed,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDPSInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDPS,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegMissInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegMiss,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegAccuracyInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegAccuracy,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageRegModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageRegModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCritModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCritModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCounterInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCounter,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCounterPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCounterPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCounterModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCounterMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageCounterModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageCounterModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageBlockInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageBlock,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageBlockPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageBlockPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageBlockModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageBlockMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageBlockModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageBlockModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageParryInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageParry,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageParryPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageParryPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageParryModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageParryMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageParryModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageParryModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageResistInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageResist,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageResistPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageResistPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageResistModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageResistMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageResistModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageResistModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageEvadeInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageEvade,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageEvadePercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageEvadePercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageEvadeModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageEvadeMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageEvadeModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageEvadeModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalDamageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalDamage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowRegularHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicRegularHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowCriticalHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowTotalHealingActionsUsedInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalHealingActionsUsed,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHPSInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHPS,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingRegModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingRegModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowHealingCritModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicHealingCritModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalHealingInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalHealing,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowTotalOverallDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowRegularDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicRegularDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowCriticalDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowTotalDamageTakenActionsUsedInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicTotalDamageTakenActionsUsed,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDTPSInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDTPS,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegMissInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegMiss,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegAccuracyInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegAccuracy,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenRegModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenRegModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritHitInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritHit,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritLowInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritLow,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritHighInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritHigh,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCritModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCritModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCounterInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCounter,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCounterPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCounterPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCounterModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCounterMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenCounterModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenCounterModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenBlockInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenBlock,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenBlockPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenBlockPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenBlockModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenBlockMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenBlockModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenBlockModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenParryInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenParry,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenParryPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenParryPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenParryModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenParryMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenParryModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenParryModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenResistInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenResist,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenResistPercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenResistPercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenResistModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenResistMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenResistModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenResistModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenEvadeInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenEvade,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenEvadePercentInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenEvadePercent,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenEvadeModInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenEvadeMod,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenEvadeModAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenEvadeModAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalDamageTakenInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalDamageTaken,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+
+</StackPanel>

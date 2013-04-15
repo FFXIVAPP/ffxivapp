@@ -204,15 +204,51 @@ namespace FFXIVAPP.Client
             updateCheck.BeginInvoke(null, null);
         }
 
-        public static void SetPointers()
+        public static void SetSignatures()
         {
-            var pointers = AppViewModel.Instance.Pointers;
-            pointers.Clear();
-            pointers.Add(new Pointers
+            var signatures = AppViewModel.Instance.Signatures;
+            signatures.Clear();
+            signatures.Add(new Signature
             {
                 Key = "CHATLOG",
                 Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000??????????????",
                 Offset = 92
+            });
+            signatures.Add(new Signature
+            {
+                Key = "CHARMAP",
+                Value = "FFFFFFFF??000000000000000000000000000000????????00000000DB0FC93F6F12833A00??????",
+                Offset = 40
+            });
+            signatures.Add(new Signature
+            {
+                Key = "NPCMAP",
+                Value = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000080BF000000",
+                Offset = 120
+            });
+            signatures.Add(new Signature
+            {
+                Key = "TARGET",
+                Value = "FFFFFFFF????????00000000????0000000000000000000000000000????????000000000000000000000000DB0FC93F6F12833A",
+                Offset = 248
+            });
+            signatures.Add(new Signature
+            {
+                Key = "RECAST",
+                Value = "0300000002000000010122200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC93F6F12833A0000000000000000????????000000000000000000000000",
+                Offset = 408
+            });
+            signatures.Add(new Signature
+            {
+                Key = "RECAST_WS",
+                Value = "0300000002000000010122200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC93F6F12833A0000000000000000????????000000000000000000000000",
+                Offset = 1228
+            });
+            signatures.Add(new Signature
+            {
+                Key = "AGRO",
+                Value = "FFFFFFFF??000000000000000000000000000000????????00000000DB0FC93F6F12833A00????????00????",
+                Offset = 3176
             });
         }
 
@@ -293,7 +329,7 @@ namespace FFXIVAPP.Client
                 return;
             }
             var process = Process.GetProcessById(id);
-            var offsets = new SigFinder(process, AppViewModel.Instance.Pointers);
+            var offsets = new SigFinder(process, AppViewModel.Instance.Signatures);
             _chatWorker = new ChatWorker(process, offsets);
             _chatWorker.StartLogging();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;

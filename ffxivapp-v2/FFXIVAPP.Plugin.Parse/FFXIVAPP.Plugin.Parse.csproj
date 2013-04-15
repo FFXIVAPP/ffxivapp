@@ -87,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\BasicDisplaySettings.xaml.cs">
+      <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColumnDisplaySettings.xaml.cs">
+      <DependentUpon>ColumnDisplaySettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmptyListView.xaml.cs">
       <DependentUpon>EmptyListView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +241,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\BasicDisplaySettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ColumnDisplaySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\EmptyListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

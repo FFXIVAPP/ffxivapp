@@ -164,6 +164,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             if (HasStat(name))
             {
                 stat = GetStat(name);
+                stat.Value = value;
             }
             else
             {

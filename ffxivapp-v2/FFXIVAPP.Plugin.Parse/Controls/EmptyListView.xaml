@@ -5,6 +5,7 @@
           xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
           xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
           xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+          MaxHeight="360"
           Utilities:GridViewSort.AutoSort="True"
           Utilities:GridViewSort.ShowSortGlyph="False">
 
