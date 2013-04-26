@@ -88,14 +88,11 @@ namespace FFXIVAPP.Client.Memory
                 Locations = new Dictionary<string, uint>();
                 if (signatures.Any())
                 {
-                    //batch search testing
-                    FindByteStringBatchSearch(signatures);
-                    
                     //handle pointers with old search
-                    //foreach (var pointer in pointers)
-                    //{
-                    //    Locations.Add(pointer.Name, (uint) (FindByteString(pointer.Pattern) + pointer.Offset));
-                    //}
+                    foreach (var signature in signatures)
+                    {
+                        Locations.Add(signature.Key, (uint)(FindByteString(signature.Value) + signature.Offset));
+                    }
                 }
                 _memDump = null;
                 sw.Stop();
@@ -260,32 +257,6 @@ namespace FFXIVAPP.Client.Memory
                 return -1;
             }
             return -1;
-        }
-
-        private void FindByteStringBatchSearch(IList<Signature> signatures)
-        {
-            foreach (var signature in signatures)
-            {
-                var search = signature.Value.Replace("([0-9|A-F][0-9|A-F])", "..")
-                                      .Replace("??", "..");
-                signature.RegularExpress = new Regex(search);
-            }
-            for (var i = 0; i < _regions.Count; i++)
-            {
-                _memDump = new MemoryHandler(_process, (uint) _regions[i].BaseAddress).GetByteArray(_regions[i].RegionSize);
-                var pattern = BitConverter.ToString(_memDump);
-                for (var k = signatures.Count - 1; k >= 0; k--)
-                {
-                    var match = signatures[k].RegularExpress.Match(pattern);
-                    if (!match.Success)
-                    {
-                        continue;
-                    }
-                    var pointerAddress = ((match.Index / 3) + _regions[i].BaseAddress);
-                    Locations.Add(signatures[k].Key, (uint) (pointerAddress + signatures[k].Offset));
-                    signatures.RemoveAt(k);
-                }
-            }
         }
 
         #region Implementation of INotifyPropertyChanged
