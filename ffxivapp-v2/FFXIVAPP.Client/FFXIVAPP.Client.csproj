@@ -218,6 +218,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Media\Images\Header.png" />
     <Resource Include="Resources\ChatCodes.xml">
       <SubType>Designer</SubType>
     </Resource>
@@ -234,7 +235,6 @@
     <Content Include="Licenses\License.NLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Media\Images\Header.png" />
     <Resource Include="Resources\Media\Images\License.png" />
     <None Include="app.config" />
     <None Include="app.manifest" />
