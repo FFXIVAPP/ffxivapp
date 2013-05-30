@@ -7,8 +7,10 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -20,6 +22,7 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using HtmlAgilityPack;
 using NLog;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -141,22 +144,42 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/version/?v={0}", current));
+                var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion"));
                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 request.Headers.Add("Accept-Language", "en;q=0.8");
+                request.ContentType = "application/json; charset=utf-8";
                 var response = (HttpWebResponse) request.GetResponse();
-                var s = response.GetResponseStream();
-                if (response.StatusCode != HttpStatusCode.OK || s == null)
+                var responseText = "";
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    try
+                    {
+                        responseText = streamReader.ReadToEnd();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+                if (response.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
                 {
                     AppViewModel.Instance.HasNewVersion = false;
                     AppViewModel.Instance.LatestVersion = "Unknown";
                 }
                 else
                 {
-                    var doc = new HtmlDocument();
-                    doc.Load(s);
-                    var iconNode = doc.DocumentNode.SelectSingleNode("//span[@id='version']");
-                    var latest = iconNode != null ? iconNode.InnerHtml : "Unknown";
+                    var jsonResult = JObject.Parse(responseText);
+                    var latest = jsonResult["Version"].ToString();
+                    var updateNotes = jsonResult["Notes"].ToList();
+                    try
+                    {
+                        foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
+                        {
+                            AppViewModel.Instance.UpdateNotes.Add(note);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     AppViewModel.Instance.LatestVersion = latest;
                     switch (latest)
                     {
