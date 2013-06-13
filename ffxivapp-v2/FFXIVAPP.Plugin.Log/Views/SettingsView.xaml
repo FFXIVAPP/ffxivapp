@@ -139,19 +139,17 @@
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToEcho,
-                                                                           Source={StaticResource Settings}}"
-                                                       IsEnabled="False" />
+                                                                           Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[log_SendToGameHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendToGame,
-                                                                           Source={StaticResource Settings}}"
-                                                       IsEnabled="False" />
+                                                                           Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[log_SendRomanizationHeader],
+                        <GroupBox Header="{Binding Locale[log_UseRomanizationHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding SendRomanization,

@@ -199,8 +199,7 @@
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding AllowPluginCommands,
-                                                                           Source={x:Static Properties:Settings.Default}}"
-                                                       IsEnabled="False" />
+                                                                           Source={x:Static Properties:Settings.Default}}" />
                                 <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                     <FlowDocument>
                                         <Paragraph Margin="0"

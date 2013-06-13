@@ -76,16 +76,14 @@
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding UploadParse,
-                                                                                Source={StaticResource Settings}}"
-                                                            IsEnabled="False" />
+                                                                                Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ExportXMLHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ExportXML,
-                                                                                Source={StaticResource Settings}}"
-                                                            IsEnabled="False" />
+                                                                                Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>

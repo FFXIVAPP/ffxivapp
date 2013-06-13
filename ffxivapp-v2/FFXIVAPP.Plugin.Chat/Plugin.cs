@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ using NLog;
 
 namespace FFXIVAPP.Plugin.Chat
 {
+    [Export(typeof(IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings

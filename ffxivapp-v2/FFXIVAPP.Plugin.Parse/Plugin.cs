@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -24,12 +25,14 @@ using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Utilities;
 using FFXIVAPP.Plugin.Parse.Views;
+using MahApps.Metro.Controls;
 using NLog;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Parse
 {
+    [Export(typeof(IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings
@@ -132,6 +135,15 @@ namespace FFXIVAPP.Plugin.Parse
             //do your gui stuff here
             //content gives you access to the base xaml
             return tabItem;
+        }
+
+        public UserControl CreateControl()
+        {
+            var content = new ShellView();
+            content.Loaded += ShellViewModel.Loaded;
+            //do your gui stuff here
+            //content gives you access to the base xaml
+            return content;
         }
 
         public void OnNewLine(out bool success, params object[] entry)

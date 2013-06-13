@@ -30,7 +30,7 @@ namespace FFXIVAPP.Plugin.Log.Localization
             Dictionary.Add("log_EnableDebugHeader", "Enable Debug");
             Dictionary.Add("log_EnableTranslateHeader", "Enable Translate");
             Dictionary.Add("log_RegExLabel", "RegEx:");
-            Dictionary.Add("log_SendRomanizationHeader", "Send Romanization");
+            Dictionary.Add("log_UseRomanizationHeader", "Use Romanization");
             Dictionary.Add("log_SendToEchoHeader", "Send To Echo");
             Dictionary.Add("log_SendToGameHeader", "Send To Game");
             Dictionary.Add("log_ShowASCIIDebugHeader", "Show ASCII Debug");

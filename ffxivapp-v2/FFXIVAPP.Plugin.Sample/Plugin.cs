@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ using NLog;
 
 namespace FFXIVAPP.Plugin.Sample
 {
+    [Export(typeof(IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings
@@ -126,6 +128,15 @@ namespace FFXIVAPP.Plugin.Sample
             //do your gui stuff here
             //content gives you access to the base xaml
             return tabItem;
+        }
+
+        public UserControl CreateControl()
+        {
+            var content = new ShellView();
+            content.Loaded += ShellViewModel.Loaded;
+            //do your gui stuff here
+            //content gives you access to the base xaml
+            return content;
         }
 
         public void OnNewLine(out bool success, params object[] entry)

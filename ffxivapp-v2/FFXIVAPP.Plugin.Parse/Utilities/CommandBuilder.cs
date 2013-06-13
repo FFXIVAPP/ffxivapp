@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         foreach (var stats in m.Where(s => s.Name == sub)
                                                .Select(r => r.Stats))
                         {
-                            results.Add(player.Name, (int) Math.Ceiling(stats.GetStatValue("Total")));
+                            results.Add(player.Name, (int)Math.Ceiling(stats.GetStatValue("TotalOverallDamageTaken")));
                         }
                     }
                     temp.AddRange(results.OrderByDescending(i => i.Value)
@@ -68,41 +68,41 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     {
                         case "ability":
 
-                            t = PluginViewModel.Instance.Locale["parse_partytab"];
+                            t = PluginViewModel.Instance.Locale["parse_PartyDamageTabHeader"];
                             temp = new List<string>
                             {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
-                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("Total"))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallDamage"))
                                                        .Take(limit))
                             {
-                                var amount = Math.Ceiling(item.Stats.GetStatValue("Total"));
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallDamage"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
                             }
                             break;
                         case "healing":
-                            t = PluginViewModel.Instance.Locale["parse_healingtab"];
+                            t = PluginViewModel.Instance.Locale["parse_PartyHealingTabHeader"];
                             temp = new List<string>
                             {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
-                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("HTotal"))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallHealing"))
                                                        .Take(limit))
                             {
-                                var amount = Math.Ceiling(item.Stats.GetStatValue("HTotal"));
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallHealing"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
                             }
                             break;
                         case "damage":
-                            t = PluginViewModel.Instance.Locale["parse_damagetab"];
+                            t = PluginViewModel.Instance.Locale["parse_PartyDamageTakenTabHeader"];
                             temp = new List<string>
                             {
                                 String.Format("/{0} * {1} *", cm, t)
                             };
-                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("DTTotal"))
+                            foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallDamageTaken"))
                                                        .Take(limit))
                             {
-                                var amount = Math.Ceiling(item.Stats.GetStatValue("DTTotal"));
+                                var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallDamageTaken"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
                             }
                             break;

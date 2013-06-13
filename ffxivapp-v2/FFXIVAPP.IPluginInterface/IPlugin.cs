@@ -32,6 +32,7 @@ namespace FFXIVAPP.IPluginInterface
         void Initialize();
         void Dispose();
         TabItem CreateTab();
+        UserControl CreateControl();
         void OnNewLine(out bool success, params object[] entry);
     }
 }

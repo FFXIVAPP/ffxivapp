@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,12 +24,14 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Event.Helpers;
 using FFXIVAPP.Plugin.Event.Properties;
+using MahApps.Metro.Controls;
 using NLog;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Event
 {
+    [Export(typeof(IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings
@@ -138,6 +141,22 @@ namespace FFXIVAPP.Plugin.Event
             }
             //content gives you access to the base xaml
             return tabItem;
+        }
+
+        public UserControl CreateControl()
+        {
+            var content = new ShellView();
+            content.Loaded += ShellViewModel.Loaded;
+            //do your gui stuff here
+            var files = Directory.GetFiles(Constants.BaseDirectory)
+                                 .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
+                                 .Select(file => new FileInfo(file));
+            foreach (var file in files)
+            {
+                PluginViewModel.Instance.SoundFiles.Add(file.Name);
+            }
+            //content gives you access to the base xaml
+            return content;
         }
 
         public void OnNewLine(out bool success, params object[] entry)
