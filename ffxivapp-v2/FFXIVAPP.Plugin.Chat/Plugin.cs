@@ -25,7 +25,7 @@ using NLog;
 
 namespace FFXIVAPP.Plugin.Chat
 {
-    [Export(typeof(IPlugin))]
+    [Export(typeof (IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings

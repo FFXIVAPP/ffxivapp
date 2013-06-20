@@ -183,7 +183,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageRegAccuracy", new AccuracyStat("DamageRegAccuracy", stats["TotalDamageActionsUsed"], stats["DamageRegMiss"]));
             stats.Add("DamageRegLow", new MinStat("DamageRegLow", stats["RegularDamage"]));
             stats.Add("DamageRegHigh", new MaxStat("DamageRegHigh", stats["RegularDamage"]));
-            stats.Add("DamageRegAverage", new AverageStat("DamageRegAverage", stats["TotalOverallDamage"]));
+            stats.Add("DamageRegAverage", new AverageStat("DamageRegAverage", stats["RegularDamage"]));
             stats.Add("DamageRegMod", new TotalStat("DamageRegMod"));
             stats.Add("DamageRegModAverage", new AverageStat("DamageRegModAverage", stats["DamageRegMod"]));
             stats.Add("DamageCritHit", new TotalStat("DamageCritHit"));
@@ -230,7 +230,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("HealingRegHit", new TotalStat("HealingRegHit"));
             stats.Add("HealingRegLow", new MinStat("HealingRegLow", stats["RegularHealing"]));
             stats.Add("HealingRegHigh", new MaxStat("HealingRegHigh", stats["RegularHealing"]));
-            stats.Add("HealingRegAverage", new AverageStat("HealingRegAverage", stats["TotalOverallHealing"]));
+            stats.Add("HealingRegAverage", new AverageStat("HealingRegAverage", stats["RegularHealing"]));
             stats.Add("HealingRegMod", new TotalStat("HealingRegMod"));
             stats.Add("HealingRegModAverage", new AverageStat("HealingRegModAverage", stats["HealingRegMod"]));
             stats.Add("HealingCritHit", new TotalStat("HealingCritHit"));
@@ -258,7 +258,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
             stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
-            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegMod", new TotalStat("DamageTakenRegMod"));
             stats.Add("DamageTakenRegModAverage", new AverageStat("DamageTakenRegModAverage", stats["DamageTakenRegMod"]));
             stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));

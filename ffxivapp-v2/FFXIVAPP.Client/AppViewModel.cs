@@ -32,7 +32,6 @@ namespace FFXIVAPP.Client
         private string _currentVersion;
         private bool _hasNewVersion;
         private string _latestVersion;
-        private List<string> _updateNotes;
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private ObservableCollection<UIElement> _pluginTabItems;
@@ -40,6 +39,7 @@ namespace FFXIVAPP.Client
         private string _selected;
         private List<Signature> _signatures;
         private Style _tabControlCollapsedHeader;
+        private List<string> _updateNotes;
 
         public static AppViewModel Instance
         {

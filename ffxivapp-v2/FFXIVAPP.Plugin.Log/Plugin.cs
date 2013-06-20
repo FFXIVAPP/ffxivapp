@@ -26,14 +26,13 @@ using FFXIVAPP.Plugin.Log.Helpers;
 using FFXIVAPP.Plugin.Log.Properties;
 using FFXIVAPP.Plugin.Log.Utilities;
 using FFXIVAPP.Plugin.Log.Views;
-using MahApps.Metro.Controls;
 using NLog;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Log
 {
-    [Export(typeof(IPlugin))]
+    [Export(typeof (IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings

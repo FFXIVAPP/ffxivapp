@@ -7,7 +7,6 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -19,8 +18,8 @@ using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
-using HtmlAgilityPack;
 using NLog;
 using Newtonsoft.Json.Linq;
 
@@ -126,7 +125,6 @@ namespace FFXIVAPP.Client
             Common.Constants.CharacterName = Settings.Default.CharacterName;
             Common.Constants.GameLanguage = Settings.Default.GameLanguage;
             Common.Constants.ServerName = Settings.Default.ServerName;
-            Common.Constants.ServerNumber = Settings.Default.ServerNumber;
             Common.Constants.EnableNLog = Settings.Default.EnableNLog;
         }
 
@@ -144,7 +142,7 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion"));
+                var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 request.Headers.Add("Accept-Language", "en;q=0.8");
                 request.ContentType = "application/json; charset=utf-8";
@@ -222,6 +220,8 @@ namespace FFXIVAPP.Client
                             break;
                     }
                 }
+                var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                 return true;
             };
             updateCheck.BeginInvoke(null, null);
@@ -234,7 +234,7 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "CHATLOG",
-                Value = "4000000006000000000000000001021202020300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000????????????????00000000",
+                Value = "4000000006000000000000000001021202380300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000??????????????????000000????000000000000",
                 Offset = 92
             });
             //signatures.Add(new Signature

@@ -24,14 +24,13 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Event.Helpers;
 using FFXIVAPP.Plugin.Event.Properties;
-using MahApps.Metro.Controls;
 using NLog;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Event
 {
-    [Export(typeof(IPlugin))]
+    [Export(typeof (IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings

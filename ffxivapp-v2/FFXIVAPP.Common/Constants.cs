@@ -112,8 +112,6 @@ namespace FFXIVAPP.Common
 
         public static string ServerName { get; set; }
 
-        public static string ServerNumber { get; set; }
-
         public static string GameLanguage { get; set; }
 
         public static IntPtr ProcessHandle { get; set; }

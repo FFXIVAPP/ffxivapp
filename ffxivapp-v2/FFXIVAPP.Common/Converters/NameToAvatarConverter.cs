@@ -11,7 +11,9 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
@@ -24,7 +26,6 @@ namespace FFXIVAPP.Common.Converters
 {
     public class NameToAvatarConverter : IMultiValueConverter
     {
-        private const string LodestoneUrl = "http://lodestone.finalfantasyxiv.com/rc/search/search?tgt=77&q=\"{0}\"&cms=&cw={1}";
         private const string DefaultAvatar = Constants.DefaultAvatar;
         private bool _cachingEnabled = true;
 
@@ -82,7 +83,6 @@ namespace FFXIVAPP.Common.Converters
                 return null;
             }
             var source = new BitmapImage(new Uri(DefaultAvatar));
-            return source;
             var image = values[0] as Image;
             var name = values[1] as String;
             if (image == null || name == null)
@@ -100,8 +100,9 @@ namespace FFXIVAPP.Common.Converters
             {
                 ThreadPool.QueueUserWorkItem(delegate
                 {
-                    var serverNumber = Constants.ServerNumber;
-                    var request = (HttpWebRequest) WebRequest.Create(String.Format(LodestoneUrl, Uri.EscapeUriString(name), Uri.EscapeUriString(serverNumber)));
+                    var serverName = Constants.ServerName;
+                    const string url = "http://na.beta.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
+                    var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
@@ -111,19 +112,27 @@ namespace FFXIVAPP.Common.Converters
                     }
                     var doc = new HtmlDocument();
                     doc.Load(stream);
-                    var xpath = String.Format("//*[node()='{0}']//img[@class='character-icon']", name);
-                    var iconNode = doc.DocumentNode.SelectSingleNode(xpath);
-                    if (iconNode != null)
+                    try
                     {
+                        var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
+                                            .OuterHtml;
+                        var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                        var imageUrl = src.Match(htmlSource)
+                                          .Groups["image"].Value;
+                        imageUrl = imageUrl.Substring(0, imageUrl.IndexOf('?'))
+                                           .Replace("50x50", "96x96");
                         image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
                         {
-                            var imageUri = iconNode.GetAttributeValue("src", DefaultAvatar);
+                            var imageUri = imageUrl;
                             if (imageUri != DefaultAvatar)
                             {
                                 imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
                             }
                             image.Source = new BitmapImage(new Uri(imageUri));
                         });
+                    }
+                    catch (Exception ex)
+                    {
                     }
                 });
                 //Func<bool> d = delegate

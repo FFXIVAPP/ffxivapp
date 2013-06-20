@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         foreach (var stats in m.Where(s => s.Name == sub)
                                                .Select(r => r.Stats))
                         {
-                            results.Add(player.Name, (int)Math.Ceiling(stats.GetStatValue("TotalOverallDamageTaken")));
+                            results.Add(player.Name, (int) Math.Ceiling(stats.GetStatValue("TotalOverallDamageTaken")));
                         }
                     }
                     temp.AddRange(results.OrderByDescending(i => i.Value)

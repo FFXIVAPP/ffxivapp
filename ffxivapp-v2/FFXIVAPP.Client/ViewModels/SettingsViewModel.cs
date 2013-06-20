@@ -12,11 +12,11 @@ using System.ComponentModel.Composition;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
@@ -99,16 +99,13 @@ namespace FFXIVAPP.Client.ViewModels
             {
                 return;
             }
-            var serverNumber = Constants.ServerNumber[serverName];
             Func<string> callLodestone = delegate
             {
                 var cicuid = "";
-                var uri = "";
                 try
                 {
-                    const string url = "http://lodestone.finalfantasyxiv.com/rc/search/search?tgt=77&q=\"{0}\"&cms=&cw={1}";
-
-                    var request = (HttpWebRequest) WebRequest.Create(String.Format(url, Common.Constants.CharacterName, serverNumber));
+                    const string url = "http://na.beta.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
+                    var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(Common.Constants.CharacterName), serverName));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     request.Headers.Add("Accept-Language", "en;q=0.8");
                     var response = (HttpWebResponse) request.GetResponse();
@@ -120,20 +117,18 @@ namespace FFXIVAPP.Client.ViewModels
                     {
                         var doc = new HtmlDocument();
                         doc.Load(stream);
-                        var iconNode = doc.DocumentNode.SelectSingleNode(("//a[@class='']/@href"));
-                        if (iconNode != null)
+                        try
                         {
-                            uri = iconNode.GetAttributeValue("href", "");
+                            var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
+                                                .OuterHtml;
+                            var CICUID = new Regex(@"(?<cicuid>\d+)/"">" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                            cicuid = CICUID.Match(htmlSource)
+                                           .Groups["cicuid"].Value;
                         }
-                    }
-                    try
-                    {
-                        cicuid = SharedRegEx.CICUID.Match(uri)
-                                            .Groups["cicuid"].Value;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                        catch (Exception ex)
+                        {
+                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                        }
                     }
                 }
                 catch (Exception ex)

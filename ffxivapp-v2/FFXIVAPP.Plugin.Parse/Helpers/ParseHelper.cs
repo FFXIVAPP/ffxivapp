@@ -39,7 +39,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 
         public static decimal GetOriginal(decimal amount, decimal modifier)
         {
-            return Math.Abs((amount * (amount / (100 + modifier))) - amount);
+            return Math.Abs((amount / (modifier + 1)) - amount);
         }
 
         public static Hashtable GetJob()

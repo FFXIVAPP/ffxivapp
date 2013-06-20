@@ -73,6 +73,8 @@ namespace FFXIVAPP.Client.Memory
         private string Process(byte[] bytes, CultureInfo ci, out bool jp)
         {
             jp = false;
+            var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
+                                  .Replace("  ", " ");
             try
             {
                 var autoTranslateList = new List<byte>();
@@ -202,20 +204,22 @@ namespace FFXIVAPP.Client.Memory
                         newList.Add(bytes[x]);
                     }
                 }
-                var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
-                                         .Replace("  ", " ");
+                var jpc = (ci.TwoLetterISOLanguageName == "ja");
+                var cleaned = jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
+                                               .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
+                                                                                .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
-                var jpc = (ci.TwoLetterISOLanguageName == "ja");
-                return jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                                        .Replace("  ", " ") : cleaned;
+                cleaned = cleaned.Replace("", "⇒");
+                cleaned = cleaned.Replace("[01010101]", "");
+                cleaned = cleaned.Replace("[CF010101]", "");
+                line = cleaned;
             }
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                return HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                                  .Replace("  ", " ");
             }
+            return line;
         }
 
         #region Implementation of INotifyPropertyChanged

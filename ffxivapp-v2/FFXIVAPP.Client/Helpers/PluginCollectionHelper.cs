@@ -9,7 +9,6 @@
 using System.Collections;
 using System.Linq;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.IPluginInterface;
 
 #endregion
 

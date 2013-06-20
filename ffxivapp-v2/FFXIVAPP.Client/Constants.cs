@@ -6,7 +6,6 @@
 
 #region Usings
 
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
@@ -66,25 +65,6 @@ namespace FFXIVAPP.Client
                 return _xColors;
             }
             set { _xColors = value; }
-        }
-
-        public static Dictionary<string, string> ServerNumber
-        {
-            get
-            {
-                var serverNumber = new Dictionary<string, string>();
-                serverNumber.Add("Durandal", "2");
-                serverNumber.Add("Hyperion", "3");
-                serverNumber.Add("Masamune", "4");
-                serverNumber.Add("Gungnir", "5");
-                serverNumber.Add("Aegis", "7");
-                serverNumber.Add("Sargatanas", "10");
-                serverNumber.Add("Balmung", "11");
-                serverNumber.Add("Ridill", "12");
-                serverNumber.Add("Excalibur", "16");
-                serverNumber.Add("Ragnarok", "20");
-                return serverNumber;
-            }
         }
 
         #endregion

@@ -207,17 +207,6 @@ namespace FFXIVAPP.Client
                     break;
                 case "ServerName":
                     Common.Constants.ServerName = Settings.Default.ServerName;
-                    try
-                    {
-                        Settings.Default.ServerNumber = Constants.ServerNumber[Settings.Default.ServerName];
-                    }
-                    catch (Exception ex)
-                    {
-                        //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                    }
-                    break;
-                case "ServerNumber":
-                    Common.Constants.ServerNumber = Settings.Default.ServerNumber;
                     break;
                 case "EnableNLog":
                     Common.Constants.EnableNLog = Settings.Default.EnableNLog;

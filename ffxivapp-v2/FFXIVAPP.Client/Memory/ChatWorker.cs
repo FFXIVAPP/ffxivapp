@@ -149,7 +149,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
                 {
-                    var getline = ((index - i) < 0) ? (index - i) + 100 : index - i;
+                    var getline = ((index - i) < 0) ? (index - i) + 256 : index - i;
                     int lineLen;
                     if (getline == 0)
                     {

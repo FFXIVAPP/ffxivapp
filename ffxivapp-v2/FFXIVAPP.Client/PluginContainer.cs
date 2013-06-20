@@ -33,7 +33,7 @@ namespace FFXIVAPP.Client
         private AggregateCatalog _catalog;
         private PluginCollectionHelper _loaded;
 
-        [ImportMany(typeof(IPlugin), AllowRecomposition = true)]
+        [ImportMany(typeof (IPlugin), AllowRecomposition = true)]
         private List<IPlugin> _plugins;
 
         public PluginCollectionHelper Loaded

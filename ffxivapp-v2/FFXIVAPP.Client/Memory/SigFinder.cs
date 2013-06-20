@@ -14,7 +14,6 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -91,7 +90,7 @@ namespace FFXIVAPP.Client.Memory
                     //handle pointers with old search
                     foreach (var signature in signatures)
                     {
-                        Locations.Add(signature.Key, (uint)(FindByteString(signature.Value) + signature.Offset));
+                        Locations.Add(signature.Key, (uint) (FindByteString(signature.Value) + signature.Offset));
                     }
                 }
                 _memDump = null;
@@ -237,6 +236,7 @@ namespace FFXIVAPP.Client.Memory
                     pattern[x] = Byte.Parse(search.Substring(x * 2, 2), NumberStyles.HexNumber);
                 }
             }
+            var result = -1;
             try
             {
                 for (var i = 0; i < _regions.Count; i++)
@@ -246,7 +246,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         if (MaskCheck(x, pattern, mask))
                         {
-                            return (_regions[i].BaseAddress + x);
+                            result = (_regions[i].BaseAddress + x);
                         }
                     }
                 }
@@ -254,9 +254,9 @@ namespace FFXIVAPP.Client.Memory
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                return -1;
+                return result;
             }
-            return -1;
+            return result;
         }
 
         #region Implementation of INotifyPropertyChanged

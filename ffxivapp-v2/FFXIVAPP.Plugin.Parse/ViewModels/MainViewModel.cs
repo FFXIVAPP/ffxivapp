@@ -100,6 +100,9 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 {
                     var code = item.Value[0];
                     var line = item.Value[1];
+                    line = line.Replace("", "⇒");
+                    line = line.Replace("[01010101]", "");
+                    line = line.Replace("[CF010101]", "");
                     var timeStampColor = Settings.Default.TimeStampColor.ToString();
                     var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                     timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";

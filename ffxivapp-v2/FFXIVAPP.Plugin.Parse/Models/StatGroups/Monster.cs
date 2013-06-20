@@ -123,7 +123,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
             stats.Add("DamageTakenRegLow", new MinStat("DamageTakenRegLow", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegHigh", new MaxStat("DamageTakenRegHigh", stats["RegularDamageTaken"]));
-            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenRegAverage", new AverageStat("DamageTakenRegAverage", stats["RegularDamageTaken"]));
             stats.Add("DamageTakenRegMod", new TotalStat("DamageTakenRegMod"));
             stats.Add("DamageTakenRegModAverage", new AverageStat("DamageTakenRegModAverage", stats["DamageTakenRegMod"]));
             stats.Add("DamageTakenCritHit", new TotalStat("DamageTakenCritHit"));

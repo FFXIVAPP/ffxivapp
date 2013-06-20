@@ -6,8 +6,6 @@
 
 #region Usings
 
-
-
 #endregion
 
 namespace FFXIVAPP.Client.Windows

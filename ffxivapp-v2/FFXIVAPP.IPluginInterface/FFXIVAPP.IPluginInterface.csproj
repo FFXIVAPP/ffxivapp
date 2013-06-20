@@ -79,8 +79,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
+  <!--<UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'SmartAssembly'">
     <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.Interface.saproj" input="$(OutDir)FFXIVAPP.Interface.dll" output="$(OutDir)FFXIVAPP.Interface.dll" OverwriteAssembly="true" />
-  </Target>
+  </Target>-->
 </Project>

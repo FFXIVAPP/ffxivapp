@@ -21,8 +21,6 @@ namespace FFXIVAPP.Common.RegularExpressions
 
         public static readonly Regex Romans = new Regex(@"(?<roman>\b[IVXLCDM]+\b)", DefaultOptions);
 
-        public static readonly Regex CICUID = new Regex(@".+=(?<cicuid>\d+)", DefaultOptions);
-
         public static readonly Regex Experience = new Regex(@"^You earn (?<exp>\d+).+\.$", DefaultOptions);
 
         public static readonly Regex ParseCommands = new Regex(@"com:(?<cmd>(show-(mob|total)|parse)) ((?<cm>[\w\s]+):)?(?<sub>[\w\s-']+)( (?<limit>\d))?$", DefaultOptions);

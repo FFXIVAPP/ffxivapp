@@ -44,16 +44,41 @@
     <Setting Name="ServerList" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Durandal&lt;/string&gt;
-  &lt;string&gt;Hyperion&lt;/string&gt;
-  &lt;string&gt;Masamune&lt;/string&gt;
-  &lt;string&gt;Gungnir&lt;/string&gt;
+  &lt;string&gt;Adamantoise&lt;/string&gt;
   &lt;string&gt;Aegis&lt;/string&gt;
-  &lt;string&gt;Sargatanas&lt;/string&gt;
+  &lt;string&gt;Atomos&lt;/string&gt;
+  &lt;string&gt;Bahamut&lt;/string&gt;
   &lt;string&gt;Balmung&lt;/string&gt;
-  &lt;string&gt;Ridill&lt;/string&gt;
+  &lt;string&gt;Behemoth&lt;/string&gt;
+  &lt;string&gt;Cactuar&lt;/string&gt;
+  &lt;string&gt;Cerberus&lt;/string&gt;
+  &lt;string&gt;Chocobo&lt;/string&gt;
+  &lt;string&gt;Coeurl&lt;/string&gt;
+  &lt;string&gt;Diabolos&lt;/string&gt;
+  &lt;string&gt;Durandal&lt;/string&gt;
   &lt;string&gt;Excalibur&lt;/string&gt;
+  &lt;string&gt;Garuda&lt;/string&gt;
+  &lt;string&gt;Gilgamesh&lt;/string&gt;
+  &lt;string&gt;Goblin&lt;/string&gt;
+  &lt;string&gt;Gungnir&lt;/string&gt;
+  &lt;string&gt;Hyperion&lt;/string&gt;
+  &lt;string&gt;Ifrit&lt;/string&gt;
+  &lt;string&gt;Leviathan&lt;/string&gt;
+  &lt;string&gt;Malboro&lt;/string&gt;
+  &lt;string&gt;Mandragora&lt;/string&gt;
+  &lt;string&gt;Masamune&lt;/string&gt;
+  &lt;string&gt;Midgardsormr&lt;/string&gt;
+  &lt;string&gt;Moogle&lt;/string&gt;
+  &lt;string&gt;Odin&lt;/string&gt;
   &lt;string&gt;Ragnarok&lt;/string&gt;
+  &lt;string&gt;Ramuh&lt;/string&gt;
+  &lt;string&gt;Ridill&lt;/string&gt;
+  &lt;string&gt;Sargatanas&lt;/string&gt;
+  &lt;string&gt;Shiva&lt;/string&gt;
+  &lt;string&gt;Tiamat&lt;/string&gt;
+  &lt;string&gt;Titan&lt;/string&gt;
+  &lt;string&gt;Tonberry&lt;/string&gt;
+  &lt;string&gt;Ultros&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="GameLanguageList" Type="System.Collections.Specialized.StringCollection" Scope="User">
@@ -72,9 +97,6 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ServerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ServerNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CharacterName" Type="System.String" Scope="User">
