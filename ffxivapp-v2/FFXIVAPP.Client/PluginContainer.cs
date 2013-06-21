@@ -8,10 +8,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -30,42 +29,11 @@ namespace FFXIVAPP.Client
     {
         #region Property Bindings
 
-        private AggregateCatalog _catalog;
         private PluginCollectionHelper _loaded;
-
-        [ImportMany(typeof (IPlugin), AllowRecomposition = true)]
-        private List<IPlugin> _plugins;
 
         public PluginCollectionHelper Loaded
         {
             get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
-        }
-
-        [ImportMany(typeof (IPlugin), AllowRecomposition = true)]
-        private List<IPlugin> Plugins
-        {
-            get { return _plugins ?? (_plugins = new List<IPlugin>()); }
-            set
-            {
-                if (_plugins == null)
-                {
-                    _plugins = new List<IPlugin>();
-                }
-                _plugins = value;
-            }
-        }
-
-        private AggregateCatalog Catalog
-        {
-            get { return _catalog ?? (_catalog = new AggregateCatalog()); }
-            set
-            {
-                if (_catalog == null)
-                {
-                    _catalog = new AggregateCatalog();
-                }
-                _catalog = value;
-            }
         }
 
         #endregion
@@ -80,13 +48,12 @@ namespace FFXIVAPP.Client
         public void LoadPlugins(string path = "")
         {
             path = (path == "") ? AppDomain.CurrentDomain.BaseDirectory : path;
-            UnloadPlugins();
+            Loaded.Clear();
             if (!Directory.Exists(path))
             {
                 return;
             }
             var directories = Directory.GetDirectories(path);
-            var fileNames = new List<string>();
             foreach (var d in directories)
             {
                 var settings = String.Format(@"{0}\PluginInfo.xml", d);
@@ -98,8 +65,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in xDoc.Descendants()
                                              .Elements("Main"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xValue = (string) xElement.Element("Value");
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xValue = (string)xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         return;
@@ -107,16 +74,11 @@ namespace FFXIVAPP.Client
                     switch (xKey)
                     {
                         case "FileName":
-                            var fileName = String.Format(@"{0}\{1}", d, xValue);
-                            fileNames.Add(fileName);
-                            Catalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(fileName), Path.GetFileName(fileName)));
+                            VerifyPlugin(String.Format(@"{0}\{1}", d, xValue));
                             break;
                     }
                 }
             }
-            var cc = new CompositionContainer(Catalog);
-            cc.ComposeParts(this);
-            VerifyPlugins(fileNames);
         }
 
         /// <summary>
@@ -131,26 +93,30 @@ namespace FFXIVAPP.Client
                 }
                 pInstance.Instance = null;
             }
-            Catalog.Catalogs.Clear();
-            Plugins.Clear();
             Loaded.Clear();
         }
 
         /// <summary>
         /// </summary>
-        private void VerifyPlugins(IReadOnlyList<string> fileNames)
+        /// <param name="fileName"> </param>
+        private void VerifyPlugin(string fileName)
         {
             try
             {
-                for (var i = 0; i < Plugins.Count; i++)
+                var pAssembly = Assembly.LoadFile(fileName);
+                var pType = pAssembly.GetType(pAssembly.GetName()
+                                                       .Name + ".Plugin");
+                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
+                if (!implementsIPlugin)
                 {
-                    var pluginInstance = new PluginInstance();
-                    pluginInstance.Instance = Plugins[i];
-                    pluginInstance.AssemblyPath = fileNames[i];
-                    pluginInstance.Instance.Host = this;
-                    pluginInstance.Instance.Initialize();
-                    Loaded.Add(pluginInstance);
+                    return;
                 }
+                var plugin = new PluginInstance();
+                plugin.Instance = (IPlugin)Activator.CreateInstance(pType);
+                plugin.AssemblyPath = fileName;
+                plugin.Instance.Host = this;
+                plugin.Instance.Initialize();
+                Loaded.Add(plugin);
             }
             catch (Exception ex)
             {

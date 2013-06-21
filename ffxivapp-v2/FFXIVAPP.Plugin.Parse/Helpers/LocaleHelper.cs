@@ -19,11 +19,6 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 {
     internal static class LocaleHelper
     {
-        private static readonly string[] Supported = new[]
-        {
-            "en"
-        };
-
         /// <summary>
         /// </summary>
         /// <param name="cultureInfo"> </param>
@@ -31,7 +26,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
         {
             var culture = cultureInfo.TwoLetterISOLanguageName;
             ResourceDictionary dictionary;
-            if (Supported.Contains(culture))
+            if (Common.Constants.Supported.Contains(culture))
             {
                 switch (culture)
                 {

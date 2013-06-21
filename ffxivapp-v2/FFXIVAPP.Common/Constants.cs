@@ -19,6 +19,12 @@ namespace FFXIVAPP.Common
 {
     public static class Constants
     {
+        public static readonly string[] Supported = new[]
+        {
+
+            "ja", "fr", "en"
+        };
+
         public const string AppPack = "pack://application:,,,/FFXIVAPP.Client;component/";
         public const string ChatPack = "pack://application:,,,/FFXIVAPP.Plugin.Chat;component/";
         public const string EventPack = "pack://application:,,,/FFXIVAPP.Plugin.Event;component/";

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -204,6 +205,23 @@ namespace FFXIVAPP.Client
                     break;
                 case "GameLanguage":
                     Common.Constants.GameLanguage = Settings.Default.GameLanguage;
+                    var lang = Common.Constants.GameLanguage.ToLower();
+                    var cultureInfo = new CultureInfo("en");
+                    switch (lang)
+                    {
+                        case "japanese":
+                            cultureInfo = new CultureInfo("ja");
+                            break;
+                        case "german":
+                            cultureInfo = new CultureInfo("de");
+                            break;
+                        case "french":
+                            cultureInfo = new CultureInfo("fr");
+                            break;
+                    }
+                    Settings.Default.Culture = cultureInfo;
+                    Common.Constants.CultureInfo = cultureInfo;
+                    LocaleHelper.Update(Settings.Default.Culture);
                     break;
                 case "ServerName":
                     Common.Constants.ServerName = Settings.Default.ServerName;

@@ -42,6 +42,7 @@ namespace FFXIVAPP.Client
             var cultureInfo = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             var currentCulture = new CultureInfo(cultureInfo);
             Common.Constants.CultureInfo = Settings.Default.CultureSet ? Settings.Default.Culture : currentCulture;
+            Settings.Default.CultureSet = true;
         }
 
         /// <summary>
