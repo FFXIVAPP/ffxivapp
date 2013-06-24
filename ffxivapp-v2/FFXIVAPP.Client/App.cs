@@ -121,6 +121,7 @@ namespace FFXIVAPP.Client
                 Settings.Default.Upgrade();
                 Settings.Default.Reload();
                 Settings.Default.Application_UpgradeRequired = false;
+                Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             }
             catch (Exception ex)
             {

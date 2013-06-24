@@ -23,6 +23,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("parse_PLACEHOLDER", "*PH*");
+            Dictionary.Add("parse_LoadExistingLogFileButtonText", "Load Existing Log File");
             Dictionary.Add("parse_NameHeader", "Name");
             Dictionary.Add("parse_TotalOverallDamageHeader", "Total");
             Dictionary.Add("parse_RegularDamageHeader", "Reg");

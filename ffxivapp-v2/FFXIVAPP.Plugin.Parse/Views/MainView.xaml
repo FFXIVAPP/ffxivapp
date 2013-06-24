@@ -90,7 +90,8 @@
             -->
             <Button Margin="3 0 0 0"
                     Command="{Binding ProcessSampleCommand}"
-                    Content="sample.xml"
+                    Content="{Binding Locale[parse_LoadExistingLogFileButtonText],
+                                      Source={StaticResource PluginViewModel}}"
                     IsEnabled="{Binding SampleOK}" />
 
         </DockPanel>

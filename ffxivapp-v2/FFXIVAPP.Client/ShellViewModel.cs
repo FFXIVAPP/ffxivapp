@@ -70,7 +70,6 @@ namespace FFXIVAPP.Client
             using (var stream = new BinaryWriter(fileStream))
             {
                 stream.Write(screenShot);
-                stream.Close();
             }
         }
 

@@ -103,12 +103,14 @@ namespace FFXIVAPP.Client
         {
             try
             {
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
                 var plugin = new PluginInstance();
@@ -116,6 +118,7 @@ namespace FFXIVAPP.Client
                 plugin.AssemblyPath = fileName;
                 plugin.Instance.Host = this;
                 plugin.Instance.Initialize();
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);
             }
             catch (Exception ex)

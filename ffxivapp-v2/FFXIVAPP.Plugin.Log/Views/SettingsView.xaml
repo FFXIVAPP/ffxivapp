@@ -198,10 +198,24 @@
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{Binding Locale[log_TranslateFCHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateFC,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[log_TranslateShoutHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>
                                 <Controls:ToggleSwitch IsChecked="{Binding TranslateShout,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[log_TranslateYellHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <Controls:ToggleSwitch IsChecked="{Binding TranslateYell,
                                                                            Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>

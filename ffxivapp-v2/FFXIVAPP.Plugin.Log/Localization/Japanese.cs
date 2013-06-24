@@ -36,6 +36,7 @@ namespace FFXIVAPP.Plugin.Log.Localization
             Dictionary.Add("log_ShowASCIIDebugHeader", "ASCIIコードを表示 (デバッグ用)");
             Dictionary.Add("log_TabNameLabel", "タブ名");
             Dictionary.Add("log_TranslateLSHeader", "翻訳するLS");
+            Dictionary.Add("log_TranslateFCHeader", "翻訳するFC");
             Dictionary.Add("log_TranslatePartyHeader", "翻訳するParty");
             Dictionary.Add("log_TranslateableChatTabHeader", "翻訳可能なチャット");
             Dictionary.Add("log_TranslatedTabHeader", "翻訳");
@@ -44,6 +45,7 @@ namespace FFXIVAPP.Plugin.Log.Localization
             Dictionary.Add("log_TranslateToHeader", "翻訳先言語");
             Dictionary.Add("log_TranslateSayHeader", "翻訳するSay");
             Dictionary.Add("log_TranslateShoutHeader", "翻訳するShout");
+            Dictionary.Add("log_TranslateYellHeader", "翻訳するYell");
             Dictionary.Add("log_TranslateTellHeader", "翻訳するTell");
             return Dictionary;
         }

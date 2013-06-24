@@ -7,6 +7,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -126,7 +127,6 @@ namespace FFXIVAPP.Client
             Common.Constants.CharacterName = Settings.Default.CharacterName;
             Common.Constants.GameLanguage = Settings.Default.GameLanguage;
             Common.Constants.ServerName = Settings.Default.ServerName;
-            Common.Constants.EnableNLog = Settings.Default.EnableNLog;
         }
 
         public static void SetCharacter()
@@ -234,46 +234,10 @@ namespace FFXIVAPP.Client
             signatures.Clear();
             signatures.Add(new Signature
             {
-                Key = "CHATLOG",
-                Value = "4000000006000000000000000001021202380300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000??????????????????000000????000000000000",
-                Offset = 92
+                Key = "GAMEMAIN",
+                Value = "47616D654D61696E000000000000000000000000000000000000000000000000",
+                Offset = 1214
             });
-            //signatures.Add(new Signature
-            //{
-            //    Key = "CHARMAP",
-            //    Value = "FFFFFFFF??000000000000000000000000000000????????00000000DB0FC93F6F12833A00??????",
-            //    Offset = 40
-            //});
-            //signatures.Add(new Signature
-            //{
-            //    Key = "NPCMAP",
-            //    Value = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000080BF000000",
-            //    Offset = 120
-            //});
-            //signatures.Add(new Signature
-            //{
-            //    Key = "TARGET",
-            //    Value = "FFFFFFFF????????00000000????0000000000000000000000000000????????000000000000000000000000DB0FC93F6F12833A",
-            //    Offset = 248
-            //});
-            //signatures.Add(new Signature
-            //{
-            //    Key = "RECAST",
-            //    Value = "0300000002000000010122200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC93F6F12833A0000000000000000????????000000000000000000000000",
-            //    Offset = 408
-            //});
-            //signatures.Add(new Signature
-            //{
-            //    Key = "RECAST_WS",
-            //    Value = "0300000002000000010122200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC93F6F12833A0000000000000000????????000000000000000000000000",
-            //    Offset = 1228
-            //});
-            //signatures.Add(new Signature
-            //{
-            //    Key = "AGRO",
-            //    Value = "FFFFFFFF??000000000000000000000000000000????????00000000DB0FC93F6F12833A00????????00????",
-            //    Offset = 3176
-            //});
         }
 
         /// <summary>

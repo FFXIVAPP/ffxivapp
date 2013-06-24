@@ -239,7 +239,15 @@ namespace FFXIVAPP.Plugin.Log
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatYell) && Settings.Default.TranslateYell)
+                    {
+                        GoogleTranslate.RetreiveLang(line, chatEntry.JP);
+                    }
                     if (CheckMode(chatEntry.Code, Common.Constants.ChatLS) && Settings.Default.TranslateLS)
+                    {
+                        GoogleTranslate.RetreiveLang(line, chatEntry.JP);
+                    }
+                    if (CheckMode(chatEntry.Code, Common.Constants.ChatFC) && Settings.Default.TranslateFC)
                     {
                         GoogleTranslate.RetreiveLang(line, chatEntry.JP);
                     }

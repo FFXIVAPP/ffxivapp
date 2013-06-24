@@ -86,7 +86,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
             #region Basic Settings
 
-            Constants.Settings.Add("ShowBasicName");
             Constants.Settings.Add("ShowBasicTotalOverallDamage");
             Constants.Settings.Add("ShowBasicRegularDamage");
             Constants.Settings.Add("ShowBasicCriticalDamage");
@@ -199,7 +198,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
             #region Column Settings
 
-            Constants.Settings.Add("ShowColumnName");
             Constants.Settings.Add("ShowColumnTotalOverallDamage");
             Constants.Settings.Add("ShowColumnRegularDamage");
             Constants.Settings.Add("ShowColumnCriticalDamage");

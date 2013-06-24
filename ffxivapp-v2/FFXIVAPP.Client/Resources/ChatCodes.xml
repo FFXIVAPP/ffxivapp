@@ -14,6 +14,36 @@
       <Code Key="000C">
         <Description>Tell (Out)</Description>
       </Code>
+      <Code Key="0010">
+        <Description>Linkshell[1]</Description>
+      </Code>
+      <Code Key="0011">
+        <Description>Linkshell[2]</Description>
+      </Code>
+      <Code Key="0012">
+        <Description>Linkshell[3]</Description>
+      </Code>
+      <Code Key="0013">
+        <Description>Linkshell[4]</Description>
+      </Code>
+      <Code Key="0014">
+        <Description>Linkshell[5]</Description>
+      </Code>
+      <Code Key="0015">
+        <Description>Linkshell[6]</Description>
+      </Code>
+      <Code Key="0016">
+        <Description>Linkshell[7]</Description>
+      </Code>
+      <Code Key="0017">
+        <Description>Linkshell[8]</Description>
+      </Code>
+      <Code Key="0018">
+        <Description>Free Company</Description>
+      </Code>
+      <Code Key="001E">
+        <Description>Yell</Description>
+      </Code>
     </Group>
     <Group Name="You" Subject="You" Direction="To">
       <Code Key="000D">

@@ -59,9 +59,19 @@ namespace FFXIVAPP.Common
             "000B"
         };
 
+        public static readonly string[] ChatYell =
+        {
+            "001E"
+        };
+
         public static readonly string[] ChatLS =
         {
-            //"000E", "0005", "000F", "0006", "0010", "0007", "0011", "0008", "0012", "0009", "0013", "000A", "0014", "000B", "0015", "000C"
+            "0010", "0011", "0012", "0013", "0014", "0015", "0016", "0017"
+        };
+
+        public static readonly string[] ChatFC =
+        {
+            "0018"
         };
 
         public static bool IsValidRegex(string pattern)

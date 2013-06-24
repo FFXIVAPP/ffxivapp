@@ -36,6 +36,7 @@ namespace FFXIVAPP.Plugin.Log.Localization
             Dictionary.Add("log_ShowASCIIDebugHeader", "Afficher Debug ASCII");
             Dictionary.Add("log_TabNameLabel", "Nom de l'onglet:");
             Dictionary.Add("log_TranslateLSHeader", "LS");
+            Dictionary.Add("log_TranslateFCHeader", "FC");
             Dictionary.Add("log_TranslatePartyHeader", "Equipe");
             Dictionary.Add("log_TranslateableChatTabHeader", "Chat traduisible");
             Dictionary.Add("log_TranslatedTabHeader", "Traduit");
@@ -44,6 +45,7 @@ namespace FFXIVAPP.Plugin.Log.Localization
             Dictionary.Add("log_TranslateToHeader", "Traduire en");
             Dictionary.Add("log_TranslateSayHeader", "Dire");
             Dictionary.Add("log_TranslateShoutHeader", "Crier");
+            Dictionary.Add("log_TranslateYellHeader", "Yell");
             Dictionary.Add("log_TranslateTellHeader", "Murmurer");
             return Dictionary;
         }

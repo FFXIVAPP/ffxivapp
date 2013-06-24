@@ -130,6 +130,15 @@ namespace FFXIVAPP.Plugin.Chat
             return tabItem;
         }
 
+        public UserControl CreateControl()
+        {
+            var content = new ShellView();
+            content.Loaded += ShellViewModel.Loaded;
+            //do your gui stuff here
+            //content gives you access to the base xaml
+            return content;
+        }
+
         public void OnNewLine(out bool success, params object[] entry)
         {
             var chatEntry = new ChatEntry();

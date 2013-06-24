@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -24,6 +25,7 @@ using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 #endregion
@@ -75,50 +77,60 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
 
         private static void ProcessSample()
         {
-            var count = 0;
-            var sampleXml = XDocument.Load(Constants.BaseDirectory + "sample.xml");
-            var items = new Dictionary<int, string[]>();
-            foreach (var xElement in sampleXml.Descendants()
-                                              .Elements("Entry"))
+            var openFileDialog = new OpenFileDialog
             {
-                var xKey = (string) xElement.Attribute("Key");
-                var xLine = (string) xElement.Element("Line");
-                var xTimeStamp = (string) xElement.Element("TimeStamp");
-                if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xLine))
-                {
-                    continue;
-                }
-                items.Add(count, new[]
-                {
-                    xKey, xLine, xTimeStamp
-                });
-                ++count;
-            }
-            Func<bool> dFunc = delegate
-            {
-                foreach (var item in items)
-                {
-                    var code = item.Value[0];
-                    var line = item.Value[1];
-                    line = line.Replace("", "⇒");
-                    line = line.Replace("[01010101]", "");
-                    line = line.Replace("[CF010101]", "");
-                    var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                    var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-                    timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
-                    var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
-                    if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
-                    {
-                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                        {
-                            timeStampColor, "#" + color
-                        }, MainView.View.AbilityChatFD._FDR);
-                    }
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
-                }
-                return true;
+                DefaultExt = "xml",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Logs",
+                Multiselect = false
             };
-            dFunc.BeginInvoke(null, null);
+            openFileDialog.FileOk += delegate
+            {
+                var count = 0;
+                var sampleXml = XDocument.Load(openFileDialog.FileName);
+                var items = new Dictionary<int, string[]>();
+                foreach (var xElement in sampleXml.Descendants()
+                                                  .Elements("Entry"))
+                {
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xLine = (string) xElement.Element("Line");
+                    var xTimeStamp = (string) xElement.Element("TimeStamp");
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xLine))
+                    {
+                        continue;
+                    }
+                    items.Add(count, new[]
+                    {
+                        xKey, xLine, xTimeStamp
+                    });
+                    ++count;
+                }
+                Func<bool> dFunc = delegate
+                {
+                    foreach (var item in items)
+                    {
+                        var code = item.Value[0];
+                        var line = item.Value[1];
+                        line = line.Replace("", "⇒");
+                        line = line.Replace("[01010101]", "");
+                        line = line.Replace("[CF010101]", "");
+                        var timeStampColor = Settings.Default.TimeStampColor.ToString();
+                        var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
+                        timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
+                        var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
+                        if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
+                        {
+                            Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                            {
+                                timeStampColor, "#" + color
+                            }, MainView.View.AbilityChatFD._FDR);
+                        }
+                        EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
+                    }
+                    return true;
+                };
+                dFunc.BeginInvoke(null, null);
+            };
+            openFileDialog.ShowDialog();
         }
 
         /// <summary>
