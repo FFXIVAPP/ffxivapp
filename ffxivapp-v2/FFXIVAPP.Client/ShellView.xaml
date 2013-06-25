@@ -105,7 +105,7 @@
             <TabItem x:Name="PluginsTI"
                      Visibility="{Binding HasPlugins,
                                           Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource Bootstrapper}}">
+                                          Source={StaticResource AppProperties}}">
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"

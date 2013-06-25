@@ -366,7 +366,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [DefaultSettingValue("True")]
         public bool TranslateLS
         {
-            get { return ((bool)(this["TranslateLS"])); }
+            get { return ((bool) (this["TranslateLS"])); }
             set
             {
                 this["TranslateLS"] = value;
@@ -379,7 +379,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [DefaultSettingValue("True")]
         public bool TranslateFC
         {
-            get { return ((bool)(this["TranslateFC"])); }
+            get { return ((bool) (this["TranslateFC"])); }
             set
             {
                 this["TranslateFC"] = value;
@@ -392,7 +392,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [DefaultSettingValue("True")]
         public bool TranslateShout
         {
-            get { return ((bool)(this["TranslateShout"])); }
+            get { return ((bool) (this["TranslateShout"])); }
             set
             {
                 this["TranslateShout"] = value;
@@ -405,7 +405,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
         [DefaultSettingValue("True")]
         public bool TranslateYell
         {
-            get { return ((bool)(this["TranslateYell"])); }
+            get { return ((bool) (this["TranslateYell"])); }
             set
             {
                 this["TranslateYell"] = value;

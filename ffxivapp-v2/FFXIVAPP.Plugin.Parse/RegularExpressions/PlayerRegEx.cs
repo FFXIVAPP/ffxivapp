@@ -16,9 +16,11 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
     internal static class PlayerRegEx
     {
         //ENGLISH REGULAR EXPRESSIONS
-        public static Regex DamageEn = new Regex(@"^( ⇒ )?(?<parry>Parried! )?(?<block>Blocked! )?(?<crit>Critical! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageEn = new Regex(@"^( ⇒ )?(?<block>Blocked! )?(?<parry>Parried! )?(?<crit>Critical! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)(?<parry>Parried! )?(?<block>Blocked! )?(?<crit>Critical! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoEn = new Regex(@"^(?! ⇒)(?<block>Blocked! )?(?<parry>Parried! )?(?<crit>Critical! )?(?<source>You|.+) hits? ((T|t)he )?(?<target>.+) for (?<amount>\d+) (\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ResistEn = new Regex(@"^(?! ⇒)(?<resist>(Full|Partial|Half) resist! )(?<source>You|.+) takes? ((?<amount>\d+) (\((?<modifier>.\d+)%\) )?|no )damage\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedEn = new Regex(@"^( ⇒ )?The attack miss(es)?( ((T|t)he )?(?<target>.+))?\.$", SharedRegEx.DefaultOptions);
 
@@ -47,6 +49,8 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex DamageAutoFr = new Regex(@"^(?! ⇒)(?<parry>Parade ?! )?(?<block>Blocage ?! )?(?<crit>Critique ?! )?(?<source>Vous|.+) infligez? \w+ (l[aes] |[lead]')?(?<target>.+) (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);
 
+        public static Regex ResistFr = new Regex(@"^(?! ⇒)(?<resist>(Résistance totale|Résistance partielle|Semi résistance)! )(L[aes] |[LEAD]')?(?<target>.+) (subi(t|ssez?)? (?<amount>\d+) (\((?<modifier>.\d+)%\) )?points? de |ne subi(t|ssez?)? aucun )dégâts?\.$", SharedRegEx.DefaultOptions);
+
         public static Regex FailedFr = new Regex(@"^( ⇒ )?L'attaque manquez? (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedAutoFr = new Regex(@"^(?! ⇒)(?<source>Vous|.+) manquez? (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
@@ -70,19 +74,21 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
         public static Regex DefeatsFr = new Regex(@"^((?<source>Vous) avez|(?<source>.+) a) vaincu (l[aes] |[lead]')?(?<target>.+)\.$", SharedRegEx.DefaultOptions);
 
         //JAPANESE REGULAR EXPRESSIONS
-        public static Regex DamageJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageJa = new Regex(@"^( ⇒ )?(?<crit>クリティカル！ )?(?<target>.+)に(?<block>ブロックした！ )?(?<parry>受け流した！ )?(?<amount>\d+) (\((?<modifier>.\d+)%\) ?)?ダメージ。$", SharedRegEx.DefaultOptions);
 
-        public static Regex DamageAutoJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DamageAutoJa = new Regex(@"^(?<source>.+)の攻撃( ⇒ )?(?<crit>クリティカル！ )?(?<target>.+)に(?<block>ブロックした！ )?(?<parry>受け流した！ )?(?<amount>\d+) (\((?<modifier>.\d+)%\) ?)?ダメージ。$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ResistJa = new Regex(@"^( ⇒ )?(?<target>.+)は((?<resist>レジストした！)|(?<resist>クォータレジストした！ )?(?<resist>ハーフレジストした！ )?(?<amount>\d+) (\((?<modifier>.\d+)%\) ?)?ダメージ。)$", SharedRegEx.DefaultOptions);
 
-        public static Regex FailedAutoJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedJa = new Regex(@"^( ⇒ )?(?<target>.+)にミス！$", SharedRegEx.DefaultOptions);
 
-        public static Regex ActionsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex FailedAutoJa = new Regex(@"^(?<source>.+)の攻撃( ⇒ )?(?<target>.+)にミス！$", SharedRegEx.DefaultOptions);
+
+        public static Regex ActionsJa = new Regex(@"^(?<source>.+)の「(?<action>.+)」$", SharedRegEx.DefaultOptions);
 
         public static Regex ItemsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex CureJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex CureJa = new Regex(@"^( ⇒ )?(?<crit>クリティカル！ )?(?<source>.+)は(?<amount>\d+) (\((?<modifier>.\d+)%\) ?)?(?<type>\w+)回復。$", SharedRegEx.DefaultOptions);
 
         public static Regex BeneficialGainJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
@@ -92,14 +98,16 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex DetrimentalLoseJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ObtainsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ObtainsJa = new Regex(@"^(?<source>.+)は「(?<item>.+)」(?<amount>×.+)?を入手した。'$", SharedRegEx.DefaultOptions);
 
-        public static Regex DefeatsJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex DefeatsJa = new Regex(@"^(?<source>.+)は(?<target>.+)を倒した。$", SharedRegEx.DefaultOptions);
 
         //GERMAN REGULAR EXPRESSIONS
         public static Regex DamageDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
         public static Regex DamageAutoDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+
+        public static Regex ResistDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 

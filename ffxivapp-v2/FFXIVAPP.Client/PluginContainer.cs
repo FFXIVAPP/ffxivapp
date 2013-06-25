@@ -65,8 +65,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in xDoc.Descendants()
                                              .Elements("Main"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xValue = (string)xElement.Element("Value");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xValue = (string) xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         return;
@@ -107,14 +107,14 @@ namespace FFXIVAPP.Client
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
-                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
+                var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
                 var plugin = new PluginInstance();
-                plugin.Instance = (IPlugin)Activator.CreateInstance(pType);
+                plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
                 plugin.AssemblyPath = fileName;
                 plugin.Instance.Host = this;
                 plugin.Instance.Initialize();

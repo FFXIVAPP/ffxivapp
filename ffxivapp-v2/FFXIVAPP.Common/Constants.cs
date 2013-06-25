@@ -19,12 +19,6 @@ namespace FFXIVAPP.Common
 {
     public static class Constants
     {
-        public static readonly string[] Supported = new[]
-        {
-
-            "ja", "fr", "en"
-        };
-
         public const string AppPack = "pack://application:,,,/FFXIVAPP.Client;component/";
         public const string ChatPack = "pack://application:,,,/FFXIVAPP.Plugin.Chat;component/";
         public const string EventPack = "pack://application:,,,/FFXIVAPP.Plugin.Event;component/";
@@ -32,6 +26,12 @@ namespace FFXIVAPP.Common
         public const string ParsePack = "pack://application:,,,/FFXIVAPP.Plugin.Parse;component/";
         public const string DefaultIcon = AppPack + "Resources/Media/Images/DefaultIcon.jpg";
         public const string DefaultAvatar = AppPack + "Resources/Media/Images/DefaultAvatar.jpg";
+
+        public static readonly string[] Supported = new[]
+        {
+            "ja", "fr", "en"
+        };
+
         public static readonly FlowDocHelper FD = new FlowDocHelper();
 
         public static readonly string[] ChatPublic =

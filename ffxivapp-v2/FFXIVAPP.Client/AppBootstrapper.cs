@@ -27,11 +27,6 @@ namespace FFXIVAPP.Client
             get { return _instance ?? (_instance = new AppBootstrapper()); }
         }
 
-        public static bool HasPlugins
-        {
-            get { return App.Plugins.Loaded.Count > 0; }
-        }
-
         #endregion
 
         #region Declarations
@@ -64,6 +59,7 @@ namespace FFXIVAPP.Client
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();
             Initializer.LoadColors();
+            Initializer.LoadPlugins();
         }
 
         #region Loading Functions

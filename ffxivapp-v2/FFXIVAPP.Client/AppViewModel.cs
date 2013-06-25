@@ -26,6 +26,7 @@ namespace FFXIVAPP.Client
         #region Property Bindings
 
         private static AppViewModel _instance;
+        private static bool _hasPlugins;
         private string _appTitle;
         private List<ChatEntry> _chatHistory;
         private string _configurationsPath;
@@ -73,6 +74,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _pluginTabItems = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool HasPlugins
+        {
+            get { return _hasPlugins; }
+            set
+            {
+                _hasPlugins = value;
                 RaisePropertyChanged();
             }
         }

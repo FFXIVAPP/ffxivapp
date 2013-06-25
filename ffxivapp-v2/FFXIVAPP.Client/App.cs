@@ -8,19 +8,16 @@
 
 using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
@@ -52,7 +49,6 @@ namespace FFXIVAPP.Client
             Settings.Default.SettingChanging += SettingsSettingChanging;
             CheckSettings();
             ConfigureNLog();
-            LoadPlugins();
         }
 
         /// <summary>
@@ -127,32 +123,6 @@ namespace FFXIVAPP.Client
             {
                 SettingsHelper.Default();
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-            }
-        }
-
-        private static void LoadPlugins()
-        {
-            Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
-            foreach (PluginInstance pluginInstance in Plugins.Loaded)
-            {
-                try
-                {
-                    var tabItem = pluginInstance.Instance.CreateTab();
-                    var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
-                    var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
-                    icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
-                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.Name);
-                    var info = new Dictionary<string, string>();
-                    info.Add("Icon", pluginInstance.Instance.Icon);
-                    info.Add("Description", pluginInstance.Instance.Description);
-                    info.Add("Copyright", pluginInstance.Instance.Copyright);
-                    info.Add("Version", pluginInstance.Instance.Version);
-                    AppViewModel.Instance.PluginTabItems.Add(tabItem);
-                }
-                catch (AppException ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
             }
         }
 
