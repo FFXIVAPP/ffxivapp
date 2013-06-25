@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_InformationMessage", "Information!");
             Dictionary.Add("app_LastNameLabel", "Nom:");
             Dictionary.Add("app_LatestLabel", "Dernière:");
-            Dictionary.Add("app_LodestoneIDLabel", "ID Lodestone:");
+            Dictionary.Add("app_LodestoneIDLabel", "ID Lodestone");
             Dictionary.Add("app_MainToolTip", "Général");
             Dictionary.Add("app_MainSettingsTabHeader", "Paramètres généraux");
             Dictionary.Add("app_NoButtonText", "Non");

@@ -41,13 +41,13 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_DescriptionHeader", "記述");
             Dictionary.Add("app_DescriptionLabel", "記述:");
             Dictionary.Add("app_EnableNLogHeader", "NLogでログを有効にする");
-            Dictionary.Add("app_FirstNameLabel", "名前");
-            Dictionary.Add("app_GameLanguageLabel", "ゲームの言語");
+            Dictionary.Add("app_FirstNameLabel", "名前:");
+            Dictionary.Add("app_GameLanguageLabel", "ゲームの言語:");
             Dictionary.Add("app_ImportLodestoneIDButtonText", "Lodestone IDを取得");
             Dictionary.Add("app_InformationMessage", "情報!");
-            Dictionary.Add("app_LastNameLabel", "名字");
+            Dictionary.Add("app_LastNameLabel", "名字:");
             Dictionary.Add("app_LatestLabel", "最近:");
-            Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID:");
+            Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID");
             Dictionary.Add("app_MainToolTip", "メイン");
             Dictionary.Add("app_MainSettingsTabHeader", "メイン設定");
             Dictionary.Add("app_NoButtonText", "いいえ");
