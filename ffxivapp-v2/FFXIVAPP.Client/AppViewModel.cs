@@ -31,6 +31,7 @@ namespace FFXIVAPP.Client
         private List<ChatEntry> _chatHistory;
         private string _configurationsPath;
         private string _currentVersion;
+        private string _downloadUri;
         private bool _hasNewVersion;
         private string _latestVersion;
         private Dictionary<string, string> _locale;
@@ -184,6 +185,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _hasNewVersion = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string DownloadUri
+        {
+            get { return _downloadUri; }
+            set
+            {
+                _downloadUri = value;
                 RaisePropertyChanged();
             }
         }

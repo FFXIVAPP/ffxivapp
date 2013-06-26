@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using FFXIVAPP.Client.Helpers;
@@ -63,9 +64,7 @@ namespace FFXIVAPP.Client
             }
             if (!Settings.Default.SaveLog || !AppViewModel.Instance.ChatHistory.Any())
             {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-                SettingsHelper.Save();
-                Application.Current.Shutdown();
+                CloseApplication();
             }
             var popupContent = new PopupContent();
             popupContent.Title = AppViewModel.Instance.Locale["app_InformationMessage"];
@@ -142,12 +141,18 @@ namespace FFXIVAPP.Client
         /// <param name="asyncResult"> </param>
         private static void ExportHistoryCallBack(IAsyncResult asyncResult)
         {
-            DispatcherHelper.Invoke(delegate
+            DispatcherHelper.Invoke(() => CloseApplication());
+        }
+
+        private static void CloseApplication(bool update = false)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Normal;
+            SettingsHelper.Save();
+            if (AppViewModel.Instance.HasNewVersion && update)
             {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
-                SettingsHelper.Save();
-                Application.Current.Shutdown();
-            });
+                Process.Start("FFXIVAPP.Updater.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
+            }
+            Environment.Exit(0);
         }
     }
 }

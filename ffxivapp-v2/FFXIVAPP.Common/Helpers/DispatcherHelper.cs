@@ -15,7 +15,7 @@ using System.Windows.Threading;
 
 namespace FFXIVAPP.Common.Helpers
 {
-    public class DispatcherHelper
+    public static class DispatcherHelper
     {
         public static void Invoke(Action action)
         {

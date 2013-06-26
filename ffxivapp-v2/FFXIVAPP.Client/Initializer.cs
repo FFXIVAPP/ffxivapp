@@ -199,6 +199,7 @@ namespace FFXIVAPP.Client
                     var jsonResult = JObject.Parse(responseText);
                     var latest = jsonResult["Version"].ToString();
                     var updateNotes = jsonResult["Notes"].ToList();
+                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
                     try
                     {
                         foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
@@ -243,8 +244,10 @@ namespace FFXIVAPP.Client
                                     if (lbuild == cbuild)
                                     {
                                         AppViewModel.Instance.HasNewVersion = lrevision > crevision;
+                                        break;
                                     }
                                     AppViewModel.Instance.HasNewVersion = lbuild > cbuild;
+                                    break;
                                 }
                                 AppViewModel.Instance.HasNewVersion = true;
                             }
