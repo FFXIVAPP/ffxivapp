@@ -104,18 +104,17 @@ namespace FFXIVAPP.Updater
         {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
                                                      .Location);
-            var fileInfos = new DirectoryInfo(path).GetFiles();
-            foreach (var fileInfo in fileInfos.Where(t => t.Extension == ".tmp" || t.Extension == ".PendingOverwrite"))
-            {
-                fileInfo.Delete();
-            }
+            CleanupTemporary(path);
             using (var zip = ZipFile.Read(ZipFileName))
             {
                 foreach (var zipEntry in zip)
                 {
                     try
                     {
-                        File.Delete(zipEntry.FileName);
+                        if (File.Exists("FFXIVAPP.Client.exe.nlog") && zipEntry.FileName.Contains("FFXIVAPP.Client.exe.nlog"))
+                        {
+                            continue;
+                        }
                         zipEntry.Extract(path, ExtractExistingFileAction.OverwriteSilently);
                     }
                     catch (Exception ex)
@@ -142,12 +141,8 @@ namespace FFXIVAPP.Updater
             {
                 _webClient.DownloadFileCompleted -= WebClientOnDownloadFileCompleted;
                 _webClient.DownloadProgressChanged -= WebClientOnDownloadProgressChanged;
-                fileInfos = new DirectoryInfo(path).GetFiles();
-                foreach (var fileInfo in fileInfos.Where(t => t.Extension == ".tmp" || t.Extension == ".PendingOverwrite"))
-                {
-                    fileInfo.Delete();
-                }
-                Application.Current.Shutdown();
+                CleanupTemporary(path);
+                Environment.Exit(0);
             }
         }
 
@@ -160,6 +155,25 @@ namespace FFXIVAPP.Updater
             var bytesIn = double.Parse(downloadProgressChangedEventArgs.BytesReceived.ToString(CultureInfo.InvariantCulture));
             var totalBytes = double.Parse(downloadProgressChangedEventArgs.TotalBytesToReceive.ToString(CultureInfo.InvariantCulture));
             ProgressBarSingle.Value = Math.Truncate(bytesIn / totalBytes * 100);
+        }
+
+        /// <summary>
+        /// </summary>
+        private void CleanupTemporary(string path)
+        {
+            try
+            {
+                var fileInfos = new DirectoryInfo(path).GetFiles();
+                foreach (var fileInfo in fileInfos.Where(t => t.Extension == ".tmp" || t.Extension == ".PendingOverwrite"))
+                {
+                    fileInfo.Delete();
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
     }
 }

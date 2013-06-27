@@ -1,5 +1,5 @@
-<SmartAssemblyProject ProjectId="{4c955a4c-898a-4eca-98ff-d84a0f81e364}" Version="2.0">
-    <MainAssemblyFileName>..\build\Release\FFXIVAPP.Client.exe</MainAssemblyFileName>
+<SmartAssemblyProject ProjectId="{53bdff27-1695-4c62-96c9-ae5b319b17c9}" Version="2.0">
+    <MainAssemblyFileName>..\build\Release\FFXIVAPP.Updater.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>
             <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
@@ -392,6 +392,36 @@
                 </Merging>
             </Assembly>
             <Assembly AssemblyName="Newtonsoft.Json, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="FFXIVAPP.Updater, Culture=neutral, PublicKeyToken=null">
+                <Merging>
+                    <ResourcesCompression Compress="1" />
+                    <MemberRefsProxy Proxy="1" />
+                    <StringsEncoding />
+                    <Pruning>
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation Obfuscate="1">
+                        <Exclusion>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Updater</Assembly>
+                                <Module>FFXIVAPP.Updater.exe</Module>
+                                <Namespace>FFXIVAPP.Updater</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Updater</Assembly>
+                                <Module>FFXIVAPP.Updater.exe</Module>
+                                <Namespace>FFXIVAPP.Updater.Properties</Namespace>
+                            </Token>
+                        </Exclusion>
+                    </Obfuscation>
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="4" />
+                </Merging>
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Ionic.Zip, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c">
                 <Merging />
                 <Embedding />
             </Assembly>

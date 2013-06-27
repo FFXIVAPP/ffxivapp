@@ -29,6 +29,7 @@
                       Loaded="MetroWindowLoaded"
                       ResizeMode="CanResizeWithGrip"
                       ShowIconOnTitleBar="False"
+                      StateChanged="MetroWindowStateChanged"
                       Top="{Binding Top,
                                     Mode=TwoWay,
                                     Source={x:Static Properties:Settings.Default}}"

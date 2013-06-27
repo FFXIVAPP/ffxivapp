@@ -16,6 +16,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -99,7 +99,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\System.Windows.Interactivity.dll</HintPath>
@@ -134,6 +136,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
     <Compile Include="Helpers\PopupHelper.cs" />
     <Compile Include="Helpers\TabItemHelper.cs" />
@@ -230,6 +233,9 @@
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
+    <Content Include="Licenses\License.DotNetZip.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Licenses\License.FFXIVAPP.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

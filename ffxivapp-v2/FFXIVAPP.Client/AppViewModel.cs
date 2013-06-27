@@ -11,10 +11,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Common.Helpers;
+using Application = System.Windows.Application;
 
 #endregion
 
@@ -36,6 +41,7 @@ namespace FFXIVAPP.Client
         private string _latestVersion;
         private Dictionary<string, string> _locale;
         private string _logsPath;
+        private NotifyIcon _notifyIcon;
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _screenShotsPath;
         private string _selected;
@@ -55,6 +61,36 @@ namespace FFXIVAPP.Client
             {
                 _locale = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public NotifyIcon NotifyIcon
+        {
+            get
+            {
+                if (_notifyIcon == null)
+                {
+                    using (var iconStream = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/Media/Icons/FFXIVAPP.ico")
+                                                          .Stream)
+                    {
+                        _notifyIcon = new NotifyIcon
+                        {
+                            Icon = new Icon(iconStream),
+                            Visible = true
+                        };
+                        iconStream.Dispose();
+                        _notifyIcon.Text = "FFXIVAPP";
+                        var contextMenu = new ContextMenu();
+                        contextMenu.MenuItems.Add("&Restore Application")
+                                   .Enabled = false;
+                        contextMenu.MenuItems.Add("&Exit");
+                        contextMenu.MenuItems[0].Click += NotifyIconOnRestoreClick;
+                        contextMenu.MenuItems[1].Click += NotifyIconOnExitClick;
+                        _notifyIcon.ContextMenu = contextMenu;
+                        _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
+                    }
+                }
+                return _notifyIcon;
             }
         }
 
@@ -242,6 +278,41 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Loading Functions
+
+        #endregion
+
+        #region Private Functions
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private static void NotifyIconOnRestoreClick(object sender, EventArgs eventArgs)
+        {
+            ShellView.View.WindowState = WindowState.Normal;
+            ShellView.View.Topmost = true;
+            ShellView.View.Topmost = false;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs)
+        {
+            DispatcherHelper.Invoke(() => ShellView.CloseApplication());
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="mouseEventArgs"></param>
+        private static void NotifyIconOnMouseDoubleClick(object sender, MouseEventArgs mouseEventArgs)
+        {
+            ShellView.View.WindowState = WindowState.Normal;
+            ShellView.View.Topmost = true;
+            ShellView.View.Topmost = false;
+        }
 
         #endregion
 

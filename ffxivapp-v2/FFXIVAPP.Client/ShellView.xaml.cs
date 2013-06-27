@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using FFXIVAPP.Client.Helpers;
@@ -49,6 +50,29 @@ namespace FFXIVAPP.Client
             Initializer.SetGlobals();
             Initializer.SetSignatures();
             Initializer.StartLogging();
+            AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
+            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MetroWindowStateChanged(object sender, EventArgs e)
+        {
+            switch (View.WindowState)
+            {
+                case WindowState.Minimized:
+                    ShowInTaskbar = false;
+                    AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP - Minimized";
+                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
+                    break;
+                case WindowState.Normal:
+                    ShowInTaskbar = true;
+                    AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
+                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+                    break;
+            }
         }
 
         /// <summary>
@@ -58,13 +82,23 @@ namespace FFXIVAPP.Client
         private void MetroWindowClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+            DispatcherHelper.Invoke(() => CloseApplication());
+        }
+        
+        /// <summary>
+        /// </summary>
+        /// <param name="update"></param>
+        public static void CloseApplication(bool update = false)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Normal;
+            SettingsHelper.Save();
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 pluginInstance.Instance.Dispose();
             }
             if (!Settings.Default.SaveLog || !AppViewModel.Instance.ChatHistory.Any())
             {
-                CloseApplication();
+                CloseDelegate(update);
             }
             var popupContent = new PopupContent();
             popupContent.Title = AppViewModel.Instance.Locale["app_InformationMessage"];
@@ -123,12 +157,13 @@ namespace FFXIVAPP.Client
                             }
                             return true;
                         };
-                        exportHistory.BeginInvoke(ExportHistoryCallBack, exportHistory);
+                        exportHistory.BeginInvoke(delegate
+                        {
+                            CloseDelegate(update);
+                        }, exportHistory);
                         break;
                     case MessageBoxResult.No:
-                        Application.Current.MainWindow.WindowState = WindowState.Normal;
-                        SettingsHelper.Save();
-                        Application.Current.Shutdown();
+                        CloseDelegate(update);
                         break;
                 }
                 PopupHelper.MessagePopup.Closed -= closedDelegate;
@@ -138,19 +173,25 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        /// <param name="asyncResult"> </param>
-        private static void ExportHistoryCallBack(IAsyncResult asyncResult)
+        /// <param name="update"></param>
+        private static void CloseDelegate(bool update = false)
         {
-            DispatcherHelper.Invoke(() => CloseApplication());
-        }
-
-        private static void CloseApplication(bool update = false)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Normal;
-            SettingsHelper.Save();
-            if (AppViewModel.Instance.HasNewVersion && update)
+            AppViewModel.Instance.NotifyIcon.Visible = false;
+            if (update)
             {
-                Process.Start("FFXIVAPP.Updater.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
+                var updaters = Process.GetProcessesByName("FFXIVAPP.Updater");
+                foreach (var updater in updaters)
+                {
+                    updater.Kill();
+                }
+                try
+                {
+                    File.Move("FFXIVAPP.Updater.exe", "FFXIVAPP.Updater.Backup.exe");
+                    Process.Start("FFXIVAPP.Updater.Backup.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
+                }
+                catch (Exception ex)
+                {
+                }
             }
             Environment.Exit(0);
         }

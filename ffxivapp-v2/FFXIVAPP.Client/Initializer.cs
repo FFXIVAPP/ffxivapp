@@ -125,6 +125,8 @@ namespace FFXIVAPP.Client
             }
         }
 
+        /// <summary>
+        /// </summary>
         public static void LoadPlugins()
         {
             App.Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
@@ -152,6 +154,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.HasPlugins = App.Plugins.Loaded.Count > 0;
         }
 
+        /// <summary>
+        /// </summary>
         public static void SetGlobals()
         {
             Common.Constants.CharacterName = Settings.Default.CharacterName;
@@ -159,16 +163,27 @@ namespace FFXIVAPP.Client
             Common.Constants.ServerName = Settings.Default.ServerName;
         }
 
+        /// <summary>
+        /// </summary>
         public static void SetCharacter()
         {
             var name = String.Format("{0} {1}", Settings.Default.FirstName, Settings.Default.LastName);
             Settings.Default.CharacterName = name.Trim();
         }
 
+        /// <summary>
+        /// </summary>
         public static void CheckUpdates()
         {
             Func<bool> updateCheck = delegate
             {
+                try
+                {
+                    File.Delete("FFXIVAPP.Updater.Backup.exe");
+                }
+                catch (Exception ex)
+                {
+                }
                 var current = Assembly.GetExecutingAssembly()
                                       .GetName()
                                       .Version.ToString();
@@ -254,13 +269,46 @@ namespace FFXIVAPP.Client
                             break;
                     }
                 }
-                var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                if (AppViewModel.Instance.HasNewVersion)
+                {
+                    string title, message;
+                    var culture = Common.Constants.CultureInfo.TwoLetterISOLanguageName;
+                    switch (culture)
+                    {
+                        case "ja":
+                            title = "利用可能な更新！";
+                            message = "ダウンロードするにはこのメッセージをクリックします。";
+                            break;
+                        case "de":
+                            title = "Update Verfügbar!";
+                            message = "Klicken sie auf diese nachricht zu downloaden.";
+                            break;
+                        case "fr":
+                            title = "Mise À Jour Possible!";
+                            message = "Cliquez sur ce message pour télécharger.";
+                            break;
+                        default:
+                            title = "Update Available!";
+                            message = "Click this message to download.";
+                            break;
+                    }
+                    EventHandler notifyEventHandler = null;
+                    notifyEventHandler = delegate
+                    {
+                        ShellView.CloseApplication(true);
+                        AppViewModel.Instance.NotifyIcon.BalloonTipClicked -= notifyEventHandler;
+                    };
+                    DispatcherHelper.Invoke(() => NotifyIconHelper.ShowBalloonMessage(title, message, notifyEventHandler));
+                }
+                const string uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                 return true;
             };
             updateCheck.BeginInvoke(null, null);
         }
 
+        /// <summary>
+        /// </summary>
         public static void SetSignatures()
         {
             var signatures = AppViewModel.Instance.Signatures;
