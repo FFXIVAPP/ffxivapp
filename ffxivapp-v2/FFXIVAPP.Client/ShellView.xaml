@@ -21,6 +21,8 @@
                                        Source={x:Static Properties:Settings.Default}}"
                       MinWidth="720"
                       MinHeight="480"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
                       Closing="MetroWindowClosing"
                       Icon="Resources/Media/Icons/FFXIVAPP.ico"
                       Left="{Binding Left,
