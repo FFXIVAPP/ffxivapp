@@ -161,7 +161,7 @@ namespace FFXIVAPP.Plugin.Parse
                 var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
                 var line = chatEntry.Line.Replace("  ", " ");
                 var color = (Common.Constants.Colors.ContainsKey(chatEntry.Code)) ? Common.Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                if (Constants.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
+                if (Constants.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+((uses|utilisez?)\s|の「)", SharedRegEx.DefaultOptions))
                 {
                     Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                     {
