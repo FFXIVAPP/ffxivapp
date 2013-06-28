@@ -149,12 +149,13 @@ namespace FFXIVAPP.Client.Memory
             }
             _spots.Clear();
             var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
+            var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
             var lengths = new List<int>();
             try
             {
                 for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
                 {
-                    var getline = ((index - i) < 0) ? (index - i) + 256 : index - i;
+                    var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
                     int lineLen;
                     if (getline == 0)
                     {

@@ -169,10 +169,8 @@ namespace FFXIVAPP.Updater
                     fileInfo.Delete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
             }
         }
     }

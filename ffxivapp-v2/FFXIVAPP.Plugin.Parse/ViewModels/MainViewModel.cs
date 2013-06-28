@@ -78,9 +78,9 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
         {
             var openFileDialog = new OpenFileDialog
             {
-                DefaultExt = "xml",
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Logs",
-                Multiselect = false
+                Multiselect = false,
+                Filter = "XML Files (*.xml)|*.xml"
             };
             openFileDialog.FileOk += delegate
             {

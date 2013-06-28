@@ -62,7 +62,7 @@ cd "..\SmartAssembly"
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.IPluginInterface.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Updater.exe
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip HtmlAgilityPack.dll
-"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Ionic.Zip.dll
+#"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Ionic.Zip.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip MahApps.Metro.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip NLog.dll

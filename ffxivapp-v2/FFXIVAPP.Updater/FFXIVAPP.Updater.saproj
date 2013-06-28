@@ -422,8 +422,44 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="Ionic.Zip, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c">
-                <Merging />
-                <Embedding />
+                <Merging Merge="1">
+                    <Pruning>
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation Obfuscate="1">
+                        <Exclusion>
+                            <Token Table="Namespace">
+                                <Assembly>Ionic.Zip</Assembly>
+                                <Module>Ionic.Zip.dll</Module>
+                                <Namespace>Ionic</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>Ionic.Zip</Assembly>
+                                <Module>Ionic.Zip.dll</Module>
+                                <Namespace>Ionic.BZip2</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>Ionic.Zip</Assembly>
+                                <Module>Ionic.Zip.dll</Module>
+                                <Namespace>Ionic.Crc</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>Ionic.Zip</Assembly>
+                                <Module>Ionic.Zip.dll</Module>
+                                <Namespace>Ionic.Zip</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>Ionic.Zip</Assembly>
+                                <Module>Ionic.Zip.dll</Module>
+                                <Namespace>Ionic.Zlib</Namespace>
+                            </Token>
+                        </Exclusion>
+                    </Obfuscation>
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="4" />
+                    <MemberRefsProxy Proxy="1" />
+                    <ResourcesCompression Compress="1" />
+                </Merging>
+                <Embedding Embed="1" />
             </Assembly>
         </Assemblies>
     </Configuration>
