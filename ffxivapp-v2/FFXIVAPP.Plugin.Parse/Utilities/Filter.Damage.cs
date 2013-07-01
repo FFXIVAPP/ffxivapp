@@ -7,11 +7,14 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
+using FFXIVAPP.Plugin.Parse.Models.Stats;
+using FFXIVAPP.Plugin.Parse.ViewModels;
 using NLog;
 
 #endregion

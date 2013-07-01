@@ -9,6 +9,7 @@
              xmlns:Views="clr-namespace:FFXIVAPP.Plugin.Parse.Views"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:oxy="http://oxyplot.codeplex.com"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -20,6 +21,8 @@
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="Settings"
                   Member="Properties:Settings.Default" />
+        <x:Static x:Key="ParseChartsViewModel"
+                  Member="ViewModels:ParseChartsViewModel.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
 
@@ -31,6 +34,9 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
+            <TabItem Header="Charts">
+                <Views:ParseChartsView />
+            </TabItem>
             <TabItem Header="{Binding Locale[parse_BasicTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <Views:ParseBasicView />

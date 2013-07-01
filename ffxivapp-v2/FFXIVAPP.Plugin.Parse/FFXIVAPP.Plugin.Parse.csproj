@@ -69,6 +69,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\packages\OxyPlot.Core.2013.1.52.1\lib\portable-net4+sl4+wp71+win8\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf">
+      <HintPath>..\packages\OxyPlot.Wpf.2013.1.52.1\lib\NET45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Xps">
+      <HintPath>..\packages\OxyPlot.Wpf.2013.1.52.1\lib\NET45\OxyPlot.Xps.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -178,17 +187,22 @@
     <Compile Include="Models\Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
+    <Compile Include="ViewModels\ParseChartsViewModel.cs" />
     <Compile Include="ViewModels\ParseMonsterDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyHealingViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyDamageViewModel.cs" />
     <Compile Include="ViewModels\ParseBasicViewModel.cs" />
+    <Compile Include="Models\PrivatePlotModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParseChartsView.xaml.cs">
+      <DependentUpon>ParseChartsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ParseMonsterDamageTakenView.xaml.cs">
       <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
@@ -273,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ParseChartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

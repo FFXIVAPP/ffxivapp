@@ -26,6 +26,9 @@ using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 #endregion
 
