@@ -76,6 +76,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\System.Windows.Interactivity.dll</HintPath>
@@ -105,6 +106,7 @@
     </Compile>
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utilities\GoogleTranslate.cs" />
+    <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

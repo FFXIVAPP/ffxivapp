@@ -70,6 +70,8 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public bool Resist { get; set; }
         public bool Evade { get; set; }
 
+        public string RawLine { get; set; }
+
         public bool IsEmpty()
         {
             return String.IsNullOrWhiteSpace(Source) || String.IsNullOrWhiteSpace(Target) || String.IsNullOrWhiteSpace(Action);

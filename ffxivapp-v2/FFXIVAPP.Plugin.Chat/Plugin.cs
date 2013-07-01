@@ -19,6 +19,7 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Chat.Helpers;
 using FFXIVAPP.Plugin.Chat.Properties;
+using FFXIVAPP.Plugin.Chat.Utilities;
 using NLog;
 
 #endregion
@@ -141,17 +142,19 @@ namespace FFXIVAPP.Plugin.Chat
 
         public void OnNewLine(out bool success, params object[] entry)
         {
-            var chatEntry = new ChatEntry();
-            chatEntry.Bytes = (byte[]) entry[0];
-            chatEntry.Code = (string) entry[1];
-            chatEntry.Combined = (string) entry[2];
-            chatEntry.JP = (bool) entry[3];
-            chatEntry.Line = (string) entry[4];
-            chatEntry.Raw = (string) entry[5];
-            chatEntry.TimeStamp = (DateTime) entry[6];
             try
             {
-                var line = chatEntry.Line.Replace("  ", " ");
+                var chatEntry = new ChatEntry
+                {
+                    Bytes = (byte[]) entry[0],
+                    Code = (string) entry[1],
+                    Combined = (string) entry[2],
+                    JP = (bool) entry[3],
+                    Line = (string) entry[4],
+                    Raw = (string) entry[5],
+                    TimeStamp = (DateTime) entry[6]
+                };
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {

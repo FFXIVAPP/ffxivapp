@@ -189,30 +189,35 @@ namespace FFXIVAPP.Client.Memory
         /// <returns>The pointer found at the matching location</returns>
         private IntPtr FindSignature(string signature, int offset, ScanResultType searchType)
         {
-            if (signature.Length == 0 || signature.Length % 2 != 0)
+            try
             {
-                throw new Exception("FindSignature(): Invalid signature");
-            }
-            foreach (var region in _regions)
-            {
-                var buffer = new byte[region.RegionSize];
-                if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, 0))
+                if (signature.Length == 0 || signature.Length % 2 != 0)
                 {
-                    var errorCode = Marshal.GetLastWin32Error();
-                    throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
+                    throw new Exception("FindSignature(): Invalid signature");
                 }
-                var searchResult = FindSignature(buffer, signature, offset, searchType);
-                if (IntPtr.Zero != searchResult)
+                foreach (var region in _regions)
                 {
-                    if (ScanResultType.AddressStartOfSig == searchType)
+                    var buffer = new byte[region.RegionSize];
+                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, 0))
                     {
-                        searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                        var errorCode = Marshal.GetLastWin32Error();
+                        throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
                     }
+                    var searchResult = FindSignature(buffer, signature, offset, searchType);
+                    if (IntPtr.Zero != searchResult)
+                    {
+                        if (ScanResultType.AddressStartOfSig == searchType)
+                        {
+                            searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                        }
 
-                    return searchResult;
+                        return searchResult;
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+            }
             return IntPtr.Zero;
         }
 
@@ -227,39 +232,45 @@ namespace FFXIVAPP.Client.Memory
         /// <returns>A pointer at the matching location</returns>
         private static IntPtr FindSignature(byte[] buffer, string signature, int offset, ScanResultType searchType)
         {
-            if (signature.Length == 0 || signature.Length % 2 != 0)
+            try
             {
-                return IntPtr.Zero;
-            }
-            var pattern = SigToByte(signature, WildCardChar);
-            if (pattern != null)
-            {
-                var pos = 0;
-                for (pos = 0; pos < pattern.Length; pos++)
-                {
-                    if (pattern[pos] == WildCardChar)
-                    {
-                        break;
-                    }
-                }
-                var idx = -1;
-                idx = pos == pattern.Length ? Horspool(buffer, pattern) : BNDM(buffer, pattern, WildCardChar);
-                if (idx < 0)
+                if (signature.Length == 0 || signature.Length % 2 != 0)
                 {
                     return IntPtr.Zero;
                 }
-                switch (searchType)
+                var pattern = SigToByte(signature, WildCardChar);
+                if (pattern != null)
                 {
-                    case ScanResultType.ValueBeforeSig:
-                        return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
-                    case ScanResultType.ValueAfterSig:
-                        return (IntPtr) (BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
-                    case ScanResultType.AddressStartOfSig:
-                        return (IntPtr) (idx + offset);
-                    case ScanResultType.ValueAtWildCard:
-                    default:
-                        return (IntPtr) (BitConverter.ToInt32(buffer, idx + pos) + offset);
+                    var pos = 0;
+                    for (pos = 0; pos < pattern.Length; pos++)
+                    {
+                        if (pattern[pos] == WildCardChar)
+                        {
+                            break;
+                        }
+                    }
+                    var idx = -1;
+                    idx = pos == pattern.Length ? Horspool(buffer, pattern) : BNDM(buffer, pattern, WildCardChar);
+                    if (idx < 0)
+                    {
+                        return IntPtr.Zero;
+                    }
+                    switch (searchType)
+                    {
+                        case ScanResultType.ValueBeforeSig:
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx - 4) + offset);
+                        case ScanResultType.ValueAfterSig:
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
+                        case ScanResultType.AddressStartOfSig:
+                            return (IntPtr)(idx + offset);
+                        case ScanResultType.ValueAtWildCard:
+                        default:
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pos) + offset);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
             }
             return IntPtr.Zero;
         }

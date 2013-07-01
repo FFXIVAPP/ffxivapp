@@ -21,7 +21,10 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
     {
         private static void ProcessDetrimental(Event e, Expressions exp)
         {
-            var line = new Line();
+            var line = new Line
+            {
+                RawLine = e.RawLine
+            };
             var detrimental = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {

@@ -164,15 +164,18 @@ namespace FFXIVAPP.Common.Converters
         private string SaveToCache(string fileName, Uri imageUri)
         {
             var request = (HttpWebRequest) WebRequest.Create(imageUri);
-            var response = request.GetResponse();
+            var response = (HttpWebResponse) request.GetResponse();
             var stream = response.GetResponseStream();
-            if (stream != null && response.ContentType == "image/png")
+            if (stream != null)
             {
-                var imagePath = Path.Combine(CachePath, fileName);
-                var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
-                stream.CopyTo(fileStream);
-                fileStream.Close();
-                return imagePath;
+                if (response.ContentType == "image/jpeg" || response.ContentType == "image/png")
+                {
+                    var imagePath = Path.Combine(CachePath, fileName);
+                    var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
+                    stream.CopyTo(fileStream);
+                    fileStream.Close();
+                    return imagePath;
+                }
             }
             return DefaultAvatar;
         }

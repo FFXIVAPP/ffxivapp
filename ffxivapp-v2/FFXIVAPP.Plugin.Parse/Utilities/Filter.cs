@@ -7,6 +7,8 @@
 #region Usings
 
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
@@ -72,6 +74,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             #endregion
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="clearNames"></param>
         private static void ClearLast(bool clearNames = false)
         {
             _lastPlayerAction = "";

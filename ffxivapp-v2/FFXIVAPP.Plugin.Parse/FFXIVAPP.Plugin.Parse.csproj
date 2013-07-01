@@ -177,6 +177,7 @@
     <Compile Include="Models\Stats\StatGroupTypeDescriptor.cs" />
     <Compile Include="Models\Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Models\LinkedStats\TotalStat.cs" />
+    <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="ViewModels\ParseMonsterDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyHealingViewModel.cs" />

@@ -17,26 +17,6 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
     {
         #region Job Info
 
-        public static readonly string[] MultiEn = new[]
-        {
-            "Simian Thrash", "Rage of Halone", "Godsbane", "Dragon Kick", "Quick Nock", "Chaos Thrust"
-        };
-
-        public static readonly string[] MultiFr = new[]
-        {
-            "Déchaînement", "Rage de Halone", "Fléau des dieux", "Tacle du dragon", "Salve fulgurante", "Percée chaotique"
-        };
-
-        public static readonly string[] MultiJa = new[]
-        {
-            "猿猴九連掌", "レイジオブハルオーネ", "ゴッズベーン", "双竜脚", "クイックノック", "桜華狂咲"
-        };
-
-        public static readonly string[] MultiDe = new[]
-        {
-            "Ekajatis Zorn", "Halones Groll", "Götterbann", "Zwillingsdrache", "Pfeilsalve", "Chaotischer Tjost"
-        };
-
         public static decimal GetOriginal(decimal amount, decimal modifier)
         {
             return Math.Abs((amount / (modifier + 1)) - amount);

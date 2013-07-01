@@ -2,7 +2,7 @@
 // Plugin.cs
 //  
 // Created by Ryan Wilson.
-// Copyright © 2007-2012 Ryan Wilson - All Rights Reserved
+// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
 #region Usings
 
@@ -19,13 +19,14 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Sample.Helpers;
 using FFXIVAPP.Plugin.Sample.Properties;
+using FFXIVAPP.Plugin.Sample.Utilities;
 using NLog;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Sample
 {
-    [Export(typeof(IPlugin))]
+    [Export(typeof (IPlugin))]
     public class Plugin : IPlugin, INotifyPropertyChanged
     {
         #region Property Bindings
@@ -141,17 +142,19 @@ namespace FFXIVAPP.Plugin.Sample
 
         public void OnNewLine(out bool success, params object[] entry)
         {
-            var chatEntry = new ChatEntry();
-            chatEntry.Bytes = (byte[]) entry[0];
-            chatEntry.Code = (string) entry[1];
-            chatEntry.Combined = (string) entry[2];
-            chatEntry.JP = (bool) entry[3];
-            chatEntry.Line = (string) entry[4];
-            chatEntry.Raw = (string) entry[5];
-            chatEntry.TimeStamp = (DateTime) entry[6];
             try
             {
-                var line = chatEntry.Line.Replace("  ", " ");
+                var chatEntry = new ChatEntry
+                {
+                    Bytes = (byte[]) entry[0],
+                    Code = (string) entry[1],
+                    Combined = (string) entry[2],
+                    JP = (bool) entry[3],
+                    Line = (string) entry[4],
+                    Raw = (string) entry[5],
+                    TimeStamp = (DateTime) entry[6]
+                };
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {

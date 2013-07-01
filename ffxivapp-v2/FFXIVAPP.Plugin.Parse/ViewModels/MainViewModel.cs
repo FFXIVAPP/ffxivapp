@@ -42,11 +42,6 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
-        public static bool SampleOK
-        {
-            get { return File.Exists(Constants.BaseDirectory + "sample.xml"); }
-        }
-
         #endregion
 
         #region Declarations
@@ -116,14 +111,14 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                         var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                         timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
                         var color = (Common.Constants.Colors.ContainsKey(code)) ? Common.Constants.Colors[code][0] : "FFFFFF";
-                        if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(uses)\s", SharedRegEx.DefaultOptions))
+                        if (Constants.Abilities.Contains(code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                         {
                             Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                             {
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line);
+                        EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line, false);
                     }
                     return true;
                 };

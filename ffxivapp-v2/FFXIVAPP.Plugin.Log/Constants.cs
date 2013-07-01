@@ -96,22 +96,15 @@ namespace FFXIVAPP.Plugin.Log
             get
             {
                 var linkshells = new Dictionary<string, string>();
-                //linkshells.Add("000E", "[1] ");
-                //linkshells.Add("0005", "[1] ");
-                //linkshells.Add("000F", "[2] ");
-                //linkshells.Add("0006", "[2] ");
-                //linkshells.Add("0010", "[3] ");
-                //linkshells.Add("0007", "[3] ");
-                //linkshells.Add("0011", "[4] ");
-                //linkshells.Add("0008", "[4] ");
-                //linkshells.Add("0012", "[5] ");
-                //linkshells.Add("0009", "[5] ");
-                //linkshells.Add("0013", "[6] ");
-                //linkshells.Add("000A", "[6] ");
-                //linkshells.Add("0014", "[7] ");
-                //linkshells.Add("000B", "[7] ");
-                //linkshells.Add("0015", "[8] ");
-                //linkshells.Add("000C", "[8] ");
+                linkshells.Add("0010", "[1] ");
+                linkshells.Add("0011", "[2] ");
+                linkshells.Add("0012", "[3] ");
+                linkshells.Add("0013", "[4] ");
+                linkshells.Add("0014", "[5] ");
+                linkshells.Add("0015", "[6] ");
+                linkshells.Add("0016", "[7] ");
+                linkshells.Add("0017", "[8] ");
+                linkshells.Add("0018", "[FC] ");
                 return linkshells;
             }
         }

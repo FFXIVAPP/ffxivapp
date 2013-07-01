@@ -211,8 +211,10 @@ namespace FFXIVAPP.Client.Memory
                 autoTranslateList.Clear();
                 newList.Clear();
                 cleaned = cleaned.Replace("", "⇒");
+                cleaned = cleaned.Replace("", "[HQ]");
                 cleaned = cleaned.Replace("[01010101]", "");
                 cleaned = cleaned.Replace("[CF010101]", "");
+                cleaned = Regex.Replace(cleaned, @"\[..FF\w{6}\]|\[EC\]", "");
                 line = cleaned;
             }
             catch (Exception ex)

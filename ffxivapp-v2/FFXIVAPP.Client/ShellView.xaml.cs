@@ -84,7 +84,7 @@ namespace FFXIVAPP.Client
             e.Cancel = true;
             DispatcherHelper.Invoke(() => CloseApplication());
         }
-        
+
         /// <summary>
         /// </summary>
         /// <param name="update"></param>
@@ -157,10 +157,7 @@ namespace FFXIVAPP.Client
                             }
                             return true;
                         };
-                        exportHistory.BeginInvoke(delegate
-                        {
-                            CloseDelegate(update);
-                        }, exportHistory);
+                        exportHistory.BeginInvoke(delegate { CloseDelegate(update); }, exportHistory);
                         break;
                     case MessageBoxResult.No:
                         CloseDelegate(update);

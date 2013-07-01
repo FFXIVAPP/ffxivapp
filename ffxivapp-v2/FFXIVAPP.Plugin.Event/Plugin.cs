@@ -18,12 +18,11 @@ using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Event.Helpers;
 using FFXIVAPP.Plugin.Event.Properties;
+using FFXIVAPP.Plugin.Event.Utilities;
 using NLog;
 
 #endregion
@@ -160,41 +159,19 @@ namespace FFXIVAPP.Plugin.Event
 
         public void OnNewLine(out bool success, params object[] entry)
         {
-            var chatEntry = new ChatEntry();
-            chatEntry.Bytes = (byte[]) entry[0];
-            chatEntry.Code = (string) entry[1];
-            chatEntry.Combined = (string) entry[2];
-            chatEntry.JP = (bool) entry[3];
-            chatEntry.Line = (string) entry[4];
-            chatEntry.Raw = (string) entry[5];
-            chatEntry.TimeStamp = (DateTime) entry[6];
             try
             {
-                var line = chatEntry.Line.Replace("  ", " ");
-                foreach (var item in PluginViewModel.Instance.Events)
+                var chatEntry = new ChatEntry
                 {
-                    var resuccess = false;
-                    var check = new Regex(item.Key);
-                    if (SharedRegEx.IsValidRegex(item.Key))
-                    {
-                        var reg = check.Match(line);
-                        if (reg.Success)
-                        {
-                            resuccess = true;
-                        }
-                    }
-                    else
-                    {
-                        resuccess = (item.Key == line);
-                    }
-                    if (!resuccess)
-                    {
-                        continue;
-                    }
-                    var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != line)
-                                               .Count();
-                    SoundPlayerHelper.Play(Constants.BaseDirectory, PluginViewModel.Instance.Events[index].Value);
-                }
+                    Bytes = (byte[]) entry[0],
+                    Code = (string) entry[1],
+                    Combined = (string) entry[2],
+                    JP = (bool) entry[3],
+                    Line = (string) entry[4],
+                    Raw = (string) entry[5],
+                    TimeStamp = (DateTime) entry[6]
+                };
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {

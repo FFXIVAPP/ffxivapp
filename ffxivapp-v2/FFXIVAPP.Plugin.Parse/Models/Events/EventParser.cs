@@ -230,7 +230,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
         /// </summary>
         /// <param name="code"> </param>
         /// <param name="line"> </param>
-        public void ParseAndPublish(UInt32 code, string line)
+        /// <param name="live"></param>
+        public void ParseAndPublish(UInt32 code, string line, bool live = true)
         {
             var @event = Parse(code, line);
             var eventHandler = @event.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
@@ -240,6 +241,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             }
             lock (eventHandler)
             {
+                if (live)
+                {
+                    System.Threading.Thread.Sleep(10);
+                }
                 eventHandler(this, @event);
             }
         }

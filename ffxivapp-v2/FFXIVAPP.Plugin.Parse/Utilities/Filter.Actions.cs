@@ -23,7 +23,10 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
     {
         private static void ProcessActions(Event e, Expressions exp)
         {
-            var line = new Line();
+            var line = new Line
+            {
+                RawLine = e.RawLine
+            };
             var actions = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {

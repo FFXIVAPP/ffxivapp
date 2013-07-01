@@ -9,8 +9,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 

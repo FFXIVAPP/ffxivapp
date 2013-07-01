@@ -15,6 +15,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
+using FFXIVAPP.Common.Helpers;
 using NLog;
 using Timer = System.Timers.Timer;
 
@@ -79,8 +80,6 @@ namespace FFXIVAPP.Client.Memory
         {
             _scanTimer = new Timer(10);
             _scanTimer.Elapsed += ScanTimerElapsed;
-            _scanner.DoWork += ScannerDoWork;
-            _scanner.RunWorkerCompleted += ScannerRunWorkerCompleted;
             _handler = new MemoryHandler(process, 0);
             _offsets = offsets;
         }
@@ -115,97 +114,85 @@ namespace FFXIVAPP.Client.Memory
             {
                 return;
             }
-            if (_scanner.IsBusy != true)
+            Func<bool> scannerWorker = delegate
             {
-                _scanner.RunWorkerAsync();
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="e"> </param>
-        private void ScannerDoWork(object sender, DoWorkEventArgs e)
-        {
-            if (!_offsets.Locations.ContainsKey("GAMEMAIN"))
-            {
-                return;
-            }
-            if (!_offsets.Locations.ContainsKey("CHATLOG"))
-            {
-                _handler.Address = _offsets.Locations["GAMEMAIN"];
-                _offsets.Locations.Add("CHATLOG", _handler.GetUInt32() + 12);
-            }
-            _isScanning = true;
-            _handler.Address = _offsets.Locations["CHATLOG"];
-            var chatPointers = _handler.GetStructure<ChatPointers>();
-            if (_lastCount == 0)
-            {
-                _lastCount = (int) chatPointers.LineCount1;
-            }
-            if (_lastCount == chatPointers.LineCount1)
-            {
-                return;
-            }
-            _spots.Clear();
-            var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
-            var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
-            var lengths = new List<int>();
-            try
-            {
-                for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
+                if (!_offsets.Locations.ContainsKey("GAMEMAIN"))
                 {
-                    var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
-                    int lineLen;
-                    if (getline == 0)
-                    {
-                        _handler.Address = chatPointers.OffsetArrayStart;
-                        lineLen = _handler.GetInt32();
-                    }
-                    else
-                    {
-                        _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                        var previous = _handler.GetInt32();
-                        _handler.Address = chatPointers.OffsetArrayStart + (uint) (getline * 4);
-                        var current = _handler.GetInt32();
-                        lineLen = current - previous;
-                    }
-                    lengths.Add(lineLen);
-                    _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                    _spots.Add(chatPointers.LogStart + (uint) _handler.GetInt32());
+                    return false;
                 }
-                var limit = _spots.Count;
-                for (var i = 0; i < limit; i++)
+                if (!_offsets.Locations.ContainsKey("CHATLOG"))
                 {
-                    _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
-                    _handler.Address = _spots[i];
-                    var text = _handler.GetByteArray(lengths[i]);
-                    var chatEntry = new ChatEntry(text.ToArray());
-                    if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
-                    {
-                        PostLineEvent(chatEntry);
-                    }
-                    else
-                    {
-                        Tracer.Debug("DebugLineEvent: {0}", text.ToArray());
-                    }
-                    _lastChatNum = _spots[i];
+                    _handler.Address = _offsets.Locations["GAMEMAIN"];
+                    _offsets.Locations.Add("CHATLOG", _handler.GetUInt32() + 12);
                 }
-            }
-            catch (Exception ex)
+                _isScanning = true;
+                _handler.Address = _offsets.Locations["CHATLOG"];
+                var chatPointers = _handler.GetStructure<ChatPointers>();
+                try
+                {
+                    if (_lastCount == 0)
+                    {
+                        _lastCount = (int)chatPointers.LineCount1;
+                    }
+                    if (_lastCount == chatPointers.LineCount1)
+                    {
+                        throw new Exception("LastCount==LineCount");
+                    }
+                    _spots.Clear();
+                    var index = (int)(chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
+                    var offset = (int)(chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
+                    var lengths = new List<int>();
+                    for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
+                    {
+                        var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
+                        int lineLen;
+                        if (getline == 0)
+                        {
+                            _handler.Address = chatPointers.OffsetArrayStart;
+                            lineLen = _handler.GetInt32();
+                        }
+                        else
+                        {
+                            _handler.Address = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
+                            var previous = _handler.GetInt32();
+                            _handler.Address = chatPointers.OffsetArrayStart + (uint)(getline * 4);
+                            var current = _handler.GetInt32();
+                            lineLen = current - previous;
+                        }
+                        lengths.Add(lineLen);
+                        _handler.Address = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
+                        _spots.Add(chatPointers.LogStart + (uint)_handler.GetInt32());
+                    }
+                    var limit = _spots.Count;
+                    for (var i = 0; i < limit; i++)
+                    {
+                        _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
+                        _handler.Address = _spots[i];
+                        var text = _handler.GetByteArray(lengths[i]);
+                        var chatEntry = new ChatEntry(text.ToArray());
+                        if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
+                        {
+                            DispatcherHelper.Invoke(() => PostLineEvent(chatEntry));
+                        }
+                        else
+                        {
+                            Tracer.Debug("DebugLineEvent: {0}", text.ToArray());
+                        }
+                        _lastChatNum = _spots[i];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                }
+                _isScanning = false;
+                _lastCount = (int)chatPointers.LineCount1;
+                return true;
+            };
+            scannerWorker.BeginInvoke(delegate(IAsyncResult ar)
             {
-                //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-            }
-            _lastCount = (int) chatPointers.LineCount1;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="e"> </param>
-        private void ScannerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            _isScanning = false;
+                
+            }, scannerWorker);
         }
 
         #endregion
@@ -226,8 +213,6 @@ namespace FFXIVAPP.Client.Memory
         public void Dispose()
         {
             _scanTimer.Elapsed -= ScanTimerElapsed;
-            _scanner.DoWork -= ScannerDoWork;
-            _scanner.RunWorkerCompleted -= ScannerRunWorkerCompleted;
         }
 
         #endregion

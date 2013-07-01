@@ -17,9 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
-using Application = System.Windows.Application;
 
 #endregion
 

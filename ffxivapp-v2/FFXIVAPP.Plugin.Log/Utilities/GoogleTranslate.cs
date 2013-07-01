@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Net;
+using System.Web;
 using FFXIVAPP.Plugin.Log.Properties;
 using FFXIVAPP.Plugin.Log.Views;
 using HtmlAgilityPack;
@@ -60,7 +61,7 @@ namespace FFXIVAPP.Plugin.Log.Utilities
         /// <returns> </returns>
         private static string Translate(string line, bool jp)
         {
-            string tempString;
+            var tempString = "";
             var jpOnly = Settings.Default.TranslateJPOnly;
             var outLang = Offsets[Settings.Default.TranslateTo].ToString();
             if (jpOnly)
@@ -68,7 +69,6 @@ namespace FFXIVAPP.Plugin.Log.Utilities
                 if (jp)
                 {
                     tempString = TranslateText(line, "ja", outLang, true);
-                    return tempString;
                 }
             }
             else
@@ -79,9 +79,8 @@ namespace FFXIVAPP.Plugin.Log.Utilities
                     return tempString;
                 }
                 tempString = TranslateText(line, "en", outLang, false);
-                return tempString;
             }
-            return "";
+            return HttpUtility.HtmlDecode(tempString);
         }
 
         /// <summary>
@@ -131,11 +130,11 @@ namespace FFXIVAPP.Plugin.Log.Utilities
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 result = "";
             }
-            return result;
+            return HttpUtility.HtmlDecode(result);
         }
 
         /// <summary>

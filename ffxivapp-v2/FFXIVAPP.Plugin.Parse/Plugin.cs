@@ -10,21 +10,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
-using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Parse.Helpers;
-using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Utilities;
-using FFXIVAPP.Plugin.Parse.Views;
 using NLog;
 
 #endregion
@@ -147,42 +142,31 @@ namespace FFXIVAPP.Plugin.Parse
 
         public void OnNewLine(out bool success, params object[] entry)
         {
-            var chatEntry = new ChatEntry();
-            chatEntry.Bytes = (byte[]) entry[0];
-            chatEntry.Code = (string) entry[1];
-            chatEntry.Combined = (string) entry[2];
-            chatEntry.JP = (bool) entry[3];
-            chatEntry.Line = (string) entry[4];
-            chatEntry.Raw = (string) entry[5];
-            chatEntry.TimeStamp = (DateTime) entry[6];
             try
             {
-                var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
-                var line = chatEntry.Line.Replace("  ", " ");
-                var color = (Common.Constants.Colors.ContainsKey(chatEntry.Code)) ? Common.Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                if (Constants.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+((uses|utilisez?)\s|の「)", SharedRegEx.DefaultOptions))
+                
+                var chatEntry = new ChatEntry
                 {
-                    Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                    {
-                        timeStampColor, "#" + color
-                    }, MainView.View.AbilityChatFD._FDR);
-                }
-                if (chatEntry.Code == "0020")
-                {
-                    List<string> temp;
-                    CommandBuilder.GetCommands(line, out temp);
-                    if (temp != null)
-                    {
-                        Host.Commands(Name, temp);
-                    }
-                }
-                Func<bool> funcParse = delegate
-                {
-                    EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatEntry.Code, 16), line);
-                    return true;
+                    Bytes = (byte[]) entry[0],
+                    Code = (string) entry[1],
+                    Combined = (string) entry[2],
+                    JP = (bool) entry[3],
+                    Line = (string) entry[4],
+                    Raw = (string) entry[5],
+                    TimeStamp = (DateTime) entry[6]
                 };
-                funcParse.BeginInvoke(null, null);
+                // process commands
+                //if (chatEntry.Code == "0038")
+                //{
+                //    List<string> temp;
+                //    CommandBuilder.GetCommands(chatEntry.Line.Replace("  ", " "), out temp);
+                //    if (temp != null)
+                //    {
+                //        Host.Commands(Plugin.PName, temp);
+                //    }
+                //}
+                // process logs
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {
