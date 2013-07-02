@@ -7,7 +7,9 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Helpers;
 using OxyPlot;
@@ -24,7 +26,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
 
         private LinearAxis _bottomAxis;
         private LinearAxis _leftAxis;
-        private LineSeries _lineSeries;
         private PlotModel _model;
 
         public PlotModel Model
@@ -41,17 +42,20 @@ namespace FFXIVAPP.Plugin.Parse.Models
             }
         }
 
-        public LineSeries LineSeries
+        public List<LineSeries> LineSeries
         {
-            get { return _lineSeries ?? (_lineSeries = new LineSeries()); }
+            get
+            {
+                return Model.Series.Select(series => series as LineSeries)
+                            .ToList();
+            }
             set
             {
-                if (_lineSeries == null)
+                Model.Series.Clear();
+                foreach (var lineSeries in value)
                 {
-                    _lineSeries = new LineSeries();
+                    Model.Series.Add(lineSeries);
                 }
-                _lineSeries = value;
-                RaisePropertyChanged();
             }
         }
 
@@ -88,7 +92,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
         #region Declarations
 
         private Int64 Ticks = 0;
-        private double LastValue = 0;
 
         #endregion
 
@@ -98,24 +101,34 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public PrivatePlotModel(string title = "")
         {
             Model.Title = title;
-            Model.Series.Add(LineSeries);
             Model.Axes.Add(LeftAxis);
             Model.Axes.Add(BottomAxis);
         }
 
         /// <summary>
         /// </summary>
+        /// <param name="index"></param>
         /// <param name="value"></param>
-        public void AddDataPoint(double value)
+        public void AddDataPoint(int index, double value)
         {
+            if (Model.Series.Count <= index)
+            {
+                return;
+            }
             DispatcherHelper.Invoke(delegate
             {
-                var newValue = value - LastValue;
-                LineSeries.Points.Add(new DataPoint(Ticks, newValue < 0 ? 0 : newValue));
+                var points = LineSeries[index].Points;
+                double lastValue = 0;
+                var lastOrDefault = points.LastOrDefault();
+                if (lastOrDefault != null)
+                {
+                    lastValue = lastOrDefault.Y;
+                }
+                var newValue = value - lastValue;
+                points.Add(new DataPoint(Ticks, newValue < 0 ? 0 : newValue));
                 ++Ticks;
                 BottomAxis.Minimum = Ticks < 50 ? 0 : Ticks - 50;
                 BottomAxis.Maximum = BottomAxis.Minimum + 50;
-                LastValue = value;
                 Model.RefreshPlot(true);
             });
         }

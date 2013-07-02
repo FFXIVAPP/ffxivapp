@@ -82,21 +82,24 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
             _updateTimer.Start();
         }
 
-        Dictionary<string,StatGroup> Players = new Dictionary<string, StatGroup>();
+        readonly Dictionary<string,Dictionary<int,StatGroup>> _players = new Dictionary<string, Dictionary<int, StatGroup>>();
 
         private void UpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            var partyOverall = ParseControl.Instance.Timeline.Overall;
-            DPSModel.AddDataPoint((double) (partyOverall.Stats.GetStatValue("TotalOverallDamage") / ParseControl.Instance.Timeline.Party.Count));
             var partyMembers = ParseControl.Instance.Timeline.Party;
-            foreach (var partyMember in partyMembers)
+            for (var i = 0; i < partyMembers.Count; i++)
             {
-                if (!Players.ContainsKey(partyMember.Name))
+                if (!_players.ContainsKey(partyMembers[i].Name))
                 {
-                    Players.Add(partyMember.Name, partyMember);
-                    DamageModel.Model.Series.Add(new LineSeries(partyMember.Name));
+                    _players.Add(partyMembers[i].Name, new Dictionary<int, StatGroup>
+                    {
+                        {
+                            _players.Count, partyMembers[i]
+                        }
+                    });
+                    DamageModel.Model.Series.Add(new LineSeries(partyMembers[i].Name));
                 }
-                
+                DamageModel.AddDataPoint(i, (double) partyMembers[i].Stats.GetStatValue("TotalOverallDamage"));
             }
             //DamageModel.AddDataPoint((double)partyOverall.Stats.GetStatValue("TotalOverallDamage"));
             //DamageTakenModel.AddDataPoint((double)partyOverall.Stats.GetStatValue("TotalOverallDamageTaken"));

@@ -28,9 +28,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         public string Name { get; set; }
         public bool IncludeSelf { private get; set; }
 
-        public IEnumerable<StatGroup> Children
+        public List<StatGroup> Children
         {
-            get { return _children.Values; }
+            get { return new List<StatGroup>(_children.Values); }
         }
 
         public StatContainer Stats
@@ -331,5 +331,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         }
 
         #endregion
+
+        public StatGroup this[int i]
+        {
+            get
+            {
+                return Children[i];
+            }
+            set { Children[i] = value; }
+        }
     }
 }
