@@ -72,6 +72,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
             DoInit(name);
         }
 
+        public StatGroup this[int i]
+        {
+            get { return Children[i]; }
+            set { Children[i] = value; }
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
@@ -331,14 +337,5 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         }
 
         #endregion
-
-        public StatGroup this[int i]
-        {
-            get
-            {
-                return Children[i];
-            }
-            set { Children[i] = value; }
-        }
     }
 }

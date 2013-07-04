@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml.Linq;
 using FFXIVAPP.Plugin.Parse.Enums;
 
@@ -243,7 +244,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
             {
                 if (live)
                 {
-                    System.Threading.Thread.Sleep(10);
+                    Thread.Sleep(10);
                 }
                 eventHandler(this, @event);
             }

@@ -144,7 +144,6 @@ namespace FFXIVAPP.Plugin.Parse
         {
             try
             {
-                
                 var chatEntry = new ChatEntry
                 {
                     Bytes = (byte[]) entry[0],

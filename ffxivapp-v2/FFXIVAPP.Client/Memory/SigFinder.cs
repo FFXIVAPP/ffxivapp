@@ -198,7 +198,7 @@ namespace FFXIVAPP.Client.Memory
                 foreach (var region in _regions)
                 {
                     var buffer = new byte[region.RegionSize];
-                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, 0))
+                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, 0))
                     {
                         var errorCode = Marshal.GetLastWin32Error();
                         throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -258,14 +258,14 @@ namespace FFXIVAPP.Client.Memory
                     switch (searchType)
                     {
                         case ScanResultType.ValueBeforeSig:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx - 4) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
                         case ScanResultType.ValueAfterSig:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
                         case ScanResultType.AddressStartOfSig:
-                            return (IntPtr)(idx + offset);
+                            return (IntPtr) (idx + offset);
                         case ScanResultType.ValueAtWildCard:
                         default:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pos) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pos) + offset);
                     }
                 }
             }

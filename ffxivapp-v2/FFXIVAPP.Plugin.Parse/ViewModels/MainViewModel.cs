@@ -9,10 +9,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -22,14 +22,10 @@ using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
-using FFXIVAPP.Plugin.Parse.Models.StatGroups;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 
 #endregion
 
@@ -122,7 +118,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        System.Threading.Thread.Sleep(1);
+                        //Thread.Sleep(20);
                         EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line, false);
                     }
                     return true;

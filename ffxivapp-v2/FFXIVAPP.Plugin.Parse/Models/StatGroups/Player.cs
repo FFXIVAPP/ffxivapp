@@ -7,9 +7,7 @@
 #region Usings
 
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 using FFXIVAPP.Plugin.Parse.Monitors;
@@ -20,8 +18,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Player : StatGroup
     {
-        public List<LineHistory> LineHistory { get; set; }
-
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
@@ -31,7 +27,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             InitStats();
             LineHistory = new List<LineHistory>();
+            DamageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
         }
+
+        public List<LineHistory> LineHistory { get; set; }
+        private Dictionary<string, DamageOverTimeAction> DamageOverTimeActions { get; set; }
 
         private void InitStats()
         {

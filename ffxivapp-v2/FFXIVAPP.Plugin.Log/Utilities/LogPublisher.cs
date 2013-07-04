@@ -49,7 +49,7 @@ namespace FFXIVAPP.Plugin.Log.Utilities
                 {
                     timeStampColor, "#" + color
                 }, MainView.View.AllFD._FDR);
-                foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument)((TabItem)ti).Content))
+                foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument) ((TabItem) ti).Content))
                 {
                     var resuccess = false;
                     var xRegularExpression = flowDoc.RegEx.Text;

@@ -55,6 +55,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             if (line.Hit)
             {
+                if (ParseHelper.DamageOverTimeActions.ContainsKey(line.Action))
+                {
+                    SetupDamageOverTimeAction(line);
+                }
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
