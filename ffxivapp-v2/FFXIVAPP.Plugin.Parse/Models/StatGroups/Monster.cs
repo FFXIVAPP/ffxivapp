@@ -7,7 +7,9 @@
 #region Usings
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.LinkedStats;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 using FFXIVAPP.Plugin.Parse.Monitors;
@@ -18,11 +20,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Monster : StatGroup
     {
+        public List<LineHistory> LineHistory { get; set; }
+
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
-
 
         /// <summary>
         /// </summary>
@@ -30,6 +33,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         public Monster(string name) : base(name)
         {
             InitStats();
+            LineHistory = new List<LineHistory>();
         }
 
         private TotalStat TotalOverallDrops { get; set; }
@@ -109,6 +113,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                         .ToList();
         }
 
+        #region Stat Generation Methods
+
         private static Dictionary<string, Stat<decimal>> DamageTakenStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
@@ -157,5 +163,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 
             return stats;
         }
+
+        #endregion
     }
 }

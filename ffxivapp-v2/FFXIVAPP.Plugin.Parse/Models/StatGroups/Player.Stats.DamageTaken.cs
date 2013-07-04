@@ -22,6 +22,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <param name="line"> </param>
         public void SetDamageStat(Line line)
         {
+            LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
                              .GetProperties();
             var damageGroup = GetGroup("DamageTakenByMonsters");
@@ -58,7 +59,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                         var modStat = "DamageTakenCritMod";
                         Stats.IncrementStat(modStat, mod);
                         subMonsterGroup.Stats.IncrementStat(modStat, mod);
@@ -75,7 +76,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                         var modStat = "DamageTakenRegMod";
                         Stats.IncrementStat(modStat, mod);
                         subMonsterGroup.Stats.IncrementStat(modStat, mod);
@@ -100,7 +101,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                 var modStat = String.Format("DamageTaken{0}Mod", stat.Name);
                 Stats.IncrementStat(modStat, mod);
                 subMonsterGroup.Stats.IncrementStat(modStat, mod);

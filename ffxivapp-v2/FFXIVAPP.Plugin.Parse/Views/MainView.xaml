@@ -21,8 +21,6 @@
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="Settings"
                   Member="Properties:Settings.Default" />
-        <x:Static x:Key="ParseChartsViewModel"
-                  Member="ViewModels:ParseChartsViewModel.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
 
@@ -34,9 +32,6 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
-            <TabItem Header="Charts">
-                <Views:ParseChartsView />
-            </TabItem>
             <TabItem Header="{Binding Locale[parse_BasicTabHeader],
                                       Source={StaticResource PluginViewModel}}">
                 <Views:ParseBasicView />

@@ -115,8 +115,10 @@
     <Compile Include="Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DamageOverTimeAction.cs" />
     <Compile Include="Helpers\ParsingLogHelper.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\LineHistory.cs" />
     <Compile Include="Models\MultiTarget.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Drops.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.DamageTaken.cs" />
@@ -187,22 +189,17 @@
     <Compile Include="Models\Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
-    <Compile Include="ViewModels\ParseChartsViewModel.cs" />
     <Compile Include="ViewModels\ParseMonsterDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyDamageTakenViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyHealingViewModel.cs" />
     <Compile Include="ViewModels\ParsePartyDamageViewModel.cs" />
     <Compile Include="ViewModels\ParseBasicViewModel.cs" />
-    <Compile Include="Models\PrivatePlotModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ParseChartsView.xaml.cs">
-      <DependentUpon>ParseChartsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ParseMonsterDamageTakenView.xaml.cs">
       <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
@@ -287,10 +284,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AboutView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ParseChartsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -22,6 +22,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <param name="line"> </param>
         public void SetAbilityStat(Line line)
         {
+            LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
                              .GetProperties();
             var abilityGroup = GetGroup("DamageByAction");
@@ -70,7 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                         var modStat = "DamageCritMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -90,7 +91,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                         var modStat = "DamageRegMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -118,7 +119,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var mod = ParseHelper.GetOriginal(line.Amount, line.Modifier);
+                var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
                 var modStat = String.Format("Damage{0}Mod", stat.Name);
                 Stats.IncrementStat(modStat, mod);
                 subAbilityGroup.Stats.IncrementStat(modStat, mod);
