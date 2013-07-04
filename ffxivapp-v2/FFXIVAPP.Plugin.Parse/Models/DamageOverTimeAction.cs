@@ -62,7 +62,13 @@ namespace FFXIVAPP.Plugin.Parse.Models
             var actualDuration = Convert.ToDecimal(DateTime.Now.Subtract(EventStartTime)
                                                            .TotalSeconds);
             Line.Amount = ParseHelper.GetDamageOverTime(Line, useActual ? actualDuration : 0);
-            DispatcherHelper.Invoke(() => Player.SetDamageOverTime(Line));
+            DispatcherHelper.Invoke(delegate
+            {
+                ParseControl.Instance.Timeline.GetSetPlayer(Line.Source)
+                            .SetDamageOverTime(Line);
+                ParseControl.Instance.Timeline.GetSetMob(Line.Target)
+                            .SetPlayerDamageOverTime(Line);
+            });
         }
     }
 }

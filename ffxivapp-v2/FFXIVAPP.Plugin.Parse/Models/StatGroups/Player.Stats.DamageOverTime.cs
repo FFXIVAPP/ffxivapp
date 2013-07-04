@@ -4,6 +4,10 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
+using System;
+using FFXIVAPP.Plugin.Parse.Helpers;
+using FFXIVAPP.Plugin.Parse.Models.Stats;
+
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
     public partial class Player
@@ -24,8 +28,40 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public static void SetDamageOverTime(Line line)
+        public void SetDamageOverTime(Line line)
         {
+            var abilityGroup = GetGroup("DamageByAction");
+            StatGroup subAbilityGroup;
+            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
+            {
+                subAbilityGroup = new StatGroup(line.Action);
+                subAbilityGroup.Stats.AddStats(DamageStatList(null));
+                abilityGroup.AddGroup(subAbilityGroup);
+            }
+            var monsterGroup = GetGroup("DamageToMonsters");
+            StatGroup subMonsterGroup;
+            if (!monsterGroup.TryGetGroup(line.Target, out subMonsterGroup))
+            {
+                subMonsterGroup = new StatGroup(line.Target);
+                subMonsterGroup.Stats.AddStats(DamageStatList(null));
+                monsterGroup.AddGroup(subMonsterGroup);
+            }
+            var monsters = subMonsterGroup.GetGroup("DamageToMonstersByAction");
+            StatGroup subMonsterAbilityGroup;
+            if (!monsters.TryGetGroup(line.Action, out subMonsterAbilityGroup))
+            {
+                subMonsterAbilityGroup = new StatGroup(line.Action);
+                subMonsterAbilityGroup.Stats.AddStats(DamageStatList(subMonsterGroup, true));
+                monsters.AddGroup(subMonsterAbilityGroup);
+            }
+            Stats.IncrementStat("TotalOverallDamage", line.Amount);
+            subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
+            subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
+            subMonsterAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
+            Stats.IncrementStat("DamageDOT", line.Amount);
+            subAbilityGroup.Stats.IncrementStat("DamageDOT", line.Amount);
+            subMonsterGroup.Stats.IncrementStat("DamageDOT", line.Amount);
+            subMonsterAbilityGroup.Stats.IncrementStat("DamageDOT", line.Amount);
         }
     }
 }

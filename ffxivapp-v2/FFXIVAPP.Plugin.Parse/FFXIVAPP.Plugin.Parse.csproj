@@ -120,6 +120,7 @@
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\LineHistory.cs" />
     <Compile Include="Models\MultiTarget.cs" />
+    <Compile Include="Models\StatGroups\Monster.DamageOverTime.cs" />
     <Compile Include="Models\StatGroups\Monster.Stats.Drops.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.DamageOverTime.cs" />
     <Compile Include="Models\StatGroups\Player.Stats.DamageTaken.cs" />

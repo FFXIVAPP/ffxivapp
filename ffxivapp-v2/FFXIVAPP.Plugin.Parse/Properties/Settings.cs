@@ -91,6 +91,8 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("ShowBasicCriticalDamage");
             Constants.Settings.Add("ShowBasicTotalDamageActionsUsed");
             Constants.Settings.Add("ShowBasicDPS");
+            Constants.Settings.Add("ShowBasicDamageDOT");
+            Constants.Settings.Add("ShowBasicDamageDOTAverage");
             Constants.Settings.Add("ShowBasicDamageRegHit");
             Constants.Settings.Add("ShowBasicDamageRegMiss");
             Constants.Settings.Add("ShowBasicDamageRegAccuracy");
@@ -155,6 +157,8 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("ShowBasicCriticalDamageTaken");
             Constants.Settings.Add("ShowBasicTotalDamageTakenActionsUsed");
             Constants.Settings.Add("ShowBasicDTPS");
+            Constants.Settings.Add("ShowBasicDamageTakenDOT");
+            Constants.Settings.Add("ShowBasicDamageTakenDOTAverage");
             Constants.Settings.Add("ShowBasicDamageTakenRegHit");
             Constants.Settings.Add("ShowBasicDamageTakenRegMiss");
             Constants.Settings.Add("ShowBasicDamageTakenRegAccuracy");
@@ -203,6 +207,8 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("ShowColumnCriticalDamage");
             Constants.Settings.Add("ShowColumnTotalDamageActionsUsed");
             Constants.Settings.Add("ShowColumnDPS");
+            Constants.Settings.Add("ShowColumnDamageDOT");
+            Constants.Settings.Add("ShowColumnDamageDOTAverage");
             Constants.Settings.Add("ShowColumnDamageRegHit");
             Constants.Settings.Add("ShowColumnDamageRegMiss");
             Constants.Settings.Add("ShowColumnDamageRegAccuracy");
@@ -267,6 +273,8 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("ShowColumnCriticalDamageTaken");
             Constants.Settings.Add("ShowColumnTotalDamageTakenActionsUsed");
             Constants.Settings.Add("ShowColumnDTPS");
+            Constants.Settings.Add("ShowColumnDamageTakenDOT");
+            Constants.Settings.Add("ShowColumnDamageTakenDOTAverage");
             Constants.Settings.Add("ShowColumnDamageTakenRegHit");
             Constants.Settings.Add("ShowColumnDamageTakenRegMiss");
             Constants.Settings.Add("ShowColumnDamageTakenRegAccuracy");
@@ -695,10 +703,36 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDPS
         {
-            get { return ((bool) (this["ShowBasicDPS"])); }
+            get { return ((bool)(this["ShowBasicDPS"])); }
             set
             {
                 this["ShowBasicDPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowBasicDamageDOT
+        {
+            get { return ((bool)(this["ShowBasicDamageDOT"])); }
+            set
+            {
+                this["ShowBasicDamageDOT"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowBasicDamageDOTAverage
+        {
+            get { return ((bool)(this["ShowBasicDamageDOTAverage"])); }
+            set
+            {
+                this["ShowBasicDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -1537,6 +1571,32 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowBasicDamageTakenDOT
+        {
+            get { return ((bool)(this["ShowBasicDamageTakenDOT"])); }
+            set
+            {
+                this["ShowBasicDamageTakenDOT"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowBasicDamageTakenDOTAverage
+        {
+            get { return ((bool)(this["ShowBasicDamageTakenDOTAverage"])); }
+            set
+            {
+                this["ShowBasicDamageTakenDOTAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
         public bool ShowBasicDamageTakenRegHit
         {
@@ -2090,6 +2150,32 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["ShowColumnDPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowColumnDamageDOT
+        {
+            get { return ((bool)(this["ShowColumnDamageDOT"])); }
+            set
+            {
+                this["ShowColumnDamageDOT"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowColumnDamageDOTAverage
+        {
+            get { return ((bool)(this["ShowColumnDamageDOTAverage"])); }
+            set
+            {
+                this["ShowColumnDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -2922,6 +3008,32 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["ShowColumnDTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowColumnDamageTakenDOT
+        {
+            get { return ((bool)(this["ShowColumnDamageTakenDOT"])); }
+            set
+            {
+                this["ShowColumnDamageTakenDOT"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowColumnDamageTakenDOTAverage
+        {
+            get { return ((bool)(this["ShowColumnDamageTakenDOTAverage"])); }
+            set
+            {
+                this["ShowColumnDamageTakenDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }

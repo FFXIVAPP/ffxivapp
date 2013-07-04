@@ -183,6 +183,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("CriticalDamage", new TotalStat("CriticalDamage"));
             stats.Add("TotalDamageActionsUsed", new CounterStat("TotalDamageActionsUsed"));
             stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
+            stats.Add("DamageDOT", new TotalStat("DamageDOT"));
+            stats.Add("DamageDOTAverage", new AverageStat("DamageDOTAverage", stats["DamageDOT"]));
             stats.Add("DamageRegHit", new TotalStat("DamageRegHit"));
             stats.Add("DamageRegMiss", new TotalStat("DamageRegMiss"));
             stats.Add("DamageRegAccuracy", new AccuracyStat("DamageRegAccuracy", stats["TotalDamageActionsUsed"], stats["DamageRegMiss"]));

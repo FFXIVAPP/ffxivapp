@@ -47,6 +47,20 @@
                                                        Source={StaticResource Settings}}" />
         </StackPanel>
     </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageDOTInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageDOT,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageDOTAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageDOTAverage,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
     <GroupBox Header="{Binding Locale[parse_ShowDamageRegHitInfoHeader],
                                Source={StaticResource PluginViewModel}}">
         <StackPanel>
@@ -492,6 +506,20 @@
                                Source={StaticResource PluginViewModel}}">
         <StackPanel>
             <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDTPS,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenDOTInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenDOT,
+                                                       Source={StaticResource Settings}}" />
+        </StackPanel>
+    </GroupBox>
+    <GroupBox Header="{Binding Locale[parse_ShowDamageTakenDOTAverageInfoHeader],
+                               Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <Controls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenDOTAverage,
                                                        Source={StaticResource Settings}}" />
         </StackPanel>
     </GroupBox>

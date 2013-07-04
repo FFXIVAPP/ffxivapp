@@ -23,13 +23,14 @@ namespace FFXIVAPP.Plugin.Parse.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("parse_PLACEHOLDER", "*PH*");
-            Dictionary.Add("parse_LoadExistingLogFileButtonText", "Load Existing Log File (XML)");
             Dictionary.Add("parse_NameHeader", "Name");
             Dictionary.Add("parse_TotalOverallDamageHeader", "Total");
             Dictionary.Add("parse_RegularDamageHeader", "Reg");
             Dictionary.Add("parse_CriticalDamageHeader", "Crit");
             Dictionary.Add("parse_TotalDamageActionsUsedHeader", "Used");
             Dictionary.Add("parse_DPSHeader", "DPS");
+            Dictionary.Add("parse_DamageDOTHeader", "DOT");
+            Dictionary.Add("parse_DamageDOTAverageHeader", "DOT Avg");
             Dictionary.Add("parse_DamageRegHitHeader", "Hit");
             Dictionary.Add("parse_DamageRegMissHeader", "Miss");
             Dictionary.Add("parse_DamageRegAccuracyHeader", "Acc");
@@ -94,6 +95,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_CriticalDamageTakenHeader", "Crit");
             Dictionary.Add("parse_TotalDamageTakenActionsUsedHeader", "Used");
             Dictionary.Add("parse_DTPSHeader", "DTPS");
+            Dictionary.Add("parse_DamageTakenDOTHeader", "DOT");
+            Dictionary.Add("parse_DamageTakenDOTAverageHeader", "DOT Avg");
             Dictionary.Add("parse_DamageTakenRegHitHeader", "Hit");
             Dictionary.Add("parse_DamageTakenRegMissHeader", "Miss");
             Dictionary.Add("parse_DamageTakenRegAccuracyHeader", "Acc");
@@ -169,6 +172,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_CriticalDamageLabel", "Critical Damage:");
             Dictionary.Add("parse_TotalDamageActionsUsedLabel", "Total Damage Actions Used:");
             Dictionary.Add("parse_DPSLabel", "DPS:");
+            Dictionary.Add("parse_DamageDOTLabel", "Damage DOT:");
+            Dictionary.Add("parse_DamageDOTAverageLabel", "Damage DOT Average:");
             Dictionary.Add("parse_DamageRegHitLabel", "Damage Reg Hit:");
             Dictionary.Add("parse_DamageRegMissLabel", "Damage Reg Miss:");
             Dictionary.Add("parse_DamageRegAccuracyLabel", "Damage Reg Accuracy:");
@@ -233,6 +238,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_CriticalDamageTakenLabel", "Critical Damage Taken:");
             Dictionary.Add("parse_TotalDamageTakenActionsUsedLabel", "Total Damage Taken Actions Used:");
             Dictionary.Add("parse_DTPSLabel", "DTPS:");
+            Dictionary.Add("parse_DamageTakenDOTLabel", "Damage Taken DOT:");
+            Dictionary.Add("parse_DamageTakenDOTAverageLabel", "Damage Taken DOT Average:");
             Dictionary.Add("parse_DamageTakenRegHitLabel", "Damage Taken Reg Hit:");
             Dictionary.Add("parse_DamageTakenRegMissLabel", "Damage Taken Reg Miss:");
             Dictionary.Add("parse_DamageTakenRegAccuracyLabel", "Damage Taken Reg Accuracy:");
@@ -276,6 +283,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowCriticalDamageInfoHeader", "Show Critical Damage Information");
             Dictionary.Add("parse_ShowTotalDamageActionsUsedInfoHeader", "Show Total Damage Actions Used Information");
             Dictionary.Add("parse_ShowDPSInfoHeader", "Show DPS Information");
+            Dictionary.Add("parse_ShowDamageDOTInfoHeader", "Show Damage DOT Information");
+            Dictionary.Add("parse_ShowDamageDOTAverageInfoHeader", "Show Damage DOT Average Information");
             Dictionary.Add("parse_ShowDamageRegHitInfoHeader", "Show Damage Reg Hit Information");
             Dictionary.Add("parse_ShowDamageRegMissInfoHeader", "Show Damage Reg Miss Information");
             Dictionary.Add("parse_ShowDamageRegAccuracyInfoHeader", "Show Damage Reg Accuracy Information");
@@ -340,6 +349,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowCriticalDamageTakenInfoHeader", "Show Critical Damage Taken Information");
             Dictionary.Add("parse_ShowTotalDamageTakenActionsUsedInfoHeader", "Show Total Damage Taken Actions Used Information");
             Dictionary.Add("parse_ShowDTPSInfoHeader", "Show DTPS Information");
+            Dictionary.Add("parse_ShowDamageTakenDOTInfoHeader", "Show Damage Taken DOT Information");
+            Dictionary.Add("parse_ShowDamageTakenDOTAverageInfoHeader", "Show Damage Taken DOT Average Information");
             Dictionary.Add("parse_ShowDamageTakenRegHitInfoHeader", "Show Damage Taken Reg Hit Information");
             Dictionary.Add("parse_ShowDamageTakenRegMissInfoHeader", "Show Damage Taken Reg Miss Information");
             Dictionary.Add("parse_ShowDamageTakenRegAccuracyInfoHeader", "Show Damage Taken Reg Accuracy Information");
@@ -378,6 +389,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowPercentOfTotalOverallDamageTakenInfoHeader", "Show Percent Of Total Overall Damage Taken Information");
             Dictionary.Add("parse_ShowPercentOfRegularDamageTakenInfoHeader", "Show Percent Of Regular Damage Taken Information");
             Dictionary.Add("parse_ShowPercentOfCriticalDamageTakenInfoHeader", "Show Percent Of Critical Damage Taken Information");
+            Dictionary.Add("parse_LoadExistingLogFileButtonText", "Load Existing Log File");
             return Dictionary;
         }
     }

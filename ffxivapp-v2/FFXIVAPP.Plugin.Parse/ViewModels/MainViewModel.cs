@@ -118,7 +118,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        //Thread.Sleep(20);
+                        Thread.Sleep(20);
                         EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line, false);
                     }
                     return true;
