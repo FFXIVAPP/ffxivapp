@@ -4,9 +4,11 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
-using System;
-using FFXIVAPP.Plugin.Parse.Helpers;
+#region Usings
+
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
@@ -19,7 +21,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             if (DamageOverTimeActions.ContainsKey(line.Action))
             {
-                DamageOverTimeActions[line.Action].HandleDamage();
+                DamageOverTimeActions[line.Action].Dispose();
                 DamageOverTimeActions.Remove(line.Action);
             }
             DamageOverTimeActions.Add(line.Action, new DamageOverTimeAction(line));

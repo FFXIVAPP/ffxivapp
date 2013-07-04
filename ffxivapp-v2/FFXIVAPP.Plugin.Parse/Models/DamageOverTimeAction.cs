@@ -11,21 +11,29 @@ using System.Collections.Generic;
 using System.Timers;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Parse.Helpers;
-using FFXIVAPP.Plugin.Parse.Models.StatGroups;
 
 #endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models
 {
-    public class DamageOverTimeAction
+    public class DamageOverTimeAction : IDisposable
     {
-        #region Declarations
+        #region Auto Properties
 
         private Line Line { get; set; }
         private decimal OriginalAmount { get; set; }
+        private int ActionPotency { get; set; }
+        private int DamageOverTimePotency { get; set; }
         private int DefaultDuration { get; set; }
-        private Timer Timer { get; set; }
-        private DateTime EventStartTime { get; set; }
+        private int TotalTicks { get; set; }
+        private int CurrentTick { get; set; }
+        private decimal TickDamage { get; set; }
+
+        #endregion
+
+        #region Declarations
+
+        private readonly Timer _timer = new Timer(3000);
 
         #endregion
 
@@ -41,34 +49,46 @@ namespace FFXIVAPP.Plugin.Parse.Models
             {
                 return;
             }
+            ActionPotency = actionData[0];
+            DamageOverTimePotency = actionData[1];
             DefaultDuration = actionData[2];
-            Timer = new Timer(DefaultDuration * 1000);
-            Timer.Elapsed += TimerOnElapsed;
-            EventStartTime = DateTime.Now;
-            Timer.Start();
-        }
-
-        private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            HandleDamage(false);
+            TotalTicks = (int) Math.Ceiling(DefaultDuration / 3.0);
+            TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
+            _timer = new Timer(3000);
+            _timer.Elapsed += TimerOnElapsed;
+            _timer.Start();
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="useActual"></param>
-        public void HandleDamage(bool useActual = true)
+        public void Dispose()
         {
-            Timer.Stop();
-            var actualDuration = Convert.ToDecimal(DateTime.Now.Subtract(EventStartTime)
-                                                           .TotalSeconds);
-            Line.Amount = ParseHelper.GetDamageOverTime(Line, useActual ? actualDuration : 0);
-            DispatcherHelper.Invoke(delegate
+            _timer.Stop();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="elapsedEventArgs"></param>
+        private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            if (CurrentTick < TotalTicks)
             {
-                ParseControl.Instance.Timeline.GetSetPlayer(Line.Source)
-                            .SetDamageOverTime(Line);
-                ParseControl.Instance.Timeline.GetSetMob(Line.Target)
-                            .SetPlayerDamageOverTime(Line);
-            });
+                _timer.Stop();
+                if (TickDamage >= 300 && Line.Action.Contains("Thunder"))
+                {
+                    return;
+                }
+                Line.Amount = TickDamage;
+                DispatcherHelper.Invoke(delegate
+                {
+                    ParseControl.Instance.Timeline.GetSetPlayer(Line.Source)
+                                .SetDamageOverTime(Line);
+                    ParseControl.Instance.Timeline.GetSetMob(Line.Target)
+                                .SetPlayerDamageOverTime(Line);
+                });
+            }
+            ++CurrentTick;
         }
     }
 }

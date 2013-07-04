@@ -9,7 +9,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FFXIVAPP.Plugin.Parse.Models;
 
 #endregion
 
@@ -25,27 +24,6 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
         public static decimal GetOriginalDamage(decimal amount, decimal modifier)
         {
             return Math.Abs((amount / (modifier + 1)) - amount);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="line"></param>
-        /// <param name="duration"></param>
-        /// <returns></returns>
-        public static decimal GetDamageOverTime(Line line, decimal duration)
-        {
-            List<int> actionData;
-            if (DamageOverTimeActions.TryGetValue(line.Action, out actionData))
-            {
-                var actionPotency = actionData[0];
-                var damageOverTimePotency = actionData[1];
-                var damageOverTimeDuration = actionData[2];
-                var totalTicks = damageOverTimeDuration / 3;
-                var totalPotency = actionPotency + (damageOverTimePotency * totalTicks);
-                var totalDamage = totalPotency * (line.Amount / actionPotency);
-                return (duration == 0 || duration >= damageOverTimeDuration) ? totalDamage : totalDamage * (duration / totalTicks);
-            }
-            return 0;
         }
 
         #region Job Info

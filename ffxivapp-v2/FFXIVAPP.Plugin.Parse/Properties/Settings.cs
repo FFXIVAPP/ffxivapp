@@ -703,7 +703,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDPS
         {
-            get { return ((bool)(this["ShowBasicDPS"])); }
+            get { return ((bool) (this["ShowBasicDPS"])); }
             set
             {
                 this["ShowBasicDPS"] = value;
@@ -716,7 +716,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDamageDOT
         {
-            get { return ((bool)(this["ShowBasicDamageDOT"])); }
+            get { return ((bool) (this["ShowBasicDamageDOT"])); }
             set
             {
                 this["ShowBasicDamageDOT"] = value;
@@ -729,7 +729,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDamageDOTAverage
         {
-            get { return ((bool)(this["ShowBasicDamageDOTAverage"])); }
+            get { return ((bool) (this["ShowBasicDamageDOTAverage"])); }
             set
             {
                 this["ShowBasicDamageDOTAverage"] = value;
@@ -1574,7 +1574,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDamageTakenDOT
         {
-            get { return ((bool)(this["ShowBasicDamageTakenDOT"])); }
+            get { return ((bool) (this["ShowBasicDamageTakenDOT"])); }
             set
             {
                 this["ShowBasicDamageTakenDOT"] = value;
@@ -1587,7 +1587,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowBasicDamageTakenDOTAverage
         {
-            get { return ((bool)(this["ShowBasicDamageTakenDOTAverage"])); }
+            get { return ((bool) (this["ShowBasicDamageTakenDOTAverage"])); }
             set
             {
                 this["ShowBasicDamageTakenDOTAverage"] = value;
@@ -2159,7 +2159,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowColumnDamageDOT
         {
-            get { return ((bool)(this["ShowColumnDamageDOT"])); }
+            get { return ((bool) (this["ShowColumnDamageDOT"])); }
             set
             {
                 this["ShowColumnDamageDOT"] = value;
@@ -2172,7 +2172,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowColumnDamageDOTAverage
         {
-            get { return ((bool)(this["ShowColumnDamageDOTAverage"])); }
+            get { return ((bool) (this["ShowColumnDamageDOTAverage"])); }
             set
             {
                 this["ShowColumnDamageDOTAverage"] = value;
@@ -3017,7 +3017,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowColumnDamageTakenDOT
         {
-            get { return ((bool)(this["ShowColumnDamageTakenDOT"])); }
+            get { return ((bool) (this["ShowColumnDamageTakenDOT"])); }
             set
             {
                 this["ShowColumnDamageTakenDOT"] = value;
@@ -3030,7 +3030,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [DefaultSettingValue("True")]
         public bool ShowColumnDamageTakenDOTAverage
         {
-            get { return ((bool)(this["ShowColumnDamageTakenDOTAverage"])); }
+            get { return ((bool) (this["ShowColumnDamageTakenDOTAverage"])); }
             set
             {
                 this["ShowColumnDamageTakenDOTAverage"] = value;
