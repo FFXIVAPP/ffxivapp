@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Plugin.Parse.Models.Timelines;
 using FFXIVAPP.Plugin.Parse.Monitors;
+using FFXIVAPP.Plugin.Parse.Utilities;
 
 #endregion
 
@@ -141,7 +142,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
 
         public void Toggle()
         {
-            Utilities.Filter.IsEnabled = !Utilities.Filter.IsEnabled;
+            Filter.IsEnabled = !Filter.IsEnabled;
         }
 
         #endregion

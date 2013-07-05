@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -20,11 +21,18 @@ namespace FFXIVAPP.Plugin.Parse.Models
     {
         #region Auto Properties
 
+        private List<string> _thunders = new List<string>
+        {
+            "thunder",
+            "blitz",
+            "foudre",
+            "サンダ"
+        };
         private Line Line { get; set; }
         private decimal OriginalAmount { get; set; }
         private int ActionPotency { get; set; }
         private int DamageOverTimePotency { get; set; }
-        private int DefaultDuration { get; set; }
+        private int Duration { get; set; }
         private int TotalTicks { get; set; }
         private int CurrentTick { get; set; }
         public decimal TickDamage { get; set; }
@@ -45,18 +53,19 @@ namespace FFXIVAPP.Plugin.Parse.Models
         {
             Line = line;
             OriginalAmount = Line.Amount;
-            List<int> actionData;
-            if (!ParseHelper.DamageOverTimeActions.TryGetValue(Line.Action, out actionData))
+            DamageOverTimeAction actionData;
+            if (!DamageOverTimeHelper.Actions()
+                                     .TryGetValue(Line.Action.ToLower(), out actionData))
             {
                 isValid = false;
                 return;
             }
-            ActionPotency = actionData[0];
-            DamageOverTimePotency = actionData[1];
-            DefaultDuration = actionData[2];
-            TotalTicks = (int) Math.Ceiling(DefaultDuration / 3.0);
+            ActionPotency = actionData.ActionPotency;
+            DamageOverTimePotency = actionData.DamageOverTimePotency;
+            Duration = actionData.Duration;
+            TotalTicks = (int) Math.Ceiling(Duration / 3.0);
             TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
-            if (TickDamage >= 300 && Line.Action.Contains("Thunder"))
+            if (TickDamage >= 300 && _thunders.Any(thunder => Line.Action.ToLower() == thunder))
             {
                 isValid = false;
                 return;

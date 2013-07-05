@@ -6,9 +6,7 @@
 
 #region Usings
 
-using System.Collections;
 using FFXIVAPP.Plugin.Parse.Enums;
-using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
 using FFXIVAPP.Plugin.Parse.Properties;
@@ -21,7 +19,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
     {
         public static bool IsEnabled = true;
 
-        private static readonly Hashtable Offsets = ParseHelper.GetJob();
         private static Event _lastEvent;
         private static string _lastPlayer = "";
         private static string _lastPlayerAction = "";

@@ -6,8 +6,6 @@
 
 #region Usings
 
-using System.Collections.Generic;
-using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
 #endregion
@@ -21,11 +19,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <param name="line"></param>
         private void SetupDamageOverTimeAction(Line line)
         {
-            List<int> actionData;
-            if (!ParseHelper.DamageOverTimeActions.TryGetValue(line.Action, out actionData))
-            {
-                return;
-            }
             bool isValid;
             var damageOverTime = new DamageOverTime(line, out isValid);
             if (DamageOverTimeActions.ContainsKey(line.Action))

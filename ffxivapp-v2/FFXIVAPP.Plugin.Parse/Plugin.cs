@@ -152,7 +152,7 @@ namespace FFXIVAPP.Plugin.Parse
                     Code = (string) entry[1],
                     Combined = (string) entry[2],
                     JP = (bool) entry[3],
-                    Line = Regex.Replace((string)entry[4],"[ ]+"," "),
+                    Line = Regex.Replace((string) entry[4], "[ ]+", " "),
                     Raw = (string) entry[5],
                     TimeStamp = (DateTime) entry[6]
                 };
