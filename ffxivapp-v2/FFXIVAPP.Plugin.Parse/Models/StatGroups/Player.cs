@@ -27,11 +27,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             InitStats();
             LineHistory = new List<LineHistory>();
-            DamageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
+            DamageOverTimeActions = new Dictionary<string, DamageOverTime>();
         }
 
         public List<LineHistory> LineHistory { get; set; }
-        private Dictionary<string, DamageOverTimeAction> DamageOverTimeActions { get; set; }
+        private Dictionary<string, DamageOverTime> DamageOverTimeActions { get; set; }
 
         private void InitStats()
         {
@@ -260,6 +260,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
             stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
             stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
+            stats.Add("DamageTakenDOT", new TotalStat("DamageTakenDOT"));
+            stats.Add("DamageTakenDOTAverage", new AverageStat("DamageTakenDOTAverage", stats["DamageTakenDOT"]));
             stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
             stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));

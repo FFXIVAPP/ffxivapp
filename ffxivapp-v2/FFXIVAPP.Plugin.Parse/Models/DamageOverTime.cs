@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// DamageOverTimeAction.cs
+// DamageOverTime.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -16,7 +16,7 @@ using FFXIVAPP.Plugin.Parse.Helpers;
 
 namespace FFXIVAPP.Plugin.Parse.Models
 {
-    public class DamageOverTimeAction : IDisposable
+    public class DamageOverTime : IDisposable
     {
         #region Auto Properties
 
@@ -27,26 +27,28 @@ namespace FFXIVAPP.Plugin.Parse.Models
         private int DefaultDuration { get; set; }
         private int TotalTicks { get; set; }
         private int CurrentTick { get; set; }
-        private decimal TickDamage { get; set; }
+        public decimal TickDamage { get; set; }
 
         #endregion
 
         #region Declarations
 
-        private readonly Timer _timer = new Timer(3000);
+        private Timer Timer { get; set; }
 
         #endregion
 
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public DamageOverTimeAction(Line line)
+        /// <param name="isValid"></param>
+        public DamageOverTime(Line line, out bool isValid)
         {
             Line = line;
             OriginalAmount = Line.Amount;
             List<int> actionData;
             if (!ParseHelper.DamageOverTimeActions.TryGetValue(Line.Action, out actionData))
             {
+                isValid = false;
                 return;
             }
             ActionPotency = actionData[0];
@@ -54,16 +56,22 @@ namespace FFXIVAPP.Plugin.Parse.Models
             DefaultDuration = actionData[2];
             TotalTicks = (int) Math.Ceiling(DefaultDuration / 3.0);
             TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
-            _timer = new Timer(3000);
-            _timer.Elapsed += TimerOnElapsed;
-            _timer.Start();
+            if (TickDamage >= 300 && Line.Action.Contains("Thunder"))
+            {
+                isValid = false;
+                return;
+            }
+            Timer = new Timer(3000);
+            Timer.Elapsed += TimerOnElapsed;
+            Timer.Start();
+            isValid = true;
         }
 
         /// <summary>
         /// </summary>
         public void Dispose()
         {
-            _timer.Stop();
+            Timer.Stop();
         }
 
         /// <summary>
@@ -74,12 +82,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         {
             if (CurrentTick < TotalTicks)
             {
-                _timer.Stop();
-                if (TickDamage >= 300 && Line.Action.Contains("Thunder"))
-                {
-                    return;
-                }
-                Line.Amount = TickDamage;
+                Line.Amount = Math.Ceiling(TickDamage);
                 DispatcherHelper.Invoke(delegate
                 {
                     ParseControl.Instance.Timeline.GetSetPlayer(Line.Source)
@@ -87,6 +90,10 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     ParseControl.Instance.Timeline.GetSetMob(Line.Target)
                                 .SetPlayerDamageOverTime(Line);
                 });
+            }
+            else
+            {
+                Dispose();
             }
             ++CurrentTick;
         }

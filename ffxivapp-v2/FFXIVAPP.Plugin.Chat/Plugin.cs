@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
@@ -146,13 +147,13 @@ namespace FFXIVAPP.Plugin.Chat
             {
                 var chatEntry = new ChatEntry
                 {
-                    Bytes = (byte[]) entry[0],
-                    Code = (string) entry[1],
-                    Combined = (string) entry[2],
-                    JP = (bool) entry[3],
-                    Line = (string) entry[4],
-                    Raw = (string) entry[5],
-                    TimeStamp = (DateTime) entry[6]
+                    Bytes = (byte[])entry[0],
+                    Code = (string)entry[1],
+                    Combined = (string)entry[2],
+                    JP = (bool)entry[3],
+                    Line = Regex.Replace((string)entry[4], "[ ]+", " "),
+                    Raw = (string)entry[5],
+                    TimeStamp = (DateTime)entry[6]
                 };
                 LogPublisher.Process(chatEntry);
             }

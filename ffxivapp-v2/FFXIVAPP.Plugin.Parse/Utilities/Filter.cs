@@ -19,6 +19,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 {
     public static partial class Filter
     {
+        public static bool IsEnabled = true;
+
         private static readonly Hashtable Offsets = ParseHelper.GetJob();
         private static Event _lastEvent;
         private static string _lastPlayer = "";
@@ -30,6 +32,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         public static void Process(string cleaned, Event e)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+
             _lastEvent = _lastEvent ?? e;
             _autoAction = false;
 

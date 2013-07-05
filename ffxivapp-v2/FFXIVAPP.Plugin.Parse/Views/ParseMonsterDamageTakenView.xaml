@@ -93,8 +93,7 @@
                             <GridViewColumn Width="{Binding ShowColumnDamageTakenDOT,
                                                             Source={StaticResource Settings},
                                                             Converter={StaticResource BooleanToWidthConverter}}"
-                                            DisplayMemberBinding="{Binding DamageTakenDOT,
-                                                                           StringFormat=\{0:F2\}}"
+                                            DisplayMemberBinding="{Binding DamageTakenDOT}"
                                             Header="{Binding Locale[parse_DamageTakenDOTHeader],
                                                              Source={StaticResource PluginViewModel}}"
                                             Utilities:GridViewSort.PropertyName="DamageTakenDOT" />

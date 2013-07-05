@@ -12,7 +12,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -118,7 +117,6 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        Thread.Sleep(20);
                         EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line, false);
                     }
                     return true;

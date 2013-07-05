@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
@@ -18,6 +19,7 @@ using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Parse.Helpers;
+using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Properties;
 using FFXIVAPP.Plugin.Parse.Utilities;
 using NLog;
@@ -150,20 +152,31 @@ namespace FFXIVAPP.Plugin.Parse
                     Code = (string) entry[1],
                     Combined = (string) entry[2],
                     JP = (bool) entry[3],
-                    Line = (string) entry[4],
+                    Line = Regex.Replace((string)entry[4],"[ ]+"," "),
                     Raw = (string) entry[5],
                     TimeStamp = (DateTime) entry[6]
                 };
                 // process commands
-                //if (chatEntry.Code == "0038")
-                //{
-                //    List<string> temp;
-                //    CommandBuilder.GetCommands(chatEntry.Line.Replace("  ", " "), out temp);
-                //    if (temp != null)
-                //    {
-                //        Host.Commands(Plugin.PName, temp);
-                //    }
-                //}
+                if (chatEntry.Code == "0038")
+                {
+                    switch (chatEntry.Line.Trim())
+                    {
+                        case @"\\parse reset":
+                            ParseControl.Instance.Reset();
+                            break;
+                        case @"\\parse toggle":
+                            ParseControl.Instance.Toggle();
+                            break;
+                        default:
+                            List<string> temp;
+                            CommandBuilder.GetCommands(chatEntry.Line, out temp);
+                            if (temp != null)
+                            {
+                                Host.Commands(PName, temp);
+                            }
+                            break;
+                    }
+                }
                 // process logs
                 LogPublisher.Process(chatEntry);
             }

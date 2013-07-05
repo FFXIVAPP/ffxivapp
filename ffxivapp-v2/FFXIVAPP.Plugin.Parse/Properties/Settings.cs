@@ -713,7 +713,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicDamageDOT
         {
             get { return ((bool) (this["ShowBasicDamageDOT"])); }
@@ -726,7 +726,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicDamageDOTAverage
         {
             get { return ((bool) (this["ShowBasicDamageDOTAverage"])); }
@@ -1571,7 +1571,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicDamageTakenDOT
         {
             get { return ((bool) (this["ShowBasicDamageTakenDOT"])); }
@@ -1584,7 +1584,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicDamageTakenDOTAverage
         {
             get { return ((bool) (this["ShowBasicDamageTakenDOTAverage"])); }

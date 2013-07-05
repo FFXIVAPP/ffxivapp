@@ -163,13 +163,13 @@ namespace FFXIVAPP.Plugin.Event
             {
                 var chatEntry = new ChatEntry
                 {
-                    Bytes = (byte[]) entry[0],
-                    Code = (string) entry[1],
-                    Combined = (string) entry[2],
-                    JP = (bool) entry[3],
-                    Line = (string) entry[4],
-                    Raw = (string) entry[5],
-                    TimeStamp = (DateTime) entry[6]
+                    Bytes = (byte[])entry[0],
+                    Code = (string)entry[1],
+                    Combined = (string)entry[2],
+                    JP = (bool)entry[3],
+                    Line = Regex.Replace((string)entry[4], "[ ]+", " "),
+                    Raw = (string)entry[5],
+                    TimeStamp = (DateTime)entry[6]
                 };
                 LogPublisher.Process(chatEntry);
             }

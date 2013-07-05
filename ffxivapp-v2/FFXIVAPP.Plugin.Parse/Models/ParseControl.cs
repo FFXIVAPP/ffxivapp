@@ -134,6 +134,16 @@ namespace FFXIVAPP.Plugin.Parse.Models
 
         #region Utility Functions
 
+        public void Reset()
+        {
+            StatMonitor.Clear();
+        }
+
+        public void Toggle()
+        {
+            Utilities.Filter.IsEnabled = !Utilities.Filter.IsEnabled;
+        }
+
         #endregion
 
         #region Implementation of INotifyPropertyChanged
