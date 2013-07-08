@@ -17,7 +17,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public void SetDropStat(string name)
+        public void SetDrop(string name)
         {
             var dropGroup = GetGroup("DropsByMonster");
             StatGroup subGroup;

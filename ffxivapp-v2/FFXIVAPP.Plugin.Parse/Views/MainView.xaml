@@ -65,6 +65,13 @@
                                           Converter={StaticResource VisibilityConverter}}">
                 <Views:ParsePartyDamageTakenView />
             </TabItem>
+            <TabItem Header="{Binding Locale[parse_MonsterDamageTabHeader],
+                                      Source={StaticResource PluginViewModel}}"
+                     Visibility="{Binding ShowMonsterDamageTab,
+                                          Source={StaticResource Settings},
+                                          Converter={StaticResource VisibilityConverter}}">
+                <Views:ParseMonsterDamageView />
+            </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowMonsterDamageTakenTab,

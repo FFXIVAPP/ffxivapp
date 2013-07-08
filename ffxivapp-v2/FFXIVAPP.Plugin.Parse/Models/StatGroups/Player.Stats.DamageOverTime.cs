@@ -20,7 +20,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         private void SetupDamageOverTimeAction(Line line)
         {
             bool isValid;
-            var damageOverTime = new DamageOverTime(line, out isValid);
+            var damageOverTime = new DamageOverTime.Player(line, out isValid);
             if (DamageOverTimeActions.ContainsKey(line.Action))
             {
                 if (isValid)

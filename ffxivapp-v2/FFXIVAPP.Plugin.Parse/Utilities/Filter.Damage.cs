@@ -111,67 +111,83 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdatePlayerDamage(Match damage, Line line, Expressions exp)
         {
-            line.Hit = true;
-            switch (damage.Groups["source"].Success)
+            try
             {
-                case true:
-                    line.Action = exp.Attack;
-                    break;
-                case false:
-                    line.Action = _lastPlayerAction;
-                    break;
-            }
-            line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
-            line.Block = damage.Groups["block"].Success;
-            line.Crit = damage.Groups["crit"].Success;
-            line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
-            line.Parry = damage.Groups["parry"].Success;
-            line.Target = Convert.ToString(damage.Groups["target"].Value);
-            if (!_autoAction)
-            {
-                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                line.Hit = true;
+                switch (damage.Groups["source"].Success)
                 {
-                    ClearLast(true);
-                    return;
+                    case true:
+                        line.Action = exp.Attack;
+                        break;
+                    case false:
+                        line.Action = _lastPlayerAction;
+                        break;
                 }
+                line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+                line.Block = damage.Groups["block"].Success;
+                line.Crit = damage.Groups["crit"].Success;
+                line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+                line.Parry = damage.Groups["parry"].Success;
+                line.Target = Convert.ToString(damage.Groups["target"].Value);
+                if (!_autoAction)
+                {
+                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    {
+                        ClearLast(true);
+                        return;
+                    }
+                }
+                _lastPlayer = line.Source;
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+                ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                            .SetDamageTaken(line);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                            .SetDamage(line);
             }
-            _lastPlayer = line.Source;
-            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
-            ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                        .SetPlayerStat(line);
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                        .SetAbilityStat(line);
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
 
         private static void UpdateMonsterDamage(Match damage, Line line, Expressions exp)
         {
-            line.Hit = true;
-            switch (damage.Groups["source"].Success)
+            try
             {
-                case true:
-                    line.Action = exp.Attack;
-                    break;
-                case false:
-                    line.Action = _lastMobAction;
-                    break;
-            }
-            line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
-            line.Block = damage.Groups["block"].Success;
-            line.Crit = damage.Groups["crit"].Success;
-            line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
-            line.Parry = damage.Groups["parry"].Success;
-            if (!_autoAction)
-            {
-                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                line.Hit = true;
+                switch (damage.Groups["source"].Success)
                 {
-                    ClearLast(true);
-                    return;
+                    case true:
+                        line.Action = exp.Attack;
+                        break;
+                    case false:
+                        line.Action = _lastMobAction;
+                        break;
                 }
+                line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+                line.Block = damage.Groups["block"].Success;
+                line.Crit = damage.Groups["crit"].Success;
+                line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+                line.Parry = damage.Groups["parry"].Success;
+                if (!_autoAction)
+                {
+                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    {
+                        ClearLast(true);
+                        return;
+                    }
+                }
+                _lastPlayer = line.Target;
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
+                            .SetDamageTaken(line);
+                ParseControl.Instance.Timeline.GetSetMob(line.Source)
+                            .SetDamage(line);
             }
-            _lastPlayer = line.Target;
-            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
-                        .SetDamageStat(line);
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
     }
 }

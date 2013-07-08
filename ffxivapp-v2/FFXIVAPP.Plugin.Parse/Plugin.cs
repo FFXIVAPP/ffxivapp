@@ -11,12 +11,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
+using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -160,7 +160,7 @@ namespace FFXIVAPP.Plugin.Parse
                 // process commands
                 if (chatEntry.Code == "0038")
                 {
-                    var parseCommands = Common.RegularExpressions.SharedRegEx.ParseCommands.Match(chatEntry.Line.Trim());
+                    var parseCommands = SharedRegEx.ParseCommands.Match(chatEntry.Line.Trim());
                     if (parseCommands.Success)
                     {
                         var cmd = parseCommands.Groups["cmd"].Success ? parseCommands.Groups["cmd"].Value : "";

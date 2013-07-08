@@ -72,6 +72,8 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("ShowPartyDamageTab");
             Constants.Settings.Add("ShowPartyHealingTab");
             Constants.Settings.Add("ShowPartyDamageTakenTab");
+            Constants.Settings.Add("ShowMonsterDamageTab");
+            Constants.Settings.Add("ShowMonsterHealingTab");
             Constants.Settings.Add("ShowMonsterDamageTakenTab");
             Constants.Settings.Add("PlayerDamageByAction");
             Constants.Settings.Add("PlayerDamageToMonsters");
@@ -81,7 +83,14 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("PlayerHealingToPlayersByAction");
             Constants.Settings.Add("PlayerDamageTakenByMonsters");
             Constants.Settings.Add("PlayerDamageTakenByMonstersByAction");
-            Constants.Settings.Add("MonsterDamageTakenByAction");
+            Constants.Settings.Add("MonsterDamageByAction");
+            Constants.Settings.Add("MonsterDamageToPlayers");
+            Constants.Settings.Add("MonsterDamageToPlayersByAction");
+            Constants.Settings.Add("MonsterHealingByAction");
+            Constants.Settings.Add("MonsterHealingToMonsters");
+            Constants.Settings.Add("MonsterHealingToMonstersByAction");
+            Constants.Settings.Add("MonsterDamageTakenByPlayers");
+            Constants.Settings.Add("MonsterDamageTakenByPlayersByAction");
             Constants.Settings.Add("MonsterDrops");
 
             #region Basic Settings
@@ -506,6 +515,32 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
+        public bool ShowMonsterDamageTab
+        {
+            get { return ((bool) (this["ShowMonsterDamageTab"])); }
+            set
+            {
+                this["ShowMonsterDamageTab"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowMonsterHealingTab
+        {
+            get { return ((bool) (this["ShowMonsterHealingTab"])); }
+            set
+            {
+                this["ShowMonsterHealingTab"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
         public bool ShowMonsterDamageTakenTab
         {
             get { return ((bool) (this["ShowMonsterDamageTakenTab"])); }
@@ -623,12 +658,103 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByAction
+        public bool MonsterDamageByAction
         {
-            get { return ((bool) (this["MonsterDamageTakenByAction"])); }
+            get { return ((bool) (this["MonsterDamageByAction"])); }
             set
             {
-                this["MonsterDamageTakenByAction"] = value;
+                this["MonsterDamageByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterDamageToPlayers
+        {
+            get { return ((bool) (this["MonsterDamageToPlayers"])); }
+            set
+            {
+                this["MonsterDamageToPlayers"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterDamageToPlayersByAction
+        {
+            get { return ((bool) (this["MonsterDamageToPlayersByAction"])); }
+            set
+            {
+                this["MonsterDamageToPlayersByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterHealingByAction
+        {
+            get { return ((bool) (this["MonsterHealingByAction"])); }
+            set
+            {
+                this["MonsterHealingByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterHealingToMonsters
+        {
+            get { return ((bool) (this["MonsterHealingToMonsters"])); }
+            set
+            {
+                this["MonsterHealingToMonsters"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterHealingToMonstersByAction
+        {
+            get { return ((bool) (this["MonsterHealingToMonstersByAction"])); }
+            set
+            {
+                this["MonsterHealingToMonstersByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterDamageTakenByPlayers
+        {
+            get { return ((bool) (this["MonsterDamageTakenByPlayers"])); }
+            set
+            {
+                this["MonsterDamageTakenByPlayers"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterDamageTakenByPlayersByAction
+        {
+            get { return ((bool) (this["MonsterDamageTakenByPlayersByAction"])); }
+            set
+            {
+                this["MonsterDamageTakenByPlayersByAction"] = value;
                 RaisePropertyChanged();
             }
         }

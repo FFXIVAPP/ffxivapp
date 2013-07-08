@@ -141,7 +141,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
                     return;
                 }
                 var mobGroup = ParseControl.Timeline.GetSetMob(fight.MobName);
-                mobGroup.SetDropStat(thing);
+                mobGroup.SetDrop(thing);
             }
             else
             {
@@ -151,7 +151,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
                     return;
                 }
                 var mobGroup = ParseControl.Timeline.GetSetMob(ParseControl.LastKilled);
-                mobGroup.SetDropStat(thing);
+                mobGroup.SetDrop(thing);
             }
         }
 

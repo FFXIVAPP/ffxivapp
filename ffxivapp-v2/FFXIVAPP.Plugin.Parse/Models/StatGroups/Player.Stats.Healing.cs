@@ -18,7 +18,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        public void SetHealingStat(Line line)
+        public void SetHealing(Line line)
         {
             LineHistory.Add(new LineHistory(line));
             var abilityGroup = GetGroup("HealingByAction");

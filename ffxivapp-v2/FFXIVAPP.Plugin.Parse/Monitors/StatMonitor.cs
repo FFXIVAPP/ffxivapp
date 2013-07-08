@@ -36,7 +36,15 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         internal static readonly TotalStat RegularDamageTaken = new TotalStat("RegularDamageTaken");
         internal static readonly TotalStat CriticalDamageTaken = new TotalStat("CriticalDamageTaken");
         //monster totals
+        internal static readonly TotalStat TotalOverallDamageMonster = new TotalStat("TotalOverallDamageMonster");
+        internal static readonly TotalStat TotalOverallHealingMonster = new TotalStat("TotalOverallHealingMonster");
         internal static readonly TotalStat TotalOverallDamageTakenMonster = new TotalStat("TotalOverallDamageTakenMonster");
+        internal static readonly TotalStat TotalOverallTPMonster = new TotalStat("TotalOverallTPMonster");
+        internal static readonly TotalStat TotalOverallMPMonster = new TotalStat("TotalOverallMPMonster");
+        internal static readonly TotalStat RegularDamageMonster = new TotalStat("RegularDamageMonster");
+        internal static readonly TotalStat CriticalDamageMonster = new TotalStat("CriticalDamageMonster");
+        internal static readonly TotalStat RegularHealingMonster = new TotalStat("RegularHealingMonster");
+        internal static readonly TotalStat CriticalHealingMonster = new TotalStat("CriticalHealingMonster");
         internal static readonly TotalStat RegularDamageTakenMonster = new TotalStat("RegularDamageTakenMonster");
         internal static readonly TotalStat CriticalDamageTakenMonster = new TotalStat("CriticalDamageTakenMonster");
 
@@ -80,7 +88,15 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             ParseControl.Timeline.Overall.Stats.Add(CriticalHealing);
             ParseControl.Timeline.Overall.Stats.Add(RegularDamageTaken);
             ParseControl.Timeline.Overall.Stats.Add(CriticalDamageTaken);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamageMonster);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallHealingMonster);
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamageTakenMonster);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallTPMonster);
+            ParseControl.Timeline.Overall.Stats.Add(TotalOverallMPMonster);
+            ParseControl.Timeline.Overall.Stats.Add(RegularDamageMonster);
+            ParseControl.Timeline.Overall.Stats.Add(CriticalDamageMonster);
+            ParseControl.Timeline.Overall.Stats.Add(RegularHealingMonster);
+            ParseControl.Timeline.Overall.Stats.Add(CriticalHealingMonster);
             ParseControl.Timeline.Overall.Stats.Add(RegularDamageTakenMonster);
             ParseControl.Timeline.Overall.Stats.Add(CriticalDamageTakenMonster);
             base.InitStats();
@@ -102,7 +118,15 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             CriticalHealing.Reset();
             RegularDamageTaken.Reset();
             CriticalDamageTaken.Reset();
+            TotalOverallDamageMonster.Reset();
+            TotalOverallHealingMonster.Reset();
             TotalOverallDamageTakenMonster.Reset();
+            TotalOverallTPMonster.Reset();
+            TotalOverallMPMonster.Reset();
+            RegularDamageMonster.Reset();
+            CriticalDamageMonster.Reset();
+            RegularHealingMonster.Reset();
+            CriticalHealingMonster.Reset();
             RegularDamageTakenMonster.Reset();
             CriticalDamageTakenMonster.Reset();
             ParseControl.TotalA.Clear();

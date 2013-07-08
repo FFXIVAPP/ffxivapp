@@ -57,6 +57,20 @@
                                                                                 Source={StaticResource Settings}}" />
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterHealingHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterHealingTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageTakenHeader],
                                                    Source={StaticResource PluginViewModel}}">
                             <StackPanel>

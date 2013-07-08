@@ -20,7 +20,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        public void SetDamageStat(Line line)
+        public void SetDamageTaken(Line line)
         {
             LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()

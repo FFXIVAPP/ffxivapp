@@ -101,62 +101,78 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdatePlayerFailed(Match failed, Line line, Expressions exp)
         {
-            line.Miss = true;
-            switch (failed.Groups["source"].Success)
+            try
             {
-                case true:
-                    line.Action = exp.Attack;
-                    break;
-                case false:
-                    line.Action = _lastPlayerAction;
-                    break;
-            }
-            line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMob;
-            if (!_autoAction)
-            {
-                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                line.Miss = true;
+                switch (failed.Groups["source"].Success)
                 {
-                    ClearLast(true);
-                    return;
+                    case true:
+                        line.Action = exp.Attack;
+                        break;
+                    case false:
+                        line.Action = _lastPlayerAction;
+                        break;
                 }
+                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMob;
+                if (!_autoAction)
+                {
+                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    {
+                        ClearLast(true);
+                        return;
+                    }
+                }
+                _lastPlayer = line.Source;
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+                ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                            .SetDamageTaken(line);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                            .SetDamage(line);
             }
-            _lastPlayer = line.Source;
-            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
-            ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                        .SetPlayerStat(line);
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                        .SetAbilityStat(line);
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
 
         private static void UpdateMonsterFailed(Match failed, Line line, Expressions exp)
         {
-            line.Miss = true;
-            switch (failed.Groups["source"].Success)
+            try
             {
-                case true:
-                    line.Action = exp.Attack;
-                    break;
-                case false:
-                    line.Action = _lastMobAction;
-                    break;
-            }
-            line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastPlayer;
-            if (Regex.IsMatch(line.Target.ToLower(), exp.You))
-            {
-                line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
-            }
-            if (!_autoAction)
-            {
-                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                line.Miss = true;
+                switch (failed.Groups["source"].Success)
                 {
-                    ClearLast(true);
-                    return;
+                    case true:
+                        line.Action = exp.Attack;
+                        break;
+                    case false:
+                        line.Action = _lastMobAction;
+                        break;
                 }
+                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastPlayer;
+                if (Regex.IsMatch(line.Target.ToLower(), exp.You))
+                {
+                    line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                }
+                if (!_autoAction)
+                {
+                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    {
+                        ClearLast(true);
+                        return;
+                    }
+                }
+                _lastPlayer = line.Target;
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
+                            .SetDamageTaken(line);
+                ParseControl.Instance.Timeline.GetSetMob(line.Source)
+                            .SetDamage(line);
             }
-            _lastPlayer = line.Target;
-            ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
-                        .SetDamageStat(line);
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
     }
 }

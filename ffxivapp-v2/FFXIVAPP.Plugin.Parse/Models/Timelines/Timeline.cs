@@ -153,14 +153,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         if (Fights.TryGetLastOrCurrent(mobName, out killed))
                         {
                             GetSetMob(mobName)
-                                .SetKillStat(killed);
+                                .SetKill(killed);
                         }
                         else
                         {
                             var outOfOrderFight = new Fight(mobName);
                             Fights.Add(outOfOrderFight);
                             GetSetMob(mobName)
-                                .SetKillStat(outOfOrderFight);
+                                .SetKill(outOfOrderFight);
                         }
                         FightingRightNow = false;
                         break;

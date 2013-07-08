@@ -20,7 +20,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="fight"> </param>
-        public void SetKillStat(Fight fight)
+        public void SetKill(Fight fight)
         {
             if (fight.MobName != Name)
             {

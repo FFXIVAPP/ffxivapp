@@ -27,11 +27,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             InitStats();
             LineHistory = new List<LineHistory>();
-            DamageOverTimeActions = new Dictionary<string, DamageOverTime>();
+            DamageOverTimeActions = new Dictionary<string, DamageOverTime.Player>();
         }
 
         public List<LineHistory> LineHistory { get; set; }
-        public Dictionary<string, DamageOverTime> DamageOverTimeActions { get; set; }
+        public Dictionary<string, DamageOverTime.Player> DamageOverTimeActions { get; set; }
 
         private void InitStats()
         {
@@ -148,7 +148,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                         .ToList();
         }
 
-
+        /// <summary>
+        /// </summary>
+        /// <param name="sub"></param>
+        /// <param name="useSub"></param>
+        /// <returns></returns>
         private IEnumerable<Stat<decimal>> DamageTakenStatList(StatGroup sub, bool useSub = false)
         {
             var stats = DamageTakenStats();

@@ -80,8 +80,15 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdatePlayerActions(Match actions, Line line, Expressions exp)
         {
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
-            _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+            try
+            {
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
+                _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
     }
 }

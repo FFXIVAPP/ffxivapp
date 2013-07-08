@@ -60,24 +60,31 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdatePlayerHealing(Match cure, Line line, Expressions exp)
         {
-            line.Action = _lastPlayerAction;
-            line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
-            line.Crit = cure.Groups["crit"].Success;
-            line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
-            line.Target = Convert.ToString(cure.Groups["target"].Value);
-            if (Regex.IsMatch(line.Target.ToLower(), exp.You))
+            try
             {
-                line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                line.Action = _lastPlayerAction;
+                line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
+                line.Crit = cure.Groups["crit"].Success;
+                line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
+                line.Target = Convert.ToString(cure.Groups["target"].Value);
+                if (Regex.IsMatch(line.Target.ToLower(), exp.You))
+                {
+                    line.Target = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                }
+                line.Type = Convert.ToString(cure.Groups["type"].Value.ToUpper());
+                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions && _lastEvent.Type != EventType.Items))
+                {
+                    ClearLast(true);
+                    return;
+                }
+                _lastPlayer = line.Source;
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                            .SetHealing(line);
             }
-            line.Type = Convert.ToString(cure.Groups["type"].Value.ToUpper());
-            if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions && _lastEvent.Type != EventType.Items))
+            catch (Exception ex)
             {
-                ClearLast(true);
-                return;
+                var message = ex.Message;
             }
-            _lastPlayer = line.Source;
-            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                        .SetHealingStat(line);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
         public static Dictionary<string, DamageOverTimeAction> Actions()
         {
             var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
-            
+
             damageOverTimeActions.Add("circle of scorn", new DamageOverTimeAction
             {
                 ActionPotency = 30,
@@ -118,7 +118,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             damageOverTimeActions.Add("windra", damageOverTimeActions["aero ii"]);
             damageOverTimeActions.Add("extra vent", damageOverTimeActions["aero ii"]);
             damageOverTimeActions.Add("エアロラ", damageOverTimeActions["aero ii"]);
-            
+
             damageOverTimeActions.Add("thunder", new DamageOverTimeAction
             {
                 ActionPotency = 30,
