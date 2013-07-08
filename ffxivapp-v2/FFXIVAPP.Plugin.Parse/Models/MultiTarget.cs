@@ -97,7 +97,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                         "letzte bastion",
                         "himmelsscherbe",
                         "sternensturm",
-                        "meteor",
+                        //"meteor",
                         "heilender wind",
                         "atem der erde",
                         "lebenspuls",
@@ -168,7 +168,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                         "requiem ennemi",
                         "ballade du mage",
                         // thm
-                        "extra Feu",
+                        "extra feu",
                         "extra glace",
                         "sommeil",
                         // blm
@@ -198,7 +198,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                         "briseur de rocs",
                         // gla
                         "cercle du destin",
-                        "flash"
+                        //"flash"
                     };
             }
             return new List<string>

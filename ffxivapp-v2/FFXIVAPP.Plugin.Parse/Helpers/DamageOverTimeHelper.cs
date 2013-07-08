@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
                 Duration = 30
             });
             damageOverTimeActions.Add("knochenbrecher", damageOverTimeActions["fracture"]);
-            damageOverTimeActions.Add("fracture", damageOverTimeActions["fracture"]);
+            //damageOverTimeActions.Add("fracture", damageOverTimeActions["fracture"]);
             damageOverTimeActions.Add("フラクチャー", damageOverTimeActions["fracture"]);
 
             damageOverTimeActions.Add("phlebotomize", new DamageOverTimeAction
@@ -71,7 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 
             damageOverTimeActions.Add("chaos thrust", new DamageOverTimeAction
             {
-                ActionPotency = 100,
+                ActionPotency = 160,
                 DamageOverTimePotency = 20,
                 Duration = 30
             });

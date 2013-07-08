@@ -29,10 +29,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                     DamageOverTimeActions.Remove(line.Action);
                 }
             }
-            if (isValid)
-            {
-                DamageOverTimeActions.Add(line.Action, damageOverTime);
-            }
+            DamageOverTimeActions.Add(line.Action, damageOverTime);
         }
 
         /// <summary>

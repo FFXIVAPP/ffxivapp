@@ -21,7 +21,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
     {
         #region Auto Properties
 
-        private List<string> _thunders = new List<string>
+        private readonly List<string> _thunders = new List<string>
         {
             "thunder",
             "blitz",
@@ -52,7 +52,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public DamageOverTime(Line line, out bool isValid)
         {
             Line = line;
-            OriginalAmount = Line.Amount;
+            OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
             DamageOverTimeAction actionData;
             if (!DamageOverTimeHelper.Actions()
                                      .TryGetValue(Line.Action.ToLower(), out actionData))
@@ -65,7 +65,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             Duration = actionData.Duration;
             TotalTicks = (int) Math.Ceiling(Duration / 3.0);
             TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
-            if (TickDamage >= 300 && _thunders.Any(thunder => Line.Action.ToLower() == thunder))
+            if (TickDamage >= 300 && _thunders.Any(thunder => Line.Action.ToLower().Contains(thunder)))
             {
                 isValid = false;
                 return;

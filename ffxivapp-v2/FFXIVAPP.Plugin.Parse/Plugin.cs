@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -159,22 +160,33 @@ namespace FFXIVAPP.Plugin.Parse
                 // process commands
                 if (chatEntry.Code == "0038")
                 {
-                    switch (chatEntry.Line.Trim())
+                    var parseCommands = Common.RegularExpressions.SharedRegEx.ParseCommands.Match(chatEntry.Line.Trim());
+                    if (parseCommands.Success)
                     {
-                        case @"\\parse reset":
-                            ParseControl.Instance.Reset();
-                            break;
-                        case @"\\parse toggle":
-                            ParseControl.Instance.Toggle();
-                            break;
-                        default:
-                            List<string> temp;
-                            CommandBuilder.GetCommands(chatEntry.Line, out temp);
-                            if (temp != null)
-                            {
-                                Host.Commands(PName, temp);
-                            }
-                            break;
+                        var cmd = parseCommands.Groups["cmd"].Success ? parseCommands.Groups["cmd"].Value : "";
+                        var sub = parseCommands.Groups["sub"].Success ? parseCommands.Groups["sub"].Value : "";
+                        switch (cmd)
+                        {
+                            case "parse":
+                                switch (sub)
+                                {
+                                    case "reset":
+                                        ParseControl.Instance.Reset();
+                                        break;
+                                    case "toggle":
+                                        ParseControl.Instance.Toggle();
+                                        break;
+                                }
+                                break;
+                            default:
+                                List<string> temp;
+                                CommandBuilder.GetCommands(chatEntry.Line, out temp);
+                                if (temp != null)
+                                {
+                                    Host.Commands(PName, temp);
+                                }
+                                break;
+                        }
                     }
                 }
                 // process logs

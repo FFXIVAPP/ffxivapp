@@ -31,7 +31,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         }
 
         public List<LineHistory> LineHistory { get; set; }
-        private Dictionary<string, DamageOverTime> DamageOverTimeActions { get; set; }
+        public Dictionary<string, DamageOverTime> DamageOverTimeActions { get; set; }
 
         private void InitStats()
         {

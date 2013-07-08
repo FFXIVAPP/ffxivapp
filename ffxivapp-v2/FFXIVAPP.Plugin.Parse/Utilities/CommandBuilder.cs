@@ -26,16 +26,16 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         public static void GetCommands(string line, out List<string> commands)
         {
             List<string> temp = null;
-            var reg = SharedRegEx.ParseCommands.Match(line);
-            if (!reg.Success)
+            var parseCommands = SharedRegEx.ParseCommands.Match(line);
+            if (!parseCommands.Success)
             {
                 commands = null;
                 return;
             }
-            var cmd = reg.Groups["cmd"].Success ? reg.Groups["cmd"].Value : "";
-            var cm = reg.Groups["cm"].Success ? reg.Groups["cm"].Value : "p";
-            var sub = reg.Groups["sub"].Success ? reg.Groups["sub"].Value : "";
-            var limit = reg.Groups["limit"].Success ? Convert.ToInt32(reg.Groups["limit"].Value) : 1000;
+            var cmd = parseCommands.Groups["cmd"].Success ? parseCommands.Groups["cmd"].Value : "";
+            var cm = parseCommands.Groups["cm"].Success ? parseCommands.Groups["cm"].Value : "p";
+            var sub = parseCommands.Groups["sub"].Success ? parseCommands.Groups["sub"].Value : "";
+            var limit = parseCommands.Groups["limit"].Success ? Convert.ToInt32(parseCommands.Groups["limit"].Value) : 1000;
             limit = (limit == 0) ? 1000 : limit;
             var ptline = ParseControl.Instance.Timeline.Party;
             switch (cmd)
@@ -66,7 +66,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     string t;
                     switch (sub)
                     {
-                        case "ability":
+                        case "damage":
 
                             t = PluginViewModel.Instance.Locale["parse_PartyDamageTabHeader"];
                             temp = new List<string>
@@ -93,7 +93,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
                             }
                             break;
-                        case "damage":
+                        case "damagetaken":
                             t = PluginViewModel.Instance.Locale["parse_PartyDamageTakenTabHeader"];
                             temp = new List<string>
                             {
