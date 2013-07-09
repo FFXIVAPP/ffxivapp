@@ -1,4 +1,5 @@
 cd "..\build\Debug"
+del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Client.exe
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Client.exe.config
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Client.exe.nlog
@@ -14,19 +15,20 @@ cd "..\build\Debug"
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Licenses\*.txt
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Chat\FFXIVAPP.Plugin.Chat.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Chat\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Chat\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Chat\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Event\aruba.wav
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Event\FFXIVAPP.Plugin.Event.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Event\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Event\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Event\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Parse\FFXIVAPP.Plugin.Parse.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Parse\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Parse\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Parse\PluginInfo.xml
 
 cd "..\Release"
+del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Client.exe
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Client.exe.config
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Client.exe.nlog
@@ -42,19 +44,20 @@ cd "..\Release"
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Licenses\
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Chat\FFXIVAPP.Plugin.Chat.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Chat\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Chat\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Chat\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Event\aruba.wav
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Event\FFXIVAPP.Plugin.Event.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Event\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Event\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Event\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Parse\FFXIVAPP.Plugin.Parse.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Parse\Logo.png
-"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Parse\Settings.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Parse\PluginInfo.xml
 
 cd "..\SmartAssembly"
+del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Client.exe
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Client.exe.config
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Client.exe.nlog

@@ -81,6 +81,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("PlayerHealingByAction");
             Constants.Settings.Add("PlayerHealingToPlayers");
             Constants.Settings.Add("PlayerHealingToPlayersByAction");
+            Constants.Settings.Add("PlayerDamageTakenByAction");
             Constants.Settings.Add("PlayerDamageTakenByMonsters");
             Constants.Settings.Add("PlayerDamageTakenByMonstersByAction");
             Constants.Settings.Add("MonsterDamageByAction");
@@ -89,6 +90,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             Constants.Settings.Add("MonsterHealingByAction");
             Constants.Settings.Add("MonsterHealingToMonsters");
             Constants.Settings.Add("MonsterHealingToMonstersByAction");
+            Constants.Settings.Add("MonsterDamageTakenByAction");
             Constants.Settings.Add("MonsterDamageTakenByPlayers");
             Constants.Settings.Add("MonsterDamageTakenByPlayersByAction");
             Constants.Settings.Add("MonsterDrops");
@@ -632,6 +634,19 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
+        public bool PlayerDamageTakenByAction
+        {
+            get { return ((bool) (this["PlayerDamageTakenByAction"])); }
+            set
+            {
+                this["PlayerDamageTakenByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
         public bool PlayerDamageTakenByMonsters
         {
             get { return ((bool) (this["PlayerDamageTakenByMonsters"])); }
@@ -729,6 +744,20 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["MonsterHealingToMonstersByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterDamageTakenByAction
+        {
+            get { return ((bool) (this["MonsterDamageTakenByAction"])); }
+            set
+            {
+                this["MonsterDamageTakenByAction"] = value;
                 RaisePropertyChanged();
             }
         }

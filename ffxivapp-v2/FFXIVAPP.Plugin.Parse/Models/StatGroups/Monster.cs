@@ -35,6 +35,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         public List<LineHistory> LineHistory { get; set; }
         private Dictionary<string, DamageOverTime> DamageOverTimeActions { get; set; }
 
+        public decimal LastDamageAmount { get; set; }
+
         private TotalStat TotalOverallDrops { get; set; }
         private CounterStat TotalKilled { get; set; }
 

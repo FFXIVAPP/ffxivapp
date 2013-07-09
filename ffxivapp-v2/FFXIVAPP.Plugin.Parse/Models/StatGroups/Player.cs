@@ -33,6 +33,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         public List<LineHistory> LineHistory { get; set; }
         public Dictionary<string, DamageOverTime.Player> DamageOverTimeActions { get; set; }
 
+        public decimal LastDamageAmount { get; set; }
+
         private void InitStats()
         {
             Stats.AddStats(TotalStatList());

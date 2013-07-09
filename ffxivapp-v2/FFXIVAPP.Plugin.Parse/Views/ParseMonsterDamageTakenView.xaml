@@ -403,6 +403,27 @@
                 </Controls:EmptyListView>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5"
+                              IsChecked="{Binding MonsterDamageToPlayersByAction,
+                                                  Source={StaticResource Settings}}" />
+                    <TextBlock Margin="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text="{Binding Locale[parse_MonsterDamageTakenByActionText],
+                                              Source={StaticResource PluginViewModel}}" />
+                </StackPanel>
+                <Controls:DamageTakenListView x:Name="MonsterDamageTakenByAction"
+                                              DataContext="{Binding SelectedItem,
+                                                                    ElementName=MonsterOverallDamageTaken,
+                                                                    NotifyOnTargetUpdated=True,
+                                                                    NotifyOnSourceUpdated=True}"
+                                              ItemsSource="{Binding DamageTakenByAction}"
+                                              Visibility="{Binding MonsterDamageToPlayersByAction,
+                                                                   Source={StaticResource Settings},
+                                                                   Converter={StaticResource VisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5"
                               IsChecked="{Binding MonsterDamageTakenByPlayers,
                                                   Source={StaticResource Settings}}" />
                     <TextBlock Margin="2"

@@ -15,6 +15,22 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 {
     public static class DamageOverTimeHelper
     {
+        public static readonly List<string> Thunders = new List<string>
+        {
+            "thunder",
+            "blitz",
+            "foudre",
+            "サンダ"
+        };
+
+        public static readonly List<string> Demolish = new List<string>
+        {
+            "demolish",
+            "demolieren",
+            "démolition",
+            "破砕拳"
+        };
+
         public static Dictionary<string, DamageOverTimeAction> Actions()
         {
             var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
@@ -41,7 +57,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
 
             damageOverTimeActions.Add("demolish", new DamageOverTimeAction
             {
-                ActionPotency = 0,
+                ActionPotency = 100,
                 DamageOverTimePotency = 40,
                 Duration = 18
             });

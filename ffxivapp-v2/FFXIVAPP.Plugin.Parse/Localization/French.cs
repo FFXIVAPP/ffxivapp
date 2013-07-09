@@ -140,8 +140,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_PartyDamageTabHeader", "Dégâts de l'équipe");
             Dictionary.Add("parse_PartyHealingTabHeader", "Soins de l'équipe");
             Dictionary.Add("parse_PartyDamageTakenTabHeader", "Dégâts subis par l'équipe");
-            Dictionary.Add("parse_MonsterDamageTabHeader", "Dégâts par les monstres");
-            Dictionary.Add("parse_MonsterHealingTabHeader", "Soins par les monstres");
+            Dictionary.Add("parse_MonsterDamageTabHeader", "Dégâts des monstres");
+            Dictionary.Add("parse_MonsterHealingTabHeader", "Soins des monstres");
             Dictionary.Add("parse_MonsterDamageTakenTabHeader", "Dégâts subis par les monstres");
             Dictionary.Add("parse_ResetStatsToolTip", "Réinitialiser les stats");
             Dictionary.Add("parse_ShowActionLogHeader", "Afficher le log d'action");
@@ -159,16 +159,18 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_PlayerHealingByActionText", "Soins octroyés par action par joueur sélectionné");
             Dictionary.Add("parse_PlayerHealingToPlayersText", "Soins octroyés aux joueurs par joueur sélectionné");
             Dictionary.Add("parse_PlayerHealingToPlayersByActionText", "Soins octroyés aux joueurs par action par joueur sélectionné");
+            Dictionary.Add("parse_PlayerDamageTakenByActionText", "Dégâts infligés par les monstres par action par joueur sélectionné");
             Dictionary.Add("parse_PlayerDamageTakenByMonstersText", "Dégâts infligés par les monstres par joueur sélectionné");
-            Dictionary.Add("parse_PlayerDamageTakenByMonstersByActionText", "Dégâts infligés par les monstres par action par monstre sélectionné");
-            Dictionary.Add("parse_MonsterDamageByActionText", "Damage By Action By Selected Monster");
-            Dictionary.Add("parse_MonsterDamageToPlayersText", "Damage To Players By Selected Monster");
-            Dictionary.Add("parse_MonsterDamageToPlayersByActionText", "Damage To Players By Action By Selected Monster");
-            Dictionary.Add("parse_MonsterHealingByActionText", "Healing By Action By Selected Monster");
-            Dictionary.Add("parse_MonsterHealingToMonstersText", "Healing To Monsters By Selected Monster");
-            Dictionary.Add("parse_MonsterHealingToMonstersByActionText", "Healing To Monsters By Action By Selected Monster");
-            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Damage Taken From Players By Selected Monster");
-            Dictionary.Add("parse_MonsterDamageTakenByPlayersByActionText", "Damage Taken From Players By Action By Selected Player By Selected Monster");
+            Dictionary.Add("parse_PlayerDamageTakenByMonstersByActionText", "Dégâts infligés par les monstres par action par monstre sélectionné par joueur sélectionné");
+            Dictionary.Add("parse_MonsterDamageByActionText", "Dégâts par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageToPlayersText", "Dégâts infligés aux joueurs par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageToPlayersByActionText", "Dégâts infligés aux joueurs par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterHealingByActionText", "Soins par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterHealingToMonstersText", "Soins octroyés aux monstres par monstre sélectionné");
+            Dictionary.Add("parse_MonsterHealingToMonstersByActionText", "Soins octroyés aux monstres par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByActionText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByPlayersByActionText", "Dégâts infligés par les joueurs par action par joueur sélectionné par monstre sélectionné");
             Dictionary.Add("parse_MonsterDropsByMonsterText", "Butin par monstre sélectionné");
             Dictionary.Add("parse_TotalOverallDropsHeader", "Drops");
             Dictionary.Add("parse_TotalKilledHeader", "Killed");
@@ -270,12 +272,12 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_DamageTakenCounterPercentLabel", "Damage Taken Counter Percent:");
             Dictionary.Add("parse_DamageTakenCounterModLabel", "Damage Taken Counter Mod:");
             Dictionary.Add("parse_DamageTakenCounterModAverageLabel", "Damage Taken Counter Mod Average:");
-            Dictionary.Add("parse_DamageTakenBlockLabel", "Damage Taken Block:");
+            Dictionary.Add("parse_DamageTakenBlockLabel", "Damage Taken Block Percent:");
             Dictionary.Add("parse_DamageTakenBlockPercentLabel", "Damage Taken Block Percent:");
             Dictionary.Add("parse_DamageTakenBlockModLabel", "Damage Taken Block Mod:");
             Dictionary.Add("parse_DamageTakenBlockModAverageLabel", "Damage Taken Block Mod Average:");
             Dictionary.Add("parse_DamageTakenParryLabel", "Damage Taken Parry:");
-            Dictionary.Add("parse_DamageTakenParryPercentLabel", "Damage Taken Parry Mod:");
+            Dictionary.Add("parse_DamageTakenParryPercentLabel", "Damage Taken Parry Percent:");
             Dictionary.Add("parse_DamageTakenParryModLabel", "Damage Taken Parry Mod:");
             Dictionary.Add("parse_DamageTakenParryModAverageLabel", "Damage Taken Parry Mod Average:");
             Dictionary.Add("parse_DamageTakenResistLabel", "Damage Taken Resist:");
@@ -400,7 +402,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowPercentOfTotalOverallDamageTakenInfoHeader", "Show Percent Of Total Overall Damage Taken Information");
             Dictionary.Add("parse_ShowPercentOfRegularDamageTakenInfoHeader", "Show Percent Of Regular Damage Taken Information");
             Dictionary.Add("parse_ShowPercentOfCriticalDamageTakenInfoHeader", "Show Percent Of Critical Damage Taken Information");
-            Dictionary.Add("parse_LoadExistingLogFileButtonText", "Load Existing Log File");
+            Dictionary.Add("parse_LoadExistingLogFileButtonText", "Charger un fichier Log existant");
             return Dictionary;
         }
     }

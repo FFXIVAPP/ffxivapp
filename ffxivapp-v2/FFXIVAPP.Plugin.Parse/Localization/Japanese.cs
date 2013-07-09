@@ -159,6 +159,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_PlayerHealingByActionText", "Healing By Action By Selected Player");
             Dictionary.Add("parse_PlayerHealingToPlayersText", "Healing To Players By Selected Player");
             Dictionary.Add("parse_PlayerHealingToPlayersByActionText", "Healing To Players By Action By Selected Player");
+            Dictionary.Add("parse_PlayerDamageTakenByActionText", "Damage Taken From Monsters By Action By Selected Player");
             Dictionary.Add("parse_PlayerDamageTakenByMonstersText", "Damage Taken From Monsters By Selected Player");
             Dictionary.Add("parse_PlayerDamageTakenByMonstersByActionText", "Damage Taken From Monsters By Action By Selected Monster By Selected Player");
             Dictionary.Add("parse_MonsterDamageByActionText", "Damage By Action By Selected Monster");
@@ -167,7 +168,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_MonsterHealingByActionText", "Healing By Action By Selected Monster");
             Dictionary.Add("parse_MonsterHealingToMonstersText", "Healing To Monsters By Selected Monster");
             Dictionary.Add("parse_MonsterHealingToMonstersByActionText", "Healing To Monsters By Action By Selected Monster");
-            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Damage Taken From Players By Selected Monster");
+            Dictionary.Add("parse_MonsterDamageTakenByActionText", "Damage Taken From Players By Action By Selected Monster");
+            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Damage Taken From Players By Action By Selected Monster");
             Dictionary.Add("parse_MonsterDamageTakenByPlayersByActionText", "Damage Taken From Players By Action By Selected Player By Selected Monster");
             Dictionary.Add("parse_MonsterDropsByMonsterText", "Drops By Selected Monster");
             Dictionary.Add("parse_TotalOverallDropsHeader", "Drops");

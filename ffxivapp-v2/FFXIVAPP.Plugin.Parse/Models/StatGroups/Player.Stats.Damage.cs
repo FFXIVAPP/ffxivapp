@@ -55,6 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             if (line.Hit)
             {
+                LastDamageAmount = line.Crit ? ParseHelper.GetOriginalDamage(line.Amount, 50) : line.Amount;
                 if (DamageOverTimeHelper.Actions()
                                         .ContainsKey(line.Action.ToLower()))
                 {

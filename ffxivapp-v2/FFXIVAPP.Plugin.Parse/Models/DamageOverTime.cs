@@ -7,7 +7,6 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using FFXIVAPP.Common.Helpers;
@@ -29,14 +28,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public class Player : IDisposable
         {
             #region Auto Properties
-
-            private readonly List<string> _thunders = new List<string>
-            {
-                "thunder",
-                "blitz",
-                "foudre",
-                "サンダ"
-            };
 
             private Line Line { get; set; }
             private decimal OriginalAmount { get; set; }
@@ -63,6 +54,12 @@ namespace FFXIVAPP.Plugin.Parse.Models
             {
                 Line = line;
                 OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
+                if (DamageOverTimeHelper.Demolish.Any(action => Line.Action.ToLower()
+                                                                    .Contains(action)))
+                {
+                    OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                                 .LastDamageAmount;
+                }
                 DamageOverTimeAction actionData;
                 if (!DamageOverTimeHelper.Actions()
                                          .TryGetValue(Line.Action.ToLower(), out actionData))
@@ -75,8 +72,8 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 Duration = actionData.Duration;
                 TotalTicks = (int) Math.Ceiling(Duration / 3.0);
                 TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
-                if (TickDamage >= 300 && _thunders.Any(thunder => Line.Action.ToLower()
-                                                                      .Contains(thunder)))
+                if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()
+                                                                                         .Contains(action)))
                 {
                     isValid = false;
                     return;

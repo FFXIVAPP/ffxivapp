@@ -4,10 +4,14 @@
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
 
+#region Usings
+
 using System;
 using System.Linq;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
+
+#endregion
 
 namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
 {
@@ -51,6 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             subPlayerAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             if (line.Hit)
             {
+                LastDamageAmount = line.Crit ? ParseHelper.GetOriginalDamage(line.Amount, 50) : line.Amount;
                 if (DamageOverTimeHelper.Actions()
                                         .ContainsKey(line.Action.ToLower()))
                 {

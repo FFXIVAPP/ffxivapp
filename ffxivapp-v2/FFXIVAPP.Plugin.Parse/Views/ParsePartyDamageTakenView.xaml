@@ -36,6 +36,27 @@
                                               ItemsSource="{Binding}" />
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5"
+                              IsChecked="{Binding PlayerDamageTakenByAction,
+                                                  Source={StaticResource Settings}}" />
+                    <TextBlock Margin="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text="{Binding Locale[parse_PlayerDamageTakenByActionText],
+                                              Source={StaticResource PluginViewModel}}" />
+                </StackPanel>
+                <Controls:DamageTakenListView x:Name="PlayerDamageTakenByAction"
+                                              DataContext="{Binding SelectedItem,
+                                                                    ElementName=PlayerOverallDamageTaken,
+                                                                    NotifyOnTargetUpdated=True,
+                                                                    NotifyOnSourceUpdated=True}"
+                                              ItemsSource="{Binding DamageTakenByAction}"
+                                              Visibility="{Binding PlayerDamageTakenByAction,
+                                                                   Source={StaticResource Settings},
+                                                                   Converter={StaticResource VisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5"
                               IsChecked="{Binding PlayerDamageTakenByMonsters,
                                                   Source={StaticResource Settings}}" />
                     <TextBlock Margin="2"
