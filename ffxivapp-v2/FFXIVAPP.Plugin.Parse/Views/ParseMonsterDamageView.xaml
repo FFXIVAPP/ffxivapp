@@ -51,7 +51,7 @@
                                                                ElementName=MonsterOverallDamage,
                                                                NotifyOnTargetUpdated=True,
                                                                NotifyOnSourceUpdated=True}"
-                                         ItemsSource="{Binding MonsterDamageByAction}"
+                                         ItemsSource="{Binding DamageByAction}"
                                          Visibility="{Binding MonsterDamageByAction,
                                                               Source={StaticResource Settings},
                                                               Converter={StaticResource VisibilityConverter}}" />

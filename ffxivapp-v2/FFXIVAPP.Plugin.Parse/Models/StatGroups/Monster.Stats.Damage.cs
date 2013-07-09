@@ -31,9 +31,9 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
             var playerGroup = GetGroup("DamageToPlayers");
             StatGroup subPlayerGroup;
-            if (!playerGroup.TryGetGroup(line.Source, out subPlayerGroup))
+            if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup))
             {
-                subPlayerGroup = new StatGroup(line.Source);
+                subPlayerGroup = new StatGroup(line.Target);
                 subPlayerGroup.Stats.AddStats(DamageStatList(null));
                 playerGroup.AddGroup(subPlayerGroup);
             }
