@@ -169,7 +169,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_MonsterHealingToMonstersText", "Soins octroyés aux monstres par monstre sélectionné");
             Dictionary.Add("parse_MonsterHealingToMonstersByActionText", "Soins octroyés aux monstres par action par monstre sélectionné");
             Dictionary.Add("parse_MonsterDamageTakenByActionText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
-            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Dégâts infligés par les joueurs par monstre sélectionné");
             Dictionary.Add("parse_MonsterDamageTakenByPlayersByActionText", "Dégâts infligés par les joueurs par action par joueur sélectionné par monstre sélectionné");
             Dictionary.Add("parse_MonsterDropsByMonsterText", "Butin par monstre sélectionné");
             Dictionary.Add("parse_TotalOverallDropsHeader", "Drops");
