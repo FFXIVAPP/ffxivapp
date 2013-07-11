@@ -23,7 +23,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             "サンダ"
         };
 
-        public static readonly List<string> Demolish = new List<string>
+        public static readonly List<string> ZeroBaseDamageDOT = new List<string>
         {
             "demolish",
             "demolieren",
@@ -31,7 +31,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             "破砕拳"
         };
 
-        public static Dictionary<string, DamageOverTimeAction> Actions()
+        public static Dictionary<string, DamageOverTimeAction> PlayerActions()
         {
             var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
 
@@ -165,6 +165,12 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             damageOverTimeActions.Add("méga foudre", damageOverTimeActions["thunder iii"]);
             damageOverTimeActions.Add("サンダガ", damageOverTimeActions["thunder iii"]);
 
+            return damageOverTimeActions;
+        }
+
+        public static Dictionary<string, DamageOverTimeAction> MonsterActions()
+        {
+            var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
             return damageOverTimeActions;
         }
     }

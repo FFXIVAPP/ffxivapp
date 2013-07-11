@@ -53,20 +53,17 @@ namespace FFXIVAPP.Plugin.Parse.Models
             public Player(Line line, out bool isValid)
             {
                 Line = line;
-                OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
-                if (DamageOverTimeHelper.Demolish.Any(action => Line.Action.ToLower()
-                                                                    .Contains(action)))
+                if (line.Amount > 0)
+                {
+                    OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
+                }
+                if (DamageOverTimeHelper.ZeroBaseDamageDOT.Any(action => Line.Action.ToLower()
+                                                                             .Contains(action)))
                 {
                     OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                                  .LastDamageAmount;
                 }
-                DamageOverTimeAction actionData;
-                if (!DamageOverTimeHelper.Actions()
-                                         .TryGetValue(Line.Action.ToLower(), out actionData))
-                {
-                    isValid = false;
-                    return;
-                }
+                var actionData = DamageOverTimeHelper.PlayerActions()[Line.Action.ToLower()];
                 ActionPotency = actionData.ActionPotency;
                 DamageOverTimePotency = actionData.DamageOverTimePotency;
                 Duration = actionData.Duration;
