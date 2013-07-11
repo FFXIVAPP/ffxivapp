@@ -13,6 +13,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 
@@ -36,6 +37,7 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
+        public ICommand SaveAndClearHistoryCommand { get; private set; }
         public ICommand ScreenShotCommand { get; private set; }
         public ICommand UpdateSelectedPluginCommand { get; private set; }
         public ICommand UpdateTitleCommand { get; private set; }
@@ -44,6 +46,7 @@ namespace FFXIVAPP.Client
 
         public ShellViewModel()
         {
+            SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
             UpdateTitleCommand = new DelegateCommand(UpdateTitle);
@@ -58,6 +61,13 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void SaveAndClearHistory()
+        {
+            XmlLogHelper.SaveCurrentLog();
+        }
 
         /// <summary>
         /// </summary>

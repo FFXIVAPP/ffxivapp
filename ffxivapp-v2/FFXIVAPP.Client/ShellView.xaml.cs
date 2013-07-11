@@ -96,76 +96,12 @@ namespace FFXIVAPP.Client
             {
                 pluginInstance.Instance.Dispose();
             }
-            if (!Settings.Default.SaveLog || !AppViewModel.Instance.ChatHistory.Any())
+            if (!Settings.Default.SaveLog)
             {
                 CloseDelegate(update);
             }
-            var popupContent = new PopupContent();
-            popupContent.Title = AppViewModel.Instance.Locale["app_InformationMessage"];
-            popupContent.Message = AppViewModel.Instance.Locale["app_SaveHistoryMessage"];
-            popupContent.CanSayNo = true;
-            PopupHelper.Toggle(popupContent);
-            EventHandler closedDelegate = null;
-            closedDelegate = delegate
-            {
-                switch (PopupHelper.Result)
-                {
-                    case MessageBoxResult.Yes:
-                        Initializer.StopLogging();
-                        Func<bool> exportHistory = delegate
-                        {
-                            try
-                            {
-                                var savedLogName = DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_ChatHistory.xml";
-                                var savedLog = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/ChatHistory.xml");
-                                foreach (var entry in AppViewModel.Instance.ChatHistory)
-                                {
-                                    var xCode = entry.Code;
-                                    var xBytes = entry.Bytes.Aggregate("", (current, bytes) => current + (bytes + " "))
-                                                      .Trim();
-                                    //var xCombined = entry.Combined;
-                                    //var xJP = entry.JP.ToString();
-                                    var xLine = entry.Line;
-                                    //var xRaw = entry.Raw;
-                                    var xTimeStamp = entry.TimeStamp.ToString("[HH:mm:ss]");
-                                    var keyPairList = new List<XValuePair>();
-                                    keyPairList.Add(new XValuePair
-                                    {
-                                        Key = "Bytes",
-                                        Value = xBytes
-                                    });
-                                    //keyPairList.Add(new XValuePair {Key = "Combined", Value = xCombined});
-                                    //keyPairList.Add(new XValuePair {Key = "JP", Value = xJP});
-                                    keyPairList.Add(new XValuePair
-                                    {
-                                        Key = "Line",
-                                        Value = xLine
-                                    });
-                                    //keyPairList.Add(new XValuePair {Key = "Raw", Value = xRaw});
-                                    keyPairList.Add(new XValuePair
-                                    {
-                                        Key = "TimeStamp",
-                                        Value = xTimeStamp
-                                    });
-                                    XmlHelper.SaveXmlNode(savedLog, "History", "Entry", xCode, keyPairList);
-                                }
-                                savedLog.Save(AppViewModel.Instance.LogsPath + savedLogName);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                            }
-                            return true;
-                        };
-                        exportHistory.BeginInvoke(delegate { CloseDelegate(update); }, exportHistory);
-                        break;
-                    case MessageBoxResult.No:
-                        CloseDelegate(update);
-                        break;
-                }
-                PopupHelper.MessagePopup.Closed -= closedDelegate;
-            };
-            PopupHelper.MessagePopup.Closed += closedDelegate;
+            Func<bool> exportHistory = () => XmlLogHelper.SaveCurrentLog(false);
+            exportHistory.BeginInvoke(delegate { CloseDelegate(update); }, exportHistory);
         }
 
         /// <summary>

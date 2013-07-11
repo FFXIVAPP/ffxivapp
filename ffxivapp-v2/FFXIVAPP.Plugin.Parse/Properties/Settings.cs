@@ -66,7 +66,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
         private void DefaultSettings()
         {
             Constants.Settings.Clear();
-            Constants.Settings.Add("ExportXML");
             Constants.Settings.Add("UploadParse");
             Constants.Settings.Add("ShowActionLogTab");
             Constants.Settings.Add("ShowPartyDamageTab");
@@ -432,19 +431,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             set
             {
                 this["Zoom"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ExportXML
-        {
-            get { return ((bool) (this["ExportXML"])); }
-            set
-            {
-                this["ExportXML"] = value;
                 RaisePropertyChanged();
             }
         }

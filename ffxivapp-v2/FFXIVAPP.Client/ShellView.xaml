@@ -62,6 +62,16 @@
 
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
+            <Button x:Name="save"
+                    Command="{Binding SaveAndClearHistoryCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20"
+                           Height="20"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Save.png"
+                           ToolTip="{Binding Locale[app_SaveAndClearHistoryToolTip],
+                                             Source={StaticResource AppProperties}}" />
+                </StackPanel>
+            </Button>
             <Button x:Name="screenshot"
                     Command="{Binding ScreenShotCommand}">
                 <StackPanel Orientation="Horizontal">

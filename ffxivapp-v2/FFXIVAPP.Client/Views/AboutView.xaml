@@ -118,6 +118,10 @@
                     </DockPanel>
                 </Grid>
             </Grid>
+            <Button Margin="3"
+                    Command="{Binding ManualUpdateCommand}"
+                    Content="{Binding Locale[app_ManualUpdateButtonText],
+                                      Source={StaticResource AppProperties}}" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

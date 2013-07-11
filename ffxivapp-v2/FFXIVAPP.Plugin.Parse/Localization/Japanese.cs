@@ -152,7 +152,6 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowMonsterHealingHeader", "を表示Monster回復");
             Dictionary.Add("parse_ShowMonsterDamageTakenHeader", "を表示Monster損傷が受信");
             Dictionary.Add("parse_UploadParseHeader", "解析結果をFFXIV-APP.comへ送信");
-            Dictionary.Add("parse_ExportXMLHeader", "分析結保存 (XML)");
             Dictionary.Add("parse_PlayerDamageByActionText", "Damage By Action By Selected Player");
             Dictionary.Add("parse_PlayerDamageToMonstersText", "Damage To Monsters By Selected Player");
             Dictionary.Add("parse_PlayerDamageToMonstersByActionText", "Damage To Monsters By Action By Selected Player");

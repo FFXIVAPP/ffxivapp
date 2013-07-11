@@ -18,10 +18,16 @@ namespace FFXIVAPP.Client.Delegates
 {
     internal static class ChatWorkerDelegate
     {
+        public static bool IsPaused = false;
+
         /// <summary>
         /// </summary>
         public static void OnNewLine(ChatEntry chatEntry)
         {
+            if (IsPaused)
+            {
+                return;
+            }
             var entry = new object[]
             {
                 chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp

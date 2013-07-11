@@ -9,6 +9,9 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
@@ -30,7 +33,14 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
+        public ICommand ManualUpdateCommand { get; private set; }
+
         #endregion
+
+        public AboutViewModel()
+        {
+            ManualUpdateCommand = new DelegateCommand(ManualUpdate);
+        }
 
         #region Loading Functions
 
@@ -41,6 +51,13 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void ManualUpdate()
+        {
+            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true));
+        }
 
         #endregion
 

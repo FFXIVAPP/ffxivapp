@@ -23,6 +23,7 @@ namespace FFXIVAPP.Client.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
+            Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_AllowPluginCommandsHeader", "Allow Plugin Commands");
             Dictionary.Add("app_AttachProcessButtonText", "Attach Selected Process");
             Dictionary.Add("app_ChangeThemeHeader", "Change Theme");
@@ -50,6 +51,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID");
             Dictionary.Add("app_MainToolTip", "Main");
             Dictionary.Add("app_MainSettingsTabHeader", "Main Settings");
+            Dictionary.Add("app_ManualUpdateButtonText", "Manual Update");
             Dictionary.Add("app_NoButtonText", "No");
             Dictionary.Add("app_PluginsToolTip", "Plugins");
             Dictionary.Add("app_PluginSettingsTabHeader", "Plugin Settings");
@@ -57,9 +59,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_ProcessIDHeader", "Current Process ID");
             Dictionary.Add("app_RefreshProcessButtonText", "Refresh Process List");
             Dictionary.Add("app_SaveCharacterButtonText", "Save Character");
-            Dictionary.Add("app_SaveHistoryMessage", "Press \"Yes\" to export chat history. Press \"No\" to just exit. Application will exit after exporting.");
+            Dictionary.Add("app_SaveAndClearHistoryToolTip", "Save & Clear Chat History");
             Dictionary.Add("app_SaveLogHeader", "Save Log");
-            Dictionary.Add("app_ScreenshotToolTip", "ScreenShot");
+            Dictionary.Add("app_ScreenShotToolTip", "ScreenShot");
             Dictionary.Add("app_ServerLabel", "Server:");
             Dictionary.Add("app_SettingsToolTip", "Settings");
             Dictionary.Add("app_TabSettingsTabHeader", "Tab Settings");

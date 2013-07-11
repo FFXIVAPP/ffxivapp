@@ -65,15 +65,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
 
             _lastEvent = e;
-
-            #region Save Parse to XML
-
-            if (Settings.Default.ExportXML)
-            {
-                //ChatWorkerDelegate.ParseXmlWriteLog.AddChatLine(new[] {cleaned, mCode, "#FFFFFF", mTimeStamp});
-            }
-
-            #endregion
         }
 
         /// <summary>

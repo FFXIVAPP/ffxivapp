@@ -23,6 +23,7 @@ namespace FFXIVAPP.Client.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
+            Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_AllowPluginCommandsHeader", "Autoriser les commandes de plugin");
             Dictionary.Add("app_AttachProcessButtonText", "Lier le processus sélectionné");
             Dictionary.Add("app_ChangeThemeHeader", "Changer le thème");
@@ -50,6 +51,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_LodestoneIDLabel", "ID Lodestone");
             Dictionary.Add("app_MainToolTip", "Général");
             Dictionary.Add("app_MainSettingsTabHeader", "Paramètres généraux");
+            Dictionary.Add("app_ManualUpdateButtonText", "Mise à jour manuelle");
             Dictionary.Add("app_NoButtonText", "Non");
             Dictionary.Add("app_PluginsToolTip", "Plugins");
             Dictionary.Add("app_PluginSettingsTabHeader", "Paramètres de plugin");
@@ -57,9 +59,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_ProcessIDHeader", "ID du processus actuel");
             Dictionary.Add("app_RefreshProcessButtonText", "Rafraîchir la liste des processus");
             Dictionary.Add("app_SaveCharacterButtonText", "Sauvegarder le personnage");
-            Dictionary.Add("app_SaveHistoryMessage", "Appuyer sur \"Oui\" pour exporter l'historique du chat. Appuyez sur \"Non\" pour simplement quitter. L'application se fermera après l'exportation.");
+            Dictionary.Add("app_SaveAndClearHistoryToolTip", "Exporter l'historique du chat");
             Dictionary.Add("app_SaveLogHeader", "Sauvegarder le log");
-            Dictionary.Add("app_ScreenshotToolTip", "Capture d'écran");
+            Dictionary.Add("app_ScreenShotToolTip", "Capture d'écran");
             Dictionary.Add("app_ServerLabel", "Serveur:");
             Dictionary.Add("app_SettingsToolTip", "Paramètres");
             Dictionary.Add("app_TabSettingsTabHeader", "Paramètres des onglets");

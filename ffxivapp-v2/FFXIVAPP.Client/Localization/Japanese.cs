@@ -23,6 +23,7 @@ namespace FFXIVAPP.Client.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
+            Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_AllowPluginCommandsHeader", "プラグインコマンドを許可します");
             Dictionary.Add("app_AttachProcessButtonText", "選択した手順を貼付けます");
             Dictionary.Add("app_ChangeThemeHeader", "テーマを変更します");
@@ -50,6 +51,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID");
             Dictionary.Add("app_MainToolTip", "メイン");
             Dictionary.Add("app_MainSettingsTabHeader", "メイン設定");
+            Dictionary.Add("app_ManualUpdateButtonText", "手動アップデート");
             Dictionary.Add("app_NoButtonText", "いいえ");
             Dictionary.Add("app_PluginsToolTip", "プラグイン");
             Dictionary.Add("app_PluginSettingsTabHeader", "プラグインの設定");
@@ -57,9 +59,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_ProcessIDHeader", "現在のプロセスID");
             Dictionary.Add("app_RefreshProcessButtonText", "プロセスリストをリフレッシュする");
             Dictionary.Add("app_SaveCharacterButtonText", "キャラクターを保存します");
-            Dictionary.Add("app_SaveHistoryMessage", "チャット記録をエクスポートする場合は\"はい\"を押してください。\"いいえ\"を押して戻る。 エクスポートしたあとアプリケーションを閉じる");
+            Dictionary.Add("app_SaveAndClearHistoryToolTip", "チャット記録をエクスポートする場合は");
             Dictionary.Add("app_SaveLogHeader", "ログを保存する");
-            Dictionary.Add("app_ScreenshotToolTip", "スクリーンショット");
+            Dictionary.Add("app_ScreenShotToolTip", "スクリーンショット");
             Dictionary.Add("app_ServerLabel", "サーバ:");
             Dictionary.Add("app_SettingsToolTip", "設定");
             Dictionary.Add("app_TabSettingsTabHeader", "タブの設定");
