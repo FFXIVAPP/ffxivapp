@@ -152,6 +152,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowMonsterHealingHeader", "Afficher les soins par les monstres");
             Dictionary.Add("parse_ShowMonsterDamageTakenHeader", "Afficher les dégâts subis par les monstres");
             Dictionary.Add("parse_UploadParseHeader", "Upload le parse");
+            Dictionary.Add("parse_ExportXMLHeader", "Exporter XML");
             Dictionary.Add("parse_PlayerDamageByActionText", "Dégâts  par action par joueur sélectionné");
             Dictionary.Add("parse_PlayerDamageToMonstersText", "Dégâts infligés aux monstres par joueur sélectionné ");
             Dictionary.Add("parse_PlayerDamageToMonstersByActionText", "Dégâts infligés aux monstres par action par joueur sélectionné");
@@ -167,8 +168,8 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_MonsterHealingByActionText", "Soins par action par monstre sélectionné");
             Dictionary.Add("parse_MonsterHealingToMonstersText", "Soins octroyés aux monstres par monstre sélectionné");
             Dictionary.Add("parse_MonsterHealingToMonstersByActionText", "Soins octroyés aux monstres par action par monstre sélectionné");
-            Dictionary.Add("parse_MonsterDamageTakenByActionText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
-            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Dégâts infligés par les joueurs par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByActionText", "Dégâts infligés par action par monstre sélectionné");
+            Dictionary.Add("parse_MonsterDamageTakenByPlayersText", "Dégâts infligés par les joueurs par action par monstre sélectionné");
             Dictionary.Add("parse_MonsterDamageTakenByPlayersByActionText", "Dégâts infligés par les joueurs par action par joueur sélectionné par monstre sélectionné");
             Dictionary.Add("parse_MonsterDropsByMonsterText", "Butin par monstre sélectionné");
             Dictionary.Add("parse_TotalOverallDropsHeader", "Drops");
@@ -271,7 +272,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_DamageTakenCounterPercentLabel", "Damage Taken Counter Percent:");
             Dictionary.Add("parse_DamageTakenCounterModLabel", "Damage Taken Counter Mod:");
             Dictionary.Add("parse_DamageTakenCounterModAverageLabel", "Damage Taken Counter Mod Average:");
-            Dictionary.Add("parse_DamageTakenBlockLabel", "Damage Taken Block Percent:");
+            Dictionary.Add("parse_DamageTakenBlockLabel", "Damage Taken Block:");
             Dictionary.Add("parse_DamageTakenBlockPercentLabel", "Damage Taken Block Percent:");
             Dictionary.Add("parse_DamageTakenBlockModLabel", "Damage Taken Block Mod:");
             Dictionary.Add("parse_DamageTakenBlockModAverageLabel", "Damage Taken Block Mod Average:");

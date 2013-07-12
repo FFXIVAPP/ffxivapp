@@ -91,17 +91,17 @@
     <Compile Include="Controls\ColumnDisplaySettings.xaml.cs">
       <DependentUpon>ColumnDisplaySettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmptyListView.xaml.cs">
-      <DependentUpon>EmptyListView.xaml</DependentUpon>
+    <Compile Include="Controls\DamageDataGrid.xaml.cs">
+      <DependentUpon>DamageDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DamageTakenListView.xaml.cs">
-      <DependentUpon>DamageTakenListView.xaml</DependentUpon>
+    <Compile Include="Controls\DamageTakenDataGrid.xaml.cs">
+      <DependentUpon>DamageTakenDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\HealingListView.xaml.cs">
-      <DependentUpon>HealingListView.xaml</DependentUpon>
+    <Compile Include="Controls\EmptyDataGrid.xaml.cs">
+      <DependentUpon>EmptyDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DamageListView.xaml.cs">
-      <DependentUpon>DamageListView.xaml</DependentUpon>
+    <Compile Include="Controls\HealingDataGrid.xaml.cs">
+      <DependentUpon>HealingDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
@@ -261,19 +261,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\EmptyListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Controls\DamageDataGrid.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\DamageTakenListView.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\HealingListView.xaml">
+    <Page Include="Controls\DamageTakenDataGrid.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\DamageListView.xaml">
+    <Page Include="Controls\EmptyDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HealingDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

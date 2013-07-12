@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// DamageListView.xaml.cs
+// DamageDataGrid.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -7,11 +7,11 @@
 namespace FFXIVAPP.Plugin.Parse.Controls
 {
     /// <summary>
-    ///     Interaction logic for DamageListView.xaml
+    ///     Interaction logic for DamageDataGrid.xaml
     /// </summary>
-    public partial class DamageListView
+    public partial class DamageDataGrid
     {
-        public DamageListView()
+        public DamageDataGrid()
         {
             InitializeComponent();
         }

@@ -30,10 +30,11 @@
           DataContext="{StaticResource ParsePartyHealingViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <Controls:HealingListView x:Name="PlayerOverallHealing"
+                <Controls:HealingDataGrid x:Name="PlayerOverallHealing"
                                           DataContext="{Binding Timeline.Party,
                                                                 Source={StaticResource Parser}}"
-                                          ItemsSource="{Binding}" />
+                                          ItemsSource="{Binding}"
+                                          Style="{DynamicResource MetroDataGrid}" />
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5"
                               IsChecked="{Binding PlayerHealingByAction,
@@ -46,12 +47,13 @@
                                Text="{Binding Locale[parse_PlayerHealingByActionText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:HealingListView x:Name="PlayerHealingByAction"
+                <Controls:HealingDataGrid x:Name="PlayerHealingByAction"
                                           DataContext="{Binding SelectedItem,
                                                                 ElementName=PlayerOverallHealing,
                                                                 NotifyOnTargetUpdated=True,
                                                                 NotifyOnSourceUpdated=True}"
                                           ItemsSource="{Binding HealingByAction}"
+                                          Style="{DynamicResource MetroDataGrid}"
                                           Visibility="{Binding PlayerHealingByAction,
                                                                Source={StaticResource Settings},
                                                                Converter={StaticResource VisibilityConverter}}" />
@@ -67,12 +69,13 @@
                                Text="{Binding Locale[parse_PlayerHealingToPlayersText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:HealingListView x:Name="PlayerHealingToPlayers"
+                <Controls:HealingDataGrid x:Name="PlayerHealingToPlayers"
                                           DataContext="{Binding SelectedItem,
                                                                 ElementName=PlayerOverallHealing,
                                                                 NotifyOnTargetUpdated=True,
                                                                 NotifyOnSourceUpdated=True}"
                                           ItemsSource="{Binding HealingToPlayers}"
+                                          Style="{DynamicResource MetroDataGrid}"
                                           Visibility="{Binding PlayerHealingToPlayers,
                                                                Source={StaticResource Settings},
                                                                Converter={StaticResource VisibilityConverter}}" />
@@ -88,12 +91,13 @@
                                Text="{Binding Locale[parse_PlayerHealingToPlayersByActionText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:HealingListView x:Name="PlayerHealingToPlayersByAction"
+                <Controls:HealingDataGrid x:Name="PlayerHealingToPlayersByAction"
                                           DataContext="{Binding SelectedItem,
                                                                 ElementName=PlayerHealingToPlayers,
                                                                 NotifyOnTargetUpdated=True,
                                                                 NotifyOnSourceUpdated=True}"
                                           ItemsSource="{Binding HealingToPlayersByAction}"
+                                          Style="{DynamicResource MetroDataGrid}"
                                           Visibility="{Binding PlayerHealingToPlayersByAction,
                                                                Source={StaticResource Settings},
                                                                Converter={StaticResource VisibilityConverter}}" />

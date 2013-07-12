@@ -30,7 +30,7 @@ namespace FFXIVAPP.Client.Helpers
             ChatWorkerDelegate.IsPaused = true;
             try
             {
-                var savedLogName = DateTime.Now.ToString("dd.MM.yyyy.HH.mm.ss") + "_ChatHistory.xml";
+                var savedLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "ChatHistory.xml";
                 var savedLog = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/ChatHistory.xml");
                 foreach (var entry in AppViewModel.Instance.ChatHistory)
                 {

@@ -73,7 +73,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         private static void ScreenShot()
         {
-            var date = DateTime.Now.ToString("dd.MM.yyyy-HH.mm.ss_");
+            var date = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_");
             var fileName = String.Format("{0}{1}.jpg", AppViewModel.Instance.ScreenShotsPath, date);
             var screenShot = ScreenCapture.GetJpgImage(ShellView.View, 1, 100);
             var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);

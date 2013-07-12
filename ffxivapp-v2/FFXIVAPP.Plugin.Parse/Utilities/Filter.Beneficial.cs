@@ -6,7 +6,6 @@
 
 #region Usings
 
-using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -61,7 +60,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     //break;
                 case EventSubject.Other:
                 case EventSubject.NPC:
-                    break;  
+                    break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
                     //switch (e.Direction)

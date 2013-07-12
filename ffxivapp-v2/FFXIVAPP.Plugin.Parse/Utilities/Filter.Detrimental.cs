@@ -6,7 +6,6 @@
 
 #region Usings
 
-using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;

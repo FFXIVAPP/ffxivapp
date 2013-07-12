@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// DamageTakenListView.xaml.cs
+// EmptyDataGrid.xaml.cs
 //  
 // Created by Ryan Wilson.
 // Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
@@ -7,11 +7,11 @@
 namespace FFXIVAPP.Plugin.Parse.Controls
 {
     /// <summary>
-    ///     Interaction logic for DamageListView.xaml
+    ///     Interaction logic for EmptyDataGrid.xaml
     /// </summary>
-    public partial class DamageTakenListView
+    public partial class EmptyDataGrid
     {
-        public DamageTakenListView()
+        public EmptyDataGrid()
         {
             InitializeComponent();
         }

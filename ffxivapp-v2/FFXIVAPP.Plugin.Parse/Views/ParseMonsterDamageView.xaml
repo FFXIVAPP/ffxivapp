@@ -30,10 +30,11 @@
           DataContext="{StaticResource ParseMonsterDamageViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <Controls:DamageListView x:Name="MonsterOverallDamage"
+                <Controls:DamageDataGrid x:Name="MonsterOverallDamage"
                                          DataContext="{Binding Timeline.Monster,
                                                                Source={StaticResource Parser}}"
-                                         ItemsSource="{Binding}" />
+                                         ItemsSource="{Binding}"
+                                         Style="{DynamicResource MetroDataGrid}" />
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5"
                               IsChecked="{Binding MonsterDamageByAction,
@@ -46,12 +47,13 @@
                                Text="{Binding Locale[parse_MonsterDamageByActionText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:DamageListView x:Name="DamageByAction"
+                <Controls:DamageDataGrid x:Name="DamageByAction"
                                          DataContext="{Binding SelectedItem,
                                                                ElementName=MonsterOverallDamage,
                                                                NotifyOnTargetUpdated=True,
                                                                NotifyOnSourceUpdated=True}"
                                          ItemsSource="{Binding DamageByAction}"
+                                         Style="{DynamicResource MetroDataGrid}"
                                          Visibility="{Binding MonsterDamageByAction,
                                                               Source={StaticResource Settings},
                                                               Converter={StaticResource VisibilityConverter}}" />
@@ -67,12 +69,13 @@
                                Text="{Binding Locale[parse_MonsterDamageToPlayersText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:DamageListView x:Name="MonsterDamageToPlayers"
+                <Controls:DamageDataGrid x:Name="MonsterDamageToPlayers"
                                          DataContext="{Binding SelectedItem,
                                                                ElementName=MonsterOverallDamage,
                                                                NotifyOnTargetUpdated=True,
                                                                NotifyOnSourceUpdated=True}"
                                          ItemsSource="{Binding DamageToPlayers}"
+                                         Style="{DynamicResource MetroDataGrid}"
                                          Visibility="{Binding MonsterDamageToPlayers,
                                                               Source={StaticResource Settings},
                                                               Converter={StaticResource VisibilityConverter}}" />
@@ -88,12 +91,13 @@
                                Text="{Binding Locale[parse_MonsterDamageToPlayersByActionText],
                                               Source={StaticResource PluginViewModel}}" />
                 </StackPanel>
-                <Controls:DamageListView x:Name="MonsterDamageToPlayersByAction"
+                <Controls:DamageDataGrid x:Name="MonsterDamageToPlayersByAction"
                                          DataContext="{Binding SelectedItem,
                                                                ElementName=MonsterDamageToPlayers,
                                                                NotifyOnTargetUpdated=True,
                                                                NotifyOnSourceUpdated=True}"
                                          ItemsSource="{Binding DamageToPlayersByAction}"
+                                         Style="{DynamicResource MetroDataGrid}"
                                          Visibility="{Binding MonsterDamageToPlayersByAction,
                                                               Source={StaticResource Settings},
                                                               Converter={StaticResource VisibilityConverter}}" />

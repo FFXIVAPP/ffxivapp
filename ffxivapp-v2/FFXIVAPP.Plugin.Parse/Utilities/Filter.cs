@@ -9,7 +9,6 @@
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
-using FFXIVAPP.Plugin.Parse.Properties;
 
 #endregion
 

@@ -9,9 +9,6 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
@@ -34,11 +31,6 @@ namespace FFXIVAPP.Client.ViewModels
         #region Declarations
 
         #endregion
-
-        public MainViewModel()
-        {
-            
-        }
 
         #region Loading Functions
 

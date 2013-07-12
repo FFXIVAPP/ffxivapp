@@ -72,7 +72,6 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_ManualUpdateButtonText", "Manuelles Update");
             return Dictionary;
-
         }
     }
 }

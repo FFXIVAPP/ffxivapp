@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             DataContext="{Binding Source={StaticResource AboutViewModel}}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -20,6 +19,10 @@
             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
         </Style>
     </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource AboutViewModel}" />
+    </UserControl.DataContext>
 
     <ScrollViewer>
         <StackPanel>
@@ -122,6 +125,66 @@
                     Command="{Binding ManualUpdateCommand}"
                     Content="{Binding Locale[app_ManualUpdateButtonText],
                                       Source={StaticResource AppProperties}}" />
+            <GroupBox Header="Credits">
+                <StackPanel>
+                    <FlowDocumentScrollViewer>
+                        <FlowDocument FontFamily="Segoe UI"
+                                      FontSize="12">
+                            <FlowDocument.Resources>
+                                <Style TargetType="Paragraph">
+                                    <Setter Property="Margin" Value="0" />
+                                </Style>
+                            </FlowDocument.Resources>
+                            <Paragraph>
+                                <Run FontWeight="Bold">
+                                    Code Review &amp; Contributions:
+                                </Run>
+                            </Paragraph>
+                            <List MarkerStyle="None">
+                                <ListItem>
+                                    <Paragraph>
+                                        <Image Width="20"
+                                               Height="20"
+                                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/Donations.png" />
+                                        <Run>Sestina &quot;AwesomeSauce&quot; Aster [Excalibur]</Run>
+                                    </Paragraph>
+                                </ListItem>
+                            </List>
+                            <Paragraph>
+                                <Run FontWeight="Bold">
+                                    Translations:
+                                </Run>
+                            </Paragraph>
+                            <List MarkerStyle="None">
+                                <ListItem>
+                                    <Paragraph>
+                                        <Run>Japanese:</Run>
+                                    </Paragraph>
+                                    <Paragraph Margin="30,0,0,5">
+                                        <Run>Mozk, Ennei Kun [Atomos]</Run>
+                                    </Paragraph>
+                                </ListItem>
+                                <ListItem>
+                                    <Paragraph>
+                                        <Run>French:</Run>
+                                    </Paragraph>
+                                    <Paragraph Margin="30,0,0,5">
+                                        <Run>Phops Wipefever [Ragnarok]</Run>
+                                    </Paragraph>
+                                </ListItem>
+                                <ListItem>
+                                    <Paragraph>
+                                        <Run>German:</Run>
+                                    </Paragraph>
+                                    <Paragraph Margin="30,0,0,5">
+                                        <Run>Jessica Bird [http://bofgames.com]</Run>
+                                    </Paragraph>
+                                </ListItem>
+                            </List>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
