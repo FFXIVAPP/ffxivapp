@@ -33,15 +33,11 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
-        public ICommand SetProcessCommand { get; private set; }
-        public ICommand RefreshListCommand { get; private set; }
-
         #endregion
 
         public MainViewModel()
         {
-            SetProcessCommand = new DelegateCommand(SetProcess);
-            RefreshListCommand = new DelegateCommand(RefreshList);
+            
         }
 
         #region Loading Functions
@@ -53,23 +49,6 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
-
-        /// <summary>
-        /// </summary>
-        private static void SetProcess()
-        {
-            Initializer.SetPID();
-        }
-
-        /// <summary>
-        /// </summary>
-        private static void RefreshList()
-        {
-            MainView.View.PIDSelect.Items.Clear();
-            Initializer.StopLogging();
-            Initializer.ResetPID();
-            Initializer.StartLogging();
-        }
 
         #endregion
 

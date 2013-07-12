@@ -14,7 +14,7 @@ namespace FFXIVAPP.Plugin.Parse.Enums
         Actions = 0x00008000,
         Items = 0x00010000,
         Cure = 0x00020000,
-        Benficial = 0x00040000,
+        Beneficial = 0x00040000,
         Detrimental = 0x00080000,
         System = 0x00100000,
         Battle = 0x00200000,

@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 case EventType.Cure:
                     ProcessCure(e, expressions);
                     break;
-                case EventType.Benficial:
+                case EventType.Beneficial:
                     ProcessBeneficial(e, expressions);
                     break;
                 case EventType.Detrimental:

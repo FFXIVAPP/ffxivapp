@@ -103,8 +103,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Events
                     case "Cure":
                         thisGroup.Type = EventType.Cure;
                         break;
-                    case "Benficial":
-                        thisGroup.Type = EventType.Benficial;
+                    case "Beneficial":
+                        thisGroup.Type = EventType.Beneficial;
                         break;
                     case "Detrimental":
                         thisGroup.Type = EventType.Detrimental;

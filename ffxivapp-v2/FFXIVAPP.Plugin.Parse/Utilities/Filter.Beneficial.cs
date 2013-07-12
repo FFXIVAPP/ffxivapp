@@ -6,6 +6,7 @@
 
 #region Usings
 
+using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -30,10 +31,57 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             {
                 case EventSubject.You:
                 case EventSubject.Party:
+                    //switch (e.Direction)
+                    //{
+                    //    case EventDirection.Self:
+                    //    case EventDirection.You:
+                    //    case EventDirection.Party:
+                    //        beneficial = exp.pBeneficialGain;
+                    //        if (beneficial.Success)
+                    //        {
+                    //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
+                    //            if (e.Subject == EventSubject.You)
+                    //            {
+                    //                line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                    //            }
+                    //            _lastPlayer = line.Source;
+                    //        }
+                    //        beneficial = exp.pBeneficialLose;
+                    //        if (beneficial.Success)
+                    //        {
+                    //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
+                    //            if (e.Subject == EventSubject.You)
+                    //            {
+                    //                line.Source = String.IsNullOrWhiteSpace(Common.Constants.CharacterName) ? "You" : Common.Constants.CharacterName;
+                    //            }
+                    //            _lastPlayer = line.Source;
+                    //        }
+                    //        break;
+                    //}
+                    //break;
                 case EventSubject.Other:
                 case EventSubject.NPC:
+                    break;  
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
+                    //switch (e.Direction)
+                    //{
+                    //    case EventDirection.Engaged:
+                    //    case EventDirection.UnEngaged:
+                    //        beneficial = exp.mBeneficialGain;
+                    //        if (beneficial.Success)
+                    //        {
+                    //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
+                    //            _lastMob = line.Source;
+                    //        }
+                    //        beneficial = exp.mBeneficialLose;
+                    //        if (beneficial.Success)
+                    //        {
+                    //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
+                    //            _lastMob = line.Source;
+                    //        }
+                    //        break;
+                    //}
                     break;
             }
             if (beneficial.Success)

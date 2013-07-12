@@ -44,6 +44,8 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static string _key = "";
         private static string _value = "";
+        public ICommand SetProcessCommand { get; private set; }
+        public ICommand RefreshListCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }
         public ICommand DefaultSettingsCommand { get; private set; }
         public ICommand GetCICUIDCommand { get; private set; }
@@ -55,6 +57,8 @@ namespace FFXIVAPP.Client.ViewModels
 
         public SettingsViewModel()
         {
+            SetProcessCommand = new DelegateCommand(SetProcess);
+            RefreshListCommand = new DelegateCommand(RefreshList);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
             DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
             GetCICUIDCommand = new DelegateCommand(GetCICUID);
@@ -72,6 +76,23 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void SetProcess()
+        {
+            Initializer.SetPID();
+        }
+
+        /// <summary>
+        /// </summary>
+        private static void RefreshList()
+        {
+            SettingsView.View.PIDSelect.Items.Clear();
+            Initializer.StopLogging();
+            Initializer.ResetPID();
+            Initializer.StartLogging();
+        }
 
         /// <summary>
         /// </summary>

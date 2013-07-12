@@ -348,9 +348,9 @@ namespace FFXIVAPP.Client
             Common.Constants.IsOpen = true;
             foreach (var process in Common.Constants.ProcessIDs)
             {
-                MainView.View.PIDSelect.Items.Add(process.Id);
+                SettingsView.View.PIDSelect.Items.Add(process.Id);
             }
-            MainView.View.PIDSelect.SelectedIndex = 0;
+            SettingsView.View.PIDSelect.SelectedIndex = 0;
             PID(Common.Constants.ProcessIDs.First()
                       .Id);
             return Common.Constants.ProcessIDs.First()
@@ -362,11 +362,11 @@ namespace FFXIVAPP.Client
         public static void SetPID()
         {
             StopLogging();
-            if (MainView.View.PIDSelect.Text == "")
+            if (SettingsView.View.PIDSelect.Text == "")
             {
                 return;
             }
-            PID(Convert.ToInt32(MainView.View.PIDSelect.Text));
+            PID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
             StartLogging();
         }
 
@@ -383,14 +383,14 @@ namespace FFXIVAPP.Client
         private static void PID(int pid)
         {
             Common.Constants.ProcessID = pid;
-            Common.Constants.ProcessHandle = Common.Constants.ProcessIDs[MainView.View.PIDSelect.SelectedIndex].MainWindowHandle;
+            Common.Constants.ProcessHandle = Common.Constants.ProcessIDs[SettingsView.View.PIDSelect.SelectedIndex].MainWindowHandle;
         }
 
         /// <summary>
         /// </summary>
         public static void StartLogging()
         {
-            var id = MainView.View.PIDSelect.Text == "" ? GetPID() : Common.Constants.ProcessID;
+            var id = SettingsView.View.PIDSelect.Text == "" ? GetPID() : Common.Constants.ProcessID;
             Common.Constants.IsOpen = true;
             if (id < 0)
             {
