@@ -63,7 +63,7 @@
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
             <Button x:Name="donations"
-                    Command="{Binding ShowDonationsCommand}">
+                    Command="{Binding ShowCreditsCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Width="20"
                            Height="20"

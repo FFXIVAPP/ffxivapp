@@ -71,6 +71,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_OtherOptionsTabHeader", "Weitere Optionen");
             Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_ManualUpdateButtonText", "Manuelles Update");
+            Dictionary.Add("app_TranslationsHeader", "Übersetzungen");
+            Dictionary.Add("app_DonationsContributionsHeader", "Spenden & Beiträge");
+            Dictionary.Add("app_SpecialThanksHeader", "Special Thanks");
             return Dictionary;
         }
     }

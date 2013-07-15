@@ -23,7 +23,6 @@ namespace FFXIVAPP.Client.Localization
         {
             Dictionary.Clear();
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
-            Dictionary.Add("app_AboutToolTip", "About");
             Dictionary.Add("app_AllowPluginCommandsHeader", "Allow Plugin Commands");
             Dictionary.Add("app_AttachProcessButtonText", "Attach Selected Process");
             Dictionary.Add("app_ChangeThemeHeader", "Change Theme");
@@ -51,7 +50,6 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID");
             Dictionary.Add("app_MainToolTip", "Main");
             Dictionary.Add("app_MainSettingsTabHeader", "Main Settings");
-            Dictionary.Add("app_ManualUpdateButtonText", "Manual Update");
             Dictionary.Add("app_NoButtonText", "No");
             Dictionary.Add("app_PluginsToolTip", "Plugins");
             Dictionary.Add("app_PluginSettingsTabHeader", "Plugin Settings");
@@ -71,6 +69,11 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_WarningMessage", "Warning!");
             Dictionary.Add("app_YesButtonText", "Yes");
             Dictionary.Add("app_OtherOptionsTabHeader", "Other Options");
+            Dictionary.Add("app_AboutToolTip", "About");
+            Dictionary.Add("app_ManualUpdateButtonText", "Manual Update");
+            Dictionary.Add("app_TranslationsHeader", "Translations");
+            Dictionary.Add("app_DonationsContributionsHeader", "Donations & Contributions");
+            Dictionary.Add("app_SpecialThanksHeader", "Special Thanks");
             return Dictionary;
         }
     }

@@ -4,6 +4,7 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       MinWidth="720"
                       MinHeight="480"
+                      Loaded="XMetroWindow_OnLoaded"
                       ResizeMode="CanResizeWithGrip"
                       ShowIconOnTitleBar="False"
                       WindowStyle="None">

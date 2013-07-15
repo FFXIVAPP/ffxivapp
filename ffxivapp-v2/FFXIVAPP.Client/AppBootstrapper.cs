@@ -7,9 +7,13 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Utilities;
+using MahApps.Metro.Controls;
 using NLog;
 
 #endregion
@@ -21,6 +25,8 @@ namespace FFXIVAPP.Client
         #region Property Bindings
 
         private static AppBootstrapper _instance;
+        private MetroWindow _donations;
+        private List<Window> _styledWindows;
 
         public static AppBootstrapper Instance
         {

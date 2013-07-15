@@ -14,8 +14,10 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
+using MahApps.Metro.Controls;
 
 #endregion
 
@@ -37,6 +39,7 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
+        public ICommand ShowCreditsCommand { get; private set; }
         public ICommand SaveAndClearHistoryCommand { get; private set; }
         public ICommand ScreenShotCommand { get; private set; }
         public ICommand UpdateSelectedPluginCommand { get; private set; }
@@ -46,6 +49,7 @@ namespace FFXIVAPP.Client
 
         public ShellViewModel()
         {
+            ShowCreditsCommand = new DelegateCommand(ShowCredits);
             SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
@@ -61,6 +65,13 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void ShowCredits()
+        {
+            ShellView.View.ShellViewTC.SelectedIndex = 3;
+        }
 
         /// <summary>
         /// </summary>

@@ -6,6 +6,10 @@
 
 #region Usings
 
+using System.Windows;
+using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
+
 #endregion
 
 namespace FFXIVAPP.Client.Windows
@@ -18,6 +22,11 @@ namespace FFXIVAPP.Client.Windows
         public xMetroWindow()
         {
             InitializeComponent();
+        }
+
+        private void XMetroWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ThemeHelper.ChangeTheme(Settings.Default.Theme, this);
         }
     }
 }
