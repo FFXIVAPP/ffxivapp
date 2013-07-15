@@ -74,6 +74,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_TranslationsHeader", "翻訳");
             Dictionary.Add("app_DonationsContributionsHeader", "寄付＆貢献");
             Dictionary.Add("app_SpecialThanksHeader", "スペシャルサンクス");
+            Dictionary.Add("app_DownloadNoticeHeader", "利用可能な更新！");
+            Dictionary.Add("app_DownloadNoticeMessage", "ダウンロードしますか？");
             return Dictionary;
         }
     }

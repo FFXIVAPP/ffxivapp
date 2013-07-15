@@ -127,6 +127,7 @@
     <Compile Include="Behaviors\MouseDragPopupBehavior.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
+    <Compile Include="Controls\PopupNonTopMost.cs" />
     <Compile Include="Controls\xMetroPopup.xaml.cs">
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>

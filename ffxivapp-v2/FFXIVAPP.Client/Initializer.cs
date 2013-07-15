@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
@@ -23,6 +24,7 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using Newtonsoft.Json.Linq;
@@ -271,34 +273,35 @@ namespace FFXIVAPP.Client
                 }
                 if (AppViewModel.Instance.HasNewVersion)
                 {
-                    string title, message;
-                    var culture = Common.Constants.CultureInfo.TwoLetterISOLanguageName;
-                    switch (culture)
+                    DispatcherHelper.Invoke(delegate
                     {
-                        case "ja":
-                            title = "利用可能な更新！";
-                            message = "ダウンロードするにはこのメッセージをクリックします。";
-                            break;
-                        case "de":
-                            title = "Update Verfügbar!";
-                            message = "Klicken sie auf diese nachricht zu downloaden.";
-                            break;
-                        case "fr":
-                            title = "Mise À Jour Possible!";
-                            message = "Cliquez sur ce message pour télécharger.";
-                            break;
-                        default:
-                            title = "Update Available!";
-                            message = "Click this message to download.";
-                            break;
-                    }
-                    EventHandler notifyEventHandler = null;
-                    notifyEventHandler = delegate
-                    {
-                        ShellView.CloseApplication(true);
-                        AppViewModel.Instance.NotifyIcon.BalloonTipClicked -= notifyEventHandler;
-                    };
-                    DispatcherHelper.Invoke(() => NotifyIconHelper.ShowBalloonMessage(title, message, notifyEventHandler));
+                        var popupContent = new PopupContent();
+                        popupContent.Title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
+                        popupContent.Message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
+                        popupContent.CanSayNo = true;
+                        PopupHelper.Toggle(popupContent);
+                        EventHandler closedDelegate = null;
+                        closedDelegate = delegate
+                        {
+                            switch (PopupHelper.Result)
+                            {
+                                case MessageBoxResult.Yes:
+                                    ShellView.CloseApplication(true);
+                                    break;
+                                case MessageBoxResult.No:
+                                    break;
+                            }
+                            PopupHelper.MessagePopup.Closed -= closedDelegate;
+                        };
+                        PopupHelper.MessagePopup.Closed += closedDelegate;
+                    });
+                    //EventHandler notifyEventHandler = null;
+                    //notifyEventHandler = delegate
+                    //{
+                    //    ShellView.CloseApplication(true);
+                    //    AppViewModel.Instance.NotifyIcon.BalloonTipClicked -= notifyEventHandler;
+                    //};
+                    //DispatcherHelper.Invoke(() => NotifyIconHelper.ShowBalloonMessage(title, message, notifyEventHandler));
                 }
                 const string uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));

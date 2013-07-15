@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -18,12 +19,13 @@ using System.Windows.Threading;
 
 namespace FFXIVAPP.Plugin.Parse.Models.Fights
 {
-    public sealed class List : ConcurrentStack<Fight>, INotifyPropertyChanged, INotifyCollectionChanged
+    public sealed class FightList : ConcurrentStack<Fight>, INotifyPropertyChanged, INotifyCollectionChanged
     {
         /// <summary>
         /// </summary>
         /// <param name="fights"> </param>
-        public List(params Fight[] fights) : base(fights)
+        public FightList(params Fight[] fights)
+            : base(fights)
         {
         }
 
@@ -41,7 +43,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Fights
         /// <param name="mobName"> </param>
         /// <param name="result"> </param>
         /// <returns> </returns>
-        public bool TryGetLastOrCurrent(string mobName, out Fight result)
+        public bool TryGet(string mobName, out Fight result)
         {
             foreach (var fight in this.Where(fight => fight.MobName.ToLower() == mobName.ToLower()))
             {

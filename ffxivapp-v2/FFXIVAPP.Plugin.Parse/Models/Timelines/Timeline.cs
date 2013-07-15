@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             }
         }
 
-        public List Fights { get; private set; }
+        public FightList Fights { get; private set; }
 
         public StatGroup Overall { get; internal set; }
 
@@ -67,7 +67,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
         public Timeline()
         {
             FightingRightNow = false;
-            Fights = new List();
+            Fights = new FightList();
             Overall = new StatGroup("Overall");
             Party = new StatGroup("Party")
             {
@@ -141,27 +141,22 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                             break;
                         }
                         Fight fighting;
-                        if (!Fights.TryGetLastOrCurrent(mobName, out fighting))
+                        if (!Fights.TryGet(mobName, out fighting))
                         {
-                            var outOfOrderFight = new Fight(mobName);
-                            Fights.Add(outOfOrderFight);
+                            fighting = new Fight(mobName);
+                            Fights.Add(fighting);
                         }
                         FightingRightNow = true;
                         break;
                     case TimelineEventType.MobKilled:
                         Fight killed;
-                        if (Fights.TryGetLastOrCurrent(mobName, out killed))
+                        if (!Fights.TryGet(mobName, out killed))
                         {
-                            GetSetMob(mobName)
-                                .SetKill(killed);
+                            killed = new Fight(mobName);
+                            Fights.Add(killed);
                         }
-                        else
-                        {
-                            var outOfOrderFight = new Fight(mobName);
-                            Fights.Add(outOfOrderFight);
-                            GetSetMob(mobName)
-                                .SetKill(outOfOrderFight);
-                        }
+                        GetSetMob(mobName)
+                            .SetKill(killed);
                         FightingRightNow = false;
                         break;
                 }
@@ -178,7 +173,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             foreach (var player in ParseControl.Instance.Timeline.Party)
             {
                 var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
-                var dotActionList = playerInstance.DamageOverTimeActions.Select(d => d.Key).ToList();
+                var dotActionList = playerInstance.DamageOverTimeActions.Select(d => d.Key)
+                                                  .ToList();
                 foreach (var action in dotActionList)
                 {
                     playerInstance.DamageOverTimeActions[action].Dispose();

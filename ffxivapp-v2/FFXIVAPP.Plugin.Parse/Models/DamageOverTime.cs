@@ -29,7 +29,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         {
             #region Auto Properties
 
-            private Line Line { get; set; }
+            public Line Line { get; set; }
             private decimal OriginalAmount { get; set; }
             private int ActionPotency { get; set; }
             private int DamageOverTimePotency { get; set; }

@@ -133,7 +133,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         private void AttachDropToMonster(string thing)
         {
             Fight fight;
-            if (ParseControl.Timeline.Fights.TryGetLastOrCurrent(ParseControl.LastKilled, out fight))
+            if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastKilled, out fight))
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));
                 if (fight.MobName.Replace(" ", "") == "")
