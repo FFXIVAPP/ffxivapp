@@ -6,6 +6,7 @@
 
 #region Usings
 
+using System;
 using FFXIVAPP.Plugin.Parse.Models.Stats;
 
 #endregion
@@ -21,15 +22,18 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             bool isValid;
             var damageOverTime = new DamageOverTime.Player(line, out isValid);
-            if (DamageOverTimeActions.ContainsKey(line.Action))
+            switch (isValid)
             {
-                if (isValid)
-                {
-                    DamageOverTimeActions[line.Action].Dispose();
-                    DamageOverTimeActions.Remove(line.Action);
-                }
+                case true:
+                    if (DamageOverTimeActions.ContainsKey(line.Action))
+                    {
+                        DamageOverTimeActions[line.Action].Dispose();
+                        DamageOverTimeActions[line.Action] = damageOverTime;
+                        return;
+                    }
+                    DamageOverTimeActions.Add(line.Action, damageOverTime);
+                    break;
             }
-            DamageOverTimeActions.Add(line.Action, damageOverTime);
         }
 
         /// <summary>

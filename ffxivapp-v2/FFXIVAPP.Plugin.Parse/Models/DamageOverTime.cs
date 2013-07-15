@@ -53,6 +53,8 @@ namespace FFXIVAPP.Plugin.Parse.Models
             public Player(Line line, out bool isValid)
             {
                 Line = line;
+                Timer = new Timer(3000);
+                Timer.Elapsed += TimerOnElapsed;
                 if (line.Amount > 0)
                 {
                     OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
@@ -75,8 +77,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     isValid = false;
                     return;
                 }
-                Timer = new Timer(3000);
-                Timer.Elapsed += TimerOnElapsed;
                 Timer.Start();
                 isValid = true;
             }
@@ -85,6 +85,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             /// </summary>
             public void Dispose()
             {
+                Timer.Elapsed -= TimerOnElapsed;
                 Timer.Stop();
             }
 
