@@ -69,12 +69,12 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_WarningMessage", "Avertissement!");
             Dictionary.Add("app_YesButtonText", "Oui");
             Dictionary.Add("app_OtherOptionsTabHeader", "Autres options");
-            Dictionary.Add("app_AboutToolTip", "About");
+            Dictionary.Add("app_AboutToolTip", "À propos");
             Dictionary.Add("app_ManualUpdateButtonText", "Mise à jour manuelle");
             Dictionary.Add("app_TranslationsHeader", "Traductions");
             Dictionary.Add("app_DonationsContributionsHeader", "Dons et Contributions");
-            Dictionary.Add("app_SpecialThanksHeader", "Merci Spéciales");
-            Dictionary.Add("app_DownloadNoticeHeader", "Mise À Jour Possible!");
+            Dictionary.Add("app_SpecialThanksHeader", "Remerciements spéciaux");
+            Dictionary.Add("app_DownloadNoticeHeader", "Mise à jour possible!");
             Dictionary.Add("app_DownloadNoticeMessage", "Télécharger?");
             return Dictionary;
         }

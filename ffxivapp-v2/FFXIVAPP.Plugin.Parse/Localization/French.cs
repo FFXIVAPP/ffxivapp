@@ -22,7 +22,7 @@ namespace FFXIVAPP.Plugin.Parse.Localization
         public static ResourceDictionary Context()
         {
             Dictionary.Clear();
-            Dictionary.Add("parse_PLACEHOLDER", "*PH*");
+            DDictionary.Add("parse_PLACEHOLDER", "*PH*");
             Dictionary.Add("parse_NameHeader", "Name");
             Dictionary.Add("parse_TotalOverallDamageHeader", "Total");
             Dictionary.Add("parse_RegularDamageHeader", "Reg");
