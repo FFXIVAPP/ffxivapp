@@ -73,14 +73,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FFXIVAPP.Common, Version=1.0.4668.23731, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\FFXIVAPP.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="FFXIVAPP.IPluginInterface, Version=1.0.4668.23730, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\FFXIVAPP.IPluginInterface.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -283,7 +275,16 @@
   <ItemGroup>
     <Resource Include="Resources\Media\Sounds\aruba.wav" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FFXIVAPP.Common\FFXIVAPP.Common.csproj">
+      <Project>{8d6cda64-78be-4bf0-b613-0c9afa225df5}</Project>
+      <Name>FFXIVAPP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj">
+      <Project>{56e3fd21-17c4-4306-ba2c-adaf6aaea330}</Project>
+      <Name>FFXIVAPP.IPluginInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Defaults\AutoTranslate.xml" />
   </ItemGroup>
