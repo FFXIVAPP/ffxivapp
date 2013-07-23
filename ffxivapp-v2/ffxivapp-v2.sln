@@ -26,12 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Chat", "FFX
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Updater", "FFXIVAPP.Updater\FFXIVAPP.Updater.csproj", "{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Parse.Tests", "FFXIVAPP.Plugin.Parse.Tests\FFXIVAPP.Plugin.Parse.Tests.csproj", "{50439B4B-059B-4564-8421-FC4EEE6E3E66}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Log.Tests", "FFXIVAPP.Plugin.Log.Tests\FFXIVAPP.Plugin.Log.Tests.csproj", "{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Event.Tests", "FFXIVAPP.Plugin.Event.Tests\FFXIVAPP.Plugin.Event.Tests.csproj", "{87688C1B-B388-461D-8489-DD0DD643A221}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -87,24 +81,6 @@ Global
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Release|x86.Build.0 = Release|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.Debug|x86.ActiveCfg = Debug|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.Debug|x86.Build.0 = Debug|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.Release|x86.ActiveCfg = Release|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.Release|x86.Build.0 = Release|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{50439B4B-059B-4564-8421-FC4EEE6E3E66}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.Debug|x86.ActiveCfg = Debug|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.Debug|x86.Build.0 = Debug|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.Release|x86.ActiveCfg = Release|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.Release|x86.Build.0 = Release|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{B0EFEF27-38A8-4727-8D7D-5AF9109985EE}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.Debug|x86.ActiveCfg = Debug|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.Debug|x86.Build.0 = Debug|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.Release|x86.ActiveCfg = Release|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.Release|x86.Build.0 = Release|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{87688C1B-B388-461D-8489-DD0DD643A221}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
