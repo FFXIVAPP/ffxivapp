@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="FFXIVAPP.Views.ChatV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FFXIVAPP.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:FFXIVAPP"
+             xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:ucontrols="clr-namespace:FFXIVAPP.Controls"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:ChatVM x:Key="ChatViewModelDataSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ChatViewModelDataSource}">
+        <metro:MetroContentControl>
+            <TabControl>
+                <TabItem Header="{DynamicResource loc_Log}">
+                    <ucontrols:FlowDoc x:Name="Log" />
+                </TabItem>
+                <TabItem Header="{DynamicResource loc_Status}">
+                    <StackPanel Margin="10">
+                        <metro:MetroProgressBar IsIndeterminate="True" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{DynamicResource loc_ConnectionStatus}"
+                                   FontWeight="Bold" />
+                            <Label x:Name="StatusMessage"
+                                   Content="Waiting..." />
+                        </StackPanel>
+                        <Button x:Name="ToggleConnection"
+                                Margin="5"
+                                Command="{Binding Path=ToggleConnectionCommand}"
+                                Content="{DynamicResource loc_ConnectReconnectToServer}" />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </metro:MetroContentControl>
+    </Grid>
+</UserControl>
