@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Tab Key="Say">
+    <Value>000A</Value>
+    <RegularExpression>*</RegularExpression>
+  </Tab>
+  <Tab Key="Tell">
+    <Value>000C,000D</Value>
+    <RegularExpression>*</RegularExpression>
+  </Tab>
+  <Tab Key="Party">
+    <Value>000E</Value>
+    <RegularExpression>*</RegularExpression>
+  </Tab>
+  <Tab Key="Shout">
+    <Value>000B</Value>
+    <RegularExpression>*</RegularExpression>
+  </Tab>
+</Settings>

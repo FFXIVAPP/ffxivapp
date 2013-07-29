@@ -1,0 +1,23 @@
+﻿<DataGrid x:Class="FFXIVAPP.Plugin.Parse.Controls.EmptyDataGrid"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+          xmlns:Models="clr-namespace:FFXIVAPP.Plugin.Parse.Models"
+          xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
+          xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+          xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+          MaxHeight="300"
+          AutoGenerateColumns="False"
+          BorderBrush="{DynamicResource AccentColorBrush}"
+          BorderThickness="1">
+
+    <DataGrid.Resources>
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:ParseControl.Instance" />
+    </DataGrid.Resources>
+
+</DataGrid>

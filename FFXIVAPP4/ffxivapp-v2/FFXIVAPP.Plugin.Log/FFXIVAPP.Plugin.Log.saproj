@@ -1,0 +1,112 @@
+<SmartAssemblyProject ProjectId="{754ec6a9-69ba-4f90-8f41-d573bae9a8ea}" Version="2.0">
+    <MainAssemblyFileName>..\build\Release\Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll</MainAssemblyFileName>
+    <Configuration Name="Release">
+        <Options>
+            <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
+            <FeatureUsageReporting Template="res:SmartUsageWithUIConsentFirstRun1033.dll" />
+            <StringsEncoding Compress="1" Encode="1" UseCache="1" UseImprovedEncoding="1" />
+            <StrongNameSigning />
+            <OtherOptimizations SealClasses="1" />
+            <Obfuscation ChangeMethodParent="1" FieldsNameMangling="3" NameMangling="3" />
+            <OtherProtections SuppressIldasm="1" />
+            <Debugging />
+        </Options>
+        <ApplicationName />
+        <Destination DestinationFileName="..\obfuscated\FFXIVAPP.Plugin.Log.dll" />
+        <Assemblies>
+            <Assembly AssemblyName="FFXIVAPP.Plugin.Log, Culture=neutral, PublicKeyToken=null">
+                <Merging>
+                    <ResourcesCompression Compress="1" />
+                    <MemberRefsProxy Proxy="1" />
+                    <Pruning>
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation Obfuscate="1">
+                        <Exclusion>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Controls</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Helpers</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Localization</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Properties</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Utilities</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.ViewModels</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Log</Assembly>
+                                <Module>FFXIVAPP.Plugin.Log.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Log.Views</Namespace>
+                            </Token>
+                        </Exclusion>
+                    </Obfuscation>
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="4" />
+                </Merging>
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="FFXIVAPP.IPluginInterface, Culture=neutral, PublicKeyToken=null">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+            <Assembly AssemblyName="NLog, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+            <Assembly AssemblyName="FFXIVAPP.Common, Culture=neutral, PublicKeyToken=null">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+            <Assembly AssemblyName="HtmlAgilityPack, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+        </Assemblies>
+    </Configuration>
+</SmartAssemblyProject>

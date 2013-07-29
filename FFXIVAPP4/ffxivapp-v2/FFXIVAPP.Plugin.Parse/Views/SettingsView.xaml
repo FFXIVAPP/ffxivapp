@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Parse.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Plugin.Parse.Controls"
+             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
+             xmlns:Sample="clr-namespace:FFXIVAPP.Plugin.Parse"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="SettingsViewModel"
+                  Member="ViewModels:SettingsViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Sample:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource SettingsViewModel}">
+        <TabControl x:Name="SettingsViewTC">
+            <TabItem x:Name="SettingsTabsTI"
+                     Header="{Binding Locale[app_TabSettingsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_ShowActionLogHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowActionLogTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyHealingHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyHealingTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageTakenHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTakenTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterHealingHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterHealingTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageTakenHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTakenTab,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsOtherTI"
+                     Header="{Binding Locale[app_OtherOptionsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_UploadParseHeader],
+                                                   Source={StaticResource PluginViewModel}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding UploadParse,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsColumnDisplayTI"
+                     Header="{Binding Locale[parse_ColumnDisplaySettingsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <Controls:ColumnDisplaySettings />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsBasicDisplayTI"
+                     Header="{Binding Locale[parse_BasicDisplaySettingsTabHeader],
+                                      Source={StaticResource PluginViewModel}}">
+                <ScrollViewer>
+                    <Controls:BasicDisplaySettings />
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
