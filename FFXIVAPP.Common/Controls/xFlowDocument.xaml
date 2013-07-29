@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="FFXIVAPP.Common.Controls.xFlowDocument"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0"
+                   Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal">
+                <ListBox x:Name="Codes"
+                         x:FieldModifier="public" />
+                <TextBox x:Name="RegEx"
+                         x:FieldModifier="public" />
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="1">
+            <FlowDocumentReader x:Name="_FDR"
+                                BorderBrush="#FF939393"
+                                BorderThickness="1"
+                                IsScrollViewEnabled="False"
+                                IsTwoPageViewEnabled="False"
+                                MaxZoom="300"
+                                MinZoom="50"
+                                ViewingMode="Page"
+                                x:FieldModifier="public">
+                <FlowDocument x:Name="_FD"
+                              Background="Black"
+                              ColumnWidth="99999"
+                              Foreground="White"
+                              PagePadding="5"
+                              TextAlignment="Left"
+                              x:FieldModifier="public">
+                    <FlowDocument.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0.5" />
+                        </Style>
+                    </FlowDocument.Resources>
+                </FlowDocument>
+            </FlowDocumentReader>
+        </DockPanel>
+    </Grid>
+</UserControl>

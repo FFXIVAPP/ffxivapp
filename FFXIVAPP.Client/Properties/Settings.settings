@@ -1,0 +1,124 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FFXIVAPP.Client.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Application_UpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Top" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Left" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Width" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">720</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">480</Value>
+    </Setting>
+    <Setting Name="Culture" Type="System.Globalization.CultureInfo" Scope="User">
+      <Value Profile="(Default)">en</Value>
+    </Setting>
+    <Setting Name="CultureSet" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ThemeList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Red|Light&lt;/string&gt;
+  &lt;string&gt;Green|Light&lt;/string&gt;
+  &lt;string&gt;Blue|Light&lt;/string&gt;
+  &lt;string&gt;Purple|Light&lt;/string&gt;
+  &lt;string&gt;Orange|Light&lt;/string&gt;
+  &lt;string&gt;Red|Dark&lt;/string&gt;
+  &lt;string&gt;Green|Dark&lt;/string&gt;
+  &lt;string&gt;Blue|Dark&lt;/string&gt;
+  &lt;string&gt;Purple|Dark&lt;/string&gt;
+  &lt;string&gt;Orange|Dark&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Blue|Light</Value>
+    </Setting>
+    <Setting Name="ServerList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Adamantoise&lt;/string&gt;
+  &lt;string&gt;Aegis&lt;/string&gt;
+  &lt;string&gt;Atomos&lt;/string&gt;
+  &lt;string&gt;Bahamut&lt;/string&gt;
+  &lt;string&gt;Balmung&lt;/string&gt;
+  &lt;string&gt;Behemoth&lt;/string&gt;
+  &lt;string&gt;Cactuar&lt;/string&gt;
+  &lt;string&gt;Cerberus&lt;/string&gt;
+  &lt;string&gt;Chocobo&lt;/string&gt;
+  &lt;string&gt;Coeurl&lt;/string&gt;
+  &lt;string&gt;Diabolos&lt;/string&gt;
+  &lt;string&gt;Durandal&lt;/string&gt;
+  &lt;string&gt;Excalibur&lt;/string&gt;
+  &lt;string&gt;Garuda&lt;/string&gt;
+  &lt;string&gt;Gilgamesh&lt;/string&gt;
+  &lt;string&gt;Goblin&lt;/string&gt;
+  &lt;string&gt;Gungnir&lt;/string&gt;
+  &lt;string&gt;Hyperion&lt;/string&gt;
+  &lt;string&gt;Ifrit&lt;/string&gt;
+  &lt;string&gt;Leviathan&lt;/string&gt;
+  &lt;string&gt;Malboro&lt;/string&gt;
+  &lt;string&gt;Mandragora&lt;/string&gt;
+  &lt;string&gt;Masamune&lt;/string&gt;
+  &lt;string&gt;Midgardsormr&lt;/string&gt;
+  &lt;string&gt;Moogle&lt;/string&gt;
+  &lt;string&gt;Odin&lt;/string&gt;
+  &lt;string&gt;Ragnarok&lt;/string&gt;
+  &lt;string&gt;Ramuh&lt;/string&gt;
+  &lt;string&gt;Ridill&lt;/string&gt;
+  &lt;string&gt;Sargatanas&lt;/string&gt;
+  &lt;string&gt;Shiva&lt;/string&gt;
+  &lt;string&gt;Tiamat&lt;/string&gt;
+  &lt;string&gt;Titan&lt;/string&gt;
+  &lt;string&gt;Tonberry&lt;/string&gt;
+  &lt;string&gt;Ultros&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="GameLanguageList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;English&lt;/string&gt;
+  &lt;string&gt;Japanese&lt;/string&gt;
+  &lt;string&gt;French&lt;/string&gt;
+  &lt;string&gt;German&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="GameLanguage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">English</Value>
+    </Setting>
+    <Setting Name="CICUID" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CharacterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LicenseFont" Type="System.Windows.Media.FontFamily" Scope="Application">
+      <Value Profile="(Default)">Segoe UI</Value>
+    </Setting>
+    <Setting Name="AllowPluginCommands" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SaveLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableNLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

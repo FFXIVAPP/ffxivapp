@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<RegularExpressions>
+  <!--PLAYER REGEX-->
+  <!--ENGLISH REGEX-->
+  <Player Key="Damage" Language="EN" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DamageAuto" Language="EN" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Failed" Language="EN" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="FailedAuto" Language="EN" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Actions" Language="EN" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Items" Language="EN" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Cure" Language="EN" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialGain" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialLose" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalGain" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalLose" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <!--FRENCH REGEX-->
+  <Player Key="Damage" Language="FR" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DamageAuto" Language="FR" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Failed" Language="FR" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="FailedAuto" Language="FR" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Actions" Language="FR" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Items" Language="FR" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Cure" Language="FR" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialGain" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialLose" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalGain" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalLose" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <!--JAPANESE REGEX-->
+  <Player Key="Damage" Language="JP" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DamageAuto" Language="JP" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Failed" Language="JP" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="FailedAuto" Language="JP" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Actions" Language="JP" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Items" Language="JP" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Cure" Language="JP" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialGain" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialLose" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalGain" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalLose" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <!--GERMAN REGEX-->
+  <Player Key="Damage" Language="DE" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DamageAuto" Language="DE" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Failed" Language="DE" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="FailedAuto" Language="DE" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Actions" Language="DE" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Items" Language="DE" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="Cure" Language="DE" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialGain" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="BeneficialLose" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalGain" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <Player Key="DetrimentalLose" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Player>
+  <!--MONSTER REGEX-->
+  <!--ENGLISH REGEX-->
+  <Monster Key="Damage" Language="EN" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DamageAuto" Language="EN" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Failed" Language="EN" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="FailedAuto" Language="EN" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Actions" Language="EN" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Items" Language="EN" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Cure" Language="EN" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialGain" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialLose" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalGain" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalLose" Language="EN" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <!--FRENCH REGEX-->
+  <Monster Key="Damage" Language="FR" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DamageAuto" Language="FR" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Failed" Language="FR" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="FailedAuto" Language="FR" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Actions" Language="FR" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Items" Language="FR" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Cure" Language="FR" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialGain" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialLose" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalGain" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalLose" Language="FR" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <!--JAPANESE REGEX-->
+  <Monster Key="Damage" Language="JP" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DamageAuto" Language="JP" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Failed" Language="JP" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="FailedAuto" Language="JP" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Actions" Language="JP" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Items" Language="JP" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Cure" Language="JP" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialGain" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialLose" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalGain" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalLose" Language="JP" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <!--GERMAN REGEX-->
+  <Monster Key="Damage" Language="DE" Comment="Needed Groups: crit, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DamageAuto" Language="DE" Comment="Needed Groups: crit, source, target, amount, givetake, modifer">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Failed" Language="DE" Comment="Needed Groups: target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="FailedAuto" Language="DE" Comment="Needed Groups: source, target">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Actions" Language="DE" Comment="Needed Groups: source, action  ">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Items" Language="DE" Comment="Needed Groups: source, item">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="Cure" Language="DE" Comment="Needed Groups: crit, target, amount, type">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialGain" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="BeneficialLose" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalGain" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+  <Monster Key="DetrimentalLose" Language="DE" Comment="Needed Groups: undetermined/unused">
+    <Value><![CDATA[]]></Value>
+  </Monster>
+</RegularExpressions>

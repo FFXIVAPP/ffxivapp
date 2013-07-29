@@ -1,0 +1,21 @@
+﻿<Application x:Class="FFXIVAPP.Client.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Client="clr-namespace:FFXIVAPP.Client"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels">
+
+    <Application.Resources>
+        <x:Static x:Key="Bootstrapper"
+                  Member="Client:AppBootstrapper.Instance" />
+        <x:Static x:Key="AppProperties"
+                  Member="Client:AppViewModel.Instance" />
+        <x:Static x:Key="ShellViewModel"
+                  Member="Client:ShellViewModel.Instance" />
+        <x:Static x:Key="MainViewModel"
+                  Member="ViewModels:MainViewModel.Instance" />
+        <x:Static x:Key="SettingsViewModel"
+                  Member="ViewModels:SettingsViewModel.Instance" />
+        <x:Static x:Key="AboutViewModel"
+                  Member="ViewModels:AboutViewModel.Instance" />
+    </Application.Resources>
+</Application>
