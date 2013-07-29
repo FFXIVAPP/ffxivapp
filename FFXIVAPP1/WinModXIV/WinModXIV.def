@@ -1,6 +1,0 @@
-LIBRARY WinModXIV
-EXPORTS
-		SetTarget		@1
-		StartHook		@2
-		EndHook			@3
-		GetDllVersion		@4
