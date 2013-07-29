@@ -1,0 +1,36 @@
+﻿<Window x:Class="Launcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Launcher Config" Icon="/Launcher;component/Launcher.ico" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" WindowStartupLocation="CenterScreen" Closed="Window_Closed" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="340" Width="240" MinWidth="240" MinHeight="340" MaxWidth="240" MaxHeight="340" ResizeMode="CanMinimize">
+
+    <Grid>
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,20,0,0" Name="gui_HookPath" Text="" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2" />
+        <Button Content="..." Height="23" HorizontalAlignment="Left" Margin="183,20,0,0" Name="gui_getHookPath" VerticalAlignment="Top" Width="23" Click="getHookPath_Click" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,69,0,0" Name="gui_LaunchPath" Text="" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2" />
+        <Button Content="..." Height="23" HorizontalAlignment="Left" Margin="183,69,0,0" Name="gui_getLaunchPath" VerticalAlignment="Top" Width="23" Click="getLaunchPath_Click" />
+        <CheckBox Content="Do Not Notify On Task Change" Height="16" Name="checkBox1" Foreground="black" Margin="12,100,12,0" Click="checkBox1_Click" VerticalAlignment="Top" IsEnabled="False"></CheckBox>
+        <CheckBox Content="Emulate 256 Colour Palette" Height="16" Name="checkBox2" Foreground="black" Margin="12,115,12,0" Click="checkBox2_Click" VerticalAlignment="Top" IsEnabled="False"></CheckBox>
+        <CheckBox Content="DirectInput Is Hooked" Name="checkBox5" Foreground="black" Margin="12,130,12,0" Click="checkBox5_Click" Height="16" VerticalAlignment="Top" IsEnabled="False"></CheckBox>
+        <CheckBox Content="Auto-Correct Mouse Position" Height="16" Name="checkBox6" Foreground="black" Margin="12,145,12,0" Click="checkBox6_Click" VerticalAlignment="Top" IsEnabled="False"></CheckBox>
+        <CheckBox Content="Output Trace Log File" Height="16" Name="checkBox7" Foreground="black" Margin="12,160,12,0" Click="checkBox7_Click" VerticalAlignment="Top"></CheckBox>
+        <CheckBox Content="Reduce CPU Load DirectX (1-7)" Height="16" Name="checkBox8" Foreground="black" Margin="12,176,12,0" Click="checkBox8_Click" VerticalAlignment="Top" IsEnabled="False"></CheckBox>
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="29,213,0,0" Name="gui_InitX" Text="" VerticalAlignment="Top" Width="33" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="81,213,0,0" Name="gui_InitY" Text="" VerticalAlignment="Top" Width="33" />
+        <Label Content="Initial Coordinates" Height="28" HorizontalAlignment="Left" Margin="12,192,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" />
+        <Label Content="X" Height="28" HorizontalAlignment="Left" Margin="12,212,0,0" Name="label2" VerticalAlignment="Top" />
+        <Label Content="Y" Height="28" HorizontalAlignment="Left" Margin="63,212,0,0" Name="label3" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="27,263,0,0" Name="gui_MinX" Text="" VerticalAlignment="Top" Width="33" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="66,263,0,0" Name="gui_MinY" Text="" VerticalAlignment="Top" Width="33" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="122,263,0,0" Name="gui_MaxX" Text="" VerticalAlignment="Top" Width="33" />
+        <TextBox Height="23" Margin="161,263,0,0" Name="gui_MaxY" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="33" />
+        <Label Content="Window Size (0,0,800,600):" Height="28" HorizontalAlignment="Left" Margin="12,242,0,0" Name="label4" VerticalAlignment="Top" />
+        <Label Content="(" Height="28" HorizontalAlignment="Left" Margin="12,262,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="(" Height="28" HorizontalAlignment="Left" Margin="107,262,0,0" Name="label6" VerticalAlignment="Top" />
+        <Label Content=")" Height="28" HorizontalAlignment="Left" Margin="100,262,0,0" Name="label7" VerticalAlignment="Top" />
+        <Label Content=")" Height="28" HorizontalAlignment="Left" Margin="194,262,0,0" Name="label8" VerticalAlignment="Top" />
+        <Label Content="Game Exe:" Height="28" HorizontalAlignment="Left" Margin="12,0,0,0" Name="label9" VerticalAlignment="Top" Foreground="Black" />
+        <Label Content="Launch Exe:" Height="28" HorizontalAlignment="Left" Margin="12,49,0,0" Name="label10" VerticalAlignment="Top" Foreground="Black" />
+        <CheckBox Content="Use Same Above" Height="16" HorizontalAlignment="Left" Margin="88,54,0,0" Name="gui_UseHookPath" VerticalAlignment="Top" Foreground="Black" Click="gui_UseHookPath_Click" />
+        <Button Content="Launch" Height="23" HorizontalAlignment="Left" Margin="123,213,0,0" Name="gui_Launch" VerticalAlignment="Top" Width="83" Click="gui_Launch_Click" />
+    </Grid>
+</Window>

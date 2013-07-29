@@ -1,0 +1,286 @@
+﻿<Window x:Class="LogModXIV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LogModXIV" Height="350" Width="550" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" Loaded="Window_Loaded" Closing="Window_Closing" Icon="/LogModXIV;component/LogModXIV.ico" StateChanged="Window_StateChanged" Topmost="True" >
+    <Grid>
+        <DockPanel Name="guiMainDock" LastChildFill="True">
+            <DockPanel Height="23" DockPanel.Dock="Top">
+                <Menu Height="23" Name="guiMainMenu" IsMainMenu="True" VerticalAlignment="Top">
+                    <MenuItem Header="_File" Name="guiFileMenu" >
+                        <MenuItem Header="_Exit" Name="guiExit" Click="guiExit_Click" />
+                    </MenuItem>
+                    <MenuItem Header="_Log Tools" Name="guiToolsMenu">
+                        <MenuItem Header="_Auto Save Logs (XML)" Name="guiSaveLogs" IsCheckable="True" IsChecked="True" />
+                        <MenuItem Header="_Show All Chat" Name="guiShowAll" IsCheckable="True" Click="guiShowAll_Click" />
+                        <MenuItem Header="_Show Raw Chat" Name="guiShowRaw" IsCheckable="True" Click="guiShowRaw_Click" />
+                        <MenuItem Header="_Show ASCII In Raw Log" Name="guiPureRaw" IsCheckable="True" IsEnabled="False"/>
+                        <MenuItem Header="_Options" Name="guiOptionsMenu">
+                            <MenuItem Header="_Stop Logging" Name="guiStopLogging" IsCheckable="True" />
+                            <Separator />
+                            <MenuItem Header="_Log Font" Name="guiLogFont" Click="guiLogFont_Click"/>
+                            <MenuItem Header="_Chatlog Background Color" Name="guiChatlogBGColor" Click="guiChatlogBGColor_Click" />
+                            <MenuItem Header="_Time Stamp Color" Name="guiTSColor" Click="guiTSColor_Click" />
+                        </MenuItem>
+                        <MenuItem Header="_Interface Language" Name="guiLanguage">
+                            <MenuItem Header="_" Name="guiLAlbanian" Click="guiLAlbanian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLArabic" Click="guiLArabic_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLBulgarian" Click="guiLBulgarian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLCatalan" Click="guiLCatalan_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLCSimplified" Click="guiLCSimplified_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLCTraditional" Click="guiLCTraditional_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLCroatian" Click="guiLCroatian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLCzech" Click="guiLCzech_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLDanish" Click="guiLDanish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLDutch" Click="guiLDutch_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_English" Name="guiLEnglish" Click="guiLEnglish_Click" />
+                            <MenuItem Header="_" Name="guiLEstonian" Click="guiLEstonian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLFilipino" Click="guiLFilipino_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLFinnish" Click="guiLFinnish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLFrench" Click="guiLFrench_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLGalician" Click="guiLGalician_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLGerman" Click="guiLGerman_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLGreek" Click="guiLGreek_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLHebrew" Click="guiLHebrew_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLHindi" Click="guiLHindi_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLHungarian" Click="guiLHungarian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLIndonesian" Click="guiLIndonesian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLItalian" Click="guiLItalian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_日本" Name="guiLJapanese" Click="guiLJapanese_Click" />
+                            <MenuItem Header="_" Name="guiLKorean" Click="guiLKorean_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLLatvian" Click="guiLLatvian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLLithuanian" Click="guiLLithuanian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLMaltese" Click="guiLMaltese_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLNorwegian" Click="guiLNorwegian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLPolish" Click="guiLPolish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLPortuguese" Click="guiLPortuguese_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLRomanian" Click="guiLRomanian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLRussian" Click="guiLRussian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLSerbian" Click="guiLSerbian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLSlovak" Click="guiLSlovak_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLSlovenian" Click="guiLSlovenian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLSpanish" Click="guiLSpanish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLSwedish" Click="guiLSwedish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLThai" Click="guiLThai_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLTurkish" Click="guiLTurkish_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLUkrainian" Click="guiLUkrainian_Click" Visibility="Collapsed" />
+                            <MenuItem Header="_" Name="guiLVietnamese" Click="guiLVietnamese_Click" Visibility="Collapsed" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Translate" Name="guiTranslateMenu">
+                        <MenuItem Header="_Translate Game Text" Name="guiTransGameText" IsCheckable="True" IsChecked="True"/>
+                        <Separator />
+                        <MenuItem Header="_Send Text To Game" Name="guiSendTextToGame" IsEnabled="False" Click="guiSendTextToGame_Click" />
+                        <MenuItem Header="_Send Romanization" Name="guiSendRomaji" IsEnabled="False" />
+                        <Separator />
+                        <MenuItem Header="_Chat To Translate" Name="guiChatToTransMenu">
+                            <MenuItem Header="_Say" Name="guiTSay" IsCheckable="True" />
+                            <MenuItem Header="_Tell" Name="guiTTell" IsCheckable="True" />
+                            <MenuItem Header="_Party" Name="guiTParty" IsCheckable="True" />
+                            <MenuItem Header="_LS" Name="guiTLS" IsCheckable="True" />
+                            <MenuItem Header="_Shout" Name="guiTShout" IsCheckable="True" />
+                        </MenuItem>
+                        <MenuItem Header="_Translate Only Japanese" Name="guiTransOnly" IsCheckable="True" IsChecked="True" />
+                        <Separator />
+                        <MenuItem Header="_Translate To:" Name="guiTransTo" />
+                        <ComboBox Name="guiFinalLangCombo">
+                            <ComboBoxItem Content="Albanian" />
+                            <ComboBoxItem Content="Arabic" />
+                            <ComboBoxItem Content="Bulgarian" />
+                            <ComboBoxItem Content="Catalan" />
+                            <ComboBoxItem Content="Chinese (Simplified)" />
+                            <ComboBoxItem Content="Chinese (Traditional)" />
+                            <ComboBoxItem Content="Croatian" />
+                            <ComboBoxItem Content="Czech" />
+                            <ComboBoxItem Content="Danish" />
+                            <ComboBoxItem Content="Dutch" />
+                            <ComboBoxItem Content="English" />
+                            <ComboBoxItem Content="Estonian" />
+                            <ComboBoxItem Content="Filipino" />
+                            <ComboBoxItem Content="Finnish" />
+                            <ComboBoxItem Content="French" />
+                            <ComboBoxItem Content="Galician" />
+                            <ComboBoxItem Content="German" />
+                            <ComboBoxItem Content="Greek" />
+                            <ComboBoxItem Content="Hebrew" />
+                            <ComboBoxItem Content="Hindi" />
+                            <ComboBoxItem Content="Hungarian" />
+                            <ComboBoxItem Content="Indonesian" />
+                            <ComboBoxItem Content="Italian" />
+                            <ComboBoxItem Content="Japanese" />
+                            <ComboBoxItem Content="Korean" />
+                            <ComboBoxItem Content="Latvian" />
+                            <ComboBoxItem Content="Lithuanian" />
+                            <ComboBoxItem Content="Maltese" />
+                            <ComboBoxItem Content="Norwegian" />
+                            <ComboBoxItem Content="Polish" />
+                            <ComboBoxItem Content="Portuguese" />
+                            <ComboBoxItem Content="Romanian" />
+                            <ComboBoxItem Content="Russian" />
+                            <ComboBoxItem Content="Serbian" />
+                            <ComboBoxItem Content="Slovak" />
+                            <ComboBoxItem Content="Slovenian" />
+                            <ComboBoxItem Content="Spanish" />
+                            <ComboBoxItem Content="Swedish" />
+                            <ComboBoxItem Content="Thai" />
+                            <ComboBoxItem Content="Turkish" />
+                            <ComboBoxItem Content="Ukrainian" />
+                            <ComboBoxItem Content="Vietnamese" />
+                        </ComboBox>
+                    </MenuItem>
+                    <MenuItem Header="_Help" Name="guiHelpMenu">
+                        <MenuItem Header="_About" Name="guiAbout" Click="guiAbout_Click" />
+                    </MenuItem>
+                    <MenuItem Header="_Character" Name="guiCharMenu" Visibility="Visible">
+                        <ComboBox Name="guiPIDSelect" />
+                        <MenuItem Header="_Set Process" Name="guiSetProcess" Click="guiSetProcess_Click" />
+                        <MenuItem Header="_Refresh List" Name="guiRefreshList" Click="guiRefreshList_Click" />
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+            <DockPanel Height="23" DockPanel.Dock="Bottom">
+                <Button Name="guiResetES" Content="Reset Exp/SP" Click="guiReset_Click" />
+                <StatusBar Height="23" Name="guiStatusBar" VerticalAlignment="Bottom">
+                    <TextBlock Name="guiMyStatus" Text="LogModXIV" />
+                </StatusBar>
+            </DockPanel>
+            <DockPanel Width="5" DockPanel.Dock="Left"></DockPanel>
+            <DockPanel Width="5" DockPanel.Dock="Right"></DockPanel>
+            <DockPanel Height="25" DockPanel.Dock="Bottom" Margin="0,0,0,2">
+                <DockPanel DockPanel.Dock="Left" Height="25" Width="0"></DockPanel>
+                <DockPanel DockPanel.Dock="Right" Height="25">
+                    <DockPanel DockPanel.Dock="Left">
+                        <Label Content="From:" Name="guiLabelFrom"/>
+                        <ComboBox Name="guiTFrom" Width="75">
+                            <ComboBoxItem Content="Albanian" />
+                            <ComboBoxItem Content="Arabic" />
+                            <ComboBoxItem Content="Bulgarian" />
+                            <ComboBoxItem Content="Catalan" />
+                            <ComboBoxItem Content="Chinese (Simplified)" />
+                            <ComboBoxItem Content="Chinese (Traditional)" />
+                            <ComboBoxItem Content="Croatian" />
+                            <ComboBoxItem Content="Czech" />
+                            <ComboBoxItem Content="Danish" />
+                            <ComboBoxItem Content="Dutch" />
+                            <ComboBoxItem Content="English" />
+                            <ComboBoxItem Content="Estonian" />
+                            <ComboBoxItem Content="Filipino" />
+                            <ComboBoxItem Content="Finnish" />
+                            <ComboBoxItem Content="French" />
+                            <ComboBoxItem Content="Galician" />
+                            <ComboBoxItem Content="German" />
+                            <ComboBoxItem Content="Greek" />
+                            <ComboBoxItem Content="Hebrew" />
+                            <ComboBoxItem Content="Hindi" />
+                            <ComboBoxItem Content="Hungarian" />
+                            <ComboBoxItem Content="Indonesian" />
+                            <ComboBoxItem Content="Italian" />
+                            <ComboBoxItem Content="Japanese" />
+                            <ComboBoxItem Content="Korean" />
+                            <ComboBoxItem Content="Latvian" />
+                            <ComboBoxItem Content="Lithuanian" />
+                            <ComboBoxItem Content="Maltese" />
+                            <ComboBoxItem Content="Norwegian" />
+                            <ComboBoxItem Content="Polish" />
+                            <ComboBoxItem Content="Portuguese" />
+                            <ComboBoxItem Content="Romanian" />
+                            <ComboBoxItem Content="Russian" />
+                            <ComboBoxItem Content="Serbian" />
+                            <ComboBoxItem Content="Slovak" />
+                            <ComboBoxItem Content="Slovenian" />
+                            <ComboBoxItem Content="Spanish" />
+                            <ComboBoxItem Content="Swedish" />
+                            <ComboBoxItem Content="Thai" />
+                            <ComboBoxItem Content="Turkish" />
+                            <ComboBoxItem Content="Ukrainian" />
+                            <ComboBoxItem Content="Vietnamese" />
+                        </ComboBox>
+                        <Label Content="To:" Name="guiLabelTo"/>
+                        <ComboBox Name="guiTTo" Width="75">
+                            <ComboBoxItem Content="Albanian" />
+                            <ComboBoxItem Content="Arabic" />
+                            <ComboBoxItem Content="Bulgarian" />
+                            <ComboBoxItem Content="Catalan" />
+                            <ComboBoxItem Content="Chinese (Simplified)" />
+                            <ComboBoxItem Content="Chinese (Traditional)" />
+                            <ComboBoxItem Content="Croatian" />
+                            <ComboBoxItem Content="Czech" />
+                            <ComboBoxItem Content="Danish" />
+                            <ComboBoxItem Content="Dutch" />
+                            <ComboBoxItem Content="English" />
+                            <ComboBoxItem Content="Estonian" />
+                            <ComboBoxItem Content="Filipino" />
+                            <ComboBoxItem Content="Finnish" />
+                            <ComboBoxItem Content="French" />
+                            <ComboBoxItem Content="Galician" />
+                            <ComboBoxItem Content="German" />
+                            <ComboBoxItem Content="Greek" />
+                            <ComboBoxItem Content="Hebrew" />
+                            <ComboBoxItem Content="Hindi" />
+                            <ComboBoxItem Content="Hungarian" />
+                            <ComboBoxItem Content="Indonesian" />
+                            <ComboBoxItem Content="Italian" />
+                            <ComboBoxItem Content="Japanese" />
+                            <ComboBoxItem Content="Korean" />
+                            <ComboBoxItem Content="Latvian" />
+                            <ComboBoxItem Content="Lithuanian" />
+                            <ComboBoxItem Content="Maltese" />
+                            <ComboBoxItem Content="Norwegian" />
+                            <ComboBoxItem Content="Polish" />
+                            <ComboBoxItem Content="Portuguese" />
+                            <ComboBoxItem Content="Romanian" />
+                            <ComboBoxItem Content="Russian" />
+                            <ComboBoxItem Content="Serbian" />
+                            <ComboBoxItem Content="Slovak" />
+                            <ComboBoxItem Content="Slovenian" />
+                            <ComboBoxItem Content="Spanish" />
+                            <ComboBoxItem Content="Swedish" />
+                            <ComboBoxItem Content="Thai" />
+                            <ComboBoxItem Content="Turkish" />
+                            <ComboBoxItem Content="Ukrainian" />
+                            <ComboBoxItem Content="Vietnamese" />
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right" Width="85">
+                        <Button Name="guiButtonTrans" Width="25" Content="T" Margin="5,0,3,0" Click="guiButtonTrans_Click" />
+                        <Button Name="guiButtonAddTabs" Width="25" Content="+" Click="guiButtonAddTabs_Click" />
+                        <Button Name="guiButtonDelTabs" Width="25" Content="-" Click="guiButtonDelTabs_Click" />
+                    </DockPanel>
+                </DockPanel>
+                <DockPanel LastChildFill="True">
+                    <TextBox Name="Chatter" VerticalContentAlignment="Center" KeyDown="Chatter_KeyDown"></TextBox>
+                </DockPanel>
+            </DockPanel>
+            <DockPanel LastChildFill="True">
+                <TabControl Name="guiChatControl" Margin="0,2,0,2">
+                    <TabItem Header="_All" Name="guiAllTab" Visibility="Collapsed">
+                        <RichTextBox Name="guiAllLog" Background="Black" Foreground="White" VerticalScrollBarVisibility="Auto">
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0.5"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </TabItem>
+                    <TabItem Header="_Translated" Name="guiTransTab" >
+                        <RichTextBox Name="guiTransLog" Background="Black" Foreground="White" VerticalScrollBarVisibility="Auto">
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0.5"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </TabItem>
+                    <TabItem Header="_Raw Chat" Name="guiRawTab" Visibility="Collapsed">
+                        <RichTextBox Name="guiRawLog" Background="Black" Foreground="White" VerticalScrollBarVisibility="Auto">
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0.5"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Window>

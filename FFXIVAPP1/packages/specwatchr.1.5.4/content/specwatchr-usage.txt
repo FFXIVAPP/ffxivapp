@@ -1,0 +1,19 @@
+For detailed instructions/screencasts, go to http://nspec.org/continuoustesting
+
+[if downloaded from git hub, copy dotnet.watchr.rb and watcher_dot_net.rb to your solution directory and follow the instructions below]
+
+1. Open up Ruby command prompt (v 1.9.2)
+
+2. enter the following command to install watchr gem (if you dont have it installed): 
+   gem install watchr
+   
+3. navigate to your solution directory
+
+4. your configuration file for specwathcr is located in your solution root in a file called dotnet.watchr.rb
+
+5. enter the following command to start SpecWatchr:
+   watchr dotnet.watchr.rb
+
+6. save a file in your solution and tests should automatically run
+
+7. if you want to change how specwatchr works, the source code is in ruby and is located in watcher_dot_net.rb

@@ -1,0 +1,355 @@
+﻿<Window x:Class="ParseModXIV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ParseModXIV" Icon="/ParseModXIV;component/ParseModXIV.ico" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
+        SizeToContent="WidthAndHeight" MinWidth="355" MinHeight="220">
+    <Window.Resources>
+        <Monitors:DamageMonitor x:Key="DamageMonitor" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="23" />
+            <RowDefinition Height="23" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Height="23" Name="guiMainMenu" IsMainMenu="True">
+            <MenuItem Header="_File" Name="guiFileMenu" >
+                <MenuItem Header="_Exit" Name="guiExit" Click="guiExit_Click" />
+            </MenuItem>
+            <MenuItem Header="_Log Tools" Name="guiToolsMenu">
+                <MenuItem Header="_Options" Name="guiOptionsMenu">
+                    <MenuItem Header="_Pause Logging" Name="guiPauseLogging" IsCheckable="True" />
+                </MenuItem>
+                <MenuItem Header="_Interface Language" Name="guiLanguage">
+                    <MenuItem Header="_" Name="guiLAlbanian" Click="guiLAlbanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLArabic" Click="guiLArabic_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLBulgarian" Click="guiLBulgarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCatalan" Click="guiLCatalan_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCSimplified" Click="guiLCSimplified_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCTraditional" Click="guiLCTraditional_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCroatian" Click="guiLCroatian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCzech" Click="guiLCzech_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDanish" Click="guiLDanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDutch" Click="guiLDutch_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_English" Name="guiLEnglish" Click="guiLEnglish_Click" />
+                    <MenuItem Header="_" Name="guiLEstonian" Click="guiLEstonian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFilipino" Click="guiLFilipino_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFinnish" Click="guiLFinnish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFrench" Click="guiLFrench_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGalician" Click="guiLGalician_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGerman" Click="guiLGerman_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGreek" Click="guiLGreek_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHebrew" Click="guiLHebrew_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHindi" Click="guiLHindi_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHungarian" Click="guiLHungarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLIndonesian" Click="guiLIndonesian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLItalian" Click="guiLItalian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_日本" Name="guiLJapanese" Click="guiLJapanese_Click" />
+                    <MenuItem Header="_" Name="guiLKorean" Click="guiLKorean_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLatvian" Click="guiLLatvian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLithuanian" Click="guiLLithuanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLMaltese" Click="guiLMaltese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLNorwegian" Click="guiLNorwegian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPolish" Click="guiLPolish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPortuguese" Click="guiLPortuguese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRomanian" Click="guiLRomanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRussian" Click="guiLRussian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSerbian" Click="guiLSerbian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovak" Click="guiLSlovak_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovenian" Click="guiLSlovenian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSpanish" Click="guiLSpanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSwedish" Click="guiLSwedish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLThai" Click="guiLThai_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLTurkish" Click="guiLTurkish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLUkrainian" Click="guiLUkrainian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLVietnamese" Click="guiLVietnamese_Click" Visibility="Collapsed" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help" Name="guiHelpMenu">
+                <MenuItem Header="_About" Name="guiAbout" Click="guiAbout_Click" />
+            </MenuItem>
+            <MenuItem Header="_Character" Name="guiCharMenu" Visibility="Visible" IsEnabled="False">
+                <ComboBox Name="guiPIDSelect" />
+                <MenuItem Header="_Set Process" Name="guiSetProcess" Click="guiSetProcess_Click" />
+                <MenuItem Header="_Refresh List" Name="guiRefreshList" Click="guiRefreshList_Click" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1" Grid.Column="0" Name="guiMainControl" Margin="2" Padding="5">
+            <TabItem Header="Damage Parser" Name="guiMelee">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Grid Name="MeleeInformation">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Expander Header="Detailed Party Stats" Grid.Row="0" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                            <Grid Name="DetailedStats">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Expander Header="Damage Summary" Grid.Row="0" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E7">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <DataGrid Grid.Row="0" Name="Data_Summary" HeadersVisibility="All" ItemsSource="{Binding Mode=OneWay, Source={StaticResource DamageMonitor}}" AutoGenerateColumns="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
+                                                <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" />
+                                                <!--<DataGridTextColumn Binding="{Binding Path=Damage Per, StringFormat=\{0:P2\}}" Header="Damage %" />-->
+                                                <DataGridTextColumn Binding="{Binding Path=Min Damage}" Header="Min Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=Hits}" Header="Hits" />
+                                                <DataGridTextColumn Binding="{Binding Path=Misses}" Header="Misses" />
+                                                <DataGridTextColumn Binding="{Binding Path=Accuracy, StringFormat=\{0:P2\}}" Header="Accuracy" />
+                                                <DataGridTextColumn Binding="{Binding Path=Min Damage}" Header="Min Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=Max Damage}" Header="Max Damage" />
+                                                <!--<DataGridTextColumn Binding="{Binding Path=Average}" Header="Average" />-->
+                                                <DataGridTextColumn Binding="{Binding Path=C Total}" Header="C Total" />
+                                                <!--<DataGridTextColumn Binding="{Binding Path=C Damage Per}, StringFormat=\{0:P2\}}" Header="C Damage %" />-->
+                                                <DataGridTextColumn Binding="{Binding Path=C Hits}" Header="C Hits" />
+                                                <DataGridTextColumn Binding="{Binding Path=C Min Damage}" Header="C Min Damage" />
+                                                <DataGridTextColumn Binding="{Binding Path=C Max Damage}" Header="C Max Damage" />
+                                                <!--<DataGridTextColumn Binding="{Binding Path=C Average}" Header="C Average" />-->
+                                                <DataGridTextColumn Binding="{Binding Path=Critical Per, StringFormat=\{0:P2\}}" Header="Critical %" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </Expander>
+
+                                <Expander Header="Ability Damage" Grid.Row="1" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.Resources>
+                                                <Monitors:DamageMonitor x:Key="DamageMonitor" />
+                                                <DataTemplate x:Key="AbilityRow">
+                                                    <GroupBox Grid.Row="0" Header="{Binding Path=Character}" Margin="2" FontWeight="Bold" FontSize="12" Foreground="#FF00001A" Width="Auto" Height="Auto">
+                                                        <Grid>
+                                                            <DataGrid Width="Auto" FontSize="12" FontWeight="Normal">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Ability}" Header="Ability" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Ability Per}" Header="Ability %" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Hit}" Header="Hit" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Miss}" Header="Miss" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Accuracy}" Header="Ability Acc %" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Low}" Header="Ability Low" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=High}" Header="Ability High" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Average}" Header="Ability Avg" Width="Auto"/>
+                                                                </DataGrid.Columns>
+                                                                <DataGrid.RowStyle>
+                                                                    <Style TargetType="DataGridRow">
+                                                                        <Setter Property="Background" Value="LightBlue" />
+                                                                        <Setter Property="FontWeight" Value="Normal" />
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Background" Value="Blue"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </DataGrid.RowStyle>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </GroupBox>
+                                                </DataTemplate>
+                                            </Grid.Resources>
+                                            <ListBox ItemsSource="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ItemTemplate="{StaticResource AbilityRow}"/>
+                                        </Grid>
+                                    </Grid>
+                                </Expander>
+
+                                <Expander Header="Spell Damage" Grid.Row="2" Grid.Column="0" Margin="3" BorderBrush="#FFE6E6E6">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid>
+                                            <Grid.Resources>
+                                                <Monitors:DamageMonitor x:Key="DamageMonitor" />
+                                                <DataTemplate x:Key="SpellRow">
+                                                    <GroupBox Grid.Row="0" Header="{Binding Path=Character}" Margin="2" FontWeight="Bold" FontSize="12" Foreground="#FF00001A" Width="Auto" Height="Auto">
+                                                        <Grid>
+                                                            <DataGrid Width="Auto" FontSize="12" FontWeight="Normal">
+                                                                <DataGrid.Columns>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Spell}" Header="Spell Name" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Total}" Header="Total" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Spell Per}" Header="Spell %" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Resist}" Header="Resisted" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Partial}" Header="Partial Resist" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Resist Per}" Header="Resist %" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Low}" Header="Low" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=High}" Header="High" Width="Auto"/>
+                                                                    <DataGridTextColumn Binding="{Binding Path=Average}" Header="Average" Width="Auto"/>
+                                                                </DataGrid.Columns>
+                                                                <DataGrid.RowStyle>
+                                                                    <Style TargetType="DataGridRow">
+                                                                        <Setter Property="Background" Value="LightBlue" />
+                                                                        <Setter Property="FontWeight" Value="Normal" />
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Background" Value="Blue"/>
+                                                                                <Setter Property="Foreground" Value="White"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </DataGrid.RowStyle>
+                                                            </DataGrid>
+                                                        </Grid>
+                                                    </GroupBox>
+                                                </DataTemplate>
+                                            </Grid.Resources>
+                                            <ListBox ItemsSource="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ItemTemplate="{StaticResource SpellRow}"/>
+                                        </Grid>
+                                    </Grid>
+                                </Expander>
+                            </Grid>
+                        </Expander>
+                        <Grid Name="ActiveParty" Grid.Row="1" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid>
+                                <Grid.Resources>
+                                    <Monitors:DamageMonitor x:Key="DamageMonitor" />
+                                    <DataTemplate x:Key="PartyRow">
+                                        <Grid Name="PM_1" Grid.Row="1" Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <GroupBox Header="FirstName LastName" Margin="2" FontWeight="Bold" FontSize="14" Foreground="#FF00001A" MaxWidth="325" MaxHeight="70" Height="70" Visibility="Visible">
+                                                <Grid Grid.Row="1" Grid.Column="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="22"/>
+                                                        <RowDefinition Height="22"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="44" />
+                                                        <ColumnDefinition Width="85" />
+                                                        <ColumnDefinition Width="85" />
+                                                        <ColumnDefinition Width="85" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Image Grid.RowSpan="2" Grid.Column="0"  Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" />
+                                                    <Label Grid.Row="0" Grid.Column="1" Content="Damage %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                                    <Label Grid.Row="0" Grid.Column="2" Content="Accuracy %" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                                    <Label Grid.Row="0" Grid.Column="3" Content="Damage/Sec" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2"/>
+                                                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Damage Per, StringFormat=\{0:P2\}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2" />
+                                                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=Accuracy Per, StringFormat=\{0:P2\}}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                                    <Label Grid.Row="1" Grid.Column="3" Content="{Binding Path=DPS}" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" Padding="2"/>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Grid.Resources>
+                                <ListBox ItemsSource="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ItemTemplate="{StaticResource PartyRow}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="_Log" Name="guiLogTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <RichTextBox Name="guiLog" VerticalScrollBarVisibility="Auto" Width="575" MaxHeight="220" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <RichTextBox.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0.5"/>
+                            </Style>
+                        </RichTextBox.Resources>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Height="23" Name="guiYourFName" Width="75" Text="FirstName" GotFocus="guiYourFName_GotFocus" />
+            <TextBox Grid.Row="0" Grid.Column="1" Height="23" Name="guiYourLName" Width="75" Text="LastName" GotFocus="guiYourLName_GotFocus" />
+            <ComboBox Grid.Row="0" Grid.Column="2" Name="guiServerName" SelectedIndex="0">
+                <ComboBoxItem Content="Select Server"/>
+                <ComboBoxItem Content="Cornelia"/>
+                <ComboBoxItem Content="Kashuan"/>
+                <ComboBoxItem Content="Gysahl"/>
+                <ComboBoxItem Content="Mysidia"/>
+                <ComboBoxItem Content="Istory"/>
+                <ComboBoxItem Content="Figaro"/>
+                <ComboBoxItem Content="Wutai"/>
+                <ComboBoxItem Content="Trabia"/>
+                <ComboBoxItem Content="Lindblum"/>
+                <ComboBoxItem Content="Besaid"/>
+                <ComboBoxItem Content="Selbina"/>
+                <ComboBoxItem Content="Rabanastre"/>
+                <ComboBoxItem Content="Bodhum"/>
+                <ComboBoxItem Content="Melmond"/>
+                <ComboBoxItem Content="Palamecia"/>
+                <ComboBoxItem Content="Saronia"/>
+                <ComboBoxItem Content="Fabul"/>
+                <ComboBoxItem Content="Karnak"/>
+            </ComboBox>
+            <Button Grid.Row="0" Grid.Column="3" Content="Start Logging" Width="100" Name="guiStart" Click="guiStart_Click" HorizontalAlignment="Left"></Button>
+        </Grid>
+
+        <StatusBar Grid.Row="3" Grid.Column="0" Height="23" Name="guiStatusBar" VerticalAlignment="Bottom">
+            <TextBlock Name="guiMyStatus" Text="ParseModXIV" />
+        </StatusBar>
+    </Grid>
+</Window>

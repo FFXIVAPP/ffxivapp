@@ -1,0 +1,290 @@
+﻿<Window x:Class="ParseModXIV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ParseModXIV" Icon="/ParseModXIV;component/ParseModXIV.ico" Loaded="Window_Loaded" Closing="Window_Closing" StateChanged="Window_StateChanged" ResizeMode="CanResize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+<<<<<<< HEAD
+        xmlns:Monitors="clr-namespace:ParseModXIV.Monitors" Width="1075" Height="536">
+=======
+        xmlns:Monitors="clr-namespace:ParseModXIV.Monitors" Width="1011" Height="536" xmlns:my="clr-namespace:ParseModXIV.Classes">
+>>>>>>> 5470edea1feeade9a8050933ba0df54aca280ea2
+    <Window.Resources>
+        <Monitors:DamageMonitor x:Key="DamageMonitor" />
+        <my:StringToAvatarConverter x:Key="StringToAvatarConverter1" />
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <!--TOP-->
+        <Menu DockPanel.Dock="Top" Height="23" Name="guiMainMenu" IsMainMenu="True">
+            <MenuItem Header="_File" Name="guiFileMenu" >
+                <MenuItem Header="_Exit" Name="guiExit" Click="guiExit_Click" />
+            </MenuItem>
+            <MenuItem Header="_Log Tools" Name="guiToolsMenu">
+                <MenuItem Header="_Options" Name="guiOptionsMenu">
+                    <MenuItem Header="_Pause Logging" Name="guiPauseLogging" IsCheckable="True" />
+                </MenuItem>
+                <MenuItem Header="_Interface Language" Name="guiLanguage">
+                    <MenuItem Header="_" Name="guiLAlbanian" Click="guiLAlbanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLArabic" Click="guiLArabic_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLBulgarian" Click="guiLBulgarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCatalan" Click="guiLCatalan_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCSimplified" Click="guiLCSimplified_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCTraditional" Click="guiLCTraditional_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCroatian" Click="guiLCroatian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLCzech" Click="guiLCzech_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDanish" Click="guiLDanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLDutch" Click="guiLDutch_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_English" Name="guiLEnglish" Click="guiLEnglish_Click" />
+                    <MenuItem Header="_" Name="guiLEstonian" Click="guiLEstonian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFilipino" Click="guiLFilipino_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFinnish" Click="guiLFinnish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLFrench" Click="guiLFrench_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGalician" Click="guiLGalician_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGerman" Click="guiLGerman_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLGreek" Click="guiLGreek_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHebrew" Click="guiLHebrew_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHindi" Click="guiLHindi_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLHungarian" Click="guiLHungarian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLIndonesian" Click="guiLIndonesian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLItalian" Click="guiLItalian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_日本" Name="guiLJapanese" Click="guiLJapanese_Click" />
+                    <MenuItem Header="_" Name="guiLKorean" Click="guiLKorean_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLatvian" Click="guiLLatvian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLLithuanian" Click="guiLLithuanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLMaltese" Click="guiLMaltese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLNorwegian" Click="guiLNorwegian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPolish" Click="guiLPolish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLPortuguese" Click="guiLPortuguese_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRomanian" Click="guiLRomanian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLRussian" Click="guiLRussian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSerbian" Click="guiLSerbian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovak" Click="guiLSlovak_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSlovenian" Click="guiLSlovenian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSpanish" Click="guiLSpanish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLSwedish" Click="guiLSwedish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLThai" Click="guiLThai_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLTurkish" Click="guiLTurkish_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLUkrainian" Click="guiLUkrainian_Click" Visibility="Collapsed" />
+                    <MenuItem Header="_" Name="guiLVietnamese" Click="guiLVietnamese_Click" Visibility="Collapsed" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help" Name="guiHelpMenu">
+                <MenuItem Header="_About" Name="guiAbout" Click="guiAbout_Click" />
+            </MenuItem>
+            <MenuItem Header="_Character" Name="guiCharMenu" Visibility="Visible" IsEnabled="False">
+                <ComboBox Name="guiPIDSelect" />
+                <MenuItem Header="_Set Process" Name="guiSetProcess" Click="guiSetProcess_Click" />
+                <MenuItem Header="_Refresh List" Name="guiRefreshList" Click="guiRefreshList_Click" />
+            </MenuItem>
+        </Menu>
+        <!--BOTTOM-->
+        <DockPanel LastChildFill="True" DockPanel.Dock="Bottom">
+            <Grid DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" Height="23" Name="guiYourFName" Width="75" Text="FirstName" GotFocus="guiYourFName_GotFocus" IsReadOnly="False" Visibility="Collapsed" />
+                <TextBox Grid.Row="0" Grid.Column="1" Height="23" Name="guiYourLName" Width="75" Text="LastName" GotFocus="guiYourLName_GotFocus" IsReadOnly="False" Visibility="Collapsed" />
+                <ComboBox Grid.Row="0" Grid.Column="2" Name="guiServerName" SelectedIndex="0" IsReadOnly="False" Visibility="Collapsed">
+                    <ComboBoxItem Content="Select Server"/>
+                    <ComboBoxItem Content="Cornelia"/>
+                    <ComboBoxItem Content="Kashuan"/>
+                    <ComboBoxItem Content="Gysahl"/>
+                    <ComboBoxItem Content="Mysidia"/>
+                    <ComboBoxItem Content="Istory"/>
+                    <ComboBoxItem Content="Figaro"/>
+                    <ComboBoxItem Content="Wutai"/>
+                    <ComboBoxItem Content="Trabia"/>
+                    <ComboBoxItem Content="Lindblum"/>
+                    <ComboBoxItem Content="Besaid"/>
+                    <ComboBoxItem Content="Selbina"/>
+                    <ComboBoxItem Content="Rabanastre"/>
+                    <ComboBoxItem Content="Bodhum"/>
+                    <ComboBoxItem Content="Melmond"/>
+                    <ComboBoxItem Content="Palamecia"/>
+                    <ComboBoxItem Content="Saronia"/>
+                    <ComboBoxItem Content="Fabul"/>
+                    <ComboBoxItem Content="Karnak"/>
+                </ComboBox>
+                <Button Grid.Row="0" Grid.Column="3" Content="Start Logging" Width="100" Name="guiStart" Click="guiStart_Click" HorizontalAlignment="Left"></Button>
+            </Grid>
+            <StatusBar DockPanel.Dock="Bottom" Height="23" Name="guiStatusBar" VerticalAlignment="Bottom">
+                <TextBlock Name="guiMyStatus" Text="ParseModXIV" />
+            </StatusBar>
+        </DockPanel>
+        <!--LEFT-->
+        <DockPanel DockPanel.Dock="Left" Width="2"></DockPanel>
+        <!--RIGHT-->
+        <DockPanel DockPanel.Dock="Right" Width="2"></DockPanel>
+        <!--MIDDLE-->
+        <TabControl>
+            <TabItem Header="Active Members">
+                <ListView ItemsSource="{Binding}" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" Name="DetailList" KeyUp="DetailList_KeyUp">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="10" FontWeight="Bold" Margin="2,0,2,0" Text="{Binding}" Width="Auto" MinWidth="50"/>
+                                </DataTemplate>
+                            </GridView.ColumnHeaderTemplate>
+                            <GridViewColumn Header="Avatar">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+<<<<<<< HEAD
+                                            <Image Width="40" Height="40" Source="http://static2.finalfantasyxiv.com/csnap_sp/4a2d6_ss_c9e5a977f4021171dda659b840440f89_dc099ae88a4991ee5c9dae2b5a5ebf0a.png'}"/>
+=======
+                                            <Image Width="40" Height="40" Source="{Binding Path=Name, Converter={StaticResource StringToAvatarConverter1}, IsAsync=True}" />
+>>>>>>> 5470edea1feeade9a8050933ba0df54aca280ea2
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Total}" Header="Total" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=DPS}" Header="Damage/Sec"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=DamageP, StringFormat=\{0:P2\}}" Header="Damage %"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Min Damage}" Header="Min"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Max Damage}" Header="Max"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Hits}" Header="Hit"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Misses}" Header="Miss"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Accuracy, StringFormat=\{0:P2\}}" Header="Accuracy"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Average, StringFormat=\{0:F2\}}" Header="Average"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Total}" Header="C. Total"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C DamageP, StringFormat=\{0:P2\}}" Header="C. Damage %"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Hits}" Header="C. Hit"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Min Damage}" Header="C. Min"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Max Damage}" Header="C. Max"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Average, StringFormat=\{0:F2\}}" Header="C. Average"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=CriticalP, StringFormat=\{0:P2\}}" Header="Critical %" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </TabItem>
+            <TabItem Header="InActive Members">
+                <ListView ItemsSource="{Binding Path=InActive}" DataContext="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" HorizontalContentAlignment="Stretch" Name="InDetailList" KeyUp="InDetailList_KeyUp">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="10" FontWeight="Bold" Margin="2,0,2,0" Text="{Binding}" Width="Auto" MinWidth="50"/>
+                                </DataTemplate>
+                            </GridView.ColumnHeaderTemplate>
+                            <GridViewColumn Header="Avatar">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="40" Height="40" Source="{Binding Path=ImagePath}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Total}" Header="Total"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=DamageP, StringFormat=\{0:P2\}}" Header="Damage %"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Min Damage}" Header="Min"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Max Damage}" Header="Max"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Hits}" Header="Hit"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Misses}" Header="Miss"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Accuracy, StringFormat=\{0:P2\}}" Header="Accuracy"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Average, StringFormat=\{0:F2\}}" Header="Average"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Total}" Header="C. Total"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C DamageP, StringFormat=\{0:P2\}}" Header="C. Damage %"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Hits}" Header="C. Hit"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Min Damage}" Header="C. Min"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Max Damage}" Header="C. Max"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=C Average, StringFormat=\{0:F2\}}" Header="C. Average"  />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=CriticalP, StringFormat=\{0:P2\}}" Header="Critical %" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </TabItem>
+            <TabItem Header="Abilities">
+                <Grid>
+                    <Grid.Resources>
+                        <DataTemplate x:Key="AbilityRow">
+                            <GroupBox Grid.Row="0" Header="{Binding Path=Name}" Margin="2" FontWeight="Bold" FontSize="12" Foreground="#FF00001A" Width="Auto" Height="Auto">
+                                <Grid>
+                                    <ListView>
+                                        <ListView.View>
+                                            <GridView AllowsColumnReorder="False">
+                                                <GridView.ColumnHeaderTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="10" FontWeight="Bold" Margin="2,0,2,0" Text="{Binding}" Width="Auto" MinWidth="50"/>
+                                                    </DataTemplate>
+                                                </GridView.ColumnHeaderTemplate>
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Ability}" Header="Ability"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Total}" Header="Total"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=AbilityP}" Header="Ability %"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Hit}" Header="Hit"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Miss}" Header="Miss"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Accuracy, StringFormat=\{0:P2\}}" Header="Accuracy"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Low}" Header="Ability Low"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=High}" Header="Ability High"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Average, StringFormat=\{0:F2\}}" Header="Ability Avg"  />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+
+                                </Grid>
+                            </GroupBox>
+                            
+                        </DataTemplate>
+                    </Grid.Resources>
+                    <ListBox ItemsSource="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ItemTemplate="{StaticResource AbilityRow}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Spells">
+                <Grid>
+                    <Grid.Resources>
+                        <DataTemplate x:Key="AbilityRow">
+                            <GroupBox Grid.Row="0" Header="{Binding Path=Name}" Margin="2" FontWeight="Bold" FontSize="12" Foreground="#FF00001A" Width="Auto" Height="Auto">
+                                <Grid>
+                                    <ListView>
+                                        <ListView.View>
+                                            <GridView AllowsColumnReorder="False">
+                                                <GridView.ColumnHeaderTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock FontSize="10" FontWeight="Bold" Margin="2,0,2,0" Text="{Binding}" Width="Auto" MinWidth="50"/>
+                                                    </DataTemplate>
+                                                </GridView.ColumnHeaderTemplate>
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Spell}" Header="Spell"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Total}" Header="Total"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=SpellP}" Header="Spell %"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Resist}" Header="Resists"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Partial}" Header="Partials"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=ResistP, StringFormat=\{0:P2\}}" Header="Resist %"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Low}" Header="Ability Low"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=High}" Header="Ability High"  />
+                                                <GridViewColumn DisplayMemberBinding="{Binding Path=Average, StringFormat=\{0:F2\}}" Header="Ability Avg"  />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+
+                                </Grid>
+                            </GroupBox>
+
+                        </DataTemplate>
+                    </Grid.Resources>
+                    <ListBox ItemsSource="{Binding Source={StaticResource DamageMonitor}, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" ItemTemplate="{StaticResource AbilityRow}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Log" IsEnabled="True" Visibility="Hidden" Name="guiLogTab">
+                <RichTextBox Name="guiLog" VerticalScrollBarVisibility="Auto">
+                    <RichTextBox.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0.5"/>
+                        </Style>
+                    </RichTextBox.Resources>
+                </RichTextBox>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
