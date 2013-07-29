@@ -1,0 +1,35 @@
+<SmartAssemblyProject ProjectId="{43e2fc82-d927-4e36-bfc0-a394e8f8d131}" Version="2.0">
+    <MainAssemblyFileName>..\Release\UpdateModXIV.exe</MainAssemblyFileName>
+    <Configuration Name="Release">
+        <Options>
+            <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
+            <FeatureUsageReporting Template="res:SmartUsageWithUIConsentFirstRun1033.dll" />
+            <StringsEncoding Compress="1" Encode="1" UseCache="1" UseImprovedEncoding="1" />
+            <StrongNameSigning />
+            <OtherOptimizations ManageMemory="1" SealClasses="1" />
+            <Obfuscation ChangeMethodParent="1" FieldsNameMangling="3" NameMangling="3" />
+            <OtherProtections SuppressIldasm="1" />
+            <Debugging />
+        </Options>
+        <ApplicationName />
+        <Destination DestinationFileName=".\UpdateModXIV.exe" />
+        <Assemblies>
+            <Assembly AssemblyName="UpdateModXIV, Culture=neutral, PublicKeyToken=null">
+                <Merging>
+                    <ResourcesCompression Compress="1" />
+                    <MemberRefsProxy Proxy="1" />
+                    <Pruning />
+                    <Obfuscation Obfuscate="1">
+                        <Exclusion />
+                    </Obfuscation>
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="4" />
+                </Merging>
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Ionic.Zip, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c">
+                <Merging />
+                <Embedding />
+            </Assembly>
+        </Assemblies>
+    </Configuration>
+</SmartAssemblyProject>

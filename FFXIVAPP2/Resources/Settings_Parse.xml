@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Settings>
+	<Server Key="2" Value="Durandal" />
+	<Server Key="3" Value="Hyperion" />
+	<Server Key="4" Value="Masamune" />
+	<Server Key="5" Value="Gungir" />
+	<Server Key="7" Value="Aegis" />
+	<Server Key="10" Value="Sargatanas" />
+	<Server Key="11" Value="Balmung" />
+	<Server Key="12" Value="Ridill" />
+	<Server Key="16" Value="Excalibur" />
+	<Server Key="20" Value="Ragnarok" />
+</Settings>

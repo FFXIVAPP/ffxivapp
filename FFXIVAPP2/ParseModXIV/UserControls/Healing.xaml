@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="ParseModXIV.UserControls.Healing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ParseModXIV.ViewModel"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:ParseModXIV"
+             xmlns:model="clr-namespace:ParseModXIV.Model"
+             xmlns:Monitors="clr-namespace:ParseModXIV.Monitors"
+             xmlns:util="clr-namespace:ParseModXIV.Classes" xmlns:View="clr-namespace:ParseModXIV.View" mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:TabControlViewModel x:Key="TabControlViewModelDataSource" />
+        <model:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel Margin="10">
+            <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                <ListView x:Name="HealingPlayerTotal"
+                          DataContext="{Binding NotifyOnTargetUpdated=True,
+                                                NotifyOnSourceUpdated=True,
+                                                Source={StaticResource ParseMod},
+                                                Path=Timeline.Party}"
+                          ItemsSource="{Binding}"
+                          util:GridViewSort.AutoSort="True"
+                          util:GridViewSort.ShowSortGlyph="False">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="Auto"
+                                               MinWidth="50"
+                                               Margin="2,0,2,0"
+                                               FontSize="10"
+                                               FontWeight="Bold"
+                                               Text="{Binding}" />
+                                </DataTemplate>
+                            </GridView.ColumnHeaderTemplate>
+                            <!--  <GridViewColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
+                                            Header="{DynamicResource loc_grid_name}"
+                                            util:GridViewSort.PropertyName="Name" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=H Total}"
+                                            Header="{DynamicResource loc_grid_htotal}"
+                                            util:GridViewSort.PropertyName="H Total" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=HPS,
+                                                                           StringFormat=\{0:F2\}}"
+                                            Header="{DynamicResource loc_grid_hps}"
+                                            util:GridViewSort.PropertyName="HPS" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=% of Heal,
+                                                                           StringFormat=\{0:P2\}}"
+                                            Header="{DynamicResource loc_grid_perofheal}"
+                                            util:GridViewSort.PropertyName="% of Heal" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Heal Low}"
+                                            Header="{DynamicResource loc_grid_heallow}"
+                                            util:GridViewSort.PropertyName="Heal Low" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Heal High}"
+                                            Header="{DynamicResource loc_grid_healhigh}"
+                                            util:GridViewSort.PropertyName="Heal High" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Heal Avg,
+                                                                           StringFormat=\{0:F2\}}"
+                                            Header="{DynamicResource loc_grid_healavg}"
+                                            util:GridViewSort.PropertyName="Heal Avg" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayerTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                  IsChecked="{Binding Source={x:Static me:Settings.Default},
+                                                      Path=HealingAbilties,
+                                                      Mode=TwoWay}" />
+                        <TextBlock Margin="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Text="{DynamicResource loc_abilitiesbycharacter}" />
+                    </StackPanel>
+                    <TextBlock x:Name="gui_HealingName"
+                               Text="{Binding Name}"
+                               Visibility="Collapsed" />
+                    <ListView x:Name="HealingAbilties"
+                              ItemsSource="{Binding Healing}"
+                              util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
+                              Visibility="{Binding Source={x:Static me:Settings.Default},
+                                                   Path=HealingAbilties,
+                                                   Mode=TwoWay,
+                                                   Converter={StaticResource VisibilityConverter}}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="Auto"
+                                                   MinWidth="50"
+                                                   Margin="2,0,2,0"
+                                                   FontSize="10"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </GridView.ColumnHeaderTemplate>
+                                <GridViewColumn Width="150"
+                                                DisplayMemberBinding="{Binding Name}"
+                                                Header="{DynamicResource loc_grid_name}"
+                                                util:GridViewSort.PropertyName="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                Header="{DynamicResource loc_grid_total}"
+                                                util:GridViewSort.PropertyName="Total" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=HPS,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_hps}"
+                                                util:GridViewSort.PropertyName="HPS" />
+                                <GridViewColumn DisplayMemberBinding="{Binding % of Heal,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{DynamicResource loc_grid_perofheal}"
+                                                util:GridViewSort.PropertyName="% of Heal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                Header="{DynamicResource loc_grid_low}"
+                                                util:GridViewSort.PropertyName="Low" />
+                                <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                Header="{DynamicResource loc_grid_high}"
+                                                util:GridViewSort.PropertyName="High" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_avg}"
+                                                util:GridViewSort.PropertyName="Avg" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayerTotal, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                  IsChecked="{Binding Source={x:Static me:Settings.Default},
+                                                      Path=HealingPlayers,
+                                                      Mode=TwoWay}" />
+                        <TextBlock Margin="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Text="{DynamicResource loc_playershealedbyselectedcharacter}" />
+                    </StackPanel>
+                    <ListView x:Name="HealingPlayers"
+                              ItemsSource="{Binding Players}"
+                              util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
+                              Visibility="{Binding Source={x:Static me:Settings.Default},
+                                                   Path=HealingPlayers,
+                                                   Mode=TwoWay,
+                                                   Converter={StaticResource VisibilityConverter}}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="Auto"
+                                                   MinWidth="50"
+                                                   Margin="2,0,2,0"
+                                                   FontSize="10"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </GridView.ColumnHeaderTemplate>
+                                <GridViewColumn Width="150"
+                                                DisplayMemberBinding="{Binding Name}"
+                                                Header="{DynamicResource loc_grid_name}"
+                                                util:GridViewSort.PropertyName="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                Header="{DynamicResource loc_grid_total}"
+                                                util:GridViewSort.PropertyName="Total" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=HPS,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_hps}"
+                                                util:GridViewSort.PropertyName="HPS" />
+                                <GridViewColumn DisplayMemberBinding="{Binding % of Heal,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{DynamicResource loc_grid_perofheal}"
+                                                util:GridViewSort.PropertyName="% of Heal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                Header="{DynamicResource loc_grid_low}"
+                                                util:GridViewSort.PropertyName="Low" />
+                                <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                Header="{DynamicResource loc_grid_high}"
+                                                util:GridViewSort.PropertyName="High" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_avg}"
+                                                util:GridViewSort.PropertyName="Avg" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel DataContext="{Binding SelectedItem, ElementName=HealingPlayers, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Margin="5"
+                                  IsChecked="{Binding Source={x:Static me:Settings.Default},
+                                                      Path=HealingDetails,
+                                                      Mode=TwoWay}" />
+                        <TextBlock Margin="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Text="{DynamicResource loc_abilitydetailsonselectedplayer}" />
+                    </StackPanel>
+                    <ListView x:Name="HealingDetails"
+                              ItemsSource="{Binding Abilities}"
+                              util:GridViewSort.AutoSort="True"
+                              util:GridViewSort.ShowSortGlyph="False"
+                              Visibility="{Binding Source={x:Static me:Settings.Default},
+                                                   Path=HealingDetails,
+                                                   Mode=TwoWay,
+                                                   Converter={StaticResource VisibilityConverter}}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="Auto"
+                                                   MinWidth="50"
+                                                   Margin="2,0,2,0"
+                                                   FontSize="10"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding}" />
+                                    </DataTemplate>
+                                </GridView.ColumnHeaderTemplate>
+                                <GridViewColumn Width="150"
+                                                DisplayMemberBinding="{Binding Name}"
+                                                Header="{DynamicResource loc_grid_name}"
+                                                util:GridViewSort.PropertyName="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Total}"
+                                                Header="{DynamicResource loc_grid_total}"
+                                                util:GridViewSort.PropertyName="Total" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=HPS,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_hps}"
+                                                util:GridViewSort.PropertyName="HPS" />
+                                <GridViewColumn DisplayMemberBinding="{Binding % of Heal,
+                                                                               StringFormat=\{0:P2\}}"
+                                                Header="{DynamicResource loc_grid_perofheal}"
+                                                util:GridViewSort.PropertyName="% of Heal" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Low}"
+                                                Header="{DynamicResource loc_grid_low}"
+                                                util:GridViewSort.PropertyName="Low" />
+                                <GridViewColumn DisplayMemberBinding="{Binding High}"
+                                                Header="{DynamicResource loc_grid_high}"
+                                                util:GridViewSort.PropertyName="High" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Avg,
+                                                                               StringFormat=\{0:F2\}}"
+                                                Header="{DynamicResource loc_grid_avg}"
+                                                util:GridViewSort.PropertyName="Avg" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

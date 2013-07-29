@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="LogModXIV.View.MainTabControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogModXIV.ViewModel"
+             xmlns:views="clr-namespace:LogModXIV.View"
+             xmlns:me="clr-namespace:LogModXIV"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:MainTabControlViewModel x:Key="Main_TabControl_ViewModelDataSource" />
+        <Style TargetType="TabItem" x:Key="TabItemCollapsed">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource Main_TabControl_ViewModelDataSource}}">
+        <TabControl Name="gui_TabControl" Margin="5" VirtualizingStackPanel.IsVirtualizing="True">
+            <TabControl.Effect>
+                <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="3" Opacity=".7"/>
+            </TabControl.Effect>
+            <TabItem x:Name="All_TabItem" Header="All" Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_AllVisibility, Mode=TwoWay}">
+                <FlowDocumentReader x:Name="All_FDR" ViewingMode="Scroll" BorderThickness="1" BorderBrush="#FF939393" IsTwoPageViewEnabled="False" IsPageViewEnabled="False">
+                    <FlowDocument Name="All_FLOW" PagePadding="5" TextAlignment="Left" Background="Black" Foreground="White" ColumnWidth="99999">
+                        <FlowDocument.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0.5"/>
+                            </Style>
+                        </FlowDocument.Resources>
+                    </FlowDocument>
+                </FlowDocumentReader>
+            </TabItem>
+            <TabItem x:Name="Translated_TabItem" Header="Translated">
+                <FlowDocumentReader x:Name="Translated_FDR" ViewingMode="Scroll" BorderThickness="1" BorderBrush="#FF939393" IsTwoPageViewEnabled="False" IsPageViewEnabled="False">
+                    <FlowDocument Name="Translated_FLOW" PagePadding="5" TextAlignment="Left" Background="Black" Foreground="White" ColumnWidth="99999">
+                        <FlowDocument.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0.5"/>
+                            </Style>
+                        </FlowDocument.Resources>
+                    </FlowDocument>
+                </FlowDocumentReader>
+            </TabItem>
+            <TabItem x:Name="Debug_TabItem" Header="Debug" Visibility="{Binding Source={x:Static me:Settings.Default}, Path=Gui_DebugVisibility, Mode=TwoWay}">
+                <FlowDocumentReader x:Name="Debug_FDR" ViewingMode="Scroll" BorderThickness="1" BorderBrush="#FF939393" IsTwoPageViewEnabled="False" IsPageViewEnabled="False">
+                    <FlowDocument Name="Debug_FLOW" PagePadding="5" TextAlignment="Left" Background="Black" Foreground="White" ColumnWidth="99999">
+                        <FlowDocument.Resources>
+                            <Style TargetType="{x:Type Paragraph}">
+                                <Setter Property="Margin" Value="0.5"/>
+                            </Style>
+                        </FlowDocument.Resources>
+                    </FlowDocument>
+                </FlowDocumentReader>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

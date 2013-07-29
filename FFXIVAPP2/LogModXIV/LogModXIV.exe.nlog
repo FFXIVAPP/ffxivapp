@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <targets async="true">
+    <target xsi:type="NLogViewer" name="viewer"
+            includeSourceInfo="true" includeCallSite="true"
+            includeMdc="true" includeNdc ="true"
+            includeNLogData="true"
+            address="udp://127.0.0.1:9993" />
+    <target xsi:type="File" name="f" fileName="${basedir}/Logs/Errors/LogMod_BugReport-${date:format=yyyy-MM-dd}.log"
+            layout="${longdate} ${message}" />
+  </targets>
+  <rules>
+    <logger name="*" minlevel="Trace" writeTo="viewer" />
+    <logger name="*" level="Error" writeTo="f" />
+  </rules>
+</nlog>

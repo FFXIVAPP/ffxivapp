@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="ParseModXIV.View.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:me="clr-namespace:ParseModXIV"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:View="clr-namespace:ParseModXIV.View"
+             mc:Ignorable="d">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Paragraph}">
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+            <Style TargetType="{x:Type Bold}">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </Grid.Resources>
+        <TabControl VirtualizingStackPanel.IsVirtualizing="True">
+            <TabItem Header="{DynamicResource loc_about_about}">
+                <ScrollViewer>
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                        <FlowDocumentScrollViewer Margin="10"
+                                                  VerticalScrollBarVisibility="Auto">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Copyright:</Bold>
+                                </Paragraph>
+                                <Paragraph>Created by Ryan Wilson.</Paragraph>
+                                <Paragraph>Copyright (c) 2010-2012, Ryan Wilson. All rights reserved.</Paragraph>
+                                <Paragraph>
+                                    <Bold>Features:</Bold>
+                                </Paragraph>
+                                <List>
+                                    <ListItem>
+                                        <Paragraph>Parses all of your combat log, including damage, Healing, monsters killed, and your party member's stats.</Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>Save the log as an .xml to view later!</Paragraph>
+                                    </ListItem>
+                                </List>
+                                <Paragraph>
+                                    <Bold>Tabs:</Bold>
+                                </Paragraph>
+                                <List>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Basic: This tab shows all party members, along with character
+                                            icons, shows accuracy and overall damage.
+                                        </Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Chatlog: This tab shows the monster's abilities,
+                                            just as they are shown in your in-game battle log.
+                                        </Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Party: Shows the character's name, total damage, DPS(Damage
+                                            Per Second) and anything else you want to know about your damage.
+                                        </Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Healing: Character's name, total healed, HPS (Healed
+                                            Per Second), % of heal and more!
+                                        </Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Damage: This tab has all of the information on everyone's
+                                            damage, ranging from high crit's, to total damage, anything
+                                            you wanna know, will be in this tab.
+                                        </Paragraph>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Paragraph>
+                                            Monster: This tab shows monster's name, how many you
+                                            have killed and infortmation on the monsters damage and hp.
+                                        </Paragraph>
+                                    </ListItem>
+                                </List>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource loc_about_credits}">
+                <ScrollViewer>
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                        <FlowDocumentScrollViewer Margin="10"
+                                                  VerticalScrollBarVisibility="Auto">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Coming Soon!</Bold>
+                                </Paragraph>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource loc_about_contact}">
+                <ScrollViewer>
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                        <FlowDocumentScrollViewer Margin="10"
+                                                  VerticalScrollBarVisibility="Auto">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Email:</Bold>
+                                    webmaster@ffxiv-app.com
+                                </Paragraph>
+                                <Paragraph>
+                                    <Bold>Google+:</Bold>
+                                    https://plus.google.com/108472664586959809497/
+                                </Paragraph>
+                                <Paragraph>
+                                    <Bold>Twitter:</Bold>
+                                    http://twitter.com/#!/FFXIVAPP
+                                </Paragraph>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{DynamicResource loc_about_changelog}">
+                <ScrollViewer>
+                    <Grid Width="{Binding Path=Width, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=View:MainView, AncestorLevel=1}}">
+                        <FlowDocumentScrollViewer Margin="10"
+                                                  VerticalScrollBarVisibility="Auto">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Bold>Coming Soon!</Bold>
+                                </Paragraph>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
