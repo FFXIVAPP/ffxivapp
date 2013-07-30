@@ -53,6 +53,11 @@
                                 <Module>FFXIVAPP.Plugin.Event.dll</Module>
                                 <Namespace>FFXIVAPP.Plugin.Event.Views</Namespace>
                             </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Plugin.Event</Assembly>
+                                <Module>FFXIVAPP.Plugin.Event.dll</Module>
+                                <Namespace>FFXIVAPP.Plugin.Event.Utilities</Namespace>
+                            </Token>
                         </Exclusion>
                     </Obfuscation>
                     <ControlFlow Obfuscate="1" ObfuscationLevel="4" />

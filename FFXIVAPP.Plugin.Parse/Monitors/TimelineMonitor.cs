@@ -123,6 +123,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot", e);
                 return;
             }
+            if (!ParseControl.Instance.Timeline.FightingRightNow)
+            {
+                ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastFiveSeconds", e);
+                return;
+            }
             var thing = StringHelper.TitleCase(matches.Groups["item"].Value);
             AttachDropToMonster(thing);
         }

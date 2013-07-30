@@ -131,7 +131,6 @@
     <Compile Include="Controls\xMetroPopup.xaml.cs">
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />

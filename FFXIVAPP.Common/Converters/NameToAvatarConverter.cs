@@ -22,7 +22,7 @@ using HtmlAgilityPack;
 
 #endregion
 
-namespace FFXIVAPP.Plugin.Parse.Converters
+namespace FFXIVAPP.Common.Converters
 {
     public class NameToAvatarConverter : IMultiValueConverter
     {

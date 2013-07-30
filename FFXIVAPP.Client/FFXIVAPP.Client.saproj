@@ -88,6 +88,11 @@
                                 <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Localization</Namespace>
                             </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Windows</Namespace>
+                            </Token>
                         </Exclusion>
                     </Obfuscation>
                     <ControlFlow Obfuscate="1" ObfuscationLevel="4" />

@@ -13,7 +13,7 @@ using System.Windows.Data;
 
 #endregion
 
-namespace FFXIVAPP.Client.Converters
+namespace FFXIVAPP.Common.Converters
 {
     public class TabStripBorderConverter : IValueConverter
     {

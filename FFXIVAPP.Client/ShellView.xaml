@@ -8,7 +8,6 @@
                            xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
                            xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
                            xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
-                           xmlns:converters="clr-namespace:FFXIVAPP.Client.Converters"
                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -53,7 +52,7 @@
                 <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Converters:VisibilityConverter x:Key="VisibilityConverter" />
-            <converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />
+            <Converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />
         </ResourceDictionary>
     </MetroControls:MetroWindow.Resources>
 
@@ -106,11 +105,11 @@
             </i:Interaction.Behaviors>
         </Controls:PopupNonTopmost>
         <TabControl x:Name="ShellViewTC"
-                                                        BorderThickness="{Binding TabStripPlacement,
-                                                                                  Converter={StaticResource TabStripBorderConverter},
-                                                                                  RelativeSource={RelativeSource Self}}"
-                                                        TabStripPlacement="Left"
-                                                        Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}">
+                    BorderThickness="{Binding TabStripPlacement,
+                                              Converter={StaticResource TabStripBorderConverter},
+                                              RelativeSource={RelativeSource Self}}"
+                    TabStripPlacement="Left"
+                    Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}">
             <TabControl.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource AccentColor}" />
             </TabControl.BorderBrush>
@@ -137,13 +136,13 @@
                                              Source={StaticResource AppProperties}}" />
                 </TabItem.Header>
                 <TabControl x:Name="PluginsTC"
-                                                                Margin="10 0 10 10"
-                                                                BorderThickness="{Binding TabStripPlacement,
-                                                                                          Converter={StaticResource TabStripBorderConverter},
-                                                                                          RelativeSource={RelativeSource Self}}"
-                                                                ItemsSource="{Binding PluginTabItems,
-                                                                                      Source={StaticResource AppProperties}}"
-                                                                Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
+                            Margin="10 0 10 10"
+                            BorderThickness="{Binding TabStripPlacement,
+                                                      Converter={StaticResource TabStripBorderConverter},
+                                                      RelativeSource={RelativeSource Self}}"
+                            ItemsSource="{Binding PluginTabItems,
+                                                  Source={StaticResource AppProperties}}"
+                            Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
                     <TabControl.BorderBrush>
                         <SolidColorBrush Color="{DynamicResource AccentColor}" />
                     </TabControl.BorderBrush>

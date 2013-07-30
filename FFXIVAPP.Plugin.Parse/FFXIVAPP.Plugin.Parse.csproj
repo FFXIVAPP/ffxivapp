@@ -113,7 +113,6 @@
     <Compile Include="Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Helpers\ArmoryHelper.cs" />
     <Compile Include="Helpers\DamageOverTimeHelper.cs" />
     <Compile Include="Models\DamageOverTime.cs" />

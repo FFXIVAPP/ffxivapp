@@ -95,7 +95,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             /// <param name="elapsedEventArgs"></param>
             private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
             {
-                if (CurrentTick < TotalTicks)
+                if (CurrentTick < TotalTicks && ParseControl.Instance.Timeline.FightingRightNow)
                 {
                     Line.Amount = Math.Ceiling(TickDamage);
                     DispatcherHelper.Invoke(delegate

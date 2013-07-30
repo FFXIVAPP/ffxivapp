@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Timers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models.Fights;
@@ -60,6 +61,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
 
         #region Declarations
 
+        private Timer FightingTimer = new Timer(5000);
+
         #endregion
 
         /// <summary>
@@ -77,6 +80,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             {
                 IncludeSelf = false
             };
+            FightingTimer.Elapsed += FightingTimerOnElapsed;
+        }
+
+        private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            FightingRightNow = false;
+            FightingTimer.Stop();
         }
 
         /// <summary>
@@ -146,6 +156,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                             fighting = new Fight(mobName);
                             Fights.Add(fighting);
                         }
+                        FightingTimer.Stop();
                         FightingRightNow = true;
                         break;
                     case TimelineEventType.MobKilled:
@@ -157,7 +168,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         }
                         GetSetMob(mobName)
                             .SetKill(killed);
-                        FightingRightNow = false;
+                        FightingTimer.Start();
                         break;
                 }
             }

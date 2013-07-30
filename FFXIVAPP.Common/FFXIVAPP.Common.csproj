@@ -51,9 +51,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -70,7 +69,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\MahApps.Metro\MahApps.Metro\bin\Release\NET45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -85,7 +84,9 @@
     </Compile>
     <Compile Include="Converters\BooleanToWidthConverter.cs" />
     <Compile Include="Converters\IconConverter.cs" />
+    <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Converters\StringToBrushConverter.cs" />
+    <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Events\PopupResultEvent.cs" />
     <Compile Include="Helpers\BindingHelper.cs" />
