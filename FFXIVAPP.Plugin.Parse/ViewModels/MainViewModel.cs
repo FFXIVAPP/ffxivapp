@@ -82,7 +82,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                 var sampleXml = XDocument.Load(openFileDialog.FileName);
                 var items = new Dictionary<int, string[]>();
                 foreach (var xElement in sampleXml.Descendants()
-                                                  .Elements("Entry"))
+                    .Elements("Entry"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xLine = (string) xElement.Element("Line");
@@ -168,7 +168,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
             overallStats.Add("Stats", ParseControl.Instance.Timeline.Overall.Stats.ToDictionary(s => s.Name, s => s.Value));
             var partyTimeline = ParseControl.Instance.Timeline.Party;
             var playerNames = partyTimeline.Select(p => p.Name)
-                                           .ToList();
+                .ToList();
             foreach (var playerName in playerNames)
             {
                 var player = partyTimeline.GetGroup(playerName);
@@ -209,7 +209,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                         },
                         {
                             "Abilities", playerMonster.GetGroup("Abilities")
-                                                      .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                                .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
@@ -228,7 +228,7 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                         },
                         {
                             "Abilities", playerPlayer.GetGroup("Abilities")
-                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                                .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
@@ -242,14 +242,14 @@ namespace FFXIVAPP.Plugin.Parse.ViewModels
                         },
                         {
                             "Abilities", playerDamage.GetGroup("Abilities")
-                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+                                .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
             }
             var monsterTimeline = ParseControl.Instance.Timeline.Monster;
             var monsterNames = monsterTimeline.Select(p => p.Name)
-                                              .ToList();
+                .ToList();
             foreach (var monsterName in monsterNames)
             {
                 var monster = monsterTimeline.GetGroup(monsterName);

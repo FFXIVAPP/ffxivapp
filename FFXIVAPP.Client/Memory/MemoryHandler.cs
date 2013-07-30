@@ -203,10 +203,7 @@ namespace FFXIVAPP.Client.Memory
             try
             {
                 var modules = GetModules(process);
-                return (from module in modules
-                        let baseAddress = module.BaseAddress.ToInt32()
-                        where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address)
-                        select module).FirstOrDefault();
+                return (from module in modules let baseAddress = module.BaseAddress.ToInt32() where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address) select module).FirstOrDefault();
             }
             catch
             {
@@ -223,7 +220,7 @@ namespace FFXIVAPP.Client.Memory
         {
             var modCol = process.Modules;
             foreach (var procMod in modCol.Cast<ProcessModule>()
-                                          .Where(procMod => procMod.FileName == file))
+                .Where(procMod => procMod.FileName == file))
             {
                 return procMod.BaseAddress.ToInt32();
             }
@@ -239,7 +236,7 @@ namespace FFXIVAPP.Client.Memory
         {
             var modCol = process.Modules;
             foreach (var procMod in modCol.Cast<ProcessModule>()
-                                          .Where(procMod => procMod.FileName == file))
+                .Where(procMod => procMod.FileName == file))
             {
                 return procMod.BaseAddress.ToInt32() + procMod.ModuleMemorySize;
             }

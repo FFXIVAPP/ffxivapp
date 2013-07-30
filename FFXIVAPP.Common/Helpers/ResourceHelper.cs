@@ -34,8 +34,8 @@ namespace FFXIVAPP.Common.Helpers
         public static string StringResource(object source, string field)
         {
             return (string) source.GetType()
-                                  .GetField(field)
-                                  .GetValue(null);
+                .GetField(field)
+                .GetValue(null);
         }
 
         /// <summary>

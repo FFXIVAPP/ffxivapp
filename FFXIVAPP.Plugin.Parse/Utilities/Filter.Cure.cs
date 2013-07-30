@@ -79,7 +79,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 _lastPlayer = line.Source;
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                            .SetHealing(line);
+                    .SetHealing(line);
             }
             catch (Exception ex)
             {

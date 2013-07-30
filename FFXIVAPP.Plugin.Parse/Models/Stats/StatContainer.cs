@@ -177,7 +177,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
         public decimal GetStatValue(string name)
         {
             return HasStat(name) ? GetStat(name)
-                                       .Value : -1;
+                .Value : -1;
         }
 
         public void IncrementStat(string name, decimal value = 1)

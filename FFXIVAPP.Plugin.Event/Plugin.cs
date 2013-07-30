@@ -132,8 +132,8 @@ namespace FFXIVAPP.Plugin.Event
             };
             //do your gui stuff here
             var files = Directory.GetFiles(Constants.BaseDirectory)
-                                 .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
-                                 .Select(file => new FileInfo(file));
+                .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
+                .Select(file => new FileInfo(file));
             foreach (var file in files)
             {
                 PluginViewModel.Instance.SoundFiles.Add(file.Name);
@@ -148,8 +148,8 @@ namespace FFXIVAPP.Plugin.Event
             content.Loaded += ShellViewModel.Loaded;
             //do your gui stuff here
             var files = Directory.GetFiles(Constants.BaseDirectory)
-                                 .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
-                                 .Select(file => new FileInfo(file));
+                .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))
+                .Select(file => new FileInfo(file));
             foreach (var file in files)
             {
                 PluginViewModel.Instance.SoundFiles.Add(file.Name);

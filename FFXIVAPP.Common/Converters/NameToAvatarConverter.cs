@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Common
 // NameToAvatarConverter.cs
 //  
 // Created by Ryan Wilson.
@@ -26,7 +26,7 @@ namespace FFXIVAPP.Common.Converters
 {
     public class NameToAvatarConverter : IMultiValueConverter
     {
-        private const string DefaultAvatar = Common.Constants.DefaultAvatar;
+        private const string DefaultAvatar = Constants.DefaultAvatar;
         private bool _cachingEnabled = true;
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace FFXIVAPP.Common.Converters
                 {
                     var location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     var applicationName = Assembly.GetEntryAssembly()
-                                                  .GetName()
-                                                  .Name;
+                        .GetName()
+                        .Name;
                     return Path.Combine(location, applicationName, "./Avatars/");
                 }
                 catch
@@ -115,12 +115,12 @@ namespace FFXIVAPP.Common.Converters
                     try
                     {
                         var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
-                                            .OuterHtml;
+                            .OuterHtml;
                         var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                         var imageUrl = src.Match(htmlSource)
-                                          .Groups["image"].Value;
+                            .Groups["image"].Value;
                         imageUrl = imageUrl.Substring(0, imageUrl.IndexOf('?'))
-                                           .Replace("50x50", "96x96");
+                            .Replace("50x50", "96x96");
                         image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
                         {
                             var imageUri = imageUrl;

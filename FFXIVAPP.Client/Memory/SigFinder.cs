@@ -222,8 +222,10 @@ namespace FFXIVAPP.Client.Memory
         }
 
         /// <summary>
-        ///     Searches the buffer for the given hex string and returns the pointer matching the first wildcard location, or the pointer following the pattern if not using wildcards.
-        ///     Prefix with &lt;&lt; to always return the pointer preceding the match or &gt;&gt; to always return the pointer following (regardless of wildcards)
+        ///     Searches the buffer for the given hex string and returns the pointer matching the first wildcard location, or the
+        ///     pointer following the pattern if not using wildcards.
+        ///     Prefix with &lt;&lt; to always return the pointer preceding the match or &gt;&gt; to always return the pointer
+        ///     following (regardless of wildcards)
         /// </summary>
         /// <param name="buffer">The source binary buffer to search within</param>
         /// <param name="signature">A hex string representation of a sequence of bytes to search for</param>
@@ -278,7 +280,10 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>Backward Nondeterministic Dawg Matching search algorithm</summary>
         /// <param name="buffer">The haystack to search within</param>
         /// <param name="pattern">The needle to locate</param>
-        /// <param name="wildcard">The byte to treat as a wildcard character. Note that this only matches one char for one char and does not expand.</param>
+        /// <param name="wildcard">
+        ///     The byte to treat as a wildcard character. Note that this only matches one char for one char and
+        ///     does not expand.
+        /// </param>
         /// <returns>The index the pattern was found at, or -1 if not found</returns>
         private static int BNDM(byte[] buffer, byte[] pattern, byte wildcard)
         {

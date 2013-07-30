@@ -1,4 +1,4 @@
-// FFXIVAPP.Client
+// FFXIVAPP.Common
 // TabStripBorderConverter.cs
 //  
 // Created by Ryan Wilson.

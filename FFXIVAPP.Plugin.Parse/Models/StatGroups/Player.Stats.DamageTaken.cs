@@ -24,7 +24,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
-                             .GetProperties();
+                .GetProperties();
             var abilityGroup = GetGroup("DamageTakenByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
@@ -108,7 +108,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.IncrementStat("DamageTakenRegMiss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
-                                       .Where(stat => Equals(stat.GetValue(line), true)))
+                .Where(stat => Equals(stat.GetValue(line), true)))
             {
                 var regStat = String.Format("DamageTaken{0}", stat.Name);
                 Stats.IncrementStat(regStat);

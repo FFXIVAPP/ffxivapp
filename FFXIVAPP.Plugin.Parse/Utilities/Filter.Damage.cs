@@ -140,9 +140,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 _lastPlayer = line.Source;
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                            .SetDamageTaken(line);
+                    .SetDamageTaken(line);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                            .SetDamage(line);
+                    .SetDamage(line);
             }
             catch (Exception ex)
             {
@@ -180,9 +180,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 _lastPlayer = line.Target;
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
-                            .SetDamageTaken(line);
+                    .SetDamageTaken(line);
                 ParseControl.Instance.Timeline.GetSetMob(line.Source)
-                            .SetDamage(line);
+                    .SetDamage(line);
             }
             catch (Exception ex)
             {

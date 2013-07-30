@@ -70,7 +70,7 @@ namespace FFXIVAPP.Common.ViewModelBase
                 return;
             }
             foreach (var handler in handlers.Select(handlerRef => handlerRef.Target)
-                                            .OfType<EventHandler>())
+                .OfType<EventHandler>())
             {
                 CommandManager.RequerySuggested += handler;
             }
@@ -86,7 +86,7 @@ namespace FFXIVAPP.Common.ViewModelBase
                 return;
             }
             foreach (var handler in handlers.Select(handlerRef => handlerRef.Target)
-                                            .OfType<EventHandler>())
+                .OfType<EventHandler>())
             {
                 CommandManager.RequerySuggested -= handler;
             }

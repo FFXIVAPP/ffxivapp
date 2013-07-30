@@ -178,10 +178,10 @@ namespace FFXIVAPP.Plugin.Parse.Models.Stats
                     continue;
                 }
                 var constructorInfo = linkedStat.GetType()
-                                                .GetConstructor(new[]
-                                                {
-                                                    typeof (String)
-                                                });
+                    .GetConstructor(new[]
+                    {
+                        typeof (String)
+                    });
                 if (constructorInfo == null)
                 {
                     continue;

@@ -146,7 +146,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         break;
                     case TimelineEventType.MobFighting:
                         if (mobName != null && (mobName.ToLower()
-                                                       .Contains("target") || mobName == ""))
+                            .Contains("target") || mobName == ""))
                         {
                             break;
                         }
@@ -185,7 +185,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             {
                 var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
                 var dotActionList = playerInstance.DamageOverTimeActions.Select(d => d.Key)
-                                                  .ToList();
+                    .ToList();
                 foreach (var action in dotActionList)
                 {
                     playerInstance.DamageOverTimeActions[action].Dispose();

@@ -40,7 +40,7 @@ namespace FFXIVAPP.Plugin.Event
             get
             {
                 var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
+                    .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyTitleAttribute) att[0]).Title;
             }
         }
@@ -50,7 +50,7 @@ namespace FFXIVAPP.Plugin.Event
             get
             {
                 var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
+                    .GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyDescriptionAttribute) att[0]).Description;
             }
         }
@@ -60,7 +60,7 @@ namespace FFXIVAPP.Plugin.Event
             get
             {
                 var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
+                    .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
             }
         }
@@ -70,8 +70,8 @@ namespace FFXIVAPP.Plugin.Event
             get
             {
                 return Assembly.GetCallingAssembly()
-                               .GetName()
-                               .Version;
+                    .GetName()
+                    .Version;
             }
         }
 

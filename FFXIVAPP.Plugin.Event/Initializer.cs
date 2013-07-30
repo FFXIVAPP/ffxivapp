@@ -34,7 +34,7 @@ namespace FFXIVAPP.Plugin.Event
             if (Constants.XSettings != null)
             {
                 foreach (var xElement in Constants.XSettings.Descendants()
-                                                  .Elements("Setting"))
+                    .Elements("Setting"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -58,7 +58,7 @@ namespace FFXIVAPP.Plugin.Event
             if (Constants.XSettings != null)
             {
                 foreach (var xElement in Constants.XSettings.Descendants()
-                                                  .Elements("Event"))
+                    .Elements("Event"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");

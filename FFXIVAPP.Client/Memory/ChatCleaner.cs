@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Memory
         {
             jp = false;
             var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                                  .Replace("  ", " ");
+                .Replace("  ", " ");
             try
             {
                 var autoTranslateList = new List<byte>();
@@ -130,7 +130,7 @@ namespace FFXIVAPP.Client.Memory
                             autoTranslateList.Add(Convert.ToByte(']'));
                             string aCheckStr;
                             var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
-                                                             .ToArray();
+                                .ToArray();
                             if (!Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
                             {
                                 aCheckStr = "";
@@ -157,8 +157,8 @@ namespace FFXIVAPP.Client.Memory
                 }
                 var jpc = (ci.TwoLetterISOLanguageName == "ja");
                 var cleaned = jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                                               .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
-                                                                                .Replace("  ", " ");
+                    .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
+                        .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
                 cleaned = cleaned.Replace("", "⇒");

@@ -47,7 +47,7 @@ namespace FFXIVAPP.Plugin.Event.Utilities
                         continue;
                     }
                     var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != line)
-                                               .Count();
+                        .Count();
                     SoundPlayerHelper.Play(Constants.BaseDirectory, PluginViewModel.Instance.Events[index].Value);
                 }
             }

@@ -48,8 +48,8 @@ namespace FFXIVAPP.Plugin.Log.Properties
                 var flowDoc = (xFlowDocument) tabItem.Content;
                 var xKey = tabItem.Header.ToString();
                 var xValue = flowDoc.Codes.Items.Cast<object>()
-                                    .Aggregate("", (c, code) => c + "," + code)
-                                    .Substring(1);
+                    .Aggregate("", (c, code) => c + "," + code)
+                    .Substring(1);
                 var xRegularExpression = flowDoc.RegEx.Text;
                 var keyPairList = new List<XValuePair>();
                 keyPairList.Add(new XValuePair
@@ -130,7 +130,7 @@ namespace FFXIVAPP.Plugin.Log.Properties
             try
             {
                 var type = Default[key].GetType()
-                                       .Name;
+                    .Name;
                 switch (type)
                 {
                     case "Boolean":

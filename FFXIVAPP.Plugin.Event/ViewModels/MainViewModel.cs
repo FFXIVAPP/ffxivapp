@@ -65,7 +65,7 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             var type = listView.SelectedItem.GetType();
             var property = type.GetProperty(key);
             return property.GetValue(listView.SelectedItem, null)
-                           .ToString();
+                .ToString();
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             else
             {
                 var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != selectedKey)
-                                           .Count();
+                    .Count();
                 PluginViewModel.Instance.Events[index] = valuePair;
             }
             MainView.View.Events.UnselectAll();
@@ -127,7 +127,7 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
                 return;
             }
             var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != selectedKey)
-                                       .Count();
+                .Count();
             PluginViewModel.Instance.Events.RemoveAt(index);
         }
 

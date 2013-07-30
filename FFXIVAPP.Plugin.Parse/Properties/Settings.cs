@@ -347,7 +347,7 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             try
             {
                 var type = Default[key].GetType()
-                                       .Name;
+                    .Name;
                 switch (type)
                 {
                     case "Boolean":

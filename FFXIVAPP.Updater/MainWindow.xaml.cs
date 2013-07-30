@@ -103,7 +103,7 @@ namespace FFXIVAPP.Updater
         private void WebClientOnDownloadFileCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs)
         {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-                                                     .Location);
+                .Location);
             CleanupTemporary(path);
             using (var zip = ZipFile.Read(ZipFileName))
             {

@@ -26,8 +26,8 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
-using NLog;
 using Newtonsoft.Json.Linq;
+using NLog;
 
 #endregion
 
@@ -58,7 +58,7 @@ namespace FFXIVAPP.Client
             if (Constants.XChatCodes != null)
             {
                 foreach (var xElement in Constants.XChatCodes.Descendants()
-                                                  .Elements("Code"))
+                    .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xDescription = (string) xElement.Element("Description");
@@ -79,7 +79,7 @@ namespace FFXIVAPP.Client
             if (Constants.XAutoTranslate != null)
             {
                 foreach (var xElement in Constants.XAutoTranslate.Descendants()
-                                                  .Elements("Code"))
+                    .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
@@ -100,7 +100,7 @@ namespace FFXIVAPP.Client
             if (Constants.XColors != null)
             {
                 foreach (var xElement in Constants.XColors.Descendants()
-                                                  .Elements("Color"))
+                    .Elements("Color"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -112,7 +112,7 @@ namespace FFXIVAPP.Client
                     if (Constants.ChatCodes.ContainsKey(xKey))
                     {
                         if (xDescription.ToLower()
-                                        .Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
+                            .Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
                         {
                             xDescription = Constants.ChatCodes[xKey];
                         }
@@ -186,8 +186,8 @@ namespace FFXIVAPP.Client
                 {
                 }
                 var current = Assembly.GetExecutingAssembly()
-                                      .GetName()
-                                      .Version.ToString();
+                    .GetName()
+                    .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
                 var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
                 request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
@@ -354,9 +354,9 @@ namespace FFXIVAPP.Client
             }
             SettingsView.View.PIDSelect.SelectedIndex = 0;
             PID(Constants.ProcessIDs.First()
-                         .Id);
+                .Id);
             return Constants.ProcessIDs.First()
-                            .Id;
+                .Id;
         }
 
         /// <summary>

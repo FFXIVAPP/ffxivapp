@@ -39,7 +39,7 @@ namespace FFXIVAPP.Plugin.Parse
             if (Constants.XSettings != null)
             {
                 foreach (var xElement in Constants.XSettings.Descendants()
-                                                  .Elements("Setting"))
+                    .Elements("Setting"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -65,7 +65,7 @@ namespace FFXIVAPP.Plugin.Parse
                 return;
             }
             foreach (var xElement in Constants.XRegEx.Descendants()
-                                              .Elements("Player"))
+                .Elements("Player"))
             {
                 var xKey = (string) xElement.Attribute("Key");
                 var xLanguage = (string) xElement.Attribute("Language");
@@ -270,7 +270,7 @@ namespace FFXIVAPP.Plugin.Parse
                 return;
             }
             foreach (var xElement in Constants.XRegEx.Descendants()
-                                              .Elements("Monster"))
+                .Elements("Monster"))
             {
                 var xKey = (string) xElement.Attribute("Key");
                 var xLanguage = (string) xElement.Attribute("Language");
