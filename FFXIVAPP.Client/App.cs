@@ -194,7 +194,7 @@ namespace FFXIVAPP.Client
                     LocaleHelper.Update(Settings.Default.Culture);
                     break;
                 case "ServerName":
-                    Constants.ServerName = Settings.Default.ServerName;
+                    Common.Constants.ServerName = Constants.ServerName = Settings.Default.ServerName;
                     break;
                 case "EnableNLog":
                     Common.Constants.EnableNLog = Settings.Default.EnableNLog;

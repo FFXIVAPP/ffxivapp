@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:FFXIVAPP.Common.Controls;assembly=FFXIVAPP.Common"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
@@ -10,7 +11,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:oxy="http://oxyplot.codeplex.com"
-             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -90,6 +90,7 @@
                                       Source={StaticResource PluginViewModel}}">
                 <Image Width="16"
                        Height="16"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
             </Button>
             <!--

@@ -67,6 +67,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Donations.png"
                            ToolTip="Donations" />
                 </StackPanel>
@@ -76,6 +77,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Save.png"
                            ToolTip="{Binding Locale[app_SaveAndClearHistoryToolTip],
                                              Source={StaticResource AppProperties}}" />
@@ -86,6 +88,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/ScreenShot.png"
                            ToolTip="{Binding Locale[app_ScreenShotToolTip],
                                              Source={StaticResource AppProperties}}" />
@@ -117,6 +120,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
                            ToolTip="{Binding Locale[app_MainToolTip],
                                              Source={StaticResource AppProperties}}" />
@@ -131,6 +135,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
                            ToolTip="{Binding Locale[app_PluginsToolTip],
                                              Source={StaticResource AppProperties}}" />
@@ -152,6 +157,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
                            ToolTip="{Binding Locale[app_SettingsToolTip],
                                              Source={StaticResource AppProperties}}" />
@@ -163,6 +169,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
                            ToolTip="{Binding Locale[app_AboutToolTip],
                                              Source={StaticResource AppProperties}}" />

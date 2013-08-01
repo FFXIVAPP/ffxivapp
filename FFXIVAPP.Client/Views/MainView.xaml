@@ -13,6 +13,7 @@
             <StackPanel Margin="10 0 10 10">
                 <Image HorizontalAlignment="Center"
                        VerticalAlignment="Top"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/Header.png"
                        Stretch="None" />
                 <WebBrowser x:Name="GoogleAnalytics"

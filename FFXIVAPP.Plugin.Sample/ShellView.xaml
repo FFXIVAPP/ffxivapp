@@ -25,6 +25,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Sample;component/Media/Images/Main.png"
                            ToolTip="{Binding Locale[app_MainToolTip],
                                              Source={StaticResource PluginViewModel}}" />
@@ -35,6 +36,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Sample;component/Media/Images/Settings.png"
                            ToolTip="{Binding Locale[app_SettingsToolTip],
                                              Source={StaticResource PluginViewModel}}" />
@@ -45,6 +47,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Sample;component/Media/Images/About.png"
                            ToolTip="{Binding Locale[app_AboutToolTip],
                                              Source={StaticResource PluginViewModel}}" />

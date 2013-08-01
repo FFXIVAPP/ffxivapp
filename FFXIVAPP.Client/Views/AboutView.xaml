@@ -61,6 +61,7 @@
                        Grid.Column="2"
                        Width="40"
                        Height="40"
+                       RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/FFXIVAPP.png">
                     <Image.Effect>
                         <DropShadowEffect BlurRadius="3"
@@ -137,6 +138,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Width="20"
                                Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Donations.png">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="3"
@@ -147,6 +149,7 @@
                         </Image>
                         <Image Width="20"
                                Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Sponsors/SadBomb.png">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="3"
@@ -162,6 +165,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Width="20"
                                Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Donations.png">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="3"
@@ -172,6 +176,7 @@
                         </Image>
                         <Image Width="20"
                                Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Sponsors/Blank.png">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="3"

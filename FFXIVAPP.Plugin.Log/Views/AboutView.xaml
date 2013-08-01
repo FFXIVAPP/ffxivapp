@@ -70,7 +70,8 @@
                        Grid.RowSpan="3"
                        Grid.Column="2"
                        Width="40"
-                       Height="40">
+                       Height="40"
+                       RenderOptions.BitmapScalingMode="HighQuality">
                     <Image.Source>
                         <MultiBinding Converter="{StaticResource IconConverter}">
                             <MultiBinding.Bindings>

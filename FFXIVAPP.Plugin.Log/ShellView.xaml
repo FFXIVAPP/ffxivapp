@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="FFXIVAPP.Plugin.Log.ShellView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Log="clr-namespace:FFXIVAPP.Plugin.Log"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Views="clr-namespace:FFXIVAPP.Plugin.Log.Views"
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:FFXIVAPP.Plugin.Log.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -25,6 +25,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Log;component/Media/Images/Main.png"
                            ToolTip="{Binding Locale[app_MainToolTip],
                                              Source={StaticResource PluginViewModel}}" />
@@ -35,6 +36,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Log;component/Media/Images/Settings.png"
                            ToolTip="{Binding Locale[app_SettingsToolTip],
                                              Source={StaticResource PluginViewModel}}" />
@@ -45,6 +47,7 @@
                 <TabItem.Header>
                     <Image Width="20"
                            Height="20"
+                           RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Plugin.Log;component/Media/Images/About.png"
                            ToolTip="{Binding Locale[app_AboutToolTip],
                                              Source={StaticResource PluginViewModel}}" />

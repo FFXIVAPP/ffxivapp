@@ -2,11 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Parse.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -69,7 +69,8 @@
                        Grid.RowSpan="3"
                        Grid.Column="2"
                        Width="40"
-                       Height="40">
+                       Height="40"
+                       RenderOptions.BitmapScalingMode="HighQuality">
                     <Image.Source>
                         <MultiBinding Converter="{StaticResource IconConverter}">
                             <MultiBinding.Bindings>
