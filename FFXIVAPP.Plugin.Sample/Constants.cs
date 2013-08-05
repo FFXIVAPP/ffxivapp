@@ -33,50 +33,6 @@ namespace FFXIVAPP.Plugin.Sample
 
         #endregion
 
-        #region Assembly Property Bindings
-
-        internal static string PluginName
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyTitleAttribute) att[0]).Title;
-            }
-        }
-
-        internal static string PluginDescription
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyDescriptionAttribute) att[0]).Description;
-            }
-        }
-
-        internal static string PluginCopyright
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                    .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
-            }
-        }
-
-        internal static Version PluginVersion
-        {
-            get
-            {
-                return Assembly.GetCallingAssembly()
-                    .GetName()
-                    .Version;
-            }
-        }
-
-        #endregion
-
         #region Property Bindings
 
         private static XDocument _xSettings;

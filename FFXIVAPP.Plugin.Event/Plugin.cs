@@ -108,11 +108,11 @@ namespace FFXIVAPP.Plugin.Event
 
         public void Initialize()
         {
-            Name = Constants.PluginName;
+            Name = Common.Constants.Name;
             Icon = "Logo.png";
-            Description = Constants.PluginDescription;
-            Copyright = Constants.PluginCopyright;
-            Version = Constants.PluginVersion.ToString();
+            Description = Common.Constants.Description;
+            Copyright = Common.Constants.Copyright;
+            Version = Common.Constants.Version.ToString();
             Notice = "";
         }
 

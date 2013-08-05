@@ -263,6 +263,11 @@ namespace FFXIVAPP.Client
             }
         }
 
+        public string Copyright
+        {
+            get { return Common.Constants.Copyright; }
+        }
+
         public List<Signature> Signatures
         {
             get { return _signatures ?? (_signatures = new List<Signature>()); }

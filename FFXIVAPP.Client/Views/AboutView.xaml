@@ -111,6 +111,9 @@
                                 <Label Content="{Binding Locale[app_CurrentLabel],
                                                          Source={StaticResource AppProperties}}"
                                        Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding Locale[app_CopyrightLabel],
+                                                         Source={StaticResource AppProperties}}"
+                                       Style="{StaticResource LabelStyle}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Margin="5 0">
@@ -121,6 +124,9 @@
                                                          Source={StaticResource AppProperties}}"
                                        Style="{StaticResource LabelStyle}" />
                                 <Label Content="{Binding CurrentVersion,
+                                                         Source={StaticResource AppProperties}}"
+                                       Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding Copyright,
                                                          Source={StaticResource AppProperties}}"
                                        Style="{StaticResource LabelStyle}" />
                             </StackPanel>
