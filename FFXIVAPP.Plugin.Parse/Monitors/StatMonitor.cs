@@ -63,7 +63,6 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             "head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"
         };
 
-
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>

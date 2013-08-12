@@ -734,7 +734,6 @@ namespace FFXIVAPP.Plugin.Parse.Properties
             }
         }
 
-
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]

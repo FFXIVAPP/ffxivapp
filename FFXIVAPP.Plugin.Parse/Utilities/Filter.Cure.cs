@@ -71,7 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 {
                     line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                 }
-                line.Type = Convert.ToString(cure.Groups["type"].Value.ToUpper());
+                line.HpMpTp = Convert.ToString(cure.Groups["type"].Value.ToUpper());
                 if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions && _lastEvent.Type != EventType.Items))
                 {
                     ClearLast(true);

@@ -15,12 +15,36 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Line
     {
+        public int MapID { get; set; }
+        public string ActionType { get; set; }
+        public decimal Amount { get; set; }
+        public decimal Modifier { get; set; }
+        public string HpMpTp { get; set; }
+        public bool Hit { get; set; }
+        public bool Miss { get; set; }
+        public bool Crit { get; set; }
+        public bool Counter { get; set; }
+        public bool Block { get; set; }
+        public bool Parry { get; set; }
+        public bool Resist { get; set; }
+        public bool Evade { get; set; }
+        public string RawLine { get; set; }
+
+        #region Property Backings
+
         private string _action;
         private string _direction;
         private string _job;
         private string _part;
+        private Position _position;
         private string _source;
         private string _target;
+
+        public Position Position
+        {
+            get { return _position ?? (new Position()); }
+            set { _position = value; }
+        }
 
         public string Job
         {
@@ -58,19 +82,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             set { _part = StringHelper.TitleCase(value); }
         }
 
-        public decimal Amount { get; set; }
-        public decimal Modifier { get; set; }
-        public string Type { get; set; }
-        public bool Hit { get; set; }
-        public bool Miss { get; set; }
-        public bool Crit { get; set; }
-        public bool Counter { get; set; }
-        public bool Block { get; set; }
-        public bool Parry { get; set; }
-        public bool Resist { get; set; }
-        public bool Evade { get; set; }
-
-        public string RawLine { get; set; }
+        #endregion
 
         public bool IsEmpty()
         {
