@@ -122,7 +122,7 @@ namespace FFXIVAPP.Client.Memory
                 if (!_offsets.Locations.ContainsKey("CHATLOG"))
                 {
                     _handler.Address = _offsets.Locations["GAMEMAIN"];
-                    _offsets.Locations.Add("CHATLOG", _handler.GetUInt32() + 12);
+                    _offsets.Locations.Add("CHATLOG", _handler.GetUInt32() + 20);
                 }
                 _isScanning = true;
                 _handler.Address = _offsets.Locations["CHATLOG"];

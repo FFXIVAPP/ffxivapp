@@ -317,8 +317,8 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "GAMEMAIN",
-                Value = "47616D654D61696E000000000000000000000000000000000000000000000000",
-                Offset = 1214
+                Value = "47616D654D61696E000000",
+                Offset = 1176
             });
         }
 
