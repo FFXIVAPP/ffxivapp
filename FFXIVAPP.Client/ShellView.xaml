@@ -62,16 +62,6 @@
 
     <MetroControls:MetroWindow.WindowCommands>
         <MetroControls:WindowCommands>
-            <Button x:Name="donations"
-                    Command="{Binding ShowCreditsCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="20"
-                           Height="20"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Donations.png"
-                           ToolTip="Donations" />
-                </StackPanel>
-            </Button>
             <Button x:Name="save"
                     Command="{Binding SaveAndClearHistoryCommand}">
                 <StackPanel Orientation="Horizontal">

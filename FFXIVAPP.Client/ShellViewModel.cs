@@ -1,8 +1,7 @@
 ﻿// FFXIVAPP.Client
 // ShellViewModel.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// 
+// © 2013 Ryan Wilson
 
 #region Usings
 
@@ -37,7 +36,6 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
-        public ICommand ShowCreditsCommand { get; private set; }
         public ICommand SaveAndClearHistoryCommand { get; private set; }
         public ICommand ScreenShotCommand { get; private set; }
         public ICommand UpdateSelectedPluginCommand { get; private set; }
@@ -47,7 +45,6 @@ namespace FFXIVAPP.Client
 
         public ShellViewModel()
         {
-            ShowCreditsCommand = new DelegateCommand(ShowCredits);
             SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
@@ -63,13 +60,6 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Command Bindings
-
-        /// <summary>
-        /// </summary>
-        private static void ShowCredits()
-        {
-            ShellView.View.ShellViewTC.SelectedIndex = 3;
-        }
 
         /// <summary>
         /// </summary>

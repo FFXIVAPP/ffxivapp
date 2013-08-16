@@ -1,8 +1,7 @@
 ﻿// FFXIVAPP.Plugin.Event
 // SettingsView.xaml.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// 
+// © 2013 Ryan Wilson
 
 namespace FFXIVAPP.Plugin.Event.Views
 {

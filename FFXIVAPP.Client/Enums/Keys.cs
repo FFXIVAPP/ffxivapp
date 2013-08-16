@@ -1,8 +1,7 @@
 // FFXIVAPP.Client
 // Keys.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// 
+// © 2013 Ryan Wilson
 
 namespace FFXIVAPP.Client.Enums
 {

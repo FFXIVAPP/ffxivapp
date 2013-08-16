@@ -1,8 +1,7 @@
 ﻿// FFXIVAPP.Client
 // AssemblyInfo.cs
-//  
-// Created by Ryan Wilson.
-// Copyright © 2007-2013 Ryan Wilson - All Rights Reserved
+// 
+// © 2013 Ryan Wilson
 
 #region Usings
 
@@ -21,7 +20,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SyndicatedLife")]
 [assembly: AssemblyProduct("FFXIVAPP.Client")]
-[assembly: AssemblyCopyright("Copyright © 2007-2013 Ryan Wilson")]
+[assembly: AssemblyCopyright("Copyright © 2013 Ryan Wilson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
