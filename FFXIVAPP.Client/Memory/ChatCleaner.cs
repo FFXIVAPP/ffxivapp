@@ -14,6 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -57,6 +58,56 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        /// <summary>
+        /// </summary>
+        /// <param name="line"></param>
+        public ChatCleaner(string line)
+        {
+            // cleanup name if using other settings
+            var playerRegEx = new Regex(@"^( ⇒ )?(?<full>\[[A-Z0-9]{10}(?<first>[A-Z0-9]{3,})20(?<last>[A-Z0-9]{3,})\](?<short>[\w]+\.? [\w]+\.?)\[[A-Z0-9]{12}\])", SharedRegEx.DefaultOptions);
+            var playerMatch = playerRegEx.Match(line);
+            var cleaned = line;
+            if (playerMatch.Success)
+            {
+                var fullName = playerMatch.Groups[1].Value;
+                var firstName = StringHelper.HexToString(playerMatch.Groups[2].Value);
+                var lastName = StringHelper.HexToString(playerMatch.Groups[3].Value);
+                var player = String.Format("{0} {1}", firstName, lastName);
+                // remove double placement
+                cleaned = line.Replace(String.Format("{0}:{1}", fullName, fullName), "");
+                // remove single placement
+                cleaned = cleaned.Replace(fullName, "");
+                switch (Regex.IsMatch(cleaned, @"^([Vv]ous|[Dd]u|[Yy]ou)"))
+                {
+                    case true:
+                        cleaned = cleaned.Substring(1);           
+                        break;
+                    case false:
+                        switch (Regex.IsMatch(cleaned, @"^ ⇒ ([Vv]ous|[Dd]u|[Yy]ou)"))
+                        {
+                            case true:
+                                cleaned = String.Format(" ⇒ {0}{1}", player, cleaned.Substring(3));
+                                break;
+                            case false:
+                                if (cleaned.Contains("⇒"))
+                                {
+                                    cleaned = String.Format(" ⇒ {0}{1}", player, cleaned.Substring(3));
+                                    break;
+                                }
+                                cleaned = String.Format("{0}{1}", player, cleaned);
+                                break;
+                        }
+                        break;
+                }
+            }
+            Result = cleaned;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="ci"></param>
+        /// <param name="jp"></param>
         public ChatCleaner(byte[] bytes, CultureInfo ci, out bool jp)
         {
             Result = Process(bytes, ci, out jp)
@@ -84,34 +135,16 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (bytes[x] == 2)
                     {
-                        if (bytes[x + 1] == 29 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
+                        var byteString = String.Format("{0}{1}{2}{3}", bytes[x], bytes[x + 1], bytes[x + 2], bytes[x + 3]);
+                        switch (byteString)
                         {
-                            x += 4;
-                        }
-                        else if (bytes[x + 1] == 16 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                        {
-                            x += 4;
-                        }
-                        else if (bytes[x + 1] == 22 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                        {
-                            x += 4;
+                            case "22913":
+                            case "21613":
+                            case "22213":
+                                x += 4;
+                                break;
                         }
                     }
-                    //if (Checks.IsMatch(check))
-                    //{
-                    //    if (bytes[x] == 2 && ColorFound == false)
-                    //    {
-                    //        x += 18;
-                    //        ColorFound = true;
-                    //    }
-                    //    else if (bytes[x] == 2 && ColorFound)
-                    //    {
-                    //        x += 10;
-                    //        ColorFound = false;
-                    //    }
-                    //    newList.Add(bytes[x]);
-                    //}
-                    //else
                     if (bytes[x] == 2)
                     {
                         //2 46 5 7 242 2 210 3

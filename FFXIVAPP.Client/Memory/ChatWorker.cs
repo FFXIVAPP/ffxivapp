@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 using Timer = System.Timers.Timer;
 
