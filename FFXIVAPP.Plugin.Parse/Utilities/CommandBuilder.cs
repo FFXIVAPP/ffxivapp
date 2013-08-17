@@ -56,13 +56,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             continue;
                         }
                         foreach (var stats in m.Where(s => s.Name == sub)
-                            .Select(r => r.Stats))
+                                               .Select(r => r.Stats))
                         {
                             results.Add(player.Name, (int) Math.Ceiling(stats.GetStatValue("TotalOverallDamageTaken")));
                         }
                     }
                     temp.AddRange(results.OrderByDescending(i => i.Value)
-                        .Select(item => String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
+                                         .Select(item => String.Format("/{0} ", cm) + item.Key + ": " + item.Value));
                     break;
                 case "show-total":
                     string t;
@@ -76,7 +76,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallDamage"))
-                                .Take(limit))
+                                                       .Take(limit))
                             {
                                 var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallDamage"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
@@ -89,7 +89,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallHealing"))
-                                .Take(limit))
+                                                       .Take(limit))
                             {
                                 var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallHealing"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
@@ -102,7 +102,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderByDescending(i => i.Stats.GetStatValue("TotalOverallDamageTaken"))
-                                .Take(limit))
+                                                       .Take(limit))
                             {
                                 var amount = Math.Ceiling(item.Stats.GetStatValue("TotalOverallDamageTaken"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);
@@ -115,7 +115,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 String.Format("/{0} * {1} *", cm, t)
                             };
                             foreach (var item in ptline.OrderBy(i => Math.Ceiling((decimal) i.GetStatValue("DPS")))
-                                .Take(limit))
+                                                       .Take(limit))
                             {
                                 var amount = Math.Ceiling(item.Stats.GetStatValue("DPS"));
                                 temp.Add(String.Format("/{0} ", cm) + item.Name + ": " + amount);

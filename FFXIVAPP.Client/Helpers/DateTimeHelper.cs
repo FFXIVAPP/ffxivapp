@@ -21,7 +21,7 @@ namespace FFXIVAPP.Client.Helpers
         {
             var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp)
-                .ToLocalTime();
+                                   .ToLocalTime();
             return dtDateTime;
         }
     }

@@ -115,7 +115,7 @@ namespace FFXIVAPP.Client.ViewModels
             var characterName = Settings.Default.CharacterName;
             var serverName = Settings.Default.ServerName;
             if (characterName.Replace(" ", "")
-                .Length < 3 || String.IsNullOrWhiteSpace(serverName))
+                             .Length < 3 || String.IsNullOrWhiteSpace(serverName))
             {
                 return;
             }
@@ -140,10 +140,10 @@ namespace FFXIVAPP.Client.ViewModels
                         try
                         {
                             var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
-                                .OuterHtml;
+                                                .OuterHtml;
                             var CICUID = new Regex(@"(?<cicuid>\d+)/"">" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                             cicuid = CICUID.Match(htmlSource)
-                                .Groups["cicuid"].Value;
+                                           .Groups["cicuid"].Value;
                         }
                         catch (Exception ex)
                         {
@@ -190,9 +190,9 @@ namespace FFXIVAPP.Client.ViewModels
                 return;
             }
             var split = SettingsView.View.Colors.SelectedItem.ToString()
-                .Split(',');
+                                    .Split(',');
             _key = split[0].Trim()
-                .Replace("[", "");
+                           .Replace("[", "");
             _value = Constants.Colors[_key][0];
             SettingsView.View.TCode.Text = _key;
             SettingsView.View.TColor.Text = _value;

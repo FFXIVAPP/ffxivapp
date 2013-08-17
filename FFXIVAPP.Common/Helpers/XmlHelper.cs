@@ -48,16 +48,16 @@ namespace FFXIVAPP.Common.Helpers
         {
             var query = from node in xDoc.Descendants(xNode) select node;
             query.ToList()
-                .ForEach(node => node.Remove());
+                 .ForEach(node => node.Remove());
         }
 
         public static string GetValue(XDocument xDoc, string xElement, string xKey, string xValue)
         {
             var items = xDoc.Descendants()
-                .Elements(xElement)
-                .Where(element => (string) element.Attribute("Key") == xKey);
+                            .Elements(xElement)
+                            .Where(element => (string) element.Attribute("Key") == xKey);
             return (string) items.First()
-                .Element(xValue);
+                                 .Element(xValue);
         }
 
         /// <summary>

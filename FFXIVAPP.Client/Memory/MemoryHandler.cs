@@ -219,7 +219,7 @@ namespace FFXIVAPP.Client.Memory
         {
             var modCol = process.Modules;
             foreach (var procMod in modCol.Cast<ProcessModule>()
-                .Where(procMod => procMod.FileName == file))
+                                          .Where(procMod => procMod.FileName == file))
             {
                 return procMod.BaseAddress.ToInt32();
             }
@@ -235,7 +235,7 @@ namespace FFXIVAPP.Client.Memory
         {
             var modCol = process.Modules;
             foreach (var procMod in modCol.Cast<ProcessModule>()
-                .Where(procMod => procMod.FileName == file))
+                                          .Where(procMod => procMod.FileName == file))
             {
                 return procMod.BaseAddress.ToInt32() + procMod.ModuleMemorySize;
             }

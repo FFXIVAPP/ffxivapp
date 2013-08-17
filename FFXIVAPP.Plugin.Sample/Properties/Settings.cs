@@ -90,7 +90,7 @@ namespace FFXIVAPP.Plugin.Sample.Properties
             try
             {
                 var type = Default[key].GetType()
-                    .Name;
+                                       .Name;
                 switch (type)
                 {
                     case "Boolean":

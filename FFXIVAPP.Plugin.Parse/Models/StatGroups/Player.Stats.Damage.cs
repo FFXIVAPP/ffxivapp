@@ -23,7 +23,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
-                .GetProperties();
+                             .GetProperties();
             var abilityGroup = GetGroup("DamageByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             {
                 LastDamageAmount = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, 50) : 0 : line.Amount;
                 if (DamageOverTimeHelper.PlayerActions()
-                    .ContainsKey(line.Action.ToLower()))
+                                        .ContainsKey(line.Action.ToLower()))
                 {
                     SetupDamageOverTimeAction(line);
                 }
@@ -113,7 +113,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.IncrementStat("DamageRegMiss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
-                .Where(stat => Equals(stat.GetValue(line), true)))
+                                       .Where(stat => Equals(stat.GetValue(line), true)))
             {
                 var regStat = String.Format("Damage{0}", stat.Name);
                 Stats.IncrementStat(regStat);

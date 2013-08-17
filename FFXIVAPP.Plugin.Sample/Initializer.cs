@@ -31,7 +31,7 @@ namespace FFXIVAPP.Plugin.Sample
             if (Constants.XSettings != null)
             {
                 foreach (var xElement in Constants.XSettings.Descendants()
-                    .Elements("Setting"))
+                                                  .Elements("Setting"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");

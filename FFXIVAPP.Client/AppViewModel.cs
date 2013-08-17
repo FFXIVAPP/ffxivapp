@@ -68,7 +68,7 @@ namespace FFXIVAPP.Client
                 if (_notifyIcon == null)
                 {
                     using (var iconStream = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/Media/Icons/FFXIVAPP.ico")
-                        .Stream)
+                                                          .Stream)
                     {
                         _notifyIcon = new NotifyIcon
                         {
@@ -79,7 +79,7 @@ namespace FFXIVAPP.Client
                         _notifyIcon.Text = "FFXIVAPP";
                         var contextMenu = new ContextMenu();
                         contextMenu.MenuItems.Add("&Restore Application")
-                            .Enabled = false;
+                                   .Enabled = false;
                         contextMenu.MenuItems.Add("&Exit");
                         contextMenu.MenuItems[0].Click += NotifyIconOnRestoreClick;
                         contextMenu.MenuItems[1].Click += NotifyIconOnExitClick;
