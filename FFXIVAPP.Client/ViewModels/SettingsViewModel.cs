@@ -88,9 +88,9 @@ namespace FFXIVAPP.Client.ViewModels
         private static void RefreshList()
         {
             SettingsView.View.PIDSelect.Items.Clear();
-            Initializer.StopLogging();
+            Initializer.StopMemoryWorkers();
             Initializer.ResetPID();
-            Initializer.StartLogging();
+            Initializer.StartMemoryWorkers();
         }
 
         /// <summary>

@@ -16,8 +16,5 @@ namespace FFXIVAPP.IPluginInterface
         void Commands(string pluginName, IEnumerable<string> commands);
         void PopupMessage(string pluginName, out bool displayed, object content);
         void GetConstants(string pluginName);
-        void GetPlayerInfo(string pluginName);
-        void GetMapInfo(string pluginName);
-        void GetMonsterInfo(string pluginName);
     }
 }

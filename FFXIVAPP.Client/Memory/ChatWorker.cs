@@ -87,14 +87,14 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        public void StartLogging()
+        public void StartScanning()
         {
             _scanTimer.Enabled = true;
         }
 
         /// <summary>
         /// </summary>
-        public void StopLogging()
+        public void StopScanning()
         {
             _scanTimer.Enabled = false;
         }

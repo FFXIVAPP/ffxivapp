@@ -18,7 +18,7 @@ using System.Text;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class MemoryHandler : INotifyPropertyChanged
+    public class MemoryHandler : INotifyPropertyChanged
     {
         #region Property Bindings
 

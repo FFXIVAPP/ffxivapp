@@ -198,36 +198,6 @@ namespace FFXIVAPP.Client
             //throw new NotImplementedException();
         }
 
-        public void GetPlayerInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            //throw new NotImplementedException();
-        }
-
-        public void GetMapInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            //throw new NotImplementedException();
-        }
-
-        public void GetMonsterInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            //throw new NotImplementedException();
-        }
-
         #endregion
     }
 }

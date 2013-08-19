@@ -43,7 +43,7 @@ namespace FFXIVAPP.Client
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
             Initializer.SetSignatures();
-            Initializer.StartLogging();
+            Initializer.StartMemoryWorkers();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
         }

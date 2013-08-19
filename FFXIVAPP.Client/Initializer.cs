@@ -37,6 +37,7 @@ namespace FFXIVAPP.Client
         #region Declarations
 
         private static ChatWorker _chatWorker;
+        private static NPCWorker _npcWorker;
 
         #endregion
 
@@ -320,6 +321,12 @@ namespace FFXIVAPP.Client
                 Value = "47616D654D61696E000000",
                 Offset = 1176
             });
+            signatures.Add(new Signature
+            {
+                Key = "CHARMAP",
+                Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000", /*????????00000000DB0FC93F6F12833A*/
+                Offset = 68
+            });
         }
 
         /// <summary>
@@ -362,13 +369,13 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void SetPID()
         {
-            StopLogging();
+            StopMemoryWorkers();
             if (SettingsView.View.PIDSelect.Text == "")
             {
                 return;
             }
             PID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
-            StartLogging();
+            StartMemoryWorkers();
         }
 
         /// <summary>
@@ -389,7 +396,7 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        public static void StartLogging()
+        public static void StartMemoryWorkers()
         {
             var id = SettingsView.View.PIDSelect.Text == "" ? GetPID() : Constants.ProcessID;
             Constants.IsOpen = true;
@@ -401,21 +408,27 @@ namespace FFXIVAPP.Client
             var process = Process.GetProcessById(id);
             var offsets = new SigFinder(process, AppViewModel.Instance.Signatures);
             _chatWorker = new ChatWorker(process, offsets);
-            _chatWorker.StartLogging();
+            _chatWorker.StartScanning();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
+            _npcWorker = new NPCWorker(process, offsets);
+            _npcWorker.StartScanning();
+            _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
         }
 
         /// <summary>
         /// </summary>
-        public static void StopLogging()
+        public static void StopMemoryWorkers()
         {
             if (_chatWorker == null)
             {
                 return;
             }
             _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
-            _chatWorker.StopLogging();
+            _chatWorker.StopScanning();
             _chatWorker.Dispose();
+            _npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
+            _npcWorker.StopScanning();
+            _npcWorker.Dispose();
         }
     }
 }

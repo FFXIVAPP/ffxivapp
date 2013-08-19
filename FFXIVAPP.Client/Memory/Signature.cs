@@ -15,6 +15,7 @@ namespace FFXIVAPP.Client.Memory
     {
         public string Key { get; set; }
         public string Value { get; set; }
+        public bool UseNew { get; set; }
         public Regex RegularExpress { get; set; }
         public int Offset { get; set; }
     }
