@@ -139,7 +139,7 @@ namespace FFXIVAPP.Client
                 return;
             }
             var stringReader = new StringReader(XElement.Load(resource.Stream)
-                .ToString());
+                                                        .ToString());
             var xmlReader = XmlReader.Create(stringReader);
             LogManager.Configuration = new XmlLoggingConfiguration(xmlReader, null);
         }

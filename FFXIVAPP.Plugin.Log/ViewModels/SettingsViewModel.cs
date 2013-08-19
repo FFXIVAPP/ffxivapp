@@ -65,9 +65,9 @@ namespace FFXIVAPP.Plugin.Log.ViewModels
             else
             {
                 xValue = SettingsView.View.Codes.SelectedItems.Cast<object>()
-                    .Aggregate("", (current, item) => current + (item.ToString()
-                        .Split(',')[0] + ","))
-                    .Replace("[", "");
+                                     .Aggregate("", (current, item) => current + (item.ToString()
+                                                                                      .Split(',')[0] + ","))
+                                     .Replace("[", "");
                 xValue = xValue.Substring(0, xValue.Length - 1);
             }
             if (xKey == "" || xValue == "" || xRegularExpression == "")

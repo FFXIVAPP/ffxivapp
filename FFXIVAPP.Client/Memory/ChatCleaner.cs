@@ -14,6 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -57,6 +58,46 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        /// <summary>
+        /// </summary>
+        /// <param name="line"></param>
+        public ChatCleaner(string line)
+        {
+            // cleanup name if using other settings
+            var playerRegEx = new Regex(@"(?<full>\[[A-Z0-9]{10}(?<first>[A-Z0-9]{3,})20(?<last>[A-Z0-9]{3,})\](?<short>[\w']+\.? [\w']+\.?)\[[A-Z0-9]{12}\])", SharedRegEx.DefaultOptions);
+            var playerMatch = playerRegEx.Match(line);
+            var cleaned = line;
+            if (playerMatch.Success)
+            {
+                var fullName = playerMatch.Groups[1].Value;
+                var firstName = StringHelper.HexToString(playerMatch.Groups[2].Value);
+                var lastName = StringHelper.HexToString(playerMatch.Groups[3].Value);
+                var player = String.Format("{0} {1}", firstName, lastName);
+                // remove double placement
+                cleaned = line.Replace(String.Format("{0}:{1}", fullName, fullName), "•name•");
+                // remove single placement
+                cleaned = cleaned.Replace(fullName, "•name•");
+                switch (Regex.IsMatch(cleaned, @"^([Vv]ous|[Dd]u|[Yy]ou)"))
+                {
+                    case true:
+                        cleaned = cleaned.Substring(1)
+                                         .Replace("•name•", "");
+                        break;
+                    case false:
+                        cleaned = cleaned.Replace("•name•", player);
+                        break;
+                }
+            }
+            cleaned = Regex.Replace(cleaned, @"[\r\n]+", "");
+            cleaned = Regex.Replace(cleaned, @"[\x00-\x1F]+", "");
+            Result = cleaned;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="ci"></param>
+        /// <param name="jp"></param>
         public ChatCleaner(byte[] bytes, CultureInfo ci, out bool jp)
         {
             Result = Process(bytes, ci, out jp)
@@ -73,7 +114,7 @@ namespace FFXIVAPP.Client.Memory
         {
             jp = false;
             var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                .Replace("  ", " ");
+                                  .Replace("  ", " ");
             try
             {
                 var autoTranslateList = new List<byte>();
@@ -84,86 +125,69 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (bytes[x] == 2)
                     {
-                        if (bytes[x + 1] == 29 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
+                        var byteString = String.Format("{0}{1}{2}{3}", bytes[x], bytes[x + 1], bytes[x + 2], bytes[x + 3]);
+                        switch (byteString)
                         {
-                            x += 4;
-                        }
-                        else if (bytes[x + 1] == 16 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                        {
-                            x += 4;
-                        }
-                        else if (bytes[x + 1] == 22 && bytes[x + 2] == 1 && bytes[x + 3] == 3)
-                        {
-                            x += 4;
+                            case "22913":
+                            case "21613":
+                            case "22213":
+                                x += 4;
+                                break;
                         }
                     }
-                    //if (Checks.IsMatch(check))
-                    //{
-                    //    if (bytes[x] == 2 && ColorFound == false)
-                    //    {
-                    //        x += 18;
-                    //        ColorFound = true;
-                    //    }
-                    //    else if (bytes[x] == 2 && ColorFound)
-                    //    {
-                    //        x += 10;
-                    //        ColorFound = false;
-                    //    }
-                    //    newList.Add(bytes[x]);
-                    //}
-                    //else
-                    if (bytes[x] == 2)
+                    switch (bytes[x])
                     {
-                        //2 46 5 7 242 2 210 3
-                        //2 29 1 3
-                        var length = bytes[x + 2];
-                        if (length > 1)
-                        {
-                            x = x + 3;
-                            autoTranslateList.Add(Convert.ToByte('['));
-                            while (bytes[x] != 3)
+                        case 2:
+                            //2 46 5 7 242 2 210 3
+                            //2 29 1 3
+                            var length = bytes[x + 2];
+                            if (length > 1)
                             {
-                                autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
-                                x++;
+                                x = x + 3;
+                                autoTranslateList.Add(Convert.ToByte('['));
+                                while (bytes[x] != 3)
+                                {
+                                    autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
+                                    x++;
+                                }
+                                autoTranslateList.Add(Convert.ToByte(']'));
+                                string aCheckStr;
+                                var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
+                                                                 .ToArray();
+                                if (!Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
+                                {
+                                    aCheckStr = "";
+                                }
+                                var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
+                                newList.AddRange(atbyte);
+                                autoTranslateList.Clear();
                             }
-                            autoTranslateList.Add(Convert.ToByte(']'));
-                            string aCheckStr;
-                            var checkedAt = autoTranslateList.GetRange(1, autoTranslateList.Count - 1)
-                                .ToArray();
-                            if (!Constants.AutoTranslate.TryGetValue(Encoding.UTF8.GetString(checkedAt), out aCheckStr))
+                            else
                             {
-                                aCheckStr = "";
+                                x = x + 4;
+                                newList.Add(32);
+                                newList.Add(bytes[x]);
                             }
-                            var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
-                            newList.AddRange(atbyte);
-                            autoTranslateList.Clear();
-                        }
-                        else
-                        {
-                            x = x + 4;
-                            newList.Add(32);
+                            break;
+                        default:
+                            if (bytes[x] > 127)
+                            {
+                                jp = true;
+                            }
                             newList.Add(bytes[x]);
-                        }
-                    }
-                    else
-                    {
-                        if (bytes[x] > 127)
-                        {
-                            jp = true;
-                        }
-                        newList.Add(bytes[x]);
+                            break;
                     }
                 }
                 var jpc = (ci.TwoLetterISOLanguageName == "ja");
                 var cleaned = jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                    .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
-                        .Replace("  ", " ");
+                                               .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
+                                                                                .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
-                cleaned = cleaned.Replace("", "⇒");
-                cleaned = cleaned.Replace("", "[HQ]");
-                cleaned = cleaned.Replace("[01010101]", "");
-                cleaned = cleaned.Replace("[CF010101]", "");
+                cleaned = Regex.Replace(cleaned, @"", "⇒");
+                cleaned = Regex.Replace(cleaned, @"", "[HQ]");
+                cleaned = Regex.Replace(cleaned, @"\[01010101\]", "");
+                cleaned = Regex.Replace(cleaned, @"\[CF010101\]", "");
                 cleaned = Regex.Replace(cleaned, @"\[..FF\w{6}\]|\[EC\]", "");
                 line = cleaned;
             }

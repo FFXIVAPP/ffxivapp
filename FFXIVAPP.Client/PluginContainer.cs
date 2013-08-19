@@ -62,7 +62,7 @@ namespace FFXIVAPP.Client
                 }
                 var xDoc = XDocument.Load(settings);
                 foreach (var xElement in xDoc.Descendants()
-                    .Elements("Main"))
+                                             .Elements("Main"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
@@ -105,7 +105,7 @@ namespace FFXIVAPP.Client
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()
-                    .Name + ".Plugin");
+                                                       .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
@@ -195,36 +195,6 @@ namespace FFXIVAPP.Client
             pluginInstance.Instance.SetConstants(ConstantsType.CharacterName, Constants.CharacterName);
             pluginInstance.Instance.SetConstants(ConstantsType.ServerName, Constants.ServerName);
             pluginInstance.Instance.SetConstants(ConstantsType.GameLanguage, Constants.GameLanguage);
-            //throw new NotImplementedException();
-        }
-
-        public void GetPlayerInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            //throw new NotImplementedException();
-        }
-
-        public void GetMapInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            //throw new NotImplementedException();
-        }
-
-        public void GetMonsterInfo(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
             //throw new NotImplementedException();
         }
 

@@ -29,7 +29,7 @@ namespace FFXIVAPP.Common.Converters
         {
             var brushConverter = new BrushConverter();
             value = (value.ToString()
-                .StartsWith("#")) ? value : "#" + value;
+                          .StartsWith("#")) ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
             try
             {
@@ -62,7 +62,7 @@ namespace FFXIVAPP.Common.Converters
         {
             var brushConverter = new BrushConverter();
             value = (value.ToString()
-                .Substring(0, 1) == "#") ? value : "#" + value;
+                          .Substring(0, 1) == "#") ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
             try
             {

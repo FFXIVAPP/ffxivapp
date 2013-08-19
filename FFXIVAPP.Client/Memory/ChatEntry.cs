@@ -31,6 +31,7 @@ namespace FFXIVAPP.Client.Memory
             var cleaner = new ChatCleaner(raw, CultureInfo.CurrentUICulture, out JP);
             var cleaned = cleaner.Result;
             Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
+            Line = new ChatCleaner(Line).Result;
             Code = Raw.Substring(8, 4);
             Combined = String.Format("{0}:{1}", Code, Line);
             TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(Raw.Substring(0, 8), NumberStyles.HexNumber));

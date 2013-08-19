@@ -90,7 +90,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
 
             return stats.Select(s => s.Value)
-                .ToList();
+                        .ToList();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
 
             return stats.Select(s => s.Value)
-                .ToList();
+                        .ToList();
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
 
             return stats.Select(s => s.Value)
-                .ToList();
+                        .ToList();
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             }
 
             return stats.Select(s => s.Value)
-                .ToList();
+                        .ToList();
         }
 
         #region Stat Generation Methods

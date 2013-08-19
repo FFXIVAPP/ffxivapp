@@ -55,7 +55,7 @@ namespace FFXIVAPP.Client.Helpers
         {
             var keyState = GetKeyboardState();
             return keyState.Skip(8)
-                .Any(state => (state & 0x80) != 0);
+                           .Any(state => (state & 0x80) != 0);
         }
 
         /// <summary>

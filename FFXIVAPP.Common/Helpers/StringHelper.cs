@@ -7,6 +7,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.RegularExpressions;
 
@@ -43,6 +44,20 @@ namespace FFXIVAPP.Common.Helpers
                 result = result.Replace(String.Format("{0}{1}", num, designator), String.Format("{0}{1}", num, designator.ToLower()));
             }
             return result;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="hexValue"></param>
+        /// <returns></returns>
+        public static string HexToString(string hexValue)
+        {
+            var sb = new StringBuilder();
+            for (var i = 0; i <= hexValue.Length - 2; i += 2)
+            {
+                sb.Append(Convert.ToChar(Int32.Parse(hexValue.Substring(i, 2), NumberStyles.HexNumber)));
+            }
+            return sb.ToString();
         }
     }
 }

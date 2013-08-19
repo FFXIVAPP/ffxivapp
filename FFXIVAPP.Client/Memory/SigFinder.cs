@@ -128,7 +128,7 @@ namespace FFXIVAPP.Client.Memory
                 {
                     foreach (var signature in signatures)
                     {
-                        Locations.Add(signature.Key, (uint) FindSignature(signature.Value, signature.Offset, ScanResultType.AddressStartOfSig));
+                        Locations.Add(signature.Key, (uint)FindSignature(signature.Value, signature.Offset, ScanResultType.AddressStartOfSig));
                     }
                 }
                 _memDump = null;
@@ -324,7 +324,6 @@ namespace FFXIVAPP.Client.Memory
                         {
                             return pos;
                         }
-
                         last = j;
                     }
                     --j;

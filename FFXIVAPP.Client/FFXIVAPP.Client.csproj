@@ -132,6 +132,7 @@
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
+    <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
@@ -152,11 +153,15 @@
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ChatPointers.cs" />
-    <Compile Include="Memory\ChatWorker.cs" />
+    <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigFinder.cs" />
     <Compile Include="Memory\Signature.cs" />
+    <Compile Include="Memory\Coordinate.cs" />
+    <Compile Include="Memory\NPCType.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
+    <Compile Include="Memory\ChatWorker.cs" />
+    <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Models\PluginInstance.cs" />
