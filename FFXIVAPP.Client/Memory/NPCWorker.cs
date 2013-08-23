@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// ChatWorker.cs
+// NPCWorker.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -10,10 +10,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Timers;
-using System.Windows.Documents;
 using NLog;
 using Timer = System.Timers.Timer;
 
@@ -55,7 +53,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((List<NPCEntry>)state);
+            OnNewNPC((List<NPCEntry>) state);
         }
 
         #endregion
@@ -119,7 +117,7 @@ namespace FFXIVAPP.Client.Memory
                     return false;
                 }
                 _isScanning = true;
-                
+
                 var npcList = new List<NPCEntry>();
                 for (uint i = 0; i <= 384; i += 4)
                 {
@@ -127,24 +125,52 @@ namespace FFXIVAPP.Client.Memory
                     {
                         _handler.Address = _offsets.Locations["CHARMAP"] + i;
                         var characterAddress = _handler.GetInt32();
-                        if (characterAddress != 0)
+                        if (characterAddress == 0)
                         {
-                            _handler.Address = (uint)characterAddress;
-                            var npcEntry = new NPCEntry
+                            continue;
+                        }
+                        _handler.Address = (uint) characterAddress;
+                        var npcEntry = new NPCEntry
+                        {
+                            Name = _handler.GetString(48),
+                            ID = _handler.GetUInt32(116),
+                            Type = _handler.GetByte(138),
+                            Coordinate = new Coordinate(_handler.GetFloat(160), _handler.GetFloat(168), _handler.GetFloat(164)),
+                            Heading = _handler.GetFloat(176),
+                            Fate = _handler.GetUInt32(228),
+                            Icon = _handler.GetByte(394),
+                            Claimed = _handler.GetByte(405),
+                            TargetID = _handler.GetInt32(416),
+                            HPCurrent = _handler.GetInt32(5776),
+                            HPMax = _handler.GetInt32(5780),
+                            MPCurrent = _handler.GetInt32(5784),
+                            MPMax = _handler.GetInt32(5788),
+                            TPCurrent = _handler.GetInt32(5792),
+                            TPMax = 1000
+                        };
+                        if (npcEntry.HPMax == 0)
+                        {
+                            npcEntry.HPMax = 1;
+                        }
+                        if (npcEntry.TargetID == -536870912)
+                        {
+                            npcEntry.TargetID = -1;
+                        }
+                        npcEntry.MapIndex = 0;
+                        if (_offsets.Locations.ContainsKey("MAP"))
+                        {
+                            _handler.Address = _offsets.Locations["MAP"];
+                            try
                             {
-                                Name = _handler.GetString(48),
-                                ID = _handler.GetInt32(116),
-                                Type = _handler.GetByte(138),
-                                Coordinate = new Coordinate(_handler.GetFloat(160), _handler.GetFloat(168), _handler.GetFloat(164)),
-                                Heading = _handler.GetFloat(176),
-                                HPCurrent = _handler.GetInt32(5776),
-                                HPMax = _handler.GetInt32(5780),
-                                MPCurrent = _handler.GetInt32(5784),
-                                MPMax = _handler.GetInt32(5788),
-                                TPCurrent = _handler.GetInt32(5792),
-                                TPMax = 1000
-                            };
-                            npcList.Add(npcEntry); 
+                                npcEntry.MapIndex = _handler.GetUInt16();
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
+                        if (npcEntry.IsValid)
+                        {
+                            npcList.Add(npcEntry);
                         }
                     }
                     catch (Exception ex)
