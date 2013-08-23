@@ -17,11 +17,20 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
     {
         public static bool IsEnabled = true;
 
-        private static Event _lastEvent;
-        private static string _lastPlayer = "";
-        private static string _lastPlayerAction = "";
-        private static string _lastMob = "";
+        // setup self info
+        private static Event _lastEventPlayer;
+        private static string _lastNamePlayer = "";
+        private static string _lastActionPlayer = "";
+
+        // setup party info
+        private static Event _lastEventParty;
+        private static string _lastNameParty = "";
+        private static string _lastActionParty = "";
+
+        // setup monster info
+        private static string _lastMobName = "";
         private static string _lastMobAction = "";
+
         private static bool _autoAction;
         private static bool _isMulti;
 
@@ -32,7 +41,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 return;
             }
 
-            _lastEvent = _lastEvent ?? e;
+            _lastEventParty = _lastEventParty ?? e;
             _autoAction = false;
 
             var expressions = new Expressions(e, cleaned);
@@ -62,7 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     break;
             }
 
-            _lastEvent = e;
+            _lastEventParty = e;
         }
 
         /// <summary>
@@ -70,14 +79,14 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         /// <param name="clearNames"></param>
         private static void ClearLast(bool clearNames = false)
         {
-            _lastPlayerAction = "";
+            _lastActionParty = "";
             _lastMobAction = "";
             if (!clearNames)
             {
                 return;
             }
-            _lastPlayer = "";
-            _lastMob = "";
+            _lastNameParty = "";
+            _lastMobName = "";
         }
     }
 }

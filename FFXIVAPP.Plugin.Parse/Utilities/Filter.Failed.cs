@@ -29,6 +29,30 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            failed = exp.pFailed;
+                            switch (failed.Success)
+                            {
+                                case true:
+                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    UpdateFailedPlayer(failed, line, exp, false);
+                                    break;
+                                case false:
+                                    failed = exp.pFailedAuto;
+                                    if (failed.Success)
+                                    {
+                                        _autoAction = true;
+                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        UpdateFailedPlayer(failed, line, exp, false);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
                 case EventSubject.Party:
                     switch (e.Direction)
                     {
@@ -38,12 +62,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             switch (failed.Success)
                             {
                                 case true:
-                                    line.Source = _lastPlayer;
-                                    if (e.Subject == EventSubject.You)
-                                    {
-                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                    }
-                                    UpdatePlayerFailed(failed, line, exp);
+                                    line.Source = _lastNameParty;
+                                    UpdateFailedPlayer(failed, line, exp);
                                     break;
                                 case false:
                                     failed = exp.pFailedAuto;
@@ -51,11 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     {
                                         _autoAction = true;
                                         line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        if (e.Subject == EventSubject.You)
-                                        {
-                                            line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                        }
-                                        UpdatePlayerFailed(failed, line, exp);
+                                        UpdateFailedPlayer(failed, line, exp);
                                     }
                                     break;
                             }
@@ -66,15 +82,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 case EventSubject.UnEngaged:
                     switch (e.Direction)
                     {
-                        case EventDirection.Self:
                         case EventDirection.You:
-                        case EventDirection.Party:
                             failed = exp.mFailed;
                             switch (failed.Success)
                             {
                                 case true:
-                                    line.Source = _lastMob;
-                                    UpdateMonsterFailed(failed, line, exp);
+                                    line.Source = _lastMobName;
+                                    UpdateFailedMonster(failed, line, exp, false);
                                     break;
                                 case false:
                                     failed = exp.mFailedAuto;
@@ -82,7 +96,26 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     {
                                         _autoAction = true;
                                         line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        UpdateMonsterFailed(failed, line, exp);
+                                        UpdateFailedMonster(failed, line, exp, false);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case EventDirection.Party:
+                            failed = exp.mFailed;
+                            switch (failed.Success)
+                            {
+                                case true:
+                                    line.Source = _lastMobName;
+                                    UpdateFailedMonster(failed, line, exp);
+                                    break;
+                                case false:
+                                    failed = exp.mFailedAuto;
+                                    if (failed.Success)
+                                    {
+                                        _autoAction = true;
+                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
+                                        UpdateFailedMonster(failed, line, exp);
                                     }
                                     break;
                             }
@@ -98,7 +131,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Failed", e, exp);
         }
 
-        private static void UpdatePlayerFailed(Match failed, Line line, Expressions exp)
+        private static void UpdateFailedPlayer(Match failed, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
@@ -109,19 +142,26 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         line.Action = exp.Attack;
                         break;
                     case false:
-                        line.Action = _lastPlayerAction;
+                        line.Action = _lastActionParty;
                         break;
                 }
-                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMob;
+                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMobName;
                 if (!_autoAction)
                 {
-                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
                     {
                         ClearLast(true);
                         return;
                     }
                 }
-                _lastPlayer = line.Source;
+                if (isParty)
+                {
+                    _lastNameParty = line.Source;
+                }
+                else
+                {
+                    _lastNamePlayer = line.Source;
+                }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
                             .SetDamageTaken(line);
@@ -134,7 +174,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
         }
 
-        private static void UpdateMonsterFailed(Match failed, Line line, Expressions exp)
+        private static void UpdateFailedMonster(Match failed, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
@@ -148,20 +188,27 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         line.Action = _lastMobAction;
                         break;
                 }
-                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastPlayer;
+                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : isParty ? _lastNameParty : _lastNamePlayer;
                 if (Regex.IsMatch(line.Target.ToLower(), exp.You))
                 {
                     line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                 }
                 if (!_autoAction)
                 {
-                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
                     {
                         ClearLast(true);
                         return;
                     }
                 }
-                _lastPlayer = line.Target;
+                if (isParty)
+                {
+                    _lastNameParty = line.Target;
+                }
+                else
+                {
+                    _lastNamePlayer = line.Target;
+                }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
                             .SetDamageTaken(line);

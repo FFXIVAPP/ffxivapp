@@ -29,6 +29,30 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            damage = exp.pDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    UpdateDamagePlayer(damage, line, exp, false);
+                                    break;
+                                case false:
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _autoAction = true;
+                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        UpdateDamagePlayer(damage, line, exp, false);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
                 case EventSubject.Party:
                     switch (e.Direction)
                     {
@@ -38,12 +62,8 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             switch (damage.Success)
                             {
                                 case true:
-                                    line.Source = _lastPlayer;
-                                    if (e.Subject == EventSubject.You)
-                                    {
-                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                    }
-                                    UpdatePlayerDamage(damage, line, exp);
+                                    line.Source = _lastNameParty;
+                                    UpdateDamagePlayer(damage, line, exp);
                                     break;
                                 case false:
                                     damage = exp.pDamageAuto;
@@ -51,11 +71,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     {
                                         _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        if (e.Subject == EventSubject.You)
-                                        {
-                                            line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                        }
-                                        UpdatePlayerDamage(damage, line, exp);
+                                        UpdateDamagePlayer(damage, line, exp);
                                     }
                                     break;
                             }
@@ -66,20 +82,35 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 case EventSubject.UnEngaged:
                     switch (e.Direction)
                     {
-                        case EventDirection.Self:
                         case EventDirection.You:
+                            damage = exp.mDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastMobName;
+                                    line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    UpdateDamageMonster(damage, line, exp, false);
+                                    break;
+                                case false:
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _autoAction = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        UpdateDamageMonster(damage, line, exp, false);
+                                    }
+                                    break;
+                            }
+                            break;
                         case EventDirection.Party:
                             damage = exp.mDamage;
                             switch (damage.Success)
                             {
                                 case true:
-                                    line.Source = _lastMob;
+                                    line.Source = _lastMobName;
                                     line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                    if (Regex.IsMatch(line.Target.ToLower(), exp.You))
-                                    {
-                                        line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                    }
-                                    UpdateMonsterDamage(damage, line, exp);
+                                    UpdateDamageMonster(damage, line, exp);
                                     break;
                                 case false:
                                     damage = exp.mDamageAuto;
@@ -88,11 +119,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                         _autoAction = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        if (Regex.IsMatch(line.Target.ToLower(), exp.You))
-                                        {
-                                            line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                        }
-                                        UpdateMonsterDamage(damage, line, exp);
+                                        UpdateDamageMonster(damage, line, exp);
                                     }
                                     break;
                             }
@@ -108,7 +135,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Damage", e, exp);
         }
 
-        private static void UpdatePlayerDamage(Match damage, Line line, Expressions exp)
+        private static void UpdateDamagePlayer(Match damage, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
@@ -119,7 +146,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         line.Action = exp.Attack;
                         break;
                     case false:
-                        line.Action = _lastPlayerAction;
+                        line.Action = isParty ? _lastActionParty : _lastActionPlayer;
                         break;
                 }
                 line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
@@ -130,13 +157,20 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Target = Convert.ToString(damage.Groups["target"].Value);
                 if (!_autoAction)
                 {
-                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
                     {
                         ClearLast(true);
                         return;
                     }
                 }
-                _lastPlayer = line.Source;
+                if (isParty)
+                {
+                    _lastNameParty = line.Source;
+                }
+                else
+                {
+                    _lastNamePlayer = line.Source;
+                }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
                             .SetDamageTaken(line);
@@ -149,7 +183,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
         }
 
-        private static void UpdateMonsterDamage(Match damage, Line line, Expressions exp)
+        private static void UpdateDamageMonster(Match damage, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
@@ -170,13 +204,20 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Parry = damage.Groups["parry"].Success;
                 if (!_autoAction)
                 {
-                    if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions))
+                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
                     {
                         ClearLast(true);
                         return;
                     }
                 }
-                _lastPlayer = line.Target;
+                if (isParty)
+                {
+                    _lastNameParty = line.Target;
+                }
+                else
+                {
+                    _lastNamePlayer = line.Target;
+                }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
                             .SetDamageTaken(line);

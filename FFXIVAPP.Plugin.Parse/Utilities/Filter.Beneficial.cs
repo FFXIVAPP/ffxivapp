@@ -42,7 +42,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     //            {
                     //                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                     //            }
-                    //            _lastPlayer = line.Source;
+                    //            _lastNameParty = line.Source;
                     //        }
                     //        beneficial = exp.pBeneficialLose;
                     //        if (beneficial.Success)
@@ -52,7 +52,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     //            {
                     //                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                     //            }
-                    //            _lastPlayer = line.Source;
+                    //            _lastNameParty = line.Source;
                     //        }
                     //        break;
                     //}
@@ -70,13 +70,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     //        if (beneficial.Success)
                     //        {
                     //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
-                    //            _lastMob = line.Source;
+                    //            _lastMobName = line.Source;
                     //        }
                     //        beneficial = exp.mBeneficialLose;
                     //        if (beneficial.Success)
                     //        {
                     //            line.Source = Convert.ToString(beneficial.Groups["source"].Value);
-                    //            _lastMob = line.Source;
+                    //            _lastMobName = line.Source;
                     //        }
                     //        break;
                     //}

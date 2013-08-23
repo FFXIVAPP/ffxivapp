@@ -29,21 +29,29 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
-                case EventSubject.Party:
                     switch (e.Direction)
                     {
-                        case EventDirection.Self:
                         case EventDirection.You:
                         case EventDirection.Party:
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = _lastPlayer;
-                                if (e.Subject == EventSubject.You)
-                                {
-                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                }
-                                UpdatePlayerHealing(cure, line, exp);
+                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                UpdateHealingPlayer(cure, line, exp, false);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Party:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.You:
+                        case EventDirection.Party:
+                            cure = exp.pCure;
+                            if (cure.Success)
+                            {
+                                line.Source = _lastNameParty;
+                                UpdateHealingPlayer(cure, line, exp);
                             }
                             break;
                     }
@@ -57,11 +65,11 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Cure", e, exp);
         }
 
-        private static void UpdatePlayerHealing(Match cure, Line line, Expressions exp)
+        private static void UpdateHealingPlayer(Match cure, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
-                line.Action = _lastPlayerAction;
+                line.Action = isParty ? _lastActionParty : _lastActionPlayer;
                 line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
                 line.Crit = cure.Groups["crit"].Success;
                 line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
@@ -71,12 +79,19 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                 }
                 line.HpMpTp = Convert.ToString(cure.Groups["type"].Value.ToUpper());
-                if (line.IsEmpty() || (!_isMulti && _lastEvent.Type != EventType.Actions && _lastEvent.Type != EventType.Items))
+                if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions && _lastEventParty.Type != EventType.Items))
                 {
                     ClearLast(true);
                     return;
                 }
-                _lastPlayer = line.Source;
+                if (isParty)
+                {
+                    _lastNameParty = line.Source;
+                }
+                else
+                {
+                    _lastNamePlayer = line.Source;
+                }
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                             .SetHealing(line);
             }

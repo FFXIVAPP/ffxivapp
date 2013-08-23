@@ -6,8 +6,6 @@
 #region Usings
 
 using System;
-using FFXIVAPP.Common.Chat;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 
 #endregion

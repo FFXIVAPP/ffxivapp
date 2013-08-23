@@ -1,4 +1,9 @@
-﻿namespace FFXIVAPP.Client.Memory
+﻿// FFXIVAPP.Client
+// Coordinate.cs
+// 
+// © 2013 Ryan Wilson
+
+namespace FFXIVAPP.Client.Memory
 {
     public class Coordinate
     {

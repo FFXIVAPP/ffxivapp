@@ -30,22 +30,31 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    switch (e.Direction)
+                    {
+                            // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                _lastNamePlayer = line.Source;
+                                UpdateActionsPlayers(actions, line, exp, false);
+                            }
+                            break;
+                    }
+                    break;
                 case EventSubject.Party:
                     switch (e.Direction)
                     {
+                            // casts/uses
                         case EventDirection.Self:
-                        case EventDirection.You:
-                        case EventDirection.Party:
                             actions = exp.pActions;
                             if (actions.Success)
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                if (e.Subject == EventSubject.You)
-                                {
-                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                }
-                                _lastPlayer = line.Source;
-                                UpdatePlayerActions(actions, line, exp);
+                                _lastNameParty = line.Source;
+                                UpdateActionsPlayers(actions, line, exp);
                             }
                             break;
                     }
@@ -55,12 +64,10 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.Self:
-                        case EventDirection.You:
-                        case EventDirection.Party:
                             actions = exp.mActions;
                             if (actions.Success)
                             {
-                                _lastMob = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
+                                _lastMobName = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
                                 _lastMobAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                             }
                             break;
@@ -77,12 +84,19 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }
 
-        private static void UpdatePlayerActions(Match actions, Line line, Expressions exp)
+        private static void UpdateActionsPlayers(Match actions, Line line, Expressions exp, bool isParty = true)
         {
             try
             {
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
-                _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                if (isParty)
+                {
+                    _lastActionParty = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                }
+                else
+                {
+                    _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                }
             }
             catch (Exception ex)
             {

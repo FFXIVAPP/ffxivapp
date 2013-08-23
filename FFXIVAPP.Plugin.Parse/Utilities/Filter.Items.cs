@@ -30,22 +30,29 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                _lastNamePlayer = line.Source;
+                                _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
                 case EventSubject.Party:
                     switch (e.Direction)
                     {
                         case EventDirection.Self:
-                        case EventDirection.You:
-                        case EventDirection.Party:
                             items = exp.pItems;
                             if (items.Success)
                             {
                                 line.Source = Convert.ToString(items.Groups["source"].Value);
-                                if (e.Subject == EventSubject.You)
-                                {
-                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                }
-                                _lastPlayer = line.Source;
-                                _lastPlayerAction = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                                _lastNameParty = line.Source;
+                                _lastActionParty = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;
                     }

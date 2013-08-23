@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using FFXIVAPP.Common.Events;
 
 #endregion
 
