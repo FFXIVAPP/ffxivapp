@@ -21,8 +21,6 @@
                                             Source={x:Static Properties:Settings.Default}}"
                            MinWidth="720"
                            MinHeight="480"
-                           BorderBrush="{DynamicResource AccentColorBrush}"
-                           BorderThickness="1"
                            Closing="MetroWindowClosing"
                            Icon="Resources/Media/Icons/FFXIVAPP.ico"
                            Left="{Binding Left,
@@ -40,7 +38,7 @@
                            d:DesignWidth="480"
                            mc:Ignorable="d">
 
-    <MetroControls:MetroWindow.Resources>
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
@@ -54,7 +52,11 @@
             <Converters:VisibilityConverter x:Key="VisibilityConverter" />
             <Converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />
         </ResourceDictionary>
-    </MetroControls:MetroWindow.Resources>
+    </Window.Resources>
+
+    <MetroControls:MetroWindow.GlowBrush>
+        <SolidColorBrush Color="{DynamicResource AccentColor}" />
+    </MetroControls:MetroWindow.GlowBrush>
 
     <MetroControls:MetroWindow.DataContext>
         <Binding Source="{StaticResource ShellViewModel}" />
@@ -87,86 +89,88 @@
         </MetroControls:WindowCommands>
     </MetroControls:MetroWindow.WindowCommands>
 
-    <Grid x:Name="LayoutRoot">
-        <Controls:PopupNonTopmost x:Name="Notify"
-                                  AllowsTransparency="True"
-                                  PopupAnimation="Fade">
-            <Controls:xMetroPopup x:Name="MetroNotify"
-                                  Margin="1" />
-            <i:Interaction.Behaviors>
-                <Behaviors:MouseDragPopupBehavior />
-            </i:Interaction.Behaviors>
-        </Controls:PopupNonTopmost>
-        <TabControl x:Name="ShellViewTC"
-                    BorderThickness="{Binding TabStripPlacement,
-                                              Converter={StaticResource TabStripBorderConverter},
-                                              RelativeSource={RelativeSource Self}}"
-                    TabStripPlacement="Left"
-                    Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}">
-            <TabControl.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource AccentColor}" />
-            </TabControl.BorderBrush>
-            <TabItem x:Name="MainTI">
-                <TabItem.Header>
-                    <Image Width="20"
-                           Height="20"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
-                           ToolTip="{Binding Locale[app_MainToolTip],
-                                             Source={StaticResource AppProperties}}" />
-                </TabItem.Header>
-                <Views:MainView x:Name="MainV"
-                                Margin="10 0 10 10" />
-            </TabItem>
-            <TabItem x:Name="PluginsTI"
-                     Visibility="{Binding HasPlugins,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource AppProperties}}">
-                <TabItem.Header>
-                    <Image Width="20"
-                           Height="20"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
-                           ToolTip="{Binding Locale[app_PluginsToolTip],
-                                             Source={StaticResource AppProperties}}" />
-                </TabItem.Header>
-                <TabControl x:Name="PluginsTC"
-                            Margin="10 0 10 10"
-                            BorderThickness="{Binding TabStripPlacement,
-                                                      Converter={StaticResource TabStripBorderConverter},
-                                                      RelativeSource={RelativeSource Self}}"
-                            ItemsSource="{Binding PluginTabItems,
-                                                  Source={StaticResource AppProperties}}"
-                            Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
-                    <TabControl.BorderBrush>
-                        <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                    </TabControl.BorderBrush>
-                </TabControl>
-            </TabItem>
-            <TabItem x:Name="SettingsTI">
-                <TabItem.Header>
-                    <Image Width="20"
-                           Height="20"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
-                           ToolTip="{Binding Locale[app_SettingsToolTip],
-                                             Source={StaticResource AppProperties}}" />
-                </TabItem.Header>
-                <Views:SettingsView x:Name="SettingsV"
+    <MetroControls:MetroContentControl>
+        <Grid x:Name="LayoutRoot">
+            <Controls:PopupNonTopmost x:Name="Notify"
+                                      AllowsTransparency="True"
+                                      PopupAnimation="Fade">
+                <Controls:xMetroPopup x:Name="MetroNotify"
+                                      Margin="1" />
+                <i:Interaction.Behaviors>
+                    <Behaviors:MouseDragPopupBehavior />
+                </i:Interaction.Behaviors>
+            </Controls:PopupNonTopmost>
+            <TabControl x:Name="ShellViewTC"
+                        BorderThickness="{Binding TabStripPlacement,
+                                                  Converter={StaticResource TabStripBorderConverter},
+                                                  RelativeSource={RelativeSource Self}}"
+                        TabStripPlacement="Left"
+                        Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}">
+                <TabControl.BorderBrush>
+                    <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                </TabControl.BorderBrush>
+                <TabItem x:Name="MainTI">
+                    <TabItem.Header>
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
+                               ToolTip="{Binding Locale[app_MainToolTip],
+                                                 Source={StaticResource AppProperties}}" />
+                    </TabItem.Header>
+                    <Views:MainView x:Name="MainV"
                                     Margin="10 0 10 10" />
-            </TabItem>
-            <TabItem x:Name="AboutTI">
-                <TabItem.Header>
-                    <Image Width="20"
-                           Height="20"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
-                           ToolTip="{Binding Locale[app_AboutToolTip],
-                                             Source={StaticResource AppProperties}}" />
-                </TabItem.Header>
-                <Views:AboutView x:Name="AboutV"
-                                 Margin="10 0 10 10" />
-            </TabItem>
-        </TabControl>
-    </Grid>
+                </TabItem>
+                <TabItem x:Name="PluginsTI"
+                         Visibility="{Binding HasPlugins,
+                                              Converter={StaticResource VisibilityConverter},
+                                              Source={StaticResource AppProperties}}">
+                    <TabItem.Header>
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
+                               ToolTip="{Binding Locale[app_PluginsToolTip],
+                                                 Source={StaticResource AppProperties}}" />
+                    </TabItem.Header>
+                    <TabControl x:Name="PluginsTC"
+                                Margin="10 0 10 10"
+                                BorderThickness="{Binding TabStripPlacement,
+                                                          Converter={StaticResource TabStripBorderConverter},
+                                                          RelativeSource={RelativeSource Self}}"
+                                ItemsSource="{Binding PluginTabItems,
+                                                      Source={StaticResource AppProperties}}"
+                                Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
+                        <TabControl.BorderBrush>
+                            <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                        </TabControl.BorderBrush>
+                    </TabControl>
+                </TabItem>
+                <TabItem x:Name="SettingsTI">
+                    <TabItem.Header>
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
+                               ToolTip="{Binding Locale[app_SettingsToolTip],
+                                                 Source={StaticResource AppProperties}}" />
+                    </TabItem.Header>
+                    <Views:SettingsView x:Name="SettingsV"
+                                        Margin="10 0 10 10" />
+                </TabItem>
+                <TabItem x:Name="AboutTI">
+                    <TabItem.Header>
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
+                               ToolTip="{Binding Locale[app_AboutToolTip],
+                                                 Source={StaticResource AppProperties}}" />
+                    </TabItem.Header>
+                    <Views:AboutView x:Name="AboutV"
+                                     Margin="10 0 10 10" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </MetroControls:MetroContentControl>
 </MetroControls:MetroWindow>
