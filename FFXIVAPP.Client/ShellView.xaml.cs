@@ -30,6 +30,7 @@ namespace FFXIVAPP.Client
         {
             InitializeComponent();
             View = this;
+            View.Topmost = true;
         }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private void MetroWindowLoaded(object sender, RoutedEventArgs e)
         {
+            View.Topmost = false;
             LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
             Initializer.CheckUpdates();

@@ -58,16 +58,15 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 {
                     OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
                 }
-                if (DamageOverTimeHelper.ZeroBaseDamageDOT.Any(action => Line.Action.ToLower()
-                                                                             .Contains(action)))
-                {
-                    OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                                 .LastDamageAmount;
-                }
                 var actionData = DamageOverTimeHelper.PlayerActions()[Line.Action.ToLower()];
                 ActionPotency = actionData.ActionPotency;
                 DamageOverTimePotency = actionData.DamageOverTimePotency;
                 Duration = actionData.Duration;
+                if (actionData.ZeroBaseDamageDOT)
+                {
+                    OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                                 .LastDamageAmount;
+                }
                 TotalTicks = (int) Math.Ceiling(Duration / 3.0);
                 TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
                 if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()

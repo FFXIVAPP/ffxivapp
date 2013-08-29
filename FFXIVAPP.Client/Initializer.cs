@@ -327,12 +327,12 @@ namespace FFXIVAPP.Client
                 Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000", /*????????00000000DB0FC93F6F12833A*/
                 Offset = 68
             });
-            signatures.Add(new Signature
-            {
-                Key = "MAP",
-                Value = "F783843E2C00000000002300000C440300102208001822090020220A0028220B00002300000C440300102208001822090020220A0028220BDB0FC93F6F12833A",
-                Offset = 336
-            });
+            //signatures.Add(new Signature
+            //{
+            //    Key = "MAP",
+            //    Value = "F783843E????????DB0FC93F6F12833A",
+            //    Offset = 784
+            //});
         }
 
         /// <summary>
@@ -413,28 +413,34 @@ namespace FFXIVAPP.Client
             }
             var process = Process.GetProcessById(id);
             var offsets = new SigFinder(process, AppViewModel.Instance.Signatures);
+            if (_chatWorker != null || _npcWorker != null)
+            {
+                StopMemoryWorkers();
+            }
             _chatWorker = new ChatWorker(process, offsets);
             _chatWorker.StartScanning();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
-            _npcWorker = new NPCWorker(process, offsets);
-            _npcWorker.StartScanning();
-            _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
+            //_npcWorker = new NPCWorker(process, offsets);
+            //_npcWorker.StartScanning();
+            //_npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
         }
 
         /// <summary>
         /// </summary>
         public static void StopMemoryWorkers()
         {
-            if (_chatWorker == null)
+            if (_chatWorker != null)
             {
-                return;
+                _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
+                _chatWorker.StopScanning();
+                _chatWorker.Dispose();
             }
-            _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
-            _chatWorker.StopScanning();
-            _chatWorker.Dispose();
-            _npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
-            _npcWorker.StopScanning();
-            _npcWorker.Dispose();
+            if (_npcWorker != null)
+            {
+                //_npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
+                //_npcWorker.StopScanning();
+                //_npcWorker.Dispose();
+            }
         }
     }
 }

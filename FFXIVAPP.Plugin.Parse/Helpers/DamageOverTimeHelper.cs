@@ -22,14 +22,6 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             "サンダ"
         };
 
-        public static readonly List<string> ZeroBaseDamageDOT = new List<string>
-        {
-            "demolish",
-            "demolieren",
-            "démolition",
-            "破砕拳"
-        };
-
         public static Dictionary<string, DamageOverTimeAction> PlayerActions()
         {
             var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
@@ -38,7 +30,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 100,
                 DamageOverTimePotency = 30,
-                Duration = 15
+                Duration = 15,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("kreis der verachtung", damageOverTimeActions["circle of scorn"]);
             damageOverTimeActions.Add("cercle du destin", damageOverTimeActions["circle of scorn"]);
@@ -48,7 +41,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 20,
                 DamageOverTimePotency = 25,
-                Duration = 30
+                Duration = 30,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("hauch des todes", damageOverTimeActions["touch of death"]);
             damageOverTimeActions.Add("toucher mortel", damageOverTimeActions["touch of death"]);
@@ -58,7 +52,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 100,
                 DamageOverTimePotency = 40,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = true
             });
             damageOverTimeActions.Add("demolieren", damageOverTimeActions["demolish"]);
             damageOverTimeActions.Add("démolition", damageOverTimeActions["demolish"]);
@@ -68,7 +63,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 100,
                 DamageOverTimePotency = 20,
-                Duration = 30
+                Duration = 30,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("knochenbrecher", damageOverTimeActions["fracture"]);
             //damageOverTimeActions.Add("fracture", damageOverTimeActions["fracture"]);
@@ -78,7 +74,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 170,
                 DamageOverTimePotency = 20,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("phlebotomie", damageOverTimeActions["phlebotomize"]);
             damageOverTimeActions.Add("double percée", damageOverTimeActions["phlebotomize"]);
@@ -88,7 +85,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 160,
                 DamageOverTimePotency = 20,
-                Duration = 30
+                Duration = 30,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("chaotischer tjost", damageOverTimeActions["chaos thrust"]);
             damageOverTimeActions.Add("percée chaotique", damageOverTimeActions["chaos thrust"]);
@@ -98,7 +96,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 100,
                 DamageOverTimePotency = 35,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("giftbiss", damageOverTimeActions["venomous bite"]);
             damageOverTimeActions.Add("morsure venimeuse", damageOverTimeActions["venomous bite"]);
@@ -108,7 +107,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 60,
                 DamageOverTimePotency = 45,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("beißender Wind", damageOverTimeActions["windbite"]);
             damageOverTimeActions.Add("morsure du vent", damageOverTimeActions["windbite"]);
@@ -118,7 +118,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 50,
                 DamageOverTimePotency = 25,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("wind", damageOverTimeActions["aero"]);
             damageOverTimeActions.Add("vent", damageOverTimeActions["aero"]);
@@ -128,7 +129,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 50,
                 DamageOverTimePotency = 40,
-                Duration = 12
+                Duration = 12,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("windra", damageOverTimeActions["aero ii"]);
             damageOverTimeActions.Add("extra vent", damageOverTimeActions["aero ii"]);
@@ -138,7 +140,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 30,
                 DamageOverTimePotency = 35,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("blitz", damageOverTimeActions["thunder"]);
             damageOverTimeActions.Add("foudre", damageOverTimeActions["thunder"]);
@@ -148,7 +151,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 50,
                 DamageOverTimePotency = 35,
-                Duration = 21
+                Duration = 21,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("blitzra", damageOverTimeActions["thunder ii"]);
             damageOverTimeActions.Add("extra foudre", damageOverTimeActions["thunder ii"]);
@@ -158,7 +162,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 60,
                 DamageOverTimePotency = 35,
-                Duration = 24
+                Duration = 24,
+                ZeroBaseDamageDOT = false
             });
             damageOverTimeActions.Add("blitzga", damageOverTimeActions["thunder iii"]);
             damageOverTimeActions.Add("méga foudre", damageOverTimeActions["thunder iii"]);
@@ -168,7 +173,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 20,
                 DamageOverTimePotency = 40,
-                Duration = 18
+                Duration = 18,
+                ZeroBaseDamageDOT = true
             });
             //damageOverTimeActions.Add("bio", damageOverTimeActions["bio"]);
             damageOverTimeActions.Add("bactérie", damageOverTimeActions["bio"]);
@@ -178,7 +184,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 20,
                 DamageOverTimePotency = 35,
-                Duration = 30
+                Duration = 30,
+                ZeroBaseDamageDOT = true
             });
             damageOverTimeActions.Add("biora", damageOverTimeActions["bio ii"]);
             damageOverTimeActions.Add("extra bactérie", damageOverTimeActions["bio ii"]);
@@ -188,7 +195,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 20,
                 DamageOverTimePotency = 35,
-                Duration = 24
+                Duration = 24,
+                ZeroBaseDamageDOT = false
             });
             //damageOverTimeActions.Add("miasma", damageOverTimeActions["miasma"]);
             damageOverTimeActions.Add("miasmes", damageOverTimeActions["miasma"]);
@@ -198,7 +206,8 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 ActionPotency = 20,
                 DamageOverTimePotency = 10,
-                Duration = 15
+                Duration = 15,
+                ZeroBaseDamageDOT = false
             });
             //damageOverTimeActions.Add("miasma ii", damageOverTimeActions["miasma ii"]);
             damageOverTimeActions.Add("extra miasmes", damageOverTimeActions["miasma ii"]);

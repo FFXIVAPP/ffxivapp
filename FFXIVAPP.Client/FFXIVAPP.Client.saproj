@@ -26,7 +26,27 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Views</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Windows</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Behaviors</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Controls</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
@@ -46,7 +66,17 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Localization</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Memory</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
@@ -62,36 +92,6 @@
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.ViewModels</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Views</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Controls</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Models</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Behaviors</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Localization</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Windows</Namespace>
                             </Token>
                         </Exclusion>
                     </Obfuscation>

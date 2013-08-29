@@ -10,5 +10,6 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public int ActionPotency { get; set; }
         public int DamageOverTimePotency { get; set; }
         public int Duration { get; set; }
+        public bool ZeroBaseDamageDOT { get; set; }
     }
 }

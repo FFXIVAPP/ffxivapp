@@ -27,9 +27,5 @@ namespace FFXIVAPP.Client.Memory
         public uint LogStart;
         public uint LogNext;
         public uint LogEnd;
-        public uint Unk3;
-        public uint OldLogStart;
-        public uint OldLogNext;
-        public uint OldLogEnd;
     }
 }
