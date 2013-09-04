@@ -133,6 +133,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdateFailedPlayer(Match failed, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 line.Miss = true;
@@ -142,25 +143,32 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         line.Action = exp.Attack;
                         break;
                     case false:
-                        line.Action = _lastActionParty;
+                        line.Action = isParty ? _lastActionParty : _lastActionPlayer;
                         break;
                 }
                 line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMobName;
-                if (!_autoAction)
-                {
-                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
-                    {
-                        ClearLast(true);
-                        return;
-                    }
-                }
                 if (isParty)
                 {
                     _lastNameParty = line.Source;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
+                        {
+                            ClearLast(true);
+                            return;
+                        }
+                    }
                 }
                 else
                 {
                     _lastNamePlayer = line.Source;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions))
+                        {
+                            return;
+                        }
+                    }
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
@@ -170,12 +178,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
             }
         }
 
         private static void UpdateFailedMonster(Match failed, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 line.Miss = true;
@@ -193,21 +202,28 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 {
                     line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                 }
-                if (!_autoAction)
-                {
-                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
-                    {
-                        ClearLast(true);
-                        return;
-                    }
-                }
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
+                        {
+                            ClearLast(true);
+                            return;
+                        }
+                    }
                 }
                 else
                 {
                     _lastNamePlayer = line.Target;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions))
+                        {
+                            return;
+                        }
+                    }
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
@@ -217,7 +233,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
             }
         }
     }

@@ -55,8 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             if (line.Hit)
             {
                 LastDamageAmount = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, 50) : 0 : line.Amount;
-                if (DamageOverTimeHelper.MonsterActions()
-                                        .ContainsKey(line.Action.ToLower()))
+                if (DamageOverTimeHelper.MonsterActions.ContainsKey(line.Action.ToLower()))
                 {
                     SetupDamageOverTimeAction(line);
                 }

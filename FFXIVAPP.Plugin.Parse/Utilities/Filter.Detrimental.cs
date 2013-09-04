@@ -5,6 +5,7 @@
 
 #region Usings
 
+using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -28,58 +29,61 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             switch (e.Subject)
             {
                 case EventSubject.You:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            detrimental = exp.mDetrimentalGain;
+                            if (detrimental.Success)
+                            {
+                                line.Source = _lastNamePlayer;
+                                line.StatusEffect = StatusEffect.DetrimentalGain;
+                                UpdateDetrimentalPlayer(detrimental, line, exp, false);
+                            }
+                            break;
+                    }
+                    break;
                 case EventSubject.Party:
-                    //switch (e.Direction)
-                    //{
-                    //    case EventDirection.Self:
-                    //    case EventDirection.You:
-                    //    case EventDirection.Party:
-                    //        detrimental = exp.pDetrimentalGain;
-                    //        if (detrimental.Success)
-                    //        {
-                    //            line.Source = Convert.ToString(detrimental.Groups["source"].Value);
-                    //            if (e.Subject == EventSubject.You)
-                    //            {
-                    //                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                    //            }
-                    //            _lastNameParty = line.Source;
-                    //        }
-                    //        detrimental = exp.pDetrimentalLose;
-                    //        if (detrimental.Success)
-                    //        {
-                    //            line.Source = Convert.ToString(detrimental.Groups["source"].Value);
-                    //            if (e.Subject == EventSubject.You)
-                    //            {
-                    //                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                    //            }
-                    //            _lastNameParty = line.Source;
-                    //        }
-                    //        break;
-                    //}
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            detrimental = exp.mDetrimentalGain;
+                            if (detrimental.Success)
+                            {
+                                line.Source = _lastNameParty;
+                                line.StatusEffect = StatusEffect.DetrimentalGain;
+                                UpdateDetrimentalPlayer(detrimental, line, exp);
+                            }
+                            break;
+                    }
                     break;
                 case EventSubject.Other:
                 case EventSubject.NPC:
                     break;
                 case EventSubject.Engaged:
                 case EventSubject.UnEngaged:
-                    //switch (e.Direction)
-                    //{
-                    //    case EventDirection.Engaged:
-                    //    case EventDirection.UnEngaged:
-                    //        detrimental = exp.mDetrimentalGain;
-                    //        if (detrimental.Success)
-                    //        {
-                    //            line.Source = Convert.ToString(detrimental.Groups["source"].Value);
-                    //            _lastMobName = line.Source;
-                    //        }
-                    //        detrimental = exp.mDetrimentalLose;
-                    //        if (detrimental.Success)
-                    //        {
-                    //            line.Source = Convert.ToString(detrimental.Groups["source"].Value);
-                    //            _lastMobName = line.Source;
-                    //        }
-                    //        break;
-                    //}
+                    switch (e.Direction)
+                    {
+                        case EventDirection.You:
+                            detrimental = exp.mDetrimentalGain;
+                            if (detrimental.Success)
+                            {
+                                line.Source = _lastMobName;
+                                line.StatusEffect = StatusEffect.DetrimentalGain;
+                                UpdateDetrimentalMonster(detrimental, line, exp, false);
+                            }
+                            break;
+                        case EventDirection.Party:
+                            detrimental = exp.mDetrimentalGain;
+                            if (detrimental.Success)
+                            {
+                                line.Source = _lastMobName;
+                                line.StatusEffect = StatusEffect.DetrimentalGain;
+                                UpdateDetrimentalMonster(detrimental, line, exp);
+                            }
+                            break;
+                    }
                     break;
             }
             if (detrimental.Success)
@@ -88,6 +92,60 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             ClearLast();
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Detrimental", e, exp);
+        }
+
+        private static void UpdateDetrimentalPlayer(Match detrimental, Line line, Expressions exp, bool isParty = true)
+        {
+            _isParty = isParty;
+            try
+            {
+                line.StatusEffectName = line.Target = Convert.ToString(detrimental.Groups["status"].Value);
+                line.Target = line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                switch (line.StatusEffect)
+                {
+                    case StatusEffect.DetrimentalGain:
+                        if (isParty)
+                        {
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Detrimental", exp.Event, ex);
+            }
+        }
+
+        private static void UpdateDetrimentalMonster(Match detrimental, Line line, Expressions exp, bool isParty = true)
+        {
+            _isParty = isParty;
+            try
+            {
+                line.StatusEffectName = line.Target = Convert.ToString(detrimental.Groups["status"].Value);
+                line.Target = line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                switch (line.StatusEffect)
+                {
+                    case StatusEffect.DetrimentalGain:
+                        if (isParty)
+                        {
+
+                        }
+                        else
+                        {
+                            
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Detrimental", exp.Event, ex);
+            }
         }
     }
 }

@@ -27,5 +27,11 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             var data = String.Format("Unknown {0} Line -> [Subject:{1}][Direction:{2}] {3}:{4}", type, e.Subject, e.Direction, String.Format("{0:X4}", e.Code), cleaned);
             Logging.Log(logger, data);
         }
+
+        public static void Error(Logger logger, string type, Event e, Exception ex)
+        {
+            var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.RawLine, ex.StackTrace);
+            Logging.Log(logger, data);
+        }
     }
 }

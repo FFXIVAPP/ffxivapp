@@ -137,6 +137,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdateDamagePlayer(Match damage, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 line.Hit = true;
@@ -155,21 +156,22 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
                 line.Target = Convert.ToString(damage.Groups["target"].Value);
-                if (!_autoAction)
+                if (isParty)
                 {
-                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
+                    _lastNameParty = line.Source;
+                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions)))
                     {
                         ClearLast(true);
                         return;
                     }
                 }
-                if (isParty)
-                {
-                    _lastNameParty = line.Source;
-                }
                 else
                 {
                     _lastNamePlayer = line.Source;
+                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions)))
+                    {
+                        return;
+                    }
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
@@ -179,12 +181,13 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
             }
         }
 
         private static void UpdateDamageMonster(Match damage, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 line.Hit = true;
@@ -202,21 +205,29 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Crit = damage.Groups["crit"].Success;
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
-                if (!_autoAction)
-                {
-                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
-                    {
-                        ClearLast(true);
-                        return;
-                    }
-                }
+                
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
+                        {
+                            ClearLast(true);
+                            return;
+                        }
+                    }
                 }
                 else
                 {
                     _lastNamePlayer = line.Target;
+                    if (!_autoAction)
+                    {
+                        if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions))
+                        {
+                            return;
+                        }
+                    }
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
@@ -226,7 +237,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
             }
         }
     }

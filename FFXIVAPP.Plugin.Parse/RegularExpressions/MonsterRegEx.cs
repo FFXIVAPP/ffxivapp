@@ -31,13 +31,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex CureEn = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<source>.+) gains? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<target>.+) gains? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<source>.+) loses? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<target>.+) loses? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<source>.+) suffers? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<target>.+) suffers? the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<source>.+) recovers? from the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseEn = new Regex(@"^( ⇒ )?((T|t)he )?(?<target>.+) recovers? from the effect of (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         //FRENCH REGULAR EXPRESSIONS
         public static Regex DamageFr = new Regex(@"^( ⇒ )?(?<parry>Parade ?! )?(?<block>Blocage ?! )?(?<crit>Critique ?! )?(?<target>Vous|.+) subi(t|ssez?)? (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?points? de dégâts?\.$", SharedRegEx.DefaultOptions);

@@ -33,6 +33,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static bool _autoAction;
         private static bool _isMulti;
+        private static bool _isParty;
 
         public static void Process(string cleaned, Event e)
         {
@@ -41,8 +42,10 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 return;
             }
 
-            _lastEventParty = _lastEventParty ?? e;
+            _lastEventParty = _lastEventParty ?? new Event();
+            _lastEventPlayer = _lastEventPlayer ?? new Event();
             _autoAction = false;
+            _isParty = true;
 
             var expressions = new Expressions(e, cleaned);
 
@@ -71,7 +74,14 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     break;
             }
 
-            _lastEventParty = e;
+            if (_isParty)
+            {
+                _lastEventParty = e;
+            }
+            else
+            {
+                _lastEventPlayer = e;
+            }
         }
 
         /// <summary>

@@ -63,34 +63,8 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="line"></param>
         public ChatCleaner(string line)
         {
-            // cleanup name if using other settings
-            var playerRegEx = new Regex(@"(?<full>\[[A-Z0-9]{10}(?<first>[A-Z0-9]{3,})20(?<last>[A-Z0-9]{3,})\](?<short>[\w']+\.? [\w']+\.?)\[[A-Z0-9]{12}\])", SharedRegEx.DefaultOptions);
-            var playerMatch = playerRegEx.Match(line);
-            var cleaned = line;
-            if (playerMatch.Success)
-            {
-                var fullName = playerMatch.Groups[1].Value;
-                var firstName = StringHelper.HexToString(playerMatch.Groups[2].Value);
-                var lastName = StringHelper.HexToString(playerMatch.Groups[3].Value);
-                var player = String.Format("{0} {1}", firstName, lastName);
-                // remove double placement
-                cleaned = line.Replace(String.Format("{0}:{1}", fullName, fullName), "•name•");
-                // remove single placement
-                cleaned = cleaned.Replace(fullName, "•name•");
-                switch (Regex.IsMatch(cleaned, @"^([Vv]ous|[Dd]u|[Yy]ou)"))
-                {
-                    case true:
-                        cleaned = cleaned.Substring(1)
-                                         .Replace("•name•", "");
-                        break;
-                    case false:
-                        cleaned = cleaned.Replace("•name•", player);
-                        break;
-                }
-            }
-            cleaned = Regex.Replace(cleaned, @"[\r\n]+", "");
-            cleaned = Regex.Replace(cleaned, @"[\x00-\x1F]+", "");
-            Result = cleaned;
+            Result = ProcessName(line)
+                .Trim();
         }
 
         /// <summary>
@@ -100,7 +74,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="jp"></param>
         public ChatCleaner(byte[] bytes, CultureInfo ci, out bool jp)
         {
-            Result = Process(bytes, ci, out jp)
+            Result = ProcessFullLine(bytes, ci, out jp)
                 .Trim();
         }
 
@@ -110,7 +84,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="ci"> </param>
         /// <param name="jp"> </param>
         /// <returns> </returns>
-        private string Process(byte[] bytes, CultureInfo ci, out bool jp)
+        private string ProcessFullLine(byte[] bytes, CultureInfo ci, out bool jp)
         {
             jp = false;
             var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
@@ -193,7 +167,51 @@ namespace FFXIVAPP.Client.Memory
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+            }
+            return line;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="cleaned"></param>
+        /// <returns></returns>
+        private string ProcessName(string cleaned)
+        {
+            var line = cleaned;
+            try
+            {
+                // cleanup name if using other settings
+                var playerRegEx = new Regex(@"(?<full>\[[A-Z0-9]{10}(?<first>[A-Z0-9]{3,})20(?<last>[A-Z0-9]{3,})\](?<short>[\w']+\.? [\w']+\.?)\[[A-Z0-9]{12}\])", SharedRegEx.DefaultOptions);
+                var playerMatch = playerRegEx.Match(line);
+                if (playerMatch.Success)
+                {
+                    var fullName = playerMatch.Groups[1].Value;
+                    var firstName = StringHelper.HexToString(playerMatch.Groups[2].Value);
+                    var lastName = StringHelper.HexToString(playerMatch.Groups[3].Value);
+                    var player = String.Format("{0} {1}", firstName, lastName);
+                    // remove double placement
+                    cleaned = line.Replace(String.Format("{0}:{1}", fullName, fullName), "•name•");
+                    // remove single placement
+                    cleaned = cleaned.Replace(fullName, "•name•");
+                    switch (Regex.IsMatch(cleaned, @"^([Vv]ous|[Dd]u|[Yy]ou)"))
+                    {
+                        case true:
+                            cleaned = cleaned.Substring(1)
+                                             .Replace("•name•", "");
+                            break;
+                        case false:
+                            cleaned = cleaned.Replace("•name•", player);
+                            break;
+                    }
+                }
+                cleaned = Regex.Replace(cleaned, @"[\r\n]+", "");
+                cleaned = Regex.Replace(cleaned, @"[\x00-\x1F]+", "");
+                line = cleaned;
+            }
+            catch (Exception ex)
+            {
+                //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             return line;
         }

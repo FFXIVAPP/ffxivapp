@@ -67,6 +67,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdateHealingPlayer(Match cure, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 line.Action = isParty ? _lastActionParty : _lastActionPlayer;
@@ -78,26 +79,30 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 {
                     line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                 }
-                line.HpMpTp = Convert.ToString(cure.Groups["type"].Value.ToUpper());
-                if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions && _lastEventParty.Type != EventType.Items))
-                {
-                    ClearLast(true);
-                    return;
-                }
+                line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpper());
                 if (isParty)
                 {
                     _lastNameParty = line.Source;
+                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions && _lastEventParty.Type != EventType.Items))
+                    {
+                        ClearLast(true);
+                        return;
+                    }
                 }
                 else
                 {
                     _lastNamePlayer = line.Source;
+                    if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions && _lastEventPlayer.Type != EventType.Items))
+                    {
+                        return;
+                    }
                 }
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                             .SetHealing(line);
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Cure", exp.Event, ex);
             }
         }
     }

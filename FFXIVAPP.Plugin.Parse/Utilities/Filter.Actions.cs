@@ -86,6 +86,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
 
         private static void UpdateActionsPlayers(Match actions, Line line, Expressions exp, bool isParty = true)
         {
+            _isParty = isParty;
             try
             {
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
@@ -100,7 +101,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Action", exp.Event, ex);
             }
         }
     }

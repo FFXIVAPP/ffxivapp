@@ -6,7 +6,9 @@
 #region Usings
 
 using System;
+using System.Web.UI.WebControls;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Plugin.Parse.Enums;
 
 #endregion
 
@@ -14,11 +16,16 @@ namespace FFXIVAPP.Plugin.Parse.Models
 {
     public class Line
     {
-        public int MapID { get; set; }
+        // misc.
         public string ActionType { get; set; }
+
+        // map information
+        public int MapID { get; set; }
+
+        // battle data
         public decimal Amount { get; set; }
         public decimal Modifier { get; set; }
-        public string HpMpTp { get; set; }
+        public string RecLossType { get; set; }
         public bool Hit { get; set; }
         public bool Miss { get; set; }
         public bool Crit { get; set; }
@@ -28,6 +35,10 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public bool Resist { get; set; }
         public bool Evade { get; set; }
         public string RawLine { get; set; }
+        
+        // status effect info
+        public StatusEffect StatusEffect { get; set; }
+        public string StatusEffectName { get; set; }
 
         #region Property Backings
 

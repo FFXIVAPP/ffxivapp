@@ -33,6 +33,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.Self:
+                            _isParty = false;
                             items = exp.pItems;
                             if (items.Success)
                             {

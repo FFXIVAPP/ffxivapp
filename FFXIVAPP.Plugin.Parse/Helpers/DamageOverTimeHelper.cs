@@ -22,204 +22,214 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             "サンダ"
         };
 
-        public static Dictionary<string, DamageOverTimeAction> PlayerActions()
+        private static Dictionary<string, DamageOverTimeAction> _playerActions;
+        private static Dictionary<string, DamageOverTimeAction> _monsterActions;
+
+        public static Dictionary<string, DamageOverTimeAction> PlayerActions
         {
-            var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
-
-            damageOverTimeActions.Add("circle of scorn", new DamageOverTimeAction
+            get
             {
-                ActionPotency = 100,
-                DamageOverTimePotency = 30,
-                Duration = 15,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("kreis der verachtung", damageOverTimeActions["circle of scorn"]);
-            damageOverTimeActions.Add("cercle du destin", damageOverTimeActions["circle of scorn"]);
-            damageOverTimeActions.Add("サークル・オブ・ドゥーム", damageOverTimeActions["circle of scorn"]);
+                if (_playerActions != null)
+                {
+                    return _playerActions;
+                }
+                _playerActions = new Dictionary<string, DamageOverTimeAction>();
 
-            damageOverTimeActions.Add("touch of death", new DamageOverTimeAction
-            {
-                ActionPotency = 20,
-                DamageOverTimePotency = 25,
-                Duration = 30,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("hauch des todes", damageOverTimeActions["touch of death"]);
-            damageOverTimeActions.Add("toucher mortel", damageOverTimeActions["touch of death"]);
-            damageOverTimeActions.Add("秘孔拳", damageOverTimeActions["touch of death"]);
+                _playerActions.Add("circle of scorn", new DamageOverTimeAction
+                {
+                    ActionPotency = 100,
+                    DamageOverTimePotency = 30,
+                    Duration = 15,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("kreis der verachtung", _playerActions["circle of scorn"]);
+                _playerActions.Add("cercle du destin", _playerActions["circle of scorn"]);
+                _playerActions.Add("サークル・オブ・ドゥーム", _playerActions["circle of scorn"]);
 
-            damageOverTimeActions.Add("demolish", new DamageOverTimeAction
-            {
-                ActionPotency = 100,
-                DamageOverTimePotency = 40,
-                Duration = 18,
-                ZeroBaseDamageDOT = true
-            });
-            damageOverTimeActions.Add("demolieren", damageOverTimeActions["demolish"]);
-            damageOverTimeActions.Add("démolition", damageOverTimeActions["demolish"]);
-            damageOverTimeActions.Add("破砕拳", damageOverTimeActions["demolish"]);
+                _playerActions.Add("touch of death", new DamageOverTimeAction
+                {
+                    ActionPotency = 20,
+                    DamageOverTimePotency = 25,
+                    Duration = 30,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("hauch des todes", _playerActions["touch of death"]);
+                _playerActions.Add("toucher mortel", _playerActions["touch of death"]);
+                _playerActions.Add("秘孔拳", _playerActions["touch of death"]);
 
-            damageOverTimeActions.Add("fracture", new DamageOverTimeAction
-            {
-                ActionPotency = 100,
-                DamageOverTimePotency = 20,
-                Duration = 30,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("knochenbrecher", damageOverTimeActions["fracture"]);
-            //damageOverTimeActions.Add("fracture", damageOverTimeActions["fracture"]);
-            damageOverTimeActions.Add("フラクチャー", damageOverTimeActions["fracture"]);
+                _playerActions.Add("demolish", new DamageOverTimeAction
+                {
+                    ActionPotency = 100,
+                    DamageOverTimePotency = 40,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = true
+                });
+                _playerActions.Add("demolieren", _playerActions["demolish"]);
+                _playerActions.Add("démolition", _playerActions["demolish"]);
+                _playerActions.Add("破砕拳", _playerActions["demolish"]);
 
-            damageOverTimeActions.Add("phlebotomize", new DamageOverTimeAction
-            {
-                ActionPotency = 170,
-                DamageOverTimePotency = 20,
-                Duration = 18,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("phlebotomie", damageOverTimeActions["phlebotomize"]);
-            damageOverTimeActions.Add("double percée", damageOverTimeActions["phlebotomize"]);
-            damageOverTimeActions.Add("二段突き", damageOverTimeActions["phlebotomize"]);
+                _playerActions.Add("fracture", new DamageOverTimeAction
+                {
+                    ActionPotency = 100,
+                    DamageOverTimePotency = 20,
+                    Duration = 30,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("knochenbrecher", _playerActions["fracture"]);
+                //_playerActions.Add("fracture", _playerActions["fracture"]);
+                _playerActions.Add("フラクチャー", _playerActions["fracture"]);
 
-            damageOverTimeActions.Add("chaos thrust", new DamageOverTimeAction
-            {
-                ActionPotency = 160,
-                DamageOverTimePotency = 20,
-                Duration = 30,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("chaotischer tjost", damageOverTimeActions["chaos thrust"]);
-            damageOverTimeActions.Add("percée chaotique", damageOverTimeActions["chaos thrust"]);
-            damageOverTimeActions.Add("桜華狂咲", damageOverTimeActions["chaos thrust"]);
+                _playerActions.Add("phlebotomize", new DamageOverTimeAction
+                {
+                    ActionPotency = 170,
+                    DamageOverTimePotency = 20,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("phlebotomie", _playerActions["phlebotomize"]);
+                _playerActions.Add("double percée", _playerActions["phlebotomize"]);
+                _playerActions.Add("二段突き", _playerActions["phlebotomize"]);
 
-            damageOverTimeActions.Add("venomous bite", new DamageOverTimeAction
-            {
-                ActionPotency = 100,
-                DamageOverTimePotency = 35,
-                Duration = 18,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("giftbiss", damageOverTimeActions["venomous bite"]);
-            damageOverTimeActions.Add("morsure venimeuse", damageOverTimeActions["venomous bite"]);
-            damageOverTimeActions.Add("ベノムバイト", damageOverTimeActions["venomous bite"]);
+                _playerActions.Add("chaos thrust", new DamageOverTimeAction
+                {
+                    ActionPotency = 160,
+                    DamageOverTimePotency = 20,
+                    Duration = 30,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("chaotischer tjost", _playerActions["chaos thrust"]);
+                _playerActions.Add("percée chaotique", _playerActions["chaos thrust"]);
+                _playerActions.Add("桜華狂咲", _playerActions["chaos thrust"]);
 
-            damageOverTimeActions.Add("windbite", new DamageOverTimeAction
-            {
-                ActionPotency = 60,
-                DamageOverTimePotency = 45,
-                Duration = 18,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("beißender Wind", damageOverTimeActions["windbite"]);
-            damageOverTimeActions.Add("morsure du vent", damageOverTimeActions["windbite"]);
-            damageOverTimeActions.Add("ウィンドバイト", damageOverTimeActions["windbite"]);
+                _playerActions.Add("venomous bite", new DamageOverTimeAction
+                {
+                    ActionPotency = 100,
+                    DamageOverTimePotency = 35,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("giftbiss", _playerActions["venomous bite"]);
+                _playerActions.Add("morsure venimeuse", _playerActions["venomous bite"]);
+                _playerActions.Add("ベノムバイト", _playerActions["venomous bite"]);
 
-            damageOverTimeActions.Add("aero", new DamageOverTimeAction
-            {
-                ActionPotency = 50,
-                DamageOverTimePotency = 25,
-                Duration = 18,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("wind", damageOverTimeActions["aero"]);
-            damageOverTimeActions.Add("vent", damageOverTimeActions["aero"]);
-            damageOverTimeActions.Add("エアロ", damageOverTimeActions["aero"]);
+                _playerActions.Add("windbite", new DamageOverTimeAction
+                {
+                    ActionPotency = 60,
+                    DamageOverTimePotency = 45,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("beißender Wind", _playerActions["windbite"]);
+                _playerActions.Add("morsure du vent", _playerActions["windbite"]);
+                _playerActions.Add("ウィンドバイト", _playerActions["windbite"]);
 
-            damageOverTimeActions.Add("aero ii", new DamageOverTimeAction
-            {
-                ActionPotency = 50,
-                DamageOverTimePotency = 40,
-                Duration = 12,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("windra", damageOverTimeActions["aero ii"]);
-            damageOverTimeActions.Add("extra vent", damageOverTimeActions["aero ii"]);
-            damageOverTimeActions.Add("エアロラ", damageOverTimeActions["aero ii"]);
+                _playerActions.Add("aero", new DamageOverTimeAction
+                {
+                    ActionPotency = 50,
+                    DamageOverTimePotency = 25,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("wind", _playerActions["aero"]);
+                _playerActions.Add("vent", _playerActions["aero"]);
+                _playerActions.Add("エアロ", _playerActions["aero"]);
 
-            damageOverTimeActions.Add("thunder", new DamageOverTimeAction
-            {
-                ActionPotency = 30,
-                DamageOverTimePotency = 35,
-                Duration = 18,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("blitz", damageOverTimeActions["thunder"]);
-            damageOverTimeActions.Add("foudre", damageOverTimeActions["thunder"]);
-            damageOverTimeActions.Add("サンダー", damageOverTimeActions["thunder"]);
+                _playerActions.Add("aero ii", new DamageOverTimeAction
+                {
+                    ActionPotency = 50,
+                    DamageOverTimePotency = 40,
+                    Duration = 12,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("windra", _playerActions["aero ii"]);
+                _playerActions.Add("extra vent", _playerActions["aero ii"]);
+                _playerActions.Add("エアロラ", _playerActions["aero ii"]);
 
-            damageOverTimeActions.Add("thunder ii", new DamageOverTimeAction
-            {
-                ActionPotency = 50,
-                DamageOverTimePotency = 35,
-                Duration = 21,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("blitzra", damageOverTimeActions["thunder ii"]);
-            damageOverTimeActions.Add("extra foudre", damageOverTimeActions["thunder ii"]);
-            damageOverTimeActions.Add("サンダラ", damageOverTimeActions["thunder ii"]);
+                _playerActions.Add("thunder", new DamageOverTimeAction
+                {
+                    ActionPotency = 30,
+                    DamageOverTimePotency = 35,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("blitz", _playerActions["thunder"]);
+                _playerActions.Add("foudre", _playerActions["thunder"]);
+                _playerActions.Add("サンダー", _playerActions["thunder"]);
 
-            damageOverTimeActions.Add("thunder iii", new DamageOverTimeAction
-            {
-                ActionPotency = 60,
-                DamageOverTimePotency = 35,
-                Duration = 24,
-                ZeroBaseDamageDOT = false
-            });
-            damageOverTimeActions.Add("blitzga", damageOverTimeActions["thunder iii"]);
-            damageOverTimeActions.Add("méga foudre", damageOverTimeActions["thunder iii"]);
-            damageOverTimeActions.Add("サンダガ", damageOverTimeActions["thunder iii"]);
+                _playerActions.Add("thunder ii", new DamageOverTimeAction
+                {
+                    ActionPotency = 50,
+                    DamageOverTimePotency = 35,
+                    Duration = 21,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("blitzra", _playerActions["thunder ii"]);
+                _playerActions.Add("extra foudre", _playerActions["thunder ii"]);
+                _playerActions.Add("サンダラ", _playerActions["thunder ii"]);
 
-            damageOverTimeActions.Add("bio", new DamageOverTimeAction
-            {
-                ActionPotency = 20,
-                DamageOverTimePotency = 40,
-                Duration = 18,
-                ZeroBaseDamageDOT = true
-            });
-            //damageOverTimeActions.Add("bio", damageOverTimeActions["bio"]);
-            damageOverTimeActions.Add("bactérie", damageOverTimeActions["bio"]);
-            damageOverTimeActions.Add("バイオ", damageOverTimeActions["bio"]);
+                _playerActions.Add("thunder iii", new DamageOverTimeAction
+                {
+                    ActionPotency = 60,
+                    DamageOverTimePotency = 35,
+                    Duration = 24,
+                    ZeroBaseDamageDOT = false
+                });
+                _playerActions.Add("blitzga", _playerActions["thunder iii"]);
+                _playerActions.Add("méga foudre", _playerActions["thunder iii"]);
+                _playerActions.Add("サンダガ", _playerActions["thunder iii"]);
 
-            damageOverTimeActions.Add("bio ii", new DamageOverTimeAction
-            {
-                ActionPotency = 20,
-                DamageOverTimePotency = 35,
-                Duration = 30,
-                ZeroBaseDamageDOT = true
-            });
-            damageOverTimeActions.Add("biora", damageOverTimeActions["bio ii"]);
-            damageOverTimeActions.Add("extra bactérie", damageOverTimeActions["bio ii"]);
-            damageOverTimeActions.Add("バイオラ", damageOverTimeActions["bio ii"]);
+                _playerActions.Add("bio", new DamageOverTimeAction
+                {
+                    ActionPotency = 20,
+                    DamageOverTimePotency = 40,
+                    Duration = 18,
+                    ZeroBaseDamageDOT = true
+                });
+                //_playerActions.Add("bio", _playerActions["bio"]);
+                _playerActions.Add("bactérie", _playerActions["bio"]);
+                _playerActions.Add("バイオ", _playerActions["bio"]);
 
-            damageOverTimeActions.Add("miasma", new DamageOverTimeAction
-            {
-                ActionPotency = 20,
-                DamageOverTimePotency = 35,
-                Duration = 24,
-                ZeroBaseDamageDOT = false
-            });
-            //damageOverTimeActions.Add("miasma", damageOverTimeActions["miasma"]);
-            damageOverTimeActions.Add("miasmes", damageOverTimeActions["miasma"]);
-            damageOverTimeActions.Add("ミアズマ", damageOverTimeActions["miasma"]);
+                _playerActions.Add("bio ii", new DamageOverTimeAction
+                {
+                    ActionPotency = 20,
+                    DamageOverTimePotency = 35,
+                    Duration = 30,
+                    ZeroBaseDamageDOT = true
+                });
+                _playerActions.Add("biora", _playerActions["bio ii"]);
+                _playerActions.Add("extra bactérie", _playerActions["bio ii"]);
+                _playerActions.Add("バイオラ", _playerActions["bio ii"]);
 
-            damageOverTimeActions.Add("miasma ii", new DamageOverTimeAction
-            {
-                ActionPotency = 20,
-                DamageOverTimePotency = 10,
-                Duration = 15,
-                ZeroBaseDamageDOT = false
-            });
-            //damageOverTimeActions.Add("miasma ii", damageOverTimeActions["miasma ii"]);
-            damageOverTimeActions.Add("extra miasmes", damageOverTimeActions["miasma ii"]);
-            damageOverTimeActions.Add("ミアズラ", damageOverTimeActions["miasma ii"]);
+                _playerActions.Add("miasma", new DamageOverTimeAction
+                {
+                    ActionPotency = 20,
+                    DamageOverTimePotency = 35,
+                    Duration = 24,
+                    ZeroBaseDamageDOT = false
+                });
+                //_playerActions.Add("miasma", _playerActions["miasma"]);
+                _playerActions.Add("miasmes", _playerActions["miasma"]);
+                _playerActions.Add("ミアズマ", _playerActions["miasma"]);
 
-            return damageOverTimeActions;
+                _playerActions.Add("miasma ii", new DamageOverTimeAction
+                {
+                    ActionPotency = 20,
+                    DamageOverTimePotency = 10,
+                    Duration = 15,
+                    ZeroBaseDamageDOT = false
+                });
+                //_playerActions.Add("miasma ii", _playerActions["miasma ii"]);
+                _playerActions.Add("extra miasmes", _playerActions["miasma ii"]);
+                _playerActions.Add("ミアズラ", _playerActions["miasma ii"]);
+                return _playerActions;
+            }
+            set { _playerActions = value; }
         }
 
-        public static Dictionary<string, DamageOverTimeAction> MonsterActions()
+        public static Dictionary<string, DamageOverTimeAction> MonsterActions
         {
-            var damageOverTimeActions = new Dictionary<string, DamageOverTimeAction>();
-            return damageOverTimeActions;
+            get { return _monsterActions ?? (_monsterActions = new Dictionary<string, DamageOverTimeAction>()); }
+            set { _monsterActions = value; }
         }
     }
 }
