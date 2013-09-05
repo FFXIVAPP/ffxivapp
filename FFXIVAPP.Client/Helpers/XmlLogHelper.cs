@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 
 #endregion

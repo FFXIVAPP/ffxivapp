@@ -38,6 +38,7 @@ namespace FFXIVAPP.Client.Memory
         public Coordinate Coordinate { get; set; }
         public float Heading { get; set; }
         public uint Fate { get; set; }
+        public uint ModelID { get; set; }
         public byte Icon { get; set; }
         public byte Claimed { get; set; }
         public int TargetID { get; set; }

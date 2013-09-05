@@ -327,12 +327,12 @@ namespace FFXIVAPP.Client
                 Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000", /*????????00000000DB0FC93F6F12833A*/
                 Offset = 68
             });
-            //signatures.Add(new Signature
-            //{
-            //    Key = "MAP",
-            //    Value = "F783843E????????DB0FC93F6F12833A",
-            //    Offset = 784
-            //});
+            signatures.Add(new Signature
+            {
+                Key = "MAP",
+                Value = "F783843E????????DB0FC93F6F12833A",
+                Offset = 784
+            });
         }
 
         /// <summary>
@@ -420,9 +420,9 @@ namespace FFXIVAPP.Client
             _chatWorker = new ChatWorker(process, offsets);
             _chatWorker.StartScanning();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
-            //_npcWorker = new NPCWorker(process, offsets);
-            //_npcWorker.StartScanning();
-            //_npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
+            _npcWorker = new NPCWorker(process, offsets);
+            _npcWorker.StartScanning();
+            _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
         }
 
         /// <summary>
@@ -437,9 +437,9 @@ namespace FFXIVAPP.Client
             }
             if (_npcWorker != null)
             {
-                //_npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
-                //_npcWorker.StopScanning();
-                //_npcWorker.Dispose();
+                _npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
+                _npcWorker.StopScanning();
+                _npcWorker.Dispose();
             }
         }
     }

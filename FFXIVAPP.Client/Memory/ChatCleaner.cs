@@ -63,8 +63,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="line"></param>
         public ChatCleaner(string line)
         {
-            Result = ProcessName(line)
-                .Trim();
+            Result = ProcessName(line);
         }
 
         /// <summary>

@@ -70,7 +70,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offsets"> </param>
         public NPCWorker(Process process, SigFinder offsets)
         {
-            _scanTimer = new Timer(1000);
+            _scanTimer = new Timer(5000);
             _scanTimer.Elapsed += ScanTimerElapsed;
             _handler = new MemoryHandler(process, 0);
             _offsets = offsets;
@@ -119,7 +119,7 @@ namespace FFXIVAPP.Client.Memory
                 _isScanning = true;
 
                 var npcList = new List<NPCEntry>();
-                for (uint i = 0; i <= 384; i += 4)
+                for (uint i = 0; i <= 1000; i += 4)
                 {
                     try
                     {
@@ -138,6 +138,7 @@ namespace FFXIVAPP.Client.Memory
                             Coordinate = new Coordinate(_handler.GetFloat(160), _handler.GetFloat(168), _handler.GetFloat(164)),
                             Heading = _handler.GetFloat(176),
                             Fate = _handler.GetUInt32(228),
+                            ModelID = _handler.GetUInt32(388),
                             Icon = _handler.GetByte(394),
                             Claimed = _handler.GetByte(405),
                             TargetID = _handler.GetInt32(416),
