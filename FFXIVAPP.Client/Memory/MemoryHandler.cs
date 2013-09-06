@@ -251,8 +251,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="length"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public string GetOperationCode(uint address, int length)
         {
             var buffer = GetByteArray(address, length);
@@ -261,8 +262,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public byte GetByte(uint address, uint offset = 0)
         {
             var data = new byte[1];
@@ -272,8 +274,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="length"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public byte[] GetByteArray(uint address, int length)
         {
             var data = new byte[length];
@@ -283,8 +286,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public double GetDouble(uint address, uint offset = 0)
         {
             var value = new byte[8];
@@ -294,8 +298,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public float GetFloat(uint address, uint offset = 0)
         {
             var value = new byte[4];
@@ -305,8 +310,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public short GetInt16(uint address, uint offset = 0)
         {
             var value = new byte[2];
@@ -316,8 +322,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public int GetInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
@@ -327,8 +334,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public long GetInt64(uint address, uint offset = 0)
         {
             var value = new byte[8];
@@ -338,9 +346,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <param name="size"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
         public string GetString(uint address, uint offset = 0, int size = 24)
         {
             var bytes = new byte[size];
@@ -361,8 +370,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public int GetProgram(uint address, uint offset = 0)
         {
             var value = new byte[30];
@@ -372,8 +382,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public UInt32 GetUInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
@@ -383,8 +394,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public UInt16 GetUInt16(uint address, uint offset = 0)
         {
             var value = new byte[4];
@@ -394,9 +406,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public T GetStructure<T>(uint address, int offset = 0)
         {
             var lpBytesWritten = 0;
@@ -409,8 +422,9 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
         public void Reset(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -419,8 +433,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetByte(uint address, byte val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -429,9 +445,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetByteArray(uint address, byte[] val, uint offset = 0)
         {
             return Poke(Process, address + offset, val);
@@ -439,9 +456,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetDouble(uint address, double val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -450,9 +468,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetFloat(uint address, float val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -461,9 +480,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetInt16(uint address, short val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -472,9 +492,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetInt32(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -483,9 +504,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetInt64(uint address, long val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -494,9 +516,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetUInt16(uint address, UInt16 val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
@@ -505,9 +528,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
+        /// <param name="address"></param>
+        /// <param name="val"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public bool SetUInt32(uint address, UInt32 val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
