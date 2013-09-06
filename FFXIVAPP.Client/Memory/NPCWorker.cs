@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
@@ -28,8 +27,6 @@ namespace FFXIVAPP.Client.Memory
         #region Declarations
 
         private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
-        private readonly MemoryHandler _handler;
-        private readonly SigFinder _offsets;
         private readonly Timer _scanTimer;
         private readonly SynchronizationContext _sync = SynchronizationContext.Current;
         private bool _isScanning;
@@ -64,16 +61,10 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="offsets"> </param>
-        public NPCWorker(Process process, SigFinder offsets)
+        public NPCWorker()
         {
-            _scanTimer = new Timer(5000);
+            _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
-            _handler = new MemoryHandler(process, 0);
-            _offsets = offsets;
         }
 
         #region Timer Controls
@@ -108,11 +99,11 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (!_offsets.Locations.ContainsKey("GAMEMAIN"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
                 {
                     return false;
                 }
-                if (!_offsets.Locations.ContainsKey("CHARMAP"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                 {
                     return false;
                 }
@@ -123,30 +114,33 @@ namespace FFXIVAPP.Client.Memory
                 {
                     try
                     {
-                        _handler.Address = _offsets.Locations["CHARMAP"] + i;
-                        var characterAddress = _handler.GetInt32();
+                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
                         if (characterAddress == 0)
                         {
                             continue;
                         }
-                        _handler.Address = (uint) characterAddress;
                         var npcEntry = new NPCEntry
                         {
-                            Name = _handler.GetString(48),
-                            ID = _handler.GetUInt32(116),
-                            Type = _handler.GetByte(138),
-                            Coordinate = new Coordinate(_handler.GetFloat(160), _handler.GetFloat(168), _handler.GetFloat(164)),
-                            Heading = _handler.GetFloat(176),
-                            Fate = _handler.GetUInt32(228),
-                            ModelID = _handler.GetUInt32(388),
-                            Icon = _handler.GetByte(394),
-                            Claimed = _handler.GetByte(405),
-                            TargetID = _handler.GetInt32(416),
-                            HPCurrent = _handler.GetInt32(5776),
-                            HPMax = _handler.GetInt32(5780),
-                            MPCurrent = _handler.GetInt32(5784),
-                            MPMax = _handler.GetInt32(5788),
-                            TPCurrent = _handler.GetInt32(5792),
+                            Name = MemoryHandler.Instance.GetString(characterAddress, 48),
+                            ID = MemoryHandler.Instance.GetUInt32(characterAddress, 116),
+                            Type = MemoryHandler.Instance.GetByte(characterAddress, 138),
+                            Coordinate = new Coordinate
+                            {
+                                X = MemoryHandler.Instance.GetFloat(characterAddress, 160),
+                                Y = MemoryHandler.Instance.GetFloat(characterAddress, 168),
+                                Z = MemoryHandler.Instance.GetFloat(characterAddress, 164)
+                            },
+                            Heading = MemoryHandler.Instance.GetFloat(characterAddress, 176),
+                            Fate = MemoryHandler.Instance.GetUInt32(characterAddress, 228),
+                            ModelID = MemoryHandler.Instance.GetUInt32(characterAddress, 388),
+                            Icon = MemoryHandler.Instance.GetByte(characterAddress, 394),
+                            Claimed = MemoryHandler.Instance.GetByte(characterAddress, 405),
+                            TargetID = MemoryHandler.Instance.GetInt32(characterAddress, 416),
+                            HPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5776),
+                            HPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5780),
+                            MPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5784),
+                            MPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5788),
+                            TPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5792),
                             TPMax = 1000
                         };
                         if (npcEntry.HPMax == 0)
@@ -158,12 +152,11 @@ namespace FFXIVAPP.Client.Memory
                             npcEntry.TargetID = -1;
                         }
                         npcEntry.MapIndex = 0;
-                        if (_offsets.Locations.ContainsKey("MAP"))
+                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                         {
-                            _handler.Address = _offsets.Locations["MAP"];
                             try
                             {
-                                npcEntry.MapIndex = _handler.GetUInt16();
+                                npcEntry.MapIndex = MemoryHandler.Instance.GetUInt16(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                             }
                             catch (Exception ex)
                             {

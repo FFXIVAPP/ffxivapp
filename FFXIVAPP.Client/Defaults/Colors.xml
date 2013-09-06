@@ -2,31 +2,71 @@
 <Colors>
   <Color Key="000A">
     <Value>FFFFFF</Value>
-    <Description></Description>
+    <Description>Say</Description>
   </Color>
   <Color Key="000B">
     <Value>FFFFFF</Value>
-    <Description></Description>
-  </Color>
-  <Color Key="000C">
-    <Value>FFFFFF</Value>
-    <Description></Description>
-  </Color>
-  <Color Key="000D">
-    <Value>FFFFFF</Value>
-    <Description></Description>
+    <Description>Shout</Description>
   </Color>
   <Color Key="000E">
     <Value>FFFFFF</Value>
-    <Description></Description>
+    <Description>Party</Description>
+  </Color>
+  <Color Key="000C">
+    <Value>FFFFFF</Value>
+    <Description>Tell (Out)</Description>
+  </Color>
+  <Color Key="000D">
+    <Value>FFFFFF</Value>
+    <Description>Tell (In)</Description>
+  </Color>
+  <Color Key="0010">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[1]</Description>
+  </Color>
+  <Color Key="0011">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[2]</Description>
+  </Color>
+  <Color Key="0012">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[3]</Description>
+  </Color>
+  <Color Key="0013">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[4]</Description>
+  </Color>
+  <Color Key="0014">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[5]</Description>
+  </Color>
+  <Color Key="0015">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[6]</Description>
+  </Color>
+  <Color Key="0016">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[7]</Description>
+  </Color>
+  <Color Key="0017">
+    <Value>FFFFFF</Value>
+    <Description>Linkshell[8]</Description>
+  </Color>
+  <Color Key="0018">
+    <Value>FFFFFF</Value>
+    <Description>Free Company</Description>
   </Color>
   <Color Key="001C">
     <Value>FFFFFF</Value>
-    <Description></Description>
+    <Description>Custom Emotes</Description>
   </Color>
   <Color Key="001D">
     <Value>FFFFFF</Value>
-    <Description></Description>
+    <Description>Standard Emotes</Description>
+  </Color>
+  <Color Key="001E">
+    <Value>FFFFFF</Value>
+    <Description>Yell</Description>
   </Color>
   <Color Key="0429">
     <Value>FFFFFF</Value>

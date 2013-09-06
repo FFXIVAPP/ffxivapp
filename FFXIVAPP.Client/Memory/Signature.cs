@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class Signature
+    public class Signature
     {
         public string Key { get; set; }
         public string Value { get; set; }

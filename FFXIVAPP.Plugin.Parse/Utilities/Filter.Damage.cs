@@ -205,7 +205,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Crit = damage.Groups["crit"].Success;
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
-                
+
                 if (isParty)
                 {
                     _lastNameParty = line.Target;

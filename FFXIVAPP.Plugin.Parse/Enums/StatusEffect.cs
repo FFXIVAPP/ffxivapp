@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Parse
-// StatusEffects.cs
+// StatusEffect.cs
 // 
 // © 2013 Ryan Wilson
 

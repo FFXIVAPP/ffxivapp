@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -31,8 +30,6 @@ namespace FFXIVAPP.Client.Memory
         #region Declarations
 
         private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
-        private readonly MemoryHandler _handler;
-        private readonly SigFinder _offsets;
         private readonly Timer _scanTimer;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly List<uint> _spots = new List<uint>();
@@ -71,16 +68,10 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="offsets"> </param>
-        public ChatWorker(Process process, SigFinder offsets)
+        public ChatWorker()
         {
             _scanTimer = new Timer(10);
             _scanTimer.Elapsed += ScanTimerElapsed;
-            _handler = new MemoryHandler(process, 0);
-            _offsets = offsets;
         }
 
         #region Timer Controls
@@ -115,18 +106,16 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (!_offsets.Locations.ContainsKey("GAMEMAIN"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
                 {
                     return false;
                 }
-                if (!_offsets.Locations.ContainsKey("CHATLOG"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG"))
                 {
-                    _handler.Address = _offsets.Locations["GAMEMAIN"];
-                    _offsets.Locations.Add("CHATLOG", _handler.GetUInt32() + 20);
+                    MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20);
                 }
                 _isScanning = true;
-                _handler.Address = _offsets.Locations["CHATLOG"];
-                var chatPointers = _handler.GetStructure<ChatPointers>();
+                var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(MemoryHandler.Instance.SigScanner.Locations["CHATLOG"]);
                 try
                 {
                     if (_lastCount == 0)
@@ -147,27 +136,25 @@ namespace FFXIVAPP.Client.Memory
                         int lineLen;
                         if (getline == 0)
                         {
-                            _handler.Address = chatPointers.OffsetArrayStart;
-                            lineLen = _handler.GetInt32();
+                            lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
                         }
                         else
                         {
-                            _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                            var previous = _handler.GetInt32();
-                            _handler.Address = chatPointers.OffsetArrayStart + (uint) (getline * 4);
-                            var current = _handler.GetInt32();
+                            var previousAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
+                            var previous = MemoryHandler.Instance.GetInt32(previousAddress);
+                            var currentAddress = chatPointers.OffsetArrayStart + (uint) (getline * 4);
+                            var current = MemoryHandler.Instance.GetInt32(currentAddress);
                             lineLen = current - previous;
                         }
                         lengths.Add(lineLen);
-                        _handler.Address = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                        _spots.Add(chatPointers.LogStart + (uint) _handler.GetInt32());
+                        var spotAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
+                        _spots.Add(chatPointers.LogStart + (uint) MemoryHandler.Instance.GetInt32(spotAddress));
                     }
                     var limit = _spots.Count;
                     for (var i = 0; i < limit; i++)
                     {
                         _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
-                        _handler.Address = _spots[i];
-                        var text = _handler.GetByteArray(lengths[i]);
+                        var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
                         var chatEntry = new ChatEntry(text.ToArray());
                         if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
                         {

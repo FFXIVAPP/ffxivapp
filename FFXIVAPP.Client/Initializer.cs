@@ -333,6 +333,12 @@ namespace FFXIVAPP.Client
                 Value = "F783843E????????DB0FC93F6F12833A",
                 Offset = 784
             });
+            signatures.Add(new Signature
+            {
+                Key = "TARGET",
+                Value = "DB0FC93F6F12833ADB0FC940920A063F",
+                Offset = 132
+            });
         }
 
         /// <summary>
@@ -412,15 +418,18 @@ namespace FFXIVAPP.Client
                 return;
             }
             var process = Process.GetProcessById(id);
-            var offsets = new SigFinder(process, AppViewModel.Instance.Signatures);
+            MemoryHandler.Instance = new MemoryHandler(process, 0)
+            {
+                SigScanner = new SigScanner(process, AppViewModel.Instance.Signatures)
+            };
             if (_chatWorker != null || _npcWorker != null)
             {
                 StopMemoryWorkers();
             }
-            _chatWorker = new ChatWorker(process, offsets);
+            _chatWorker = new ChatWorker();
             _chatWorker.StartScanning();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
-            _npcWorker = new NPCWorker(process, offsets);
+            _npcWorker = new NPCWorker();
             _npcWorker.StartScanning();
             _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
         }

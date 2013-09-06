@@ -62,6 +62,7 @@
   &lt;string&gt;Excalibur&lt;/string&gt;
   &lt;string&gt;Exodus&lt;/string&gt;
   &lt;string&gt;Faerie&lt;/string&gt;
+  &lt;string&gt;Famfrit&lt;/string&gt;
   &lt;string&gt;Fenrir&lt;/string&gt;
   &lt;string&gt;Garuda&lt;/string&gt;
   &lt;string&gt;Gilgamesh&lt;/string&gt;
@@ -74,12 +75,14 @@
   &lt;string&gt;Kujata&lt;/string&gt;
   &lt;string&gt;Lamia&lt;/string&gt;
   &lt;string&gt;Leviathan&lt;/string&gt;
+  &lt;string&gt;Lich&lt;/string&gt;
   &lt;string&gt;Malboro&lt;/string&gt;
   &lt;string&gt;Mandragora&lt;/string&gt;
   &lt;string&gt;Masamune&lt;/string&gt;
   &lt;string&gt;Midgardsormr&lt;/string&gt;
   &lt;string&gt;Moogle&lt;/string&gt;
   &lt;string&gt;Odin&lt;/string&gt;
+  &lt;string&gt;Pandaemonium&lt;/string&gt;
   &lt;string&gt;Phoenix&lt;/string&gt;
   &lt;string&gt;Ragnarok&lt;/string&gt;
   &lt;string&gt;Ramuh&lt;/string&gt;

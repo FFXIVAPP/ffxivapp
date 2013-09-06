@@ -16,8 +16,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 
 #endregion
 

@@ -155,7 +155,7 @@
     <Compile Include="Memory\ChatPointers.cs" />
     <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
-    <Compile Include="Memory\SigFinder.cs" />
+    <Compile Include="Memory\SigScanner.cs" />
     <Compile Include="Memory\Signature.cs" />
     <Compile Include="Memory\Coordinate.cs" />
     <Compile Include="Memory\NPCType.cs" />
@@ -273,9 +273,6 @@
     <Content Include="FFXIVAPP.Client.exe.nlog">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ChatCodesOld.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Media\Icons\FFXIVAPP.ico" />

@@ -153,18 +153,19 @@ namespace FFXIVAPP.Client.Properties {
             "/string>\r\n  <string>Carbuncle</string>\r\n  <string>Cerberus</string>\r\n  <string>C" +
             "hocobo</string>\r\n  <string>Coeurl</string>\r\n  <string>Diabolos</string>\r\n  <stri" +
             "ng>Durandal</string>\r\n  <string>Excalibur</string>\r\n  <string>Exodus</string>\r\n " +
-            " <string>Faerie</string>\r\n  <string>Fenrir</string>\r\n  <string>Garuda</string>\r\n" +
-            "  <string>Gilgamesh</string>\r\n  <string>Goblin</string>\r\n  <string>Gungnir</stri" +
-            "ng>\r\n  <string>Hades</string>\r\n  <string>Hyperion</string>\r\n  <string>Ifrit</str" +
-            "ing>\r\n  <string>Ixion</string>\r\n  <string>Kujata</string>\r\n  <string>Lamia</stri" +
-            "ng>\r\n  <string>Leviathan</string>\r\n  <string>Malboro</string>\r\n  <string>Mandrag" +
-            "ora</string>\r\n  <string>Masamune</string>\r\n  <string>Midgardsormr</string>\r\n  <s" +
-            "tring>Moogle</string>\r\n  <string>Odin</string>\r\n  <string>Phoenix</string>\r\n  <s" +
-            "tring>Ragnarok</string>\r\n  <string>Ramuh</string>\r\n  <string>Ridill</string>\r\n  " +
-            "<string>Sargatanas</string>\r\n  <string>Shiva</string>\r\n  <string>Siren</string>\r" +
-            "\n  <string>Tiamat</string>\r\n  <string>Titan</string>\r\n  <string>Tonberry</string" +
-            ">\r\n  <string>Typhon</string>\r\n  <string>Ultima</string>\r\n  <string>Ultros</strin" +
-            "g>\r\n  <string>Valefor</string>\r\n</ArrayOfString>")]
+            " <string>Faerie</string>\r\n  <string>Famfrit</string>\r\n  <string>Fenrir</string>\r" +
+            "\n  <string>Garuda</string>\r\n  <string>Gilgamesh</string>\r\n  <string>Goblin</stri" +
+            "ng>\r\n  <string>Gungnir</string>\r\n  <string>Hades</string>\r\n  <string>Hyperion</s" +
+            "tring>\r\n  <string>Ifrit</string>\r\n  <string>Ixion</string>\r\n  <string>Kujata</st" +
+            "ring>\r\n  <string>Lamia</string>\r\n  <string>Leviathan</string>\r\n  <string>Lich</s" +
+            "tring>\r\n  <string>Malboro</string>\r\n  <string>Mandragora</string>\r\n  <string>Mas" +
+            "amune</string>\r\n  <string>Midgardsormr</string>\r\n  <string>Moogle</string>\r\n  <s" +
+            "tring>Odin</string>\r\n  <string>Pandaemonium</string>\r\n  <string>Phoenix</string>" +
+            "\r\n  <string>Ragnarok</string>\r\n  <string>Ramuh</string>\r\n  <string>Ridill</strin" +
+            "g>\r\n  <string>Sargatanas</string>\r\n  <string>Shiva</string>\r\n  <string>Siren</st" +
+            "ring>\r\n  <string>Tiamat</string>\r\n  <string>Titan</string>\r\n  <string>Tonberry</" +
+            "string>\r\n  <string>Typhon</string>\r\n  <string>Ultima</string>\r\n  <string>Ultros<" +
+            "/string>\r\n  <string>Valefor</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ServerList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ServerList"]));

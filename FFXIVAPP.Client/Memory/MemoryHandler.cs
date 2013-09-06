@@ -22,7 +22,6 @@ namespace FFXIVAPP.Client.Memory
     {
         #region Property Bindings
 
-        private uint _address;
         private Process _process;
 
         private Process Process
@@ -35,15 +34,8 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
-        public uint Address
-        {
-            private get { return _address; }
-            set
-            {
-                _address = value;
-                RaisePropertyChanged();
-            }
-        }
+        public static MemoryHandler Instance { get; set; }
+        public SigScanner SigScanner { get; set; }
 
         #endregion
 
@@ -68,7 +60,6 @@ namespace FFXIVAPP.Client.Memory
         public MemoryHandler(Process process, uint address)
         {
             Process = process;
-            Address = address;
         }
 
         /// <summary>
@@ -262,9 +253,9 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="length"> </param>
         /// <returns> </returns>
-        public string GetOperationCode(int length)
+        public string GetOperationCode(uint address, int length)
         {
-            var buffer = GetByteArray(length);
+            var buffer = GetByteArray(address, length);
             return BitConverter.ToString(buffer);
         }
 
@@ -272,10 +263,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public byte GetByte(uint offset = 0)
+        public byte GetByte(uint address, uint offset = 0)
         {
             var data = new byte[1];
-            Peek(Process, Address + offset, data);
+            Peek(Process, address + offset, data);
             return data[0];
         }
 
@@ -283,10 +274,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="length"> </param>
         /// <returns> </returns>
-        public byte[] GetByteArray(int length)
+        public byte[] GetByteArray(uint address, int length)
         {
             var data = new byte[length];
-            Peek(Process, Address, data);
+            Peek(Process, address, data);
             return data;
         }
 
@@ -294,10 +285,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public double GetDouble(uint offset = 0)
+        public double GetDouble(uint address, uint offset = 0)
         {
             var value = new byte[8];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToDouble(value, 0);
         }
 
@@ -305,10 +296,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public float GetFloat(uint offset = 0)
+        public float GetFloat(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToSingle(value, 0);
         }
 
@@ -316,10 +307,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public short GetInt16(uint offset = 0)
+        public short GetInt16(uint address, uint offset = 0)
         {
             var value = new byte[2];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToInt16(value, 0);
         }
 
@@ -327,10 +318,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public int GetInt32(uint offset = 0)
+        public int GetInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToInt32(value, 0);
         }
 
@@ -338,10 +329,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public long GetInt64(uint offset = 0)
+        public long GetInt64(uint address, uint offset = 0)
         {
             var value = new byte[8];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToInt64(value, 0);
         }
 
@@ -350,10 +341,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offset"> </param>
         /// <param name="size"> </param>
         /// <returns> </returns>
-        public string GetString(uint offset = 0, int size = 24)
+        public string GetString(uint address, uint offset = 0, int size = 24)
         {
             var bytes = new byte[size];
-            Peek(Process, Address + offset, bytes);
+            Peek(Process, address + offset, bytes);
             var realSize = 0;
             for (var i = 0; i < size; i++)
             {
@@ -372,10 +363,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public int GetProgram(uint offset = 0)
+        public int GetProgram(uint address, uint offset = 0)
         {
             var value = new byte[30];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToInt32(value, 0);
         }
 
@@ -383,10 +374,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public UInt32 GetUInt32(uint offset = 0)
+        public UInt32 GetUInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToUInt32(value, 0);
         }
 
@@ -394,10 +385,10 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public UInt16 GetUInt16(uint offset = 0)
+        public UInt16 GetUInt16(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, Address + offset, value);
+            Peek(Process, address + offset, value);
             return BitConverter.ToUInt16(value, 0);
         }
 
@@ -406,11 +397,11 @@ namespace FFXIVAPP.Client.Memory
         /// <typeparam name="T"> </typeparam>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public T GetStructure<T>(int offset = 0)
+        public T GetStructure<T>(uint address, int offset = 0)
         {
             var lpBytesWritten = 0;
             var buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof (T)));
-            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(Address) + offset, buffer, Marshal.SizeOf(typeof (T)), ref lpBytesWritten);
+            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof (T)), ref lpBytesWritten);
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
@@ -420,30 +411,20 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
-        public void Reset(int val, uint offset = 0)
+        public void Reset(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            Poke(Process, Address + offset, data);
+            Poke(Process, address + offset, data);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="val"> </param>
         /// <returns> </returns>
-        public bool SetByte(byte val, uint offset = 0)
+        public bool SetByte(uint address, byte val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="val"> </param>
-        /// <param name="offset"> </param>
-        /// <returns> </returns>
-        public bool SetByteArray(byte[] val, uint offset = 0)
-        {
-            return Poke(Process, Address + offset, val);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -451,10 +432,9 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetDouble(double val, uint offset = 0)
+        public bool SetByteArray(uint address, byte[] val, uint offset = 0)
         {
-            var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, val);
         }
 
         /// <summary>
@@ -462,10 +442,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetFloat(float val, uint offset = 0)
+        public bool SetDouble(uint address, double val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -473,10 +453,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetInt16(short val, uint offset = 0)
+        public bool SetFloat(uint address, float val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -484,10 +464,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetInt32(int val, uint offset = 0)
+        public bool SetInt16(uint address, short val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -495,10 +475,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetInt64(long val, uint offset = 0)
+        public bool SetInt32(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -506,10 +486,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetUInt16(UInt16 val, uint offset = 0)
+        public bool SetInt64(uint address, long val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>
@@ -517,10 +497,21 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="val"> </param>
         /// <param name="offset"> </param>
         /// <returns> </returns>
-        public bool SetUInt32(UInt32 val, uint offset = 0)
+        public bool SetUInt16(uint address, UInt16 val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, Address + offset, data);
+            return Poke(Process, address + offset, data);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="val"> </param>
+        /// <param name="offset"> </param>
+        /// <returns> </returns>
+        public bool SetUInt32(uint address, UInt32 val, uint offset = 0)
+        {
+            var data = BitConverter.GetBytes(val);
+            return Poke(Process, address + offset, data);
         }
 
         /// <summary>

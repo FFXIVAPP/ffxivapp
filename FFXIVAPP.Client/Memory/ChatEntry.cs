@@ -9,7 +9,6 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms.VisualStyles;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Helpers;
 

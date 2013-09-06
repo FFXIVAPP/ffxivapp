@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using System.Web.UI.WebControls;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Parse.Enums;
 
@@ -35,7 +34,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public bool Resist { get; set; }
         public bool Evade { get; set; }
         public string RawLine { get; set; }
-        
+
         // status effect info
         public StatusEffect StatusEffect { get; set; }
         public string StatusEffectName { get; set; }

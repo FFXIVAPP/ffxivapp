@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// SigFinder.cs
+// SigScanner.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -20,7 +20,7 @@ using NLog;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class SigFinder : INotifyPropertyChanged
+    public class SigScanner : INotifyPropertyChanged
     {
         #region Property Bindings
 
@@ -93,7 +93,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        public SigFinder(Process process)
+        public SigScanner(Process process)
         {
             _process = process;
             Locations = new Dictionary<string, uint>();
@@ -103,7 +103,7 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="process"> </param>
         /// <param name="signatures"> </param>
-        public SigFinder(Process process, List<Signature> signatures)
+        public SigScanner(Process process, List<Signature> signatures)
         {
             _process = process;
             LoadOffsets(signatures);

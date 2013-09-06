@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Helpers;
@@ -45,9 +44,7 @@ namespace FFXIVAPP.Plugin.Event.Utilities
                     {
                         continue;
                     }
-                    var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != line)
-                                               .Count();
-                    SoundPlayerHelper.Play(Constants.BaseDirectory, PluginViewModel.Instance.Events[index].Value);
+                    SoundPlayerHelper.Play(Constants.BaseDirectory, item.Value);
                 }
             }
             catch (Exception ex)

@@ -22,11 +22,10 @@ namespace FFXIVAPP.Common.Helpers
         /// <param name="filename"> </param>
         public static void Play(string path = "Sounds/", string filename = "aruba.wav")
         {
-            using (var soundPlayer = new SoundPlayer())
+            using (var soundPlayer = new SoundPlayer(path + filename))
             {
                 try
                 {
-                    soundPlayer.SoundLocation = path + filename;
                     soundPlayer.PlaySync();
                 }
                 catch (Exception ex)

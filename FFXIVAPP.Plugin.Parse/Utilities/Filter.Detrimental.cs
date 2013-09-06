@@ -106,11 +106,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     case StatusEffect.DetrimentalGain:
                         if (isParty)
                         {
-                            
                         }
                         else
                         {
-                            
                         }
                         break;
                 }
@@ -133,11 +131,9 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     case StatusEffect.DetrimentalGain:
                         if (isParty)
                         {
-
                         }
                         else
                         {
-                            
                         }
                         break;
                 }
