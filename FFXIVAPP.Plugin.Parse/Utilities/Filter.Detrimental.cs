@@ -110,12 +110,15 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 {
                     throw new Exception("LineIsEmpty:(Source|Target|Action)IsEmptyOrNull");
                 }
-                Player source = null;
+                Player source;
                 switch (line.StatusEffect)
                 {
                     case StatusEffect.DetrimentalGain:
                         source = ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
+                        line.Amount = source.LastDamageAmount;
                         break;
+                    default:
+                        return;
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 if (!DamageOverTimeHelper.PlayerActions.ContainsKey(line.StatusEffectName.ToLower()))

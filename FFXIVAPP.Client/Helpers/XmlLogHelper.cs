@@ -27,8 +27,8 @@ namespace FFXIVAPP.Client.Helpers
             ChatWorkerDelegate.IsPaused = true;
             if (NPCWorkerDelegate.MonsterList.Any())
             {
-                //var savedMonsterDatabase = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterList.json";
-                //File.WriteAllText(AppViewModel.Instance.LogsPath + savedMonsterDatabase, JsonConvert.SerializeObject(NPCWorkerDelegate.MonsterList));
+                var savedMonsterDatabase = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterList.json";
+                File.WriteAllText(AppViewModel.Instance.LogsPath + savedMonsterDatabase, JsonConvert.SerializeObject(NPCWorkerDelegate.MonsterList));
             }
             if (AppViewModel.Instance.ChatHistory.Any())
             {

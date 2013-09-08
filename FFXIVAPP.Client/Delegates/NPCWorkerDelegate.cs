@@ -17,11 +17,26 @@ namespace FFXIVAPP.Client.Delegates
 {
     internal static class NPCWorkerDelegate
     {
+        #region Property Backings
+
+        private static SocketIOClient.Client _socket;
+
+        private static SocketIOClient.Client Socket
+        {
+            get { return _socket ?? (_socket = new SocketIOClient.Client("http://xivpads.com:843")); }
+            set { _socket = value; }
+        }
+
+        #endregion
+
+        #region Declarations
+
         public static NPCEntry CurrentUser;
         public static readonly List<NPCEntry> MonsterList = new List<NPCEntry>();
-        private static SocketIOClient.Client _socket;
         private static int _chunksProcessed = 0;
         private static int _chunkSize = 10;
+
+        #endregion
 
         /// <summary>
         /// </summary>
@@ -55,29 +70,37 @@ namespace FFXIVAPP.Client.Delegates
         /// <param name="entries"></param>
         private static void ProcessUpload(List<NPCEntry> entries)
         {
-            if (_socket == null)
+            DestorySocket();
+            if (Socket == null)
             {
-                _socket = new SocketIOClient.Client("http://xivpads.com:843");
-                _socket.Opened += delegate { };
-                _socket.Message += delegate { };
-                _socket.SocketConnectionClosed += delegate { _socket = null; };
-                _socket.Error += delegate { _socket = null; };
-                _socket.On("import_mob_success", delegate
-                {
-                    _chunksProcessed++;
-                    _socket = null;
-                });
-                _socket.On("import_mob_error", delegate { _socket = null; });
-                _socket.Connect();
-            }
-            if (_socket.IsConnected)
-            {
-                _socket.Emit("import_mob", JsonConvert.SerializeObject(entries));
-                return;
+                Socket = new SocketIOClient.Client("http://xivpads.com:843");
             }
             try
             {
-                _socket.Connect();
+                Socket.Opened += delegate { };
+                Socket.Message += delegate { };
+                Socket.SocketConnectionClosed += delegate { DestorySocket(); };
+                Socket.Error += delegate { DestorySocket(); };
+                Socket.On("import_mob_success", delegate
+                {
+                    _chunksProcessed++;
+                    DestorySocket();
+                });
+                Socket.On("import_mob_error", delegate { DestorySocket(); });
+                Socket.On("connect", message => Socket.Emit("import_mob", JsonConvert.SerializeObject(entries)));
+                Socket.Connect();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private static void DestorySocket()
+        {
+            try
+            {
+                Socket.Close();
+                Socket = null;
             }
             catch (Exception ex)
             {
