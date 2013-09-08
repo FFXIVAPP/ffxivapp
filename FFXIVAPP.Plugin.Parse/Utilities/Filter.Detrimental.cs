@@ -6,9 +6,7 @@
 #region Usings
 
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
@@ -125,10 +123,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 {
                     return;
                 }
-                if (source == null)
-                {
-                    return;
-                }
                 source.SetupDamageOverTimeAction(line);
             }
             catch (Exception ex)
@@ -151,21 +145,21 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                     throw new Exception("LineIsEmpty:(Source|Target|Action)IsEmptyOrNull");
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
-                Monster source = null;
+                Monster source;
                 switch (line.StatusEffect)
                 {
                     case StatusEffect.DetrimentalGain:
                         source = ParseControl.Instance.Timeline.GetSetMob(line.Source);
+                        line.Amount = source.LastDamageAmount;
                         break;
+                    default:
+                        return;
                 }
                 if (!DamageOverTimeHelper.MonsterActions.ContainsKey(line.StatusEffectName.ToLower()))
                 {
                     return;
                 }
-                if (source != null)
-                {
-                    source.SetupDamageOverTimeAction(line);
-                }
+                source.SetupDamageOverTimeAction(line);
             }
             catch (Exception ex)
             {

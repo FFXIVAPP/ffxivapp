@@ -29,6 +29,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
         {
             InitStats();
             LineHistory = new List<LineHistory>();
+            LastDamageAmount = 5;
         }
 
         public List<LineHistory> LineHistory { get; set; }

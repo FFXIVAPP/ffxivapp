@@ -56,10 +56,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             {
                 var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, 50) : 0 : line.Amount;
                 LastDamageAmount = currentDamage > 0 ? currentDamage : LastDamageAmount;
-                //if (DamageOverTimeHelper.PlayerActions.ContainsKey(line.Action.ToLower()))
-                //{
-                //    SetupDamageOverTimeAction(line);
-                //}
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
