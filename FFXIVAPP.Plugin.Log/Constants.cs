@@ -25,7 +25,7 @@ namespace FFXIVAPP.Plugin.Log
 
         public static readonly string[] Supported = new[]
         {
-            "ja", "fr", "en"
+            "ja", "fr", "en", "de"
         };
 
         public static readonly string[] ChatPublic =

@@ -20,56 +20,58 @@
         <TabControl>
             <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
                                       Source={StaticResource AppProperties}}">
-                <StackPanel>
-                    <GroupBox Header="{Binding Locale[app_ProcessIDHeader],
-                                               Source={StaticResource AppProperties}}">
-                        <StackPanel>
-                            <ComboBox x:Name="PIDSelect"
-                                      Margin="5" />
-                            <Button x:Name="SetProcess"
-                                    Margin="5"
-                                    Command="{Binding SetProcessCommand}"
-                                    Content="{Binding Locale[app_AttachProcessButtonText],
-                                                      Source={StaticResource AppProperties}}" />
-                            <Button x:Name="RefreshList"
-                                    Margin="5"
-                                    Command="{Binding RefreshListCommand}"
-                                    Content="{Binding Locale[app_RefreshProcessButtonText],
-                                                      Source={StaticResource AppProperties}}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="{Binding Locale[app_ChangeThemeHeader],
-                                               Source={StaticResource AppProperties}}">
-                        <StackPanel>
-                            <ComboBox x:Name="ThemeSelect"
-                                      Margin="5"
-                                      IsReadOnly="False"
-                                      ItemsSource="{Binding ThemeList,
-                                                            Source={x:Static Properties:Settings.Default}}"
-                                      SelectedValue="{Binding Theme,
-                                                              Source={x:Static Properties:Settings.Default}}"
-                                      Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="{Binding Locale[app_SaveLogHeader],
-                                               Source={StaticResource AppProperties}}">
-                        <StackPanel>
-                            <MetroControls:ToggleSwitch IsChecked="{Binding SaveLog,
-                                                                       Source={x:Static Properties:Settings.Default}}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="{Binding Locale[app_EnableNLogHeader],
-                                               Source={StaticResource AppProperties}}">
-                        <StackPanel>
-                            <MetroControls:ToggleSwitch IsChecked="{Binding EnableNLog,
-                                                                       Source={x:Static Properties:Settings.Default}}" />
-                        </StackPanel>
-                    </GroupBox>
-                    <Button Margin="5"
-                            Command="{Binding DefaultSettingsCommand}"
-                            Content="{Binding Locale[app_DefaultSettingsButtonText],
-                                              Source={StaticResource AppProperties}}" />
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[app_ProcessIDHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <ComboBox x:Name="PIDSelect"
+                                          Margin="5" />
+                                <Button x:Name="SetProcess"
+                                        Margin="5"
+                                        Command="{Binding SetProcessCommand}"
+                                        Content="{Binding Locale[app_AttachProcessButtonText],
+                                                          Source={StaticResource AppProperties}}" />
+                                <Button x:Name="RefreshList"
+                                        Margin="5"
+                                        Command="{Binding RefreshListCommand}"
+                                        Content="{Binding Locale[app_RefreshProcessButtonText],
+                                                          Source={StaticResource AppProperties}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_ChangeThemeHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <ComboBox x:Name="ThemeSelect"
+                                          Margin="5"
+                                          IsReadOnly="False"
+                                          ItemsSource="{Binding ThemeList,
+                                                                Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding Theme,
+                                                                  Source={x:Static Properties:Settings.Default}}"
+                                          Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_SaveLogHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding SaveLog,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_EnableNLogHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableNLog,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <Button Margin="5"
+                                Command="{Binding DefaultSettingsCommand}"
+                                Content="{Binding Locale[app_DefaultSettingsButtonText],
+                                                  Source={StaticResource AppProperties}}" />
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="{Binding Locale[app_CharacterSettingsTabHeader],
                                       Source={StaticResource AppProperties}}">
@@ -217,7 +219,7 @@
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding AllowPluginCommands,
-                                                                           Source={x:Static Properties:Settings.Default}}" />
+                                                                                Source={x:Static Properties:Settings.Default}}" />
                                 <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                     <FlowDocument>
                                         <Paragraph Margin="0"

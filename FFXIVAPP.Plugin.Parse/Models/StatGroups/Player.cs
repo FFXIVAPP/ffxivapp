@@ -27,7 +27,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
             InitStats();
             LineHistory = new List<LineHistory>();
             DamageOverTimeActions = new Dictionary<string, DamageOverTime.Player>();
-            LastDamageAmount = 1;
+            LastDamageAmount = 5;
         }
 
         public List<LineHistory> LineHistory { get; set; }

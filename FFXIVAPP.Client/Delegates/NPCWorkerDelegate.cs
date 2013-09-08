@@ -17,7 +17,7 @@ namespace FFXIVAPP.Client.Delegates
     internal static class NPCWorkerDelegate
     {
         public static NPCEntry CurrentUser;
-        public static readonly Dictionary<string, NPCEntry> MonsterDatabase = new Dictionary<string, NPCEntry>();
+        public static readonly List<NPCEntry> MonsterList = new List<NPCEntry>();
 
         /// <summary>
         /// </summary>
@@ -30,23 +30,14 @@ namespace FFXIVAPP.Client.Delegates
             CurrentUser = npcEntry.First();
             Func<bool> saveToDictionary = delegate
             {
-                foreach (var entry in npcEntry)
+                foreach (var entry in npcEntry.Where(e => e.NPCType == NPCType.Monster)
+                                              .Where(entry => MonsterList.All(m => m.ID != entry.ID)))
                 {
-                    var key = String.Format("{0}-{1} [{2}]", entry.Name.ToLower(), entry.ID, entry.MapIndex);
-                    try
-                    {
-                        if (!MonsterDatabase.ContainsKey(key))
-                        {
-                            MonsterDatabase.Add(key, entry);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    MonsterList.Add(entry);
                 }
                 return true;
             };
-            saveToDictionary.BeginInvoke(null, null);
+            saveToDictionary.BeginInvoke(null, saveToDictionary);
         }
     }
 }

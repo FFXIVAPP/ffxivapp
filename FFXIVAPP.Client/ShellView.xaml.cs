@@ -24,6 +24,14 @@ namespace FFXIVAPP.Client
     /// </summary>
     public partial class ShellView
     {
+        #region Property Bindings
+
+        #endregion
+
+        #region Declarations
+
+        #endregion
+
         public static ShellView View;
 
         public ShellView()

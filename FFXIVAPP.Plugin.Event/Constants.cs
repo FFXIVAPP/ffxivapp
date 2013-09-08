@@ -25,7 +25,7 @@ namespace FFXIVAPP.Plugin.Event
 
         public static readonly string[] Supported = new[]
         {
-            "ja", "fr", "en"
+            "ja", "fr", "en", "de"
         };
 
         #endregion

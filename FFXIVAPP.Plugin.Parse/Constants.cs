@@ -25,7 +25,7 @@ namespace FFXIVAPP.Plugin.Parse
 
         public static readonly string[] Supported = new[]
         {
-            "ja", "fr", "en"
+            "ja", "fr", "en", "de"
         };
 
         public static readonly string[] Abilities = new[]

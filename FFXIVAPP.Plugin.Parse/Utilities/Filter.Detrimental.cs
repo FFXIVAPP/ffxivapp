@@ -6,11 +6,14 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Helpers;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
+using FFXIVAPP.Plugin.Parse.Models.StatGroups;
 using NLog;
 
 #endregion
@@ -99,19 +102,31 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             _isParty = isParty;
             try
             {
-                line.StatusEffectName = line.Target = Convert.ToString(detrimental.Groups["status"].Value);
-                line.Target = line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                line.Source = isParty ? _lastNameParty : _lastNamePlayer;
+                line.StatusEffectName = Convert.ToString(detrimental.Groups["status"].Value);
+                line.Action = line.StatusEffectName;
+                line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                if (line.IsEmpty())
+                {
+                    throw new Exception("LineIsEmpty:(Source|Target|Action)IsEmptyOrNull");
+                }
+                Player source = null;
                 switch (line.StatusEffect)
                 {
                     case StatusEffect.DetrimentalGain:
-                        if (isParty)
-                        {
-                        }
-                        else
-                        {
-                        }
+                        source = ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
                         break;
                 }
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+                if (!DamageOverTimeHelper.PlayerActions.ContainsKey(line.StatusEffectName.ToLower()))
+                {
+                    return;
+                }
+                if (source == null)
+                {
+                    return;
+                }
+                source.SetupDamageOverTimeAction(line);
             }
             catch (Exception ex)
             {
@@ -124,18 +139,29 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
             _isParty = isParty;
             try
             {
-                line.StatusEffectName = line.Target = Convert.ToString(detrimental.Groups["status"].Value);
-                line.Target = line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                line.Source = _lastMobName;
+                line.StatusEffectName = Convert.ToString(detrimental.Groups["status"].Value);
+                line.Action = line.StatusEffectName;
+                line.Target = Convert.ToString(detrimental.Groups["target"].Value);
+                if (line.IsEmpty())
+                {
+                    throw new Exception("LineIsEmpty:(Source|Target|Action)IsEmptyOrNull");
+                }
+                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
+                Monster source = null;
                 switch (line.StatusEffect)
                 {
                     case StatusEffect.DetrimentalGain:
-                        if (isParty)
-                        {
-                        }
-                        else
-                        {
-                        }
+                        source = ParseControl.Instance.Timeline.GetSetMob(line.Source);
                         break;
+                }
+                if (!DamageOverTimeHelper.MonsterActions.ContainsKey(line.StatusEffectName.ToLower()))
+                {
+                    return;
+                }
+                if (source != null)
+                {
+                    source.SetupDamageOverTimeAction(line);
                 }
             }
             catch (Exception ex)

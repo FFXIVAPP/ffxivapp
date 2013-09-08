@@ -376,7 +376,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     Type = "HP";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
-                    You = @"^[Dd]u$";
+                    You = @"^[Dd](ich|ie|u)$";
                     break;
                 default:
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
