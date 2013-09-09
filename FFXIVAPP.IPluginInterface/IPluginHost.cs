@@ -16,5 +16,6 @@ namespace FFXIVAPP.IPluginInterface
         void Commands(string pluginName, IEnumerable<string> commands);
         void PopupMessage(string pluginName, out bool displayed, object content);
         void GetConstants(string pluginName);
+        void ProcessDataByKey(string pluginName, string token, string key, object data);
     }
 }

@@ -106,11 +106,11 @@ namespace FFXIVAPP.Plugin.Parse
 
         public void Initialize()
         {
-            Name = Common.Constants.Name;
+            Name = Common.Helpers.AssemblyHelper.Name;
             Icon = "Logo.png";
-            Description = Common.Constants.Description;
-            Copyright = Common.Constants.Copyright;
-            Version = Common.Constants.Version.ToString();
+            Description = Common.Helpers.AssemblyHelper.Description;
+            Copyright = Common.Helpers.AssemblyHelper.Copyright;
+            Version = Common.Helpers.AssemblyHelper.Version.ToString();
             Notice = "";
         }
 

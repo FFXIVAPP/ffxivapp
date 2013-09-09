@@ -148,6 +148,8 @@
     <Compile Include="Helpers\JsonPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Helpers\SocketIO\LootEntryHelper.cs" />
+    <Compile Include="Helpers\SocketIO\NPCEntryHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatWorker.cs" />
     <Compile Include="Memory\NPCWorker.cs" />
+    <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Models\PluginInstance.cs" />

@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
 
@@ -44,50 +43,6 @@ namespace FFXIVAPP.Common
         public static string ServerName { get; set; }
 
         public static bool EnableNLog { get; set; }
-
-        #endregion
-
-        #region Assembly Property Bindings
-
-        public static string Name
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyTitleAttribute) att[0]).Title;
-            }
-        }
-
-        public static string Description
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyDescriptionAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyDescriptionAttribute) att[0]).Description;
-            }
-        }
-
-        public static string Copyright
-        {
-            get
-            {
-                var att = Assembly.GetCallingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
-            }
-        }
-
-        public static Version Version
-        {
-            get
-            {
-                return Assembly.GetCallingAssembly()
-                               .GetName()
-                               .Version;
-            }
-        }
 
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Client
+﻿    // FFXIVAPP.Client
 // NPCWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
@@ -8,8 +8,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -19,12 +19,24 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Property Backings
 
-        private static SocketIOClient.Client _socket;
+        private static List<uint> _pets;
 
-        private static SocketIOClient.Client Socket
+        public static List<uint> Pets
         {
-            get { return _socket ?? (_socket = new SocketIOClient.Client("http://xivpads.com:843")); }
-            set { _socket = value; }
+            get
+            {
+                return _pets ?? (_pets = new List<uint>
+                {
+                    1398,
+                    1399,
+                    1400,
+                    1401,
+                    1402,
+                    1403,
+                    1404,
+                    2095
+                });
+            }
         }
 
         #endregion
@@ -33,8 +45,6 @@ namespace FFXIVAPP.Client.Delegates
 
         public static NPCEntry CurrentUser;
         public static readonly List<NPCEntry> MonsterList = new List<NPCEntry>();
-        private static int _chunksProcessed = 0;
-        private static int _chunkSize = 10;
 
         #endregion
 
@@ -50,7 +60,7 @@ namespace FFXIVAPP.Client.Delegates
             Func<bool> saveToDictionary = delegate
             {
                 foreach (var entry in npcEntry.Where(e => e.NPCType == NPCType.Monster)
-                                              .Where(entry => MonsterList.All(m => m.ID != entry.ID)))
+                                              .Where(entry => MonsterList.All(m => m.ID != entry.ID) && !Pets.Contains(entry.ModelID)))
                 {
                     MonsterList.Add(entry);
                 }
@@ -58,53 +68,17 @@ namespace FFXIVAPP.Client.Delegates
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (MonsterList.Count > (_chunkSize * (_chunksProcessed + 1)))
+                const int chunkSize = NPCEntryHelper.ChunkSize;
+                var chunksProcessed = NPCEntryHelper.ChunksProcessed;
+                if (MonsterList.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
-                    //ProcessUpload(new List<NPCEntry>(MonsterList.Skip(_chunksProcessed * _chunkSize)));
+                    return;
+                }
+                if (!NPCEntryHelper.Processing)
+                {
+                    NPCEntryHelper.ProcessUpload(new List<NPCEntry>(MonsterList.Skip(chunksProcessed * chunkSize)));
                 }
             }, saveToDictionary);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="entries"></param>
-        private static void ProcessUpload(List<NPCEntry> entries)
-        {
-            DestorySocket();
-            if (Socket == null)
-            {
-                Socket = new SocketIOClient.Client("http://xivpads.com:843");
-            }
-            try
-            {
-                Socket.Opened += delegate { };
-                Socket.Message += delegate { };
-                Socket.SocketConnectionClosed += delegate { DestorySocket(); };
-                Socket.Error += delegate { DestorySocket(); };
-                Socket.On("import_mob_success", delegate
-                {
-                    _chunksProcessed++;
-                    DestorySocket();
-                });
-                Socket.On("import_mob_error", delegate { DestorySocket(); });
-                Socket.On("connect", message => Socket.Emit("import_mob", JsonConvert.SerializeObject(entries)));
-                Socket.Connect();
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
-        private static void DestorySocket()
-        {
-            try
-            {
-                Socket.Close();
-                Socket = null;
-            }
-            catch (Exception ex)
-            {
-            }
         }
     }
 }

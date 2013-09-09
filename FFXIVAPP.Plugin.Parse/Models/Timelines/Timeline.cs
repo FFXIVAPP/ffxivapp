@@ -60,7 +60,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
 
         #region Declarations
 
-        private Timer FightingTimer = new Timer(5000);
+        private readonly Timer _fightingTimer = new Timer(2000);
 
         #endregion
 
@@ -79,13 +79,13 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             {
                 IncludeSelf = false
             };
-            FightingTimer.Elapsed += FightingTimerOnElapsed;
+            _fightingTimer.Elapsed += FightingTimerOnElapsed;
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             FightingRightNow = false;
-            FightingTimer.Stop();
+            _fightingTimer.Stop();
         }
 
         /// <summary>
@@ -111,11 +111,12 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
         public Player GetSetPlayer(string playerName)
         {
             StatGroup statGroup;
-            if (!Party.TryGetGroup(playerName, out statGroup))
+            if (Party.TryGetGroup(playerName, out statGroup))
             {
-                statGroup = new Player(playerName);
-                Party.AddGroup(statGroup);
+                return (Player) statGroup;
             }
+            statGroup = new Player(playerName);
+            Party.AddGroup(statGroup);
             return (Player) statGroup;
         }
 
@@ -155,7 +156,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                             fighting = new Fight(mobName);
                             Fights.Add(fighting);
                         }
-                        FightingTimer.Stop();
+                        _fightingTimer.Stop();
                         FightingRightNow = true;
                         break;
                     case TimelineEventType.MobKilled:
@@ -167,7 +168,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         }
                         GetSetMob(mobName)
                             .SetKill(killed);
-                        FightingTimer.Start();
+                        _fightingTimer.Start();
                         break;
                 }
             }

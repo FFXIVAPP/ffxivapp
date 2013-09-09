@@ -264,7 +264,7 @@ namespace FFXIVAPP.Client
 
         public string Copyright
         {
-            get { return Common.Constants.Copyright; }
+            get { return AssemblyHelper.Copyright; }
         }
 
         public List<Signature> Signatures

@@ -89,6 +89,7 @@
     <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Events\PopupResultEvent.cs" />
+    <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\BindingHelper.cs" />
     <Compile Include="Helpers\DispatcherHelper.cs" />
     <Compile Include="Helpers\FlowDocHelper.cs" />
