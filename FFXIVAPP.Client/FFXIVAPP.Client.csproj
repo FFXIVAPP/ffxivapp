@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
+    <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Helpers\SocketIO\LootEntryHelper.cs" />
     <Compile Include="Helpers\SocketIO\NPCEntryHelper.cs" />
+    <Compile Include="Helpers\SocketIO\MonsterEntryHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ChatPointers.cs" />
+    <Compile Include="Memory\MonsterWorker.cs" />
     <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />

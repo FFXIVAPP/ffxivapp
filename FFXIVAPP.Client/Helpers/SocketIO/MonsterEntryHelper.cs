@@ -1,16 +1,16 @@
 ﻿// FFXIVAPP.Client
-// LootEntryHelper.cs
+// NPCEntryHelper.cs
 // 
 // © 2013 Ryan Wilson
 
 using System;
 using System.Collections.Generic;
-using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Memory;
 using Newtonsoft.Json;
 
 namespace FFXIVAPP.Client.Helpers.SocketIO
 {
-    public static class LootEntryHelper
+    public static class MonsterEntryHelper
     {
         #region Property Backings
 
@@ -26,7 +26,7 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
 
         #region Declarations
 
-        public const int ChunkSize = 10;
+        public const int ChunkSize = 200;
         public static int ChunksProcessed = 0;
         public static bool Processing;
 
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
         /// <summary>
         /// </summary>
         /// <param name="entries"></param>
-        public static void ProcessUpload(List<LootEntry> entries)
+        public static void ProcessUpload(List<NPCEntry> entries)
         {
             Processing = true;
             try
@@ -49,13 +49,13 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
                 Socket.Message += delegate { };
                 Socket.SocketConnectionClosed += delegate { DestorySocket(); };
                 Socket.Error += delegate { DestorySocket(); };
-                Socket.On("import_loot_success", delegate
+                Socket.On("import_mob_success", delegate
                 {
                     ChunksProcessed++;
                     DestorySocket();
                 });
-                Socket.On("import_loot_error", delegate { DestorySocket(); });
-                Socket.On("connect", message => Socket.Emit("import_loot", JsonConvert.SerializeObject(entries)));
+                Socket.On("import_mob_error", delegate { DestorySocket(); });
+                Socket.On("connect", message => Socket.Emit("import_mob", JsonConvert.SerializeObject(entries)));
                 Socket.Connect();
             }
             catch (Exception ex)

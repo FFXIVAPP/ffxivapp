@@ -26,9 +26,9 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
 
         #region Declarations
 
-        public const int ChunkSize = 200;
+        public const int ChunkSize = 50;
         public static int ChunksProcessed = 0;
-        public static bool Processing = false;
+        public static bool Processing;
 
         #endregion
 
@@ -49,13 +49,13 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
                 Socket.Message += delegate { };
                 Socket.SocketConnectionClosed += delegate { DestorySocket(); };
                 Socket.Error += delegate { DestorySocket(); };
-                Socket.On("import_mob_success", delegate
+                Socket.On("import_npc_success", delegate
                 {
                     ChunksProcessed++;
                     DestorySocket();
                 });
-                Socket.On("import_mob_error", delegate { DestorySocket(); });
-                Socket.On("connect", message => Socket.Emit("import_mob", JsonConvert.SerializeObject(entries)));
+                Socket.On("import_npc_error", delegate { DestorySocket(); });
+                Socket.On("connect", message => Socket.Emit("import_npc", JsonConvert.SerializeObject(entries)));
                 Socket.Connect();
             }
             catch (Exception ex)

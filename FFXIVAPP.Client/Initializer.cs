@@ -38,6 +38,7 @@ namespace FFXIVAPP.Client
 
         private static ChatWorker _chatWorker;
         private static NPCWorker _npcWorker;
+        private static MonsterWorker _monsterWorker;
 
         #endregion
 
@@ -324,8 +325,14 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000", /*????????00000000DB0FC93F6F12833A*/
+                Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000",
                 Offset = 68
+            });
+            signatures.Add(new Signature
+            {
+                Key = "NPCMAP",
+                Value = "3E000000????????4000000001000000000000000001000000",
+                Offset = 2444
             });
             signatures.Add(new Signature
             {
@@ -422,16 +429,17 @@ namespace FFXIVAPP.Client
             {
                 SigScanner = new SigScanner(process, AppViewModel.Instance.Signatures)
             };
-            if (_chatWorker != null || _npcWorker != null)
-            {
-                StopMemoryWorkers();
-            }
+            StopMemoryWorkers();
             _chatWorker = new ChatWorker();
             _chatWorker.StartScanning();
             _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
+            _monsterWorker = new MonsterWorker();
+            _monsterWorker.StartScanning();
+            _monsterWorker.OnNewNPC += MonsterWorkerDelegate.OnNewNPC;
             _npcWorker = new NPCWorker();
             _npcWorker.StartScanning();
             _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
+            
         }
 
         /// <summary>
@@ -443,6 +451,12 @@ namespace FFXIVAPP.Client
                 _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
                 _chatWorker.StopScanning();
                 _chatWorker.Dispose();
+            }
+            if (_monsterWorker != null)
+            {
+                _monsterWorker.OnNewNPC -= MonsterWorkerDelegate.OnNewNPC;
+                _monsterWorker.StopScanning();
+                _monsterWorker.Dispose();
             }
             if (_npcWorker != null)
             {

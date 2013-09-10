@@ -14,6 +14,7 @@ namespace FFXIVAPP.Client.Memory
         public ushort MapIndex { get; set; }
         public string Name { get; set; }
         public uint ID { get; set; }
+        public uint NPCID { get; set; }
         public int Type { get; set; }
 
         public NPCType NPCType
@@ -93,7 +94,7 @@ namespace FFXIVAPP.Client.Memory
 
         public bool IsValid
         {
-            get { return !String.IsNullOrEmpty(Name) && ID != 0; }
+            get { return !String.IsNullOrEmpty(Name) && ID != 0 && NPCID != 0; }
         }
 
         #endregion

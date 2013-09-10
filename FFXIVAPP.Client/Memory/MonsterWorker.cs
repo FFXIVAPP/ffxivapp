@@ -18,7 +18,7 @@ using Timer = System.Timers.Timer;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class NPCWorker : INotifyPropertyChanged, IDisposable
+    internal class MonsterWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings
 
@@ -50,7 +50,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((List<NPCEntry>) state);
+            OnNewNPC((List<NPCEntry>)state);
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        public NPCWorker()
+        public MonsterWorker()
         {
             _scanTimer = new Timer(2500);
             _scanTimer.Elapsed += ScanTimerElapsed;
@@ -103,18 +103,18 @@ namespace FFXIVAPP.Client.Memory
                 {
                     return false;
                 }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("NPCMAP"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                 {
                     return false;
                 }
                 _isScanning = true;
 
                 var npcList = new List<NPCEntry>();
-                for (uint i = 0; i <= 256; i += 4)
+                for (uint i = 0; i <= 1000; i += 4)
                 {
                     try
                     {
-                        var characterAddress = (uint)MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
+                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
                         if (characterAddress == 0)
                         {
                             continue;

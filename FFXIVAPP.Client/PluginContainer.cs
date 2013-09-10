@@ -224,27 +224,33 @@ namespace FFXIVAPP.Client
                         {
                             return;
                         }
-                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string);
-                        var mobName = lootEntryData["MobName"] as string;
-                        lootEntry.MapIndex = NPCWorkerDelegate.CurrentUser.MapIndex;
-                        if (String.IsNullOrWhiteSpace(mobName))
+                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string)
                         {
-                            return;
-                        }
-                        if (NPCWorkerDelegate.MonsterList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
+                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
+                        };
+                        var s = lootEntryData["MobName"] as string;
+                        if (s != null)
                         {
-                            lootEntry.ModelID = NPCWorkerDelegate.MonsterList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                                 .ModelID;
+                            var mobName = s.Trim();
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace("  ", "")) && MonsterWorkerDelegate.NPCList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            {
+                                lootEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                                         .ModelID;
+                            }
                         }
                         Func<bool> saveToDictionary = delegate
                         {
-                            LootList.Add(lootEntry);
+                            if (lootEntry.IsValid())
+                            {
+                                LootList.Add(lootEntry);
+                            }
                             return true;
                         };
                         saveToDictionary.BeginInvoke(delegate
                         {
-                            const int chunkSize = NPCEntryHelper.ChunkSize;
-                            var chunksProcessed = NPCEntryHelper.ChunksProcessed;
+                            const int chunkSize = LootEntryHelper.ChunkSize;
+                            var chunksProcessed = LootEntryHelper.ChunksProcessed;
                             if (LootList.Count <= (chunkSize * (chunksProcessed + 1)))
                             {
                                 return;

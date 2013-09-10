@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using FFXIVAPP.Client.Memory;
 
 namespace FFXIVAPP.Client.Models
 {
@@ -11,17 +12,20 @@ namespace FFXIVAPP.Client.Models
     {
         #region Auto Properties
 
+        public Coordinate Coordinate { get; set; }
         public string ItemName { get; set; }
         public ushort MapIndex { get; set; }
         public uint ModelID { get; set; }
+        
 
         #endregion
 
-        public LootEntry(string itemName = "", ushort mapIndex = 0, uint modelID = 0)
+        public LootEntry(string itemName = "")
         {
+            Coordinate = new Coordinate();
             ItemName = itemName;
-            MapIndex = mapIndex;
-            ModelID = modelID;
+            MapIndex = 0;
+            ModelID = 0;
         }
 
         public bool IsValid()

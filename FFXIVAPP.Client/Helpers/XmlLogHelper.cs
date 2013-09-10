@@ -25,10 +25,15 @@ namespace FFXIVAPP.Client.Helpers
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
             ChatWorkerDelegate.IsPaused = true;
-            if (NPCWorkerDelegate.MonsterList.Any())
+            if (NPCWorkerDelegate.NPCList.Any())
             {
-                var savedMonsterDatabase = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterList.json";
-                File.WriteAllText(AppViewModel.Instance.LogsPath + savedMonsterDatabase, JsonConvert.SerializeObject(NPCWorkerDelegate.MonsterList));
+                var npcLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "NPCHistory.json";
+                File.WriteAllText(AppViewModel.Instance.LogsPath + npcLogName, JsonConvert.SerializeObject(NPCWorkerDelegate.NPCList));
+            }
+            if (MonsterWorkerDelegate.NPCList.Any())
+            {
+                var monsterLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterHistory.json";
+                File.WriteAllText(AppViewModel.Instance.LogsPath + monsterLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.NPCList));
             }
             if (AppViewModel.Instance.ChatHistory.Any())
             {
