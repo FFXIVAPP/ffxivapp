@@ -6,11 +6,11 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using FFXIVAPP.Common.Helpers;
 using NLog;
 using Timer = System.Timers.Timer;
 
@@ -40,7 +40,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="npcEntry"> </param>
-        private void PostNPCEvent(List<NPCEntry> npcEntry)
+        private void PostNPCEvent(NPCEntry npcEntry)
         {
             _sync.Post(RaiseNPCEvent, npcEntry);
         }
@@ -50,14 +50,14 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((List<NPCEntry>) state);
+            OnNewNPC((NPCEntry) state);
         }
 
         #endregion
 
         #region Delegates
 
-        public delegate void NewNPCEventHandler(List<NPCEntry> npcEntry);
+        public delegate void NewNPCEventHandler(NPCEntry npcEntry);
 
         #endregion
 
@@ -109,12 +109,11 @@ namespace FFXIVAPP.Client.Memory
                 }
                 _isScanning = true;
 
-                var npcList = new List<NPCEntry>();
                 for (uint i = 0; i <= 256; i += 4)
                 {
                     try
                     {
-                        var characterAddress = (uint)MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
+                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
                         if (characterAddress == 0)
                         {
                             continue;
@@ -163,9 +162,24 @@ namespace FFXIVAPP.Client.Memory
                             {
                             }
                         }
-                        if (npcEntry.IsValid)
+                        if (!npcEntry.IsValid)
                         {
-                            npcList.Add(npcEntry);
+                            continue;
+                        }
+                        try
+                        {
+                            RaiseNPCEvent(npcEntry);
+                        }
+                        catch (Exception raiseEx)
+                        {
+                            try
+                            {
+                                PostNPCEvent(npcEntry);
+                            }
+                            catch (Exception postEx)
+                            {   
+                                DispatcherHelper.Invoke(() => PostNPCEvent(npcEntry));
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -173,7 +187,6 @@ namespace FFXIVAPP.Client.Memory
                         //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                     }
                 }
-                RaiseNPCEvent(npcList);
                 _isScanning = false;
                 return true;
             };

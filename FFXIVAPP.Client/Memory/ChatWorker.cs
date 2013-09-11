@@ -158,7 +158,21 @@ namespace FFXIVAPP.Client.Memory
                         var chatEntry = new ChatEntry(text.ToArray());
                         if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
                         {
-                            DispatcherHelper.Invoke(() => PostLineEvent(chatEntry));
+                            try
+                            {
+                                RaiseLineEvent(chatEntry);
+                            }
+                            catch (Exception raiseEx)
+                            {
+                                try
+                                {
+                                    PostLineEvent(chatEntry);
+                                }
+                                catch (Exception postEx)
+                                {
+                                    DispatcherHelper.Invoke(() => PostLineEvent(chatEntry));
+                                }
+                            }
                         }
                         else
                         {

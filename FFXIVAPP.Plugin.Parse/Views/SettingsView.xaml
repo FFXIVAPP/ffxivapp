@@ -81,21 +81,6 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem x:Name="SettingsOtherTI"
-                     Header="{Binding Locale[app_OtherOptionsTabHeader],
-                                      Source={StaticResource PluginViewModel}}">
-                <ScrollViewer>
-                    <StackPanel>
-                        <GroupBox Header="{Binding Locale[parse_UploadParseHeader],
-                                                   Source={StaticResource PluginViewModel}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding UploadParse,
-                                                                                Source={StaticResource Settings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
             <TabItem x:Name="SettingsColumnDisplayTI"
                      Header="{Binding Locale[parse_ColumnDisplaySettingsTabHeader],
                                       Source={StaticResource PluginViewModel}}">

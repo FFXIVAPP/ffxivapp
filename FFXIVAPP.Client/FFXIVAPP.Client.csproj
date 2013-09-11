@@ -140,6 +140,8 @@
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
+    <Compile Include="Delegates\KillWorkerDelegate.cs" />
+    <Compile Include="Delegates\LootWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
@@ -149,9 +151,7 @@
     <Compile Include="Helpers\JsonPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
-    <Compile Include="Helpers\SocketIO\LootEntryHelper.cs" />
-    <Compile Include="Helpers\SocketIO\NPCEntryHelper.cs" />
-    <Compile Include="Helpers\SocketIO\MonsterEntryHelper.cs" />
+    <Compile Include="Helpers\SocketIO\UploadHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -176,6 +176,7 @@
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatWorker.cs" />
     <Compile Include="Memory\NPCWorker.cs" />
+    <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="PluginContainer.cs" />
@@ -251,6 +252,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Licenses\License.SocketIO4Net.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Media\Images\Sponsors\SadBomb.png" />
     <Resource Include="Resources\Media\Images\Sponsors\ogcpng.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />

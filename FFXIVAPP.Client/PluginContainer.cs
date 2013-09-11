@@ -210,7 +210,7 @@ namespace FFXIVAPP.Client
         public void ProcessDataByKey(string pluginName, string token, string key, object data)
         {
             var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null || !_authorizedPublishers.Contains(token))
+            if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen)
             {
                 return;
             }
@@ -233,33 +233,38 @@ namespace FFXIVAPP.Client
                         if (s != null)
                         {
                             var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace("  ", "")) && MonsterWorkerDelegate.NPCList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && MonsterWorkerDelegate.NPCList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
                             {
                                 lootEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
                                                                          .ModelID;
                             }
                         }
-                        Func<bool> saveToDictionary = delegate
+                        LootWorkerDelegate.OnNewLoot(lootEntry);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    break;
+                case "KillEntry":
+                    try
+                    {
+                        var killEntryData = data as string;
+                        if (killEntryData == null)
                         {
-                            if (lootEntry.IsValid())
-                            {
-                                LootList.Add(lootEntry);
-                            }
-                            return true;
+                            return;
+                        }
+                        var killEntry = new KillEntry()
+                        {
+                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
+                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
                         };
-                        saveToDictionary.BeginInvoke(delegate
+                        var mobName = killEntryData.Trim();
+                        if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                         {
-                            const int chunkSize = LootEntryHelper.ChunkSize;
-                            var chunksProcessed = LootEntryHelper.ChunksProcessed;
-                            if (LootList.Count <= (chunkSize * (chunksProcessed + 1)))
-                            {
-                                return;
-                            }
-                            if (!LootEntryHelper.Processing)
-                            {
-                                LootEntryHelper.ProcessUpload(new List<LootEntry>(LootList.Skip(chunksProcessed * chunkSize)));
-                            }
-                        }, saveToDictionary);
+                            killEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                                     .ModelID;
+                        }
+                        KillWorkerDelegate.OnNewKill(killEntry);
                     }
                     catch (Exception ex)
                     {

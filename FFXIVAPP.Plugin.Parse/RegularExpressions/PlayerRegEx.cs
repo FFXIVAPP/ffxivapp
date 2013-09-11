@@ -62,11 +62,11 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) ne subi(t|ssez?) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) (perd(ez?)?|ne subi(t|ssez?)) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ObtainsFr = new Regex(@"^((?<source>Vous) obtenez|(?<source>.+) obtient)( une?| de la| l[aes])? (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 

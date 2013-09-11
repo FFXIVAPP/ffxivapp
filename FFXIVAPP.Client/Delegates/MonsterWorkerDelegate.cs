@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Common.Helpers;
 
 #endregion
 
@@ -45,38 +47,40 @@ namespace FFXIVAPP.Client.Delegates
 
         public static NPCEntry CurrentUser;
         public static readonly List<NPCEntry> NPCList = new List<NPCEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper("import_mob");
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(List<NPCEntry> npcEntry)
+        public static void OnNewNPC(NPCEntry npcEntry)
         {
-            if (!npcEntry.Any())
+            if (CurrentUser == null)
             {
+                CurrentUser = npcEntry;
                 return;
             }
-            CurrentUser = npcEntry.First();
             Func<bool> saveToDictionary = delegate
             {
-                foreach (var entry in npcEntry.Where(e => e.NPCType == NPCType.Monster)
-                                              .Where(entry => NPCList.All(m => m.ID != entry.ID) && !Pets.Contains(entry.ModelID)))
+                var current = NPCList.Any() ? NPCList.ToList() : new List<NPCEntry>();
+                if (current.Any(n => n.ID == npcEntry.ID) || Pets.Contains(npcEntry.ModelID) || npcEntry.NPCType != NPCType.Monster)
                 {
-                    NPCList.Add(entry);
+                    return false;
                 }
+                NPCList.Add(npcEntry);
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                const int chunkSize = MonsterEntryHelper.ChunkSize;
-                var chunksProcessed = MonsterEntryHelper.ChunksProcessed;
+                var chunkSize = UploadHelper.ChunkSize;
+                var chunksProcessed = UploadHelper.ChunksProcessed;
                 if (NPCList.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                if (!MonsterEntryHelper.Processing)
+                if (!UploadHelper.Processing)
                 {
-                    MonsterEntryHelper.ProcessUpload(new List<NPCEntry>(NPCList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload(new List<NPCEntry>(NPCList.Skip(chunksProcessed * chunkSize)));
                 }
             }, saveToDictionary);
         }

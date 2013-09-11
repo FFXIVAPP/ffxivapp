@@ -98,6 +98,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             var sourceName = StringHelper.TitleCase(source.Value);
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", targetName, sourceName));
             ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, targetName);
+            Plugin.PHost.ProcessDataByKey(Plugin.PName, Token, "KillEntry", targetName);
         }
 
         /// <summary>

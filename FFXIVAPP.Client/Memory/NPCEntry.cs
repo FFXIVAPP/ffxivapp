@@ -94,7 +94,7 @@ namespace FFXIVAPP.Client.Memory
 
         public bool IsValid
         {
-            get { return !String.IsNullOrEmpty(Name) && ID != 0 && NPCID != 0; }
+            get { return !String.IsNullOrEmpty(Name) && (ID != 0 || NPCID != 0); }
         }
 
         #endregion

@@ -7,16 +7,16 @@ namespace FFXIVAPP.Client.Memory
 {
     public class Coordinate
     {
-        public float X;
-        public float Y;
-        public float Z;
+        public double X;
+        public double Y;
+        public double Z;
 
         /// <summary>
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public Coordinate(float x = 0, float y = 0, float z = 0)
+        public Coordinate(double x = 0, double y = 0, double z = 0.00)
         {
             X = x;
             Y = y;
