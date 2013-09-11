@@ -12,7 +12,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Models;
@@ -38,6 +40,11 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Declarations
+
+        private List<string> _authorizedPublishers = new List<string>
+        {
+            "820abd6a1e1d45dbdd499f3fa96e0755f20b67f2798ce0a41304e4da235c0020054954995c26a38c12628f2c7285bd9f4705cad6f371499e458c078c61902a47"
+        };
 
         #endregion
 
@@ -128,6 +135,8 @@ namespace FFXIVAPP.Client
 
         #region Implementaion of IPluginHost
 
+        private List<LootEntry> LootList = new List<LootEntry>();
+
         /// <summary>
         /// </summary>
         /// <param name="pluginName"> </param>
@@ -196,6 +205,72 @@ namespace FFXIVAPP.Client
             pluginInstance.Instance.SetConstants(ConstantsType.ServerName, Constants.ServerName);
             pluginInstance.Instance.SetConstants(ConstantsType.GameLanguage, Constants.GameLanguage);
             //throw new NotImplementedException();
+        }
+
+        public void ProcessDataByKey(string pluginName, string token, string key, object data)
+        {
+            var pluginInstance = Loaded.Find(pluginName);
+            if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen)
+            {
+                return;
+            }
+            switch (key)
+            {
+                case "LootEntry":
+                    try
+                    {
+                        var lootEntryData = data as Dictionary<string, object>;
+                        if (lootEntryData == null)
+                        {
+                            return;
+                        }
+                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string)
+                        {
+                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
+                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
+                        };
+                        var s = lootEntryData["MobName"] as string;
+                        if (s != null)
+                        {
+                            var mobName = s.Trim();
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && MonsterWorkerDelegate.NPCList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            {
+                                lootEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                                         .ModelID;
+                            }
+                        }
+                        LootWorkerDelegate.OnNewLoot(lootEntry);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    break;
+                case "KillEntry":
+                    try
+                    {
+                        var killEntryData = data as string;
+                        if (killEntryData == null)
+                        {
+                            return;
+                        }
+                        var killEntry = new KillEntry()
+                        {
+                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
+                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
+                        };
+                        var mobName = killEntryData.Trim();
+                        if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                        {
+                            killEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                                     .ModelID;
+                        }
+                        KillWorkerDelegate.OnNewKill(killEntry);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    break;
+            }
         }
 
         #endregion

@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 
 #endregion
@@ -23,6 +25,16 @@ namespace FFXIVAPP.Client.Helpers
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
             ChatWorkerDelegate.IsPaused = true;
+            if (NPCWorkerDelegate.NPCList.Any())
+            {
+                var npcLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "NPCHistory.json";
+                File.WriteAllText(AppViewModel.Instance.LogsPath + npcLogName, JsonConvert.SerializeObject(NPCWorkerDelegate.NPCList));
+            }
+            if (MonsterWorkerDelegate.NPCList.Any())
+            {
+                var monsterLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterHistory.json";
+                File.WriteAllText(AppViewModel.Instance.LogsPath + monsterLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.NPCList));
+            }
             if (AppViewModel.Instance.ChatHistory.Any())
             {
                 try

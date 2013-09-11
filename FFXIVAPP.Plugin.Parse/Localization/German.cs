@@ -150,7 +150,6 @@ namespace FFXIVAPP.Plugin.Parse.Localization
             Dictionary.Add("parse_ShowMonsterDamageHeader", "Monsterschaden Anzeigen");
             Dictionary.Add("parse_ShowMonsterHealingHeader", "Monsterheilung Anzeigen");
             Dictionary.Add("parse_ShowMonsterDamageTakenHeader", "Erlittener Monsterschaden Anzeigen");
-            Dictionary.Add("parse_UploadParseHeader", "Analyse Hochladen");
             Dictionary.Add("parse_ExportXMLHeader", "Als XML Exportieren");
             Dictionary.Add("parse_PlayerDamageByActionText", "Schd. sort. nach Aktion sort. nach sel. Spieler.");
             Dictionary.Add("parse_PlayerDamageToMonstersText", "Schd. an Monster von sel. Spieler");

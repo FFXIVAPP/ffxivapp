@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// NPCWorkerDelegate.cs
+// LootWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers.SocketIO;
-using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
 
@@ -17,40 +17,39 @@ using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client.Delegates
 {
-    internal static class NPCWorkerDelegate
+    internal static class KillWorkerDelegate
     {
         #region Declarations
 
-        public static readonly List<NPCEntry> NPCList = new List<NPCEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_npc", 1);
+        public static readonly List<KillEntry> KillList = new List<KillEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper("import_kill", 10);
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(NPCEntry npcEntry)
+        public static void OnNewKill(KillEntry killEntry)
         {
             Func<bool> saveToDictionary = delegate
             {
-                var current = NPCList.Any() ? NPCList.ToList() : new List<NPCEntry>();
-                if (current.Any(n => n.NPCID == npcEntry.NPCID))
+                if (!killEntry.IsValid())
                 {
                     return false;
                 }
-                NPCList.Add(npcEntry);
+                KillList.Add(killEntry);
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
             {
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (NPCList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (KillList.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
                 if (!UploadHelper.Processing)
                 {
-                    UploadHelper.ProcessUpload(new List<NPCEntry>(NPCList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload(new List<KillEntry>(KillList.Skip(chunksProcessed * chunkSize)));
                 }
             }, saveToDictionary);
         }

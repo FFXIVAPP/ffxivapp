@@ -96,6 +96,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="SocketIOClient, Version=0.6.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\SocketIOClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -113,6 +117,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WebSocket4Net, Version=0.7.0.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SocketIO4Net.Client.0.6.26\lib\net40\WebSocket4Net.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -132,7 +140,10 @@
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
+    <Compile Include="Delegates\KillWorkerDelegate.cs" />
+    <Compile Include="Delegates\LootWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
+    <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
@@ -140,6 +151,7 @@
     <Compile Include="Helpers\JsonPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Helpers\SocketIO\UploadHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -154,6 +166,7 @@
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ChatPointers.cs" />
+    <Compile Include="Memory\MonsterWorker.cs" />
     <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />
@@ -163,6 +176,8 @@
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatWorker.cs" />
     <Compile Include="Memory\NPCWorker.cs" />
+    <Compile Include="Models\KillEntry.cs" />
+    <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Models\PluginInstance.cs" />
@@ -237,6 +252,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Licenses\License.SocketIO4Net.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Media\Images\Sponsors\SadBomb.png" />
     <Resource Include="Resources\Media\Images\Sponsors\ogcpng.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />

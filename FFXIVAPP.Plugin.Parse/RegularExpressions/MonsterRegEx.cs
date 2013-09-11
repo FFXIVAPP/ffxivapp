@@ -58,9 +58,9 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) ne subi(t|ssez?) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 

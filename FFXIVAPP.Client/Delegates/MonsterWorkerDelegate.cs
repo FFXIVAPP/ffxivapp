@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Client
+﻿    // FFXIVAPP.Client
 // NPCWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
@@ -17,12 +17,37 @@ using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client.Delegates
 {
-    internal static class NPCWorkerDelegate
+    internal static class MonsterWorkerDelegate
     {
+        #region Property Backings
+
+        private static List<uint> _pets;
+
+        public static List<uint> Pets
+        {
+            get
+            {
+                return _pets ?? (_pets = new List<uint>
+                {
+                    1398,
+                    1399,
+                    1400,
+                    1401,
+                    1402,
+                    1403,
+                    1404,
+                    2095
+                });
+            }
+        }
+
+        #endregion
+
         #region Declarations
 
+        public static NPCEntry CurrentUser;
         public static readonly List<NPCEntry> NPCList = new List<NPCEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_npc", 1);
+        private static readonly UploadHelper UploadHelper = new UploadHelper("import_mob");
 
         #endregion
 
@@ -30,10 +55,15 @@ namespace FFXIVAPP.Client.Delegates
         /// </summary>
         public static void OnNewNPC(NPCEntry npcEntry)
         {
+            if (CurrentUser == null)
+            {
+                CurrentUser = npcEntry;
+                return;
+            }
             Func<bool> saveToDictionary = delegate
             {
                 var current = NPCList.Any() ? NPCList.ToList() : new List<NPCEntry>();
-                if (current.Any(n => n.NPCID == npcEntry.NPCID))
+                if (current.Any(n => n.ID == npcEntry.ID) || Pets.Contains(npcEntry.ModelID) || npcEntry.NPCType != NPCType.Monster)
                 {
                     return false;
                 }

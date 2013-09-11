@@ -6,6 +6,8 @@
 using System;
 using System.IO;
 using System.Net;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -36,6 +38,7 @@ namespace FFXIVAPP.Client.Helpers
             }
             catch (Exception ex)
             {
+                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
     }

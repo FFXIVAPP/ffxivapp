@@ -55,10 +55,10 @@ namespace FFXIVAPP.Plugin.Log
             {
                 var pluginInfo = new Dictionary<string, string>();
                 pluginInfo.Add("Icon", "Logo.png");
-                pluginInfo.Add("Name", Common.Constants.Name);
-                pluginInfo.Add("Description", Common.Constants.Description);
-                pluginInfo.Add("Copyright", Common.Constants.Copyright);
-                pluginInfo.Add("Version", Common.Constants.Version.ToString());
+                pluginInfo.Add("Name", Common.Helpers.AssemblyHelper.Name);
+                pluginInfo.Add("Description", Common.Helpers.AssemblyHelper.Description);
+                pluginInfo.Add("Copyright", Common.Helpers.AssemblyHelper.Copyright);
+                pluginInfo.Add("Version", Common.Helpers.AssemblyHelper.Version.ToString());
                 return pluginInfo;
             }
         }

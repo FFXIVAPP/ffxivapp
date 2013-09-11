@@ -1,11 +1,12 @@
 ﻿// FFXIVAPP.Client
-// NPCWorker.cs
+// MonsterWorker.cs
 // 
 // © 2013 Ryan Wilson
 
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -18,7 +19,7 @@ using Timer = System.Timers.Timer;
 
 namespace FFXIVAPP.Client.Memory
 {
-    internal class NPCWorker : INotifyPropertyChanged, IDisposable
+    internal class MonsterWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings
 
@@ -50,7 +51,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((NPCEntry) state);
+            OnNewNPC((NPCEntry)state);
         }
 
         #endregion
@@ -61,7 +62,7 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        public NPCWorker()
+        public MonsterWorker()
         {
             _scanTimer = new Timer(2500);
             _scanTimer.Elapsed += ScanTimerElapsed;
@@ -103,17 +104,17 @@ namespace FFXIVAPP.Client.Memory
                 {
                     return false;
                 }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("NPCMAP"))
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                 {
                     return false;
                 }
                 _isScanning = true;
 
-                for (uint i = 0; i <= 256; i += 4)
+                for (uint i = 0; i <= 1000; i += 4)
                 {
                     try
                     {
-                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
+                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
                         if (characterAddress == 0)
                         {
                             continue;
@@ -177,7 +178,7 @@ namespace FFXIVAPP.Client.Memory
                                 PostNPCEvent(npcEntry);
                             }
                             catch (Exception postEx)
-                            {   
+                            {
                                 DispatcherHelper.Invoke(() => PostNPCEvent(npcEntry));
                             }
                         }

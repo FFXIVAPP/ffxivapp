@@ -6,6 +6,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
@@ -23,6 +24,8 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
 {
     public class TimelineMonitor : EventMonitor
     {
+        const string Token = "820abd6a1e1d45dbdd499f3fa96e0755f20b67f2798ce0a41304e4da235c0020054954995c26a38c12628f2c7285bd9f4705cad6f371499e458c078c61902a47";
+
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
@@ -95,6 +98,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             var sourceName = StringHelper.TitleCase(source.Value);
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", targetName, sourceName));
             ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, targetName);
+            Plugin.PHost.ProcessDataByKey(Plugin.PName, Token, "KillEntry", targetName);
         }
 
         /// <summary>
@@ -122,41 +126,44 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot", e);
                 return;
             }
-            if (!ParseControl.Instance.Timeline.FightingRightNow)
-            {
-                ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastFiveSeconds", e);
-                return;
-            }
             var thing = StringHelper.TitleCase(matches.Groups["item"].Value);
-            AttachDropToMonster(thing);
+            AttachDropToMonster(thing, e);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="thing"> </param>
-        private void AttachDropToMonster(string thing)
+        /// <param name="e"></param>
+        private void AttachDropToMonster(string thing, Event e)
         {
-            Fight fight;
-            if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastKilled, out fight))
+            var mobName = "";
+            if (ParseControl.Instance.Timeline.FightingRightNow)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));
-                if (fight.MobName.Replace(" ", "") == "")
+                Fight fight;
+                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastKilled, out fight))
                 {
-                    return;
+                    mobName = fight.MobName;
+                    Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));
+                    if (mobName.Replace(" ", "") != "")
+                    {
+                        var mobGroup = ParseControl.Timeline.GetSetMob(mobName);
+                        mobGroup.SetDrop(thing);
+                    }
                 }
-                var mobGroup = ParseControl.Timeline.GetSetMob(fight.MobName);
-                mobGroup.SetDrop(thing);
             }
             else
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : Loot Drop (\"{0}\"), No Current Fight Info. Adding To Last killed.", thing));
-                if (ParseControl.LastKilled.Replace(" ", "") == "")
-                {
-                    return;
-                }
-                var mobGroup = ParseControl.Timeline.GetSetMob(ParseControl.LastKilled);
-                mobGroup.SetDrop(thing);
+                ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastTwoSeconds", e);
             }
+            Plugin.PHost.ProcessDataByKey(Plugin.PName, Token, "LootEntry", new Dictionary<string, object>
+            {
+                {
+                    "ItemName", thing
+                },
+                {
+                    "MobName", mobName
+                }
+            });
         }
 
         /// <summary>
