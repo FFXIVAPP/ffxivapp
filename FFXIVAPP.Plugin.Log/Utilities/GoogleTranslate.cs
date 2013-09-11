@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Log.Utilities
 {
     internal static class GoogleTranslate
     {
-        private const string BaseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
+        private string BaseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
         public static readonly Hashtable Offsets = GetLanguage();
         private static HttpWebRequest _httpWReq;
         private static HttpWebResponse _httpWResp;

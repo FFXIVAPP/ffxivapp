@@ -303,7 +303,7 @@ namespace FFXIVAPP.Client
                     //};
                     //DispatcherHelper.Invoke(() => NotifyIconHelper.ShowBalloonMessage(title, message, notifyEventHandler));
                 }
-                const string uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                 return true;
             };

@@ -124,7 +124,7 @@ namespace FFXIVAPP.Client.ViewModels
                 var cicuid = "";
                 try
                 {
-                    const string url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
+                    var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                     var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(Constants.CharacterName), serverName));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     request.Headers.Add("Accept-Language", "en;q=0.8");
