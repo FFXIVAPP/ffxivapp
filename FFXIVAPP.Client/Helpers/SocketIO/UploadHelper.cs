@@ -5,6 +5,7 @@
 
 using System;
 using System.Windows;
+using FFXIVAPP.Client.Properties;
 using Newtonsoft.Json;
 
 namespace FFXIVAPP.Client.Helpers.SocketIO
@@ -55,29 +56,36 @@ namespace FFXIVAPP.Client.Helpers.SocketIO
         /// <param name="entries"></param>
         public void ProcessUpload(object entries)
         {
-            Processing = true;
-            try
+            if (Settings.Default.AllowXIVDBIntegration)
             {
-                DestorySocket();
-                if (Socket == null)
+                Processing = true;
+                try
                 {
-                    Socket = new SocketIOClient.Client(ServiceUri);
-                }
-                Socket.Opened += delegate { };
-                Socket.Message += delegate { };
-                Socket.SocketConnectionClosed += delegate { DestorySocket(); };
-                Socket.Error += delegate { DestorySocket(); };
-                Socket.On(String.Format("{0}_success", _socketEventKey), delegate
-                {
-                    ChunksProcessed++;
                     DestorySocket();
-                });
-                Socket.On(String.Format("{0}_error", _socketEventKey), delegate { DestorySocket(); });
-                Socket.On("connect", message => Socket.Emit(_socketEventKey, JsonConvert.SerializeObject(entries)));
-                Socket.Connect();
+                    if (Socket == null)
+                    {
+                        Socket = new SocketIOClient.Client(ServiceUri);
+                    }
+                    Socket.Opened += delegate { };
+                    Socket.Message += delegate { };
+                    Socket.SocketConnectionClosed += delegate { DestorySocket(); };
+                    Socket.Error += delegate { DestorySocket(); };
+                    Socket.On(String.Format("{0}_success", _socketEventKey), delegate
+                    {
+                        ChunksProcessed++;
+                        DestorySocket();
+                    });
+                    Socket.On(String.Format("{0}_error", _socketEventKey), delegate { DestorySocket(); });
+                    Socket.On("connect", message => Socket.Emit(_socketEventKey, JsonConvert.SerializeObject(entries)));
+                    Socket.Connect();
+                }
+                catch (Exception ex)
+                {
+                }
             }
-            catch (Exception ex)
+            else
             {
+                Processing = false;
             }
         }
 

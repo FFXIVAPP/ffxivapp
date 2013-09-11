@@ -309,5 +309,17 @@ namespace FFXIVAPP.Client.Properties {
                 this["EnableNLog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AllowXIVDBIntegration {
+            get {
+                return ((bool)(this["AllowXIVDBIntegration"]));
+            }
+            set {
+                this["AllowXIVDBIntegration"] = value;
+            }
+        }
     }
 }
