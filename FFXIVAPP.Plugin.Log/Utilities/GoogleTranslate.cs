@@ -19,8 +19,8 @@ namespace FFXIVAPP.Plugin.Log.Utilities
 {
     internal static class GoogleTranslate
     {
-        private string BaseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
         public static readonly Hashtable Offsets = GetLanguage();
+        private static string _baseUrl = "http://translate.google.ca/translate_t?hl=&ie=UTF-8&text=";
         private static HttpWebRequest _httpWReq;
         private static HttpWebResponse _httpWResp;
 
@@ -96,12 +96,12 @@ namespace FFXIVAPP.Plugin.Log.Utilities
             {
                 if (jpOnly)
                 {
-                    var url = String.Format("{0}{1}&sl={2}&tl={3}#", BaseUrl, textToTranslate, inLang, outLang);
+                    var url = String.Format("{0}{1}&sl={2}&tl={3}#", _baseUrl, textToTranslate, inLang, outLang);
                     _httpWReq = (HttpWebRequest) WebRequest.Create(url);
                 }
                 else
                 {
-                    var url = String.Format("{0}{1}&sl=auto&tl={2}#auto|{2}|{1}", BaseUrl, textToTranslate, outLang);
+                    var url = String.Format("{0}{1}&sl=auto&tl={2}#auto|{2}|{1}", _baseUrl, textToTranslate, outLang);
                     _httpWReq = (HttpWebRequest) WebRequest.Create(url);
                 }
                 _httpWReq.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
