@@ -20,8 +20,9 @@ namespace FFXIVAPP.Plugin.Parse
         #region Declarations
 
         public const string BaseDirectory = "./Plugins/FFXIVAPP.Plugin.Parse/";
-
         public const string LibraryPack = "pack://application:,,,/FFXIVAPP.Plugin.Parse;component/";
+        
+        public const string Token = "820abd6a1e1d45dbdd499f3fa96e0755f20b67f2798ce0a41304e4da235c0020054954995c26a38c12628f2c7285bd9f4705cad6f371499e458c078c61902a47";
 
         public static readonly string[] Supported = new[]
         {
