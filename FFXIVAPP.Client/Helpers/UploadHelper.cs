@@ -34,18 +34,6 @@ namespace FFXIVAPP.Client.Helpers
 
         /// <summary>
         /// </summary>
-        /// <param name="socketKey"></param>
-        /// <param name="entries"></param>
-        public void EmitUpload(string socketKey, object entries)
-        {
-            if (Settings.Default.AllowXIVDBIntegration)
-            {
-                var client = new SocketIO.Client(socketKey, entries);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="postKey"></param>
         /// <param name="entries"></param>
         public void PostUpload(string postKey, object entries)

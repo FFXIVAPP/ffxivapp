@@ -1,5 +1,5 @@
-﻿    // FFXIVAPP.Client
-// NPCWorkerDelegate.cs
+﻿// FFXIVAPP.Client
+// MonsterWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -7,12 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 
@@ -81,10 +78,7 @@ namespace FFXIVAPP.Client.Delegates
                 catch (Exception ex)
                 {
                 }
-                DispatcherHelper.Invoke(delegate
-                {
-                    AboutView.View.TotalMobLabel.Content = String.Format("Total Mob: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
-                });
+                DispatcherHelper.Invoke(delegate { AboutView.View.TotalMobLabel.Content = String.Format("Total Mob: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -102,8 +96,8 @@ namespace FFXIVAPP.Client.Delegates
                 try
                 {
                     UploadHelper.Processing = true;
-                    //UploadHelper.EmitUpload("import_mob", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
-                    UploadHelper.PostUpload("mob", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.PostUpload("mob", new List<NPCEntry>(NPCList.ToList()
+                                                                             .Skip(chunksProcessed * chunkSize)));
                 }
                 catch (Exception ex)
                 {

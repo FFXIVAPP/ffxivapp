@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// LootWorkerDelegate.cs
+// KillWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -9,9 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 
@@ -39,10 +37,7 @@ namespace FFXIVAPP.Client.Delegates
                     return false;
                 }
                 KillList.Add(killEntry);
-                DispatcherHelper.Invoke(delegate
-                {
-                    AboutView.View.TotalKillLabel.Content = String.Format("Total Kill: {0}, Submitted: {1}", KillList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
-                });
+                DispatcherHelper.Invoke(delegate { AboutView.View.TotalKillLabel.Content = String.Format("Total Kill: {0}, Submitted: {1}", KillList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -60,8 +55,8 @@ namespace FFXIVAPP.Client.Delegates
                 try
                 {
                     UploadHelper.Processing = true;
-                    //UploadHelper.EmitUpload("import_kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
-                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList()
+                                                                                .Skip(chunksProcessed * chunkSize)));
                 }
                 catch (Exception ex)
                 {

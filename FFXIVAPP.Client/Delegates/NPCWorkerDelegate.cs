@@ -8,14 +8,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
-using SocketIOClient.Messages;
 
 #endregion
 
@@ -51,10 +47,7 @@ namespace FFXIVAPP.Client.Delegates
                 catch (Exception ex)
                 {
                 }
-                DispatcherHelper.Invoke(delegate
-                {
-                    AboutView.View.TotalNPCLabel.Content = String.Format("Total NPC: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
-                });
+                DispatcherHelper.Invoke(delegate { AboutView.View.TotalNPCLabel.Content = String.Format("Total NPC: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -72,8 +65,8 @@ namespace FFXIVAPP.Client.Delegates
                 try
                 {
                     UploadHelper.Processing = true;
-                    //UploadHelper.EmitUpload("import_npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
-                    UploadHelper.PostUpload("npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.PostUpload("npc", new List<NPCEntry>(NPCList.ToList()
+                                                                             .Skip(chunksProcessed * chunkSize)));
                 }
                 catch (Exception ex)
                 {
