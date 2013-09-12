@@ -1,26 +1,40 @@
 ﻿// FFXIVAPP.Client
-// JsonPostHelper.cs
+// HttpPostHelper.cs
 // 
 // © 2013 Ryan Wilson
 
 using System;
 using System.IO;
 using System.Net;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    public static class JsonPostHelper
+    public static class HttpPostHelper
     {
+        public enum PostType
+        {
+            Json,
+            Form
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="type"></param>
         /// <param name="postData"></param>
-        public static void Post(string url, string postData)
+        public static string Post(string url, PostType type, string postData)
         {
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
-            httpWebRequest.ContentType = "text/json";
+            switch (type)
+            {
+                case PostType.Json:
+                    httpWebRequest.ContentType = "application/json";
+                    break;
+                case PostType.Form:
+                    httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                    break;
+            }
+            httpWebRequest.ContentLength = postData.Length;
             httpWebRequest.Method = "POST";
             try
             {
@@ -32,13 +46,13 @@ namespace FFXIVAPP.Client.Helpers
                     var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
                     using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                     {
-                        var result = streamReader.ReadToEnd();
+                        return streamReader.ReadToEnd();
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                return "{\"result\":\"error\"}";
             }
         }
     }

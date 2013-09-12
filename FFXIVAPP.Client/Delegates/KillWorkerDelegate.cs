@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.ViewModels;
@@ -52,9 +53,15 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
+                if (UploadHelper.Processing)
+                {
+                    return;
+                }
                 try
                 {
-                    UploadHelper.ProcessUpload("import_kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.Processing = true;
+                    //UploadHelper.EmitUpload("import_kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
                 }
                 catch (Exception ex)
                 {

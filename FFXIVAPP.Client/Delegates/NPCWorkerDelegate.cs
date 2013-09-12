@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.ViewModels;
@@ -64,9 +65,15 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
+                if (UploadHelper.Processing)
+                {
+                    return;
+                }
                 try
                 {
-                    UploadHelper.ProcessUpload("import_npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.Processing = true;
+                    //UploadHelper.EmitUpload("import_npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.PostUpload("npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
                 }
                 catch (Exception ex)
                 {

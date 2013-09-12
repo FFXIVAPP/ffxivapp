@@ -148,11 +148,11 @@
     <Compile Include="AppException.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Helpers\JsonPostHelper.cs" />
+    <Compile Include="Helpers\HttpPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Helpers\SocketIO\Client.cs" />
-    <Compile Include="Helpers\SocketIO\UploadHelper.cs" />
+    <Compile Include="Helpers\UploadHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
