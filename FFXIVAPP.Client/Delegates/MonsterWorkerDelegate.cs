@@ -7,10 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -46,28 +48,42 @@ namespace FFXIVAPP.Client.Delegates
         #region Declarations
 
         public static NPCEntry CurrentUser;
-        public static readonly List<NPCEntry> NPCList = new List<NPCEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_mob");
+        public static readonly IList<NPCEntry> NPCList = new List<NPCEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper(100);
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(NPCEntry npcEntry)
+        public static void OnNewNPC(List<NPCEntry> npcEntries)
         {
-            if (CurrentUser == null)
+            if (!npcEntries.Any())
             {
-                CurrentUser = npcEntry;
                 return;
             }
+            CurrentUser = CurrentUser ?? npcEntries.First();
             Func<bool> saveToDictionary = delegate
             {
-                var current = NPCList.Any() ? NPCList.ToList() : new List<NPCEntry>();
-                if (current.Any(n => n.ID == npcEntry.ID) || Pets.Contains(npcEntry.ModelID) || npcEntry.NPCType != NPCType.Monster)
+                try
                 {
-                    return false;
+                    var monsters = npcEntries.Where(n => n.NPCType == NPCType.Monster && !Pets.Contains(n.ModelID));
+                    var enumerable = NPCList.ToList();
+                    foreach (var npcEntry in monsters)
+                    {
+                        var exists = enumerable.FirstOrDefault(n => n.ID == npcEntry.ID);
+                        if (exists == null)
+                        {
+                            NPCList.Add(npcEntry);
+                        }
+                    }
                 }
-                NPCList.Add(npcEntry);
+                catch (Exception ex)
+                {
+                }
+                DispatcherHelper.Invoke(delegate
+                {
+                    AboutView.View.TotalMobLabel.Content = String.Format("Total Mob: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
+                });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -78,9 +94,12 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
-                if (!UploadHelper.Processing)
+                try
                 {
-                    UploadHelper.ProcessUpload(new List<NPCEntry>(NPCList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload("import_mob", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                }
+                catch (Exception ex)
+                {
                 }
             }, saveToDictionary);
         }

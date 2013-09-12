@@ -8,10 +8,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using SocketIOClient.Messages;
 
 #endregion
 
@@ -21,23 +24,36 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static readonly List<NPCEntry> NPCList = new List<NPCEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_npc", 1);
+        public static readonly IList<NPCEntry> NPCList = new List<NPCEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper(50);
 
         #endregion
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(NPCEntry npcEntry)
+        public static void OnNewNPC(List<NPCEntry> npcEntries)
         {
             Func<bool> saveToDictionary = delegate
             {
-                var current = NPCList.Any() ? NPCList.ToList() : new List<NPCEntry>();
-                if (current.Any(n => n.NPCID == npcEntry.NPCID))
+                try
                 {
-                    return false;
+                    var enumerable = NPCList.ToList();
+                    foreach (var npcEntry in npcEntries)
+                    {
+                        var exists = enumerable.FirstOrDefault(n => n.ID == npcEntry.ID);
+                        if (exists == null)
+                        {
+                            NPCList.Add(npcEntry);
+                        }
+                    }
                 }
-                NPCList.Add(npcEntry);
+                catch (Exception ex)
+                {
+                }
+                DispatcherHelper.Invoke(delegate
+                {
+                    AboutView.View.TotalNPCLabel.Content = String.Format("Total NPC: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
+                });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -48,9 +64,12 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
-                if (!UploadHelper.Processing)
+                try
                 {
-                    UploadHelper.ProcessUpload(new List<NPCEntry>(NPCList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload("import_npc", new List<NPCEntry>(NPCList.ToList().Skip(chunksProcessed * chunkSize)));
+                }
+                catch (Exception ex)
+                {
                 }
             }, saveToDictionary);
         }

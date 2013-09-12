@@ -151,6 +151,7 @@
     <Compile Include="Helpers\JsonPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Helpers\SocketIO\Client.cs" />
     <Compile Include="Helpers\SocketIO\UploadHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
@@ -280,6 +281,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Media\Images\License.png" />
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

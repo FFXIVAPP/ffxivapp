@@ -6,10 +6,12 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using System.Windows.Documents;
 using FFXIVAPP.Common.Helpers;
 using NLog;
 using Timer = System.Timers.Timer;
@@ -40,7 +42,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="npcEntry"> </param>
-        private void PostNPCEvent(NPCEntry npcEntry)
+        private void PostNPCEvent(List<NPCEntry> npcEntry)
         {
             _sync.Post(RaiseNPCEvent, npcEntry);
         }
@@ -50,20 +52,20 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((NPCEntry) state);
+            OnNewNPC((List<NPCEntry>)state);
         }
 
         #endregion
 
         #region Delegates
 
-        public delegate void NewNPCEventHandler(NPCEntry npcEntry);
+        public delegate void NewNPCEventHandler(List<NPCEntry> npcEntry);
 
         #endregion
 
         public NPCWorker()
         {
-            _scanTimer = new Timer(2500);
+            _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -108,10 +110,10 @@ namespace FFXIVAPP.Client.Memory
                     return false;
                 }
                 _isScanning = true;
-
-                for (uint i = 0; i <= 256; i += 4)
+                try
                 {
-                    try
+                    var npcEntries = new List<NPCEntry>();
+                    for (uint i = 0; i <= 256; i += 4)
                     {
                         var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
                         if (characterAddress == 0)
@@ -166,26 +168,27 @@ namespace FFXIVAPP.Client.Memory
                         {
                             continue;
                         }
+                        npcEntries.Add(npcEntry);
+                    }
+                    try
+                    {
+                        RaiseNPCEvent(npcEntries);
+                    }
+                    catch (Exception raiseEx)
+                    {
                         try
                         {
-                            RaiseNPCEvent(npcEntry);
+                            PostNPCEvent(npcEntries);
                         }
-                        catch (Exception raiseEx)
+                        catch (Exception postEx)
                         {
-                            try
-                            {
-                                PostNPCEvent(npcEntry);
-                            }
-                            catch (Exception postEx)
-                            {   
-                                DispatcherHelper.Invoke(() => PostNPCEvent(npcEntry));
-                            }
+                            DispatcherHelper.Invoke(() => PostNPCEvent(npcEntries));
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
                 return true;

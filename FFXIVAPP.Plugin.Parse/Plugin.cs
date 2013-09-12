@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Parse.Helpers;
@@ -189,7 +190,7 @@ namespace FFXIVAPP.Plugin.Parse
                     }
                 }
                 // process logs
-                LogPublisher.Process(chatEntry);
+                DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
             }
             catch (Exception ex)
             {

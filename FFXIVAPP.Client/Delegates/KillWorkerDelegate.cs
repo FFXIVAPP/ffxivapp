@@ -11,6 +11,7 @@ using System.Linq;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -21,8 +22,8 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static readonly List<KillEntry> KillList = new List<KillEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_kill", 10);
+        public static readonly IList<KillEntry> KillList = new List<KillEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
         #endregion
 
@@ -37,6 +38,10 @@ namespace FFXIVAPP.Client.Delegates
                     return false;
                 }
                 KillList.Add(killEntry);
+                DispatcherHelper.Invoke(delegate
+                {
+                    AboutView.View.TotalKillLabel.Content = String.Format("Total Kill: {0}, Submitted: {1}", KillList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
+                });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -47,9 +52,12 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
-                if (!UploadHelper.Processing)
+                try
                 {
-                    UploadHelper.ProcessUpload(new List<KillEntry>(KillList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload("import_kill", new List<KillEntry>(KillList.ToList().Skip(chunksProcessed * chunkSize)));
+                }
+                catch (Exception ex)
+                {
                 }
             }, saveToDictionary);
         }

@@ -11,6 +11,7 @@ using System.Linq;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.ViewModels;
+using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -21,8 +22,8 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static readonly List<LootEntry> LootList = new List<LootEntry>();
-        private static readonly UploadHelper UploadHelper = new UploadHelper("import_loot", 10);
+        public static readonly IList<LootEntry> LootList = new List<LootEntry>();
+        private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
         #endregion
 
@@ -37,6 +38,10 @@ namespace FFXIVAPP.Client.Delegates
                     return false;
                 }
                 LootList.Add(lootEntry);
+                DispatcherHelper.Invoke(delegate
+                {
+                    AboutView.View.TotalLootLabel.Content = String.Format("Total Loot: {0}, Submitted: {1}", LootList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize);
+                });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
@@ -47,9 +52,12 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return;
                 }
-                if (!UploadHelper.Processing)
+                try
                 {
-                    UploadHelper.ProcessUpload(new List<LootEntry>(LootList.Skip(chunksProcessed * chunkSize)));
+                    UploadHelper.ProcessUpload("import_loot", new List<LootEntry>(LootList.ToList().Skip(chunksProcessed * chunkSize)));
+                }
+                catch (Exception ex)
+                {
                 }
             }, saveToDictionary);
         }

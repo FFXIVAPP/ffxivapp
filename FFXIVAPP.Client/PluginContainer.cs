@@ -17,6 +17,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Helpers.SocketIO;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
@@ -214,6 +215,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
+            var monsters = MonsterWorkerDelegate.NPCList.ToList();
             switch (key)
             {
                 case "LootEntry":
@@ -233,13 +235,13 @@ namespace FFXIVAPP.Client
                         if (s != null)
                         {
                             var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && MonsterWorkerDelegate.NPCList.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
                             {
-                                lootEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                                         .ModelID;
+                                lootEntry.ModelID = monsters.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                            .ModelID;
                             }
                         }
-                        LootWorkerDelegate.OnNewLoot(lootEntry);
+                        DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
                     }
                     catch (Exception ex)
                     {
@@ -261,10 +263,10 @@ namespace FFXIVAPP.Client
                         var mobName = killEntryData.Trim();
                         if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                         {
-                            killEntry.ModelID = MonsterWorkerDelegate.NPCList.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                                     .ModelID;
+                            killEntry.ModelID = monsters.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                        .ModelID;
                         }
-                        KillWorkerDelegate.OnNewKill(killEntry);
+                        DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
                     }
                     catch (Exception ex)
                     {

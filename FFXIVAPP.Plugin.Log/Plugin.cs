@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Events;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.Plugin.Log.Helpers;
@@ -155,7 +156,7 @@ namespace FFXIVAPP.Plugin.Log
                     Raw = (string) entry[5],
                     TimeStamp = (DateTime) entry[6]
                 };
-                LogPublisher.Process(chatEntry);
+                DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
             }
             catch (Exception ex)
             {
