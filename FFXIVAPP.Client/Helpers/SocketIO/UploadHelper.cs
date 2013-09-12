@@ -3,12 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-using System;
-using System.Collections.Generic;
-using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
-using Newtonsoft.Json;
 
 namespace FFXIVAPP.Client.Helpers.SocketIO
 {
