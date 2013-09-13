@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.Delegates
                     var enumerable = NPCList.ToList();
                     foreach (var npcEntry in npcEntries)
                     {
-                        var exists = enumerable.FirstOrDefault(n => n.ID == npcEntry.ID);
+                        var exists = enumerable.FirstOrDefault(n => n.NPCID == npcEntry.NPCID);
                         if (exists == null)
                         {
                             NPCList.Add(npcEntry);

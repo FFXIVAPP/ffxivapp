@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             switch (damage.Success)
                             {
                                 case true:
-                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    line.Source = _lastNamePlayer;
                                     UpdateDamagePlayer(damage, line, exp, false);
                                     break;
                                 case false:
@@ -45,7 +45,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _autoAction = true;
-                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        line.Source = _lastNamePlayer;
                                         UpdateDamagePlayer(damage, line, exp, false);
                                     }
                                     break;
@@ -167,7 +167,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 else
                 {
-                    _lastNamePlayer = line.Source;
                     if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions)))
                     {
                         return;

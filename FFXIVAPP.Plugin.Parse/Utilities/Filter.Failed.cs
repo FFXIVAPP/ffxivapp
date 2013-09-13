@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             switch (failed.Success)
                             {
                                 case true:
-                                    line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    line.Source = _lastNamePlayer;
                                     UpdateFailedPlayer(failed, line, exp, false);
                                     break;
                                 case false:
@@ -45,7 +45,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                     if (failed.Success)
                                     {
                                         _autoAction = true;
-                                        line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        line.Source = _lastNamePlayer;
                                         UpdateFailedPlayer(failed, line, exp, false);
                                     }
                                     break;

@@ -37,8 +37,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             items = exp.pItems;
                             if (items.Success)
                             {
-                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                _lastNamePlayer = line.Source;
+                                line.Source = _lastNamePlayer;
                                 _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;

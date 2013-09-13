@@ -439,7 +439,6 @@ namespace FFXIVAPP.Client
             _npcWorker = new NPCWorker();
             _npcWorker.StartScanning();
             _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
-            
         }
 
         /// <summary>

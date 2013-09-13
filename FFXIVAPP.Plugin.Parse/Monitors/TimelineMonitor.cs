@@ -94,9 +94,23 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             }
             var targetName = StringHelper.TitleCase(target.Value);
             var sourceName = StringHelper.TitleCase(source.Value);
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", targetName, sourceName));
-            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, targetName);
-            Plugin.PHost.ProcessDataByKey(Plugin.PName, Constants.Token, "KillEntry", targetName);
+            AddKillToMonster(targetName, sourceName);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="source"></param>
+        private void AddKillToMonster(string target, string source)
+        {
+            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", target, source));
+            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, target);
+            Plugin.PHost.ProcessDataByKey(Plugin.PName, Constants.Token, "KillEntry", new Dictionary<string, object>
+            {
+                {
+                    "MobName", target
+                }
+            });
         }
 
         /// <summary>
@@ -134,7 +148,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="e"></param>
         private void AttachDropToMonster(string thing, Event e)
         {
-            var mobName = "";
+            var mobName = ParseControl.Instance.Timeline.FightingRightNow ? ParseControl.LastKilled : "";
             if (ParseControl.Instance.Timeline.FightingRightNow)
             {
                 Fight fight;

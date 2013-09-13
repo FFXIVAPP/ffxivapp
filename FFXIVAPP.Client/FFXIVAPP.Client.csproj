@@ -244,9 +244,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Licenses\License.SocketIO4Net.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\Media\Images\Sponsors\SadBomb.png" />
     <Resource Include="Resources\Media\Images\Sponsors\ogcpng.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />

@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
@@ -225,18 +226,19 @@ namespace FFXIVAPP.Client
                         {
                             return;
                         }
-                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string)
+                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string);
+                        if (MonsterWorkerDelegate.CurrentUser != null)
                         {
-                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
-                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
-                        };
+                            lootEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                            lootEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                        }
                         var s = lootEntryData["MobName"] as string;
                         if (s != null)
                         {
                             var mobName = s.Trim();
                             if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
                             {
-                                lootEntry.ModelID = monsters.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                lootEntry.ModelID = monsters.First(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
                                                             .ModelID;
                             }
                         }
@@ -244,31 +246,38 @@ namespace FFXIVAPP.Client
                     }
                     catch (Exception ex)
                     {
+                        //MessageBox.Show(ex.Message);
                     }
                     break;
                 case "KillEntry":
                     try
                     {
-                        var killEntryData = data as string;
+                        var killEntryData = data as Dictionary<string, object>;
                         if (killEntryData == null)
                         {
                             return;
                         }
-                        var killEntry = new KillEntry()
+                        var killEntry = new KillEntry();
+                        if (MonsterWorkerDelegate.CurrentUser != null)
                         {
-                            MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex,
-                            Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate
-                        };
-                        var mobName = killEntryData.Trim();
-                        if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                            killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                            killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                        }
+                        var s = killEntryData["MobName"] as string;
+                        if (s != null)
                         {
-                            killEntry.ModelID = monsters.Single(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                        .ModelID;
+                            var mobName = s.Trim();
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            {
+                                killEntry.ModelID = monsters.First(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
+                                                            .ModelID;
+                            }
                         }
                         DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
                     }
                     catch (Exception ex)
                     {
+                        //MessageBox.Show(ex.Message);
                     }
                     break;
             }

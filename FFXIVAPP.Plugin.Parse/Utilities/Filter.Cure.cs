@@ -36,7 +36,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                line.Source = _lastNamePlayer;
                                 UpdateHealingPlayer(cure, line, exp, false);
                             }
                             break;
@@ -91,7 +91,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 else
                 {
-                    _lastNamePlayer = line.Source;
                     if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions && _lastEventPlayer.Type != EventType.Items))
                     {
                         return;
