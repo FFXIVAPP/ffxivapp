@@ -60,7 +60,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
 
         #region Declarations
 
-        private readonly Timer _fightingTimer = new Timer(2000);
+        private readonly Timer _fightingTimer = new Timer(3000);
 
         #endregion
 

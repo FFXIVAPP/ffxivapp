@@ -161,6 +161,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 else
                 {
+                    line.Target = ParseHelper.GetPetFromPlayer(line.Source, exp);
                     _lastNamePlayer = line.Source;
                     if (!_autoAction)
                     {
@@ -198,10 +199,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                         break;
                 }
                 line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : isParty ? _lastNameParty : _lastNamePlayer;
-                if (Regex.IsMatch(line.Target.ToLower(), exp.You))
-                {
-                    line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                }
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
@@ -216,6 +213,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 else
                 {
+                    line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp);
                     _lastNamePlayer = line.Target;
                     if (!_autoAction)
                     {

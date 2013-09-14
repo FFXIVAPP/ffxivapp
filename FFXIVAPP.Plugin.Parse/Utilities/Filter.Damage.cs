@@ -204,7 +204,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 line.Crit = damage.Groups["crit"].Success;
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
-
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
@@ -219,6 +218,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                 }
                 else
                 {
+                    line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp);
                     _lastNamePlayer = line.Target;
                     if (!_autoAction)
                     {

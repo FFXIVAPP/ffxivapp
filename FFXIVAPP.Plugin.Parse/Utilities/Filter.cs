@@ -6,9 +6,6 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Windows.Documents;
 using FFXIVAPP.Plugin.Parse.Enums;
 using FFXIVAPP.Plugin.Parse.Models;
 using FFXIVAPP.Plugin.Parse.Models.Events;
@@ -39,33 +36,6 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
         private static bool _autoAction;
         private static bool _isMulti;
         private static bool _isParty;
-
-        // setup pet info that comes through as "YOU"
-        private static List<string> _pets = new List<string>
-        {
-            "eos",
-            "selene",
-            "topaz carbuncle",
-            "emerald carbuncle",
-            "ifrit-egi",
-            "titan-egi",
-            "garuda-egi",
-            "amber carbuncle",
-            "carbuncle topaze",
-            "carbuncle émeraude",
-            "carbuncle ambre",
-            "topas-karfunkel",
-            "smaragd-karfunkel",
-            "bernstein-karfunkel",
-            "フェアリー・エオス",
-            "フェアリー・セレネ",
-            "カーバンクル・トパーズ",
-            "カーバンクル・エメラルド",
-            "イフリート・エギ",
-            "タイタン・エギ",
-            "ガルーダ・エギ",
-            "カーバンクル・アンバー"
-        };
 
         public static void Process(string cleaned, Event e)
         {

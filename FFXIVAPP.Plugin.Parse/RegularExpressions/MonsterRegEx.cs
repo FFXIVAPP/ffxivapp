@@ -56,13 +56,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex CureFr = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<target>.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<target>.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<target>.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<source>.+) ne subi(t|ssez?) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(L[aes] |[LEAD]')?(?<target>.+) ne subi(t|ssez?) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         //JAPANESE REGULAR EXPRESSIONS
         public static Regex DamageJa = new Regex(@"^( ⇒ )?(?<crit>クリティカル！ )?(?<target>.+)に(?<block>ブロックした！ )?(?<parry>受け流した！ )?(?<amount>\d+) ?(\((?<modifier>.\d+)%\) ?)?ダメージ。$", SharedRegEx.DefaultOptions);
@@ -81,13 +81,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex CureJa = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
 
         //GERMAN REGULAR EXPRESSIONS
         public static Regex DamageDe = new Regex(@"^( ⇒ )?(?<block>Geblockt! ?)?(?<parry>Pariert! ?)?(?<crit>Kritischer Treffer! ?)?(?<target>dich|.+)( erleides?t (nur )?|, aber der Schaden wird auf )(?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?Punkte? (Schaden|reduziert)\.$", SharedRegEx.DefaultOptions);

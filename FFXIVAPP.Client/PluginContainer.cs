@@ -11,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;

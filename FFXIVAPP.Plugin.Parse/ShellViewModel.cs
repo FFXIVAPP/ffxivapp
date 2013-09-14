@@ -8,7 +8,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using FFXIVAPP.Common.Helpers;
 
 #endregion
 

@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Events;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 
 #endregion
@@ -56,10 +57,10 @@ namespace FFXIVAPP.Plugin.Event
             {
                 var pluginInfo = new Dictionary<string, string>();
                 pluginInfo.Add("Icon", "Logo.png");
-                pluginInfo.Add("Name", Common.Helpers.AssemblyHelper.Name);
-                pluginInfo.Add("Description", Common.Helpers.AssemblyHelper.Description);
-                pluginInfo.Add("Copyright", Common.Helpers.AssemblyHelper.Copyright);
-                pluginInfo.Add("Version", Common.Helpers.AssemblyHelper.Version.ToString());
+                pluginInfo.Add("Name", AssemblyHelper.Name);
+                pluginInfo.Add("Description", AssemblyHelper.Description);
+                pluginInfo.Add("Copyright", AssemblyHelper.Copyright);
+                pluginInfo.Add("Version", AssemblyHelper.Version.ToString());
                 return pluginInfo;
             }
         }

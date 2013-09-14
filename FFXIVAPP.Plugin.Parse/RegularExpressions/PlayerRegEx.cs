@@ -60,13 +60,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex CureFr = new Regex(@"^( ⇒ )?(?<crit>Critique ?! )?(?<target>Vous|.+) récup(é|è)rez? (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainFr = new Regex(@"^( ⇒ )?(?<target>Vous|.+) bénéficiez? de l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseFr = new Regex(@"^( ⇒ )?(?<target>Vous|.+) perd(ez?)? l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainFr = new Regex(@"^( ⇒ )?(?<target>Vous|.+) subi(t|ssez?) l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(?<source>Vous|.+) (perd(ez?)?|ne subi(t|ssez?)) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseFr = new Regex(@"^( ⇒ )?(?<target>Vous|.+) (perd(ez?)?|ne subi(t|ssez?)) plus l'effet (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex ObtainsFr = new Regex(@"^((?<source>Vous) obtenez|(?<source>.+) obtient)( une?| de la| l[aes])? (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 
@@ -89,13 +89,13 @@ namespace FFXIVAPP.Plugin.Parse.RegularExpressions
 
         public static Regex CureJa = new Regex(@"^( ⇒ )?(?<crit>クリティカル！ )?(?<source>.+)は(?<amount>\d+) ?(\((?<modifier>.\d+)%\) ?)?(?<type>\w+)回復。$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialLoseJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialLoseJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalGainJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalGainJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」の効果。$", SharedRegEx.DefaultOptions);
 
-        public static Regex DetrimentalLoseJa = new Regex(@"^( ⇒ )?(?<source>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
+        public static Regex DetrimentalLoseJa = new Regex(@"^( ⇒ )?(?<target>.+)に「(?<status>.+)」が切れた。$", SharedRegEx.DefaultOptions);
 
         public static Regex ObtainsJa = new Regex(@"^(?<source>.+)は「(?<item>.+)」(?<amount>×.+)?を入手した。'$", SharedRegEx.DefaultOptions);
 

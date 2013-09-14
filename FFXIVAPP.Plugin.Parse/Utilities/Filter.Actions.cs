@@ -40,11 +40,7 @@ namespace FFXIVAPP.Plugin.Parse.Utilities
                                 line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
                                 if (actions.Groups["source"].Success)
                                 {
-                                    var tempSource = Convert.ToString(actions.Groups["source"].Value);
-                                    if (_pets.Contains(tempSource.ToLower()))
-                                    {
-                                        line.Source = String.Format("{0} [YOU]", tempSource);
-                                    }
+                                    line.Source = ParseHelper.GetPetFromPlayer(Convert.ToString(actions.Groups["source"].Value), exp);
                                 }
                                 _lastNamePlayer = line.Source;
                                 UpdateActionsPlayers(actions, line, exp, false);

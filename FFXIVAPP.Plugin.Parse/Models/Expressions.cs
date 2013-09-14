@@ -55,6 +55,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
         public string RAttack { get; private set; }
         public string Attack { get; private set; }
         public string You { get; private set; }
+        public string YouString { get; private set; }
 
         #region Monster
 
@@ -317,6 +318,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     RAttack = "D'Attaque À Distance";
                     Attack = "Attaque";
                     You = @"^[Vv]ous$";
+                    YouString = "Vous";
                     break;
                 case "Japanese":
                     pDamage = PlayerRegEx.DamageJa.Match(Cleaned);
@@ -347,6 +349,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^\.$";
+                    YouString = "君";
                     break;
                 case "German":
                     pDamage = PlayerRegEx.DamageDe.Match(Cleaned);
@@ -377,6 +380,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^[Dd](ich|ie|u)$";
+                    YouString = "Du";
                     break;
                 default:
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
@@ -407,6 +411,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^[Yy]ou?$";
+                    YouString = "You";
                     break;
             }
         }
