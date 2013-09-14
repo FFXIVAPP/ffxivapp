@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((List<NPCEntry>)state);
+            OnNewNPC((List<NPCEntry>) state);
         }
 
         #endregion

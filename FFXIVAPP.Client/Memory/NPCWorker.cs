@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
-using System.Windows.Documents;
 using FFXIVAPP.Common.Helpers;
 using NLog;
 using Timer = System.Timers.Timer;
@@ -52,7 +51,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseNPCEvent(object state)
         {
-            OnNewNPC((List<NPCEntry>)state);
+            OnNewNPC((List<NPCEntry>) state);
         }
 
         #endregion
