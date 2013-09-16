@@ -12,6 +12,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,10 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return false;
                 }
-                KillList.Add(killEntry);
+                if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry)))
+                {
+                    KillList.Add(killEntry);
+                }
                 DispatcherHelper.Invoke(delegate { AboutView.View.TotalKillLabel.Content = String.Format("Total Kill: {0}, Submitted: {1}", KillList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
@@ -60,6 +64,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 catch (Exception ex)
                 {
+                    UploadHelper.Processing = false;
                 }
             }, saveToDictionary);
         }

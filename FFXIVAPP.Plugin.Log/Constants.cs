@@ -159,6 +159,10 @@ namespace FFXIVAPP.Plugin.Log
 
         public static string GameLanguage { get; set; }
 
+        public static bool EnableNLog { get; set; }
+
+        public static bool EnableHelpLabels { get; set; }
+
         #endregion
     }
 }

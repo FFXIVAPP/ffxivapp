@@ -24,6 +24,8 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
 {
     public class TimelineMonitor : EventMonitor
     {
+        private Expressions Expressions { get; set; }
+
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
@@ -37,6 +39,8 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleEvent(Event e)
         {
+            Expressions = new Expressions(e, e.RawLine);
+
             if (String.IsNullOrWhiteSpace(e.RawLine))
             {
                 return;
@@ -78,6 +82,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             }
             if (!matches.Success)
             {
+                ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, "");
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Defeat", e);
                 return;
             }
@@ -88,12 +93,16 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.RawLine));
                 return;
             }
-            if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, @"^[Yy]our?$") || target.Value == you)
+            if (source.Success)
+            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.RawLine));
+            }
+            if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, Expressions.You) || target.Value == you)
             {
                 return;
             }
             var targetName = StringHelper.TitleCase(target.Value);
-            var sourceName = StringHelper.TitleCase(source.Value);
+            var sourceName = StringHelper.TitleCase(source.Success ? source.Value : "Unknown");
             AddKillToMonster(targetName, sourceName);
         }
 
@@ -165,7 +174,7 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
             }
             else
             {
-                ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastTwoSeconds", e);
+                ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastThreeSeconds", e);
             }
             Plugin.PHost.ProcessDataByKey(Plugin.PName, Constants.Token, "LootEntry", new Dictionary<string, object>
             {

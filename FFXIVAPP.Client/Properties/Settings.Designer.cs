@@ -147,25 +147,28 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Adamantoise</string>\r\n  <string>Aegis</string>\r\n  <string>Alexander</strin" +
-            "g>\r\n  <string>Anima</string>\r\n  <string>Atomos</string>\r\n  <string>Bahamut</stri" +
-            "ng>\r\n  <string>Balmung</string>\r\n  <string>Behemoth</string>\r\n  <string>Cactuar<" +
-            "/string>\r\n  <string>Carbuncle</string>\r\n  <string>Cerberus</string>\r\n  <string>C" +
-            "hocobo</string>\r\n  <string>Coeurl</string>\r\n  <string>Diabolos</string>\r\n  <stri" +
-            "ng>Durandal</string>\r\n  <string>Excalibur</string>\r\n  <string>Exodus</string>\r\n " +
-            " <string>Faerie</string>\r\n  <string>Famfrit</string>\r\n  <string>Fenrir</string>\r" +
-            "\n  <string>Garuda</string>\r\n  <string>Gilgamesh</string>\r\n  <string>Goblin</stri" +
-            "ng>\r\n  <string>Gungnir</string>\r\n  <string>Hades</string>\r\n  <string>Hyperion</s" +
-            "tring>\r\n  <string>Ifrit</string>\r\n  <string>Ixion</string>\r\n  <string>Kujata</st" +
-            "ring>\r\n  <string>Lamia</string>\r\n  <string>Leviathan</string>\r\n  <string>Lich</s" +
-            "tring>\r\n  <string>Malboro</string>\r\n  <string>Mandragora</string>\r\n  <string>Mas" +
-            "amune</string>\r\n  <string>Midgardsormr</string>\r\n  <string>Moogle</string>\r\n  <s" +
-            "tring>Odin</string>\r\n  <string>Pandaemonium</string>\r\n  <string>Phoenix</string>" +
-            "\r\n  <string>Ragnarok</string>\r\n  <string>Ramuh</string>\r\n  <string>Ridill</strin" +
-            "g>\r\n  <string>Sargatanas</string>\r\n  <string>Shiva</string>\r\n  <string>Siren</st" +
-            "ring>\r\n  <string>Tiamat</string>\r\n  <string>Titan</string>\r\n  <string>Tonberry</" +
-            "string>\r\n  <string>Typhon</string>\r\n  <string>Ultima</string>\r\n  <string>Ultros<" +
-            "/string>\r\n  <string>Valefor</string>\r\n</ArrayOfString>")]
+            "tring>Atomos</string>\r\n  <string>Bahamut</string>\r\n  <string>Chocobo</string>\r\n " +
+            " <string>Mandragora</string>\r\n  <string>Tiamat</string>\r\n  <string>Tonberry</str" +
+            "ing>\r\n  <string>Garuda</string>\r\n  <string>Ifrit</string>\r\n  <string>Ramuh</stri" +
+            "ng>\r\n  <string>Titan</string>\r\n  <string>Adamantoise</string>\r\n  <string>Behemot" +
+            "h</string>\r\n  <string>Cactuar</string>\r\n  <string>Cerberus</string>\r\n  <string>C" +
+            "oeurl</string>\r\n  <string>Goblin</string>\r\n  <string>Malboro</string>\r\n  <string" +
+            ">Moogle</string>\r\n  <string>Ultros</string>\r\n  <string>Diabolos</string>\r\n  <str" +
+            "ing>Gilgamesh</string>\r\n  <string>Leviathan</string>\r\n  <string>Midgardsormr</st" +
+            "ring>\r\n  <string>Odin</string>\r\n  <string>Shiva</string>\r\n  <string>Ridill</stri" +
+            "ng>\r\n  <string>Masamune</string>\r\n  <string>Durandal</string>\r\n  <string>Aegis</" +
+            "string>\r\n  <string>Gungnir</string>\r\n  <string>Sargatanas</string>\r\n  <string>Ba" +
+            "lmung</string>\r\n  <string>Hyperion</string>\r\n  <string>Excalibur</string>\r\n  <st" +
+            "ring>Ragnarok</string>\r\n  <string>Alexander</string>\r\n  <string>Anima</string>\r\n" +
+            "  <string>Carbuncle</string>\r\n  <string>Fenrir</string>\r\n  <string>Hades</string" +
+            ">\r\n  <string>Ixion</string>\r\n  <string>Kujata</string>\r\n  <string>Typhon</string" +
+            ">\r\n  <string>Ultima</string>\r\n  <string>Valefor</string>\r\n  <string>Exodus</stri" +
+            "ng>\r\n  <string>Faerie</string>\r\n  <string>Lamia</string>\r\n  <string>Phoenix</str" +
+            "ing>\r\n  <string>Siren</string>\r\n  <string>Pandaemonium</string>\r\n  <string>Unico" +
+            "rn</string>\r\n  <string>Yojimbo</string>\r\n  <string>Famfrit</string>\r\n  <string>L" +
+            "ich</string>\r\n  <string>Mateus</string>\r\n  <string>Asura</string>\r\n  <string>Bel" +
+            "ias</string>\r\n  <string>Zeromus</string>\r\n  <string>Brynhildr</string>\r\n  <strin" +
+            "g>Zalera</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ServerList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ServerList"]));
@@ -319,6 +322,18 @@ namespace FFXIVAPP.Client.Properties {
             }
             set {
                 this["AllowXIVDBIntegration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableHelpLabels {
+            get {
+                return ((bool)(this["EnableHelpLabels"]));
+            }
+            set {
+                this["EnableHelpLabels"] = value;
             }
         }
     }

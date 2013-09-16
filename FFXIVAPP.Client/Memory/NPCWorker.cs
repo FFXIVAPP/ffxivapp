@@ -157,7 +157,7 @@ namespace FFXIVAPP.Client.Memory
                         {
                             try
                             {
-                                npcEntry.MapIndex = MemoryHandler.Instance.GetUInt16(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                npcEntry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                             }
                             catch (Exception ex)
                             {

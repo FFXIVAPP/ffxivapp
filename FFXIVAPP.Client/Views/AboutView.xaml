@@ -138,6 +138,7 @@
                     Command="{Binding ManualUpdateCommand}"
                     Content="{Binding Locale[app_ManualUpdateButtonText],
                                       Source={StaticResource AppProperties}}" />
+            <Label x:Name="TotalPlayerLabel" />
             <Label x:Name="TotalMobLabel" />
             <Label x:Name="TotalNPCLabel" />
             <Label x:Name="TotalKillLabel" />

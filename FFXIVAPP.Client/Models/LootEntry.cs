@@ -14,7 +14,7 @@ namespace FFXIVAPP.Client.Models
 
         public Coordinate Coordinate { get; set; }
         public string ItemName { get; set; }
-        public ushort MapIndex { get; set; }
+        public uint MapIndex { get; set; }
         public uint ModelID { get; set; }
 
         #endregion

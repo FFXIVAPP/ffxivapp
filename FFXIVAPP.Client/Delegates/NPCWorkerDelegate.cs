@@ -12,6 +12,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -38,7 +39,11 @@ namespace FFXIVAPP.Client.Delegates
                     foreach (var npcEntry in npcEntries)
                     {
                         var exists = enumerable.FirstOrDefault(n => n.NPCID == npcEntry.NPCID);
-                        if (exists == null)
+                        if (exists != null)
+                        {
+                            continue;
+                        }
+                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry)))
                         {
                             NPCList.Add(npcEntry);
                         }
@@ -70,6 +75,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 catch (Exception ex)
                 {
+                    UploadHelper.Processing = true;
                 }
             }, saveToDictionary);
         }

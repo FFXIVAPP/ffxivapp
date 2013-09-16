@@ -156,7 +156,7 @@ namespace FFXIVAPP.Plugin.Log
                     Raw = (string) entry[5],
                     TimeStamp = (DateTime) entry[6]
                 };
-                DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {
@@ -193,6 +193,12 @@ namespace FFXIVAPP.Plugin.Log
                     break;
                 case ConstantsType.GameLanguage:
                     Constants.GameLanguage = data as string;
+                    break;
+                case ConstantsType.EnableNLog:
+                    Constants.EnableNLog = data is bool && (bool)data;
+                    break;
+                case ConstantsType.EnableHelpLabels:
+                    PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels = data is bool && (bool)data;
                     break;
             }
         }

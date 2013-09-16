@@ -6,6 +6,8 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -15,6 +17,23 @@ namespace FFXIVAPP.Client.Helpers
         {
             Json,
             Form
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool IsValidJson(string data)
+        {
+            try
+            {
+                var valid = JObject.Parse(data);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -34,7 +53,7 @@ namespace FFXIVAPP.Client.Helpers
                     httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                     break;
             }
-            httpWebRequest.ContentLength = postData.Length;
+            httpWebRequest.ContentLength = Encoding.UTF8.GetByteCount(postData);
             httpWebRequest.Method = "POST";
             try
             {
@@ -52,7 +71,7 @@ namespace FFXIVAPP.Client.Helpers
             }
             catch (Exception ex)
             {
-                return "{\"result\":\"error\"}";
+                return "{\"result\":\"success\"}";
             }
         }
     }

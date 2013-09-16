@@ -114,8 +114,13 @@ namespace FFXIVAPP.Client.Memory
                 {
                     MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20);
                 }
+                var chatPointerMap = MemoryHandler.Instance.SigScanner.Locations["CHATLOG"];
+                if (chatPointerMap == 0)
+                {
+                    return false;
+                }
                 _isScanning = true;
-                var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(MemoryHandler.Instance.SigScanner.Locations["CHATLOG"]);
+                var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(chatPointerMap);
                 try
                 {
                     if (_lastCount == 0)

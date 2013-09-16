@@ -34,6 +34,7 @@ namespace FFXIVAPP.Plugin.Event
         private static PluginViewModel _instance;
         private ObservableCollection<XValuePair> _events;
         private Dictionary<string, string> _locale;
+        private bool     _enableHelpLabels;
         private ObservableCollection<string> _soundFiles;
 
         public static PluginViewModel Instance
@@ -47,6 +48,16 @@ namespace FFXIVAPP.Plugin.Event
             set
             {
                 _locale = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool EnableHelpLabels
+        {
+            get { return _enableHelpLabels; }
+            set
+            {
+                _enableHelpLabels = value;
                 RaisePropertyChanged();
             }
         }

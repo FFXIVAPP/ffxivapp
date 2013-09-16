@@ -196,7 +196,10 @@ namespace FFXIVAPP.Client
                     Common.Constants.ServerName = Constants.ServerName = Settings.Default.ServerName;
                     break;
                 case "EnableNLog":
-                    Common.Constants.EnableNLog = Settings.Default.EnableNLog;
+                    Common.Constants.EnableNLog = Constants.EnableNLog =  Settings.Default.EnableNLog;
+                    break;
+                case "EnableHelpLabels":
+                    Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                     break;
             }
             //SettingsHelper.Save();

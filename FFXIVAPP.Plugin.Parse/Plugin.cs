@@ -190,7 +190,7 @@ namespace FFXIVAPP.Plugin.Parse
                     }
                 }
                 // process logs
-                DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
+                LogPublisher.Process(chatEntry);
             }
             catch (Exception ex)
             {
@@ -227,6 +227,12 @@ namespace FFXIVAPP.Plugin.Parse
                     break;
                 case ConstantsType.GameLanguage:
                     Constants.GameLanguage = data as string;
+                    break;
+                case ConstantsType.EnableNLog:
+                    Constants.EnableNLog = data is bool && (bool)data;
+                    break;
+                case ConstantsType.EnableHelpLabels:
+                    PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels = data is bool && (bool)data;
                     break;
             }
         }

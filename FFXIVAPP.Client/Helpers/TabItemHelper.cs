@@ -5,9 +5,12 @@
 
 #region Usings
 
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Helpers;
 
 #endregion
 
@@ -30,9 +33,11 @@ namespace FFXIVAPP.Client.Helpers
             imageFactory.SetValue(FrameworkElement.WidthProperty, (double) 24);
             imageFactory.SetValue(FrameworkElement.ToolTipProperty, name);
             imageFactory.SetValue(Image.SourceProperty, image);
+            var binding = BindingHelper.VisibilityBinding(Settings.Default, "EnableHelpLabels");
+            labelFactory.SetBinding(UIElement.VisibilityProperty, binding);
             labelFactory.SetValue(ContentControl.ContentProperty, name);
-            labelFactory.SetValue(UIElement.VisibilityProperty, Visibility.Collapsed);
             labelFactory.SetValue(FrameworkElement.NameProperty, "FriendlyName");
+            stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
             stackPanelFactory.AppendChild(imageFactory);
             stackPanelFactory.AppendChild(labelFactory);
             dataTemplate.VisualTree = stackPanelFactory;

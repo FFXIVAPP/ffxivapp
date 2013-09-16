@@ -93,6 +93,8 @@ namespace FFXIVAPP.Client
         private static string _characterName;
         private static string _serverName;
         private static string _gameLanguage;
+        private static bool _enableNLog;
+        private static bool _enableHelpLabels;
 
         public static Dictionary<string, string> AutoTranslate
         {
@@ -166,6 +168,26 @@ namespace FFXIVAPP.Client
             {
                 _gameLanguage = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.GameLanguage, _gameLanguage);
+            }
+        }
+
+        public static bool EnableNLog
+        {
+            get { return _enableNLog; }
+            set
+            {
+                _enableNLog = value;
+                ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableNLog, _enableNLog);
+            }
+        }
+
+        public static bool EnableHelpLabels
+        {
+            get { return _enableHelpLabels; }
+            set
+            {
+                _enableHelpLabels = value;
+                ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableHelpLabels, _enableHelpLabels);
             }
         }
 

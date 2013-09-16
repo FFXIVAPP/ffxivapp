@@ -145,6 +145,8 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         var whoLeft = eventArgs.Any() ? eventArgs.First() as string : String.Empty;
                         break;
                     case TimelineEventType.MobFighting:
+                        _fightingTimer.Stop();
+                        FightingRightNow = true;
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {
@@ -156,10 +158,14 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                             fighting = new Fight(mobName);
                             Fights.Add(fighting);
                         }
-                        _fightingTimer.Stop();
-                        FightingRightNow = true;
                         break;
                     case TimelineEventType.MobKilled:
+                        _fightingTimer.Start();
+                        if (mobName != null && (mobName.ToLower()
+                                                       .Contains("target") || mobName == ""))
+                        {
+                            break;
+                        }
                         Fight killed;
                         if (!Fights.TryGet(mobName, out killed))
                         {
@@ -168,7 +174,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         }
                         GetSetMob(mobName)
                             .SetKill(killed);
-                        _fightingTimer.Start();
                         break;
                 }
             }

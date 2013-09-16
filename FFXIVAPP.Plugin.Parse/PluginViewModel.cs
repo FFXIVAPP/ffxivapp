@@ -31,6 +31,7 @@ namespace FFXIVAPP.Plugin.Parse
 
         private static PluginViewModel _instance;
         private Dictionary<string, string> _locale;
+        private bool _enableHelpLabels;
 
         public static PluginViewModel Instance
         {
@@ -43,6 +44,16 @@ namespace FFXIVAPP.Plugin.Parse
             set
             {
                 _locale = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool EnableHelpLabels
+        {
+            get { return _enableHelpLabels; }
+            set
+            {
+                _enableHelpLabels = value;
                 RaisePropertyChanged();
             }
         }

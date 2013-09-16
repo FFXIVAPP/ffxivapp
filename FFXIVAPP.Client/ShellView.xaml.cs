@@ -52,6 +52,7 @@ namespace FFXIVAPP.Client
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
+            Initializer.GetHomePlugin();
             Initializer.SetSignatures();
             Initializer.StartMemoryWorkers();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";

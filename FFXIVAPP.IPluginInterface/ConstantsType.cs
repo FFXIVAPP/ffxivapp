@@ -14,6 +14,8 @@ namespace FFXIVAPP.IPluginInterface
         CultureInfo,
         CharacterName,
         ServerName,
-        GameLanguage
+        GameLanguage,
+        EnableNLog,
+        EnableHelpLabels
     }
 }

@@ -11,7 +11,7 @@ namespace FFXIVAPP.Client.Memory
     {
         #region Property Backings
 
-        public ushort MapIndex { get; set; }
+        public uint MapIndex { get; set; }
         public string Name { get; set; }
         public uint ID { get; set; }
         public uint NPCID { get; set; }

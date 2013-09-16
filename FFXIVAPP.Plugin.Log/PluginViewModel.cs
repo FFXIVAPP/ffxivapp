@@ -33,6 +33,7 @@ namespace FFXIVAPP.Plugin.Log
 
         private static PluginViewModel _instance;
         private Dictionary<string, string> _locale;
+        private bool _enableHelpLabels;
         private ObservableCollection<UIElement> _tabs;
 
         public static PluginViewModel Instance
@@ -46,6 +47,16 @@ namespace FFXIVAPP.Plugin.Log
             set
             {
                 _locale = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool EnableHelpLabels
+        {
+            get { return _enableHelpLabels; }
+            set
+            {
+                _enableHelpLabels = value;
                 RaisePropertyChanged();
             }
         }

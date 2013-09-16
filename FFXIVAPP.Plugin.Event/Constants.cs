@@ -101,6 +101,10 @@ namespace FFXIVAPP.Plugin.Event
 
         public static string GameLanguage { get; set; }
 
+        public static bool EnableNLog { get; set; }
+
+        public static bool EnableHelpLabels { get; set; }
+
         #endregion
     }
 }

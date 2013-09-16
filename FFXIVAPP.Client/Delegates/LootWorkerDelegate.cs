@@ -12,6 +12,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -36,7 +37,10 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     return false;
                 }
-                LootList.Add(lootEntry);
+                if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(lootEntry)))
+                {
+                    LootList.Add(lootEntry);
+                }
                 DispatcherHelper.Invoke(delegate { AboutView.View.TotalLootLabel.Content = String.Format("Total Loot: {0}, Submitted: {1}", LootList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
@@ -60,6 +64,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 catch (Exception ex)
                 {
+                    UploadHelper.Processing = false;
                 }
             }, saveToDictionary);
         }

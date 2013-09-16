@@ -167,6 +167,28 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
+        public static void GetHomePlugin()
+        {
+            //var index = 0;
+            //foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
+            //{
+            //    if (pluginInstance.Instance.Name == Settings.Default.DefaultHomePlugin)
+            //    {
+            //        try
+            //        {
+            //            ShellView.View.PluginsTC.SelectedIndex = index;
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //        }
+            //        return;
+            //    }
+            //    index++;
+            //}
+        }
+
+        /// <summary>
+        /// </summary>
         public static void SetCharacter()
         {
             var name = String.Format("{0} {1}", Settings.Default.FirstName, Settings.Default.LastName);
@@ -328,6 +350,8 @@ namespace FFXIVAPP.Client
                 Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000",
                 Offset = 68
             });
+            //+3436 list of agro
+            //+5744 agro count
             signatures.Add(new Signature
             {
                 Key = "NPCMAP",

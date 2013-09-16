@@ -12,7 +12,7 @@ namespace FFXIVAPP.Client.Models
         #region Auto Properties
 
         public Coordinate Coordinate { get; set; }
-        public ushort MapIndex { get; set; }
+        public uint MapIndex { get; set; }
         public uint ModelID { get; set; }
 
         #endregion

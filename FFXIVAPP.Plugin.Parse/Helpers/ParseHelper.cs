@@ -63,7 +63,7 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
             {
                 name = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
             }
-            return _pets.Contains(name.ToLower()) ? String.Format("{0} {1}", name, exp.YouString) : name;
+            return _pets.Contains(name.ToLower()) ? String.Format("{0} [{1}]", name, exp.YouString) : name;
         }
     }
 }
