@@ -135,8 +135,6 @@ namespace FFXIVAPP.Client
 
         #region Implementaion of IPluginHost
 
-        private List<LootEntry> LootList = new List<LootEntry>();
-
         /// <summary>
         /// </summary>
         /// <param name="pluginName"> </param>

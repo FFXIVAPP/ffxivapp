@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client.Delegates
             {
                 return;
             }
-            CurrentUser = CurrentUser ?? npcEntries.First();
+            CurrentUser = npcEntries.First();
             Func<bool> saveToDictionary = delegate
             {
                 try
