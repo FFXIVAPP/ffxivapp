@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 using Newtonsoft.Json.Linq;
 
 namespace FFXIVAPP.Client.Helpers
@@ -59,7 +60,7 @@ namespace FFXIVAPP.Client.Helpers
             {
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    streamWriter.Write(postData);
+                    streamWriter.Write(HttpUtility.UrlEncode(postData));
                     streamWriter.Flush();
                     streamWriter.Close();
                     var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();

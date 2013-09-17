@@ -96,6 +96,18 @@ namespace FFXIVAPP.Client.Memory
         {
             get
             {
+                if (Coordinate.X > 5000 || Coordinate.X < -5000)
+                {
+                    return false;
+                }
+                if (Coordinate.Y > 5000 || Coordinate.Y < -5000)
+                {
+                    return false;
+                }
+                if (Coordinate.Z > 5000 || Coordinate.Z < -5000)
+                {
+                    return false;
+                }
                 switch (NPCType)
                 {
                     case NPCType.NPC:
