@@ -5,9 +5,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Web;
+using System.Windows;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json;
 
 namespace FFXIVAPP.Client.Helpers
@@ -38,58 +41,53 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="entries"></param>
         public void PostUpload(string postKey, object entries)
         {
-            if (Settings.Default.AllowXIVDBIntegration)
+            object data;
+            switch (postKey)
             {
-                object data;
-                switch (postKey)
+                case "npc":
+                    data = entries as IList<NPCEntry>;
+                    break;
+                case "mob":
+                    data = entries as IList<NPCEntry>;
+                    break;
+                case "kill":
+                    data = entries as IList<KillEntry>;
+                    break;
+                case "loot":
+                    data = entries as IList<LootEntry>;
+                    break;
+                default:
+                    data = entries;
+                    break;
+            }
+            var dataImport = new Dictionary<string, object>
+            {
                 {
-                    case "npc":
-                        data = entries as IList<NPCEntry>;
+                    "data", data
+                },
+                {
+                    "type", postKey
+                }
+            };
+            try
+            {
+                var jsonData = JsonConvert.SerializeObject(dataImport);
+                var postData = String.Format("jobj={0}", HttpUtility.UrlEncode(jsonData));
+                var jsonResult = HttpPostHelper.Post("http://db.xivdev.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
+                var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
+                switch (result)
+                {
+                    case "success":
+                        ChunksProcessed++;
                         break;
-                    case "mob":
-                        data = entries as IList<NPCEntry>;
-                        break;
-                    case "kill":
-                        data = entries as IList<KillEntry>;
-                        break;
-                    case "loot":
-                        data = entries as IList<LootEntry>;
-                        break;
-                    default:
-                        data = entries;
+                    case "error":
                         break;
                 }
-                var dataImport = new Dictionary<string, object>
-                {
-                    {
-                        "data", data
-                    },
-                    {
-                        "type", postKey
-                    }
-                };
-                try
-                {
-                    var jsonSettings = new JsonSerializerSettings();
-                    jsonSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
-                    jsonSettings.Formatting = Formatting.None;
-                    var postData = String.Format("jobj={0}", JsonConvert.SerializeObject(dataImport, jsonSettings));
-                    var jsonResult = HttpPostHelper.Post("http://db.xivdev.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
-                    var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
-                    switch (result)
-                    {
-                        case "success":
-                            ChunksProcessed++;
-                            break;
-                        case "error":
-                            break;
-                    }
-                    Processing = false;
-                }
-                catch (Exception ex)
-                {
-                    Processing = false;
-                }
+                Processing = false;
+            }
+            catch (Exception ex)
+            {
+                Processing = false;
             }
         }
     }

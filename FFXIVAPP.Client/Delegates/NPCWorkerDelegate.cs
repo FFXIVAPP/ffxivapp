@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json;
@@ -47,23 +49,23 @@ namespace FFXIVAPP.Client.Delegates
                         {
                             NPCList.Add(npcEntry);
                         }
+                        XIVDBViewModel.Instance.NPCSeen++;
                     }
                 }
                 catch (Exception ex)
                 {
                 }
-                DispatcherHelper.Invoke(delegate { AboutView.View.TotalNPCLabel.Content = String.Format("Total NPC: {0}, Submitted: {1}", NPCList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                var chunkSize = UploadHelper.ChunkSize;
-                var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (NPCList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
                 {
                     return;
                 }
-                if (UploadHelper.Processing)
+                var chunkSize = UploadHelper.ChunkSize;
+                var chunksProcessed = UploadHelper.ChunksProcessed;
+                if (NPCList.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -72,12 +74,29 @@ namespace FFXIVAPP.Client.Delegates
                     UploadHelper.Processing = true;
                     UploadHelper.PostUpload("npc", new List<NPCEntry>(NPCList.ToList()
                                                                              .Skip(chunksProcessed * chunkSize)));
+                    XIVDBViewModel.Instance.NPCProcessed++;
                 }
                 catch (Exception ex)
                 {
                     UploadHelper.Processing = true;
                 }
             }, saveToDictionary);
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void ProcessRemaining()
+        {
+            var chunkSize = UploadHelper.ChunkSize;
+            var chunksProcessed = UploadHelper.ChunksProcessed;
+            try
+            {
+                UploadHelper.PostUpload("npc", new List<NPCEntry>(NPCList.ToList()
+                                                                         .Skip(chunksProcessed * chunkSize)));
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

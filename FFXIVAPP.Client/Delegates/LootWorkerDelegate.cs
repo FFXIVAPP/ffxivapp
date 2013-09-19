@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
 
 #endregion
@@ -41,18 +41,18 @@ namespace FFXIVAPP.Client.Delegates
                 {
                     LootList.Add(lootEntry);
                 }
-                DispatcherHelper.Invoke(delegate { AboutView.View.TotalLootLabel.Content = String.Format("Total Loot: {0}, Submitted: {1}", LootList.Count, UploadHelper.ChunksProcessed * UploadHelper.ChunkSize); });
+                XIVDBViewModel.Instance.LootSeen++;
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                var chunkSize = UploadHelper.ChunkSize;
-                var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (LootList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
                 {
                     return;
                 }
-                if (UploadHelper.Processing)
+                var chunkSize = UploadHelper.ChunkSize;
+                var chunksProcessed = UploadHelper.ChunksProcessed;
+                if (LootList.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -61,12 +61,29 @@ namespace FFXIVAPP.Client.Delegates
                     UploadHelper.Processing = true;
                     UploadHelper.PostUpload("loot", new List<LootEntry>(LootList.ToList()
                                                                                 .Skip(chunksProcessed * chunkSize)));
+                    XIVDBViewModel.Instance.LootProcessed++;
                 }
                 catch (Exception ex)
                 {
                     UploadHelper.Processing = false;
                 }
             }, saveToDictionary);
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void ProcessRemaining()
+        {
+            var chunkSize = UploadHelper.ChunkSize;
+            var chunksProcessed = UploadHelper.ChunksProcessed;
+            try
+            {
+                UploadHelper.PostUpload("loot", new List<LootEntry>(LootList.ToList()
+                                                                            .Skip(chunksProcessed * chunkSize)));
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

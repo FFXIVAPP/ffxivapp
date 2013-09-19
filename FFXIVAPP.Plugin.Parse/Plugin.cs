@@ -190,7 +190,12 @@ namespace FFXIVAPP.Plugin.Parse
                     }
                 }
                 // process logs
-                LogPublisher.Process(chatEntry);
+                Func<bool> publish = delegate
+                {
+                    DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
+                    return true;
+                };
+                publish.BeginInvoke(null, null);
             }
             catch (Exception ex)
             {

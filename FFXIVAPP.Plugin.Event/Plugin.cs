@@ -172,7 +172,12 @@ namespace FFXIVAPP.Plugin.Event
                     Raw = (string) entry[5],
                     TimeStamp = (DateTime) entry[6]
                 };
-                LogPublisher.Process(chatEntry);
+                Func<bool> publish = delegate
+                {
+                    DispatcherHelper.Invoke(() => LogPublisher.Process(chatEntry));
+                    return true;
+                };
+                publish.BeginInvoke(null, null);
             }
             catch (Exception ex)
             {
