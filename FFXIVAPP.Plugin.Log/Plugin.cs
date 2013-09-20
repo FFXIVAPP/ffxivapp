@@ -114,8 +114,12 @@ namespace FFXIVAPP.Plugin.Log
             Notice = "";
         }
 
-        public void Dispose()
+        public void Dispose(bool isUpdating = false)
         {
+            if (isUpdating)
+            {
+                return;
+            }
             Settings.Default.Save();
         }
 

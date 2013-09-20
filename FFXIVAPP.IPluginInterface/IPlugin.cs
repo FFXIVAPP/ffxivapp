@@ -29,7 +29,7 @@ namespace FFXIVAPP.IPluginInterface
         string Notice { get; }
         Exception Trace { get; }
         void Initialize();
-        void Dispose();
+        void Dispose(bool isUpdating = false);
         TabItem CreateTab();
         UserControl CreateControl();
         void OnNewLine(out bool success, params object[] entry);

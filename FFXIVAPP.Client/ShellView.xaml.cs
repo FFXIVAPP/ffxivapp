@@ -99,7 +99,7 @@ namespace FFXIVAPP.Client
             SettingsHelper.Save();
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
-                pluginInstance.Instance.Dispose();
+                pluginInstance.Instance.Dispose(update);
             }
             if (!Settings.Default.SaveLog)
             {
