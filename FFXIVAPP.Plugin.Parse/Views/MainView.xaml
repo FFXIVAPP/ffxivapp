@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:FFXIVAPP.Common.Controls;assembly=FFXIVAPP.Common"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:Custom="http://metro.mahapps.com/winfx/xaml/shared"
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Parse="clr-namespace:FFXIVAPP.Plugin.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Parse.Properties"
@@ -16,6 +17,7 @@
              mc:Ignorable="d">
 
     <UserControl.Resources>
+        <Custom:ToUpperConverter x:Key="ToUpperConverter" />
         <x:Static x:Key="MainViewModel"
                   Member="ViewModels:MainViewModel.Instance" />
         <x:Static x:Key="PluginViewModel"
@@ -40,59 +42,69 @@
             <TabItem Header="{Binding Locale[parse_ActionLogTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowActionLogTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
                 <Controls:xFlowDocument x:Name="AbilityChatFD" />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowPartyDamageTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
                 <Views:ParsePartyDamageView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowPartyHealingTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
 
                 <Views:ParsePartyHealingView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowPartyDamageTakenTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
                 <Views:ParsePartyDamageTakenView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowMonsterDamageTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
                 <Views:ParseMonsterDamageView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
                                       Source={StaticResource PluginViewModel}}"
                      Visibility="{Binding ShowMonsterDamageTakenTab,
-                                          Source={StaticResource Settings},
-                                          Converter={StaticResource VisibilityConverter}}">
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource Settings}}">
                 <Views:ParseMonsterDamageTakenView />
             </TabItem>
         </TabControl>
         <DockPanel Grid.Row="1"
                    Margin="3"
                    LastChildFill="True">
-            <Button Width="28"
+            <Button MinWidth="28"
                     Command="{Binding ResetStatsCommand}"
                     ToolTip="{Binding Locale[parse_ResetStatsToolTip],
                                       Source={StaticResource PluginViewModel}}">
-                <Image Width="16"
-                       Height="16"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="/FFXIVAPP.Plugin.Parse;component/Media/Images/Refresh.png" />
+                    <Label Content="{Binding Locale[parse_ResetStatsToolTip],
+                                             Converter={StaticResource ToUpperConverter},
+                                             Source={StaticResource PluginViewModel}}"
+                           Padding="3,0,3,0"
+                           Visibility="{Binding EnableHelpLabels,
+                                                Converter={StaticResource VisibilityConverter},
+                                                Source={StaticResource PluginViewModel}}" />
+                </StackPanel>
             </Button>
+
             <!--
                 <Button Margin="3 0 0 0"
                 Command="{Binding Convert2JsonCommand}"

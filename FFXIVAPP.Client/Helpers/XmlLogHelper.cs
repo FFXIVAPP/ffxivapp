@@ -27,31 +27,28 @@ namespace FFXIVAPP.Client.Helpers
             ChatWorkerDelegate.IsPaused = true;
             if (!isTemporary)
             {
-                //if (NPCWorkerDelegate.NPCList.Any())
-                //{
-                //    var npcLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "NPCHistory.json";
-                //    File.WriteAllText(AppViewModel.Instance.LogsPath + npcLogName, JsonConvert.SerializeObject(NPCWorkerDelegate.NPCList));
-                //}
-                //if (MonsterWorkerDelegate.NPCList.Any())
-                //{
-                //    var monsterLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterHistory.json";
-                //    File.WriteAllText(AppViewModel.Instance.LogsPath + monsterLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.NPCList));
-                //}
-                //if (MonsterWorkerDelegate.PlayerList.Any())
-                //{
-                //    var playerLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "PlayerHistory.json";
-                //    File.WriteAllText(AppViewModel.Instance.LogsPath + playerLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.PlayerList));
-                //}
+                if (NPCWorkerDelegate.NPCList.Any())
+                {
+                    var npcLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "NPCHistory.json";
+                    File.WriteAllText(AppViewModel.Instance.LogsPath + npcLogName, JsonConvert.SerializeObject(NPCWorkerDelegate.NPCList));
+                    NPCWorkerDelegate.ProcessRemaining();
+                }
+                if (MonsterWorkerDelegate.NPCList.Any())
+                {
+                    var monsterLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterHistory.json";
+                    File.WriteAllText(AppViewModel.Instance.LogsPath + monsterLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.NPCList));
+                    MonsterWorkerDelegate.ProcessRemaining();
+                }
                 if (KillWorkerDelegate.KillList.Any())
                 {
-                    //var killLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "KillHistory.json";
-                    //File.WriteAllText(AppViewModel.Instance.LogsPath + killLogName, JsonConvert.SerializeObject(KillWorkerDelegate.KillList));
+                    var killLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "KillHistory.json";
+                    File.WriteAllText(AppViewModel.Instance.LogsPath + killLogName, JsonConvert.SerializeObject(KillWorkerDelegate.KillList));
                     KillWorkerDelegate.ProcessRemaining();
                 }
                 if (LootWorkerDelegate.LootList.Any())
                 {
-                    //var lootLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "LootHistory.json";
-                    //File.WriteAllText(AppViewModel.Instance.LogsPath + lootLogName, JsonConvert.SerializeObject(LootWorkerDelegate.LootList));
+                    var lootLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "LootHistory.json";
+                    File.WriteAllText(AppViewModel.Instance.LogsPath + lootLogName, JsonConvert.SerializeObject(LootWorkerDelegate.LootList));
                     LootWorkerDelegate.ProcessRemaining();
                 }
             }

@@ -1,16 +1,11 @@
 ﻿// FFXIVAPP.Client
 // UploadHelper.cs
-// 
-// © 2013 Ryan Wilson
 
 using System;
 using System.Collections.Generic;
 using System.Web;
-using System.Windows;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json;
 
 namespace FFXIVAPP.Client.Helpers
@@ -22,6 +17,7 @@ namespace FFXIVAPP.Client.Helpers
         public int ChunkSize { get; set; }
         public int ChunksProcessed { get; set; }
         public bool Processing { get; set; }
+        public Dictionary<string, object> ImportData { get; set; }
 
         #endregion
 
@@ -33,6 +29,7 @@ namespace FFXIVAPP.Client.Helpers
             ChunkSize = chunkSize;
             ChunksProcessed = 0;
             Processing = false;
+            ImportData = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -41,6 +38,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="entries"></param>
         public void PostUpload(string postKey, object entries)
         {
+            ImportData.Clear();
             object data;
             switch (postKey)
             {
@@ -60,18 +58,12 @@ namespace FFXIVAPP.Client.Helpers
                     data = entries;
                     break;
             }
-            var dataImport = new Dictionary<string, object>
-            {
-                {
-                    "data", data
-                },
-                {
-                    "type", postKey
-                }
-            };
+            ImportData.Add("data", data);
+            ImportData.Add("type", postKey);
+            ImportData.Add("version", AppViewModel.Instance.CurrentVersion);
             try
             {
-                var jsonData = JsonConvert.SerializeObject(dataImport);
+                var jsonData = JsonConvert.SerializeObject(ImportData);
                 var postData = String.Format("jobj={0}", HttpUtility.UrlEncode(jsonData));
                 var jsonResult = HttpPostHelper.Post("http://db.xivdev.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
                 var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
