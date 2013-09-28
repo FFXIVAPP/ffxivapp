@@ -60,13 +60,14 @@ namespace FFXIVAPP.Plugin.Event
                                                   .Elements("Event"))
                 {
                     var xRegEx = (string) xElement.Attribute("Key");
+                    var xValue = (string) xElement.Element("Value");
                     var xSound = (string) xElement.Element("Sound");
                     var xDelay = (string) xElement.Element("Delay");
                     if (String.IsNullOrWhiteSpace(xRegEx))
                     {
                         continue;
                     }
-                    xSound = String.IsNullOrWhiteSpace(xSound) ? "aruba.wav" : xSound;
+                    xSound = String.IsNullOrWhiteSpace(xSound) ? "aruba.wav" : String.IsNullOrWhiteSpace(xValue) ? xSound : xValue;
                     var soundEvent = new SoundEvent
                     {
                         Sound = xSound,
