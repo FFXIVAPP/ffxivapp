@@ -24,8 +24,6 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
 {
     public class TimelineMonitor : EventMonitor
     {
-        private Expressions Expressions { get; set; }
-
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
@@ -33,6 +31,8 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         {
             Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32) EventType.Loot | (UInt32) EventType.Defeats);
         }
+
+        private Expressions Expressions { get; set; }
 
         /// <summary>
         /// </summary>

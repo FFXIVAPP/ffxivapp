@@ -32,8 +32,8 @@ namespace FFXIVAPP.Plugin.Log
         #region Property Bindings
 
         private static PluginViewModel _instance;
-        private Dictionary<string, string> _locale;
         private bool _enableHelpLabels;
+        private Dictionary<string, string> _locale;
         private ObservableCollection<UIElement> _tabs;
 
         public static PluginViewModel Instance

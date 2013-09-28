@@ -9,11 +9,14 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
+using FFXIVAPP.Plugin.Event.Models;
 using FFXIVAPP.Plugin.Event.Views;
 using NLog;
 
@@ -78,34 +81,58 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             var selectedKey = "";
             try
             {
-                selectedKey = GetValueBySelectedItem(MainView.View.Events, "Key");
+                selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
             }
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
-            if (MainView.View.TSound.Text == "" || MainView.View.TRegEx.Text == "")
+            if (MainView.View.TSound.Text.Trim() == "" || MainView.View.TDelay.Text.Trim() == "" || MainView.View.TRegEx.Text.Trim() == "")
             {
                 return;
             }
-            var valuePair = new XValuePair
+            if (Regex.IsMatch(MainView.View.TDelay.Text, @"[^0-9]+"))
             {
-                Key = MainView.View.TRegEx.Text,
-                Value = MainView.View.TSound.Text
+                var popupContent = new PopupContent();
+                popupContent.PluginName = Plugin.PName;
+                popupContent.Title = PluginViewModel.Instance.Locale["app_WarningMessage"];
+                popupContent.Message = "Delay can only be numeric.";
+                popupContent.IsOkayOnly = true;
+                bool popupDisplayed;
+                Plugin.PHost.PopupMessage(Plugin.PName, out popupDisplayed, popupContent);
+                if (!popupDisplayed)
+                {
+                    return;
+                }
+                EventHandler<PopupResultEvent> resultChanged = null;
+                resultChanged = delegate { PluginViewModel.Instance.PopupResultChanged -= resultChanged; };
+                PluginViewModel.Instance.PopupResultChanged += resultChanged;
+                return;
+            }
+            var soundEvent = new SoundEvent
+            {
+                Sound = MainView.View.TSound.Text,
+                Delay = 0,
+                RegEx = MainView.View.TRegEx.Text
             };
+            int result;
+            if (Int32.TryParse(MainView.View.TDelay.Text, out result))
+            {
+                soundEvent.Delay = result;
+            }
             if (String.IsNullOrWhiteSpace(selectedKey))
             {
-                var found = PluginViewModel.Instance.Events.Any(pair => pair.Key == valuePair.Key);
+                var found = PluginViewModel.Instance.Events.Any(se => se.RegEx == soundEvent.RegEx);
                 if (!found)
                 {
-                    PluginViewModel.Instance.Events.Add(valuePair);
+                    PluginViewModel.Instance.Events.Add(soundEvent);
                 }
             }
             else
             {
-                var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != selectedKey)
+                var index = PluginViewModel.Instance.Events.TakeWhile(se => se.RegEx != selectedKey)
                                            .Count();
-                PluginViewModel.Instance.Events[index] = valuePair;
+                PluginViewModel.Instance.Events[index] = soundEvent;
             }
             MainView.View.Events.UnselectAll();
             MainView.View.TRegEx.Text = "";
@@ -118,14 +145,14 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             string selectedKey;
             try
             {
-                selectedKey = GetValueBySelectedItem(MainView.View.Events, "Key");
+                selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
             }
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 return;
             }
-            var index = PluginViewModel.Instance.Events.TakeWhile(pair => pair.Key != selectedKey)
+            var index = PluginViewModel.Instance.Events.TakeWhile(se => se.RegEx != selectedKey)
                                        .Count();
             PluginViewModel.Instance.Events.RemoveAt(index);
         }
@@ -142,8 +169,9 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             {
                 return;
             }
-            MainView.View.TRegEx.Text = GetValueBySelectedItem(MainView.View.Events, "Key");
-            MainView.View.TSound.Text = GetValueBySelectedItem(MainView.View.Events, "Value");
+            MainView.View.TSound.Text = GetValueBySelectedItem(MainView.View.Events, "Sound");
+            MainView.View.TDelay.Text = GetValueBySelectedItem(MainView.View.Events, "Delay");
+            MainView.View.TRegEx.Text = GetValueBySelectedItem(MainView.View.Events, "RegEx");
         }
 
         #endregion

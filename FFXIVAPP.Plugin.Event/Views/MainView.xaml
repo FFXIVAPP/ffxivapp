@@ -39,6 +39,14 @@
                       ItemsSource="{Binding SoundFiles,
                                             Source={StaticResource PluginViewModel}}" />
             <Label VerticalContentAlignment="Center"
+                   Content="{Binding Locale[event_DelayLabel],
+                                     Source={StaticResource PluginViewModel}}" />
+            <TextBox x:Name="TDelay"
+                     Width="40"
+                     HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Text="0" />
+            <Label VerticalContentAlignment="Center"
                    Content="{Binding Locale[event_RegExLabel],
                                      Source={StaticResource PluginViewModel}}" />
             <TextBox x:Name="TRegEx"
@@ -58,25 +66,21 @@
                       Utilities:SelectionBehavior.SelectionChanged="{Binding EventSelectionCommand}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">
-                        <GridView.ColumnHeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Width="Auto"
-                                           MinWidth="120"
-                                           Margin="2,0,2,0"
-                                           FontSize="10"
-                                           FontWeight="Bold" />
-                            </DataTemplate>
-                        </GridView.ColumnHeaderTemplate>
                         <GridViewColumn Width="120"
-                                        DisplayMemberBinding="{Binding Value}"
+                                        DisplayMemberBinding="{Binding Sound}"
                                         Header="{Binding Locale[event_SoundHeader],
                                                          Source={StaticResource PluginViewModel}}"
-                                        Utilities:GridViewSort.PropertyName="Value" />
+                                        Utilities:GridViewSort.PropertyName="Sound" />
+                        <GridViewColumn Width="120"
+                                        DisplayMemberBinding="{Binding Delay}"
+                                        Header="{Binding Locale[event_DelayHeader],
+                                                         Source={StaticResource PluginViewModel}}"
+                                        Utilities:GridViewSort.PropertyName="Delay" />
                         <GridViewColumn Width="450"
-                                        DisplayMemberBinding="{Binding Key}"
+                                        DisplayMemberBinding="{Binding RegEx}"
                                         Header="{Binding Locale[event_RegExHeader],
                                                          Source={StaticResource PluginViewModel}}"
-                                        Utilities:GridViewSort.PropertyName="Key" />
+                                        Utilities:GridViewSort.PropertyName="RegEx" />
                     </GridView>
                 </ListView.View>
             </ListView>

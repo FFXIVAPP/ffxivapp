@@ -28,6 +28,8 @@ namespace FFXIVAPP.Plugin.Event.Localization
             Dictionary.Add("event_SampleText", "The scout vulture readies Wing Cutter.");
             Dictionary.Add("event_SoundHeader", "Sound");
             Dictionary.Add("event_SoundLabel", "Sound:");
+            Dictionary.Add("event_DelayHeader", "Delay (secs)");
+            Dictionary.Add("event_DelayLabel", "Delay (secs):");
             return Dictionary;
         }
     }

@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
+using FFXIVAPP.Plugin.Event.Models;
 
 #endregion
 
@@ -32,9 +32,9 @@ namespace FFXIVAPP.Plugin.Event
         #region Property Bindings
 
         private static PluginViewModel _instance;
-        private ObservableCollection<XValuePair> _events;
+        private bool _enableHelpLabels;
+        private ObservableCollection<SoundEvent> _events;
         private Dictionary<string, string> _locale;
-        private bool     _enableHelpLabels;
         private ObservableCollection<string> _soundFiles;
 
         public static PluginViewModel Instance
@@ -76,9 +76,9 @@ namespace FFXIVAPP.Plugin.Event
             }
         }
 
-        public ObservableCollection<XValuePair> Events
+        public ObservableCollection<SoundEvent> Events
         {
-            get { return _events ?? (_events = new ObservableCollection<XValuePair>()); }
+            get { return _events ?? (_events = new ObservableCollection<SoundEvent>()); }
             set
             {
                 _events = value;

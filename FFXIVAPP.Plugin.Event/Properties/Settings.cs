@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using FFXIVAPP.Common.Helpers;
@@ -65,15 +66,21 @@ namespace FFXIVAPP.Plugin.Event.Properties
             XmlHelper.DeleteXmlNode(Constants.XSettings, "Event");
             foreach (var item in PluginViewModel.Instance.Events)
             {
-                var xKey = item.Key;
-                var xValue = item.Value;
+                var xRegEx = item.RegEx;
+                var xSound = item.Sound;
+                var xDelay = item.Delay;
                 var keyPairList = new List<XValuePair>();
                 keyPairList.Add(new XValuePair
                 {
-                    Key = "Value",
-                    Value = xValue
+                    Key = "Sound",
+                    Value = xSound
                 });
-                XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Event", xKey, keyPairList);
+                keyPairList.Add(new XValuePair
+                {
+                    Key = "Delay",
+                    Value = xDelay.ToString(CultureInfo.InvariantCulture)
+                });
+                XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Event", xRegEx, keyPairList);
             }
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }

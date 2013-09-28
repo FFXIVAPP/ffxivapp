@@ -69,6 +69,8 @@ namespace FFXIVAPP.Client.Helpers
                     //set max width and location
                     window.Notify.Placement = PlacementMode.Center;
                     window.Notify.MaxWidth = (double) Math.Ceiling(((decimal) Settings.Default.Width / 2));
+                    //set text to OKAY if not needing YES
+                    window.MetroNotify.Popup_Yes.Content = popupContent.IsOkayOnly ? AppViewModel.Instance.Locale["app_OKButtonText"] : AppViewModel.Instance.Locale["app_YesButtonText"];
                     //open popup
                     window.Notify.IsOpen = true;
                     //assign ClickEvent to OK button
@@ -84,7 +86,7 @@ namespace FFXIVAPP.Client.Helpers
                         window.MetroNotify.Popup_Yes.Click -= popupYes;
                     };
                     window.MetroNotify.Popup_Yes.Click += popupYes;
-                    if (popupContent.CanSayNo)
+                    if (popupContent.CanSayNo && !popupContent.IsOkayOnly)
                     {
                         RoutedEventHandler popupNo = null;
                         popupNo = delegate

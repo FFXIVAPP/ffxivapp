@@ -8,7 +8,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
-using FFXIVAPP.Common.Models;
+using FFXIVAPP.Plugin.Event.Models;
 using FFXIVAPP.Plugin.Event.Properties;
 
 #endregion
@@ -59,22 +59,29 @@ namespace FFXIVAPP.Plugin.Event
                 foreach (var xElement in Constants.XSettings.Descendants()
                                                   .Elements("Event"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xValue = (string) xElement.Element("Value");
-                    if (String.IsNullOrWhiteSpace(xKey))
+                    var xRegEx = (string) xElement.Attribute("Key");
+                    var xSound = (string) xElement.Element("Sound");
+                    var xDelay = (string) xElement.Element("Delay");
+                    if (String.IsNullOrWhiteSpace(xRegEx))
                     {
                         continue;
                     }
-                    xValue = String.IsNullOrWhiteSpace(xValue) ? "aruba.wav" : xValue;
-                    var valuePair = new XValuePair
+                    xSound = String.IsNullOrWhiteSpace(xSound) ? "aruba.wav" : xSound;
+                    var soundEvent = new SoundEvent
                     {
-                        Key = xKey,
-                        Value = xValue
+                        Sound = xSound,
+                        Delay = 0,
+                        RegEx = xRegEx
                     };
-                    var found = PluginViewModel.Instance.Events.Any(pair => pair.Key == valuePair.Key);
+                    int result;
+                    if (Int32.TryParse(xDelay, out result))
+                    {
+                        soundEvent.Delay = result;
+                    }
+                    var found = PluginViewModel.Instance.Events.Any(se => se.RegEx == soundEvent.RegEx);
                     if (!found)
                     {
-                        PluginViewModel.Instance.Events.Add(valuePair);
+                        PluginViewModel.Instance.Events.Add(soundEvent);
                     }
                 }
             }

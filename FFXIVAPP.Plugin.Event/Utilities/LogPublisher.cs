@@ -7,6 +7,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using System.Timers;
 using FFXIVAPP.Common.Chat;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
@@ -27,8 +28,8 @@ namespace FFXIVAPP.Plugin.Event.Utilities
                 foreach (var item in PluginViewModel.Instance.Events)
                 {
                     var resuccess = false;
-                    var check = new Regex(item.Key);
-                    if (SharedRegEx.IsValidRegex(item.Key))
+                    var check = new Regex(item.RegEx);
+                    if (SharedRegEx.IsValidRegex(item.RegEx))
                     {
                         var reg = check.Match(line);
                         if (reg.Success)
@@ -38,13 +39,28 @@ namespace FFXIVAPP.Plugin.Event.Utilities
                     }
                     else
                     {
-                        resuccess = (item.Key == line);
+                        resuccess = (item.RegEx == line);
                     }
                     if (!resuccess)
                     {
                         continue;
                     }
-                    SoundPlayerHelper.Play(Constants.BaseDirectory, item.Value);
+                    var soundEvent = item;
+                    Func<bool> playSound = delegate
+                    {
+                        var delay = soundEvent.Delay;
+                        var timer = new Timer(delay > 0 ? delay * 1000 : 1);
+                        ElapsedEventHandler timerEventHandler = null;
+                        timerEventHandler = delegate
+                        {
+                            DispatcherHelper.Invoke(() => SoundPlayerHelper.Play(Constants.BaseDirectory, soundEvent.Sound));
+                            timer.Elapsed -= timerEventHandler;
+                        };
+                        timer.Elapsed += timerEventHandler;
+                        timer.Start();
+                        return true;
+                    };
+                    playSound.BeginInvoke(null, null);
                 }
             }
             catch (Exception ex)

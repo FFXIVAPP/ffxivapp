@@ -204,10 +204,10 @@ namespace FFXIVAPP.Plugin.Log
                     Constants.GameLanguage = data as string;
                     break;
                 case ConstantsType.EnableNLog:
-                    Constants.EnableNLog = data is bool && (bool)data;
+                    Constants.EnableNLog = data is bool && (bool) data;
                     break;
                 case ConstantsType.EnableHelpLabels:
-                    PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels = data is bool && (bool)data;
+                    PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels = data is bool && (bool) data;
                     break;
             }
         }

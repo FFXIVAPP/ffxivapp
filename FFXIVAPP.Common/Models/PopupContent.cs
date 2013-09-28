@@ -44,5 +44,7 @@ namespace FFXIVAPP.Common.Models
         }
 
         public bool CanSayNo { get; set; }
+
+        public bool IsOkayOnly { get; set; }
     }
 }

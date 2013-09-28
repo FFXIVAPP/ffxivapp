@@ -77,6 +77,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_DownloadNoticeMessage", "Download?");
             Dictionary.Add("app_IntegrationWarningText", "Enabling this option means no personally identifable information (game or real life) is sent to the server.  You would be authorization the collection of game related data only.\n\nThe information processed is monster deaths, loot, monster spawn locations, npc and gathering locations.\n\nThis is completely optional and can be turned on or off at any time.");
             Dictionary.Add("app_EnableHelpLabelsHeader", "Enable Help Labels");
+            Dictionary.Add("app_OKButtonText", "OK");
             return Dictionary;
         }
     }
