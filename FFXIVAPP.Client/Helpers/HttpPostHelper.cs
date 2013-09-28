@@ -7,9 +7,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Web;
-using System.Windows;
-using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json.Linq;
 
 namespace FFXIVAPP.Client.Helpers

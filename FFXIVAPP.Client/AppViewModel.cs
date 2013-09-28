@@ -281,8 +281,6 @@ namespace FFXIVAPP.Client
 
         #region Loading Functions
 
-
-
         #endregion
 
         #region Private Functions

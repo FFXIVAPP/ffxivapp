@@ -1,5 +1,7 @@
 ﻿// FFXIVAPP.Client
 // UploadHelper.cs
+// 
+// © 2013 Ryan Wilson
 
 using System;
 using System.Collections.Generic;

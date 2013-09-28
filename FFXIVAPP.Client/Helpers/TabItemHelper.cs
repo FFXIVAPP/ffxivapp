@@ -5,7 +5,6 @@
 
 #region Usings
 
-using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;

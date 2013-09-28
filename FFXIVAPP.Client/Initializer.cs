@@ -22,7 +22,6 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
-using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;

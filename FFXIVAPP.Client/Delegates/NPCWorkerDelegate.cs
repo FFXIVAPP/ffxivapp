@@ -12,8 +12,6 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
-using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json;
 
 #endregion
