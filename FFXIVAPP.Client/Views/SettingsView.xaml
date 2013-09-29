@@ -184,25 +184,16 @@
                                   Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
-                                    <GridView.ColumnHeaderTemplate>
-                                        <DataTemplate>
-                                            <TextBox Width="Auto"
-                                                     MinWidth="120"
-                                                     Margin="2,0,2,0"
-                                                     FontSize="10"
-                                                     FontWeight="Bold" />
-                                        </DataTemplate>
-                                    </GridView.ColumnHeaderTemplate>
                                     <GridViewColumn DisplayMemberBinding="{Binding Key}"
-                                                    Header="{Binding Locale[app_code],
+                                                    Header="{Binding Locale[app_CodeHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Key" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Value[0]}"
-                                                    Header="{Binding Locale[app_color],
+                                                    Header="{Binding Locale[app_ColorHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Value[0]" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Value[1]}"
-                                                    Header="{Binding Locale[app_description],
+                                                    Header="{Binding Locale[app_DescriptionHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Value[1]" />
                                 </GridView>
