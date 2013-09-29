@@ -155,11 +155,11 @@ namespace FFXIVAPP.Client
             }
             // return for now as all commands are disabled
             return;
-            foreach (var command in commands)
-            {
-                var ascii = Encoding.GetEncoding("utf-16");
-                KeyBoardHelper.SendNotify(ascii.GetBytes(command));
-            }
+            //foreach (var command in commands)
+            //{
+            //    var ascii = Encoding.GetEncoding("utf-16");
+            //    KeyBoardHelper.SendNotify(ascii.GetBytes(command));
+            //}
         }
 
         /// <summary>
