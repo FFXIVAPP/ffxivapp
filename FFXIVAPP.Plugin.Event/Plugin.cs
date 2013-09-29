@@ -88,6 +88,8 @@ namespace FFXIVAPP.Plugin.Event
             }
         }
 
+        public string FriendlyName { get; set; }
+
         public string Name
         {
             get { return _name; }
@@ -108,6 +110,7 @@ namespace FFXIVAPP.Plugin.Event
 
         public void Initialize()
         {
+            FriendlyName = "Event";
             Name = AssemblyHelper.Name;
             Icon = "Logo.png";
             Description = AssemblyHelper.Description;

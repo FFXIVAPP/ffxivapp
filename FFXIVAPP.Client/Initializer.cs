@@ -140,7 +140,7 @@ namespace FFXIVAPP.Client
                     var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
                     var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
                     icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
-                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.Name);
+                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
                     var info = new Dictionary<string, string>();
                     info.Add("Icon", pluginInstance.Instance.Icon);
                     info.Add("Description", pluginInstance.Instance.Description);

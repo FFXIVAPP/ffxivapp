@@ -86,6 +86,8 @@ namespace FFXIVAPP.Plugin.Log
             }
         }
 
+        public string FriendlyName { get; set; }
+
         public string Name
         {
             get { return _name; }
@@ -106,6 +108,7 @@ namespace FFXIVAPP.Plugin.Log
 
         public void Initialize()
         {
+            FriendlyName = "Log";
             Name = AssemblyHelper.Name;
             Icon = "Logo.png";
             Description = AssemblyHelper.Description;

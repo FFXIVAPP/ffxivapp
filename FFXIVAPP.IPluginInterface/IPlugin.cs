@@ -21,6 +21,7 @@ namespace FFXIVAPP.IPluginInterface
         MessageBoxResult PopupResult { get; set; }
         IPluginHost Host { get; set; }
         Dictionary<string, string> Locale { get; set; }
+        string FriendlyName { get; }
         string Name { get; }
         string Icon { get; }
         string Description { get; }
