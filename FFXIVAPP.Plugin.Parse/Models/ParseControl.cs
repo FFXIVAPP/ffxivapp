@@ -22,6 +22,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
 
         private static ParseControl _instance;
         private string _lastKilled = "";
+        private string _lastEngaged = "";
         private StatMonitor _statMonitor;
         private Timeline _timeline;
         private TimelineMonitor _timelineMonitor;
@@ -111,6 +112,16 @@ namespace FFXIVAPP.Plugin.Parse.Models
             set
             {
                 _lastKilled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string LastEngaged
+        {
+            get { return _lastEngaged; }
+            set
+            {
+                _lastEngaged = value;
                 RaisePropertyChanged();
             }
         }

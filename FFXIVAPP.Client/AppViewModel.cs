@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -293,7 +294,7 @@ namespace FFXIVAPP.Client
         {
             ShellView.View.WindowState = WindowState.Normal;
             ShellView.View.Topmost = true;
-            ShellView.View.Topmost = false;
+            ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
         /// <summary>
@@ -313,7 +314,7 @@ namespace FFXIVAPP.Client
         {
             ShellView.View.WindowState = WindowState.Normal;
             ShellView.View.Topmost = true;
-            ShellView.View.Topmost = false;
+            ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
         #endregion

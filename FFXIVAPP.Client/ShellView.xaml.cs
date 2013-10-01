@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private void MetroWindowLoaded(object sender, RoutedEventArgs e)
         {
-            View.Topmost = false;
+            View.Topmost = Settings.Default.TopMost;
             LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
             Initializer.CheckUpdates();

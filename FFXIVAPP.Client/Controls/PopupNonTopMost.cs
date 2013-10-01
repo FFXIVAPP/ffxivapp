@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
+using FFXIVAPP.Client.Properties;
 
 #endregion
 
@@ -19,37 +20,14 @@ namespace FFXIVAPP.Client.Controls
     {
         protected override void OnOpened(EventArgs e)
         {
-            var fromVisual = (HwndSource) PresentationSource.FromVisual(Child);
-            if (fromVisual == null)
-            {
-                return;
-            }
-            var hwnd = fromVisual.Handle;
-            RECT rect;
-            if (GetWindowRect(hwnd, out rect))
-            {
-                SetWindowPos(hwnd, -2, rect.Left, rect.Top, (int) Width, (int) Height, 0);
-            }
+            ShellView.View.Topmost = false;
+            base.OnOpened(e);
         }
 
-        #region P/Invoke Imports & Definitions
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport("user32", EntryPoint = "SetWindowPos")]
-        private static extern int SetWindowPos(IntPtr hWnd, int hwndInsertAfter, int x, int y, int cx, int cy, int wFlags);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
+        protected override void OnClosed(EventArgs e)
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            ShellView.View.Topmost = Settings.Default.TopMost;
+            base.OnClosed(e);
         }
-
-        #endregion
     }
 }

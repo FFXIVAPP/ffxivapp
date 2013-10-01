@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
@@ -233,10 +232,13 @@ namespace FFXIVAPP.Client
                         if (s != null)
                         {
                             var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                             {
-                                lootEntry.ModelID = monsters.First(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                            .ModelID;
+                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
+                                {
+                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
+                                    lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
+                                }
                             }
                         }
                         DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
@@ -264,10 +266,13 @@ namespace FFXIVAPP.Client
                         if (s != null)
                         {
                             var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")) && monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase)))
+                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                             {
-                                killEntry.ModelID = monsters.First(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase))
-                                                            .ModelID;
+                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
+                                {
+                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
+                                    killEntry.ModelID = monster == null ? 0 : monster.ModelID;
+                                }
                             }
                         }
                         DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));

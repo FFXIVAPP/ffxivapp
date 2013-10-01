@@ -158,6 +158,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                             fighting = new Fight(mobName);
                             Fights.Add(fighting);
                         }
+                        ParseControl.Instance.LastEngaged = mobName;
                         break;
                     case TimelineEventType.MobKilled:
                         if (mobName != null && (mobName.ToLower()
@@ -173,6 +174,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         }
                         GetSetMob(mobName)
                             .SetKill(killed);
+                        ParseControl.Instance.LastKilled = mobName;
                         break;
                 }
             }

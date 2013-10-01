@@ -157,11 +157,11 @@ namespace FFXIVAPP.Plugin.Parse.Monitors
         /// <param name="e"></param>
         private void AttachDropToMonster(string thing, Event e)
         {
-            var mobName = ParseControl.Instance.Timeline.FightingRightNow ? ParseControl.LastKilled : "";
+            var mobName = ParseControl.Instance.Timeline.FightingRightNow ? ParseControl.LastEngaged : "";
             if (ParseControl.Instance.Timeline.FightingRightNow)
             {
                 Fight fight;
-                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastKilled, out fight))
+                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastEngaged, out fight))
                 {
                     mobName = fight.MobName;
                     Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));

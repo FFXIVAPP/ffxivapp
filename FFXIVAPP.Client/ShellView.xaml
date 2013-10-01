@@ -33,6 +33,8 @@
                            Top="{Binding Top,
                                          Mode=TwoWay,
                                          Source={x:Static Properties:Settings.Default}}"
+                           Topmost="{Binding TopMost,
+                                             Source={x:Static Properties:Settings.Default}}"
                            WindowStyle="None"
                            d:DesignHeight="720"
                            d:DesignWidth="480"

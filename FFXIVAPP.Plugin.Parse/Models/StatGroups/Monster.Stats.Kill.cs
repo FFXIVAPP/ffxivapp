@@ -31,7 +31,6 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got request to add kill stats for {0}, but no name!", fight.MobName));
                 return;
             }
-            ParseControl.Instance.LastKilled = fight.MobName;
             Stats.IncrementStat("TotalKilled");
             var avghp = Stats.GetStatValue("TotalOverallDamageTaken") / Stats.GetStatValue("TotalKilled");
             Stats.SetOrAddStat("AverageHP", avghp);

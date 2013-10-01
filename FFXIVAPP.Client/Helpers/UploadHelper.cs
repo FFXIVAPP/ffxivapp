@@ -75,12 +75,17 @@ namespace FFXIVAPP.Client.Helpers
                         ChunksProcessed++;
                         break;
                     case "error":
+                        ChunksProcessed++;
+                        break;
+                    default:
+                        ChunksProcessed++;
                         break;
                 }
                 Processing = false;
             }
             catch (Exception ex)
             {
+                ChunksProcessed++;
                 Processing = false;
             }
         }
