@@ -201,6 +201,12 @@ namespace FFXIVAPP.Client
                 case "EnableHelpLabels":
                     Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                     break;
+                case "TopMost":
+                    if (ShellView.View != null)
+                    {
+                        ShellView.View.Topmost = Settings.Default.TopMost;    
+                    }
+                    break;
             }
             //SettingsHelper.Save();
         }

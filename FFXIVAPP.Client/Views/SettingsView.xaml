@@ -52,6 +52,13 @@
                                           Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_TopMostHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding TopMost,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[app_SaveLogHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
