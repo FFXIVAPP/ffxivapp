@@ -64,8 +64,8 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 Duration = actionData.Duration;
                 if (actionData.ZeroBaseDamageDOT)
                 {
-                    OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                                 .LastDamageAmount;
+                    //OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source).LastDamageAmount;
+                    OriginalAmount = 100;
                 }
                 TotalTicks = (int) Math.Ceiling(Duration / 3.0);
                 TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
