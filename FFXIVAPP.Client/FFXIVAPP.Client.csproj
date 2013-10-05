@@ -245,8 +245,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Resources\Media\Images\Sponsors\SadBomb.png" />
-    <Resource Include="Resources\Media\Images\Sponsors\ogcpng.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />
     <Resource Include="Resources\Media\Images\Save.png" />
     <Resource Include="Resources\Media\Images\Header.png" />

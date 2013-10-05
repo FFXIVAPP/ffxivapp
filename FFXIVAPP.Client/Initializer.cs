@@ -347,8 +347,8 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "00000000FFFFFFFF0A000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                Offset = 68
+                Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
+                Offset = 764
             });
             //+3436 list of agro
             //+5744 agro count
