@@ -68,7 +68,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                     OriginalAmount = 100;
                 }
                 TotalTicks = (int) Math.Ceiling(Duration / 3.0);
-                TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
+                TickDamage = ((OriginalAmount / ActionPotency) * DamageOverTimePotency / TotalTicks);
                 if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()
                                                                                          .Contains(action)))
                 {
