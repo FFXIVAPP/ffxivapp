@@ -65,10 +65,10 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 if (actionData.ZeroBaseDamageDOT)
                 {
                     //OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source).LastDamageAmount;
-                    OriginalAmount = 100;
+                    OriginalAmount = 75;
                 }
-                TotalTicks = (int) Math.Ceiling(Duration / 3.0);
-                TickDamage = ((OriginalAmount / ActionPotency) * DamageOverTimePotency / TotalTicks);
+                TotalTicks = (int)Math.Ceiling(Duration / 3.0);
+                TickDamage = ((OriginalAmount / ActionPotency) * DamageOverTimePotency) / TotalTicks;
                 if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()
                                                                                          .Contains(action)))
                 {
@@ -93,7 +93,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
             /// <param name="elapsedEventArgs"></param>
             private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
             {
-                if (CurrentTick < TotalTicks && ParseControl.Instance.Timeline.FightingRightNow)
+                if (CurrentTick < TotalTicks && !ParseControl.Instance.Timeline.DeathFound)
                 {
                     Line.Amount = Math.Ceiling(TickDamage);
                     DispatcherHelper.Invoke(delegate

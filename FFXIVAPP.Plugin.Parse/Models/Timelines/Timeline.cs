@@ -26,6 +26,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
         #region Property Bindings
 
         private bool _fightingRightNow;
+        private bool _deathFound;
 
         public bool FightingRightNow
         {
@@ -33,6 +34,16 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             private set
             {
                 _fightingRightNow = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool DeathFound
+        {
+            get { return _deathFound; }
+            private set
+            {
+                _deathFound = value;
                 RaisePropertyChanged();
             }
         }
@@ -69,6 +80,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
         public Timeline()
         {
             FightingRightNow = false;
+            DeathFound = false;
             Fights = new FightList();
             Overall = new StatGroup("Overall");
             Party = new StatGroup("Party")
@@ -101,7 +113,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                 statGroup = new Monster(mobName);
                 Monster.AddGroup(statGroup);
             }
-            return (Monster) statGroup;
+            return (Monster)statGroup;
         }
 
         /// <summary>
@@ -113,11 +125,11 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
             StatGroup statGroup;
             if (Party.TryGetGroup(playerName, out statGroup))
             {
-                return (Player) statGroup;
+                return (Player)statGroup;
             }
             statGroup = new Player(playerName);
             Party.AddGroup(statGroup);
-            return (Player) statGroup;
+            return (Player)statGroup;
         }
 
         /// <summary>
@@ -134,7 +146,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                 switch (eventType)
                 {
                     case TimelineEventType.PartyJoin:
-                        if ((string) eventArgs[0] == "You")
+                        if ((string)eventArgs[0] == "You")
                         {
                             eventArgs[0] = Constants.CharacterName;
                         }
@@ -146,6 +158,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         break;
                     case TimelineEventType.MobFighting:
                         FightingRightNow = true;
+                        DeathFound = false;
                         _fightingTimer.Start();
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
@@ -161,6 +174,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.Timelines
                         ParseControl.Instance.LastEngaged = mobName;
                         break;
                     case TimelineEventType.MobKilled:
+                        DeathFound = true;
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {
