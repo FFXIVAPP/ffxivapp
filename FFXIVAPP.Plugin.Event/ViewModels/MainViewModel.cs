@@ -81,7 +81,10 @@ namespace FFXIVAPP.Plugin.Event.ViewModels
             var selectedKey = "";
             try
             {
-                selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
+                if (MainView.View.Events.SelectedIndex > 0)
+                {
+                    selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
+                }
             }
             catch (Exception ex)
             {
