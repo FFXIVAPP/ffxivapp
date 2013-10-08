@@ -5,11 +5,7 @@
 
 #region Usings
 
-using System.IO;
-
 #endregion
-
-
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -17,25 +13,22 @@ namespace FFXIVAPP.Client.Helpers
     {
         /// <summary>
         /// </summary>
-        public static void Save()
+        public static void Save(bool isUpdating)
         {
+            if (isUpdating)
+            {
+            }
             Client.Save();
-            SettingsProviders.Event.Settings.Default.Save();
-            SettingsProviders.Log.Settings.Default.Save();
+            Event.Save();
+            Log.Save();
+            Parse.Save();
         }
 
         /// <summary>
         /// </summary>
-        public static void Default(string plugin = "")
+        public static void Default()
         {
-            switch (plugin)
-            {
-                case "event":
-                    break;
-                default:
-                    Client.Default();
-                    break;
-            }
+            Client.Default();
         }
     }
 }

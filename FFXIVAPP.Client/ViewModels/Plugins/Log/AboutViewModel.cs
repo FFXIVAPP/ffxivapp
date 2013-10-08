@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Log
+﻿// FFXIVAPP.Client
 // AboutViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Plugin.Log.ViewModels
+namespace FFXIVAPP.Client.ViewModels.Plugins.Log
 {
     internal sealed class AboutViewModel : INotifyPropertyChanged
     {

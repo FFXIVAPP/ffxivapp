@@ -58,7 +58,7 @@
                                                     Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
                 </TabItem.Header>
-
+                <Views:SettingsView />
             </TabItem>
             <TabItem x:Name="AboutTI">
                 <TabItem.Header>
@@ -77,7 +77,7 @@
                                                     Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
                 </TabItem.Header>
-
+                <Views:AboutView />
             </TabItem>
         </TabControl>
     </Grid>

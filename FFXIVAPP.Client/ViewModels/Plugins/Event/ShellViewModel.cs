@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// EventShellViewModel.cs
+// ShellViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Client.ViewModels.Plugins.Event
 {
-    [Export(typeof(ShellViewModel))]
+    [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

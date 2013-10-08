@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Log
+﻿// FFXIVAPP.Client
 // SettingsViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -9,13 +9,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Views.Plugins.Log;
 using FFXIVAPP.Common.ViewModelBase;
-using FFXIVAPP.Plugin.Log.Helpers;
-using FFXIVAPP.Plugin.Log.Views;
 
 #endregion
 
-namespace FFXIVAPP.Plugin.Log.ViewModels
+namespace FFXIVAPP.Client.ViewModels.Plugins.Log
 {
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
@@ -75,11 +75,11 @@ namespace FFXIVAPP.Plugin.Log.ViewModels
             }
             else
             {
-                TabItemHelper.AddTabByName(xKey, xValue, xRegularExpression);
+                TabItemHelper.Log.AddTabByName(xKey, xValue, xRegularExpression);
                 SettingsView.View.TName.Text = "";
                 SettingsView.View.Codes.UnselectAll();
                 MainView.View.MainViewTC.SelectedIndex = MainView.View.MainViewTC.Items.Count - 1;
-                ShellView.View.ShellViewTC.SelectedIndex = 0;
+                Views.Plugins.Log.ShellView.View.ShellViewTC.SelectedIndex = 0;
             }
         }
 

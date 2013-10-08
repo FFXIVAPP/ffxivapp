@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Event
+﻿// FFXIVAPP.Client
 // SettingsViewModel.cs
 // 
 // © 2013 Ryan Wilson

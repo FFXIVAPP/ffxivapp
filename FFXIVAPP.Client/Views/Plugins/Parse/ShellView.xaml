@@ -4,6 +4,7 @@
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Plugins.Parse"
+             xmlns:Views="clr-namespace:FFXIVAPP.Client.Views.Plugins.Parse"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Loaded="ShellView_OnLoaded"
@@ -38,7 +39,7 @@
                                                     Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
                 </TabItem.Header>
-
+                <Views:MainView />
             </TabItem>
             <TabItem x:Name="SettingsTI">
                 <TabItem.Header>
@@ -57,7 +58,7 @@
                                                     Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
                 </TabItem.Header>
-
+                <Views:SettingsView />
             </TabItem>
             <TabItem x:Name="AboutTI">
                 <TabItem.Header>
@@ -76,7 +77,7 @@
                                                     Converter={StaticResource VisibilityConverter}}" />
                     </StackPanel>
                 </TabItem.Header>
-
+                <Views:AboutView />
             </TabItem>
         </TabControl>
     </Grid>

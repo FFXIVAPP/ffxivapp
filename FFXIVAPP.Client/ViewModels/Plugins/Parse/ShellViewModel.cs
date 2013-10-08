@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// ParseShellViewModel.cs
+// ShellViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -38,8 +38,9 @@ namespace FFXIVAPP.Client.ViewModels.Plugins.Parse
 
         public ShellViewModel()
         {
-            DefaultCommand = new DelegateCommand(Default);
-            DefaultCommandT = new DelegateCommand<object>(DefaultT);
+            PluginInitializer.Parse.LoadSettings();
+            PluginInitializer.Parse.LoadPlayerRegEx();
+            PluginInitializer.Parse.LoadMonsterRegEx();
         }
 
         #region Loading Functions

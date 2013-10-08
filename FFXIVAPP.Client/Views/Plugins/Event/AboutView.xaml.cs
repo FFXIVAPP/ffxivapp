@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Event
+﻿// FFXIVAPP.Client
 // AboutView.xaml.cs
 // 
 // © 2013 Ryan Wilson

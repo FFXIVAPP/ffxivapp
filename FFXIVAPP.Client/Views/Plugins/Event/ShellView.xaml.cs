@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// EventShellView.xaml.cs
+// ShellView.xaml.cs
 // 
 // © 2013 Ryan Wilson
 

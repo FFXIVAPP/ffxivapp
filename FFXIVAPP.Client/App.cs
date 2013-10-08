@@ -204,7 +204,7 @@ namespace FFXIVAPP.Client
                 case "TopMost":
                     if (ShellView.View != null)
                     {
-                        ShellView.View.Topmost = Settings.Default.TopMost;    
+                        ShellView.View.Topmost = Settings.Default.TopMost;
                     }
                     break;
             }

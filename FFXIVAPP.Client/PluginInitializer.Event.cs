@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Event;
 using FFXIVAPP.Client.ViewModels.Plugins.Event;
 

@@ -101,7 +101,7 @@ namespace FFXIVAPP.Client
         public static void CloseApplication(bool update = false)
         {
             Application.Current.MainWindow.WindowState = WindowState.Normal;
-            SettingsHelper.Save();
+            SettingsHelper.Save(update);
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 pluginInstance.Instance.Dispose(update);

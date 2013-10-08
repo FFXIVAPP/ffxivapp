@@ -108,6 +108,11 @@ namespace FFXIVAPP.Client
         {
             try
             {
+                if (fileName.ToLower()
+                            .Contains("ffxivapp"))
+                {
+                    return;
+                }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()

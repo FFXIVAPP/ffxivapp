@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Log
+﻿// FFXIVAPP.Client
 // MainView.xaml.cs
 // 
 // © 2013 Ryan Wilson

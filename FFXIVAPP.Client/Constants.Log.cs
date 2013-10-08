@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using FFXIVAPP.Client.SettingsProviders.Log;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client
@@ -14,6 +15,8 @@ namespace FFXIVAPP.Client
     {
         public static class Log
         {
+            public static Settings PluginSettings { get { return SettingsProviders.Log.Settings.Default; } }
+
             #region Declarations
 
             public static readonly string[] ChatPublic =
@@ -58,10 +61,10 @@ namespace FFXIVAPP.Client
 
             #endregion
 
+            #region Property Bindings
+
             private static XDocument _xSettings;
             private static List<string> _settings;
-
-            #region Property Bindings
 
             public static XDocument XSettings
             {

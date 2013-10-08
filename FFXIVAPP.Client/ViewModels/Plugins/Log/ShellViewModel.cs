@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// LogShellViewModel.cs
+// ShellViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -8,14 +8,12 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
 namespace FFXIVAPP.Client.ViewModels.Plugins.Log
 {
-    [Export(typeof(ShellViewModel))]
+    [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
@@ -37,7 +35,6 @@ namespace FFXIVAPP.Client.ViewModels.Plugins.Log
         {
             PluginInitializer.Log.LoadSettings();
             PluginInitializer.Log.LoadTabs();
-            PluginInitializer.Log.ApplyTheming();
         }
 
         #region Loading Functions

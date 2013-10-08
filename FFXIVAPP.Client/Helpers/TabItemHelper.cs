@@ -20,32 +20,6 @@ namespace FFXIVAPP.Client.Helpers
 {
     internal static class TabItemHelper
     {
-        public static class Log
-        {
-            /// <summary>
-            /// </summary>
-            public static void AddTabByName(string xKey, string xValue, string xRegularExpression)
-            {
-                xKey = Regex.Replace(xKey, "[^a-zA-Z]", "");
-                var tabItem = new TabItem
-                {
-                    Header = xKey
-                };
-                var flowDoc = new xFlowDocument();
-                foreach (var code in xValue.Split(','))
-                {
-                    flowDoc.Codes.Items.Add(code);
-                }
-                flowDoc.RegEx.Text = xRegularExpression;
-                var binding = BindingHelper.ZoomBinding(Settings.Default, "Zoom");
-                flowDoc._FDR.SetBinding(FlowDocumentReader.ZoomProperty, binding);
-                tabItem.Content = flowDoc;
-                PluginViewModel.Instance.Tabs.Add(tabItem);
-                ThemeHelper.SetupFont(ref flowDoc);
-                ThemeHelper.SetupColor(ref flowDoc);
-            }
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="image"> </param>
@@ -70,6 +44,32 @@ namespace FFXIVAPP.Client.Helpers
             stackPanelFactory.AppendChild(labelFactory);
             dataTemplate.VisualTree = stackPanelFactory;
             return dataTemplate;
+        }
+
+        public static class Log
+        {
+            /// <summary>
+            /// </summary>
+            public static void AddTabByName(string xKey, string xValue, string xRegularExpression)
+            {
+                xKey = Regex.Replace(xKey, "[^a-zA-Z]", "");
+                var tabItem = new TabItem
+                {
+                    Header = xKey
+                };
+                var flowDoc = new xFlowDocument();
+                foreach (var code in xValue.Split(','))
+                {
+                    flowDoc.Codes.Items.Add(code);
+                }
+                flowDoc.RegEx.Text = xRegularExpression;
+                var binding = BindingHelper.ZoomBinding(Settings.Default, "Zoom");
+                flowDoc._FDR.SetBinding(FlowDocumentReader.ZoomProperty, binding);
+                tabItem.Content = flowDoc;
+                PluginViewModel.Instance.Tabs.Add(tabItem);
+                ThemeHelper.SetupFont(ref flowDoc);
+                ThemeHelper.SetupColor(ref flowDoc);
+            }
         }
     }
 }

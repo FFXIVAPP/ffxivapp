@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// EventPluginViewModel.cs
+// PluginViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -10,7 +10,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Models.Event;
-using FFXIVAPP.Common.Helpers;
 
 #endregion
 

@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Event
+﻿// FFXIVAPP.Client
 // MainViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -15,7 +15,6 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Event;
 using FFXIVAPP.Client.Views.Plugins.Event;
-using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
@@ -103,10 +102,7 @@ namespace FFXIVAPP.Client.ViewModels.Plugins.Event
                 popupContent.IsOkayOnly = true;
                 PopupHelper.Toggle(popupContent);
                 EventHandler closedDelegate = null;
-                closedDelegate = delegate
-                {
-                    PopupHelper.MessagePopup.Closed -= closedDelegate;
-                };
+                closedDelegate = delegate { PopupHelper.MessagePopup.Closed -= closedDelegate; };
                 PopupHelper.MessagePopup.Closed += closedDelegate;
                 return;
             }

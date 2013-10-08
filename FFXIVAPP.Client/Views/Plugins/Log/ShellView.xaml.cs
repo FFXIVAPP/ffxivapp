@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// DefaultView.xaml.cs
+// ShellView.xaml.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -33,6 +33,7 @@ namespace FFXIVAPP.Client.Views.Plugins.Log
                 return;
             }
             IsRendered = true;
+            PluginInitializer.Log.ApplyTheming();
         }
     }
 }

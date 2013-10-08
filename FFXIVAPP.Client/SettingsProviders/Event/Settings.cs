@@ -12,7 +12,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using FFXIVAPP.Client.ViewModels.Plugins.Event;
@@ -20,7 +19,6 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
-using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
 
@@ -28,7 +26,7 @@ using FontFamily = System.Drawing.FontFamily;
 
 namespace FFXIVAPP.Client.SettingsProviders.Event
 {
-    internal class Settings : ApplicationSettingsBase, INotifyPropertyChanged
+    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged
     {
         private static Settings _default;
 

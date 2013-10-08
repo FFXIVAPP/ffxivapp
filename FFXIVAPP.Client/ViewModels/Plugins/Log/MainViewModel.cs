@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Log
+﻿// FFXIVAPP.Client
 // MainViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -65,7 +66,13 @@ namespace FFXIVAPP.Client.ViewModels.Plugins.Log
             {
                 return;
             }
+            var selection = Settings.Default.EnableDebug ? 2 : 1;
             PluginViewModel.Instance.Tabs.RemoveAt(MainView.View.MainViewTC.SelectedIndex - 3);
+            if (PluginViewModel.Instance.Tabs.Any())
+            {
+                return;
+            }
+            MainView.View.MainViewTC.SelectedIndex = selection;
         }
 
         /// <summary>

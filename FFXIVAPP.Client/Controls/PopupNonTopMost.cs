@@ -6,10 +6,7 @@
 #region Usings
 
 using System;
-using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Interop;
 using FFXIVAPP.Client.Properties;
 
 #endregion

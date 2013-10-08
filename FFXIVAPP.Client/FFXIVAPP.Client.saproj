@@ -26,62 +26,47 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Views</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Windows</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client</Namespace>
+                                <Namespace>FFXIVAPP.Client.Views.Plugins.Parse</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Behaviors</Namespace>
+                                <Namespace>FFXIVAPP.Client.Views.Plugins.Log</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Controls</Namespace>
+                                <Namespace>FFXIVAPP.Client.Views.Plugins.Event</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Delegates</Namespace>
+                                <Namespace>FFXIVAPP.Client.Views</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Enums</Namespace>
+                                <Namespace>FFXIVAPP.Client.ViewModels.Plugins.Parse</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Helpers</Namespace>
+                                <Namespace>FFXIVAPP.Client.ViewModels.Plugins.Log</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Localization</Namespace>
+                                <Namespace>FFXIVAPP.Client.ViewModels.Plugins.Event</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Memory</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Models</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Properties</Namespace>
+                                <Namespace>FFXIVAPP.Client.ViewModels</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
@@ -91,7 +76,117 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.ViewModels</Namespace>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Parse</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Event</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Log</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.RegularExpressions</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Properties</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Monitors</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.Timelines</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.Stats</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.StatGroups</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.LinkedStats</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.Fights</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse.Events</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Parse</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models.Event</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Models</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Memory</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Localization</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Helpers</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Enums</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Delegates</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Controls</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Behaviors</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client</Namespace>
                             </Token>
                         </Exclusion>
                     </Obfuscation>

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using FFXIVAPP.Client.SettingsProviders.Event;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client
@@ -14,6 +15,10 @@ namespace FFXIVAPP.Client
     {
         public static class Event
         {
+            public static Settings PluginSettings { get { return SettingsProviders.Event.Settings.Default; } }
+
+            #region Property Bindings
+
             private static XDocument _xSettings;
             private static List<string> _settings;
 
@@ -37,6 +42,8 @@ namespace FFXIVAPP.Client
                 get { return _settings ?? (_settings = new List<string>()); }
                 set { _settings = value; }
             }
+
+            #endregion
         }
     }
 }
