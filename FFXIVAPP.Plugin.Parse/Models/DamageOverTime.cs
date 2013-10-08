@@ -56,7 +56,7 @@ namespace FFXIVAPP.Plugin.Parse.Models
                 Timer.Elapsed += TimerOnElapsed;
                 if (line.Amount > 0)
                 {
-                    OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, 50) : Line.Amount;
+                    OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, (decimal) .5) : Line.Amount;
                 }
                 var actionData = DamageOverTimeHelper.PlayerActions[Line.Action.ToLower()];
                 ActionPotency = actionData.ActionPotency;
