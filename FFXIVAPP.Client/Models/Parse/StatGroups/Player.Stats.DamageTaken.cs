@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // Player.Stats.DamageTaken.cs
 // 
 // © 2013 Ryan Wilson

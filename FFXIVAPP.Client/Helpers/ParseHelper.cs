@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // ParseHelper.cs
 // 
 // © 2013 Ryan Wilson
@@ -60,7 +60,7 @@ namespace FFXIVAPP.Client.Helpers
         /// <returns></returns>
         public static decimal GetOriginalDamage(decimal amount, decimal modifier)
         {
-            return Math.Abs(amount - GetBonusDamage(amount,modifier));
+            return Math.Abs(amount - GetBonusDamage(amount, modifier));
         }
 
         /// <summary>

@@ -8,9 +8,8 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.RegularExpressions;
+using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Client.Views.Plugins.Parse;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
@@ -30,13 +29,13 @@ namespace FFXIVAPP.Client
                     foreach (var xElement in Constants.Parse.XSettings.Descendants()
                                                       .Elements("Setting"))
                     {
-                        var xKey = (string)xElement.Attribute("Key");
-                        var xValue = (string)xElement.Element("Value");
+                        var xKey = (string) xElement.Attribute("Key");
+                        var xValue = (string) xElement.Element("Value");
                         if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                         {
                             continue;
                         }
-                        SettingsProviders.Parse.Settings.SetValue(xKey, xValue);
+                        Settings.SetValue(xKey, xValue);
                         if (!Constants.Parse.Settings.Contains(xKey))
                         {
                             Constants.Parse.Settings.Add(xKey);
@@ -56,9 +55,9 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Parse.XRegEx.Descendants()
                                                   .Elements("Player"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xLanguage = (string)xElement.Attribute("Language");
-                    var xValue = (string)xElement.Element("Value");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xLanguage = (string) xElement.Attribute("Language");
+                    var xValue = (string) xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -261,9 +260,9 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Parse.XRegEx.Descendants()
                                                   .Elements("Monster"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xLanguage = (string)xElement.Attribute("Language");
-                    var xValue = (string)xElement.Element("Value");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xLanguage = (string) xElement.Attribute("Language");
+                    var xValue = (string) xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -465,7 +464,7 @@ namespace FFXIVAPP.Client
 
             private static void SetupFont(ref xFlowDocument flowDoc)
             {
-                var font = Settings.Default.ChatFont;
+                var font = Properties.Settings.Default.ChatFont;
                 flowDoc._FD.FontFamily = new FontFamily(font.Name);
                 flowDoc._FD.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
                 flowDoc._FD.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
@@ -474,7 +473,7 @@ namespace FFXIVAPP.Client
 
             private static void SetupColor(ref xFlowDocument flowDoc)
             {
-                flowDoc._FD.Background = new SolidColorBrush(Settings.Default.ChatBackgroundColor);
+                flowDoc._FD.Background = new SolidColorBrush(Properties.Settings.Default.ChatBackgroundColor);
             }
         }
     }

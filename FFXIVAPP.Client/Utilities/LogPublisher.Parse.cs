@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models.Parse;
@@ -67,9 +65,9 @@ namespace FFXIVAPP.Client.Utilities
                     if (Constants.Parse.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                     {
                         Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
-                    {
-                        timeStampColor, "#" + color
-                    }, MainView.View.AbilityChatFD._FDR);
+                        {
+                            timeStampColor, "#" + color
+                        }, MainView.View.AbilityChatFD._FDR);
                     }
                     DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatEntry.Code, 16), line));
                 }

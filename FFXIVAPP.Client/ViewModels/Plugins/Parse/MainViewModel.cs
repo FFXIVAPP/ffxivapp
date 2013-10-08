@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // MainViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -19,7 +19,6 @@ using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views.Plugins.Parse;
-using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;

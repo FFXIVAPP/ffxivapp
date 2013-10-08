@@ -26,7 +26,6 @@ namespace FFXIVAPP.Client.Utilities
         {
             public static void Process(ChatEntry chatEntry)
             {
-
                 // setup variables
                 var timeStampColor = Settings.Default.TimeStampColor.ToString();
                 var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");

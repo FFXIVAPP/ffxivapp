@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // ParseControl.cs
 // 
 // © 2013 Ryan Wilson
@@ -21,8 +21,8 @@ namespace FFXIVAPP.Client.Models.Parse
         #region Property Bindings
 
         private static ParseControl _instance;
-        private string _lastKilled = "";
         private string _lastEngaged = "";
+        private string _lastKilled = "";
         private StatMonitor _statMonitor;
         private Timeline _timeline;
         private TimelineMonitor _timelineMonitor;

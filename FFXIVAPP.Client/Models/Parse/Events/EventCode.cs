@@ -1,4 +1,4 @@
-// FFXIVAPP.Plugin.Parse
+// FFXIVAPP.Client
 // EventCode.cs
 // 
 // © 2013 Ryan Wilson

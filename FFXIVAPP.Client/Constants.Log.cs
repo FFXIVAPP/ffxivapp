@@ -15,7 +15,10 @@ namespace FFXIVAPP.Client
     {
         public static class Log
         {
-            public static Settings PluginSettings { get { return SettingsProviders.Log.Settings.Default; } }
+            public static Settings PluginSettings
+            {
+                get { return SettingsProviders.Log.Settings.Default; }
+            }
 
             #region Declarations
 

@@ -1,4 +1,4 @@
-// FFXIVAPP.Plugin.Parse
+// FFXIVAPP.Client
 // CounterStat.cs
 // 
 // © 2013 Ryan Wilson

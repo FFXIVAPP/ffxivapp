@@ -1,4 +1,4 @@
-// FFXIVAPP.Plugin.Parse
+// FFXIVAPP.Client
 // LinkedStat.cs
 // 
 // © 2013 Ryan Wilson

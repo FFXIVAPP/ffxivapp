@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // TimelineMonitor.cs
 // 
 // © 2013 Ryan Wilson
@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Enums;
 using FFXIVAPP.Client.Helpers;

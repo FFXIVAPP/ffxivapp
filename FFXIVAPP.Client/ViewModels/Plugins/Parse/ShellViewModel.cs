@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 

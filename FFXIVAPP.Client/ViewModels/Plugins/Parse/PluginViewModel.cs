@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // PluginViewModel.cs
 // 
 // © 2013 Ryan Wilson
@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Events;
-using FFXIVAPP.Common.Helpers;
 
 #endregion
 

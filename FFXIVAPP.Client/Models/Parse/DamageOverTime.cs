@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // DamageOverTime.cs
 // 
 // © 2013 Ryan Wilson
@@ -67,7 +67,7 @@ namespace FFXIVAPP.Client.Models.Parse
                     //OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source).LastDamageAmount;
                     OriginalAmount = 100;
                 }
-                TotalTicks = (int)Math.Ceiling(Duration / 3.0);
+                TotalTicks = (int) Math.Ceiling(Duration / 3.0);
                 TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
                 if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()
                                                                                          .Contains(action)))

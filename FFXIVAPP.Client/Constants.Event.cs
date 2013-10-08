@@ -15,7 +15,10 @@ namespace FFXIVAPP.Client
     {
         public static class Event
         {
-            public static Settings PluginSettings { get { return SettingsProviders.Event.Settings.Default; } }
+            public static Settings PluginSettings
+            {
+                get { return SettingsProviders.Event.Settings.Default; }
+            }
 
             #region Property Bindings
 

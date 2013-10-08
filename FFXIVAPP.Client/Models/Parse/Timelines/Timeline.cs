@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // Timeline.cs
 // 
 // © 2013 Ryan Wilson
@@ -25,8 +25,8 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
     {
         #region Property Bindings
 
-        private bool _fightingRightNow;
         private bool _deathFound;
+        private bool _fightingRightNow;
 
         public bool FightingRightNow
         {
@@ -113,7 +113,7 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
                 statGroup = new Monster(mobName);
                 Monster.AddGroup(statGroup);
             }
-            return (Monster)statGroup;
+            return (Monster) statGroup;
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
             StatGroup statGroup;
             if (Party.TryGetGroup(playerName, out statGroup))
             {
-                return (Player)statGroup;
+                return (Player) statGroup;
             }
             statGroup = new Player(playerName);
             Party.AddGroup(statGroup);
-            return (Player)statGroup;
+            return (Player) statGroup;
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
                 switch (eventType)
                 {
                     case TimelineEventType.PartyJoin:
-                        if ((string)eventArgs[0] == "You")
+                        if ((string) eventArgs[0] == "You")
                         {
                             eventArgs[0] = Constants.CharacterName;
                         }

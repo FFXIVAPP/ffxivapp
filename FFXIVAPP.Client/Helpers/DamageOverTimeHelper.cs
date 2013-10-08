@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // DamageOverTimeHelper.cs
 // 
 // © 2013 Ryan Wilson

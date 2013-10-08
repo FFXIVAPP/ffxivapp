@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // Monster.cs
 // 
 // © 2013 Ryan Wilson

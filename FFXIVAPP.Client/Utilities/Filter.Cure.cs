@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.Parse
+﻿// FFXIVAPP.Client
 // Filter.Cure.cs
 // 
 // © 2013 Ryan Wilson

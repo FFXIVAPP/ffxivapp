@@ -18,7 +18,22 @@ namespace FFXIVAPP.Client
 
             public static readonly List<string> Abilities = new List<string>
             {
-                "142B", "14AB", "152B", "15AB", "162B", "16AB", "172B", "17AB", "182B", "18AB", "192B", "19AB", "1A2B", "1AAB", "1B2B", "1BAB"
+                "142B",
+                "14AB",
+                "152B",
+                "15AB",
+                "162B",
+                "16AB",
+                "172B",
+                "17AB",
+                "182B",
+                "18AB",
+                "192B",
+                "19AB",
+                "1A2B",
+                "1AAB",
+                "1B2B",
+                "1BAB"
             };
 
             #endregion
