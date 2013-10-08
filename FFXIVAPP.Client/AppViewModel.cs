@@ -43,7 +43,9 @@ namespace FFXIVAPP.Client
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _screenShotsPath;
         private string _selected;
+        private string _settingsPath;
         private List<Signature> _signatures;
+        private string _soundsPath;
         private Style _tabControlCollapsedHeader;
         private List<string> _updateNotes;
 
@@ -199,6 +201,40 @@ namespace FFXIVAPP.Client
             set
             {
                 _screenShotsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string SoundsPath
+        {
+            get
+            {
+                if (!Directory.Exists(_soundsPath))
+                {
+                    Directory.CreateDirectory(_soundsPath);
+                }
+                return _soundsPath;
+            }
+            set
+            {
+                _soundsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string SettingsPath
+        {
+            get
+            {
+                if (!Directory.Exists(_settingsPath))
+                {
+                    Directory.CreateDirectory(_settingsPath);
+                }
+                return _settingsPath;
+            }
+            set
+            {
+                _settingsPath = value;
                 RaisePropertyChanged();
             }
         }

@@ -348,5 +348,41 @@ namespace FFXIVAPP.Client.Properties {
                 this["TopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF000000")]
+        public global::System.Windows.Media.Color ChatBackgroundColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["ChatBackgroundColor"]));
+            }
+            set {
+                this["ChatBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF800080")]
+        public global::System.Windows.Media.Color TimeStampColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["TimeStampColor"]));
+            }
+            set {
+                this["TimeStampColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 12pt")]
+        public global::System.Drawing.Font ChatFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ChatFont"]));
+            }
+            set {
+                this["ChatFont"] = value;
+            }
+        }
     }
 }

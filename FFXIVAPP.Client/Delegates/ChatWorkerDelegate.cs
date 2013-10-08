@@ -8,6 +8,8 @@
 using System;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Utilities;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -32,6 +34,19 @@ namespace FFXIVAPP.Client.Delegates
                 chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp
             };
             AppViewModel.Instance.ChatHistory.Add(chatEntry);
+            // process official plugins
+            Func<bool> publish = delegate
+            {
+                DispatcherHelper.Invoke(delegate
+                {
+                    LogPublisher.Event.Process(chatEntry);
+                    LogPublisher.Log.Process(chatEntry);
+                    LogPublisher.Parse.Process(chatEntry);
+                });
+                return true;
+            };
+            publish.BeginInvoke(null, null);
+            // process thirdparty plugins
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 bool success;

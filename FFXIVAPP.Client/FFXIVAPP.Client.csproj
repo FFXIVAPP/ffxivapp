@@ -125,8 +125,12 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Behaviors\MouseDragPopupBehavior.cs" />
+    <Compile Include="Constants.Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
+    <Compile Include="Constants.Log.cs" />
+    <Compile Include="Constants.Parse.cs" />
+    <Compile Include="Constants.Event.cs" />
     <Compile Include="Controls\PopupNonTopMost.cs" />
     <Compile Include="Controls\xMetroPopup.xaml.cs">
       <DependentUpon>xMetroPopup.xaml</DependentUpon>
@@ -143,6 +147,10 @@
     <Compile Include="Helpers\HttpPostHelper.cs" />
     <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Helpers\SettingsHelper.Client.cs" />
+    <Compile Include="Helpers\SettingsHelper.Event.cs" />
+    <Compile Include="Helpers\SettingsHelper.Log.cs" />
+    <Compile Include="Helpers\SettingsHelper.Parse.cs" />
     <Compile Include="Helpers\UploadHelper.cs" />
     <Compile Include="Helpers\XmlLogHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
@@ -151,10 +159,26 @@
     <Compile Include="Helpers\TabItemHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Initializer.cs" />
+    <Compile Include="Localization\English.Client.cs" />
     <Compile Include="Localization\English.cs" />
+    <Compile Include="Localization\English.Event.cs" />
+    <Compile Include="Localization\English.Log.cs" />
+    <Compile Include="Localization\English.Parse.cs" />
+    <Compile Include="Localization\French.Client.cs" />
     <Compile Include="Localization\French.cs" />
+    <Compile Include="Localization\French.Event.cs" />
+    <Compile Include="Localization\French.Log.cs" />
+    <Compile Include="Localization\French.Parse.cs" />
+    <Compile Include="Localization\German.Client.cs" />
     <Compile Include="Localization\German.cs" />
+    <Compile Include="Localization\German.Event.cs" />
+    <Compile Include="Localization\German.Log.cs" />
+    <Compile Include="Localization\German.Parse.cs" />
+    <Compile Include="Localization\Japanese.Client.cs" />
     <Compile Include="Localization\Japanese.cs" />
+    <Compile Include="Localization\Japanese.Event.cs" />
+    <Compile Include="Localization\Japanese.Log.cs" />
+    <Compile Include="Localization\Japanese.Parse.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ChatPointers.cs" />
@@ -170,13 +194,33 @@
     <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
+    <Compile Include="Models\Event\SoundEvent.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Models\PluginInstance.cs" />
+    <Compile Include="PluginInitializer.cs" />
+    <Compile Include="PluginInitializer.Event.cs" />
+    <Compile Include="PluginInitializer.Log.cs" />
+    <Compile Include="PluginInitializer.Parse.cs" />
+    <Compile Include="SettingsProviders\Event\Settings.cs" />
+    <Compile Include="SettingsProviders\Log\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Utilities\GoogleTranslate.cs" />
+    <Compile Include="Utilities\LogPublisher.cs" />
+    <Compile Include="Utilities\LogPublisher.Event.cs" />
+    <Compile Include="Utilities\LogPublisher.Log.cs" />
+    <Compile Include="Utilities\LogPublisher.Parse.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Event\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Event\MainViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Event\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Log\MainViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Log\PluginViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Parse\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Log\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\Event\ShellViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\DefaultViewModel.cs" />
@@ -187,6 +231,28 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Plugins\Event\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Event\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Event\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Log\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Parse\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Log\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Plugins\Event\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Plugins\Event\PluginViewModel.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +285,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Plugins\Event\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Plugins\Event\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Plugins\Event\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Plugins\Log\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Plugins\Parse\ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Plugins\Log\ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Plugins\Event\ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -245,6 +339,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Media\Icons\Event.png" />
+    <Resource Include="Resources\Media\Icons\Log.png" />
+    <Resource Include="Resources\Media\Icons\Parse.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />
     <Resource Include="Resources\Media\Images\Save.png" />
     <Resource Include="Resources\Media\Images\Header.png" />
@@ -252,6 +349,10 @@
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
+    <Resource Include="Defaults\Settings.Event.xml" />
+    <Resource Include="Defaults\Settings.Log.xml" />
+    <Resource Include="Defaults\RegularExpressions.xml" />
+    <Resource Include="Defaults\Settings.Parse.xml" />
     <Content Include="Licenses\License.DotNetZip.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -291,7 +392,9 @@
     <Resource Include="Resources\Media\Images\ScreenShot.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Media\Sounds\aruba.wav" />
+    <None Include="Sounds\aruba.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Defaults\AutoTranslate.xml" />
@@ -339,6 +442,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Log\" />
+    <Folder Include="Models\Parse\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

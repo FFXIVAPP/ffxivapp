@@ -8,6 +8,9 @@
 using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
+using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Controls;
 using MahApps.Metro;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 
@@ -55,6 +58,20 @@ namespace FFXIVAPP.Client.Helpers
                     ThemeManager.ChangeTheme(window, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Light);
                     break;
             }
+        }
+
+        public static void SetupFont(ref xFlowDocument flowDoc)
+        {
+            var font = Settings.Default.ChatFont;
+            flowDoc._FD.FontFamily = new FontFamily(font.Name);
+            flowDoc._FD.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
+            flowDoc._FD.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
+            flowDoc._FD.FontSize = font.Size;
+        }
+
+        public static void SetupColor(ref xFlowDocument flowDoc)
+        {
+            flowDoc._FD.Background = new SolidColorBrush(Settings.Default.ChatBackgroundColor);
         }
     }
 }

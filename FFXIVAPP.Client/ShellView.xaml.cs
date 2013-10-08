@@ -57,6 +57,11 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+            // append plugins
+            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
+            {
+                View.PluginsTC.Items.Add(pluginTabItem);
+            }
         }
 
         /// <summary>

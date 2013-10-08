@@ -19,11 +19,11 @@ using FFXIVAPP.IPluginInterface;
 
 namespace FFXIVAPP.Client
 {
-    public static class Constants
+    public static partial class Constants
     {
         #region Declarations
 
-        public static readonly string[] Supported = new[]
+        public static readonly string[] Supported =
         {
             "ja", "fr", "en", "de"
         };

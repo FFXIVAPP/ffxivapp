@@ -59,6 +59,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.ConfigurationsPath = "./Configurations/";
             AppViewModel.Instance.LogsPath = "./Logs/";
             AppViewModel.Instance.ScreenShotsPath = "./ScreenShots/";
+            AppViewModel.Instance.SoundsPath = "./Sounds/";
+            AppViewModel.Instance.SettingsPath = "./Settings/";
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();

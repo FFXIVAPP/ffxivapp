@@ -4,7 +4,10 @@
                            xmlns:Behaviors="clr-namespace:FFXIVAPP.Client.Behaviors"
                            xmlns:Controls="clr-namespace:FFXIVAPP.Client.Controls"
                            xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+                           xmlns:EventPlugin="clr-namespace:FFXIVAPP.Client.Views.Plugins.Event"
+                           xmlns:LogPlugin="clr-namespace:FFXIVAPP.Client.Views.Plugins.Log"
                            xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                           xmlns:ParsePlugin="clr-namespace:FFXIVAPP.Client.Views.Plugins.Parse"
                            xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
                            xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
                            xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
@@ -143,10 +146,7 @@
                     <Views:MainView x:Name="MainV"
                                     Margin="10 0 10 10" />
                 </TabItem>
-                <TabItem x:Name="PluginsTI"
-                         Visibility="{Binding HasPlugins,
-                                              Converter={StaticResource VisibilityConverter},
-                                              Source={StaticResource AppProperties}}">
+                <TabItem x:Name="PluginsTI">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="20"
@@ -163,17 +163,71 @@
                                                         Converter={StaticResource VisibilityConverter}}" />
                         </StackPanel>
                     </TabItem.Header>
+                    <!--
+                        <TabControl x:Name="PluginsTC"
+                        Margin="10 0 10 10"
+                        BorderThickness="{Binding TabStripPlacement,
+                        Converter={StaticResource TabStripBorderConverter},
+                        RelativeSource={RelativeSource Self}}"
+                        ItemsSource="{Binding PluginTabItems,
+                        Source={StaticResource AppProperties}}"
+                        Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
+                        <TabControl.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                        </TabControl.BorderBrush>
+                        </TabControl>
+                    -->
                     <TabControl x:Name="PluginsTC"
                                 Margin="10 0 10 10"
                                 BorderThickness="{Binding TabStripPlacement,
                                                           Converter={StaticResource TabStripBorderConverter},
                                                           RelativeSource={RelativeSource Self}}"
-                                ItemsSource="{Binding PluginTabItems,
-                                                      Source={StaticResource AppProperties}}"
                                 Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
                         <TabControl.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource AccentColor}" />
                         </TabControl.BorderBrush>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="24"
+                                           Height="24"
+                                           Source="/FFXIVAPP.Client;component/Resources/Media/Icons/Event.png" />
+                                    <Label Content="Event"
+                                           Visibility="{Binding EnableHelpLabels,
+                                                                Source={x:Static Properties:Settings.Default},
+                                                                Converter={StaticResource VisibilityConverter}}" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <EventPlugin:ShellView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="24"
+                                           Height="24"
+                                           Source="/FFXIVAPP.Client;component/Resources/Media/Icons/Log.png" />
+                                    <Label Content="Event"
+                                           Visibility="{Binding EnableHelpLabels,
+                                                                Source={x:Static Properties:Settings.Default},
+                                                                Converter={StaticResource VisibilityConverter}}" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <LogPlugin:ShellView />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="24"
+                                           Height="24"
+                                           Source="/FFXIVAPP.Client;component/Resources/Media/Icons/Parse.png" />
+                                    <Label Content="Event"
+                                           Visibility="{Binding EnableHelpLabels,
+                                                                Source={x:Static Properties:Settings.Default},
+                                                                Converter={StaticResource VisibilityConverter}}" />
+                                </StackPanel>
+                            </TabItem.Header>
+                            <ParsePlugin:ShellView />
+                        </TabItem>
                     </TabControl>
                 </TabItem>
                 <TabItem x:Name="SettingsTI">
