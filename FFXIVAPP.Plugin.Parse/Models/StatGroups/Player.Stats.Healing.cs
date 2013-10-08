@@ -64,7 +64,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
                 if (line.Modifier != 0)
                 {
-                    var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
+                    var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                     var modStat = "HealingCritMod";
                     Stats.IncrementStat(modStat, mod);
                     subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -84,7 +84,7 @@ namespace FFXIVAPP.Plugin.Parse.Models.StatGroups
                 subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
                 if (line.Modifier != 0)
                 {
-                    var mod = ParseHelper.GetOriginalDamage(line.Amount, line.Modifier);
+                    var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                     var modStat = "HealingRegMod";
                     Stats.IncrementStat(modStat, mod);
                     subAbilityGroup.Stats.IncrementStat(modStat, mod);

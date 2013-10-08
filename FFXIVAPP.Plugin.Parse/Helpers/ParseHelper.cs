@@ -48,9 +48,19 @@ namespace FFXIVAPP.Plugin.Parse.Helpers
         /// <param name="amount"></param>
         /// <param name="modifier"></param>
         /// <returns></returns>
-        public static decimal GetOriginalDamage(decimal amount, decimal modifier)
+        public static decimal GetBonusDamage(decimal amount, decimal modifier)
         {
             return Math.Abs((amount / (modifier + 1)) - amount);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="modifier"></param>
+        /// <returns></returns>
+        public static decimal GetOriginalDamage(decimal amount, decimal modifier)
+        {
+            return Math.Abs(amount - GetBonusDamage(amount,modifier));
         }
 
         /// <summary>
