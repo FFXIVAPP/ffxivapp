@@ -22,7 +22,8 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static readonly IList<KillEntry> KillList = new List<KillEntry>();
+        public static readonly IList<KillEntry> KillEntries = new List<KillEntry>();
+
         private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
         #endregion
@@ -39,7 +40,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry)))
                 {
-                    KillList.Add(killEntry);
+                    KillEntries.Add(killEntry);
                 }
                 XIVDBViewModel.Instance.KillSeen++;
                 return true;
@@ -52,14 +53,14 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (KillList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
                 try
                 {
                     UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList()
+                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
                                                                                 .Skip(chunksProcessed * chunkSize)));
                     XIVDBViewModel.Instance.KillProcessed++;
                 }
@@ -78,7 +79,7 @@ namespace FFXIVAPP.Client.Delegates
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
-                UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList()
+                UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
                                                                             .Skip(chunksProcessed * chunkSize)));
             }
             catch (Exception ex)

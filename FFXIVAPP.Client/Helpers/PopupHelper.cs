@@ -61,8 +61,8 @@ namespace FFXIVAPP.Client.Helpers
                     //setup blur animation to blur MetroPopup
                     window.MetroNotify.Effect = new BlurEffect();
                     window.MetroNotify.Effect.BeginAnimation(BlurEffect.RadiusProperty, BlurIn);
-                    FadeIn(window.MetroNotify.Title, .25, 0);
-                    FadeIn(window.MetroNotify.Message, .5, 0);
+                    FadeIn(window.MetroNotify.Title, .10, 0);
+                    FadeIn(window.MetroNotify.Message, .10, 0);
                     //setup popup content
                     window.MetroNotify.Title.Content = popupContent.Title.ToUpperInvariant();
                     window.MetroNotify.Message.Text = popupContent.Message;

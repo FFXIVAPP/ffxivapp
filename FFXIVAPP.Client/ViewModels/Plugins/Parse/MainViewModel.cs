@@ -69,6 +69,18 @@ namespace FFXIVAPP.Client.ViewModels.Plugins.Parse
 
         private static void ProcessSample()
         {
+            if (Constants.IsOpen)
+            {
+                var popupContent = new PopupContent();
+                popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                popupContent.Message = "Game is open. Please close before choosing a file.";
+                popupContent.IsOkayOnly = true;
+                PopupHelper.Toggle(popupContent);
+                EventHandler closedDelegate = null;
+                closedDelegate = delegate { PopupHelper.MessagePopup.Closed -= closedDelegate; };
+                PopupHelper.MessagePopup.Closed += closedDelegate;
+                return;
+            }
             var openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Logs",

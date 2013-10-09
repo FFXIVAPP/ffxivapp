@@ -22,7 +22,8 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static readonly IList<LootEntry> LootList = new List<LootEntry>();
+        public static readonly IList<LootEntry> LootEntries = new List<LootEntry>();
+
         private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
         #endregion
@@ -39,7 +40,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(lootEntry)))
                 {
-                    LootList.Add(lootEntry);
+                    LootEntries.Add(lootEntry);
                 }
                 XIVDBViewModel.Instance.LootSeen++;
                 return true;
@@ -52,14 +53,14 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (LootList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (LootEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
                 try
                 {
                     UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("loot", new List<LootEntry>(LootList.ToList()
+                    UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
                                                                                 .Skip(chunksProcessed * chunkSize)));
                     XIVDBViewModel.Instance.LootProcessed++;
                 }
@@ -78,7 +79,7 @@ namespace FFXIVAPP.Client.Delegates
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
-                UploadHelper.PostUpload("loot", new List<LootEntry>(LootList.ToList()
+                UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
                                                                             .Skip(chunksProcessed * chunkSize)));
             }
             catch (Exception ex)

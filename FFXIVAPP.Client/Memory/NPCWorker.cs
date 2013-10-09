@@ -163,7 +163,6 @@ namespace FFXIVAPP.Client.Memory
                             {
                             }
                         }
-                        // setup DoTee: +12104
                         if (!npcEntry.IsValid)
                         {
                             continue;

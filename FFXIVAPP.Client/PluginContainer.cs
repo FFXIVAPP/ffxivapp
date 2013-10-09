@@ -216,7 +216,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            var monsters = MonsterWorkerDelegate.NPCList.ToList();
+            var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
             switch (key)
             {
                 case "LootEntry":

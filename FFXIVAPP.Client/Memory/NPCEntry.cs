@@ -4,11 +4,15 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace FFXIVAPP.Client.Memory
 {
     public class NPCEntry
     {
+        private List<StatusEntry> _statusList;
+
         #region Property Backings
 
         public uint MapIndex { get; set; }
@@ -81,6 +85,19 @@ namespace FFXIVAPP.Client.Memory
 
         public int TPCurrent { get; set; }
         public int TPMax { get; set; }
+
+        public List<StatusEntry> StatusList
+        {
+            get { return _statusList ?? (_statusList = new List<StatusEntry>()); }
+            set
+            {
+                if (_statusList == null)
+                {
+                    _statusList = new List<StatusEntry>();
+                }
+                _statusList = value;
+            }
+        }
 
         public bool IsFate
         {

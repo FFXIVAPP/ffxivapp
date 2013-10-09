@@ -163,6 +163,27 @@ namespace FFXIVAPP.Client.Memory
                             {
                             }
                         }
+                        // setup DoT: +12104
+                        for (uint x = 0; x < 30; x++)
+                        {
+                            var offset = 12116 + (x * 12);
+                            try
+                            {
+                                var statusEntry = new StatusEntry
+                                {
+                                    ID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
+                                    Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
+                                    OwnerID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
+                                };
+                                if (statusEntry.IsValid)
+                                {
+                                    npcEntry.StatusList.Add(statusEntry);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
                         if (!npcEntry.IsValid)
                         {
                             continue;

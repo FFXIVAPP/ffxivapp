@@ -212,6 +212,7 @@
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ChatPointers.cs" />
+    <Compile Include="Memory\StatusEntry.cs" />
     <Compile Include="Memory\MonsterWorker.cs" />
     <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
