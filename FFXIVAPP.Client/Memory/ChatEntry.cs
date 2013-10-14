@@ -14,15 +14,19 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory {
-    public class ChatEntry {
+namespace FFXIVAPP.Client.Memory
+{
+    public class ChatEntry
+    {
         public bool JP;
 
         /// <summary>
         /// </summary>
         /// <param name="raw"> </param>
-        public ChatEntry(byte[] raw) {
-            try {
+        public ChatEntry(byte[] raw)
+        {
+            try
+            {
                 Bytes = raw;
                 Raw = Encoding.UTF8.GetString(raw.ToArray());
                 var cut = (Raw.Substring(13, 1) == ":") ? 14 : 13;
@@ -32,7 +36,8 @@ namespace FFXIVAPP.Client.Memory {
                 Code = Raw.Substring(8, 4);
                 Combined = String.Format("{0}:{1}", Code, Line);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Bytes = new byte[0];
                 Raw = "";
                 Line = "";

@@ -10,13 +10,16 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines {
-    public class TimelineChangedEvent : EventArgs {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
+{
+    public class TimelineChangedEvent : EventArgs
+    {
         /// <summary>
         /// </summary>
         /// <param name="eventType"> </param>
         /// <param name="eventArgs"> </param>
-        public TimelineChangedEvent(TimelineEventType eventType, params object[] eventArgs) {
+        public TimelineChangedEvent(TimelineEventType eventType, params object[] eventArgs)
+        {
             EventType = eventType;
             EventArgs = eventArgs;
         }

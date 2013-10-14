@@ -3,12 +3,15 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Event.Views {
+namespace FFXIVAPP.Client.Plugins.Event.Views
+{
     /// <summary>
     ///     Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainView {
-        public MainView() {
+    public partial class MainView
+    {
+        public MainView()
+        {
             InitializeComponent();
             View = this;
         }

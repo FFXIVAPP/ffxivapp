@@ -9,8 +9,10 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Common.Chat {
-    public struct ChatEntry {
+namespace FFXIVAPP.Common.Chat
+{
+    public struct ChatEntry
+    {
         public DateTime TimeStamp { get; set; }
         public string Code { get; set; }
         public string Line { get; set; }

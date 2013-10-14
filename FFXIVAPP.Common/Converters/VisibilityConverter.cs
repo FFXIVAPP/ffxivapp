@@ -13,8 +13,10 @@ using System.Windows.Data;
 
 #endregion
 
-namespace FFXIVAPP.Common.Converters {
-    public class VisibilityConverter : IValueConverter {
+namespace FFXIVAPP.Common.Converters
+{
+    public class VisibilityConverter : IValueConverter
+    {
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>
@@ -22,11 +24,14 @@ namespace FFXIVAPP.Common.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            try {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
+            {
                 return (bool) value ? Visibility.Visible : Visibility.Collapsed;
             }
-            catch {
+            catch
+            {
                 return (Regex.IsMatch(value.ToString(), "([Tt]rue|1)")) ? Visibility.Visible : Visibility.Collapsed;
             }
         }
@@ -38,7 +43,8 @@ namespace FFXIVAPP.Common.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             return ((Visibility) value == Visibility.Visible);
         }
     }

@@ -5,11 +5,13 @@
 
 using System.Windows;
 
-namespace FFXIVAPP.Client.Plugins.Parse {
+namespace FFXIVAPP.Client.Plugins.Parse
+{
     /// <summary>
     ///     Interaction logic for DefaultView.xaml
     /// </summary>
-    public partial class ShellView {
+    public partial class ShellView
+    {
         #region Declarations
 
         private bool IsRendered { get; set; }
@@ -18,13 +20,16 @@ namespace FFXIVAPP.Client.Plugins.Parse {
 
         public static ShellView View;
 
-        public ShellView() {
+        public ShellView()
+        {
             InitializeComponent();
             View = this;
         }
 
-        private void ShellView_OnLoaded(object sender, RoutedEventArgs e) {
-            if (IsRendered) {
+        private void ShellView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (IsRendered)
+            {
                 return;
             }
             IsRendered = true;

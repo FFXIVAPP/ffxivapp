@@ -9,32 +9,41 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Monster {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Monster
+    {
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetupDamageOverTimeAction(Line line) {}
+        public void SetupDamageOverTimeAction(Line line)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetDamageOverTime(Line line) {}
+        public void SetDamageOverTime(Line line)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetDamageOverTimeFromPlayer(Line line) {
+        public void SetDamageOverTimeFromPlayer(Line line)
+        {
             var damageGroup = GetGroup("DamageTakenByPlayers");
             StatGroup subPlayerGroup;
-            if (!damageGroup.TryGetGroup(line.Source, out subPlayerGroup)) {
+            if (!damageGroup.TryGetGroup(line.Source, out subPlayerGroup))
+            {
                 subPlayerGroup = new StatGroup(line.Source);
                 subPlayerGroup.Stats.AddStats(DamageTakenStatList(null));
                 damageGroup.AddGroup(subPlayerGroup);
             }
             var abilities = subPlayerGroup.GetGroup("DamageTakenByPlayersByAction");
             StatGroup subPlayerAbilityGroup;
-            if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup)) {
+            if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup))
+            {
                 subPlayerAbilityGroup = new StatGroup(line.Action);
                 subPlayerAbilityGroup.Stats.AddStats(DamageTakenStatList(subPlayerGroup, true));
                 abilities.AddGroup(subPlayerAbilityGroup);

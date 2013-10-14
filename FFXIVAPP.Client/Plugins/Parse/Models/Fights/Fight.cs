@@ -10,15 +10,19 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights {
-    public sealed class Fight : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights
+{
+    public sealed class Fight : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private string _mobName;
 
-        public string MobName {
+        public string MobName
+        {
             get { return _mobName; }
-            private set {
+            private set
+            {
                 _mobName = value;
                 RaisePropertyChanged();
             }
@@ -26,7 +30,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights {
 
         #endregion
 
-        public Fight(string mobName = "") {
+        public Fight(string mobName = "")
+        {
             MobName = mobName;
         }
 
@@ -34,7 +39,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

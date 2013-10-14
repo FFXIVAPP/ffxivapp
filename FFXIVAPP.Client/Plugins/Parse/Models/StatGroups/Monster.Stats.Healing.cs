@@ -3,11 +3,15 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Monster {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Monster
+    {
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetHealing(Line line) {}
+        public void SetHealing(Line line)
+        {
+        }
     }
 }

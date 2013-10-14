@@ -12,8 +12,10 @@ using FFXIVAPP.Client.RegularExpressions;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class Expressions : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class Expressions : INotifyPropertyChanged
+    {
         private Match _mActions;
         private Match _mBeneficialGain;
         private Match _mBeneficialLose;
@@ -37,7 +39,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
         private Match _pFailedAuto;
         private Match _pItems;
 
-        public Expressions(Events.Event e, string cleaned) {
+        public Expressions(Events.Event e, string cleaned)
+        {
             Event = e;
             Cleaned = cleaned;
             Initialize();
@@ -55,89 +58,111 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         #region Monster
 
-        public Match mDamage {
+        public Match mDamage
+        {
             get { return _mDamage ?? (_mDamage = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mDamage = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mDamageAuto {
+        public Match mDamageAuto
+        {
             get { return _mDamageAuto ?? (_mDamageAuto = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mDamageAuto = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mFailed {
+        public Match mFailed
+        {
             get { return _mFailed ?? (_mFailed = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mFailed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mFailedAuto {
+        public Match mFailedAuto
+        {
             get { return _mFailedAuto ?? (_mFailedAuto = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mFailedAuto = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mActions {
+        public Match mActions
+        {
             get { return _mActions ?? (_mActions = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mActions = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mItems {
+        public Match mItems
+        {
             get { return _mItems ?? (_mItems = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mItems = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mCure {
+        public Match mCure
+        {
             get { return _mCure ?? (_mCure = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mCure = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mBeneficialGain {
+        public Match mBeneficialGain
+        {
             get { return _mBeneficialGain ?? (_mBeneficialGain = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mBeneficialGain = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mBeneficialLose {
+        public Match mBeneficialLose
+        {
             get { return _mBeneficialLose ?? (_mBeneficialLose = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mBeneficialLose = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mDetrimentalGain {
+        public Match mDetrimentalGain
+        {
             get { return _mDetrimentalGain ?? (_mDetrimentalGain = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mDetrimentalGain = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match mDetrimentalLose {
+        public Match mDetrimentalLose
+        {
             get { return _mDetrimentalLose ?? (_mDetrimentalLose = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _mDetrimentalLose = value;
                 RaisePropertyChanged();
             }
@@ -147,89 +172,111 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         #region Player
 
-        public Match pDamage {
+        public Match pDamage
+        {
             get { return _pDamage ?? (_pDamage = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pDamage = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pDamageAuto {
+        public Match pDamageAuto
+        {
             get { return _pDamageAuto ?? (_pDamageAuto = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pDamageAuto = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pFailed {
+        public Match pFailed
+        {
             get { return _pFailed ?? (_pFailed = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pFailed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pFailedAuto {
+        public Match pFailedAuto
+        {
             get { return _pFailedAuto ?? (_pFailedAuto = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pFailedAuto = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pActions {
+        public Match pActions
+        {
             get { return _pActions ?? (_pActions = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pActions = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pItems {
+        public Match pItems
+        {
             get { return _pItems ?? (_pItems = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pItems = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pCure {
+        public Match pCure
+        {
             get { return _pCure ?? (_pCure = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pCure = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pBeneficialGain {
+        public Match pBeneficialGain
+        {
             get { return _pBeneficialGain ?? (_pBeneficialGain = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pBeneficialGain = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pBeneficialLose {
+        public Match pBeneficialLose
+        {
             get { return _pBeneficialLose ?? (_pBeneficialLose = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pBeneficialLose = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pDetrimentalGain {
+        public Match pDetrimentalGain
+        {
             get { return _pDetrimentalGain ?? (_pDetrimentalGain = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pDetrimentalGain = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Match pDetrimentalLose {
+        public Match pDetrimentalLose
+        {
             get { return _pDetrimentalLose ?? (_pDetrimentalLose = Regex.Match("ph", @"^\.$")); }
-            private set {
+            private set
+            {
                 _pDetrimentalLose = value;
                 RaisePropertyChanged();
             }
@@ -237,8 +284,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         #endregion
 
-        private void Initialize() {
-            switch (Constants.GameLanguage) {
+        private void Initialize()
+        {
+            switch (Constants.GameLanguage)
+            {
                 case "French":
                     pDamage = PlayerRegEx.DamageFr.Match(Cleaned);
                     pDamageAuto = PlayerRegEx.DamageAutoFr.Match(Cleaned);
@@ -370,7 +419,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

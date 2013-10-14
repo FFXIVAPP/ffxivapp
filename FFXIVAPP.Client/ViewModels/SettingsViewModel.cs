@@ -23,14 +23,17 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.ViewModels {
+namespace FFXIVAPP.Client.ViewModels
+{
     [Export(typeof (SettingsViewModel))]
-    internal sealed class SettingsViewModel : INotifyPropertyChanged {
+    internal sealed class SettingsViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static SettingsViewModel _instance;
 
-        public static SettingsViewModel Instance {
+        public static SettingsViewModel Instance
+        {
             get { return _instance ?? (_instance = new SettingsViewModel()); }
         }
 
@@ -51,7 +54,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         #endregion
 
-        public SettingsViewModel() {
+        public SettingsViewModel()
+        {
             SetProcessCommand = new DelegateCommand(SetProcess);
             RefreshListCommand = new DelegateCommand(RefreshList);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
@@ -74,13 +78,15 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void SetProcess() {
+        private static void SetProcess()
+        {
             Initializer.SetPID();
         }
 
         /// <summary>
         /// </summary>
-        private static void RefreshList() {
+        private static void RefreshList()
+        {
             SettingsView.View.PIDSelect.Items.Clear();
             Initializer.StopMemoryWorkers();
             Initializer.ResetPID();
@@ -89,52 +95,64 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void ChangeTheme() {
+        private static void ChangeTheme()
+        {
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
         }
 
         /// <summary>
         /// </summary>
-        private static void DefaultSettings() {
+        private static void DefaultSettings()
+        {
             SettingsHelper.Default();
         }
 
         /// <summary>
         /// </summary>
-        private static void GetCICUID() {
+        private static void GetCICUID()
+        {
             SaveCharacter();
             var characterName = Settings.Default.CharacterName;
             var serverName = Settings.Default.ServerName;
             if (characterName.Replace(" ", "")
-                             .Length < 3 || String.IsNullOrWhiteSpace(serverName)) {
+                             .Length < 3 || String.IsNullOrWhiteSpace(serverName))
+            {
                 return;
             }
-            Func<string> callLodestone = delegate {
+            Func<string> callLodestone = delegate
+            {
                 var cicuid = "";
-                try {
+                try
+                {
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                     var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(Constants.CharacterName), serverName));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     request.Headers.Add("Accept-Language", "en;q=0.8");
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
-                    if (response.StatusCode != HttpStatusCode.OK || stream == null) {}
-                    else {
+                    if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                    {
+                    }
+                    else
+                    {
                         var doc = new HtmlDocument();
                         doc.Load(stream);
-                        try {
+                        try
+                        {
                             var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
                                                 .OuterHtml;
                             var CICUID = new Regex(@"(?<cicuid>\d+)/"">" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                             cicuid = CICUID.Match(htmlSource)
                                            .Groups["cicuid"].Value;
                         }
-                        catch (Exception ex) {
+                        catch (Exception ex)
+                        {
                             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 return cicuid;
@@ -145,9 +163,11 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         /// <param name="asyncResult"> </param>
-        private static void LodestoneCallBack(IAsyncResult asyncResult) {
+        private static void LodestoneCallBack(IAsyncResult asyncResult)
+        {
             var function = asyncResult.AsyncState as Func<string>;
-            if (function == null) {
+            if (function == null)
+            {
                 return;
             }
             var result = function.EndInvoke(asyncResult);
@@ -156,14 +176,17 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void SaveCharacter() {
+        private static void SaveCharacter()
+        {
             Initializer.SetCharacter();
         }
 
         /// <summary>
         /// </summary>
-        private static void ColorSelection() {
-            if (SettingsView.View.Colors.SelectedItems.Count <= 0) {
+        private static void ColorSelection()
+        {
+            if (SettingsView.View.Colors.SelectedItems.Count <= 0)
+            {
                 return;
             }
             var split = SettingsView.View.Colors.SelectedItem.ToString()
@@ -177,13 +200,16 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void UpdateColor() {
+        private static void UpdateColor()
+        {
             _key = SettingsView.View.TCode.Text;
             _value = SettingsView.View.TColor.Text;
-            if (String.IsNullOrEmpty(_key)) {
+            if (String.IsNullOrEmpty(_key))
+            {
                 return;
             }
-            if (!Regex.IsMatch(_value, "^[A-F0-9]{6,6}$")) {
+            if (!Regex.IsMatch(_value, "^[A-F0-9]{6,6}$"))
+            {
                 return;
             }
             Constants.Colors[_key][0] = _value;
@@ -196,7 +222,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

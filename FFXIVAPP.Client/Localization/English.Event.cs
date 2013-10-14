@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization {
-    public static partial class English {
-        private static void SetEventLocale() {
+namespace FFXIVAPP.Client.Localization
+{
+    public static partial class English
+    {
+        private static void SetEventLocale()
+        {
             Dictionary.Add("event_PLACEHOLDER", "*PH*");
             Dictionary.Add("event_AddUpdateEventButtonText", "Add Or Update Event");
             Dictionary.Add("event_RegExHeader", "RegEx");

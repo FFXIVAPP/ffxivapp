@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Memory {
-    public class Coordinate {
+namespace FFXIVAPP.Client.Memory
+{
+    public class Coordinate
+    {
         public double X;
         public double Y;
         public double Z;
@@ -14,7 +16,8 @@ namespace FFXIVAPP.Client.Memory {
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public Coordinate(double x = 0, double y = 0, double z = 0.00) {
+        public Coordinate(double x = 0, double y = 0, double z = 0.00)
+        {
             X = x;
             Y = y;
             Z = z;
@@ -23,7 +26,8 @@ namespace FFXIVAPP.Client.Memory {
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override string ToString() {
+        public override string ToString()
+        {
             return X + ", " + Y + ", " + Z;
         }
     }

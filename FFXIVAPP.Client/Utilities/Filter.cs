@@ -12,8 +12,10 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities {
-    public static partial class Filter {
+namespace FFXIVAPP.Client.Utilities
+{
+    public static partial class Filter
+    {
         public static bool IsEnabled = true;
 
         // setup self info
@@ -35,8 +37,10 @@ namespace FFXIVAPP.Client.Utilities {
         private static bool _isMulti;
         private static bool _isParty;
 
-        public static void Process(string cleaned, Event e) {
-            if (!IsEnabled) {
+        public static void Process(string cleaned, Event e)
+        {
+            if (!IsEnabled)
+            {
                 return;
             }
 
@@ -47,7 +51,8 @@ namespace FFXIVAPP.Client.Utilities {
 
             var expressions = new Expressions(e, cleaned);
 
-            switch (e.Type) {
+            switch (e.Type)
+            {
                 case EventType.Damage:
                     ProcessDamage(e, expressions);
                     break;
@@ -71,10 +76,12 @@ namespace FFXIVAPP.Client.Utilities {
                     break;
             }
 
-            if (_isParty) {
+            if (_isParty)
+            {
                 _lastEventParty = e;
             }
-            else {
+            else
+            {
                 _lastEventPlayer = e;
             }
         }
@@ -82,10 +89,12 @@ namespace FFXIVAPP.Client.Utilities {
         /// <summary>
         /// </summary>
         /// <param name="clearNames"></param>
-        private static void ClearLast(bool clearNames = false) {
+        private static void ClearLast(bool clearNames = false)
+        {
             _lastActionParty = "";
             _lastMobAction = "";
-            if (!clearNames) {
+            if (!clearNames)
+            {
                 return;
             }
             _lastNameParty = "";

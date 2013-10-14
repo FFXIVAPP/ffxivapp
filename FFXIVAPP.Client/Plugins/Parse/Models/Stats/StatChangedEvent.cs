@@ -9,8 +9,10 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public class StatChangedEvent : EventArgs {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public class StatChangedEvent : EventArgs
+    {
         #region Property Bindings
 
         private Stat<decimal> SourceStat { get; set; }
@@ -24,7 +26,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <param name="sourceStat"> </param>
         /// <param name="previousValue"> </param>
         /// <param name="newValue"> </param>
-        public StatChangedEvent(object sourceStat, object previousValue, object newValue) {
+        public StatChangedEvent(object sourceStat, object previousValue, object newValue)
+        {
             SourceStat = (Stat<decimal>) sourceStat;
             PreviousValue = previousValue;
             NewValue = newValue;

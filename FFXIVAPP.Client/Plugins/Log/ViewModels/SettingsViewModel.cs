@@ -15,13 +15,16 @@ using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
-    internal sealed class SettingsViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Log.ViewModels
+{
+    internal sealed class SettingsViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static SettingsViewModel _instance;
 
-        public static SettingsViewModel Instance {
+        public static SettingsViewModel Instance
+        {
             get { return _instance ?? (_instance = new SettingsViewModel()); }
         }
 
@@ -33,7 +36,8 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         #endregion
 
-        public SettingsViewModel() {
+        public SettingsViewModel()
+        {
             AddTabCommand = new DelegateCommand(AddTab);
         }
 
@@ -49,22 +53,28 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void AddTab() {
+        private static void AddTab()
+        {
             var xKey = SettingsView.View.TName.Text;
             string xValue;
             var xRegularExpression = SettingsView.View.TRegEx.Text;
-            if (SettingsView.View.Codes.SelectedItems.Count < 1) {
+            if (SettingsView.View.Codes.SelectedItems.Count < 1)
+            {
                 xValue = "";
             }
-            else {
+            else
+            {
                 xValue = SettingsView.View.Codes.SelectedItems.Cast<object>()
                                      .Aggregate("", (current, item) => current + (item.ToString()
                                                                                       .Split(',')[0] + ","))
                                      .Replace("[", "");
                 xValue = xValue.Substring(0, xValue.Length - 1);
             }
-            if (xKey == "" || xValue == "" || xRegularExpression == "") {}
-            else {
+            if (xKey == "" || xValue == "" || xRegularExpression == "")
+            {
+            }
+            else
+            {
                 TabItemHelper.AddTabByName(xKey, xValue, xRegularExpression);
                 SettingsView.View.TName.Text = "";
                 SettingsView.View.Codes.UnselectAll();
@@ -79,7 +89,8 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

@@ -9,11 +9,15 @@ using System.Collections;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
-    public static class ArmoryHelper {
-        public static string GetClassOrJob(string key) {
+namespace FFXIVAPP.Client.Plugins.Parse.Helpers
+{
+    public static class ArmoryHelper
+    {
+        public static string GetClassOrJob(string key)
+        {
             Hashtable offsets;
-            switch (Constants.CultureInfo.TwoLetterISOLanguageName) {
+            switch (Constants.CultureInfo.TwoLetterISOLanguageName)
+            {
                 case "ja":
                 case "de":
                 case "fr":

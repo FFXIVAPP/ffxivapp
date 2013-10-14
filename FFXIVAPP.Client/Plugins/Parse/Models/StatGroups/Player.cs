@@ -13,13 +13,17 @@ using FFXIVAPP.Client.Plugins.Parse.Monitors;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Player : StatGroup {
-        private static readonly IList<string> LD = new[] {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Player : StatGroup
+    {
+        private static readonly IList<string> LD = new[]
+        {
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
-        public Player(string name) : base(name) {
+        public Player(string name) : base(name)
+        {
             InitStats();
             LineHistory = new List<LineHistory>();
             DamageOverTimeActions = new Dictionary<string, DamageOverTime.Player>();
@@ -31,31 +35,36 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
 
         public decimal LastDamageAmount { get; set; }
 
-        private void InitStats() {
+        private void InitStats()
+        {
             Stats.AddStats(TotalStatList());
         }
 
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private static IEnumerable<Stat<decimal>> TotalStatList() {
+        private static IEnumerable<Stat<decimal>> TotalStatList()
+        {
             var stats = new Dictionary<string, Stat<decimal>>();
 
             //setup player ability stats
             var damageStats = DamageStats();
-            foreach (var damageStat in damageStats) {
+            foreach (var damageStat in damageStats)
+            {
                 stats.Add(damageStat.Key, damageStat.Value);
             }
 
             //setup player healing stats
             var healingStats = HealingStats();
-            foreach (var healingStat in healingStats) {
+            foreach (var healingStat in healingStats)
+            {
                 stats.Add(healingStat.Key, healingStat.Value);
             }
 
             //setup player damage taken stats
             var damageTakenStats = DamageTakenStats();
-            foreach (var damageTakenStat in damageTakenStats) {
+            foreach (var damageTakenStat in damageTakenStats)
+            {
                 stats.Add(damageTakenStat.Key, damageTakenStat.Value);
             }
 
@@ -90,11 +99,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
         /// <param name="sub"> </param>
         /// <param name="useSub"></param>
         /// <returns> </returns>
-        private IEnumerable<Stat<decimal>> DamageStatList(StatGroup sub, bool useSub = false) {
+        private IEnumerable<Stat<decimal>> DamageStatList(StatGroup sub, bool useSub = false)
+        {
             var stats = DamageStats();
 
             //setup per ability "percent of" stats
-            switch (useSub) {
+            switch (useSub)
+            {
                 case true:
                     stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], sub.Stats.GetStat("TotalOverallDamage")));
                     stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], sub.Stats.GetStat("RegularDamage")));
@@ -116,11 +127,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
         /// <param name="sub"></param>
         /// <param name="useSub"></param>
         /// <returns></returns>
-        private IEnumerable<Stat<decimal>> HealingStatList(StatGroup sub, bool useSub = false) {
+        private IEnumerable<Stat<decimal>> HealingStatList(StatGroup sub, bool useSub = false)
+        {
             var stats = HealingStats();
 
             //setup per healing "percent of" stats
-            switch (useSub) {
+            switch (useSub)
+            {
                 case true:
                     stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], sub.Stats.GetStat("TotalOverallHealing")));
                     stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], sub.Stats.GetStat("RegularHealing")));
@@ -142,11 +155,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
         /// <param name="sub"></param>
         /// <param name="useSub"></param>
         /// <returns></returns>
-        private IEnumerable<Stat<decimal>> DamageTakenStatList(StatGroup sub, bool useSub = false) {
+        private IEnumerable<Stat<decimal>> DamageTakenStatList(StatGroup sub, bool useSub = false)
+        {
             var stats = DamageTakenStats();
 
             //setup per damage taken "percent of" stats
-            switch (useSub) {
+            switch (useSub)
+            {
                 case true:
                     stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], sub.Stats.GetStat("TotalOverallDamageTaken")));
                     stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], sub.Stats.GetStat("RegularDamageTaken")));
@@ -165,7 +180,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
 
         #region Stat Generation Methods
 
-        private static Dictionary<string, Stat<decimal>> DamageStats() {
+        private static Dictionary<string, Stat<decimal>> DamageStats()
+        {
             var stats = new Dictionary<string, Stat<decimal>>();
 
             stats.Add("TotalOverallDamage", new TotalStat("TotalOverallDamage"));
@@ -215,7 +231,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
             return stats;
         }
 
-        private static Dictionary<string, Stat<decimal>> HealingStats() {
+        private static Dictionary<string, Stat<decimal>> HealingStats()
+        {
             var stats = new Dictionary<string, Stat<decimal>>();
 
             stats.Add("TotalOverallHealing", new TotalStat("TotalOverallHealing"));
@@ -240,7 +257,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
             return stats;
         }
 
-        private static Dictionary<string, Stat<decimal>> DamageTakenStats() {
+        private static Dictionary<string, Stat<decimal>> DamageTakenStats()
+        {
             var stats = new Dictionary<string, Stat<decimal>>();
 
             stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));

@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization {
-    public static partial class Japanese {
-        private static void SetEventLocale() {
+namespace FFXIVAPP.Client.Localization
+{
+    public static partial class Japanese
+    {
+        private static void SetEventLocale()
+        {
             Dictionary.Add("event_PLACEHOLDER", "*PH*");
             Dictionary.Add("event_AddUpdateEventButtonText", "加える / アップデート項目");
             Dictionary.Add("event_RegExHeader", "RegEx");

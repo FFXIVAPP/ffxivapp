@@ -17,11 +17,14 @@ using FFXIVAPP.IPluginInterface;
 
 #endregion
 
-namespace FFXIVAPP.Client {
-    public static partial class Constants {
+namespace FFXIVAPP.Client
+{
+    public static partial class Constants
+    {
         #region Declarations
 
-        public static readonly string[] Supported = {
+        public static readonly string[] Supported =
+        {
             "ja", "fr", "en", "de"
         };
 
@@ -33,9 +36,12 @@ namespace FFXIVAPP.Client {
         private static XDocument _xChatCodes;
         private static XDocument _xColors;
 
-        public static XDocument XAutoTranslate {
-            get {
-                if (_xAutoTranslate == null) {
+        public static XDocument XAutoTranslate
+        {
+            get
+            {
+                if (_xAutoTranslate == null)
+                {
                     const string file = "./Configurations/AutoTranslate.xml";
                     var found = File.Exists(file);
                     _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
@@ -45,9 +51,12 @@ namespace FFXIVAPP.Client {
             set { _xAutoTranslate = value; }
         }
 
-        public static XDocument XChatCodes {
-            get {
-                if (_xChatCodes == null) {
+        public static XDocument XChatCodes
+        {
+            get
+            {
+                if (_xChatCodes == null)
+                {
                     const string file = "./Configurations/ChatCodes.xml";
                     var found = File.Exists(file);
                     _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
@@ -57,9 +66,12 @@ namespace FFXIVAPP.Client {
             set { _xChatCodes = value; }
         }
 
-        public static XDocument XColors {
-            get {
-                if (_xColors == null) {
+        public static XDocument XColors
+        {
+            get
+            {
+                if (_xColors == null)
+                {
                     const string file = "./Configurations/Colors.xml";
                     var found = File.Exists(file);
                     _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
@@ -84,77 +96,96 @@ namespace FFXIVAPP.Client {
         private static bool _enableNLog;
         private static bool _enableHelpLabels;
 
-        public static Dictionary<string, string> AutoTranslate {
+        public static Dictionary<string, string> AutoTranslate
+        {
             get { return _autoTranslate ?? (_autoTranslate = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _autoTranslate = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.AutoTranslate, _autoTranslate);
             }
         }
 
-        public static Dictionary<string, string> ChatCodes {
+        public static Dictionary<string, string> ChatCodes
+        {
             get { return _chatCodes ?? (_chatCodes = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _chatCodes = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.ChatCodes, _chatCodes);
             }
         }
 
-        public static string ChatCodesXml {
+        public static string ChatCodesXml
+        {
             get { return XChatCodes.ToString(); }
         }
 
-        public static Dictionary<string, string[]> Colors {
+        public static Dictionary<string, string[]> Colors
+        {
             get { return _colors ?? (_colors = new Dictionary<string, string[]>()); }
-            set {
+            set
+            {
                 _colors = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.Colors, _colors);
             }
         }
 
-        public static CultureInfo CultureInfo {
+        public static CultureInfo CultureInfo
+        {
             get { return _cultureInfo ?? (_cultureInfo = new CultureInfo("en")); }
-            set {
+            set
+            {
                 _cultureInfo = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.CultureInfo, _cultureInfo);
             }
         }
 
-        public static string CharacterName {
+        public static string CharacterName
+        {
             get { return _characterName; }
-            set {
+            set
+            {
                 _characterName = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.CharacterName, _characterName);
             }
         }
 
-        public static string ServerName {
+        public static string ServerName
+        {
             get { return _serverName; }
-            set {
+            set
+            {
                 _serverName = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.ServerName, _serverName);
             }
         }
 
-        public static string GameLanguage {
+        public static string GameLanguage
+        {
             get { return _gameLanguage; }
-            set {
+            set
+            {
                 _gameLanguage = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.GameLanguage, _gameLanguage);
             }
         }
 
-        public static bool EnableNLog {
+        public static bool EnableNLog
+        {
             get { return _enableNLog; }
-            set {
+            set
+            {
                 _enableNLog = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableNLog, _enableNLog);
             }
         }
 
-        public static bool EnableHelpLabels {
+        public static bool EnableHelpLabels
+        {
             get { return _enableHelpLabels; }
-            set {
+            set
+            {
                 _enableHelpLabels = value;
                 ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableHelpLabels, _enableHelpLabels);
             }

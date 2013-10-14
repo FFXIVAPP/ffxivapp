@@ -11,8 +11,10 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public abstract class Stat<T> : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public abstract class Stat<T> : INotifyPropertyChanged
+    {
         private string _name;
         private T _value;
 
@@ -20,22 +22,27 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="value"> </param>
-        protected Stat(string name = "", T value = default(T)) {
+        protected Stat(string name = "", T value = default(T))
+        {
             Name = name;
             Value = value;
         }
 
-        public string Name {
+        public string Name
+        {
             get { return _name; }
-            private set {
+            private set
+            {
                 _name = value;
                 RaisePropertyChanged();
             }
         }
 
-        public T Value {
+        public T Value
+        {
             get { return _value; }
-            set {
+            set
+            {
                 var previousValue = Value;
                 _value = value;
                 OnValueChanged(this, new StatChangedEvent(this, previousValue, Value));
@@ -51,7 +58,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         /// <summary>
         /// </summary>
-        public void Reset() {
+        public void Reset()
+        {
             Value = default(T);
         }
 
@@ -59,7 +67,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

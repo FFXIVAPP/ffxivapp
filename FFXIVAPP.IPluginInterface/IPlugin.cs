@@ -12,10 +12,12 @@ using System.Windows.Controls;
 
 #endregion
 
-namespace FFXIVAPP.IPluginInterface {
+namespace FFXIVAPP.IPluginInterface
+{
     /// <summary>
     /// </summary>
-    public interface IPlugin {
+    public interface IPlugin
+    {
         MessageBoxResult PopupResult { get; set; }
         IPluginHost Host { get; set; }
         Dictionary<string, string> Locale { get; set; }

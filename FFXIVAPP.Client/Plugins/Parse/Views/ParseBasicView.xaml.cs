@@ -3,14 +3,17 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Views {
+namespace FFXIVAPP.Client.Plugins.Parse.Views
+{
     /// <summary>
     ///     Interaction logic for ParseBasicView.xaml
     /// </summary>
-    public partial class ParseBasicView {
+    public partial class ParseBasicView
+    {
         public static ParseBasicView View;
 
-        public ParseBasicView() {
+        public ParseBasicView()
+        {
             InitializeComponent();
             View = this;
         }

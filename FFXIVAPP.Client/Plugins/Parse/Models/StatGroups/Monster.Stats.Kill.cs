@@ -12,17 +12,22 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Monster {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Monster
+    {
         /// <summary>
         /// </summary>
         /// <param name="fight"> </param>
-        public void SetKill(Fight fight) {
-            if (fight.MobName != Name) {
+        public void SetKill(Fight fight)
+        {
+            if (fight.MobName != Name)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got request to add kill stats for {0}, but my name is {1}!", fight.MobName, Name));
                 return;
             }
-            if (fight.MobName == "") {
+            if (fight.MobName == "")
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got request to add kill stats for {0}, but no name!", fight.MobName));
                 return;
             }

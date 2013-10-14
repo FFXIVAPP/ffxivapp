@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization {
-    public static partial class Japanese {
-        private static void SetLogLocale() {
+namespace FFXIVAPP.Client.Localization
+{
+    public static partial class Japanese
+    {
+        private static void SetLogLocale()
+        {
             Dictionary.Add("log_PLACEHOLDER", "*PH*");
             Dictionary.Add("log_AddTabButtonText", "加える");
             Dictionary.Add("log_AllTabHeader", "全て");

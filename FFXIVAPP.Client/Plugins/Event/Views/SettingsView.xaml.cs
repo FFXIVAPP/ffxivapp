@@ -3,14 +3,17 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Event.Views {
+namespace FFXIVAPP.Client.Plugins.Event.Views
+{
     /// <summary>
     ///     Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class SettingsView {
+    public partial class SettingsView
+    {
         public static SettingsView View;
 
-        public SettingsView() {
+        public SettingsView()
+        {
             InitializeComponent();
             View = this;
         }

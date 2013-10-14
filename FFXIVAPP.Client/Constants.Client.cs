@@ -3,8 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client {
-    public static partial class Constants {
-        public static class Client {}
+namespace FFXIVAPP.Client
+{
+    public static partial class Constants
+    {
+        public static class Client
+        {
+        }
     }
 }

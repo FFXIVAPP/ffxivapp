@@ -6,29 +6,39 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FFXIVAPP.Client.Helpers {
-    public static class StatusEffectHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    public static class StatusEffectHelper
+    {
         private static Dictionary<int, StatusItem> _statusEffects;
 
-        private static Dictionary<int, StatusItem> StatusEffects {
+        private static Dictionary<int, StatusItem> StatusEffects
+        {
             get { return _statusEffects ?? (_statusEffects = new Dictionary<int, StatusItem>()); }
-            set {
-                if (_statusEffects == null) {
+            set
+            {
+                if (_statusEffects == null)
+                {
                     _statusEffects = new Dictionary<int, StatusItem>();
                 }
                 _statusEffects = value;
             }
         }
 
-        public static StatusItem StatusInfo(int id) {
-            if (!StatusEffects.Any()) {
+        public static StatusItem StatusInfo(int id)
+        {
+            if (!StatusEffects.Any())
+            {
                 Generate();
             }
-            if (StatusEffects.ContainsKey(id)) {
+            if (StatusEffects.ContainsKey(id))
+            {
                 return StatusEffects[id];
             }
-            return new StatusItem {
-                Name = new StatusLocalization {
+            return new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "???",
                     French = "???",
                     German = "???",
@@ -38,9 +48,12 @@ namespace FFXIVAPP.Client.Helpers {
             };
         }
 
-        private static void Generate() {
-            StatusEffects.Add(1, new StatusItem {
-                Name = new StatusLocalization {
+        private static void Generate()
+        {
+            StatusEffects.Add(1, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Petrification",
                     French = "Pétrification",
                     German = "Stein",
@@ -48,8 +61,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(2, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(2, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stun",
                     French = "Étourdissement",
                     German = "Betäubung",
@@ -57,8 +72,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(3, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(3, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sleep",
                     French = "Sommeil",
                     German = "Schlaf",
@@ -66,8 +83,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(4, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(4, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Daze",
                     French = "Évanouissement",
                     German = "Benommenheit",
@@ -75,8 +94,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(5, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(5, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Amnesia",
                     French = "Amnésie",
                     German = "Amnesie",
@@ -84,8 +105,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(6, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(6, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Pacification",
                     French = "Pacification",
                     German = "Pacem",
@@ -93,8 +116,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(7, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(7, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Silence",
                     French = "Silence",
                     German = "Stumm",
@@ -102,8 +127,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(8, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(8, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Haste",
                     French = "Hâte",
                     German = "Hast",
@@ -111,8 +138,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(9, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(9, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Slow",
                     French = "Lenteur",
                     German = "Gemach",
@@ -120,8 +149,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(10, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(10, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Slow",
                     French = "Lenteur",
                     German = "Gemach",
@@ -129,8 +160,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(13, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(13, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bind",
                     French = "Entrave",
                     German = "Fessel",
@@ -138,8 +171,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(14, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(14, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Heavy",
                     French = "Pesanteur",
                     German = "Gewicht",
@@ -147,8 +182,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(15, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(15, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Blind",
                     French = "Cécité",
                     German = "Blind",
@@ -156,8 +193,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(17, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(17, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Paralysis",
                     French = "Paralysie",
                     German = "Paralyse",
@@ -165,8 +204,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(18, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(18, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Poison",
                     French = "Poison",
                     German = "Gift",
@@ -174,8 +215,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(19, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(19, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Pollen",
                     French = "Poison violent",
                     German = "Giftpollen",
@@ -183,8 +226,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(20, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(20, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "TP Bleed",
                     French = "Saignée de PT",
                     German = "TP-Verlust",
@@ -192,8 +237,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(21, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(21, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "HP Boost",
                     French = "Bonus de PV",
                     German = "LP-Bonus",
@@ -201,8 +248,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(22, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(22, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "HP Penalty",
                     French = "Malus de PV",
                     German = "LP-Malus",
@@ -210,8 +259,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(23, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(23, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "MP Boost",
                     French = "Bonus de PM",
                     German = "MP-Bonus",
@@ -219,8 +270,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(24, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(24, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "MP Penalty",
                     French = "Malus de PM",
                     German = "MP-Malus",
@@ -228,8 +281,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(25, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(25, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Attack Up",
                     French = "Bonus d'attaque",
                     German = "Attacke-Bonus",
@@ -237,8 +292,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(26, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(26, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Attack Down",
                     French = "Malus d'attaque",
                     German = "Attacke-Malus",
@@ -246,8 +303,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(27, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(27, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Accuracy Up",
                     French = "Bonus de précision",
                     German = "Präzisions-Bonus",
@@ -255,8 +314,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(28, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(28, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Accuracy Down",
                     French = "Malus de précision",
                     German = "Präzisions-Malus",
@@ -264,8 +325,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(29, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(29, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Defense Up",
                     French = "Bonus de défense",
                     German = "Verteidigungs-Bonus",
@@ -273,8 +336,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(30, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(30, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Defense Down",
                     French = "Malus de défense",
                     German = "Verteidigungs-Malus",
@@ -282,8 +347,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(31, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(31, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Evasion Up",
                     French = "Bonus d'esquive",
                     German = "Ausweich-Bonus",
@@ -291,8 +358,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(32, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(32, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Evasion Down",
                     French = "Malus d'esquive",
                     German = "Ausweich-Malus",
@@ -300,8 +369,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(33, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(33, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Potency Up",
                     French = "Bonus de puissance magique",
                     German = "Offensivmagie-Bonus",
@@ -309,8 +380,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(34, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(34, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Potency Down",
                     French = "Malus de puissance magique",
                     German = "Offensivmagie-Malus",
@@ -318,8 +391,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(35, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(35, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Healing Potency Up",
                     French = "Bonus de magie curative",
                     German = "Heilmagie-Bonus",
@@ -327,8 +402,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(36, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(36, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Healing Potency Down",
                     French = "Malus de magie curative",
                     German = "Heilmagie-Malus",
@@ -336,8 +413,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(37, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(37, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Defense Up",
                     French = "Bonus de défense magique",
                     German = "Magieabwehr-Bonus",
@@ -345,8 +424,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(38, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(38, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Defense Down",
                     French = "Malus de défense magique",
                     German = "Magieabwehr-Malus",
@@ -354,8 +435,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(43, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(43, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Weakness",
                     French = "Affaiblissement",
                     German = "Schwäche",
@@ -363,8 +446,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(44, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(44, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Brink of Death",
                     French = "Mourant",
                     German = "Sterbenselend",
@@ -372,8 +457,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(45, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(45, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Crafter's Grace",
                     French = "Grâce de l'artisan",
                     German = "Sternstunde der Handwerker",
@@ -381,8 +468,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(46, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(46, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gatherer's Grace",
                     French = "Grâce du récolteur",
                     German = "Sternstunde der Sammler",
@@ -390,8 +479,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(47, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(47, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stealth",
                     French = "Furtivité",
                     German = "Coeurl-Pfoten",
@@ -399,8 +490,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(48, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(48, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Well Fed",
                     French = "Repu",
                     German = "Gut gesättigt",
@@ -408,8 +501,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(49, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(49, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Medicated",
                     French = "Médicamenté",
                     German = "Stärkung",
@@ -417,8 +512,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(50, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(50, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sprint",
                     French = "Sprint",
                     German = "Sprint",
@@ -426,8 +523,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(51, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(51, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Strength Down",
                     French = "Malus de force",
                     German = "Stärke-Malus",
@@ -435,8 +534,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(52, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(52, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vitality Down",
                     French = "Malus de vitalité",
                     German = "Konstitutions-Malus",
@@ -444,8 +545,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(53, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(53, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Damage Up",
                     French = "Bonus de dégâts physiques",
                     German = "Schadenswert +",
@@ -453,8 +556,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(54, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(54, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Damage Down",
                     French = "Malus de dégâts physiques",
                     German = "Schadenswert -",
@@ -462,8 +567,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(55, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(55, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Vulnerability Down",
                     French = "Vulnérabilité physique diminuée",
                     German = "Verringerte physische Verwundbarkeit",
@@ -471,8 +578,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(56, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(56, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Vulnerability Up",
                     French = "Vulnérabilité physique augmentée",
                     German = "Erhöhte physische Verwundbarkeit",
@@ -480,8 +589,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(57, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(57, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Damage Up",
                     French = "Bonus de dégâts magiques",
                     German = "Magieschaden +",
@@ -489,8 +600,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(58, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(58, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Damage Down",
                     French = "Malus de dégâts magiques",
                     German = "Magieschaden -",
@@ -498,8 +611,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(59, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(59, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Vulnerability Down",
                     French = "Vulnérabilité magique diminuée",
                     German = "Verringerte Magie-Verwundbarkeit",
@@ -507,8 +622,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(60, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(60, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Vulnerability Up",
                     French = "Vulnérabilité magique augmentée",
                     German = "Erhöhte Magie-Verwundbarkeit",
@@ -516,8 +633,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(61, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(61, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Determination Up",
                     French = "Bonus de dégâts",
                     German = "Schaden +",
@@ -525,8 +644,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(62, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(62, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Determination Down",
                     French = "Malus de dégâts",
                     German = "Schaden -",
@@ -534,8 +655,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(63, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(63, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vulnerability Down",
                     French = "Vulnérabilité diminuée",
                     German = "Verringerte Verwundbarkeit",
@@ -543,8 +666,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(64, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(64, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vulnerability Up",
                     French = "Vulnérabilité augmentée",
                     German = "Erhöhte Verwundbarkeit",
@@ -552,8 +677,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(65, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(65, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Critical Skill",
                     French = "Maîtrise critique",
                     German = "Kritisches Potenzial",
@@ -561,8 +688,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(66, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(66, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Terror",
                     French = "Terreur",
                     German = "Terror",
@@ -570,8 +699,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(67, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(67, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Leaden",
                     French = "Plombé",
                     German = "Bleischwere",
@@ -579,8 +710,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(68, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(68, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Drainstrikes",
                     French = "Coups drainants",
                     German = "Auszehren",
@@ -588,8 +721,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(69, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(69, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Aspirstrikes",
                     French = "Coups aspirants",
                     German = "Auslaugen",
@@ -597,8 +732,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(70, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(70, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stunstrikes",
                     French = "Coups étourdissants",
                     German = "Ausschalten",
@@ -606,8 +743,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(71, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(71, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rampart",
                     French = "Rempart",
                     German = "Schutzwall",
@@ -615,8 +754,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(72, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(72, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Convalescence",
                     French = "Convalescence",
                     German = "Konvaleszenz",
@@ -624,8 +765,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(73, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(73, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Awareness",
                     French = "Diligence",
                     German = "Achtsamkeit",
@@ -633,8 +776,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(74, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(74, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sentinel",
                     French = "Sentinelle",
                     German = "Sentinel",
@@ -642,8 +787,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(75, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(75, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Tempered Will",
                     French = "Volonté d'acier",
                     German = "Eherner Wille",
@@ -651,8 +798,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(76, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(76, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fight or Flight",
                     French = "Combat acharné",
                     German = "Verwegenheit",
@@ -660,8 +809,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(77, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(77, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bulwark",
                     French = "Forteresse",
                     German = "Bollwerk",
@@ -669,8 +820,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(78, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(78, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sword Oath",
                     French = "Serment de l'épée",
                     German = "Schwert-Eid",
@@ -678,8 +831,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(79, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(79, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Shield Oath",
                     French = "Serment du bouclier",
                     German = "Schild-Eid",
@@ -687,8 +842,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(80, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(80, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Cover",
                     French = "Couverture",
                     German = "Deckung",
@@ -696,8 +853,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(81, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(81, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Covered",
                     French = "Couvert",
                     German = "Gedeckt",
@@ -705,8 +864,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(82, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(82, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Hallowed Ground",
                     French = "Invincible",
                     German = "Heiliger Boden",
@@ -714,8 +875,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(83, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(83, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Foresight",
                     French = "Aguet",
                     German = "Vorahnung",
@@ -723,8 +886,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(84, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(84, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bloodbath",
                     French = "Bain de sang",
                     German = "Blutbad",
@@ -732,8 +897,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(85, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(85, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Maim",
                     French = "Mutilation",
                     German = "Verstümmelung",
@@ -741,8 +908,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(86, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(86, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Berserk",
                     French = "Berserk",
                     German = "Tollwut",
@@ -750,8 +919,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(87, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(87, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thrill of Battle",
                     French = "Frisson de la bataille",
                     German = "Kampfrausch",
@@ -759,8 +930,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(88, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(88, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Holmgang",
                     French = "Holmgang",
                     German = "Holmgang",
@@ -768,8 +941,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(89, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(89, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vengeance",
                     French = "Représailles",
                     German = "Rache",
@@ -777,8 +952,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(90, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(90, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Storm's Eye",
                     French = "Œil de la tempête",
                     German = "Sturmbrecher",
@@ -786,8 +963,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(91, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(91, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Defiance",
                     French = "Défi",
                     German = "Verteidiger",
@@ -795,8 +974,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(92, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(92, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Unchained",
                     French = "Affranchissement",
                     German = "Entfesselt",
@@ -804,8 +985,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(93, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(93, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Wrath",
                     French = "Rage",
                     German = "Zorn",
@@ -813,8 +996,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(94, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(94, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Wrath II",
                     French = "Rage II",
                     German = "Zorn II",
@@ -822,8 +1007,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(95, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(95, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Wrath III",
                     French = "Rage III",
                     German = "Zorn III",
@@ -831,8 +1018,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(96, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(96, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Wrath IV",
                     French = "Rage IV",
                     German = "Zorn IV",
@@ -840,8 +1029,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(97, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(97, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Infuriated",
                     French = "Rage V",
                     German = "Zorn V",
@@ -849,8 +1040,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(98, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(98, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Dragon Kick",
                     French = "Tacle du dragon",
                     German = "Drachentritt",
@@ -858,8 +1051,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(99, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(99, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Featherfoot",
                     French = "Pieds légers",
                     German = "Leichtfuß",
@@ -867,8 +1062,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(100, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(100, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Internal Release",
                     French = "Relâchement intérieur",
                     German = "Innere Gelöstheit",
@@ -876,8 +1073,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(101, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(101, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Twin Snakes",
                     French = "Serpents jumeaux",
                     German = "Doppelviper",
@@ -885,8 +1084,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(102, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(102, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Mantra",
                     French = "Mantra",
                     German = "Mantra",
@@ -894,8 +1095,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(103, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(103, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fists of Fire",
                     French = "Poings de feu",
                     German = "Sengende Aura",
@@ -903,8 +1106,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(104, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(104, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fists of Earth",
                     French = "Poings de terre",
                     German = "Steinerne Aura",
@@ -912,8 +1117,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(105, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(105, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fists of Wind",
                     French = "Poings de vent",
                     German = "Beflügelnde Aura",
@@ -921,8 +1128,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(106, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(106, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Touch of Death",
                     French = "Toucher mortel",
                     German = "Hauch des Todes",
@@ -930,8 +1139,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(107, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(107, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Opo-opo Form",
                     French = "Posture de l'opo-opo",
                     German = "Opo-Opo-Form",
@@ -939,8 +1150,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(108, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(108, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Raptor Form",
                     French = "Posture du raptor",
                     German = "Raptor-Form",
@@ -948,8 +1161,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(109, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(109, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Coeurl Form",
                     French = "Posture du coeurl",
                     German = "Coeurl-Form",
@@ -957,8 +1172,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(110, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(110, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Perfect Balance",
                     French = "Équilibre parfait",
                     German = "Improvisation",
@@ -966,8 +1183,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(111, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(111, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Greased Lightning",
                     French = "Vitesse de l'éclair",
                     German = "Geölter Blitz",
@@ -975,8 +1194,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(112, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(112, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Greased Lightning II",
                     French = "Vitesse de l'éclair II",
                     German = "Geölter Blitz II",
@@ -984,8 +1205,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(113, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(113, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Greased Lightning III",
                     French = "Vitesse de l'éclair III",
                     German = "Geölter Blitz III",
@@ -993,8 +1216,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(114, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(114, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Keen Flurry",
                     French = "Volée défensive",
                     German = "Auge des Sturms",
@@ -1002,8 +1227,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(115, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(115, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Heavy Thrust",
                     French = "Percée puissante",
                     German = "Gewaltiger Stoß",
@@ -1011,8 +1238,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(116, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(116, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Life Surge",
                     French = "Souffle de vie",
                     German = "Vitalwallung",
@@ -1020,8 +1249,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(117, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(117, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Blood for Blood",
                     French = "Du sang pour du sang",
                     German = "Zahn um Zahn",
@@ -1029,8 +1260,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(118, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(118, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Chaos Thrust",
                     French = "Percée chaotique",
                     German = "Chaotischer Tjost",
@@ -1038,8 +1271,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(119, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(119, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Phlebotomize",
                     French = "Double percée",
                     German = "Phlebotomie",
@@ -1047,8 +1282,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(120, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(120, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Power Surge",
                     French = "Souffle de puissance",
                     German = "Drachenklaue",
@@ -1056,8 +1293,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(121, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(121, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Disembowel",
                     French = "Éventration",
                     German = "Drachengriff",
@@ -1065,8 +1304,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(122, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(122, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Straighter Shot",
                     French = "Tir à l'arc surpuissant",
                     German = "Direkter Schuss +",
@@ -1074,8 +1315,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(123, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(123, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Hawk's Eye",
                     French = "Œil de faucon",
                     German = "Falkenauge",
@@ -1083,8 +1326,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(124, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(124, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Venomous Bite",
                     French = "Morsure venimeuse",
                     German = "Infizierte Wunde",
@@ -1092,8 +1337,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(125, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(125, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Raging Strikes",
                     French = "Tir furieux",
                     German = "Wütende Attacke",
@@ -1101,8 +1348,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(126, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(126, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Freeshot",
                     French = "Tir en cloche",
                     German = "Weitschuss +",
@@ -1110,8 +1359,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(127, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(127, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Quelling Strikes",
                     French = "Frappe silencieuse",
                     German = "Heimliche Attacke",
@@ -1119,8 +1370,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(128, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(128, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Barrage",
                     French = "Rafale de coups",
                     German = "Sperrfeuer",
@@ -1128,8 +1381,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(129, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(129, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Windbite",
                     French = "Morsure du vent",
                     German = "Beißender Wind",
@@ -1137,8 +1392,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(130, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(130, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Straight Shot",
                     French = "Tir droit",
                     German = "Direkter Schuss",
@@ -1146,8 +1403,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(131, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(131, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Downpour of Death",
                     French = "Déluge mortel",
                     German = "Tödlicher Regen +",
@@ -1155,8 +1414,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(132, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(132, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Quicker Nock",
                     French = "Salve fulgurante améliorée",
                     German = "Pfeilsalve +",
@@ -1164,8 +1425,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(133, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(133, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Swiftsong",
                     French = "Chant rapide",
                     German = "Beschwingt",
@@ -1173,8 +1436,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(134, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(134, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Swiftsong",
                     French = "Chant rapide",
                     German = "Beschwingt",
@@ -1182,8 +1447,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(135, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(135, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Mage's Ballad",
                     French = "Ballade du mage",
                     German = "Ballade des Weisen",
@@ -1191,8 +1458,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(136, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(136, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Mage's Ballad",
                     French = "Ballade du mage",
                     German = "Ballade des Weisen",
@@ -1200,8 +1469,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(137, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(137, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Army's Paeon",
                     French = "Péan martial",
                     German = "Hymne der Krieger",
@@ -1209,8 +1480,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(138, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(138, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Army's Paeon",
                     French = "Péan martial",
                     German = "Hymne der Krieger",
@@ -1218,8 +1491,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(139, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(139, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Foe Requiem",
                     French = "Requiem ennemi",
                     German = "Requiem der Feinde",
@@ -1227,8 +1502,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(140, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(140, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Foe Requiem",
                     French = "Requiem ennemi",
                     German = "Requiem der Feinde",
@@ -1236,8 +1513,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(141, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(141, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Battle Voice",
                     French = "Voix de combat",
                     German = "Ode an die Seele",
@@ -1245,8 +1524,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(142, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(142, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Chameleon",
                     French = "Caméléon",
                     German = "Chamäleon",
@@ -1254,8 +1535,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(143, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(143, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Aero",
                     French = "Vent",
                     German = "Wind",
@@ -1263,8 +1546,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(144, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(144, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Aero II",
                     French = "Extra Vent",
                     German = "Windra",
@@ -1272,8 +1557,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(145, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(145, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Cleric Stance",
                     French = "Prestance du prêtre",
                     German = "Bußprediger",
@@ -1281,8 +1568,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(146, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(146, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Protect",
                     French = "Bouclier",
                     German = "Protes",
@@ -1290,8 +1579,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(147, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(147, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Protect",
                     French = "Bouclier",
                     German = "Protes",
@@ -1299,8 +1590,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(148, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(148, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Raise",
                     French = "Vie",
                     German = "Wiederbeleben",
@@ -1308,8 +1601,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(149, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(149, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rebirth",
                     French = "Étourdissement",
                     German = "Schutzengel",
@@ -1317,8 +1612,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(150, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(150, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Medica II",
                     French = "Extra Médica",
                     German = "Resedra",
@@ -1326,8 +1623,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(151, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(151, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stoneskin",
                     French = "Cuirasse",
                     German = "Steinhaut",
@@ -1335,8 +1634,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(152, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(152, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "ストンスキン（物理攻撃）",
                     French = "ストンスキン（物理攻撃）",
                     German = "Steinhaut (physisch)",
@@ -1344,8 +1645,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(153, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(153, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "ストンスキン（魔法攻撃）",
                     French = "ストンスキン（魔法攻撃）",
                     German = "Steinhaut (magisch)",
@@ -1353,8 +1656,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(154, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(154, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Shroud of Saints",
                     French = "Voile des saints",
                     German = "Fispelstimme",
@@ -1362,8 +1667,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(155, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(155, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Freecure",
                     French = "Extra Soin amélioré",
                     German = "Vitra +",
@@ -1371,8 +1678,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(156, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(156, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Overcure",
                     French = "Méga Soin amélioré",
                     German = "Vitaga +",
@@ -1380,8 +1689,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(157, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(157, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Presence of Mind",
                     French = "Présence d'esprit",
                     German = "Geistesgegenwart",
@@ -1389,8 +1700,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(158, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(158, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Regen",
                     French = "Récup",
                     German = "Regena",
@@ -1398,8 +1711,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(159, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(159, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Divine Seal",
                     French = "Sceau divin",
                     German = "Barmherzigkeit",
@@ -1407,8 +1722,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(160, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(160, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Surecast",
                     French = "Stoïcisme",
                     German = "Unbeirrbarkeit",
@@ -1416,8 +1733,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(161, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(161, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thunder",
                     French = "Foudre",
                     German = "Blitz",
@@ -1425,8 +1744,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(162, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(162, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thunder II",
                     French = "Extra Foudre",
                     German = "Blitzra",
@@ -1434,8 +1755,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(163, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(163, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thunder III",
                     French = "Méga Foudre",
                     German = "Blitzga",
@@ -1443,8 +1766,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(164, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(164, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thundercloud",
                     French = "Nuage d'orage",
                     German = "Blitz +",
@@ -1452,8 +1777,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(165, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(165, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Firestarter",
                     French = "Pyromane",
                     German = "Feuga +",
@@ -1461,8 +1788,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(166, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(166, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Succor",
                     French = "Dogme de survie",
                     German = "Kurieren +",
@@ -1470,8 +1799,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(167, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(167, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Swiftcast",
                     French = "Magie prompte",
                     German = "Spontaneität",
@@ -1479,8 +1810,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(168, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(168, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Manaward",
                     French = "Barrière de mana",
                     German = "Mana-Schild",
@@ -1488,8 +1821,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(169, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(169, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Manawall",
                     French = "Mur de mana",
                     German = "Mana-Wand",
@@ -1497,8 +1832,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(170, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(170, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Apocatastasis",
                     French = "Apocatastase",
                     German = "Apokatastasis",
@@ -1506,8 +1843,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(171, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(171, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Ekpyrosis",
                     French = "Ekpyrosis",
                     German = "Ekpyrosis",
@@ -1515,8 +1854,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(172, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(172, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Infirmity",
                     French = "Infirmité",
                     German = "Gebrechlichkeit",
@@ -1524,8 +1865,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(173, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(173, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Astral Fire",
                     French = "Feu astral",
                     German = "Lichtfeuer",
@@ -1533,8 +1876,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(174, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(174, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Astral Fire II",
                     French = "Feu astral II",
                     German = "Lichtfeuer II",
@@ -1542,8 +1887,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(175, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(175, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Astral Fire III",
                     French = "Feu astral III",
                     German = "Lichtfeuer III",
@@ -1551,8 +1898,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(176, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(176, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Umbral Ice",
                     French = "Glace ombrale",
                     German = "Schatteneis",
@@ -1560,8 +1909,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(177, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(177, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Umbral Ice II",
                     French = "Glace ombrale II",
                     German = "Schatteneis II",
@@ -1569,8 +1920,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(178, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(178, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Umbral Ice III",
                     French = "Glace ombrale III",
                     German = "Schatteneis III",
@@ -1578,8 +1931,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(179, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(179, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bio",
                     French = "Bactérie",
                     German = "Bio",
@@ -1587,8 +1942,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(180, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(180, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Miasma",
                     French = "Miasmes",
                     German = "Miasma",
@@ -1596,8 +1953,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(181, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(181, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Disease",
                     French = "Maladie",
                     German = "Krankheit",
@@ -1605,8 +1964,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(182, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(182, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Virus",
                     French = "Virus",
                     German = "Virus",
@@ -1614,8 +1975,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(183, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(183, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fever",
                     French = "Virus de l'esprit",
                     German = "Geistesvirus",
@@ -1623,8 +1986,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(184, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(184, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sustain",
                     French = "Transfusion",
                     German = "Erhaltung",
@@ -1632,8 +1997,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(185, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(185, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Eye for an Eye",
                     French = "Garde-corps",
                     German = "Auge um Auge",
@@ -1641,8 +2008,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(186, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(186, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Eye for an Eye",
                     French = "Garde-corps",
                     German = "Auge um Auge",
@@ -1650,8 +2019,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(187, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(187, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rouse",
                     French = "Stimulation",
                     German = "Aufmuntern",
@@ -1659,8 +2030,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(188, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(188, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Miasma II",
                     French = "Extra Miasmes",
                     German = "Miasra",
@@ -1668,8 +2041,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(189, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(189, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bio II",
                     French = "Extra Bactérie",
                     German = "Biora",
@@ -1677,8 +2052,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(190, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(190, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Shadow Flare",
                     French = "Éruption ténébreuse",
                     German = "Schattenflamme",
@@ -1686,8 +2063,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(191, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(191, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Tri-disaster",
                     French = "Tri-désastre",
                     German = "Trisaster",
@@ -1695,8 +2074,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(192, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(192, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Spur",
                     French = "Encouragement",
                     German = "Ansporn",
@@ -1704,8 +2085,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(193, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(193, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Slow",
                     French = "Lenteur",
                     German = "Gemach",
@@ -1713,8 +2096,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(194, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(194, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Shield Wall",
                     French = "Mur protecteur",
                     German = "Schutzschild",
@@ -1722,8 +2107,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(195, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(195, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Mighty Guard",
                     French = "Garde puissante",
                     German = "Totalabwehr",
@@ -1731,8 +2118,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(196, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(196, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Last Bastion",
                     French = "Dernier bastion",
                     German = "Letzte Bastion",
@@ -1740,8 +2129,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(197, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(197, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Blaze Spikes",
                     French = "Pointes de feu",
                     German = "Feuerstachel",
@@ -1749,8 +2140,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(198, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(198, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Ice Spikes",
                     French = "Pointes de glace",
                     German = "Eisstachel",
@@ -1758,8 +2151,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(199, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(199, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Shock Spikes",
                     French = "Pointes de foudre",
                     German = "Schockstachel",
@@ -1767,8 +2162,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(200, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(200, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Vulnerability Up",
                     French = "Vulnérabilité physique augmentée",
                     German = "Erhöhte physische Verwundbarkeit",
@@ -1776,8 +2173,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(201, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(201, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stun",
                     French = "Étourdissement",
                     German = "Betäubung",
@@ -1785,8 +2184,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(202, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(202, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vulnerability Up",
                     French = "Vulnérabilité augmentée",
                     German = "Erhöhte Verwundbarkeit",
@@ -1794,8 +2195,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(203, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(203, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Boost",
                     French = "Accumulation",
                     German = "Akkumulation",
@@ -1803,8 +2206,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(204, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(204, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enfire",
                     French = "EndoFeu",
                     German = "Runenwaffe: Feuer",
@@ -1812,8 +2217,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(205, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(205, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enblizzard",
                     French = "EndoGlace",
                     German = "Runenwaffe: Eis",
@@ -1821,8 +2228,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(206, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(206, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enaero",
                     French = "EndoVent",
                     German = "Runenwaffe: Wind",
@@ -1830,8 +2239,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(207, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(207, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enstone",
                     French = "EndoPierre",
                     German = "Runenwaffe: Erde",
@@ -1839,8 +2250,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(208, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(208, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enthunder",
                     French = "EndoFoudre",
                     German = "Runenwaffe: Blitz",
@@ -1848,8 +2261,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(209, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(209, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Enwater",
                     French = "EndoEau",
                     German = "Runenwaffe: Wasser",
@@ -1857,8 +2272,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(210, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(210, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Doom",
                     French = "Glas",
                     German = "Todesurteil",
@@ -1866,8 +2283,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(211, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(211, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sharpened Knife",
                     French = "Couteau aiguisé",
                     German = "Gewetztes Messer",
@@ -1875,8 +2294,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(212, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(212, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "True Sight",
                     French = "Vision véritable",
                     German = "Wahre Gestalt",
@@ -1884,8 +2305,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(213, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(213, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Pacification",
                     French = "Pacification",
                     German = "Besänftigung",
@@ -1893,8 +2316,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(214, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(214, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Agitation",
                     French = "Énervement",
                     German = "Aufstachelung",
@@ -1902,8 +2327,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(215, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(215, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Determination Down",
                     French = "Malus de dégâts",
                     German = "Schaden -",
@@ -1911,8 +2338,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(216, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(216, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Paralysis",
                     French = "Paralysie",
                     German = "Paralyse",
@@ -1920,8 +2349,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(217, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(217, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Triangulate",
                     French = "Forestier",
                     German = "Geodäsie",
@@ -1929,8 +2360,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(218, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(218, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gathering Rate Up",
                     French = "Récolte améliorée",
                     German = "Sammelrate erhöht",
@@ -1938,8 +2371,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(219, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(219, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gathering Yield Up",
                     French = "Récolte abondante",
                     German = "Sammelgewinn erhöht",
@@ -1947,8 +2382,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(220, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(220, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gathering Fortune Up",
                     French = "Récolte de qualité",
                     German = "Sammelglück erhöht",
@@ -1956,8 +2393,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(221, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(221, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Truth of Forests",
                     French = "Science des végétaux",
                     German = "Flurenthüllung",
@@ -1965,8 +2404,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(222, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(222, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Truth of Mountains",
                     French = "Science des minéraux",
                     German = "Tellurische Enthüllung",
@@ -1974,8 +2415,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(223, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(223, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Byregot's Ward",
                     French = "Grâce de Byregot",
                     German = "Byregots Segen",
@@ -1983,8 +2426,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(224, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(224, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Nophica's Ward",
                     French = "Grâce de Nophica",
                     German = "Nophicas Segen",
@@ -1992,8 +2437,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(225, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(225, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Prospect",
                     French = "Prospecteur",
                     German = "Prospektion",
@@ -2001,8 +2448,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(226, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(226, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Haste",
                     French = "Hâte",
                     German = "Hast",
@@ -2010,8 +2459,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(228, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(228, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Menphina's Ward",
                     French = "Grâce de Menphina",
                     German = "Menphinas Segen",
@@ -2019,8 +2470,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(229, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(229, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Nald'thal's Ward",
                     French = "Grâce de Nald'thal",
                     German = "Nald'thals Segen",
@@ -2028,8 +2481,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(230, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(230, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Llymlaen's Ward",
                     French = "Grâce de Llymlaen",
                     German = "Llymlaens Segen",
@@ -2037,8 +2492,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(231, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(231, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Thaliak's Ward",
                     French = "Grâce de Thaliak",
                     German = "Thaliaks Segen",
@@ -2046,8 +2503,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(232, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(232, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Preparation",
                     French = "Préparation",
                     German = "Vorausplanung",
@@ -2055,8 +2514,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(233, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(233, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Arbor Call",
                     French = "Dendrologie",
                     German = "Ruf des Waldes",
@@ -2064,8 +2525,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(234, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(234, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Lay of the Land",
                     French = "Géologie",
                     German = "Bodenbefund",
@@ -2073,8 +2536,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(236, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(236, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Choco Beak",
                     French = "Choco-bec",
                     German = "Chocobo-Schnabel",
@@ -2082,8 +2547,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(237, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(237, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Choco Regen",
                     French = "Choco-récup",
                     German = "Chocobo-Regena",
@@ -2091,8 +2558,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(238, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(238, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Choco Surge",
                     French = "Choco-ardeur",
                     German = "Chocobo-Quelle",
@@ -2100,8 +2569,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(239, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(239, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "The Echo",
                     French = "L'Écho",
                     German = "Kraft des Transzendierens",
@@ -2109,8 +2580,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(241, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(241, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Blessing of Light",
                     French = "Bénédiction de la Lumière",
                     German = "Gnade des Lichts",
@@ -2118,8 +2591,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(242, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(242, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Arbor Call II",
                     French = "Dendrologie II",
                     German = "Ruf des Waldes II",
@@ -2127,8 +2602,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(243, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(243, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Lay of the Land II",
                     French = "Géologie II",
                     German = "Bodenbefund II",
@@ -2136,8 +2613,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(244, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(244, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fracture",
                     French = "Fracture",
                     German = "Knochenbrecher",
@@ -2145,8 +2624,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(245, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(245, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sanction",
                     French = "Sanction",
                     German = "Ermächtigung",
@@ -2154,8 +2635,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(246, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(246, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Demolish",
                     French = "Démolition",
                     German = "Demolieren",
@@ -2163,8 +2646,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(247, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(247, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rain of Death",
                     French = "Pluie mortelle",
                     German = "Tödlicher Regen",
@@ -2172,8 +2657,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(248, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(248, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Circle of Scorn",
                     French = "Cercle du destin",
                     German = "Kreis der Verachtung",
@@ -2181,8 +2668,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(249, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(249, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Flaming Arrow",
                     French = "Flèche enflammée",
                     German = "Flammenpfeil",
@@ -2190,8 +2679,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(250, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(250, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Burns",
                     French = "Brûlure",
                     German = "Brandwunde",
@@ -2199,8 +2690,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(251, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(251, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Inner Quiet",
                     French = "Calme intérieur",
                     German = "Innere Ruhe",
@@ -2208,8 +2701,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(252, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(252, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Waste Not",
                     French = "Parcimonie",
                     German = "Nachhaltigkeit",
@@ -2217,8 +2712,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(253, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(253, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Steady Hand",
                     French = "Main sûre",
                     German = "Ruhige Hand",
@@ -2226,8 +2723,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(254, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(254, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Great Strides",
                     French = "Grands progrès",
                     German = "Große Schritte",
@@ -2235,8 +2734,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(255, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(255, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Ingenuity",
                     French = "Ingéniosité",
                     German = "Einfallsreichtum",
@@ -2244,8 +2745,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(256, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(256, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Ingenuity II",
                     French = "Ingéniosité II",
                     German = "Einfallsreichtum II",
@@ -2253,8 +2756,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(257, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(257, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Waste Not II",
                     French = "Parcimonie II",
                     German = "Nachhaltigkeit II",
@@ -2262,8 +2767,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(258, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(258, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Manipulation",
                     French = "Manipulation",
                     German = "Manipulation",
@@ -2271,8 +2778,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(259, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(259, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Innovation",
                     French = "Innovation",
                     German = "Innovation",
@@ -2280,8 +2789,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(260, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(260, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Reclaim",
                     French = "Récupération",
                     German = "Reklamation",
@@ -2289,8 +2800,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(261, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(261, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Comfort Zone",
                     French = "Zone de confort",
                     German = "Komfortzone",
@@ -2298,8 +2811,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(262, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(262, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Steady Hand II",
                     French = "Main sûre II",
                     German = "Ruhige Hand II",
@@ -2307,8 +2822,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(263, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(263, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vulnerability Down",
                     French = "Vulnérabilité diminuée",
                     German = "Verringerte Verwundbarkeit",
@@ -2316,8 +2833,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(264, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(264, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Flesh Wound",
                     French = "Blessure physique",
                     German = "Fleischwunde",
@@ -2325,8 +2844,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(265, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(265, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Stab Wound",
                     French = "Perforation",
                     German = "Stichwunde",
@@ -2334,8 +2855,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(266, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(266, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Concussion",
                     French = "Concussion",
                     German = "Prellung",
@@ -2343,8 +2866,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(267, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(267, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Burns",
                     French = "Brûlure",
                     German = "Brandwunde",
@@ -2352,8 +2877,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(268, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(268, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Frostbite",
                     French = "Gelure",
                     German = "Erfrierung",
@@ -2361,8 +2888,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(269, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(269, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Windburn",
                     French = "Brûlure du vent",
                     German = "Beißender Wind",
@@ -2370,8 +2899,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(270, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(270, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sludge",
                     French = "Emboué",
                     German = "Schlamm",
@@ -2379,8 +2910,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(271, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(271, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Electrocution",
                     French = "Électrocution",
                     German = "Stromschlag",
@@ -2388,8 +2921,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(272, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(272, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Dropsy",
                     French = "Œdème",
                     German = "Wassersucht",
@@ -2397,8 +2932,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(273, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(273, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bleeding",
                     French = "Saignant",
                     German = "Blutung",
@@ -2406,8 +2943,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(274, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(274, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Recuperation",
                     French = "Récupération",
                     German = "Segnung",
@@ -2415,8 +2954,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(275, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(275, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Poison +1",
                     French = "Poison",
                     German = "Gift +1",
@@ -2424,8 +2965,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(276, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(276, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Voice of Valor",
                     French = "Voix de la valeur",
                     German = "Lob des Kämpen",
@@ -2433,8 +2976,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(277, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(277, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "堅忍の誉れ：効果",
                     French = "堅忍の誉れ：効果",
                     German = "堅忍の誉れ：効果",
@@ -2442,8 +2987,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(279, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(279, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rehabilitation",
                     French = "Recouvrement",
                     German = "Rehabilitation",
@@ -2451,8 +2998,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(280, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(280, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bind",
                     French = "Entrave",
                     German = "Fessel",
@@ -2460,8 +3009,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(281, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(281, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Damage Down",
                     French = "Malus de dégâts physiques",
                     German = "Schadenswert -",
@@ -2469,8 +3020,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(282, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(282, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Mana Modulation",
                     French = "Anormalité magique",
                     German = "Magieschaden -",
@@ -2478,8 +3031,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(283, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(283, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Dropsy",
                     French = "Œdème",
                     German = "Wassersucht",
@@ -2487,8 +3042,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(284, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(284, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Burns",
                     French = "Brûlure",
                     German = "Brandwunde",
@@ -2496,8 +3053,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(285, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(285, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Frostbite",
                     French = "Gelure",
                     German = "Erfrierung",
@@ -2505,8 +3064,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(286, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(286, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Windburn",
                     French = "Brûlure du vent",
                     German = "Beißender Wind",
@@ -2514,8 +3075,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(287, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(287, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sludge",
                     French = "Emboué",
                     German = "Schlamm",
@@ -2523,8 +3086,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(288, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(288, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Electrocution",
                     French = "Électrocution",
                     German = "Stromschlag",
@@ -2532,8 +3097,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(289, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(289, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Dropsy",
                     French = "Œdème",
                     German = "Wassersucht",
@@ -2541,8 +3108,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(290, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(290, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Determination Up",
                     French = "Bonus de dégâts",
                     German = "Schaden +",
@@ -2550,8 +3119,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(291, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(291, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Hundred Fists",
                     French = "Cent poings",
                     German = "100 Fäuste",
@@ -2559,8 +3130,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(292, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(292, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fetters",
                     French = "Attache",
                     German = "Granitgefängnis",
@@ -2568,8 +3141,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(293, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(293, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Skill Speed Up",
                     French = "Bonus de vivacité",
                     German = "Schnelligkeit +",
@@ -2577,8 +3152,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(294, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(294, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Spell Speed Up",
                     French = "Bonus de célérité",
                     German = "Zaubertempo +",
@@ -2586,8 +3163,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(295, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(295, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Goldbile",
                     French = "Eau bilieuse",
                     German = "Goldlunge",
@@ -2595,8 +3174,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(296, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(296, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Hysteria",
                     French = "Hystérie",
                     German = "Panik",
@@ -2604,8 +3185,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(297, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(297, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Adloquium",
                     French = "Traité du réconfort",
                     German = "Adloquium",
@@ -2613,8 +3196,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(298, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(298, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sacred Soil",
                     French = "Dogme de survie",
                     German = "Geweihte Erde",
@@ -2622,8 +3207,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(299, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(299, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sacred Soil",
                     French = "Dogme de survie",
                     German = "Geweihte Erde",
@@ -2631,8 +3218,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(300, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(300, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Determination Up",
                     French = "Dégâts augmentés",
                     German = "Schaden +",
@@ -2640,8 +3229,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(301, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(301, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Critical Strikes",
                     French = "Coups critiques",
                     German = "Kritische Attacke",
@@ -2649,8 +3240,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(302, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(302, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gold Lung",
                     French = "Poumons bilieux",
                     German = "Galle",
@@ -2658,8 +3251,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(303, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(303, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Burrs",
                     French = "Bardanes",
                     German = "Klettenpilz",
@@ -2667,8 +3262,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(304, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(304, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Aetherflow",
                     French = "Flux d'éther",
                     German = "Ätherfluss",
@@ -2676,8 +3273,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(305, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(305, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "The Dragon's Curse",
                     French = "Malédiction du dragon",
                     German = "Bann des Drachen",
@@ -2685,8 +3284,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(306, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(306, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Inner Dragon",
                     French = "Dragon intérieur",
                     German = "Kraft des Drachen",
@@ -2694,8 +3295,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(307, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(307, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Voice of Valor",
                     French = "Voix de la valeur",
                     German = "Lob des Kämpen",
@@ -2703,8 +3306,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(308, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(308, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "堅忍の誉れ",
                     French = "堅忍の誉れ",
                     German = "堅忍の誉れ",
@@ -2712,8 +3317,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(310, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(310, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Curl",
                     French = "Pelotonnement",
                     German = "Einrollen",
@@ -2721,8 +3328,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(311, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(311, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Earthen Ward",
                     French = "Barrière terrestre",
                     German = "Erdengewahrsam",
@@ -2730,8 +3339,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(312, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(312, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Earthen Fury",
                     French = "Fureur tellurique",
                     German = "Gaias Zorn",
@@ -2739,8 +3350,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(313, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(313, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Radiant Shield",
                     French = "Bouclier radiant",
                     German = "Glühender Schild",
@@ -2748,8 +3361,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(314, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(314, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Inferno",
                     French = "Flammes de l'enfer",
                     German = "Inferno",
@@ -2757,8 +3372,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(315, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(315, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Whispering Dawn",
                     French = "Murmure de l'aurore",
                     German = "Erhebendes Flüstern",
@@ -2766,8 +3383,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(316, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(316, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fey Covenant",
                     French = "Alliance féérique",
                     German = "Feenverheißung",
@@ -2775,8 +3394,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(317, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(317, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fey Illumination",
                     French = "Illumination féérique",
                     German = "Illumination",
@@ -2784,8 +3405,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(318, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(318, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fey Glow",
                     French = "Lueur féérique",
                     German = "Sprühender Glanz",
@@ -2793,8 +3416,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(319, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(319, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Fey Light",
                     French = "Lumière féérique",
                     German = "Feenlicht",
@@ -2802,8 +3427,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(320, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(320, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bleeding",
                     French = "Saignant",
                     German = "Blutung",
@@ -2811,8 +3438,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(321, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(321, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Gungnir",
                     French = "Gungnir",
                     German = "Gugnir",
@@ -2820,8 +3449,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(322, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(322, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Crystal Veil",
                     French = "Œil sur ça",
                     German = "Kristallschleier",
@@ -2829,8 +3460,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(323, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(323, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Reduced Immunity",
                     French = "Immunité réduite",
                     German = "Schwache Immunabwehr",
@@ -2838,8 +3471,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(324, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(324, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Greenwrath",
                     French = "Ire de la forêt",
                     German = "Sintmal",
@@ -2847,8 +3482,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(325, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(325, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Invincibility",
                     French = "Invulnérable",
                     German = "Unverwundbar",
@@ -2856,8 +3493,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(326, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(326, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Lightning Charge",
                     French = "Charge électrique",
                     German = "Statische Ladung",
@@ -2865,8 +3504,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(327, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(327, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Ice Charge",
                     French = "Charge glacée",
                     German = "Eisige Ladung",
@@ -2874,8 +3515,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(328, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(328, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Heart of the Mountain",
                     French = "Cœur de la montagne",
                     German = "Herz des Felsgotts",
@@ -2883,8 +3526,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(329, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(329, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Modification",
                     French = "Récupération robotique",
                     German = "Fortifikationsprogramm 1",
@@ -2892,8 +3537,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(330, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(330, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Haste",
                     French = "Hâte",
                     German = "Hast",
@@ -2901,8 +3548,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(331, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(331, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Magic Vulnerability Down",
                     French = "Vulnérabilité magique diminuée",
                     German = "Verringerte Magie-Verwundbarkeit",
@@ -2910,8 +3559,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(332, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(332, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Damage Up",
                     French = "Bonus de dégâts",
                     German = "Schaden +",
@@ -2919,8 +3570,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(333, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(333, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Allagan Rot",
                     French = "Pourriture allagoise",
                     German = "Allagische Fäulnis",
@@ -2928,8 +3581,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(334, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(334, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Allagan Immunity",
                     French = "Anticorps allagois",
                     German = "Allagische Immunität",
@@ -2937,8 +3592,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(335, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(335, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Firestream",
                     French = "Courants de feu",
                     German = "Feuerstrahlen",
@@ -2946,8 +3603,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(336, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(336, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sequence AB1",
                     French = "Séquence AB1",
                     German = "Sequenz AB1",
@@ -2955,8 +3614,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(337, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(337, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sequence AP1",
                     French = "Séquence AP1",
                     German = "Sequenz AP1",
@@ -2964,8 +3625,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(338, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(338, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Sequence AS1",
                     French = "Séquence AS1",
                     German = "Sequenz AS1",
@@ -2973,8 +3636,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(339, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(339, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bleeding",
                     French = "Saignant",
                     German = "Blutung",
@@ -2982,8 +3647,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(340, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(340, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Physical Field",
                     French = "Champ physique",
                     German = "Physisches Feld",
@@ -2991,8 +3658,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(341, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(341, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Aetherial Field",
                     French = "Champ éthéré",
                     German = "Magisches Feld",
@@ -3000,8 +3669,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(342, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(342, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Repelling Spray",
                     French = "Réplique",
                     German = "Reflektorschild",
@@ -3009,8 +3680,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(343, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(343, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Bleeding",
                     French = "Saignant",
                     German = "Blutung",
@@ -3018,8 +3691,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(344, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(344, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Neurolink",
                     French = "Neurolien",
                     German = "Neurolink",
@@ -3027,8 +3702,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(345, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(345, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Recharge",
                     French = "Recharge",
                     German = "Aufladung",
@@ -3036,8 +3713,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(346, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(346, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Waxen Flesh",
                     French = "Chair fondue",
                     German = "Wächserne Haut",
@@ -3045,8 +3724,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(347, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(347, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Pox",
                     French = "Vérole",
                     German = "Pocken",
@@ -3054,8 +3735,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(348, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(348, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Disseminate",
                     French = "Dissémination",
                     German = "Aussäen",
@@ -3063,8 +3746,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(349, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(349, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Steel Scales",
                     French = "Écailles d'acier",
                     German = "Stahlschuppen",
@@ -3072,8 +3757,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(350, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(350, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Vulnerability Down",
                     French = "Vulnérabilité diminuée",
                     German = "Verringerte Verwundbarkeit",
@@ -3081,8 +3768,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(351, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(351, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Rancor",
                     French = "Rancune",
                     German = "Groll",
@@ -3090,8 +3779,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(352, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(352, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Spjot",
                     French = "Spjot",
                     German = "Gugnirs Zauber",
@@ -3099,8 +3790,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = false,
             });
-            StatusEffects.Add(353, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(353, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Brave New World",
                     French = "Un nouveau monde",
                     German = "Startbonus",
@@ -3108,8 +3801,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(354, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(354, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Live off the Land",
                     French = "Vivre de la terre",
                     German = "Sammelgeschick-Bonus",
@@ -3117,8 +3812,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(355, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(355, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "What You See",
                     French = "Avoir le coup d'œil",
                     German = "Wahrnehmungsbonus",
@@ -3126,8 +3823,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(356, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(356, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Eat from the Hand",
                     French = "La main qui nourrit",
                     German = "Kunstfertigkeits-Bonus",
@@ -3135,8 +3834,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(357, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(357, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "In Control",
                     French = "Passer maître",
                     German = "Kontrolle-Bonus",
@@ -3144,8 +3845,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(360, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(360, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Meat and Mead",
                     French = "À boire et à manger",
                     German = "Verlängerte Nahrungseffekte",
@@ -3153,8 +3856,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(361, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(361, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "That Which Binds Us",
                     French = "Union parfaite",
                     German = "Bindungsbonus",
@@ -3162,8 +3867,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(362, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(362, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Proper Care",
                     French = "Protections protégées",
                     German = "Verminderter Verschleiß",
@@ -3171,8 +3878,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(363, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(363, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Back on Your Feet",
                     French = "Prompt rétablissement",
                     German = "Verkürzte Schwäche",
@@ -3180,8 +3889,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(364, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(364, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Reduced Rates",
                     French = "Prix d'ami",
                     German = "Teleport-Vergünstigung",
@@ -3189,8 +3900,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(365, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(365, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "The Heat of Battle",
                     French = "Feu du combat",
                     German = "Kampfroutine-Bonus",
@@ -3198,8 +3911,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(366, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(366, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "A Man's Best Friend",
                     French = "Meilleur ami de l'homme",
                     German = "Mitstreiterroutine-Bonus",
@@ -3207,8 +3922,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(367, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(367, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Earth and Water",
                     French = "Terre et eau",
                     German = "Sammelroutine-Bonus",
@@ -3216,8 +3933,10 @@ namespace FFXIVAPP.Client.Helpers {
                 },
                 CompanyAction = true,
             });
-            StatusEffects.Add(368, new StatusItem {
-                Name = new StatusLocalization {
+            StatusEffects.Add(368, new StatusItem
+            {
+                Name = new StatusLocalization
+                {
                     English = "Helping Hand",
                     French = "Être en bonnes mains",
                     German = "Syntheseroutine-Bonus",
@@ -3228,12 +3947,14 @@ namespace FFXIVAPP.Client.Helpers {
         }
     }
 
-    public class StatusItem {
+    public class StatusItem
+    {
         public StatusLocalization Name { get; set; }
         public bool CompanyAction { get; set; }
     }
 
-    public class StatusLocalization {
+    public class StatusLocalization
+    {
         public string English { get; set; }
         public string French { get; set; }
         public string Japanese { get; set; }

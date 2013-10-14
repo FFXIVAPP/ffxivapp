@@ -10,30 +10,36 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Player {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Player
+    {
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        public void SetHealing(Line line) {
+        public void SetHealing(Line line)
+        {
             LineHistory.Add(new LineHistory(line));
             var abilityGroup = GetGroup("HealingByAction");
             StatGroup subAbilityGroup;
-            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup)) {
+            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
+            {
                 subAbilityGroup = new StatGroup(line.Action);
                 subAbilityGroup.Stats.AddStats(HealingStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
             var playerGroup = GetGroup("HealingToPlayers");
             StatGroup subPlayerGroup;
-            if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup)) {
+            if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup))
+            {
                 subPlayerGroup = new StatGroup(line.Target);
                 subPlayerGroup.Stats.AddStats(HealingStatList(null));
                 playerGroup.AddGroup(subPlayerGroup);
             }
             var abilities = subPlayerGroup.GetGroup("HealingToPlayersByAction");
             StatGroup subPlayerAbilityGroup;
-            if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup)) {
+            if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup))
+            {
                 subPlayerAbilityGroup = new StatGroup(line.Action);
                 subPlayerAbilityGroup.Stats.AddStats(HealingStatList(subPlayerGroup, true));
                 abilities.AddGroup(subPlayerAbilityGroup);
@@ -46,7 +52,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
             subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
             subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
             subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            if (line.Crit) {
+            if (line.Crit)
+            {
                 Stats.IncrementStat("HealingCritHit");
                 subAbilityGroup.Stats.IncrementStat("HealingCritHit");
                 subPlayerGroup.Stats.IncrementStat("HealingCritHit");
@@ -55,7 +62,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                 subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
                 subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                if (line.Modifier != 0) {
+                if (line.Modifier != 0)
+                {
                     var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                     var modStat = "HealingCritMod";
                     Stats.IncrementStat(modStat, mod);
@@ -64,7 +72,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                     subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
                 }
             }
-            else {
+            else
+            {
                 Stats.IncrementStat("HealingRegHit");
                 subAbilityGroup.Stats.IncrementStat("HealingRegHit");
                 subPlayerGroup.Stats.IncrementStat("HealingRegHit");
@@ -73,7 +82,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                 subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
                 subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                if (line.Modifier != 0) {
+                if (line.Modifier != 0)
+                {
                     var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                     var modStat = "HealingRegMod";
                     Stats.IncrementStat(modStat, mod);

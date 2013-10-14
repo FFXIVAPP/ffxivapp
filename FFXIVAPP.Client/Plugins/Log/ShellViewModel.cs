@@ -11,14 +11,17 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Log {
+namespace FFXIVAPP.Client.Plugins.Log
+{
     [Export(typeof (ShellViewModel))]
-    internal sealed class ShellViewModel : INotifyPropertyChanged {
+    internal sealed class ShellViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static ShellViewModel _instance;
 
-        public static ShellViewModel Instance {
+        public static ShellViewModel Instance
+        {
             get { return _instance ?? (_instance = new ShellViewModel()); }
         }
 
@@ -28,7 +31,8 @@ namespace FFXIVAPP.Client.Plugins.Log {
 
         #endregion
 
-        public ShellViewModel() {
+        public ShellViewModel()
+        {
             PluginInitializer.Log.LoadSettings();
             PluginInitializer.Log.LoadTabs();
         }
@@ -49,7 +53,8 @@ namespace FFXIVAPP.Client.Plugins.Log {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

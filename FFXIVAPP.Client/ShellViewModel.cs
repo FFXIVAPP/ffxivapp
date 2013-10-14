@@ -18,14 +18,17 @@ using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
-namespace FFXIVAPP.Client {
+namespace FFXIVAPP.Client
+{
     [Export(typeof (ShellViewModel))]
-    internal sealed class ShellViewModel : INotifyPropertyChanged {
+    internal sealed class ShellViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static ShellViewModel _instance;
 
-        public static ShellViewModel Instance {
+        public static ShellViewModel Instance
+        {
             get { return _instance ?? (_instance = new ShellViewModel()); }
         }
 
@@ -40,7 +43,8 @@ namespace FFXIVAPP.Client {
 
         #endregion
 
-        public ShellViewModel() {
+        public ShellViewModel()
+        {
             SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
@@ -59,25 +63,29 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        private static void SaveAndClearHistory() {
+        private static void SaveAndClearHistory()
+        {
             XmlLogHelper.SaveCurrentLog();
         }
 
         /// <summary>
         /// </summary>
-        private static void ScreenShot() {
+        private static void ScreenShot()
+        {
             var date = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_");
             var fileName = String.Format("{0}{1}.jpg", AppViewModel.Instance.ScreenShotsPath, date);
             var screenShot = ScreenCapture.GetJpgImage(ShellView.View, 1, 100);
             var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
-            using (var stream = new BinaryWriter(fileStream)) {
+            using (var stream = new BinaryWriter(fileStream))
+            {
                 stream.Write(screenShot);
             }
         }
 
         /// <summary>
         /// </summary>
-        private static void UpdateSelectedPlugin() {
+        private static void UpdateSelectedPlugin()
+        {
             var selectedItem = ((TabItem) ShellView.View.PluginsTC.SelectedItem);
             AppViewModel.Instance.Selected = selectedItem.Header.ToString();
             UpdateTitle();
@@ -85,9 +93,11 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        private static void UpdateTitle() {
+        private static void UpdateTitle()
+        {
             var currentMain = ((TabItem) ShellView.View.ShellViewTC.SelectedItem).Name;
-            switch (currentMain) {
+            switch (currentMain)
+            {
                 case "PluginsTI":
                     AppViewModel.Instance.AppTitle = String.Format("{0}", AppViewModel.Instance.Selected);
                     break;
@@ -103,7 +113,8 @@ namespace FFXIVAPP.Client {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

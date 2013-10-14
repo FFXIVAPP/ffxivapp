@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Enums {
-    public enum EventDirection {
+namespace FFXIVAPP.Client.Plugins.Parse.Enums
+{
+    public enum EventDirection
+    {
         Unknown = 0x00000000,
         Self = 0x00000001,
         You = 0x00000002,

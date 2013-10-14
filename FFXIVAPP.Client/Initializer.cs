@@ -30,8 +30,10 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client {
-    internal static class Initializer {
+namespace FFXIVAPP.Client
+{
+    internal static class Initializer
+    {
         #region Declarations
 
         private static ChatWorker _chatWorker;
@@ -42,7 +44,8 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void SetupCurrentUICulture() {
+        public static void SetupCurrentUICulture()
+        {
             var cultureInfo = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             var currentCulture = new CultureInfo(cultureInfo);
             Constants.CultureInfo = Settings.Default.CultureSet ? Settings.Default.Culture : currentCulture;
@@ -51,13 +54,17 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void LoadChatCodes() {
-            if (Constants.XChatCodes != null) {
+        public static void LoadChatCodes()
+        {
+            if (Constants.XChatCodes != null)
+            {
                 foreach (var xElement in Constants.XChatCodes.Descendants()
-                                                  .Elements("Code")) {
+                                                  .Elements("Code"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xDescription = (string) xElement.Element("Description");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xDescription)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xDescription))
+                    {
                         continue;
                     }
                     Constants.ChatCodes.Add(xKey, xDescription);
@@ -68,13 +75,17 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void LoadAutoTranslate() {
-            if (Constants.XAutoTranslate != null) {
+        public static void LoadAutoTranslate()
+        {
+            if (Constants.XAutoTranslate != null)
+            {
                 foreach (var xElement in Constants.XAutoTranslate.Descendants()
-                                                  .Elements("Code")) {
+                                                  .Elements("Code"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                    {
                         continue;
                     }
                     Constants.AutoTranslate.Add(xKey, xValue);
@@ -85,23 +96,30 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void LoadColors() {
-            if (Constants.XColors != null) {
+        public static void LoadColors()
+        {
+            if (Constants.XColors != null)
+            {
                 foreach (var xElement in Constants.XColors.Descendants()
-                                                  .Elements("Color")) {
+                                                  .Elements("Color"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
                     var xDescription = (string) xElement.Element("Description");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                    {
                         continue;
                     }
-                    if (Constants.ChatCodes.ContainsKey(xKey)) {
+                    if (Constants.ChatCodes.ContainsKey(xKey))
+                    {
                         if (xDescription.ToLower()
-                                        .Contains("unknown") || String.IsNullOrWhiteSpace(xDescription)) {
+                                        .Contains("unknown") || String.IsNullOrWhiteSpace(xDescription))
+                        {
                             xDescription = Constants.ChatCodes[xKey];
                         }
                     }
-                    Constants.Colors.Add(xKey, new[] {
+                    Constants.Colors.Add(xKey, new[]
+                    {
                         xValue, xDescription
                     });
                 }
@@ -111,10 +129,13 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void LoadPlugins() {
+        public static void LoadPlugins()
+        {
             App.Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded) {
-                try {
+            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
+            {
+                try
+                {
                     var tabItem = pluginInstance.Instance.CreateTab();
                     var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
                     var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
@@ -127,7 +148,8 @@ namespace FFXIVAPP.Client {
                     info.Add("Version", pluginInstance.Instance.Version);
                     AppViewModel.Instance.PluginTabItems.Add(tabItem);
                 }
-                catch (AppException ex) {
+                catch (AppException ex)
+                {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
@@ -136,7 +158,8 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void SetGlobals() {
+        public static void SetGlobals()
+        {
             Constants.CharacterName = Settings.Default.CharacterName;
             Constants.ServerName = Settings.Default.ServerName;
             Constants.GameLanguage = Settings.Default.GameLanguage;
@@ -144,7 +167,8 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void GetHomePlugin() {
+        public static void GetHomePlugin()
+        {
             //var index = 0;
             //foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             //{
@@ -165,19 +189,25 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void SetCharacter() {
+        public static void SetCharacter()
+        {
             var name = String.Format("{0} {1}", Settings.Default.FirstName, Settings.Default.LastName);
             Settings.Default.CharacterName = name.Trim();
         }
 
         /// <summary>
         /// </summary>
-        public static void CheckUpdates() {
-            Func<bool> updateCheck = delegate {
-                try {
+        public static void CheckUpdates()
+        {
+            Func<bool> updateCheck = delegate
+            {
+                try
+                {
                     File.Delete("FFXIVAPP.Updater.Backup.exe");
                 }
-                catch (Exception ex) {}
+                catch (Exception ex)
+                {
+                }
                 var current = Assembly.GetExecutingAssembly()
                                       .GetName()
                                       .Version.ToString();
@@ -188,29 +218,40 @@ namespace FFXIVAPP.Client {
                 request.ContentType = "application/json; charset=utf-8";
                 var response = (HttpWebResponse) request.GetResponse();
                 var responseText = "";
-                using (var streamReader = new StreamReader(response.GetResponseStream())) {
-                    try {
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    try
+                    {
                         responseText = streamReader.ReadToEnd();
                     }
-                    catch (Exception ex) {}
+                    catch (Exception ex)
+                    {
+                    }
                 }
-                if (response.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText)) {
+                if (response.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
+                {
                     AppViewModel.Instance.HasNewVersion = false;
                     AppViewModel.Instance.LatestVersion = "Unknown";
                 }
-                else {
+                else
+                {
                     var jsonResult = JObject.Parse(responseText);
                     var latest = jsonResult["Version"].ToString();
                     var updateNotes = jsonResult["Notes"].ToList();
                     AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
-                    try {
-                        foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>())) {
+                    try
+                    {
+                        foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
+                        {
                             AppViewModel.Instance.UpdateNotes.Add(note);
                         }
                     }
-                    catch (Exception ex) {}
+                    catch (Exception ex)
+                    {
+                    }
                     AppViewModel.Instance.LatestVersion = latest;
-                    switch (latest) {
+                    switch (latest)
+                    {
                         case "Unknown":
                             AppViewModel.Instance.HasNewVersion = false;
                             break;
@@ -219,7 +260,8 @@ namespace FFXIVAPP.Client {
                             var cver = current.Split('.');
                             int lmajor = 0, lminor = 0, lbuild = 0, lrevision = 0;
                             int cmajor = 0, cminor = 0, cbuild = 0, crevision = 0;
-                            try {
+                            try
+                            {
                                 lmajor = Int32.Parse(lver[0]);
                                 lminor = Int32.Parse(lver[1]);
                                 lbuild = Int32.Parse(lver[2]);
@@ -229,13 +271,17 @@ namespace FFXIVAPP.Client {
                                 cbuild = Int32.Parse(cver[2]);
                                 crevision = Int32.Parse(cver[3]);
                             }
-                            catch (Exception ex) {
+                            catch (Exception ex)
+                            {
                                 AppViewModel.Instance.HasNewVersion = false;
                                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                             }
-                            if (lmajor <= cmajor) {
-                                if (lminor <= cminor) {
-                                    if (lbuild == cbuild) {
+                            if (lmajor <= cmajor)
+                            {
+                                if (lminor <= cminor)
+                                {
+                                    if (lbuild == cbuild)
+                                    {
                                         AppViewModel.Instance.HasNewVersion = lrevision > crevision;
                                         break;
                                     }
@@ -247,16 +293,20 @@ namespace FFXIVAPP.Client {
                             break;
                     }
                 }
-                if (AppViewModel.Instance.HasNewVersion) {
-                    DispatcherHelper.Invoke(delegate {
+                if (AppViewModel.Instance.HasNewVersion)
+                {
+                    DispatcherHelper.Invoke(delegate
+                    {
                         var popupContent = new PopupContent();
                         popupContent.Title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
                         popupContent.Message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
                         popupContent.CanSayNo = true;
                         PopupHelper.Toggle(popupContent);
                         EventHandler closedDelegate = null;
-                        closedDelegate = delegate {
-                            switch (PopupHelper.Result) {
+                        closedDelegate = delegate
+                        {
+                            switch (PopupHelper.Result)
+                            {
                                 case MessageBoxResult.Yes:
                                     ShellView.CloseApplication(true);
                                     break;
@@ -284,32 +334,38 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void SetSignatures() {
+        public static void SetSignatures()
+        {
             var signatures = AppViewModel.Instance.Signatures;
             signatures.Clear();
-            signatures.Add(new Signature {
+            signatures.Add(new Signature
+            {
                 Key = "GAMEMAIN",
                 Value = "47616D654D61696E000000",
                 Offset = 1176
             });
-            signatures.Add(new Signature {
+            signatures.Add(new Signature
+            {
                 Key = "CHARMAP",
                 Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
                 Offset = 764
             });
             //+3436 list of agro
             //+5744 agro count
-            signatures.Add(new Signature {
+            signatures.Add(new Signature
+            {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
                 Offset = 2444
             });
-            signatures.Add(new Signature {
+            signatures.Add(new Signature
+            {
                 Key = "MAP",
                 Value = "F783843E????????DB0FC93F6F12833A",
                 Offset = 784
             });
-            signatures.Add(new Signature {
+            signatures.Add(new Signature
+            {
                 Key = "TARGET",
                 Value = "DB0FC93F6F12833ADB0FC940920A063F",
                 Offset = 132
@@ -319,24 +375,30 @@ namespace FFXIVAPP.Client {
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private static int GetPID() {
-            if (Constants.IsOpen && Constants.ProcessID > 0) {
-                try {
+        private static int GetPID()
+        {
+            if (Constants.IsOpen && Constants.ProcessID > 0)
+            {
+                try
+                {
                     Process.GetProcessById(Constants.ProcessID);
                     return Constants.ProcessID;
                 }
-                catch (ArgumentException ex) {
+                catch (ArgumentException ex)
+                {
                     Constants.IsOpen = false;
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             Constants.ProcessIDs = Process.GetProcessesByName("ffxiv");
-            if (Constants.ProcessIDs.Length == 0) {
+            if (Constants.ProcessIDs.Length == 0)
+            {
                 Constants.IsOpen = false;
                 return -1;
             }
             Constants.IsOpen = true;
-            foreach (var process in Constants.ProcessIDs) {
+            foreach (var process in Constants.ProcessIDs)
+            {
                 SettingsView.View.PIDSelect.Items.Add(process.Id);
             }
             SettingsView.View.PIDSelect.SelectedIndex = 0;
@@ -348,9 +410,11 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void SetPID() {
+        public static void SetPID()
+        {
             StopMemoryWorkers();
-            if (SettingsView.View.PIDSelect.Text == "") {
+            if (SettingsView.View.PIDSelect.Text == "")
+            {
                 return;
             }
             PID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
@@ -359,29 +423,34 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void ResetPID() {
+        public static void ResetPID()
+        {
             Constants.ProcessID = -1;
         }
 
         /// <summary>
         /// </summary>
         /// <param name="pid"> </param>
-        private static void PID(int pid) {
+        private static void PID(int pid)
+        {
             Constants.ProcessID = pid;
             Constants.ProcessHandle = Constants.ProcessIDs[SettingsView.View.PIDSelect.SelectedIndex].MainWindowHandle;
         }
 
         /// <summary>
         /// </summary>
-        public static void StartMemoryWorkers() {
+        public static void StartMemoryWorkers()
+        {
             var id = SettingsView.View.PIDSelect.Text == "" ? GetPID() : Constants.ProcessID;
             Constants.IsOpen = true;
-            if (id < 0) {
+            if (id < 0)
+            {
                 Constants.IsOpen = false;
                 return;
             }
             var process = Process.GetProcessById(id);
-            MemoryHandler.Instance = new MemoryHandler(process, 0) {
+            MemoryHandler.Instance = new MemoryHandler(process, 0)
+            {
                 SigScanner = new SigScanner(process, AppViewModel.Instance.Signatures)
             };
             StopMemoryWorkers();
@@ -398,18 +467,22 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public static void StopMemoryWorkers() {
-            if (_chatWorker != null) {
+        public static void StopMemoryWorkers()
+        {
+            if (_chatWorker != null)
+            {
                 _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
                 _chatWorker.StopScanning();
                 _chatWorker.Dispose();
             }
-            if (_monsterWorker != null) {
+            if (_monsterWorker != null)
+            {
                 _monsterWorker.OnNewNPC -= MonsterWorkerDelegate.OnNewNPC;
                 _monsterWorker.StopScanning();
                 _monsterWorker.Dispose();
             }
-            if (_npcWorker != null) {
+            if (_npcWorker != null)
+            {
                 _npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
                 _npcWorker.StopScanning();
                 _npcWorker.Dispose();

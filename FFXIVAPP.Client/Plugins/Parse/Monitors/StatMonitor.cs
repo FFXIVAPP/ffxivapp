@@ -18,8 +18,10 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
-    public class StatMonitor : EventMonitor {
+namespace FFXIVAPP.Client.Plugins.Parse.Monitors
+{
+    public class StatMonitor : EventMonitor
+    {
         //player totals
         internal static readonly TotalStat TotalOverallDamage = new TotalStat("TotalOverallDamage");
         internal static readonly TotalStat TotalOverallHealing = new TotalStat("TotalOverallHealing");
@@ -45,29 +47,34 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         internal static readonly TotalStat RegularDamageTakenMonster = new TotalStat("RegularDamageTakenMonster");
         internal static readonly TotalStat CriticalDamageTakenMonster = new TotalStat("CriticalDamageTakenMonster");
 
-        private static readonly string[] removeCS = new[] {
+        private static readonly string[] removeCS = new[]
+        {
             "Miser's Mistress", "Dodore's Minion"
         };
 
-        private static readonly string[] addCS = new[] {
+        private static readonly string[] addCS = new[]
+        {
             "Uraeus"
         };
 
-        private static readonly string[] cleanParts = new[] {
+        private static readonly string[] cleanParts = new[]
+        {
             "head", "eye", "skull", "left horn", "right horn", "left mandible", "right mandible", "maw", "left humerus", "right humerus", "right arm", "left arm", "left leg", "right leg", "femur", "left wart cluster", "right wart cluster", "shell", "tail", "ore cluster"
         };
 
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
-        public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl) {
+        public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
+        {
             IncludeSelf = false;
             Filter = (EventParser.TypeMask | (UInt32) EventSubject.You | (UInt32) EventSubject.Party | (UInt32) EventSubject.Engaged | (UInt32) EventSubject.UnEngaged | (UInt32) EventDirection.Self | (UInt32) EventDirection.You | (UInt32) EventDirection.Party | (UInt32) EventDirection.Engaged | (UInt32) EventDirection.UnEngaged);
         }
 
         /// <summary>
         /// </summary>
-        protected override void InitStats() {
+        protected override void InitStats()
+        {
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamage);
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallHealing);
             ParseControl.Timeline.Overall.Stats.Add(TotalOverallDamageTaken);
@@ -95,7 +102,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
 
         /// <summary>
         /// </summary>
-        public override void Clear() {
+        public override void Clear()
+        {
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
             TotalOverallDamage.Reset();
             TotalOverallHealing.Reset();
@@ -129,10 +137,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleEvent(Models.Events.Event e) {
+        protected override void HandleEvent(Models.Events.Event e)
+        {
             #region Clean Mob Names
 
-            foreach (var s in removeCS.Where(s => e.RawLine.Contains(s))) {
+            foreach (var s in removeCS.Where(s => e.RawLine.Contains(s)))
+            {
                 e.RawLine = Regex.Replace(e.RawLine, s, s.Replace("'s", ""));
             }
 
@@ -144,7 +154,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleUnknownEvent(Models.Events.Event e) {
+        protected override void HandleUnknownEvent(Models.Events.Event e)
+        {
             var line = e.RawLine;
         }
 
@@ -152,7 +163,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// </summary>
         /// <param name="originalText"> </param>
         /// <returns> </returns>
-        private static string CleanAccent(string originalText) {
+        private static string CleanAccent(string originalText)
+        {
             var strTemp = originalText;
             var regA = new Regex("[ã|à|â|ä|á|å]");
             var regAa = new Regex("[Ã|À|Â|Ä|Á|Å]");

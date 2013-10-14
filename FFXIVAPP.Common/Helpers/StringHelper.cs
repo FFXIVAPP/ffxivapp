@@ -13,26 +13,32 @@ using FFXIVAPP.Common.RegularExpressions;
 
 #endregion
 
-namespace FFXIVAPP.Common.Helpers {
-    public static class StringHelper {
+namespace FFXIVAPP.Common.Helpers
+{
+    public static class StringHelper
+    {
         /// <summary>
         /// </summary>
         /// <param name="s"> </param>
         /// <param name="all"> </param>
         /// <returns> </returns>
-        public static string TitleCase(string s, bool all = true) {
-            if (String.IsNullOrWhiteSpace(s.Trim())) {
+        public static string TitleCase(string s, bool all = true)
+        {
+            if (String.IsNullOrWhiteSpace(s.Trim()))
+            {
                 return "";
             }
             var result = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(all ? s.ToLower() : s);
             var reg = SharedRegEx.Romans.Match(s);
-            if (reg.Success) {
+            if (reg.Success)
+            {
                 var replace = Convert.ToString(reg.Groups["roman"].Value);
                 var original = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(replace.ToLower());
                 result = result.Replace(original, replace.ToUpper());
             }
             var titles = Regex.Matches(result, @"(?<num>\d+)(?<designator>\w+)", RegexOptions.IgnoreCase);
-            foreach (Match title in titles) {
+            foreach (Match title in titles)
+            {
                 var num = Convert.ToString(title.Groups["num"].Value);
                 var designator = Convert.ToString(title.Groups["designator"].Value);
                 result = result.Replace(String.Format("{0}{1}", num, designator), String.Format("{0}{1}", num, designator.ToLower()));
@@ -44,9 +50,11 @@ namespace FFXIVAPP.Common.Helpers {
         /// </summary>
         /// <param name="hexValue"></param>
         /// <returns></returns>
-        public static string HexToString(string hexValue) {
+        public static string HexToString(string hexValue)
+        {
             var sb = new StringBuilder();
-            for (var i = 0; i <= hexValue.Length - 2; i += 2) {
+            for (var i = 0; i <= hexValue.Length - 2; i += 2)
+            {
                 sb.Append(Convert.ToChar(Int32.Parse(hexValue.Substring(i, 2), NumberStyles.HexNumber)));
             }
             return sb.ToString();

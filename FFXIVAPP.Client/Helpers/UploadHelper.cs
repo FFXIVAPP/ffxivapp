@@ -10,8 +10,10 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using Newtonsoft.Json;
 
-namespace FFXIVAPP.Client.Helpers {
-    public class UploadHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    public class UploadHelper
+    {
         #region Auto-Properties
 
         public int ChunkSize { get; set; }
@@ -24,7 +26,8 @@ namespace FFXIVAPP.Client.Helpers {
         /// <summary>
         /// </summary>
         /// <param name="chunkSize"></param>
-        public UploadHelper(int chunkSize = 200) {
+        public UploadHelper(int chunkSize = 200)
+        {
             ChunkSize = chunkSize;
             ChunksProcessed = 0;
             Processing = false;
@@ -35,10 +38,12 @@ namespace FFXIVAPP.Client.Helpers {
         /// </summary>
         /// <param name="postKey"></param>
         /// <param name="entries"></param>
-        public void PostUpload(string postKey, object entries) {
+        public void PostUpload(string postKey, object entries)
+        {
             ImportData.Clear();
             object data;
-            switch (postKey) {
+            switch (postKey)
+            {
                 case "npc":
                     data = entries as IList<NPCEntry>;
                     break;
@@ -58,12 +63,14 @@ namespace FFXIVAPP.Client.Helpers {
             ImportData.Add("data", data);
             ImportData.Add("type", postKey);
             ImportData.Add("version", AppViewModel.Instance.CurrentVersion);
-            try {
+            try
+            {
                 var jsonData = JsonConvert.SerializeObject(ImportData);
                 var postData = String.Format("jobj={0}", HttpUtility.UrlEncode(jsonData));
                 var jsonResult = HttpPostHelper.Post("http://db.xivdev.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
                 var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
-                switch (result) {
+                switch (result)
+                {
                     case "success":
                         ChunksProcessed++;
                         break;
@@ -76,7 +83,8 @@ namespace FFXIVAPP.Client.Helpers {
                 }
                 Processing = false;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ChunksProcessed++;
                 Processing = false;
             }

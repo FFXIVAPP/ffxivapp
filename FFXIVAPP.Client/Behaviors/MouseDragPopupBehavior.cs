@@ -11,19 +11,25 @@ using System.Windows.Interactivity;
 
 #endregion
 
-namespace FFXIVAPP.Client.Behaviors {
-    internal class MouseDragPopupBehavior : Behavior<Popup> {
+namespace FFXIVAPP.Client.Behaviors
+{
+    internal class MouseDragPopupBehavior : Behavior<Popup>
+    {
         private bool _mouseDown;
         private Point _oldMousePosition;
 
-        protected override void OnAttached() {
-            AssociatedObject.MouseLeftButtonDown += (s, e) => {
+        protected override void OnAttached()
+        {
+            AssociatedObject.MouseLeftButtonDown += (s, e) =>
+            {
                 _mouseDown = true;
                 _oldMousePosition = AssociatedObject.PointToScreen(e.GetPosition(AssociatedObject));
                 AssociatedObject.Child.CaptureMouse();
             };
-            AssociatedObject.MouseMove += (s, e) => {
-                if (!_mouseDown) {
+            AssociatedObject.MouseMove += (s, e) =>
+            {
+                if (!_mouseDown)
+                {
                     return;
                 }
                 var newMousePosition = AssociatedObject.PointToScreen(e.GetPosition(AssociatedObject));
@@ -32,7 +38,8 @@ namespace FFXIVAPP.Client.Behaviors {
                 AssociatedObject.HorizontalOffset += offset.X;
                 AssociatedObject.VerticalOffset += offset.Y;
             };
-            AssociatedObject.MouseLeftButtonUp += (s, e) => {
+            AssociatedObject.MouseLeftButtonUp += (s, e) =>
+            {
                 _mouseDown = false;
                 AssociatedObject.Child.ReleaseMouseCapture();
             };

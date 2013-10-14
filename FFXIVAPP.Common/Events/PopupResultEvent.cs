@@ -9,15 +9,18 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Common.Events {
-    public class PopupResultEvent : EventArgs {
+namespace FFXIVAPP.Common.Events
+{
+    public class PopupResultEvent : EventArgs
+    {
         #region Property Bindings
 
         public object NewValue { get; private set; }
 
         #endregion
 
-        public PopupResultEvent(object newValue) {
+        public PopupResultEvent(object newValue)
+        {
             NewValue = newValue;
         }
     }

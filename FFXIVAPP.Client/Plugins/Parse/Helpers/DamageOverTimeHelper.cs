@@ -10,9 +10,12 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
-    public static class DamageOverTimeHelper {
-        public static readonly List<string> Thunders = new List<string> {
+namespace FFXIVAPP.Client.Plugins.Parse.Helpers
+{
+    public static class DamageOverTimeHelper
+    {
+        public static readonly List<string> Thunders = new List<string>
+        {
             "thunder",
             "blitz",
             "foudre",
@@ -22,14 +25,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
         private static Dictionary<string, DamageOverTimeAction> _playerActions;
         private static Dictionary<string, DamageOverTimeAction> _monsterActions;
 
-        public static Dictionary<string, DamageOverTimeAction> PlayerActions {
-            get {
-                if (_playerActions != null) {
+        public static Dictionary<string, DamageOverTimeAction> PlayerActions
+        {
+            get
+            {
+                if (_playerActions != null)
+                {
                     return _playerActions;
                 }
                 _playerActions = new Dictionary<string, DamageOverTimeAction>();
 
-                _playerActions.Add("circle of scorn", new DamageOverTimeAction {
+                _playerActions.Add("circle of scorn", new DamageOverTimeAction
+                {
                     ActionPotency = 100,
                     DamageOverTimePotency = 30,
                     Duration = 15,
@@ -39,7 +46,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("cercle du destin", _playerActions["circle of scorn"]);
                 _playerActions.Add("サークル・オブ・ドゥーム", _playerActions["circle of scorn"]);
 
-                _playerActions.Add("touch of death", new DamageOverTimeAction {
+                _playerActions.Add("touch of death", new DamageOverTimeAction
+                {
                     ActionPotency = 20,
                     DamageOverTimePotency = 25,
                     Duration = 30,
@@ -49,7 +57,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("toucher mortel", _playerActions["touch of death"]);
                 _playerActions.Add("秘孔拳", _playerActions["touch of death"]);
 
-                _playerActions.Add("demolish", new DamageOverTimeAction {
+                _playerActions.Add("demolish", new DamageOverTimeAction
+                {
                     ActionPotency = 100,
                     DamageOverTimePotency = 40,
                     Duration = 18,
@@ -59,7 +68,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("démolition", _playerActions["demolish"]);
                 _playerActions.Add("破砕拳", _playerActions["demolish"]);
 
-                _playerActions.Add("fracture", new DamageOverTimeAction {
+                _playerActions.Add("fracture", new DamageOverTimeAction
+                {
                     ActionPotency = 100,
                     DamageOverTimePotency = 20,
                     Duration = 30,
@@ -69,7 +79,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 //_playerActions.Add("fracture", _playerActions["fracture"]);
                 _playerActions.Add("フラクチャー", _playerActions["fracture"]);
 
-                _playerActions.Add("phlebotomize", new DamageOverTimeAction {
+                _playerActions.Add("phlebotomize", new DamageOverTimeAction
+                {
                     ActionPotency = 170,
                     DamageOverTimePotency = 20,
                     Duration = 18,
@@ -79,7 +90,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("double percée", _playerActions["phlebotomize"]);
                 _playerActions.Add("二段突き", _playerActions["phlebotomize"]);
 
-                _playerActions.Add("chaos thrust", new DamageOverTimeAction {
+                _playerActions.Add("chaos thrust", new DamageOverTimeAction
+                {
                     ActionPotency = 160,
                     DamageOverTimePotency = 20,
                     Duration = 30,
@@ -89,7 +101,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("percée chaotique", _playerActions["chaos thrust"]);
                 _playerActions.Add("桜華狂咲", _playerActions["chaos thrust"]);
 
-                _playerActions.Add("venomous bite", new DamageOverTimeAction {
+                _playerActions.Add("venomous bite", new DamageOverTimeAction
+                {
                     ActionPotency = 100,
                     DamageOverTimePotency = 35,
                     Duration = 18,
@@ -99,7 +112,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("morsure venimeuse", _playerActions["venomous bite"]);
                 _playerActions.Add("ベノムバイト", _playerActions["venomous bite"]);
 
-                _playerActions.Add("windbite", new DamageOverTimeAction {
+                _playerActions.Add("windbite", new DamageOverTimeAction
+                {
                     ActionPotency = 60,
                     DamageOverTimePotency = 45,
                     Duration = 18,
@@ -109,7 +123,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("morsure du vent", _playerActions["windbite"]);
                 _playerActions.Add("ウィンドバイト", _playerActions["windbite"]);
 
-                _playerActions.Add("aero", new DamageOverTimeAction {
+                _playerActions.Add("aero", new DamageOverTimeAction
+                {
                     ActionPotency = 50,
                     DamageOverTimePotency = 25,
                     Duration = 18,
@@ -119,7 +134,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("vent", _playerActions["aero"]);
                 _playerActions.Add("エアロ", _playerActions["aero"]);
 
-                _playerActions.Add("aero ii", new DamageOverTimeAction {
+                _playerActions.Add("aero ii", new DamageOverTimeAction
+                {
                     ActionPotency = 50,
                     DamageOverTimePotency = 40,
                     Duration = 12,
@@ -129,7 +145,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("extra vent", _playerActions["aero ii"]);
                 _playerActions.Add("エアロラ", _playerActions["aero ii"]);
 
-                _playerActions.Add("thunder", new DamageOverTimeAction {
+                _playerActions.Add("thunder", new DamageOverTimeAction
+                {
                     ActionPotency = 30,
                     DamageOverTimePotency = 35,
                     Duration = 18,
@@ -139,7 +156,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("foudre", _playerActions["thunder"]);
                 _playerActions.Add("サンダー", _playerActions["thunder"]);
 
-                _playerActions.Add("thunder ii", new DamageOverTimeAction {
+                _playerActions.Add("thunder ii", new DamageOverTimeAction
+                {
                     ActionPotency = 50,
                     DamageOverTimePotency = 35,
                     Duration = 21,
@@ -149,7 +167,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("extra foudre", _playerActions["thunder ii"]);
                 _playerActions.Add("サンダラ", _playerActions["thunder ii"]);
 
-                _playerActions.Add("thunder iii", new DamageOverTimeAction {
+                _playerActions.Add("thunder iii", new DamageOverTimeAction
+                {
                     ActionPotency = 60,
                     DamageOverTimePotency = 35,
                     Duration = 24,
@@ -159,7 +178,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("méga foudre", _playerActions["thunder iii"]);
                 _playerActions.Add("サンダガ", _playerActions["thunder iii"]);
 
-                _playerActions.Add("bio", new DamageOverTimeAction {
+                _playerActions.Add("bio", new DamageOverTimeAction
+                {
                     ActionPotency = 45,
                     DamageOverTimePotency = 40,
                     Duration = 18,
@@ -169,7 +189,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("bactérie", _playerActions["bio"]);
                 _playerActions.Add("バイオ", _playerActions["bio"]);
 
-                _playerActions.Add("bio ii", new DamageOverTimeAction {
+                _playerActions.Add("bio ii", new DamageOverTimeAction
+                {
                     ActionPotency = 40,
                     DamageOverTimePotency = 35,
                     Duration = 30,
@@ -179,7 +200,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("extra bactérie", _playerActions["bio ii"]);
                 _playerActions.Add("バイオラ", _playerActions["bio ii"]);
 
-                _playerActions.Add("miasma", new DamageOverTimeAction {
+                _playerActions.Add("miasma", new DamageOverTimeAction
+                {
                     ActionPotency = 20,
                     DamageOverTimePotency = 35,
                     Duration = 24,
@@ -189,7 +211,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
                 _playerActions.Add("miasmes", _playerActions["miasma"]);
                 _playerActions.Add("ミアズマ", _playerActions["miasma"]);
 
-                _playerActions.Add("miasma ii", new DamageOverTimeAction {
+                _playerActions.Add("miasma ii", new DamageOverTimeAction
+                {
                     ActionPotency = 20,
                     DamageOverTimePotency = 10,
                     Duration = 15,
@@ -203,7 +226,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
             set { _playerActions = value; }
         }
 
-        public static Dictionary<string, DamageOverTimeAction> MonsterActions {
+        public static Dictionary<string, DamageOverTimeAction> MonsterActions
+        {
             get { return _monsterActions ?? (_monsterActions = new Dictionary<string, DamageOverTimeAction>()); }
             set { _monsterActions = value; }
         }

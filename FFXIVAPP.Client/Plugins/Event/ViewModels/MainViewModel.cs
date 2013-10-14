@@ -22,13 +22,16 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
-    internal sealed class MainViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Event.ViewModels
+{
+    internal sealed class MainViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static MainViewModel _instance;
 
-        public static MainViewModel Instance {
+        public static MainViewModel Instance
+        {
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
@@ -42,7 +45,8 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
 
         #endregion
 
-        public MainViewModel() {
+        public MainViewModel()
+        {
             AddEventCommand = new DelegateCommand(AddEvent);
             DeleteEventCommand = new DelegateCommand(DeleteEvent);
             EventSelectionCommand = new DelegateCommand(EventSelection);
@@ -58,7 +62,8 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
         /// </summary>
         /// <param name="listView"> </param>
         /// <param name="key"> </param>
-        private static string GetValueBySelectedItem(Selector listView, string key) {
+        private static string GetValueBySelectedItem(Selector listView, string key)
+        {
             var type = listView.SelectedItem.GetType();
             var property = type.GetProperty(key);
             return property.GetValue(listView.SelectedItem, null)
@@ -71,20 +76,26 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void AddEvent() {
+        private static void AddEvent()
+        {
             var selectedKey = "";
-            try {
-                if (MainView.View.Events.SelectedItems.Count == 1) {
+            try
+            {
+                if (MainView.View.Events.SelectedItems.Count == 1)
+                {
                     selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
-            if (MainView.View.TSound.Text.Trim() == "" || MainView.View.TDelay.Text.Trim() == "" || MainView.View.TRegEx.Text.Trim() == "") {
+            if (MainView.View.TSound.Text.Trim() == "" || MainView.View.TDelay.Text.Trim() == "" || MainView.View.TRegEx.Text.Trim() == "")
+            {
                 return;
             }
-            if (Regex.IsMatch(MainView.View.TDelay.Text, @"[^0-9]+")) {
+            if (Regex.IsMatch(MainView.View.TDelay.Text, @"[^0-9]+"))
+            {
                 var popupContent = new PopupContent();
                 popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
                 popupContent.Message = "Delay can only be numeric.";
@@ -95,22 +106,27 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
                 PopupHelper.MessagePopup.Closed += closedDelegate;
                 return;
             }
-            var soundEvent = new SoundEvent {
+            var soundEvent = new SoundEvent
+            {
                 Sound = MainView.View.TSound.Text,
                 Delay = 0,
                 RegEx = MainView.View.TRegEx.Text
             };
             int result;
-            if (Int32.TryParse(MainView.View.TDelay.Text, out result)) {
+            if (Int32.TryParse(MainView.View.TDelay.Text, out result))
+            {
                 soundEvent.Delay = result;
             }
-            if (String.IsNullOrWhiteSpace(selectedKey)) {
+            if (String.IsNullOrWhiteSpace(selectedKey))
+            {
                 var found = PluginViewModel.Instance.Events.Any(se => se.RegEx == soundEvent.RegEx);
-                if (!found) {
+                if (!found)
+                {
                     PluginViewModel.Instance.Events.Add(soundEvent);
                 }
             }
-            else {
+            else
+            {
                 var index = PluginViewModel.Instance.Events.TakeWhile(se => se.RegEx != selectedKey)
                                            .Count();
                 PluginViewModel.Instance.Events[index] = soundEvent;
@@ -121,12 +137,15 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void DeleteEvent() {
+        private static void DeleteEvent()
+        {
             string selectedKey;
-            try {
+            try
+            {
                 selectedKey = GetValueBySelectedItem(MainView.View.Events, "RegEx");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 return;
             }
@@ -137,11 +156,14 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void EventSelection() {
-            if (MainView.View.Events.SelectedItems.Count != 1) {
+        private static void EventSelection()
+        {
+            if (MainView.View.Events.SelectedItems.Count != 1)
+            {
                 return;
             }
-            if (MainView.View.Events.SelectedIndex < 0) {
+            if (MainView.View.Events.SelectedIndex < 0)
+            {
                 return;
             }
             MainView.View.TSound.Text = GetValueBySelectedItem(MainView.View.Events, "Sound");
@@ -155,7 +177,8 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

@@ -19,13 +19,16 @@ using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
-    internal sealed class MainViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Log.ViewModels
+{
+    internal sealed class MainViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static MainViewModel _instance;
 
-        public static MainViewModel Instance {
+        public static MainViewModel Instance
+        {
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
@@ -39,7 +42,8 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         #endregion
 
-        public MainViewModel() {
+        public MainViewModel()
+        {
             DeleteTabCommand = new DelegateCommand(DeleteTab);
             ManualTranslateCommand = new DelegateCommand<string>(ManualTranslate);
         }
@@ -56,13 +60,16 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void DeleteTab() {
-            if (MainView.View.MainViewTC.SelectedIndex < 3) {
+        private static void DeleteTab()
+        {
+            if (MainView.View.MainViewTC.SelectedIndex < 3)
+            {
                 return;
             }
             var selection = Settings.Default.EnableDebug ? 2 : 1;
             PluginViewModel.Instance.Tabs.RemoveAt(MainView.View.MainViewTC.SelectedIndex - 3);
-            if (PluginViewModel.Instance.Tabs.Any()) {
+            if (PluginViewModel.Instance.Tabs.Any())
+            {
                 return;
             }
             MainView.View.MainViewTC.SelectedIndex = selection;
@@ -71,20 +78,24 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>
-        private static void ManualTranslate(string value) {
+        private static void ManualTranslate(string value)
+        {
             value = value.Trim();
             var outLang = GoogleTranslate.Offsets[Settings.Default.ManualTranslate].ToString();
-            if (value.Length <= 0) {
+            if (value.Length <= 0)
+            {
                 return;
             }
             var tmpTranString = GoogleTranslate.TranslateText(value, "en", outLang, false);
             MainView.View.Chatter.Text = tmpTranString;
-            if (!Settings.Default.SendToGame) {
+            if (!Settings.Default.SendToGame)
+            {
                 return;
             }
             var chatMode = MainView.View.CM.Text.Trim();
             var match = TranalateIsValid.Match(chatMode);
-            if (!match.Success) {
+            if (!match.Success)
+            {
                 return;
             }
             var command = String.Format("{0} {1}", chatMode, tmpTranString);
@@ -100,7 +111,8 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

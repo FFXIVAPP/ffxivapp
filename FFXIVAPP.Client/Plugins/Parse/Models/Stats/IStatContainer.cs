@@ -11,8 +11,10 @@ using System.ComponentModel;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public interface IStatContainer : ICollection<Stat<decimal>>, INotifyPropertyChanged, INotifyCollectionChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public interface IStatContainer : ICollection<Stat<decimal>>, INotifyPropertyChanged, INotifyCollectionChanged
+    {
         string Name { get; set; }
         bool HasStat(string name);
         Stat<decimal> GetStat(string name);

@@ -10,17 +10,22 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.Helpers;
 
-namespace FFXIVAPP.Client.Plugins.Log.Helpers {
-    public static class TabItemHelper {
+namespace FFXIVAPP.Client.Plugins.Log.Helpers
+{
+    public static class TabItemHelper
+    {
         /// <summary>
         /// </summary>
-        public static void AddTabByName(string xKey, string xValue, string xRegularExpression) {
+        public static void AddTabByName(string xKey, string xValue, string xRegularExpression)
+        {
             xKey = Regex.Replace(xKey, "[^a-zA-Z]", "");
-            var tabItem = new TabItem {
+            var tabItem = new TabItem
+            {
                 Header = xKey
             };
             var flowDoc = new xFlowDocument();
-            foreach (var code in xValue.Split(',')) {
+            foreach (var code in xValue.Split(','))
+            {
                 flowDoc.Codes.Items.Add(code);
             }
             flowDoc.RegEx.Text = xRegularExpression;

@@ -15,11 +15,14 @@ using FFXIVAPP.Common.Events;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Log {
-    internal sealed class PluginViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Log
+{
+    internal sealed class PluginViewModel : INotifyPropertyChanged
+    {
         public event EventHandler<PopupResultEvent> PopupResultChanged = delegate { };
 
-        public void OnPopupResultChanged(PopupResultEvent e) {
+        public void OnPopupResultChanged(PopupResultEvent e)
+        {
             PopupResultChanged(this, e);
         }
 
@@ -28,12 +31,15 @@ namespace FFXIVAPP.Client.Plugins.Log {
         private static PluginViewModel _instance;
         private ObservableCollection<UIElement> _tabs;
 
-        public static PluginViewModel Instance {
+        public static PluginViewModel Instance
+        {
             get { return _instance ?? (_instance = new PluginViewModel()); }
         }
 
-        public static Dictionary<string, string> PluginInfo {
-            get {
+        public static Dictionary<string, string> PluginInfo
+        {
+            get
+            {
                 var pluginInfo = new Dictionary<string, string>();
                 pluginInfo.Add("Name", "FFXIVAPP.Plugin.Log");
                 pluginInfo.Add("Description", "Final Fantasy XIV Logger & Translator");
@@ -42,9 +48,11 @@ namespace FFXIVAPP.Client.Plugins.Log {
             }
         }
 
-        public ObservableCollection<UIElement> Tabs {
+        public ObservableCollection<UIElement> Tabs
+        {
             get { return _tabs ?? (_tabs = new ObservableCollection<UIElement>()); }
-            set {
+            set
+            {
                 _tabs = value;
                 RaisePropertyChanged();
             }
@@ -60,7 +68,8 @@ namespace FFXIVAPP.Client.Plugins.Log {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

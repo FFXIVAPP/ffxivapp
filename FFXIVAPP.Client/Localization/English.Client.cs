@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization {
-    public static partial class English {
-        private static void SetClientLocale() {
+namespace FFXIVAPP.Client.Localization
+{
+    public static partial class English
+    {
+        private static void SetClientLocale()
+        {
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
             Dictionary.Add("app_AllowPluginCommandsHeader", "Allow Plugin Commands");
             Dictionary.Add("app_AttachProcessButtonText", "Attach Selected Process");

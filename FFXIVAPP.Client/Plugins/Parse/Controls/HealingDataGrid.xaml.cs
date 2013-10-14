@@ -3,12 +3,15 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Controls {
+namespace FFXIVAPP.Client.Plugins.Parse.Controls
+{
     /// <summary>
     ///     Interaction logic for HealingDataGrid.xaml
     /// </summary>
-    public partial class HealingDataGrid {
-        public HealingDataGrid() {
+    public partial class HealingDataGrid
+    {
+        public HealingDataGrid()
+        {
             InitializeComponent();
         }
     }

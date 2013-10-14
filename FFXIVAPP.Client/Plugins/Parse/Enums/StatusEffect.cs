@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Enums {
-    public enum StatusEffect {
+namespace FFXIVAPP.Client.Plugins.Parse.Enums
+{
+    public enum StatusEffect
+    {
         BeneficialGain,
         BeneficialLose,
         DetrimentalGain,

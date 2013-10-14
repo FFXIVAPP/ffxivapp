@@ -12,47 +12,59 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
-    public class EventCode : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
+{
+    public class EventCode : INotifyPropertyChanged
+    {
         #region Property Bindings
 
-        private string Description {
+        private string Description
+        {
             get { return _description; }
-            set {
+            set
+            {
                 _description = value;
                 RaisePropertyChanged();
             }
         }
 
-        public UInt32 Code {
+        public UInt32 Code
+        {
             get { return _code; }
-            set {
+            set
+            {
                 _code = value;
                 RaisePropertyChanged();
             }
         }
 
-        private EventGroup Group {
+        private EventGroup Group
+        {
             get { return _group; }
-            set {
+            set
+            {
                 _group = value;
                 RaisePropertyChanged();
             }
         }
 
-        public UInt32 Flags {
+        public UInt32 Flags
+        {
             get { return (ushort) (Group == null ? 0x00000000 : Group.Flags); }
         }
 
-        public EventDirection Direction {
+        public EventDirection Direction
+        {
             get { return Group == null ? EventDirection.Unknown : Group.Direction; }
         }
 
-        public EventSubject Subject {
+        public EventSubject Subject
+        {
             get { return Group == null ? EventSubject.Unknown : Group.Subject; }
         }
 
-        public EventType Type {
+        public EventType Type
+        {
             get { return Group == null ? EventType.Unknown : Group.Type; }
         }
 
@@ -62,14 +74,17 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         private string _description;
         private EventGroup _group;
 
-        public EventCode() {}
+        public EventCode()
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="description"> </param>
         /// <param name="code"> </param>
         /// <param name="group"> </param>
-        public EventCode(string description, UInt32 code, EventGroup group) {
+        public EventCode(string description, UInt32 code, EventGroup group)
+        {
             Description = description;
             Code = code;
             Group = group;
@@ -79,7 +94,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

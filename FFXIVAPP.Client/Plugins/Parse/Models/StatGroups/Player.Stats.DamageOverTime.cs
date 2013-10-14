@@ -9,17 +9,22 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Player {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Player
+    {
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetupDamageOverTimeAction(Line line) {
+        public void SetupDamageOverTimeAction(Line line)
+        {
             bool isValid;
             var damageOverTime = new DamageOverTime.Player(line, out isValid);
-            switch (isValid) {
+            switch (isValid)
+            {
                 case true:
-                    if (DamageOverTimeActions.ContainsKey(line.Action)) {
+                    if (DamageOverTimeActions.ContainsKey(line.Action))
+                    {
                         DamageOverTimeActions[line.Action].Dispose();
                         DamageOverTimeActions[line.Action] = damageOverTime;
                         return;
@@ -32,24 +37,28 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetDamageOverTime(Line line) {
+        public void SetDamageOverTime(Line line)
+        {
             var abilityGroup = GetGroup("DamageByAction");
             StatGroup subAbilityGroup;
-            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup)) {
+            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
+            {
                 subAbilityGroup = new StatGroup(line.Action);
                 subAbilityGroup.Stats.AddStats(DamageStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
             var monsterGroup = GetGroup("DamageToMonsters");
             StatGroup subMonsterGroup;
-            if (!monsterGroup.TryGetGroup(line.Target, out subMonsterGroup)) {
+            if (!monsterGroup.TryGetGroup(line.Target, out subMonsterGroup))
+            {
                 subMonsterGroup = new StatGroup(line.Target);
                 subMonsterGroup.Stats.AddStats(DamageStatList(null));
                 monsterGroup.AddGroup(subMonsterGroup);
             }
             var monsters = subMonsterGroup.GetGroup("DamageToMonstersByAction");
             StatGroup subMonsterAbilityGroup;
-            if (!monsters.TryGetGroup(line.Action, out subMonsterAbilityGroup)) {
+            if (!monsters.TryGetGroup(line.Action, out subMonsterAbilityGroup))
+            {
                 subMonsterAbilityGroup = new StatGroup(line.Action);
                 subMonsterAbilityGroup.Stats.AddStats(DamageStatList(subMonsterGroup, true));
                 monsters.AddGroup(subMonsterAbilityGroup);

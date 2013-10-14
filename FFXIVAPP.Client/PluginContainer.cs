@@ -11,11 +11,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
@@ -23,13 +21,16 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client {
-    internal class PluginContainer : IPluginHost {
+namespace FFXIVAPP.Client
+{
+    internal class PluginContainer : IPluginHost
+    {
         #region Property Bindings
 
         private PluginCollectionHelper _loaded;
 
-        public PluginCollectionHelper Loaded {
+        public PluginCollectionHelper Loaded
+        {
             get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
         }
 
@@ -37,7 +38,8 @@ namespace FFXIVAPP.Client {
 
         #region Declarations
 
-        private List<string> _authorizedPublishers = new List<string> {
+        private List<string> _authorizedPublishers = new List<string>
+        {
             "820abd6a1e1d45dbdd499f3fa96e0755f20b67f2798ce0a41304e4da235c0020054954995c26a38c12628f2c7285bd9f4705cad6f371499e458c078c61902a47"
         };
 
@@ -46,27 +48,34 @@ namespace FFXIVAPP.Client {
         /// <summary>
         /// </summary>
         /// <param name="path"> </param>
-        public void LoadPlugins(string path = "") {
+        public void LoadPlugins(string path = "")
+        {
             path = (path == "") ? AppDomain.CurrentDomain.BaseDirectory : path;
             Loaded.Clear();
-            if (!Directory.Exists(path)) {
+            if (!Directory.Exists(path))
+            {
                 return;
             }
             var directories = Directory.GetDirectories(path);
-            foreach (var d in directories) {
+            foreach (var d in directories)
+            {
                 var settings = String.Format(@"{0}\PluginInfo.xml", d);
-                if (!File.Exists(settings)) {
+                if (!File.Exists(settings))
+                {
                     continue;
                 }
                 var xDoc = XDocument.Load(settings);
                 foreach (var xElement in xDoc.Descendants()
-                                             .Elements("Main")) {
+                                             .Elements("Main"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                    {
                         return;
                     }
-                    switch (xKey) {
+                    switch (xKey)
+                    {
                         case "FileName":
                             VerifyPlugin(String.Format(@"{0}\{1}", d, xValue));
                             break;
@@ -77,9 +86,12 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        public void UnloadPlugins() {
-            foreach (PluginInstance pInstance in Loaded) {
-                if (pInstance.Instance != null) {
+        public void UnloadPlugins()
+        {
+            foreach (PluginInstance pInstance in Loaded)
+            {
+                if (pInstance.Instance != null)
+                {
                     pInstance.Instance.Dispose();
                 }
                 pInstance.Instance = null;
@@ -90,10 +102,13 @@ namespace FFXIVAPP.Client {
         /// <summary>
         /// </summary>
         /// <param name="fileName"> </param>
-        private void VerifyPlugin(string fileName) {
-            try {
+        private void VerifyPlugin(string fileName)
+        {
+            try
+            {
                 if (fileName.ToLower()
-                            .Contains("ffxivapp")) {
+                            .Contains("ffxivapp"))
+                {
                     return;
                 }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
@@ -101,7 +116,8 @@ namespace FFXIVAPP.Client {
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
-                if (!implementsIPlugin) {
+                if (!implementsIPlugin)
+                {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
@@ -113,7 +129,8 @@ namespace FFXIVAPP.Client {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
@@ -124,12 +141,15 @@ namespace FFXIVAPP.Client {
         /// </summary>
         /// <param name="pluginName"> </param>
         /// <param name="commands"> </param>
-        public void Commands(string pluginName, IEnumerable<string> commands) {
+        public void Commands(string pluginName, IEnumerable<string> commands)
+        {
             var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null) {
+            if (pluginInstance == null)
+            {
                 return;
             }
-            if (!Settings.Default.AllowPluginCommands) {
+            if (!Settings.Default.AllowPluginCommands)
+            {
                 var enumerable = commands as List<string> ?? commands.ToList();
                 var commandlist = enumerable.Aggregate("", (current, s) => current + (s + ","));
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginCommandAborted: {0}: \n{1}", pluginName, commandlist.Substring(0, commandlist.Length - 1)));
@@ -149,26 +169,31 @@ namespace FFXIVAPP.Client {
         /// <param name="pluginName"></param>
         /// <param name="displayed"> </param>
         /// <param name="content"> </param>
-        public void PopupMessage(string pluginName, out bool displayed, object content) {
+        public void PopupMessage(string pluginName, out bool displayed, object content)
+        {
             var popupContent = content as PopupContent;
             var pluginInstance = Loaded.Find(popupContent.PluginName);
-            if (pluginInstance == null || ShellView.View.Notify.IsOpen) {
+            if (pluginInstance == null || ShellView.View.Notify.IsOpen)
+            {
                 displayed = false;
                 return;
             }
             PopupHelper.Toggle(content);
             displayed = true;
             EventHandler onClosed = null;
-            onClosed = delegate {
+            onClosed = delegate
+            {
                 pluginInstance.Instance.PopupResult = PopupHelper.Result;
                 PopupHelper.MessagePopup.Closed -= onClosed;
             };
             PopupHelper.MessagePopup.Closed += onClosed;
         }
 
-        public void GetConstants(string pluginName) {
+        public void GetConstants(string pluginName)
+        {
             var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null) {
+            if (pluginInstance == null)
+            {
                 return;
             }
             pluginInstance.Instance.SetConstants(ConstantsType.AutoTranslate, Constants.AutoTranslate);
@@ -182,67 +207,12 @@ namespace FFXIVAPP.Client {
             //throw new NotImplementedException();
         }
 
-        public void ProcessDataByKey(string pluginName, string token, string key, object data) {
+        public void ProcessDataByKey(string pluginName, string token, string key, object data)
+        {
             var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen) {
+            if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen)
+            {
                 return;
-            }
-            var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
-            switch (key) {
-                case "LootEntry":
-                    try {
-                        var lootEntryData = data as Dictionary<string, object>;
-                        if (lootEntryData == null) {
-                            return;
-                        }
-                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string);
-                        if (MonsterWorkerDelegate.CurrentUser != null) {
-                            lootEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                            lootEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
-                        }
-                        var s = lootEntryData["MobName"] as string;
-                        if (s != null) {
-                            var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", ""))) {
-                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex)) {
-                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
-                                    lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
-                                }
-                            }
-                        }
-                        DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
-                    }
-                    catch (Exception ex) {
-                        //MessageBox.Show(ex.Message);
-                    }
-                    break;
-                case "KillEntry":
-                    try {
-                        var killEntryData = data as Dictionary<string, object>;
-                        if (killEntryData == null) {
-                            return;
-                        }
-                        var killEntry = new KillEntry();
-                        if (MonsterWorkerDelegate.CurrentUser != null) {
-                            killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                            killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
-                        }
-                        var s = killEntryData["MobName"] as string;
-                        if (s != null) {
-                            var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", ""))) {
-                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex)) {
-                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
-                                    killEntry.ModelID = monster == null ? 0 : monster.ModelID;
-                                }
-                            }
-                        }
-                        DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
-                    }
-                    catch (Exception ex) {
-                        //MessageBox.Show(ex.Message);
-                    }
-                    break;
             }
         }
 

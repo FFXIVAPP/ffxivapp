@@ -10,8 +10,10 @@ using FFXIVAPP.Common.RegularExpressions;
 
 #endregion
 
-namespace FFXIVAPP.Client.RegularExpressions {
-    internal static class PlayerRegEx {
+namespace FFXIVAPP.Client.RegularExpressions
+{
+    internal static class PlayerRegEx
+    {
         //ENGLISH REGULAR EXPRESSIONS
         public static Regex DamageEn = new Regex(@"^( ⇒ )?(?<block>Blocked! )?(?<parry>Parried! )?(?<crit>Critical! )?((T|t)he )?(?<target>.+) takes? (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?damage\.$", SharedRegEx.DefaultOptions);
 

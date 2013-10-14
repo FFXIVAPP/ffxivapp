@@ -3,12 +3,15 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Controls {
+namespace FFXIVAPP.Client.Plugins.Parse.Controls
+{
     /// <summary>
     ///     Interaction logic for BasicCardSettings.xaml
     /// </summary>
-    public partial class ColumnDisplaySettings {
-        public ColumnDisplaySettings() {
+    public partial class ColumnDisplaySettings
+    {
+        public ColumnDisplaySettings()
+        {
             InitializeComponent();
         }
     }

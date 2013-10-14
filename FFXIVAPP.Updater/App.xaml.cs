@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Updater {
+namespace FFXIVAPP.Updater
+{
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App {}
+    public partial class App
+    {
+    }
 }

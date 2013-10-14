@@ -10,8 +10,10 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public interface ILinkedStat {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public interface ILinkedStat
+    {
         void DoDependencyValueChanged(object sender, object previousValue, object newValue);
         event EventHandler<StatChangedEvent> OnDependencyValueChanged;
         void AddDependency(Stat<decimal> dependency);

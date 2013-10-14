@@ -15,23 +15,30 @@ using FFXIVAPP.Common.Models;
 
 #endregion
 
-namespace FFXIVAPP.Client.Helpers {
-    internal static class PopupHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    internal static class PopupHelper
+    {
         private const int Time = 1000000000 / 100;
 
-        public static Popup MessagePopup {
+        public static Popup MessagePopup
+        {
             get { return ShellView.View.Notify; }
         }
 
-        private static DoubleAnimation BlurIn {
-            get {
+        private static DoubleAnimation BlurIn
+        {
+            get
+            {
                 var timeSpan = new TimeSpan((long) (Time * .1));
                 return new DoubleAnimation(3, 0, timeSpan);
             }
         }
 
-        private static DoubleAnimation BlurOut {
-            get {
+        private static DoubleAnimation BlurOut
+        {
+            get
+            {
                 var timeSpan = new TimeSpan((long) (Time * .1));
                 return new DoubleAnimation(0, 3, timeSpan);
             }
@@ -42,12 +49,14 @@ namespace FFXIVAPP.Client.Helpers {
         /// <summary>
         /// </summary>
         /// <param name="content"> </param>
-        public static void Toggle(object content) {
+        public static void Toggle(object content)
+        {
             var popupContent = content as PopupContent;
             Result = MessageBoxResult.None;
             var window = ShellView.View;
             window.MetroNotify.Popup_No.Visibility = popupContent.CanSayNo ? Visibility.Visible : Visibility.Collapsed;
-            switch (window.Notify.IsOpen) {
+            switch (window.Notify.IsOpen)
+            {
                 case false:
                     //setup blur animation to blur MetroPopup
                     window.MetroNotify.Effect = new BlurEffect();
@@ -66,7 +75,8 @@ namespace FFXIVAPP.Client.Helpers {
                     window.Notify.IsOpen = true;
                     //assign ClickEvent to OK button
                     RoutedEventHandler popupYes = null;
-                    popupYes = delegate {
+                    popupYes = delegate
+                    {
                         //animation blur effect back to 0
                         window.MetroNotify.Effect.BeginAnimation(BlurEffect.RadiusProperty, BlurOut);
                         //toggle result
@@ -76,9 +86,11 @@ namespace FFXIVAPP.Client.Helpers {
                         window.MetroNotify.Popup_Yes.Click -= popupYes;
                     };
                     window.MetroNotify.Popup_Yes.Click += popupYes;
-                    if (popupContent.CanSayNo && !popupContent.IsOkayOnly) {
+                    if (popupContent.CanSayNo && !popupContent.IsOkayOnly)
+                    {
                         RoutedEventHandler popupNo = null;
-                        popupNo = delegate {
+                        popupNo = delegate
+                        {
                             //animation blur effect back to 0
                             window.MetroNotify.Effect.BeginAnimation(BlurEffect.RadiusProperty, BlurOut);
                             //toggle result
@@ -95,9 +107,11 @@ namespace FFXIVAPP.Client.Helpers {
 
         /// <summary>
         /// </summary>
-        public static void ForceClose() {
+        public static void ForceClose()
+        {
             var window = ShellView.View;
-            if (!window.Notify.IsOpen) {
+            if (!window.Notify.IsOpen)
+            {
                 return;
             }
             Result = MessageBoxResult.None;
@@ -113,7 +127,8 @@ namespace FFXIVAPP.Client.Helpers {
         /// </summary>
         /// <param name="framework"> </param>
         /// <param name="timeOffset"> </param>
-        private static void FadeOut(UIElement framework, double timeOffset) {
+        private static void FadeOut(UIElement framework, double timeOffset)
+        {
             var animation = new DoubleAnimation(framework.Opacity, .5, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
@@ -123,7 +138,8 @@ namespace FFXIVAPP.Client.Helpers {
         /// <param name="framework"> </param>
         /// <param name="timeOffset"> </param>
         /// <param name="to"> </param>
-        private static void FadeOut(UIElement framework, double timeOffset, double to) {
+        private static void FadeOut(UIElement framework, double timeOffset, double to)
+        {
             var animation = new DoubleAnimation(framework.Opacity, to, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
@@ -132,7 +148,8 @@ namespace FFXIVAPP.Client.Helpers {
         /// </summary>
         /// <param name="framework"> </param>
         /// <param name="timeOffset"> </param>
-        private static void FadeIn(UIElement framework, double timeOffset) {
+        private static void FadeIn(UIElement framework, double timeOffset)
+        {
             var animation = new DoubleAnimation(framework.Opacity, 1, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }
@@ -142,7 +159,8 @@ namespace FFXIVAPP.Client.Helpers {
         /// <param name="framework"> </param>
         /// <param name="timeOffset"> </param>
         /// <param name="from"> </param>
-        private static void FadeIn(UIElement framework, double timeOffset, double from) {
+        private static void FadeIn(UIElement framework, double timeOffset, double from)
+        {
             var animation = new DoubleAnimation(from, 1, new TimeSpan((long) (Time * timeOffset)));
             framework.BeginAnimation(UIElement.OpacityProperty, animation);
         }

@@ -13,13 +13,16 @@ using FFXIVAPP.Common.Events;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse {
-    public sealed class PluginViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse
+{
+    public sealed class PluginViewModel : INotifyPropertyChanged
+    {
         //used for global static properties
 
         public event EventHandler<PopupResultEvent> PopupResultChanged = delegate { };
 
-        public void OnPopupResultChanged(PopupResultEvent e) {
+        public void OnPopupResultChanged(PopupResultEvent e)
+        {
             PopupResultChanged(this, e);
         }
 
@@ -29,12 +32,15 @@ namespace FFXIVAPP.Client.Plugins.Parse {
         private bool _enableHelpLabels;
         private Dictionary<string, string> _locale;
 
-        public static PluginViewModel Instance {
+        public static PluginViewModel Instance
+        {
             get { return _instance ?? (_instance = new PluginViewModel()); }
         }
 
-        public static Dictionary<string, string> PluginInfo {
-            get {
+        public static Dictionary<string, string> PluginInfo
+        {
+            get
+            {
                 var pluginInfo = new Dictionary<string, string>();
                 pluginInfo.Add("Name", "FFXIVAPP.Plugin.Parse");
                 pluginInfo.Add("Description", "Final Fantasy XIV Battle Parser");
@@ -53,7 +59,8 @@ namespace FFXIVAPP.Client.Plugins.Parse {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

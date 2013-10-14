@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Enums {
-    public enum EventType {
+namespace FFXIVAPP.Client.Plugins.Parse.Enums
+{
+    public enum EventType
+    {
         Unknown = 0x00000000,
         Damage = 0x00002000,
         Failed = 0x00004000,

@@ -13,13 +13,19 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class DamageOverTime {
-        public class Monster : IDisposable {
-            public void Dispose() {}
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class DamageOverTime
+    {
+        public class Monster : IDisposable
+        {
+            public void Dispose()
+            {
+            }
         }
 
-        public class Player : IDisposable {
+        public class Player : IDisposable
+        {
             #region Auto Properties
 
             public Line Line { get; set; }
@@ -43,25 +49,29 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
             /// </summary>
             /// <param name="line"></param>
             /// <param name="isValid"></param>
-            public Player(Line line, out bool isValid) {
+            public Player(Line line, out bool isValid)
+            {
                 Line = line;
                 Timer = new Timer(3000);
                 Timer.Elapsed += TimerOnElapsed;
-                if (line.Amount > 0) {
+                if (line.Amount > 0)
+                {
                     OriginalAmount = Line.Crit ? ParseHelper.GetOriginalDamage(OriginalAmount, (decimal) .5) : Line.Amount;
                 }
                 var actionData = DamageOverTimeHelper.PlayerActions[Line.Action.ToLower()];
                 ActionPotency = actionData.ActionPotency;
                 DamageOverTimePotency = actionData.DamageOverTimePotency;
                 Duration = actionData.Duration;
-                if (actionData.ZeroBaseDamageDOT) {
+                if (actionData.ZeroBaseDamageDOT)
+                {
                     //OriginalAmount = ParseControl.Instance.Timeline.GetSetPlayer(line.Source).LastDamageAmount;
                     OriginalAmount = 100;
                 }
                 TotalTicks = (int) Math.Ceiling(Duration / 3.0);
                 TickDamage = (OriginalAmount / ActionPotency) * DamageOverTimePotency;
                 if (TickDamage >= 300 && DamageOverTimeHelper.Thunders.Any(action => Line.Action.ToLower()
-                                                                                         .Contains(action))) {
+                                                                                         .Contains(action)))
+                {
                     isValid = false;
                     return;
                 }
@@ -71,7 +81,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
             /// <summary>
             /// </summary>
-            public void Dispose() {
+            public void Dispose()
+            {
                 Timer.Elapsed -= TimerOnElapsed;
                 Timer.Stop();
             }
@@ -80,17 +91,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
             /// </summary>
             /// <param name="sender"></param>
             /// <param name="elapsedEventArgs"></param>
-            private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs) {
-                if (CurrentTick < TotalTicks && !ParseControl.Instance.Timeline.DeathFound) {
+            private void TimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+            {
+                if (CurrentTick < TotalTicks && !ParseControl.Instance.Timeline.DeathFound)
+                {
                     Line.Amount = Math.Ceiling(TickDamage);
-                    DispatcherHelper.Invoke(delegate {
+                    DispatcherHelper.Invoke(delegate
+                    {
                         ParseControl.Instance.Timeline.GetSetPlayer(Line.Source)
                                     .SetDamageOverTime(Line);
                         ParseControl.Instance.Timeline.GetSetMob(Line.Target)
                                     .SetDamageOverTimeFromPlayer(Line);
                     });
                 }
-                else {
+                else
+                {
                     Dispose();
                 }
                 ++CurrentTick;

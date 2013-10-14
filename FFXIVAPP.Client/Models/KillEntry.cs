@@ -5,8 +5,10 @@
 
 using FFXIVAPP.Client.Memory;
 
-namespace FFXIVAPP.Client.Models {
-    public class KillEntry {
+namespace FFXIVAPP.Client.Models
+{
+    public class KillEntry
+    {
         #region Auto Properties
 
         public Coordinate Coordinate { get; set; }
@@ -15,13 +17,15 @@ namespace FFXIVAPP.Client.Models {
 
         #endregion
 
-        public KillEntry() {
+        public KillEntry()
+        {
             Coordinate = new Coordinate();
             MapIndex = 0;
             ModelID = 0;
         }
 
-        public bool IsValid() {
+        public bool IsValid()
+        {
             return MapIndex > 0 && ModelID > 0;
         }
     }

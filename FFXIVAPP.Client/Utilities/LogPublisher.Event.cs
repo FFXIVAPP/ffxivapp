@@ -13,33 +13,45 @@ using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
-namespace FFXIVAPP.Client.Utilities {
-    public static partial class LogPublisher {
-        public static class Event {
-            public static void Process(ChatEntry chatEntry) {
-                try {
+namespace FFXIVAPP.Client.Utilities
+{
+    public static partial class LogPublisher
+    {
+        public static class Event
+        {
+            public static void Process(ChatEntry chatEntry)
+            {
+                try
+                {
                     var line = chatEntry.Line.Replace("  ", " ");
-                    foreach (var item in PluginViewModel.Instance.Events) {
+                    foreach (var item in PluginViewModel.Instance.Events)
+                    {
                         var resuccess = false;
                         var check = new Regex(item.RegEx);
-                        if (SharedRegEx.IsValidRegex(item.RegEx)) {
+                        if (SharedRegEx.IsValidRegex(item.RegEx))
+                        {
                             var reg = check.Match(line);
-                            if (reg.Success) {
+                            if (reg.Success)
+                            {
                                 resuccess = true;
                             }
                         }
-                        else {
+                        else
+                        {
                             resuccess = (item.RegEx == line);
                         }
-                        if (!resuccess) {
+                        if (!resuccess)
+                        {
                             continue;
                         }
                         var soundEvent = item;
-                        Func<bool> playSound = delegate {
+                        Func<bool> playSound = delegate
+                        {
                             var delay = soundEvent.Delay;
                             var timer = new Timer(delay > 0 ? delay * 1000 : 1);
                             ElapsedEventHandler timerEventHandler = null;
-                            timerEventHandler = delegate {
+                            timerEventHandler = delegate
+                            {
                                 DispatcherHelper.Invoke(() => SoundPlayerHelper.Play(AppViewModel.Instance.SoundsPath, soundEvent.Sound));
                                 timer.Elapsed -= timerEventHandler;
                             };
@@ -50,7 +62,8 @@ namespace FFXIVAPP.Client.Utilities {
                         playSound.BeginInvoke(null, null);
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }

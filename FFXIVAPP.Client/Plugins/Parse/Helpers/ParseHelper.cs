@@ -12,10 +12,13 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
-    public static class ParseHelper {
+namespace FFXIVAPP.Client.Plugins.Parse.Helpers
+{
+    public static class ParseHelper
+    {
         // setup pet info that comes through as "YOU"
-        private static List<string> _pets = new List<string> {
+        private static List<string> _pets = new List<string>
+        {
             "eos",
             "selene",
             "topaz carbuncle",
@@ -45,7 +48,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
         /// <param name="amount"></param>
         /// <param name="modifier"></param>
         /// <returns></returns>
-        public static decimal GetBonusDamage(decimal amount, decimal modifier) {
+        public static decimal GetBonusDamage(decimal amount, decimal modifier)
+        {
             return Math.Abs((amount / (modifier + 1)) - amount);
         }
 
@@ -54,7 +58,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
         /// <param name="amount"></param>
         /// <param name="modifier"></param>
         /// <returns></returns>
-        public static decimal GetOriginalDamage(decimal amount, decimal modifier) {
+        public static decimal GetOriginalDamage(decimal amount, decimal modifier)
+        {
             return Math.Abs(amount - GetBonusDamage(amount, modifier));
         }
 
@@ -62,8 +67,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers {
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static string GetPetFromPlayer(string name, Expressions exp) {
-            if (Regex.IsMatch(name, exp.You)) {
+        public static string GetPetFromPlayer(string name, Expressions exp)
+        {
+            if (Regex.IsMatch(name, exp.You))
+            {
                 name = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
             }
             return _pets.Contains(name.ToLower()) ? String.Format("{0} [{1}]", name, exp.YouString) : name;

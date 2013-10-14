@@ -10,13 +10,16 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
-    internal sealed class AboutViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Log.ViewModels
+{
+    internal sealed class AboutViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static AboutViewModel _instance;
 
-        public static AboutViewModel Instance {
+        public static AboutViewModel Instance
+        {
             get { return _instance ?? (_instance = new AboutViewModel()); }
         }
 
@@ -42,7 +45,8 @@ namespace FFXIVAPP.Client.Plugins.Log.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

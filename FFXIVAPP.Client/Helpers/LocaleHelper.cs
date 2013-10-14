@@ -14,16 +14,21 @@ using FFXIVAPP.Client.Models;
 
 #endregion
 
-namespace FFXIVAPP.Client.Helpers {
-    internal static class LocaleHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    internal static class LocaleHelper
+    {
         /// <summary>
         /// </summary>
         /// <param name="cultureInfo"> </param>
-        public static void Update(CultureInfo cultureInfo) {
+        public static void Update(CultureInfo cultureInfo)
+        {
             var culture = cultureInfo.TwoLetterISOLanguageName;
             ResourceDictionary dictionary;
-            if (Constants.Supported.Contains(culture)) {
-                switch (culture) {
+            if (Constants.Supported.Contains(culture))
+            {
+                switch (culture)
+                {
                     case "ja":
                         dictionary = Japanese.Context();
                         break;
@@ -38,13 +43,15 @@ namespace FFXIVAPP.Client.Helpers {
                         break;
                 }
             }
-            else {
+            else
+            {
                 dictionary = English.Context();
             }
             var result = dictionary.Cast<DictionaryEntry>()
                                    .ToDictionary(item => (string) item.Key, item => (string) item.Value);
             AppViewModel.Instance.Locale = result;
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded) {
+            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
+            {
                 pluginInstance.Instance.Locale = result;
             }
         }

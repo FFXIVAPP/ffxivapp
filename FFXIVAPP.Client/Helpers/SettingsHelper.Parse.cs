@@ -5,10 +5,14 @@
 
 using FFXIVAPP.Client.SettingsProviders.Parse;
 
-namespace FFXIVAPP.Client.Helpers {
-    internal static partial class SettingsHelper {
-        public static class Parse {
-            public static void Save() {
+namespace FFXIVAPP.Client.Helpers
+{
+    internal static partial class SettingsHelper
+    {
+        public static class Parse
+        {
+            public static void Save()
+            {
                 Settings.Default.Save();
             }
         }

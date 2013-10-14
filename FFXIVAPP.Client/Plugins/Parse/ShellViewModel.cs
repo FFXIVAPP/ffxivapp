@@ -12,14 +12,17 @@ using System.Windows.Input;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse {
+namespace FFXIVAPP.Client.Plugins.Parse
+{
     [Export(typeof (ShellViewModel))]
-    internal sealed class ShellViewModel : INotifyPropertyChanged {
+    internal sealed class ShellViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static ShellViewModel _instance;
 
-        public static ShellViewModel Instance {
+        public static ShellViewModel Instance
+        {
             get { return _instance ?? (_instance = new ShellViewModel()); }
         }
 
@@ -32,7 +35,8 @@ namespace FFXIVAPP.Client.Plugins.Parse {
 
         #endregion
 
-        public ShellViewModel() {
+        public ShellViewModel()
+        {
             PluginInitializer.Parse.LoadSettings();
             PluginInitializer.Parse.LoadPlayerRegEx();
             PluginInitializer.Parse.LoadMonsterRegEx();
@@ -50,13 +54,15 @@ namespace FFXIVAPP.Client.Plugins.Parse {
 
         /// <summary>
         /// </summary>
-        public static void Default() {
+        public static void Default()
+        {
             //do something here
         }
 
         /// <summary>
         /// </summary>
-        public static void DefaultT(object parameter) {
+        public static void DefaultT(object parameter)
+        {
             //do something here
         }
 
@@ -66,7 +72,8 @@ namespace FFXIVAPP.Client.Plugins.Parse {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

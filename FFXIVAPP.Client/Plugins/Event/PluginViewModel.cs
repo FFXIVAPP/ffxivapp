@@ -13,20 +13,25 @@ using FFXIVAPP.Client.Plugins.Event.Models;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Event {
-    internal sealed class PluginViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Event
+{
+    internal sealed class PluginViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static PluginViewModel _instance;
         private ObservableCollection<SoundEvent> _events;
         private ObservableCollection<string> _soundFiles;
 
-        public static PluginViewModel Instance {
+        public static PluginViewModel Instance
+        {
             get { return _instance ?? (_instance = new PluginViewModel()); }
         }
 
-        public static Dictionary<string, string> PluginInfo {
-            get {
+        public static Dictionary<string, string> PluginInfo
+        {
+            get
+            {
                 var pluginInfo = new Dictionary<string, string>();
                 pluginInfo.Add("Name", "FFXIVAPP.Plugin.Event");
                 pluginInfo.Add("Description", "Final Fantasy XIV Event Monitor");
@@ -35,17 +40,21 @@ namespace FFXIVAPP.Client.Plugins.Event {
             }
         }
 
-        public ObservableCollection<SoundEvent> Events {
+        public ObservableCollection<SoundEvent> Events
+        {
             get { return _events ?? (_events = new ObservableCollection<SoundEvent>()); }
-            set {
+            set
+            {
                 _events = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<string> SoundFiles {
+        public ObservableCollection<string> SoundFiles
+        {
             get { return _soundFiles ?? (_soundFiles = new ObservableCollection<string>()); }
-            set {
+            set
+            {
                 _soundFiles = value;
                 RaisePropertyChanged();
             }
@@ -61,7 +70,8 @@ namespace FFXIVAPP.Client.Plugins.Event {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

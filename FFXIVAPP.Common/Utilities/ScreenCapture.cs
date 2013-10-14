@@ -13,15 +13,18 @@ using System.Windows.Media.Imaging;
 
 #endregion
 
-namespace FFXIVAPP.Common.Utilities {
-    public static class ScreenCapture {
+namespace FFXIVAPP.Common.Utilities
+{
+    public static class ScreenCapture
+    {
         /// <summary>
         /// </summary>
         /// <param name="source"> </param>
         /// <param name="scale"> </param>
         /// <param name="quality"> </param>
         /// <returns> </returns>
-        public static byte[] GetJpgImage(UIElement source, double scale, int quality) {
+        public static byte[] GetJpgImage(UIElement source, double scale, int quality)
+        {
             var actualHeight = source.RenderSize.Height;
             var actualWidth = source.RenderSize.Width;
             var renderHeight = actualHeight * scale;
@@ -30,17 +33,20 @@ namespace FFXIVAPP.Common.Utilities {
             var sourceBrush = new VisualBrush(source);
             var drawingVisual = new DrawingVisual();
             var drawingContext = drawingVisual.RenderOpen();
-            using (drawingContext) {
+            using (drawingContext)
+            {
                 drawingContext.PushTransform(new ScaleTransform(scale, scale));
                 drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
             }
             renderTarget.Render(drawingVisual);
-            var jpgEncoder = new JpegBitmapEncoder {
+            var jpgEncoder = new JpegBitmapEncoder
+            {
                 QualityLevel = quality
             };
             jpgEncoder.Frames.Add(BitmapFrame.Create(renderTarget));
             Byte[] imageArray;
-            using (var outputStream = new MemoryStream()) {
+            using (var outputStream = new MemoryStream())
+            {
                 jpgEncoder.Save(outputStream);
                 imageArray = outputStream.ToArray();
             }

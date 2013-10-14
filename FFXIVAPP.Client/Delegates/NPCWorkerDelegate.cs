@@ -16,8 +16,10 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace FFXIVAPP.Client.Delegates {
-    internal static class NPCWorkerDelegate {
+namespace FFXIVAPP.Client.Delegates
+{
+    internal static class NPCWorkerDelegate
+    {
         #region Declarations
 
         public static IList<NPCEntry> NPCEntries = new List<NPCEntry>();
@@ -30,44 +32,58 @@ namespace FFXIVAPP.Client.Delegates {
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(List<NPCEntry> npcEntries) {
-            if (!npcEntries.Any()) {
+        public static void OnNewNPC(List<NPCEntry> npcEntries)
+        {
+            if (!npcEntries.Any())
+            {
                 return;
             }
             NPCEntries = npcEntries;
-            Func<bool> saveToDictionary = delegate {
-                try {
+            Func<bool> saveToDictionary = delegate
+            {
+                try
+                {
                     var enumerable = UniqueNPCEntries.ToList();
-                    foreach (var npcEntry in npcEntries) {
+                    foreach (var npcEntry in npcEntries)
+                    {
                         var exists = enumerable.FirstOrDefault(n => n.NPCID == npcEntry.NPCID);
-                        if (exists != null) {
+                        if (exists != null)
+                        {
                             continue;
                         }
-                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry))) {
+                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry)))
+                        {
                             UniqueNPCEntries.Add(npcEntry);
                         }
                         XIVDBViewModel.Instance.NPCSeen++;
                     }
                 }
-                catch (Exception ex) {}
+                catch (Exception ex)
+                {
+                }
                 return true;
             };
-            saveToDictionary.BeginInvoke(delegate {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration) {
+            saveToDictionary.BeginInvoke(delegate
+            {
+                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen)
+                {
                     return;
                 }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1))) {
+                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                {
                     return;
                 }
-                try {
+                try
+                {
                     UploadHelper.Processing = true;
                     UploadHelper.PostUpload("npc", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                       .Skip(chunksProcessed * chunkSize)));
                     XIVDBViewModel.Instance.NPCProcessed++;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     UploadHelper.Processing = true;
                 }
             }, saveToDictionary);
@@ -75,14 +91,18 @@ namespace FFXIVAPP.Client.Delegates {
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining() {
+        public static void ProcessRemaining()
+        {
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
-            try {
+            try
+            {
                 UploadHelper.PostUpload("npc", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                   .Skip(chunksProcessed * chunkSize)));
             }
-            catch (Exception ex) {}
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

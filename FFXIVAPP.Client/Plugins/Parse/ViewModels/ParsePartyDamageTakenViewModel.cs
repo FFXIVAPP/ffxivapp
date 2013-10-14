@@ -10,13 +10,16 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
-    internal sealed class ParsePartyDamageTakenViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
+{
+    internal sealed class ParsePartyDamageTakenViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static ParsePartyDamageTakenViewModel _instance;
 
-        public static ParsePartyDamageTakenViewModel Instance {
+        public static ParsePartyDamageTakenViewModel Instance
+        {
             get { return _instance ?? (_instance = new ParsePartyDamageTakenViewModel()); }
         }
 
@@ -42,7 +45,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

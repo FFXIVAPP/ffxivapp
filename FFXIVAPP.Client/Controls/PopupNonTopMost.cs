@@ -11,14 +11,18 @@ using FFXIVAPP.Client.Properties;
 
 #endregion
 
-namespace FFXIVAPP.Client.Controls {
-    public class PopupNonTopmost : Popup {
-        protected override void OnOpened(EventArgs e) {
+namespace FFXIVAPP.Client.Controls
+{
+    public class PopupNonTopmost : Popup
+    {
+        protected override void OnOpened(EventArgs e)
+        {
             ShellView.View.Topmost = false;
             base.OnOpened(e);
         }
 
-        protected override void OnClosed(EventArgs e) {
+        protected override void OnClosed(EventArgs e)
+        {
             ShellView.View.Topmost = Settings.Default.TopMost;
             base.OnClosed(e);
         }

@@ -13,8 +13,10 @@ using System.Windows.Media.Imaging;
 
 #endregion
 
-namespace FFXIVAPP.Common.Converters {
-    public class IconConverter : IMultiValueConverter {
+namespace FFXIVAPP.Common.Converters
+{
+    public class IconConverter : IMultiValueConverter
+    {
         private const string IconPath = "/Plugins/{0}/{1}";
 
         /// <summary>
@@ -24,7 +26,8 @@ namespace FFXIVAPP.Common.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
             var source = new BitmapImage(new Uri(Constants.DefaultIcon));
             var folder = values[1];
             var name = values[2];
@@ -39,7 +42,8 @@ namespace FFXIVAPP.Common.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
     }

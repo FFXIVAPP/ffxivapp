@@ -7,12 +7,17 @@
 
 #endregion
 
-namespace FFXIVAPP.Client.Helpers {
-    internal static partial class SettingsHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    internal static partial class SettingsHelper
+    {
         /// <summary>
         /// </summary>
-        public static void Save(bool isUpdating) {
-            if (isUpdating) {}
+        public static void Save(bool isUpdating)
+        {
+            if (isUpdating)
+            {
+            }
             Client.Save();
             Event.Save();
             Log.Save();
@@ -21,7 +26,8 @@ namespace FFXIVAPP.Client.Helpers {
 
         /// <summary>
         /// </summary>
-        public static void Default() {
+        public static void Default()
+        {
             Client.Default();
         }
     }

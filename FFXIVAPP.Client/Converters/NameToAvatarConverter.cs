@@ -21,37 +21,47 @@ using HtmlAgilityPack;
 
 #endregion
 
-namespace FFXIVAPP.Client.Converters {
-    public class NameToAvatarConverter : IMultiValueConverter {
+namespace FFXIVAPP.Client.Converters
+{
+    public class NameToAvatarConverter : IMultiValueConverter
+    {
         private const string DefaultAvatar = Common.Constants.DefaultAvatar;
         private bool _cachingEnabled = true;
 
         /// <summary>
         /// </summary>
-        public NameToAvatarConverter() {
-            if (Directory.Exists(CachePath)) {
+        public NameToAvatarConverter()
+        {
+            if (Directory.Exists(CachePath))
+            {
                 return;
             }
-            try {
+            try
+            {
                 Directory.CreateDirectory(CachePath);
             }
-            catch {
+            catch
+            {
                 _cachingEnabled = false;
             }
         }
 
         /// <summary>
         /// </summary>
-        private string CachePath {
-            get {
-                try {
+        private string CachePath
+        {
+            get
+            {
+                try
+                {
                     var location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     var applicationName = Assembly.GetEntryAssembly()
                                                   .GetName()
                                                   .Name;
                     return Path.Combine(location, applicationName, "./Avatars/");
                 }
-                catch {
+                catch
+                {
                     _cachingEnabled = false;
                     return "./Avatars/";
                 }
@@ -65,36 +75,44 @@ namespace FFXIVAPP.Client.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
-            if (values[1] == null) {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values[1] == null)
+            {
                 return null;
             }
             var source = new BitmapImage(new Uri(DefaultAvatar));
             var image = values[0] as Image;
             var name = values[1] as String;
-            if (image == null || name == null) {
+            if (image == null || name == null)
+            {
                 return source;
             }
             var fileName = String.Format("{0}.{1}.{2}", Constants.ServerName, name.Replace(" ", ""), "png");
             var cachePath = Path.Combine(CachePath, fileName);
-            if (_cachingEnabled && File.Exists(cachePath)) {
+            if (_cachingEnabled && File.Exists(cachePath))
+            {
                 return new BitmapImage(new Uri(cachePath));
             }
             var useAvatars = !String.IsNullOrWhiteSpace(Common.Constants.ServerName);
-            if (useAvatars) {
-                ThreadPool.QueueUserWorkItem(delegate {
+            if (useAvatars)
+            {
+                ThreadPool.QueueUserWorkItem(delegate
+                {
                     var serverName = Common.Constants.ServerName;
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                     var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
-                    if (response.StatusCode != HttpStatusCode.OK || stream == null) {
+                    if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                    {
                         return;
                     }
                     var doc = new HtmlDocument();
                     doc.Load(stream);
-                    try {
+                    try
+                    {
                         var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
                                             .OuterHtml;
                         var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -102,15 +120,19 @@ namespace FFXIVAPP.Client.Converters {
                                           .Groups["image"].Value;
                         imageUrl = imageUrl.Substring(0, imageUrl.IndexOf('?'))
                                            .Replace("50x50", "96x96");
-                        image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate {
+                        image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
+                        {
                             var imageUri = imageUrl;
-                            if (imageUri != DefaultAvatar) {
+                            if (imageUri != DefaultAvatar)
+                            {
                                 imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
                             }
                             image.Source = new BitmapImage(new Uri(imageUri));
                         });
                     }
-                    catch (Exception ex) {}
+                    catch (Exception ex)
+                    {
+                    }
                 });
                 //Func<bool> d = delegate
                 //{
@@ -128,7 +150,8 @@ namespace FFXIVAPP.Client.Converters {
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
 
@@ -137,12 +160,15 @@ namespace FFXIVAPP.Client.Converters {
         /// <param name="fileName"> </param>
         /// <param name="imageUri"> </param>
         /// <returns> </returns>
-        private string SaveToCache(string fileName, Uri imageUri) {
+        private string SaveToCache(string fileName, Uri imageUri)
+        {
             var request = (HttpWebRequest) WebRequest.Create(imageUri);
             var response = (HttpWebResponse) request.GetResponse();
             var stream = response.GetResponseStream();
-            if (stream != null) {
-                if (response.ContentType == "image/jpeg" || response.ContentType == "image/png") {
+            if (stream != null)
+            {
+                if (response.ContentType == "image/jpeg" || response.ContentType == "image/png")
+                {
                     var imagePath = Path.Combine(CachePath, fileName);
                     var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
                     stream.CopyTo(fileStream);

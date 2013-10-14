@@ -14,22 +14,30 @@ using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
 
-namespace FFXIVAPP.Client {
-    internal static partial class PluginInitializer {
-        public static class Parse {
+namespace FFXIVAPP.Client
+{
+    internal static partial class PluginInitializer
+    {
+        public static class Parse
+        {
             /// <summary>
             /// </summary>
-            public static void LoadSettings() {
-                if (Constants.Parse.XSettings != null) {
+            public static void LoadSettings()
+            {
+                if (Constants.Parse.XSettings != null)
+                {
                     foreach (var xElement in Constants.Parse.XSettings.Descendants()
-                                                      .Elements("Setting")) {
+                                                      .Elements("Setting"))
+                    {
                         var xKey = (string) xElement.Attribute("Key");
                         var xValue = (string) xElement.Element("Value");
-                        if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                        if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                        {
                             continue;
                         }
                         Settings.SetValue(xKey, xValue);
-                        if (!Constants.Parse.Settings.Contains(xKey)) {
+                        if (!Constants.Parse.Settings.Contains(xKey))
+                        {
                             Constants.Parse.Settings.Add(xKey);
                         }
                     }
@@ -38,28 +46,35 @@ namespace FFXIVAPP.Client {
 
             /// <summary>
             /// </summary>
-            public static void LoadPlayerRegEx() {
-                if (Constants.Parse.XRegEx == null) {
+            public static void LoadPlayerRegEx()
+            {
+                if (Constants.Parse.XRegEx == null)
+                {
                     return;
                 }
                 foreach (var xElement in Constants.Parse.XRegEx.Descendants()
-                                                  .Elements("Player")) {
+                                                  .Elements("Player"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xLanguage = (string) xElement.Attribute("Language");
                     var xValue = (string) xElement.Element("Value");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                    {
                         continue;
                     }
-                    if (!Common.Constants.IsValidRegex(xValue)) {
+                    if (!Common.Constants.IsValidRegex(xValue))
+                    {
                         continue;
                     }
                     var regex = new Regex(xValue, SharedRegEx.DefaultOptions);
-                    switch (xLanguage) {
+                    switch (xLanguage)
+                    {
                         case "EN":
 
                             #region Handle English Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     PlayerRegEx.DamageEn = regex;
                                     break;
@@ -102,7 +117,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle French Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     PlayerRegEx.DamageFr = regex;
                                     break;
@@ -145,7 +161,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle Japanese Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     PlayerRegEx.DamageJa = regex;
                                     break;
@@ -188,7 +205,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle German Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     PlayerRegEx.DamageDe = regex;
                                     break;
@@ -233,28 +251,35 @@ namespace FFXIVAPP.Client {
 
             /// <summary>
             /// </summary>
-            public static void LoadMonsterRegEx() {
-                if (Constants.Parse.XRegEx == null) {
+            public static void LoadMonsterRegEx()
+            {
+                if (Constants.Parse.XRegEx == null)
+                {
                     return;
                 }
                 foreach (var xElement in Constants.Parse.XRegEx.Descendants()
-                                                  .Elements("Monster")) {
+                                                  .Elements("Monster"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xLanguage = (string) xElement.Attribute("Language");
                     var xValue = (string) xElement.Element("Value");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
+                    {
                         continue;
                     }
-                    if (!Common.Constants.IsValidRegex(xValue)) {
+                    if (!Common.Constants.IsValidRegex(xValue))
+                    {
                         continue;
                     }
                     var regex = new Regex(xValue, SharedRegEx.DefaultOptions);
-                    switch (xLanguage) {
+                    switch (xLanguage)
+                    {
                         case "EN":
 
                             #region Handle English Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     MonsterRegEx.DamageEn = regex;
                                     break;
@@ -297,7 +322,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle French Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     MonsterRegEx.DamageFr = regex;
                                     break;
@@ -340,7 +366,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle Japanese Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     MonsterRegEx.DamageJa = regex;
                                     break;
@@ -383,7 +410,8 @@ namespace FFXIVAPP.Client {
 
                             #region Handle German Regular Expressions
 
-                            switch (xKey) {
+                            switch (xKey)
+                            {
                                 case "Damage":
                                     MonsterRegEx.DamageDe = regex;
                                     break;
@@ -428,12 +456,14 @@ namespace FFXIVAPP.Client {
 
             /// <summary>
             /// </summary>
-            public static void ApplyTheming() {
+            public static void ApplyTheming()
+            {
                 SetupFont(ref MainView.View.AbilityChatFD);
                 SetupColor(ref MainView.View.AbilityChatFD);
             }
 
-            private static void SetupFont(ref xFlowDocument flowDoc) {
+            private static void SetupFont(ref xFlowDocument flowDoc)
+            {
                 var font = Properties.Settings.Default.ChatFont;
                 flowDoc._FD.FontFamily = new FontFamily(font.Name);
                 flowDoc._FD.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
@@ -441,7 +471,8 @@ namespace FFXIVAPP.Client {
                 flowDoc._FD.FontSize = font.Size;
             }
 
-            private static void SetupColor(ref xFlowDocument flowDoc) {
+            private static void SetupColor(ref xFlowDocument flowDoc)
+            {
                 flowDoc._FD.Background = new SolidColorBrush(Properties.Settings.Default.ChatBackgroundColor);
             }
         }

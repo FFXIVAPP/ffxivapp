@@ -12,65 +12,80 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
-    public class Event : EventArgs, INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
+{
+    public class Event : EventArgs, INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private EventCode _eventCode;
         private string _rawLine;
         private DateTime _timestamp;
 
-        public DateTime Timestamp {
+        public DateTime Timestamp
+        {
             get { return _timestamp; }
-            private set {
+            private set
+            {
                 _timestamp = value;
                 RaisePropertyChanged();
             }
         }
 
-        private EventCode EventCode {
+        private EventCode EventCode
+        {
             get { return _eventCode; }
-            set {
+            set
+            {
                 _eventCode = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string RawLine {
+        public string RawLine
+        {
             get { return _rawLine; }
-            set {
+            set
+            {
                 _rawLine = value;
                 RaisePropertyChanged();
             }
         }
 
-        public EventSubject Subject {
+        public EventSubject Subject
+        {
             get { return EventCode != null ? EventCode.Subject : EventSubject.Unknown; }
         }
 
-        public EventType Type {
+        public EventType Type
+        {
             get { return EventCode != null ? EventCode.Type : EventType.Unknown; }
         }
 
-        public EventDirection Direction {
+        public EventDirection Direction
+        {
             get { return EventCode != null ? EventCode.Direction : EventDirection.Unknown; }
         }
 
-        public ulong Code {
+        public ulong Code
+        {
             get { return (EventCode != null ? EventCode.Code : 0x00000000); }
         }
 
-        public bool IsUnknown {
+        public bool IsUnknown
+        {
             get { return (EventCode == null) || (EventCode.Flags == EventParser.UnknownEvent); }
         }
 
         #endregion
 
-        public Event(EventCode eventCode = null, string rawLine = null) {
+        public Event(EventCode eventCode = null, string rawLine = null)
+        {
             Initialize(DateTime.Now, eventCode, rawLine);
         }
 
-        private void Initialize(DateTime timeStamp, EventCode eventCode, string rawLine) {
+        private void Initialize(DateTime timeStamp, EventCode eventCode, string rawLine)
+        {
             Timestamp = timeStamp;
             EventCode = eventCode;
             RawLine = rawLine;
@@ -82,7 +97,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="filter"> </param>
         /// <returns> </returns>
-        public bool MatchesFilter(UInt32 filter, Event e) {
+        public bool MatchesFilter(UInt32 filter, Event e)
+        {
             return (((UInt32) Subject & filter) != 0 && ((UInt32) Type & filter) != 0 && ((UInt32) Direction & filter) != 0);
         }
 
@@ -95,7 +111,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <param name="event1"> </param>
         /// <param name="event2"> </param>
         /// <returns> </returns>
-        public static bool operator ==(Event event1, Event event2) {
+        public static bool operator ==(Event event1, Event event2)
+        {
             return event2 != null && (event1 != null && ((event1.Timestamp == event2.Timestamp) && new EventCodeComparer().Equals(event1.EventCode, event2.EventCode)));
         }
 
@@ -104,7 +121,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <param name="event1"> </param>
         /// <param name="event2"> </param>
         /// <returns> </returns>
-        public static bool operator !=(Event event1, Event event2) {
+        public static bool operator !=(Event event1, Event event2)
+        {
             return !(event1 == event2);
         }
 
@@ -112,14 +130,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="source"> </param>
         /// <returns> </returns>
-        public override bool Equals(object source) {
+        public override bool Equals(object source)
+        {
             return source is Event ? this == (Event) source : base.Equals(source);
         }
 
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return (Timestamp.GetHashCode() ^ Subject.GetHashCode() ^ Type.GetHashCode() ^ Direction.GetHashCode());
         }
 
@@ -129,7 +149,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

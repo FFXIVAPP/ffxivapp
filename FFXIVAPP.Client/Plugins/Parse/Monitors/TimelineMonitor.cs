@@ -6,7 +6,10 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Delegates;
+using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
@@ -19,12 +22,15 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
-    public class TimelineMonitor : EventMonitor {
+namespace FFXIVAPP.Client.Plugins.Parse.Monitors
+{
+    public class TimelineMonitor : EventMonitor
+    {
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
-        public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl) {
+        public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl)
+        {
             Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32) EventType.Loot | (UInt32) EventType.Defeats);
         }
 
@@ -33,13 +39,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleEvent(Models.Events.Event e) {
+        protected override void HandleEvent(Models.Events.Event e)
+        {
             Expressions = new Expressions(e, e.RawLine);
 
-            if (String.IsNullOrWhiteSpace(e.RawLine)) {
+            if (String.IsNullOrWhiteSpace(e.RawLine))
+            {
                 return;
             }
-            switch (e.Type) {
+            switch (e.Type)
+            {
                 case EventType.Defeats:
                     ProcessDefeated(e);
                     break;
@@ -54,10 +63,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
 
         /// <summary>
         /// </summary>
-        private void ProcessDefeated(Models.Events.Event e) {
+        private void ProcessDefeated(Models.Events.Event e)
+        {
             Match matches;
             var you = Constants.CharacterName;
-            switch (Constants.GameLanguage) {
+            switch (Constants.GameLanguage)
+            {
                 case "French":
                     matches = PlayerRegEx.DefeatsFr.Match(e.RawLine);
                     break;
@@ -71,21 +82,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
                     matches = PlayerRegEx.DefeatsEn.Match(e.RawLine);
                     break;
             }
-            if (!matches.Success) {
+            if (!matches.Success)
+            {
                 ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, "");
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Defeat", e);
                 return;
             }
             var target = matches.Groups["target"];
             var source = matches.Groups["source"];
-            if (!target.Success) {
+            if (!target.Success)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.RawLine));
                 return;
             }
-            if (source.Success) {
+            if (source.Success)
+            {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.RawLine));
             }
-            if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, Expressions.You) || target.Value == you) {
+            if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, Expressions.You) || target.Value == you)
+            {
                 return;
             }
             var targetName = StringHelper.TitleCase(target.Value);
@@ -97,22 +112,42 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// </summary>
         /// <param name="target"></param>
         /// <param name="source"></param>
-        private void AddKillToMonster(string target, string source) {
+        private void AddKillToMonster(string target, string source)
+        {
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", target, source));
             ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, target);
-            //Plugin.PHost.ProcessDataByKey(Plugin.PName, Constants.Token, "KillEntry", new Dictionary<string, object>
-            //{
-            //    {
-            //        "MobName", target
-            //    }
-            //});
+            try
+            {
+                var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
+                var killEntry = new KillEntry();
+                if (MonsterWorkerDelegate.CurrentUser != null)
+                {
+                    killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                    killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                }
+                var mobName = target.Trim();
+                if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                {
+                    if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
+                    {
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
+                        killEntry.ModelID = monster == null ? 0 : monster.ModelID;
+                    }
+                }
+                DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
         /// </summary>
-        private void ProcessLoot(Models.Events.Event e) {
+        private void ProcessLoot(Models.Events.Event e)
+        {
             Match matches;
-            switch (Constants.GameLanguage) {
+            switch (Constants.GameLanguage)
+            {
                 case "French":
                     matches = PlayerRegEx.ObtainsFr.Match(e.RawLine);
                     break;
@@ -126,7 +161,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
                     matches = PlayerRegEx.ObtainsEn.Match(e.RawLine);
                     break;
             }
-            if (!matches.Success) {
+            if (!matches.Success)
+            {
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot", e);
                 return;
             }
@@ -138,37 +174,56 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors {
         /// </summary>
         /// <param name="thing"> </param>
         /// <param name="e"></param>
-        private void AttachDropToMonster(string thing, Models.Events.Event e) {
+        private void AttachDropToMonster(string thing, Models.Events.Event e)
+        {
             var mobName = ParseControl.Instance.Timeline.FightingRightNow ? ParseControl.LastEngaged : "";
-            if (ParseControl.Instance.Timeline.FightingRightNow) {
+            if (ParseControl.Instance.Timeline.FightingRightNow)
+            {
                 Fight fight;
-                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastEngaged, out fight)) {
+                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastEngaged, out fight))
+                {
                     mobName = fight.MobName;
                     Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));
-                    if (mobName.Replace(" ", "") != "") {
+                    if (mobName.Replace(" ", "") != "")
+                    {
                         var mobGroup = ParseControl.Timeline.GetSetMob(mobName);
                         mobGroup.SetDrop(thing);
                     }
                 }
             }
-            else {
+            else
+            {
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastThreeSeconds", e);
             }
-            //Plugin.PHost.ProcessDataByKey(Plugin.PName, Constants.Token, "LootEntry", new Dictionary<string, object>
-            //{
-            //    {
-            //        "ItemName", thing
-            //    },
-            //    {
-            //        "MobName", mobName
-            //    }
-            //});
+            try
+            {
+                var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
+                var lootEntry = new LootEntry(thing);
+                if (MonsterWorkerDelegate.CurrentUser != null)
+                {
+                    lootEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                    lootEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                }
+                if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                {
+                    if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
+                    {
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
+                        lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
+                    }
+                }
+                DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        private void Processparty(string line) {
+        private void Processparty(string line)
+        {
             //var join = Regex.Match("ph", @"^\.$");
             //var disband = Regex.Match("ph", @"^\.$");
             //var left = Regex.Match("ph", @"^\.$");

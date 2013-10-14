@@ -11,11 +11,14 @@ using System.Linq;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public abstract class StatGroupTypeDescriptor : CustomTypeDescriptor {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public abstract class StatGroupTypeDescriptor : CustomTypeDescriptor
+    {
         protected StatGroup StatGroup;
 
-        public override PropertyDescriptorCollection GetProperties(Attribute[] attributes) {
+        public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+        {
             var descriptors = StatGroup.Stats.Select(stat => new StatPropertyDescriptor(stat.Name))
                                        .Cast<PropertyDescriptor>()
                                        .ToList();
@@ -24,7 +27,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
             return new PropertyDescriptorCollection(descriptors.ToArray());
         }
 
-        public override PropertyDescriptorCollection GetProperties() {
+        public override PropertyDescriptorCollection GetProperties()
+        {
             return GetProperties(null);
         }
     }

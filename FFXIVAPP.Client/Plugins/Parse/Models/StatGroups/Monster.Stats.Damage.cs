@@ -12,32 +12,38 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
-    public partial class Monster {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
+{
+    public partial class Monster
+    {
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetDamage(Line line) {
+        public void SetDamage(Line line)
+        {
             LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
                              .GetProperties();
             var abilityGroup = GetGroup("DamageByAction");
             StatGroup subAbilityGroup;
-            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup)) {
+            if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
+            {
                 subAbilityGroup = new StatGroup(line.Action);
                 subAbilityGroup.Stats.AddStats(DamageStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
             var playerGroup = GetGroup("DamageToPlayers");
             StatGroup subPlayerGroup;
-            if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup)) {
+            if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup))
+            {
                 subPlayerGroup = new StatGroup(line.Target);
                 subPlayerGroup.Stats.AddStats(DamageStatList(null));
                 playerGroup.AddGroup(subPlayerGroup);
             }
             var monsters = subPlayerGroup.GetGroup("DamageToPlayersByAction");
             StatGroup subPlayerAbilityGroup;
-            if (!monsters.TryGetGroup(line.Action, out subPlayerAbilityGroup)) {
+            if (!monsters.TryGetGroup(line.Action, out subPlayerAbilityGroup))
+            {
                 subPlayerAbilityGroup = new StatGroup(line.Action);
                 subPlayerAbilityGroup.Stats.AddStats(DamageStatList(subPlayerGroup, true));
                 monsters.AddGroup(subPlayerAbilityGroup);
@@ -46,14 +52,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
             subAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             subPlayerGroup.Stats.IncrementStat("TotalDamageActionsUsed");
             subPlayerAbilityGroup.Stats.IncrementStat("TotalDamageActionsUsed");
-            if (line.Hit) {
+            if (line.Hit)
+            {
                 var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, (decimal) .5) : 0 : line.Amount;
                 LastDamageAmount = currentDamage > 0 ? currentDamage : LastDamageAmount;
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
-                if (line.Crit) {
+                if (line.Crit)
+                {
                     Stats.IncrementStat("DamageCritHit");
                     subAbilityGroup.Stats.IncrementStat("DamageCritHit");
                     subPlayerGroup.Stats.IncrementStat("DamageCritHit");
@@ -62,7 +70,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                     subAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     subPlayerGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     subPlayerAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
-                    if (line.Modifier != 0) {
+                    if (line.Modifier != 0)
+                    {
                         var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                         var modStat = "DamageCritMod";
                         Stats.IncrementStat(modStat, mod);
@@ -71,7 +80,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                         subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
                     }
                 }
-                else {
+                else
+                {
                     Stats.IncrementStat("DamageRegHit");
                     subAbilityGroup.Stats.IncrementStat("DamageRegHit");
                     subPlayerGroup.Stats.IncrementStat("DamageRegHit");
@@ -80,7 +90,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                     subAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     subPlayerGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     subPlayerAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
-                    if (line.Modifier != 0) {
+                    if (line.Modifier != 0)
+                    {
                         var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
                         var modStat = "DamageRegMod";
                         Stats.IncrementStat(modStat, mod);
@@ -90,20 +101,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups {
                     }
                 }
             }
-            else {
+            else
+            {
                 Stats.IncrementStat("DamageRegMiss");
                 subAbilityGroup.Stats.IncrementStat("DamageRegMiss");
                 subPlayerGroup.Stats.IncrementStat("DamageRegMiss");
                 subPlayerAbilityGroup.Stats.IncrementStat("DamageRegMiss");
             }
             foreach (var stat in fields.Where(stat => LD.Contains(stat.Name))
-                                       .Where(stat => Equals(stat.GetValue(line), true))) {
+                                       .Where(stat => Equals(stat.GetValue(line), true)))
+            {
                 var regStat = String.Format("Damage{0}", stat.Name);
                 Stats.IncrementStat(regStat);
                 subAbilityGroup.Stats.IncrementStat(regStat);
                 subPlayerGroup.Stats.IncrementStat(regStat);
                 subPlayerAbilityGroup.Stats.IncrementStat(regStat);
-                if (line.Modifier == 0) {
+                if (line.Modifier == 0)
+                {
                     continue;
                 }
                 var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);

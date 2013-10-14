@@ -14,14 +14,17 @@ using FFXIVAPP.Common.ViewModelBase;
 
 #endregion
 
-namespace FFXIVAPP.Client.ViewModels {
+namespace FFXIVAPP.Client.ViewModels
+{
     [Export(typeof (AboutViewModel))]
-    internal sealed class AboutViewModel : INotifyPropertyChanged {
+    internal sealed class AboutViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static AboutViewModel _instance;
 
-        public static AboutViewModel Instance {
+        public static AboutViewModel Instance
+        {
             get { return _instance ?? (_instance = new AboutViewModel()); }
         }
 
@@ -33,7 +36,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         #endregion
 
-        public AboutViewModel() {
+        public AboutViewModel()
+        {
             ManualUpdateCommand = new DelegateCommand(ManualUpdate);
         }
 
@@ -49,7 +53,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void ManualUpdate() {
+        private static void ManualUpdate()
+        {
             DispatcherHelper.Invoke(() => ShellView.CloseApplication(true));
         }
 
@@ -59,7 +64,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

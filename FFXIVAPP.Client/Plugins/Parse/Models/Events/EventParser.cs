@@ -13,11 +13,14 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
-    public class EventParser {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
+{
+    public class EventParser
+    {
         #region Property Bindings
 
-        private SortedDictionary<UInt32, EventCode> EventCodes {
+        private SortedDictionary<UInt32, EventCode> EventCodes
+        {
             get { return _eventCodes; }
         }
 
@@ -47,8 +50,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <summary>
         /// </summary>
         /// <param name="xml"> </param>
-        private EventParser(string xml) {
-            if (String.IsNullOrWhiteSpace(xml)) {
+        private EventParser(string xml)
+        {
+            if (String.IsNullOrWhiteSpace(xml))
+            {
                 return;
             }
             LoadCodes(XElement.Parse(xml));
@@ -56,15 +61,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         /// <summary>
         /// </summary>
-        public static EventParser Instance {
+        public static EventParser Instance
+        {
             get { return _instance ?? (_instance = new EventParser(Constants.ChatCodesXml)); }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="root"> </param>
-        private void LoadCodes(XContainer root) {
-            foreach (var group in root.Elements("Group")) {
+        private void LoadCodes(XContainer root)
+        {
+            foreach (var group in root.Elements("Group"))
+            {
                 LoadGroups(group, new EventGroup("All"));
             }
         }
@@ -73,13 +81,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="root"> </param>
         /// <param name="parent"> </param>
-        private void LoadGroups(XElement root, EventGroup parent) {
+        private void LoadGroups(XElement root, EventGroup parent)
+        {
             var thisGroup = new EventGroup((string) root.Attribute("Name"), parent);
             var type = (String) root.Attribute("Type");
             var subject = (String) root.Attribute("Subject");
             var direction = (String) root.Attribute("Direction");
-            if (type != null) {
-                switch (type) {
+            if (type != null)
+            {
+                switch (type)
+                {
                     case "Damage":
                         thisGroup.Type = EventType.Damage;
                         break;
@@ -133,8 +144,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
                         break;
                 }
             }
-            if (subject != null) {
-                switch (subject) {
+            if (subject != null)
+            {
+                switch (subject)
+                {
                     case "You":
                         thisGroup.Subject = EventSubject.You;
                         break;
@@ -155,8 +168,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
                         break;
                 }
             }
-            if (direction != null) {
-                switch (direction) {
+            if (direction != null)
+            {
+                switch (direction)
+                {
                     case "Self":
                         thisGroup.Direction = EventDirection.Self;
                         break;
@@ -180,10 +195,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
                         break;
                 }
             }
-            foreach (var group in root.Elements("Group")) {
+            foreach (var group in root.Elements("Group"))
+            {
                 LoadGroups(group, thisGroup);
             }
-            foreach (var xElement in root.Elements("Code")) {
+            foreach (var xElement in root.Elements("Code"))
+            {
                 var xKey = Convert.ToUInt32((string) xElement.Attribute("Key"), 16);
                 var xDescription = (string) xElement.Element("Description");
                 _eventCodes.Add(xKey, new EventCode(xDescription, xKey, thisGroup));
@@ -199,12 +216,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <param name="code"> </param>
         /// <param name="line"> </param>
         /// <returns> </returns>
-        private Event Parse(UInt32 code, string line) {
+        private Event Parse(UInt32 code, string line)
+        {
             EventCode eventCode;
-            if (EventCodes.TryGetValue(code, out eventCode)) {
+            if (EventCodes.TryGetValue(code, out eventCode))
+            {
                 return new Event(eventCode, line);
             }
-            var unknownEventCode = new EventCode {
+            var unknownEventCode = new EventCode
+            {
                 Code = code
             };
             return new Event(unknownEventCode, line);
@@ -215,14 +235,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <param name="code"> </param>
         /// <param name="line"> </param>
         /// <param name="live"></param>
-        public void ParseAndPublish(UInt32 code, string line, bool live = true) {
+        public void ParseAndPublish(UInt32 code, string line, bool live = true)
+        {
             var @event = Parse(code, line);
             var eventHandler = @event.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
-            if (eventHandler == null) {
+            if (eventHandler == null)
+            {
                 return;
             }
-            lock (eventHandler) {
-                if (live) {
+            lock (eventHandler)
+            {
+                if (live)
+                {
                     Thread.Sleep(10);
                 }
                 eventHandler(this, @event);

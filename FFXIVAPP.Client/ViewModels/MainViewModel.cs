@@ -11,14 +11,17 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.ViewModels {
+namespace FFXIVAPP.Client.ViewModels
+{
     [Export(typeof (MainViewModel))]
-    internal sealed class MainViewModel : INotifyPropertyChanged {
+    internal sealed class MainViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static MainViewModel _instance;
 
-        public static MainViewModel Instance {
+        public static MainViewModel Instance
+        {
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
@@ -44,7 +47,8 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

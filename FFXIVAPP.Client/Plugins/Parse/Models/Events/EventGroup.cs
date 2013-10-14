@@ -13,88 +13,113 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
-    public class EventGroup : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
+{
+    public class EventGroup : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private List<EventCode> _codes;
         private string _name;
 
-        private string Name {
+        private string Name
+        {
             get { return _name; }
-            set {
+            set
+            {
                 _name = value;
                 RaisePropertyChanged();
             }
         }
 
-        public List<EventCode> Codes {
+        public List<EventCode> Codes
+        {
             get { return _codes ?? (_codes = new List<EventCode>()); }
-            private set {
+            private set
+            {
                 _codes = value;
                 RaisePropertyChanged();
             }
         }
 
-        public UInt32 Flags {
-            get {
-                if (Parent == null) {
+        public UInt32 Flags
+        {
+            get
+            {
+                if (Parent == null)
+                {
                     return _flags;
                 }
                 UInt32 combinedFlags = 0x00000000;
-                if ((_flags & EventParser.DirectionMask) != 0) {
+                if ((_flags & EventParser.DirectionMask) != 0)
+                {
                     combinedFlags |= (_flags & EventParser.DirectionMask);
                 }
-                else {
+                else
+                {
                     combinedFlags |= (UInt32) Parent.Direction;
                 }
-                if ((_flags & EventParser.SubjectMask) != 0) {
+                if ((_flags & EventParser.SubjectMask) != 0)
+                {
                     combinedFlags |= (_flags & EventParser.SubjectMask);
                 }
-                else {
+                else
+                {
                     combinedFlags |= (UInt32) Parent.Subject;
                 }
-                if ((_flags & EventParser.TypeMask) != 0) {
+                if ((_flags & EventParser.TypeMask) != 0)
+                {
                     combinedFlags |= (_flags & EventParser.TypeMask);
                 }
-                else {
+                else
+                {
                     combinedFlags |= (UInt32) Parent.Type;
                 }
                 return combinedFlags;
             }
         }
 
-        public EventDirection Direction {
+        public EventDirection Direction
+        {
             get { return (EventDirection) (Flags & EventParser.DirectionMask); }
-            set {
+            set
+            {
                 _flags = ((_flags & ~EventParser.DirectionMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
 
-        public EventSubject Subject {
+        public EventSubject Subject
+        {
             get { return (EventSubject) (Flags & EventParser.SubjectMask); }
-            set {
+            set
+            {
                 _flags = ((_flags & ~EventParser.SubjectMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
 
-        public EventType Type {
+        public EventType Type
+        {
             get { return (EventType) (Flags & EventParser.TypeMask); }
-            set {
+            set
+            {
                 _flags = ((_flags & ~EventParser.TypeMask) | (UInt32) value);
                 RaisePropertyChanged();
             }
         }
 
-        private EventGroup Parent {
+        private EventGroup Parent
+        {
             get { return _parent; }
-            set {
-                if ((_parent != null) && (value != null)) {
+            set
+            {
+                if ((_parent != null) && (value != null))
+                {
                     _parent._children.Remove(this);
                 }
-                if (value == null) {
+                if (value == null)
+                {
                     return;
                 }
                 _parent = value;
@@ -115,13 +140,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         /// <summary>
         /// </summary>
-        public EventGroup() {}
+        public EventGroup()
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="parent"> </param>
-        public EventGroup(string name, EventGroup parent = null) {
+        public EventGroup(string name, EventGroup parent = null)
+        {
             Init(name, parent);
         }
 
@@ -129,7 +157,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="parent"> </param>
-        private void Init(string name, EventGroup parent) {
+        private void Init(string name, EventGroup parent)
+        {
             Name = name;
             Parent = parent;
         }
@@ -138,7 +167,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="kid"> </param>
         /// <returns> </returns>
-        public EventGroup AddChild(EventGroup kid) {
+        public EventGroup AddChild(EventGroup kid)
+        {
             kid.Parent = this;
             return this;
         }
@@ -147,7 +177,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Plugins.Parse.Enums {
-    public enum EventSubject {
+namespace FFXIVAPP.Client.Plugins.Parse.Enums
+{
+    public enum EventSubject
+    {
         Unknown = 0x00000000,
         You = 0x00000080,
         Party = 0x00000100,

@@ -14,8 +14,10 @@ using FFXIVAPP.Client.Utilities;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class ParseControl : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class ParseControl : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static ParseControl _instance;
@@ -29,77 +31,96 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
         private Dictionary<string, string> _totalDPS;
         private Dictionary<string, string> _totalH;
 
-        public static ParseControl Instance {
+        public static ParseControl Instance
+        {
             get { return _instance ?? (_instance = new ParseControl()); }
         }
 
-        public Timeline Timeline {
+        public Timeline Timeline
+        {
             get { return _timeline ?? (_timeline = new Timeline()); }
-            set {
+            set
+            {
                 _timeline = value;
                 RaisePropertyChanged();
             }
         }
 
-        public StatMonitor StatMonitor {
+        public StatMonitor StatMonitor
+        {
             get { return _statMonitor ?? (_statMonitor = new StatMonitor(this)); }
-            private set {
+            private set
+            {
                 _statMonitor = value;
                 RaisePropertyChanged();
             }
         }
 
-        private TimelineMonitor TimelineMonitor {
+        private TimelineMonitor TimelineMonitor
+        {
             get { return _timelineMonitor ?? (_timelineMonitor = new TimelineMonitor(this)); }
-            set {
+            set
+            {
                 _timelineMonitor = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Dictionary<string, string> TotalA {
+        public Dictionary<string, string> TotalA
+        {
             get { return _totalA ?? (_totalA = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _totalA = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Dictionary<string, string> TotalD {
+        public Dictionary<string, string> TotalD
+        {
             get { return _totalD ?? (_totalD = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _totalD = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Dictionary<string, string> TotalH {
+        public Dictionary<string, string> TotalH
+        {
             get { return _totalH ?? (_totalH = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _totalH = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Dictionary<string, string> TotalDPS {
+        public Dictionary<string, string> TotalDPS
+        {
             get { return _totalDPS ?? (_totalDPS = new Dictionary<string, string>()); }
-            set {
+            set
+            {
                 _totalDPS = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string LastKilled {
+        public string LastKilled
+        {
             get { return _lastKilled; }
-            set {
+            set
+            {
                 _lastKilled = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string LastEngaged {
+        public string LastEngaged
+        {
             get { return _lastEngaged; }
-            set {
+            set
+            {
                 _lastEngaged = value;
                 RaisePropertyChanged();
             }
@@ -115,7 +136,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         #endregion
 
-        public ParseControl() {
+        public ParseControl()
+        {
             Timeline = new Timeline();
             TimelineMonitor = new TimelineMonitor(this);
             StatMonitor = new StatMonitor(this);
@@ -123,11 +145,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         #region Utility Functions
 
-        public void Reset() {
+        public void Reset()
+        {
             StatMonitor.Clear();
         }
 
-        public void Toggle() {
+        public void Toggle()
+        {
             Filter.IsEnabled = !Filter.IsEnabled;
         }
 
@@ -137,7 +161,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

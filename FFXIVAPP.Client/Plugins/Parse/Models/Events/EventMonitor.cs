@@ -12,33 +12,41 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
-    public class EventMonitor : StatGroup {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
+{
+    public class EventMonitor : StatGroup
+    {
         #region Property Bindings
 
         private uint _filter;
         private DateTime _lastEventReceived;
         private ParseControl _parseControl;
 
-        private DateTime LastEventReceived {
+        private DateTime LastEventReceived
+        {
             get { return _lastEventReceived; }
-            set {
+            set
+            {
                 _lastEventReceived = value;
                 RaisePropertyChanged();
             }
         }
 
-        protected UInt32 Filter {
+        protected UInt32 Filter
+        {
             private get { return _filter; }
-            set {
+            set
+            {
                 _filter = value;
                 RaisePropertyChanged();
             }
         }
 
-        protected ParseControl ParseControl {
+        protected ParseControl ParseControl
+        {
             get { return _parseControl; }
-            private set {
+            private set
+            {
                 _parseControl = value;
                 RaisePropertyChanged();
             }
@@ -50,7 +58,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="parseControl"> </param>
-        protected EventMonitor(string name, ParseControl parseControl) : base(name) {
+        protected EventMonitor(string name, ParseControl parseControl) : base(name)
+        {
             Initialize(parseControl);
             EventParser.Instance.OnLogEvent += FilterEvent;
             EventParser.Instance.OnUnknownLogEvent += FilterUnknownEvent;
@@ -59,15 +68,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <summary>
         /// </summary>
         /// <param name="instance"> </param>
-        private void Initialize(ParseControl instance) {
+        private void Initialize(ParseControl instance)
+        {
             ParseControl = instance;
             InitStats();
         }
 
         /// <summary>
         /// </summary>
-        protected virtual void InitStats() {
-            foreach (var stat in Stats) {
+        protected virtual void InitStats()
+        {
+            foreach (var stat in Stats)
+            {
                 stat.OnValueChanged += DoStatChanged;
             }
         }
@@ -76,8 +88,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="source"> </param>
         /// <param name="e"> </param>
-        private void FilterEvent(object source, Event e) {
-            if (!e.MatchesFilter(Filter, e)) {
+        private void FilterEvent(object source, Event e)
+        {
+            if (!e.MatchesFilter(Filter, e))
+            {
                 return;
             }
             LastEventReceived = e.Timestamp;
@@ -88,8 +102,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// </summary>
         /// <param name="source"> </param>
         /// <param name="e"> </param>
-        private void FilterUnknownEvent(object source, Event e) {
-            if (!e.MatchesFilter(Filter, e)) {
+        private void FilterUnknownEvent(object source, Event e)
+        {
+            if (!e.MatchesFilter(Filter, e))
+            {
                 return;
             }
             LastEventReceived = e.Timestamp;
@@ -99,16 +115,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleEvent(Event e) {}
+        protected virtual void HandleEvent(Event e)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected virtual void HandleUnknownEvent(Event e) {}
+        protected virtual void HandleUnknownEvent(Event e)
+        {
+        }
 
         public event EventHandler<StatChangedEvent> OnStatChanged = delegate { };
 
-        private void DoStatChanged(object source, StatChangedEvent e) {
+        private void DoStatChanged(object source, StatChangedEvent e)
+        {
             OnStatChanged(this, e);
         }
 
@@ -116,7 +137,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events {
 
         public new event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

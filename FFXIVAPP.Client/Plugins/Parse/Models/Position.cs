@@ -5,9 +5,12 @@
 
 using System;
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class Position {
-        public Position(int x = 0, int y = 0) {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class Position
+    {
+        public Position(int x = 0, int y = 0)
+        {
             X = x;
             Y = y;
         }
@@ -15,7 +18,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
         public int X { get; set; }
         public int Y { get; set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return String.Format("{0},{1}", X, Y);
         }
     }

@@ -27,13 +27,16 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
-    internal sealed class MainViewModel : INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
+{
+    internal sealed class MainViewModel : INotifyPropertyChanged
+    {
         #region Property Bindings
 
         private static MainViewModel _instance;
 
-        public static MainViewModel Instance {
+        public static MainViewModel Instance
+        {
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
@@ -47,7 +50,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
 
         #endregion
 
-        public MainViewModel() {
+        public MainViewModel()
+        {
             ProcessSampleCommand = new DelegateCommand(ProcessSample);
             ResetStatsCommand = new DelegateCommand(ResetStats);
             Convert2JsonCommand = new DelegateCommand(Convert2Json);
@@ -63,8 +67,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
 
         #region Command Bindings
 
-        private static void ProcessSample() {
-            if (Constants.IsOpen) {
+        private static void ProcessSample()
+        {
+            if (Constants.IsOpen)
+            {
                 var popupContent = new PopupContent();
                 popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
                 popupContent.Message = "Game is open. Please close before choosing a file.";
@@ -75,30 +81,37 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
                 PopupHelper.MessagePopup.Closed += closedDelegate;
                 return;
             }
-            var openFileDialog = new OpenFileDialog {
+            var openFileDialog = new OpenFileDialog
+            {
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Logs",
                 Multiselect = false,
                 Filter = "XML Files (*.xml)|*.xml"
             };
-            openFileDialog.FileOk += delegate {
+            openFileDialog.FileOk += delegate
+            {
                 var count = 0;
                 var sampleXml = XDocument.Load(openFileDialog.FileName);
                 var items = new Dictionary<int, string[]>();
                 foreach (var xElement in sampleXml.Descendants()
-                                                  .Elements("Entry")) {
+                                                  .Elements("Entry"))
+                {
                     var xKey = (string) xElement.Attribute("Key");
                     var xLine = (string) xElement.Element("Line");
                     var xTimeStamp = (string) xElement.Element("TimeStamp");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xLine)) {
+                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xLine))
+                    {
                         continue;
                     }
-                    items.Add(count, new[] {
+                    items.Add(count, new[]
+                    {
                         xKey, xLine, xTimeStamp
                     });
                     ++count;
                 }
-                Func<bool> dFunc = delegate {
-                    foreach (var item in items) {
+                Func<bool> dFunc = delegate
+                {
+                    foreach (var item in items)
+                    {
                         var code = item.Value[0];
                         var line = item.Value[1];
                         line = line.Replace("", "⇒");
@@ -108,8 +121,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
                         var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                         timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
                         var color = (Constants.Colors.ContainsKey(code)) ? Constants.Colors[code][0] : "FFFFFF";
-                        if (Constants.Parse.Abilities.Contains(code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions)) {
-                            Common.Constants.FD.AppendFlow(timeStamp, "", line, new[] {
+                        if (Constants.Parse.Abilities.Contains(code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
+                        {
+                            Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                            {
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
@@ -124,15 +139,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void ResetStats() {
+        private static void ResetStats()
+        {
             var popupContent = new PopupContent();
             popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
             popupContent.Message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
             popupContent.CanSayNo = true;
             PopupHelper.Toggle(popupContent);
             EventHandler closedDelegate = null;
-            closedDelegate = delegate {
-                switch (PopupHelper.Result) {
+            closedDelegate = delegate
+            {
+                switch (PopupHelper.Result)
+                {
                     case MessageBoxResult.Yes:
                         MainView.View.AbilityChatFD._FD.Blocks.Clear();
                         ParseControl.Instance.StatMonitor.Clear();
@@ -145,7 +163,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
             PopupHelper.MessagePopup.Closed += closedDelegate;
         }
 
-        private static void Convert2Json() {
+        private static void Convert2Json()
+        {
             #region Generate Overall-Player-Monster
 
             dynamic overallStats = new Dictionary<string, object>();
@@ -155,60 +174,78 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
             var partyTimeline = ParseControl.Instance.Timeline.Party;
             var playerNames = partyTimeline.Select(p => p.Name)
                                            .ToList();
-            foreach (var playerName in playerNames) {
+            foreach (var playerName in playerNames)
+            {
                 var player = partyTimeline.GetGroup(playerName);
-                playerStats.Add(playerName, new Dictionary<string, object> {
+                playerStats.Add(playerName, new Dictionary<string, object>
+                {
                     {
                         "Stats", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Abilities", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Monsters", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Healing", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Players", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Damage", new Dictionary<string, object>()
                     }
                 });
                 playerStats[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
                 var playerAbilities = player.GetGroup("Abilities");
-                foreach (var playerAbility in playerAbilities) {
+                foreach (var playerAbility in playerAbilities)
+                {
                     playerStats[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
                 var playerMonsters = player.GetGroup("Monsters");
-                foreach (var playerMonster in playerMonsters) {
-                    playerStats[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object> {
+                foreach (var playerMonster in playerMonsters)
+                {
+                    playerStats[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
+                    {
                         {
                             "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        }, {
+                        },
+                        {
                             "Abilities", playerMonster.GetGroup("Abilities")
                                                       .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
                 var playerHealings = player.GetGroup("Healing");
-                foreach (var playerHealing in playerHealings) {
+                foreach (var playerHealing in playerHealings)
+                {
                     playerStats[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
                 var playerPlayers = player.GetGroup("Players");
-                foreach (var playerPlayer in playerPlayers) {
-                    playerStats[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object> {
+                foreach (var playerPlayer in playerPlayers)
+                {
+                    playerStats[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
+                    {
                         {
                             "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        }, {
+                        },
+                        {
                             "Abilities", playerPlayer.GetGroup("Abilities")
                                                      .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
                     });
                 }
                 var playerDamages = player.GetGroup("Damage");
-                foreach (var playerDamage in playerDamages) {
-                    playerStats[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object> {
+                foreach (var playerDamage in playerDamages)
+                {
+                    playerStats[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
+                    {
                         {
                             "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        }, {
+                        },
+                        {
                             "Abilities", playerDamage.GetGroup("Abilities")
                                                      .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
                         }
@@ -218,33 +255,42 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
             var monsterTimeline = ParseControl.Instance.Timeline.Monster;
             var monsterNames = monsterTimeline.Select(p => p.Name)
                                               .ToList();
-            foreach (var monsterName in monsterNames) {
+            foreach (var monsterName in monsterNames)
+            {
                 var monster = monsterTimeline.GetGroup(monsterName);
-                monsterStats.Add(monsterName, new Dictionary<string, object> {
+                monsterStats.Add(monsterName, new Dictionary<string, object>
+                {
                     {
                         "Stats", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Abilities", new Dictionary<string, object>()
-                    }, {
+                    },
+                    {
                         "Drops", new Dictionary<string, object>()
                     }
                 });
                 monsterStats[monsterName]["Stats"] = monster.Stats.ToDictionary(s => s.Name, s => s.Value);
                 var monsterAbilities = monster.GetGroup("Abilities");
-                foreach (var monsterAbility in monsterAbilities) {
+                foreach (var monsterAbility in monsterAbilities)
+                {
                     monsterStats[monsterName]["Abilities"].Add(monsterAbility.Name, monsterAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
                 var monsterDrops = monster.GetGroup("Drops");
-                foreach (var monsterDrop in monsterDrops) {
+                foreach (var monsterDrop in monsterDrops)
+                {
                     monsterStats[monsterName]["Drops"].Add(monsterDrop.Name, monsterDrop.Stats.ToDictionary(s => s.Name, s => s.Value));
                 }
             }
-            dynamic results = new Dictionary<string, object> {
+            dynamic results = new Dictionary<string, object>
+            {
                 {
                     "Overall", overallStats
-                }, {
+                },
+                {
                     "Player", playerStats
-                }, {
+                },
+                {
                     "Monster", monsterStats
                 }
             };
@@ -260,7 +306,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

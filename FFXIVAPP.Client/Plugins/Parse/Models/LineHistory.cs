@@ -9,9 +9,12 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class LineHistory {
-        public LineHistory(Line line) {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class LineHistory
+    {
+        public LineHistory(Line line)
+        {
             TimeStamp = DateTime.Now;
             Line = line;
         }

@@ -9,9 +9,12 @@ using FFXIVAPP.IPluginInterface;
 
 #endregion
 
-namespace FFXIVAPP.Client.Models {
-    internal class PluginInstance {
-        public PluginInstance() {
+namespace FFXIVAPP.Client.Models
+{
+    internal class PluginInstance
+    {
+        public PluginInstance()
+        {
             AssemblyPath = "";
         }
 

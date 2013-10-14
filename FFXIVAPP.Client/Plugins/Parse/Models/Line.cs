@@ -11,8 +11,10 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public class Line {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public class Line
+    {
         // misc.
         public string ActionType { get; set; }
 
@@ -47,44 +49,52 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
         private string _source;
         private string _target;
 
-        public Position Position {
+        public Position Position
+        {
             get { return _position ?? (new Position()); }
             set { _position = value; }
         }
 
-        public string Job {
+        public string Job
+        {
             get { return _job ?? ""; }
             set { _job = StringHelper.TitleCase(value); }
         }
 
-        public string Source {
+        public string Source
+        {
             get { return _source ?? ""; }
             set { _source = StringHelper.TitleCase(value); }
         }
 
-        public string Target {
+        public string Target
+        {
             get { return _target ?? ""; }
             set { _target = StringHelper.TitleCase(value); }
         }
 
-        public string Action {
+        public string Action
+        {
             get { return _action ?? ""; }
             set { _action = StringHelper.TitleCase(value); }
         }
 
-        public string Direction {
+        public string Direction
+        {
             get { return _direction ?? ""; }
             set { _direction = StringHelper.TitleCase(value); }
         }
 
-        public string Part {
+        public string Part
+        {
             get { return _part ?? ""; }
             set { _part = StringHelper.TitleCase(value); }
         }
 
         #endregion
 
-        public bool IsEmpty() {
+        public bool IsEmpty()
+        {
             return String.IsNullOrWhiteSpace(Source) || String.IsNullOrWhiteSpace(Target) || String.IsNullOrWhiteSpace(Action);
         }
     }

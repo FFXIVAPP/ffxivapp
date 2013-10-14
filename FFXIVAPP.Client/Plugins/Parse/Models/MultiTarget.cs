@@ -9,24 +9,31 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models {
-    public static class MultiTarget {
+namespace FFXIVAPP.Client.Plugins.Parse.Models
+{
+    public static class MultiTarget
+    {
         private static List<string> _multiTargetSkills;
 
-        private static List<string> MultiTargetSkills {
+        private static List<string> MultiTargetSkills
+        {
             get { return _multiTargetSkills ?? (_multiTargetSkills = GetMultiTargetList()); }
             set { _multiTargetSkills = value; }
         }
 
-        public static bool IsMulti(string action) {
+        public static bool IsMulti(string action)
+        {
             return MultiTargetSkills.Contains(action.ToLower());
         }
 
-        private static List<string> GetMultiTargetList() {
+        private static List<string> GetMultiTargetList()
+        {
             var culture = Constants.CultureInfo.TwoLetterISOLanguageName;
-            switch (culture) {
+            switch (culture)
+            {
                 case "ja":
-                    return new List<string> {
+                    return new List<string>
+                    {
                         // limit break
                         "シールドウォール",
                         "マイティガード",
@@ -81,7 +88,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
                         "フラッシュ"
                     };
                 case "de":
-                    return new List<string> {
+                    return new List<string>
+                    {
                         // limit break
                         "schutzschild",
                         "totalabwehr",
@@ -136,7 +144,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
                         "blitzlicht"
                     };
                 case "fr":
-                    return new List<string> {
+                    return new List<string>
+                    {
                         // limit break
                         "mur protecteur",
                         "garde puissante",
@@ -191,7 +200,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models {
                         //"flash"
                     };
             }
-            return new List<string> {
+            return new List<string>
+            {
                 // limit break
                 "shield wall",
                 "might guard",

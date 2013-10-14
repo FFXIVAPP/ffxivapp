@@ -3,8 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Memory {
-    public enum NPCType {
+namespace FFXIVAPP.Client.Memory
+{
+    public enum NPCType
+    {
         NPC,
         PC,
         Monster,

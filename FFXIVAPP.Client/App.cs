@@ -25,8 +25,10 @@ using NLog.Config;
 
 #endregion
 
-namespace FFXIVAPP.Client {
-    public partial class App {
+namespace FFXIVAPP.Client
+{
+    public partial class App
+    {
         #region Property Bindings
 
         internal static readonly PluginContainer Plugins = new PluginContainer();
@@ -35,7 +37,8 @@ namespace FFXIVAPP.Client {
 
         #endregion
 
-        private App() {
+        private App()
+        {
             Startup += ApplicationStartup;
             StartupUri = new Uri("ShellView.xaml", UriKind.Relative);
             var resourceLocater = new Uri("/FFXIVAPP.Client;component/App.xaml", UriKind.Relative);
@@ -54,7 +57,8 @@ namespace FFXIVAPP.Client {
         [DebuggerNonUserCode]
         [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
         [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
-        public static void Main() {
+        public static void Main()
+        {
             //if (AppDomain.CurrentDomain.FriendlyName != "FFXIVAPP.Shadowed")
             //{
             //    var domain = AppDomain.CreateDomain("FFXIVAPP.Shadowed");
@@ -93,15 +97,20 @@ namespace FFXIVAPP.Client {
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private static void ApplicationStartup(object sender, StartupEventArgs e) {
-            if (e.Args.Length > 0) {
+        private static void ApplicationStartup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length > 0)
+            {
                 MArgs = e.Args;
             }
         }
 
-        private static void CheckSettings() {
-            try {
-                if (!Settings.Default.Application_UpgradeRequired) {
+        private static void CheckSettings()
+        {
+            try
+            {
+                if (!Settings.Default.Application_UpgradeRequired)
+                {
                     Settings.Default.Reload();
                     return;
                 }
@@ -110,7 +119,8 @@ namespace FFXIVAPP.Client {
                 Settings.Default.Application_UpgradeRequired = false;
                 Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 SettingsHelper.Default();
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
@@ -118,12 +128,15 @@ namespace FFXIVAPP.Client {
 
         /// <summary>
         /// </summary>
-        private static void ConfigureNLog() {
-            if (File.Exists("./FFXIVAPP.Client.exe.nlog")) {
+        private static void ConfigureNLog()
+        {
+            if (File.Exists("./FFXIVAPP.Client.exe.nlog"))
+            {
                 return;
             }
             var resource = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/FFXIVAPP.Client.exe.nlog");
-            if (resource == null) {
+            if (resource == null)
+            {
                 return;
             }
             var stringReader = new StringReader(XElement.Load(resource.Stream)
@@ -136,7 +149,8 @@ namespace FFXIVAPP.Client {
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
+        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
             var ex = e.Exception;
             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             e.Handled = true;
@@ -146,9 +160,11 @@ namespace FFXIVAPP.Client {
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private static void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e) {
+        private static void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PropertyChanged : {0}", e.PropertyName));
-            switch (e.PropertyName) {
+            switch (e.PropertyName)
+            {
                 case "CharacterName":
                     Common.Constants.CharacterName = Constants.CharacterName = Settings.Default.CharacterName;
                     break;
@@ -162,7 +178,8 @@ namespace FFXIVAPP.Client {
                     Common.Constants.GameLanguage = Constants.GameLanguage = Settings.Default.GameLanguage;
                     var lang = Settings.Default.GameLanguage.ToLower();
                     var cultureInfo = new CultureInfo("en");
-                    switch (lang) {
+                    switch (lang)
+                    {
                         case "japanese":
                             cultureInfo = new CultureInfo("ja");
                             break;
@@ -186,7 +203,8 @@ namespace FFXIVAPP.Client {
                     Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                     break;
                 case "TopMost":
-                    if (ShellView.View != null) {
+                    if (ShellView.View != null)
+                    {
                         ShellView.View.Topmost = Settings.Default.TopMost;
                     }
                     break;
@@ -198,7 +216,8 @@ namespace FFXIVAPP.Client {
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private static void SettingsSettingChanging(object sender, SettingChangingEventArgs e) {
+        private static void SettingsSettingChanging(object sender, SettingChangingEventArgs e)
+        {
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("SettingChanging : [{0},{1}]", e.SettingKey, e.NewValue));
         }
     }

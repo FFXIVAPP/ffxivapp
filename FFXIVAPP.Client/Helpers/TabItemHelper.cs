@@ -13,14 +13,17 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client.Helpers {
-    internal static class TabItemHelper {
+namespace FFXIVAPP.Client.Helpers
+{
+    internal static class TabItemHelper
+    {
         /// <summary>
         /// </summary>
         /// <param name="image"> </param>
         /// <param name="name"> </param>
         /// <returns> </returns>
-        public static DataTemplate ImageHeader(BitmapImage image, string name) {
+        public static DataTemplate ImageHeader(BitmapImage image, string name)
+        {
             var dataTemplate = new DataTemplate();
             var stackPanelFactory = new FrameworkElementFactory(typeof (StackPanel));
             var imageFactory = new FrameworkElementFactory(typeof (Image));

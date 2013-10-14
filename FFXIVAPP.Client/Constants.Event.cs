@@ -9,10 +9,14 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.SettingsProviders.Event;
 using FFXIVAPP.Common.Helpers;
 
-namespace FFXIVAPP.Client {
-    public static partial class Constants {
-        public static class Event {
-            public static Settings PluginSettings {
+namespace FFXIVAPP.Client
+{
+    public static partial class Constants
+    {
+        public static class Event
+        {
+            public static Settings PluginSettings
+            {
                 get { return SettingsProviders.Event.Settings.Default; }
             }
 
@@ -21,10 +25,13 @@ namespace FFXIVAPP.Client {
             private static XDocument _xSettings;
             private static List<string> _settings;
 
-            public static XDocument XSettings {
-                get {
+            public static XDocument XSettings
+            {
+                get
+                {
                     var file = AppViewModel.Instance.SettingsPath + "Settings.Event.xml";
-                    if (_xSettings == null) {
+                    if (_xSettings == null)
+                    {
                         var found = File.Exists(file);
                         _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.Event.xml");
                     }
@@ -33,7 +40,8 @@ namespace FFXIVAPP.Client {
                 set { _xSettings = value; }
             }
 
-            public static List<string> Settings {
+            public static List<string> Settings
+            {
                 get { return _settings ?? (_settings = new List<string>()); }
                 set { _settings = value; }
             }

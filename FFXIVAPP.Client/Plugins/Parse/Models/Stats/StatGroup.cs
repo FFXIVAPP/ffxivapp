@@ -18,18 +18,22 @@ using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
-    public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, INotifyPropertyChanged {
+namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
+{
+    public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, INotifyPropertyChanged
+    {
         #region Property Bindings
 
         public string Name { get; set; }
         public bool IncludeSelf { private get; set; }
 
-        public List<StatGroup> Children {
+        public List<StatGroup> Children
+        {
             get { return new List<StatGroup>(_children.Values); }
         }
 
-        public StatContainer Stats {
+        public StatContainer Stats
+        {
             get { return _statList; }
         }
 
@@ -50,7 +54,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="name"> </param>
         /// <param name="children"> </param>
-        protected StatGroup(string name, params StatGroup[] children) {
+        protected StatGroup(string name, params StatGroup[] children)
+        {
             IncludeSelf = true;
             var valuePairs = children.Select(c => new KeyValuePair<string, StatGroup>(c.Name, c));
             _children = new ConcurrentDictionary<string, StatGroup>(valuePairs);
@@ -60,12 +65,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public StatGroup(string name) {
+        public StatGroup(string name)
+        {
             IncludeSelf = true;
             DoInit(name);
         }
 
-        public StatGroup this[int i] {
+        public StatGroup this[int i]
+        {
             get { return Children[i]; }
             set { Children[i] = value; }
         }
@@ -73,7 +80,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        private void DoInit(string name) {
+        private void DoInit(string name)
+        {
             StatGroup = this;
             Name = name;
             _statList.PropertyChanged += (sender, e) => RaisePropertyChanged(e.PropertyName);
@@ -83,8 +91,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="name"> </param>
         /// <returns> </returns>
-        public object GetStatValue(string name) {
-            if (name.ToLower() == "name") {
+        public object GetStatValue(string name)
+        {
+            if (name.ToLower() == "name")
+            {
                 return Name;
             }
             return Stats.GetStatValue(name);
@@ -93,8 +103,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <summary>
         /// </summary>
         /// <param name="child"> </param>
-        public void AddGroup(StatGroup child) {
-            if (_children.TryAdd(child.Name, child)) {
+        public void AddGroup(StatGroup child)
+        {
+            if (_children.TryAdd(child.Name, child))
+            {
                 DoCollectionChanged(NotifyCollectionChangedAction.Add, child);
             }
         }
@@ -103,7 +115,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="name"> </param>
         /// <returns> </returns>
-        public bool HasGroup(string name) {
+        public bool HasGroup(string name)
+        {
             return _children.ContainsKey(name);
         }
 
@@ -111,11 +124,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="name"> </param>
         /// <returns> </returns>
-        public StatGroup GetGroup(string name) {
+        public StatGroup GetGroup(string name)
+        {
             StatGroup result;
             TryGetGroup(name, out result);
-            if (result == null) {
-                AddGroup(new StatGroup(name) {
+            if (result == null)
+            {
+                AddGroup(new StatGroup(name)
+                {
                     IncludeSelf = false
                 });
             }
@@ -127,9 +143,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <param name="name"> </param>
         /// <param name="result"> </param>
         /// <returns> </returns>
-        public bool TryGetGroup(string name, out StatGroup result) {
+        public bool TryGetGroup(string name, out StatGroup result)
+        {
             StatGroup statGroup;
-            if (_children.TryGetValue(name, out statGroup)) {
+            if (_children.TryGetValue(name, out statGroup))
+            {
                 result = statGroup;
                 return true;
             }
@@ -140,53 +158,65 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        public string GetName() {
+        public string GetName()
+        {
             return Name;
         }
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public void AddNewSubGroup(string name) {
+        public void AddNewSubGroup(string name)
+        {
             var subGroup = new StatGroup(name);
-            foreach (var stat in Stats) {
+            foreach (var stat in Stats)
+            {
                 var linkedStat = stat as LinkedStat;
-                if (linkedStat == null) {
+                if (linkedStat == null)
+                {
                     continue;
                 }
                 var constructorInfo = linkedStat.GetType()
-                                                .GetConstructor(new[] {
+                                                .GetConstructor(new[]
+                                                {
                                                     typeof (String)
                                                 });
-                if (constructorInfo == null) {
+                if (constructorInfo == null)
+                {
                     continue;
                 }
-                var subStat = (NumericStat) constructorInfo.Invoke(new object[] {
+                var subStat = (NumericStat) constructorInfo.Invoke(new object[]
+                {
                     linkedStat.Name
                 });
-                if (subStat == null) {
+                if (subStat == null)
+                {
                     continue;
                 }
                 linkedStat.AddDependency(subStat);
                 subGroup.Stats.Add(subStat);
             }
-            if (subGroup.Stats.Any()) {
+            if (subGroup.Stats.Any())
+            {
                 AddGroup(subGroup);
             }
         }
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<StatGroup> GetEnumerator() {
+        public IEnumerator<StatGroup> GetEnumerator()
+        {
             var list = new List<StatGroup>();
-            if (IncludeSelf) {
+            if (IncludeSelf)
+            {
                 list.Add(this);
             }
             list.AddRange(_children.Values);
             return list.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator()
+        {
             return GetEnumerator();
         }
 
@@ -197,13 +227,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// <summary>
         /// </summary>
         /// <param name="item"> </param>
-        public void Add(StatGroup item) {
+        public void Add(StatGroup item)
+        {
             AddGroup(item);
         }
 
         /// <summary>
         /// </summary>
-        public virtual void Clear() {
+        public virtual void Clear()
+        {
             _children.Clear();
             DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
         }
@@ -212,7 +244,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="item"> </param>
         /// <returns> </returns>
-        public bool Contains(StatGroup item) {
+        public bool Contains(StatGroup item)
+        {
             return _children.ContainsKey(item.Name);
         }
 
@@ -220,7 +253,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="array"> </param>
         /// <param name="arrayIndex"> </param>
-        public void CopyTo(StatGroup[] array, int arrayIndex) {
+        public void CopyTo(StatGroup[] array, int arrayIndex)
+        {
             _children.Values.CopyTo(array, arrayIndex);
         }
 
@@ -228,9 +262,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
         /// </summary>
         /// <param name="item"> </param>
         /// <returns> </returns>
-        public bool Remove(StatGroup item) {
+        public bool Remove(StatGroup item)
+        {
             StatGroup result;
-            if (_children.TryRemove(item.Name, out result)) {
+            if (_children.TryRemove(item.Name, out result))
+            {
                 DoCollectionChanged(NotifyCollectionChangedAction.Remove, result);
                 return true;
             }
@@ -239,10 +275,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         /// <summary>
         /// </summary>
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 var count = Children.Count();
-                if (IncludeSelf) {
+                if (IncludeSelf)
+                {
                     count++;
                 }
                 return count;
@@ -251,7 +290,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         /// <summary>
         /// </summary>
-        public bool IsReadOnly {
+        public bool IsReadOnly
+        {
             get { return false; }
         }
 
@@ -261,20 +301,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         public event NotifyCollectionChangedEventHandler CollectionChanged = delegate { };
 
-        private void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup statGroup) {
+        private void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup statGroup)
+        {
             Dispatcher dispatcher = null;
-            foreach (var @delegate in CollectionChanged.GetInvocationList()) {
+            foreach (var @delegate in CollectionChanged.GetInvocationList())
+            {
                 var dispatcherObject = @delegate.Target as DispatcherObject;
-                if (dispatcherObject == null) {
+                if (dispatcherObject == null)
+                {
                     continue;
                 }
                 dispatcher = dispatcherObject.Dispatcher;
                 break;
             }
-            if (dispatcher != null && dispatcher.CheckAccess() == false) {
+            if (dispatcher != null && dispatcher.CheckAccess() == false)
+            {
                 dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => DoCollectionChanged(action, statGroup)));
             }
-            else {
+            else
+            {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, statGroup));
             }
         }
@@ -285,7 +330,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats {
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

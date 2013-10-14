@@ -11,7 +11,8 @@ using System.Windows.Input;
 
 #endregion
 
-namespace FFXIVAPP.Common.ViewModelBase {
+namespace FFXIVAPP.Common.ViewModelBase
+{
     //===================================================================================
     // Microsoft Developer & Platform Evangelism
     //=================================================================================== 
@@ -23,27 +24,34 @@ namespace FFXIVAPP.Common.ViewModelBase {
     // This code is released under the terms of the MS-LPL license, 
     // http://microsoftnlayerapp.codeplex.com/license
     //===================================================================================
-    public class DelegateCommand : ICommand {
+    public class DelegateCommand : ICommand
+    {
         #region Constructors
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
-        public DelegateCommand(Action executeMethod) : this(executeMethod, null, false) {}
+        public DelegateCommand(Action executeMethod) : this(executeMethod, null, false)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
-        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false) {}
+        public DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
         /// <param name="isAutomaticRequeryDisabled"> </param>
-        private DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod, bool isAutomaticRequeryDisabled) {
-            if (executeMethod == null) {
+        private DelegateCommand(Action executeMethod, Func<bool> canExecuteMethod, bool isAutomaticRequeryDisabled)
+        {
+            if (executeMethod == null)
+            {
                 throw new ArgumentNullException("executeMethod");
             }
             _executeMethod = executeMethod;
@@ -57,16 +65,21 @@ namespace FFXIVAPP.Common.ViewModelBase {
 
         /// <summary>
         /// </summary>
-        public bool IsAutomaticRequeryDisabled {
+        public bool IsAutomaticRequeryDisabled
+        {
             get { return _isAutomaticRequeryDisabled; }
-            set {
-                if (_isAutomaticRequeryDisabled == value) {
+            set
+            {
+                if (_isAutomaticRequeryDisabled == value)
+                {
                     return;
                 }
-                if (value) {
+                if (value)
+                {
                     CommandManagerHelper.RemoveHandlersFromRequerySuggested(_canExecuteChangedHandlers);
                 }
-                else {
+                else
+                {
                     CommandManagerHelper.AddHandlersToRequerySuggested(_canExecuteChangedHandlers);
                 }
                 _isAutomaticRequeryDisabled = value;
@@ -76,27 +89,32 @@ namespace FFXIVAPP.Common.ViewModelBase {
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private bool CanExecute() {
+        private bool CanExecute()
+        {
             return _canExecuteMethod == null || _canExecuteMethod();
         }
 
         /// <summary>
         /// </summary>
-        private void Execute() {
-            if (_executeMethod != null) {
+        private void Execute()
+        {
+            if (_executeMethod != null)
+            {
                 _executeMethod();
             }
         }
 
         /// <summary>
         /// </summary>
-        public void RaiseCanExecuteChanged() {
+        public void RaiseCanExecuteChanged()
+        {
             OnCanExecuteChanged();
         }
 
         /// <summary>
         /// </summary>
-        private void OnCanExecuteChanged() {
+        private void OnCanExecuteChanged()
+        {
             CommandManagerHelper.CallWeakReferenceHandlers(_canExecuteChangedHandlers);
         }
 
@@ -106,15 +124,20 @@ namespace FFXIVAPP.Common.ViewModelBase {
 
         /// <summary>
         /// </summary>
-        public event EventHandler CanExecuteChanged {
-            add {
-                if (!_isAutomaticRequeryDisabled) {
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                if (!_isAutomaticRequeryDisabled)
+                {
                     CommandManager.RequerySuggested += value;
                 }
                 CommandManagerHelper.AddWeakReferenceHandler(ref _canExecuteChangedHandlers, value, 2);
             }
-            remove {
-                if (!_isAutomaticRequeryDisabled) {
+            remove
+            {
+                if (!_isAutomaticRequeryDisabled)
+                {
                     CommandManager.RequerySuggested -= value;
                 }
                 CommandManagerHelper.RemoveWeakReferenceHandler(_canExecuteChangedHandlers, value);
@@ -125,14 +148,16 @@ namespace FFXIVAPP.Common.ViewModelBase {
         /// </summary>
         /// <param name="parameter"> </param>
         /// <returns> </returns>
-        bool ICommand.CanExecute(object parameter) {
+        bool ICommand.CanExecute(object parameter)
+        {
             return CanExecute();
         }
 
         /// <summary>
         /// </summary>
         /// <param name="parameter"> </param>
-        void ICommand.Execute(object parameter) {
+        void ICommand.Execute(object parameter)
+        {
             Execute();
         }
 
@@ -148,22 +173,27 @@ namespace FFXIVAPP.Common.ViewModelBase {
         #endregion
     }
 
-    public sealed class DelegateCommand<T> : ICommand {
+    public sealed class DelegateCommand<T> : ICommand
+    {
         #region Constructors
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
-        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false) {}
+        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod) : this(executeMethod, canExecuteMethod, false)
+        {
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="executeMethod"> </param>
         /// <param name="canExecuteMethod"> </param>
         /// <param name="isAutomaticRequeryDisabled"> </param>
-        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod = null, bool isAutomaticRequeryDisabled = false) {
-            if (executeMethod == null) {
+        public DelegateCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod = null, bool isAutomaticRequeryDisabled = false)
+        {
+            if (executeMethod == null)
+            {
                 throw new ArgumentNullException("executeMethod");
             }
             _executeMethod = executeMethod;
@@ -177,14 +207,19 @@ namespace FFXIVAPP.Common.ViewModelBase {
 
         /// <summary>
         /// </summary>
-        public bool IsAutomaticRequeryDisabled {
+        public bool IsAutomaticRequeryDisabled
+        {
             get { return _isAutomaticRequeryDisabled; }
-            set {
-                if (_isAutomaticRequeryDisabled != value) {
-                    if (value) {
+            set
+            {
+                if (_isAutomaticRequeryDisabled != value)
+                {
+                    if (value)
+                    {
                         CommandManagerHelper.RemoveHandlersFromRequerySuggested(_canExecuteChangedHandlers);
                     }
-                    else {
+                    else
+                    {
                         CommandManagerHelper.AddHandlersToRequerySuggested(_canExecuteChangedHandlers);
                     }
                     _isAutomaticRequeryDisabled = value;
@@ -196,28 +231,33 @@ namespace FFXIVAPP.Common.ViewModelBase {
         /// </summary>
         /// <param name="parameter"> </param>
         /// <returns> </returns>
-        private bool CanExecute(T parameter) {
+        private bool CanExecute(T parameter)
+        {
             return _canExecuteMethod == null || _canExecuteMethod(parameter);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="parameter"> </param>
-        private void Execute(T parameter) {
-            if (_executeMethod != null) {
+        private void Execute(T parameter)
+        {
+            if (_executeMethod != null)
+            {
                 _executeMethod(parameter);
             }
         }
 
         /// <summary>
         /// </summary>
-        public void RaiseCanExecuteChanged() {
+        public void RaiseCanExecuteChanged()
+        {
             OnCanExecuteChanged();
         }
 
         /// <summary>
         /// </summary>
-        private void OnCanExecuteChanged() {
+        private void OnCanExecuteChanged()
+        {
             CommandManagerHelper.CallWeakReferenceHandlers(_canExecuteChangedHandlers);
         }
 
@@ -227,15 +267,20 @@ namespace FFXIVAPP.Common.ViewModelBase {
 
         /// <summary>
         /// </summary>
-        public event EventHandler CanExecuteChanged {
-            add {
-                if (!_isAutomaticRequeryDisabled) {
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                if (!_isAutomaticRequeryDisabled)
+                {
                     CommandManager.RequerySuggested += value;
                 }
                 CommandManagerHelper.AddWeakReferenceHandler(ref _canExecuteChangedHandlers, value, 2);
             }
-            remove {
-                if (!_isAutomaticRequeryDisabled) {
+            remove
+            {
+                if (!_isAutomaticRequeryDisabled)
+                {
                     CommandManager.RequerySuggested -= value;
                 }
                 CommandManagerHelper.RemoveWeakReferenceHandler(_canExecuteChangedHandlers, value);
@@ -246,8 +291,10 @@ namespace FFXIVAPP.Common.ViewModelBase {
         /// </summary>
         /// <param name="parameter"> </param>
         /// <returns> </returns>
-        bool ICommand.CanExecute(object parameter) {
-            if (parameter == null && typeof (T).IsValueType) {
+        bool ICommand.CanExecute(object parameter)
+        {
+            if (parameter == null && typeof (T).IsValueType)
+            {
                 return (_canExecuteMethod == null);
             }
             return CanExecute((T) parameter);
@@ -256,7 +303,8 @@ namespace FFXIVAPP.Common.ViewModelBase {
         /// <summary>
         /// </summary>
         /// <param name="parameter"> </param>
-        void ICommand.Execute(object parameter) {
+        void ICommand.Execute(object parameter)
+        {
             Execute((T) parameter);
         }
 
