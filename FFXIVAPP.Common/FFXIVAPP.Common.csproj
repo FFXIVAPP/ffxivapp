@@ -80,7 +80,6 @@
     </Compile>
     <Compile Include="Converters\BooleanToWidthConverter.cs" />
     <Compile Include="Converters\IconConverter.cs" />
-    <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Converters\StringToBrushConverter.cs" />
     <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />

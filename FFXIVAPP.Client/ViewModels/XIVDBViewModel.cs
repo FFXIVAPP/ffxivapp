@@ -7,11 +7,9 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 
-namespace FFXIVAPP.Client.ViewModels
-{
+namespace FFXIVAPP.Client.ViewModels {
     [Export(typeof (XIVDBViewModel))]
-    internal sealed class XIVDBViewModel : INotifyPropertyChanged
-    {
+    internal sealed class XIVDBViewModel : INotifyPropertyChanged {
         #region Property Bindings
 
         private static XIVDBViewModel _instance;
@@ -26,106 +24,85 @@ namespace FFXIVAPP.Client.ViewModels
         private int _playerProcessed;
         private int _playerSeen;
 
-        public static XIVDBViewModel Instance
-        {
+        public static XIVDBViewModel Instance {
             get { return _instance ?? (_instance = new XIVDBViewModel()); }
         }
 
-        public int PlayerSeen
-        {
+        public int PlayerSeen {
             get { return _playerSeen; }
-            set
-            {
+            set {
                 _playerSeen = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int MobSeen
-        {
+        public int MobSeen {
             get { return _mobSeen; }
-            set
-            {
+            set {
                 _mobSeen = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int NPCSeen
-        {
+        public int NPCSeen {
             get { return _npcSeen; }
-            set
-            {
+            set {
                 _npcSeen = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int KillSeen
-        {
+        public int KillSeen {
             get { return _killSeen; }
-            set
-            {
+            set {
                 _killSeen = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int LootSeen
-        {
+        public int LootSeen {
             get { return _lootSeen; }
-            set
-            {
+            set {
                 _lootSeen = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int PlayerProcessed
-        {
+        public int PlayerProcessed {
             get { return _playerProcessed; }
-            set
-            {
+            set {
                 _playerProcessed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int MobProcessed
-        {
+        public int MobProcessed {
             get { return _mobProcessed; }
-            set
-            {
+            set {
                 _mobProcessed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int NPCProcessed
-        {
+        public int NPCProcessed {
             get { return _npcProcessed; }
-            set
-            {
+            set {
                 _npcProcessed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int KillProcessed
-        {
+        public int KillProcessed {
             get { return _killProcessed; }
-            set
-            {
+            set {
                 _killProcessed = value;
                 RaisePropertyChanged();
             }
         }
 
-        public int LootProcessed
-        {
+        public int LootProcessed {
             get { return _lootProcessed; }
-            set
-            {
+            set {
                 _lootProcessed = value;
                 RaisePropertyChanged();
             }
@@ -137,8 +114,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         #endregion
 
-        public XIVDBViewModel()
-        {
+        public XIVDBViewModel() {
             PlayerSeen = 0;
             MobSeen = 0;
             NPCSeen = 0;
@@ -167,8 +143,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

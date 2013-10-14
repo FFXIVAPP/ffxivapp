@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Client="clr-namespace:FFXIVAPP.Client"
-             xmlns:PluginViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Plugins"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels">
 
     <Application.Resources>

@@ -16,7 +16,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Media;
-using FFXIVAPP.Client.ViewModels.Plugins.Log;
+using FFXIVAPP.Client.Plugins.Log;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
@@ -27,22 +27,17 @@ using FontFamily = System.Drawing.FontFamily;
 
 #endregion
 
-namespace FFXIVAPP.Client.SettingsProviders.Log
-{
-    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged
-    {
+namespace FFXIVAPP.Client.SettingsProviders.Log {
+    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged {
         private static Settings _default;
 
-        public static Settings Default
-        {
+        public static Settings Default {
             get { return _default ?? (_default = ((Settings) (Synchronized(new Settings())))); }
         }
 
-        public override void Save()
-        {
+        public override void Save() {
             XmlHelper.DeleteXmlNode(Constants.Log.XSettings, "Tab");
-            foreach (var tab in PluginViewModel.Instance.Tabs)
-            {
+            foreach (var tab in PluginViewModel.Instance.Tabs) {
                 var tabItem = (TabItem) tab;
                 var flowDoc = (xFlowDocument) tabItem.Content;
                 var xKey = tabItem.Header.ToString();
@@ -51,13 +46,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
                                     .Substring(1);
                 var xRegularExpression = flowDoc.RegEx.Text;
                 var keyPairList = new List<XValuePair>();
-                keyPairList.Add(new XValuePair
-                {
+                keyPairList.Add(new XValuePair {
                     Key = "Value",
                     Value = xValue
                 });
-                keyPairList.Add(new XValuePair
-                {
+                keyPairList.Add(new XValuePair {
                     Key = "RegularExpression",
                     Value = xRegularExpression
                 });
@@ -65,32 +58,26 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
             }
             XmlHelper.DeleteXmlNode(Constants.Log.XSettings, "Setting");
             DefaultSettings();
-            foreach (var item in Constants.Log.Settings)
-            {
-                try
-                {
+            foreach (var item in Constants.Log.Settings) {
+                try {
                     var xKey = item;
                     var xValue = Default[xKey].ToString();
-                    var keyPairList = new List<XValuePair>
-                    {
-                        new XValuePair
-                        {
+                    var keyPairList = new List<XValuePair> {
+                        new XValuePair {
                             Key = "Value",
                             Value = xValue
                         }
                     };
                     XmlHelper.SaveXmlNode(Constants.Log.XSettings, "Settings", "Setting", xKey, keyPairList);
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             Constants.Log.XSettings.Save(AppViewModel.Instance.SettingsPath + "Settings.Log.xml");
         }
 
-        private void DefaultSettings()
-        {
+        private void DefaultSettings() {
             Constants.Log.Settings.Clear();
             Constants.Log.Settings.Add("EnableDebug");
             Constants.Log.Settings.Add("ShowASCIIDebug");
@@ -109,14 +96,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
             Constants.Log.Settings.Add("Zoom");
         }
 
-        public new void Reset()
-        {
+        public new void Reset() {
             DefaultSettings();
-            foreach (var key in Constants.Log.Settings)
-            {
+            foreach (var key in Constants.Log.Settings) {
                 var settingsProperty = Default.Properties[key];
-                if (settingsProperty == null)
-                {
+                if (settingsProperty == null) {
                     continue;
                 }
                 var value = settingsProperty.DefaultValue.ToString();
@@ -124,14 +108,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
             }
         }
 
-        public static void SetValue(string key, string value)
-        {
-            try
-            {
+        public static void SetValue(string key, string value) {
+            try {
                 var type = Default[key].GetType()
                                        .Name;
-                switch (type)
-                {
+                switch (type) {
                     case "Boolean":
                         Default[key] = Convert.ToBoolean(value);
                         break;
@@ -153,12 +134,10 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
                         break;
                 }
             }
-            catch (SettingsPropertyNotFoundException ex)
-            {
+            catch (SettingsPropertyNotFoundException ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
-            catch (SettingsPropertyWrongTypeException ex)
-            {
+            catch (SettingsPropertyWrongTypeException ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
@@ -168,11 +147,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool EnableDebug
-        {
+        public bool EnableDebug {
             get { return ((bool) (this["EnableDebug"])); }
-            set
-            {
+            set {
                 this["EnableDebug"] = value;
                 RaisePropertyChanged();
             }
@@ -181,11 +158,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowAsciiDebug
-        {
+        public bool ShowAsciiDebug {
             get { return ((bool) (this["ShowASCIIDebug"])); }
-            set
-            {
+            set {
                 this["ShowASCIIDebug"] = value;
                 RaisePropertyChanged();
             }
@@ -194,11 +169,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool EnableTranslate
-        {
+        public bool EnableTranslate {
             get { return ((bool) (this["EnableTranslate"])); }
-            set
-            {
+            set {
                 this["EnableTranslate"] = value;
                 RaisePropertyChanged();
             }
@@ -207,11 +180,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool SendToEcho
-        {
+        public bool SendToEcho {
             get { return ((bool) (this["SendToEcho"])); }
-            set
-            {
+            set {
                 this["SendToEcho"] = value;
                 RaisePropertyChanged();
             }
@@ -220,11 +191,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool SendToGame
-        {
+        public bool SendToGame {
             get { return ((bool) (this["SendToGame"])); }
-            set
-            {
+            set {
                 this["SendToGame"] = value;
                 RaisePropertyChanged();
             }
@@ -233,11 +202,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool SendRomanization
-        {
+        public bool SendRomanization {
             get { return ((bool) (this["SendRomanization"])); }
-            set
-            {
+            set {
                 this["SendRomanization"] = value;
                 RaisePropertyChanged();
             }
@@ -246,11 +213,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("English")]
-        public string TranslateTo
-        {
+        public string TranslateTo {
             get { return ((string) (this["TranslateTo"])); }
-            set
-            {
+            set {
                 this["TranslateTo"] = value;
                 RaisePropertyChanged();
             }
@@ -259,11 +224,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("Japanese")]
-        public string ManualTranslate
-        {
+        public string ManualTranslate {
             get { return ((string) (this["ManualTranslate"])); }
-            set
-            {
+            set {
                 this["ManualTranslate"] = value;
                 RaisePropertyChanged();
             }
@@ -272,11 +235,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateJPOnly
-        {
+        public bool TranslateJPOnly {
             get { return ((bool) (this["TranslateJPOnly"])); }
-            set
-            {
+            set {
                 this["TranslateJPOnly"] = value;
                 RaisePropertyChanged();
             }
@@ -285,11 +246,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateSay
-        {
+        public bool TranslateSay {
             get { return ((bool) (this["TranslateSay"])); }
-            set
-            {
+            set {
                 this["TranslateSay"] = value;
                 RaisePropertyChanged();
             }
@@ -298,11 +257,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateTell
-        {
+        public bool TranslateTell {
             get { return ((bool) (this["TranslateTell"])); }
-            set
-            {
+            set {
                 this["TranslateTell"] = value;
                 RaisePropertyChanged();
             }
@@ -311,11 +268,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateParty
-        {
+        public bool TranslateParty {
             get { return ((bool) (this["TranslateParty"])); }
-            set
-            {
+            set {
                 this["TranslateParty"] = value;
                 RaisePropertyChanged();
             }
@@ -324,11 +279,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateLS
-        {
+        public bool TranslateLS {
             get { return ((bool) (this["TranslateLS"])); }
-            set
-            {
+            set {
                 this["TranslateLS"] = value;
                 RaisePropertyChanged();
             }
@@ -337,11 +290,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateFC
-        {
+        public bool TranslateFC {
             get { return ((bool) (this["TranslateFC"])); }
-            set
-            {
+            set {
                 this["TranslateFC"] = value;
                 RaisePropertyChanged();
             }
@@ -350,11 +301,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateShout
-        {
+        public bool TranslateShout {
             get { return ((bool) (this["TranslateShout"])); }
-            set
-            {
+            set {
                 this["TranslateShout"] = value;
                 RaisePropertyChanged();
             }
@@ -363,11 +312,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool TranslateYell
-        {
+        public bool TranslateYell {
             get { return ((bool) (this["TranslateYell"])); }
-            set
-            {
+            set {
                 this["TranslateYell"] = value;
                 RaisePropertyChanged();
             }
@@ -376,11 +323,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("100")]
-        public Double Zoom
-        {
+        public Double Zoom {
             get { return ((Double) (this["Zoom"])); }
-            set
-            {
+            set {
                 this["Zoom"] = value;
                 RaisePropertyChanged();
             }
@@ -433,8 +378,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
   <string>Ukrainian</string>
   <string>Vietnamese</string>
 </ArrayOfString>")]
-        public StringCollection TranslateLanguages
-        {
+        public StringCollection TranslateLanguages {
             get { return ((StringCollection) (this["TranslateLanguages"])); }
             set { this["TranslateLanguages"] = value; }
         }
@@ -445,8 +389,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
 
         public new event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

@@ -16,18 +16,15 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client
-{
-    internal class AppBootstrapper : INotifyPropertyChanged
-    {
+namespace FFXIVAPP.Client {
+    internal class AppBootstrapper : INotifyPropertyChanged {
         #region Property Bindings
 
         private static AppBootstrapper _instance;
         private MetroWindow _donations;
         private List<Window> _styledWindows;
 
-        public static AppBootstrapper Instance
-        {
+        public static AppBootstrapper Instance {
             get { return _instance ?? (_instance = new AppBootstrapper()); }
         }
 
@@ -44,12 +41,9 @@ namespace FFXIVAPP.Client
          *  setting up dependencies
          */
 
-        private AppBootstrapper()
-        {
-            if (App.MArgs != null)
-            {
-                foreach (var s in App.MArgs)
-                {
+        private AppBootstrapper() {
+            if (App.MArgs != null) {
+                foreach (var s in App.MArgs) {
                     Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ArgumentProvided : {0}", s));
                 }
             }
@@ -84,8 +78,7 @@ namespace FFXIVAPP.Client
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

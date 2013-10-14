@@ -9,17 +9,14 @@ using System.Windows;
 
 #endregion
 
-namespace FFXIVAPP.Client.Localization
-{
-    public static partial class Japanese
-    {
+namespace FFXIVAPP.Client.Localization {
+    public static partial class Japanese {
         private static readonly ResourceDictionary Dictionary = new ResourceDictionary();
 
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        public static ResourceDictionary Context()
-        {
+        public static ResourceDictionary Context() {
             Dictionary.Clear();
             SetClientLocale();
             SetEventLocale();

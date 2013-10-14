@@ -3,12 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization
-{
-    public static partial class Japanese
-    {
-        private static void SetClientLocale()
-        {
+namespace FFXIVAPP.Client.Localization {
+    public static partial class Japanese {
+        private static void SetClientLocale() {
             Dictionary.Add("app_PLACEHOLDER", "*PH*");
             Dictionary.Add("app_AllowPluginCommandsHeader", "プラグインコマンドを許可します");
             Dictionary.Add("app_AttachProcessButtonText", "選択した手順を貼付けます");

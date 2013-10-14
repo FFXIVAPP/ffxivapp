@@ -10,22 +10,18 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace FFXIVAPP.Common.Controls
-{
+namespace FFXIVAPP.Common.Controls {
     /// <summary>
     ///     Interaction logic for xFlowDocument.xaml
     /// </summary>
-    public partial class xFlowDocument : INotifyPropertyChanged
-    {
+    public partial class xFlowDocument : INotifyPropertyChanged {
         #region Property Bindings
 
         private string _zoomLevel;
 
-        public string ZoomLevel
-        {
+        public string ZoomLevel {
             get { return _zoomLevel; }
-            set
-            {
+            set {
                 _zoomLevel = value;
                 RaisePropertyChanged();
             }
@@ -33,8 +29,7 @@ namespace FFXIVAPP.Common.Controls
 
         #endregion
 
-        public xFlowDocument()
-        {
+        public xFlowDocument() {
             InitializeComponent();
             ZoomLevel = "100";
         }
@@ -43,8 +38,7 @@ namespace FFXIVAPP.Common.Controls
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

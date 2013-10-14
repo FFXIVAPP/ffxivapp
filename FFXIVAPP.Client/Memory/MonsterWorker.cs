@@ -17,10 +17,8 @@ using Timer = System.Timers.Timer;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class MonsterWorker : INotifyPropertyChanged, IDisposable
-    {
+namespace FFXIVAPP.Client.Memory {
+    internal class MonsterWorker : INotifyPropertyChanged, IDisposable {
         #region Property Bindings
 
         #endregion
@@ -41,16 +39,14 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="npcEntry"> </param>
-        private void PostNPCEvent(List<NPCEntry> npcEntry)
-        {
+        private void PostNPCEvent(List<NPCEntry> npcEntry) {
             _sync.Post(RaiseNPCEvent, npcEntry);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="state"> </param>
-        private void RaiseNPCEvent(object state)
-        {
+        private void RaiseNPCEvent(object state) {
             OnNewNPC((List<NPCEntry>) state);
         }
 
@@ -62,8 +58,7 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        public MonsterWorker()
-        {
+        public MonsterWorker() {
             _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
@@ -72,15 +67,13 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        public void StartScanning()
-        {
+        public void StartScanning() {
             _scanTimer.Enabled = true;
         }
 
         /// <summary>
         /// </summary>
-        public void StopScanning()
-        {
+        public void StopScanning() {
             _scanTimer.Enabled = false;
         }
 
@@ -92,41 +85,31 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (_isScanning) {
                 return;
             }
-            Func<bool> scannerWorker = delegate
-            {
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
-                {
+            Func<bool> scannerWorker = delegate {
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN")) {
                     return false;
                 }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                {
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP")) {
                     return false;
                 }
                 _isScanning = true;
-                try
-                {
+                try {
                     var npcEntries = new List<NPCEntry>();
-                    for (uint i = 0; i <= 1000; i += 4)
-                    {
+                    for (uint i = 0; i <= 1000; i += 4) {
                         var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
-                        if (characterAddress == 0)
-                        {
+                        if (characterAddress == 0) {
                             continue;
                         }
-                        var npcEntry = new NPCEntry
-                        {
+                        var npcEntry = new NPCEntry {
                             Name = MemoryHandler.Instance.GetString(characterAddress, 48),
                             ID = MemoryHandler.Instance.GetUInt32(characterAddress, 116),
                             NPCID = MemoryHandler.Instance.GetUInt32(characterAddress, 128),
                             Type = MemoryHandler.Instance.GetByte(characterAddress, 138),
-                            Coordinate = new Coordinate
-                            {
+                            Coordinate = new Coordinate {
                                 X = MemoryHandler.Instance.GetFloat(characterAddress, 160),
                                 Y = MemoryHandler.Instance.GetFloat(characterAddress, 168),
                                 Z = MemoryHandler.Instance.GetFloat(characterAddress, 164)
@@ -144,70 +127,52 @@ namespace FFXIVAPP.Client.Memory
                             TPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5792),
                             TPMax = 1000
                         };
-                        if (npcEntry.HPMax == 0)
-                        {
+                        if (npcEntry.HPMax == 0) {
                             npcEntry.HPMax = 1;
                         }
-                        if (npcEntry.TargetID == -536870912)
-                        {
+                        if (npcEntry.TargetID == -536870912) {
                             npcEntry.TargetID = -1;
                         }
                         npcEntry.MapIndex = 0;
-                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                        {
-                            try
-                            {
+                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP")) {
+                            try {
                                 npcEntry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                             }
-                            catch (Exception ex)
-                            {
-                            }
+                            catch (Exception ex) {}
                         }
                         // setup DoT: +12104
-                        for (uint x = 0; x < 30; x++)
-                        {
+                        for (uint x = 0; x < 30; x++) {
                             var offset = 12116 + (x * 12);
-                            try
-                            {
-                                var statusEntry = new StatusEntry
-                                {
+                            try {
+                                var statusEntry = new StatusEntry {
                                     ID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
                                     Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
                                     OwnerID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
                                 };
-                                if (statusEntry.IsValid)
-                                {
+                                if (statusEntry.IsValid) {
                                     npcEntry.StatusList.Add(statusEntry);
                                 }
                             }
-                            catch (Exception ex)
-                            {
-                            }
+                            catch (Exception ex) {}
                         }
-                        if (!npcEntry.IsValid)
-                        {
+                        if (!npcEntry.IsValid) {
                             continue;
                         }
                         npcEntries.Add(npcEntry);
                     }
-                    try
-                    {
+                    try {
                         RaiseNPCEvent(npcEntries);
                     }
-                    catch (Exception raiseEx)
-                    {
-                        try
-                        {
+                    catch (Exception raiseEx) {
+                        try {
                             PostNPCEvent(npcEntries);
                         }
-                        catch (Exception postEx)
-                        {
+                        catch (Exception postEx) {
                             DispatcherHelper.Invoke(() => PostNPCEvent(npcEntries));
                         }
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
@@ -222,8 +187,7 @@ namespace FFXIVAPP.Client.Memory
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 
@@ -231,8 +195,7 @@ namespace FFXIVAPP.Client.Memory
 
         #region Implementation of IDisposable
 
-        public void Dispose()
-        {
+        public void Dispose() {
             _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 

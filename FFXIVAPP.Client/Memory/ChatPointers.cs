@@ -9,11 +9,9 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory
-{
+namespace FFXIVAPP.Client.Memory {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct ChatPointers
-    {
+    internal struct ChatPointers {
         public uint LineCount1;
         //public uint LineCount2;
 

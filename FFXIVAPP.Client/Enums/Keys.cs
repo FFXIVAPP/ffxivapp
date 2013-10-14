@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Enums
-{
-    public enum Keys
-    {
+namespace FFXIVAPP.Client.Enums {
+    public enum Keys {
         LButton = 1,
         RButton = 2,
         Cancel = 3,

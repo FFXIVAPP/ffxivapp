@@ -12,24 +12,18 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Common.Helpers
-{
-    public static class SoundPlayerHelper
-    {
+namespace FFXIVAPP.Common.Helpers {
+    public static class SoundPlayerHelper {
         /// <summary>
         /// </summary>
         /// <param name="path"> </param>
         /// <param name="filename"> </param>
-        public static void Play(string path = "Sounds/", string filename = "aruba.wav")
-        {
-            using (var soundPlayer = new SoundPlayer(path + filename))
-            {
-                try
-                {
+        public static void Play(string path = "Sounds/", string filename = "aruba.wav") {
+            using (var soundPlayer = new SoundPlayer(path + filename)) {
+                try {
                     soundPlayer.PlaySync();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }

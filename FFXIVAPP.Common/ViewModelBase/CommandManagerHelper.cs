@@ -12,8 +12,7 @@ using System.Windows.Input;
 
 #endregion
 
-namespace FFXIVAPP.Common.ViewModelBase
-{
+namespace FFXIVAPP.Common.ViewModelBase {
     //===================================================================================
     // Microsoft Developer & Platform Evangelism
     //=================================================================================== 
@@ -25,35 +24,28 @@ namespace FFXIVAPP.Common.ViewModelBase
     // This code is released under the terms of the MS-LPL license, 
     // http://microsoftnlayerapp.codeplex.com/license
     //===================================================================================
-    public static class CommandManagerHelper
-    {
+    public static class CommandManagerHelper {
         /// <summary>
         /// </summary>
         /// <param name="handlers"> </param>
-        internal static void CallWeakReferenceHandlers(List<WeakReference> handlers)
-        {
-            if (handlers == null)
-            {
+        internal static void CallWeakReferenceHandlers(List<WeakReference> handlers) {
+            if (handlers == null) {
                 return;
             }
             var callees = new EventHandler[handlers.Count];
             var count = 0;
-            for (var i = handlers.Count - 1; i >= 0; i--)
-            {
+            for (var i = handlers.Count - 1; i >= 0; i--) {
                 var reference = handlers[i];
                 var handler = reference.Target as EventHandler;
-                if (handler == null)
-                {
+                if (handler == null) {
                     handlers.RemoveAt(i);
                 }
-                else
-                {
+                else {
                     callees[count] = handler;
                     count++;
                 }
             }
-            for (var i = 0; i < count; i++)
-            {
+            for (var i = 0; i < count; i++) {
                 var handler = callees[i];
                 handler(null, EventArgs.Empty);
             }
@@ -62,15 +54,12 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// <summary>
         /// </summary>
         /// <param name="handlers"> </param>
-        internal static void AddHandlersToRequerySuggested(IEnumerable<WeakReference> handlers)
-        {
-            if (handlers == null)
-            {
+        internal static void AddHandlersToRequerySuggested(IEnumerable<WeakReference> handlers) {
+            if (handlers == null) {
                 return;
             }
             foreach (var handler in handlers.Select(handlerRef => handlerRef.Target)
-                                            .OfType<EventHandler>())
-            {
+                                            .OfType<EventHandler>()) {
                 CommandManager.RequerySuggested += handler;
             }
         }
@@ -78,15 +67,12 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// <summary>
         /// </summary>
         /// <param name="handlers"> </param>
-        internal static void RemoveHandlersFromRequerySuggested(IEnumerable<WeakReference> handlers)
-        {
-            if (handlers == null)
-            {
+        internal static void RemoveHandlersFromRequerySuggested(IEnumerable<WeakReference> handlers) {
+            if (handlers == null) {
                 return;
             }
             foreach (var handler in handlers.Select(handlerRef => handlerRef.Target)
-                                            .OfType<EventHandler>())
-            {
+                                            .OfType<EventHandler>()) {
                 CommandManager.RequerySuggested -= handler;
             }
         }
@@ -95,8 +81,7 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// </summary>
         /// <param name="handlers"> </param>
         /// <param name="handler"> </param>
-        internal static void AddWeakReferenceHandler(ref List<WeakReference> handlers, EventHandler handler)
-        {
+        internal static void AddWeakReferenceHandler(ref List<WeakReference> handlers, EventHandler handler) {
             AddWeakReferenceHandler(ref handlers, handler, -1);
         }
 
@@ -105,10 +90,8 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// <param name="handlers"> </param>
         /// <param name="handler"> </param>
         /// <param name="defaultListSize"> </param>
-        internal static void AddWeakReferenceHandler(ref List<WeakReference> handlers, EventHandler handler, int defaultListSize)
-        {
-            if (handlers == null)
-            {
+        internal static void AddWeakReferenceHandler(ref List<WeakReference> handlers, EventHandler handler, int defaultListSize) {
+            if (handlers == null) {
                 handlers = (defaultListSize > 0 ? new List<WeakReference>(defaultListSize) : new List<WeakReference>());
             }
 
@@ -119,18 +102,14 @@ namespace FFXIVAPP.Common.ViewModelBase
         /// </summary>
         /// <param name="handlers"> </param>
         /// <param name="handler"> </param>
-        internal static void RemoveWeakReferenceHandler(List<WeakReference> handlers, EventHandler handler)
-        {
-            if (handlers == null)
-            {
+        internal static void RemoveWeakReferenceHandler(List<WeakReference> handlers, EventHandler handler) {
+            if (handlers == null) {
                 return;
             }
-            for (var i = handlers.Count - 1; i >= 0; i--)
-            {
+            for (var i = handlers.Count - 1; i >= 0; i--) {
                 var reference = handlers[i];
                 var existingHandler = reference.Target as EventHandler;
-                if ((existingHandler == null) || (existingHandler == handler))
-                {
+                if ((existingHandler == null) || (existingHandler == handler)) {
                     handlers.RemoveAt(i);
                 }
             }

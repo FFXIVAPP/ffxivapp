@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -17,13 +18,11 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client
-{
+namespace FFXIVAPP.Client {
     /// <summary>
     ///     Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView
-    {
+    public partial class ShellView {
         #region Property Bindings
 
         #endregion
@@ -34,8 +33,7 @@ namespace FFXIVAPP.Client
 
         public static ShellView View;
 
-        public ShellView()
-        {
+        public ShellView() {
             InitializeComponent();
             View = this;
             View.Topmost = true;
@@ -45,8 +43,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void MetroWindowLoaded(object sender, RoutedEventArgs e)
-        {
+        private void MetroWindowLoaded(object sender, RoutedEventArgs e) {
             View.Topmost = Settings.Default.TopMost;
             LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme);
@@ -57,9 +54,16 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
-            // append plugins
-            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
-            {
+            // get official plugin logos
+            var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
+            var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
+            var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
+            // setup headers for existing plugins
+            EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
+            LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
+            ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
+            // append third party plugins
+            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems) {
                 View.PluginsTC.Items.Add(pluginTabItem);
             }
         }
@@ -68,10 +72,8 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MetroWindowStateChanged(object sender, EventArgs e)
-        {
-            switch (View.WindowState)
-            {
+        private void MetroWindowStateChanged(object sender, EventArgs e) {
+            switch (View.WindowState) {
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
                     AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP - Minimized";
@@ -89,8 +91,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void MetroWindowClosing(object sender, CancelEventArgs e)
-        {
+        private void MetroWindowClosing(object sender, CancelEventArgs e) {
             e.Cancel = true;
             DispatcherHelper.Invoke(() => CloseApplication());
         }
@@ -98,16 +99,13 @@ namespace FFXIVAPP.Client
         /// <summary>
         /// </summary>
         /// <param name="update"></param>
-        public static void CloseApplication(bool update = false)
-        {
+        public static void CloseApplication(bool update = false) {
             Application.Current.MainWindow.WindowState = WindowState.Normal;
             SettingsHelper.Save(update);
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
-            {
+            foreach (PluginInstance pluginInstance in App.Plugins.Loaded) {
                 pluginInstance.Instance.Dispose(update);
             }
-            if (!Settings.Default.SaveLog)
-            {
+            if (!Settings.Default.SaveLog) {
                 CloseDelegate(update);
             }
             Func<bool> exportHistory = () => XmlLogHelper.SaveCurrentLog(false);
@@ -117,24 +115,18 @@ namespace FFXIVAPP.Client
         /// <summary>
         /// </summary>
         /// <param name="update"></param>
-        private static void CloseDelegate(bool update = false)
-        {
+        private static void CloseDelegate(bool update = false) {
             AppViewModel.Instance.NotifyIcon.Visible = false;
-            if (update)
-            {
+            if (update) {
                 var updaters = Process.GetProcessesByName("FFXIVAPP.Updater");
-                foreach (var updater in updaters)
-                {
+                foreach (var updater in updaters) {
                     updater.Kill();
                 }
-                try
-                {
+                try {
                     File.Move("FFXIVAPP.Updater.exe", "FFXIVAPP.Updater.Backup.exe");
                     Process.Start("FFXIVAPP.Updater.Backup.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
                 }
-                catch (Exception ex)
-                {
-                }
+                catch (Exception ex) {}
             }
             Environment.Exit(0);
         }

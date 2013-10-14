@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Models
-{
-    public static class WindowsMessageEvents
-    {
+namespace FFXIVAPP.Client.Models {
+    public static class WindowsMessageEvents {
         public const int KeyDown = 0x100;
         public const int KeyUp = 0x101;
         public const int Char = 0x102;

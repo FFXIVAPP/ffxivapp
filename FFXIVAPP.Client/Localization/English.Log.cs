@@ -3,12 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization
-{
-    public static partial class English
-    {
-        private static void SetLogLocale()
-        {
+namespace FFXIVAPP.Client.Localization {
+    public static partial class English {
+        private static void SetLogLocale() {
             Dictionary.Add("log_PLACEHOLDER", "*PH*");
             Dictionary.Add("log_AddTabButtonText", "Add Tab");
             Dictionary.Add("log_AllTabHeader", "All");

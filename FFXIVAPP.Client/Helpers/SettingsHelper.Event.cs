@@ -5,14 +5,10 @@
 
 using FFXIVAPP.Client.SettingsProviders.Event;
 
-namespace FFXIVAPP.Client.Helpers
-{
-    internal static partial class SettingsHelper
-    {
-        public static class Event
-        {
-            public static void Save()
-            {
+namespace FFXIVAPP.Client.Helpers {
+    internal static partial class SettingsHelper {
+        public static class Event {
+            public static void Save() {
                 Settings.Default.Save();
             }
         }

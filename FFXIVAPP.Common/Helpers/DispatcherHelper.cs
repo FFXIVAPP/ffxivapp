@@ -12,12 +12,9 @@ using System.Windows.Threading;
 
 #endregion
 
-namespace FFXIVAPP.Common.Helpers
-{
-    public static class DispatcherHelper
-    {
-        public static void Invoke(Action action)
-        {
+namespace FFXIVAPP.Common.Helpers {
+    public static class DispatcherHelper {
+        public static void Invoke(Action action) {
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send, new ThreadStart((action)));
         }
     }

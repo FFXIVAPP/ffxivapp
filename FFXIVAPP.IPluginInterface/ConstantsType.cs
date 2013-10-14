@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.IPluginInterface
-{
-    public enum ConstantsType
-    {
+namespace FFXIVAPP.IPluginInterface {
+    public enum ConstantsType {
         AutoTranslate,
         ChatCodes,
         ChatCodesXml,

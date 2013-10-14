@@ -14,30 +14,23 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
-namespace FFXIVAPP.Client.Helpers
-{
-    internal static partial class SettingsHelper
-    {
-        public static class Client
-        {
+namespace FFXIVAPP.Client.Helpers {
+    internal static partial class SettingsHelper {
+        public static class Client {
             /// <summary>
             /// </summary>
-            public static void Save()
-            {
+            public static void Save() {
                 XmlHelper.DeleteXmlNode(Constants.XColors, "Color");
-                foreach (var color in Constants.Colors)
-                {
+                foreach (var color in Constants.Colors) {
                     var xKey = color.Key;
                     var xValue = color.Value[0];
                     var xDescription = color.Value[1];
                     var keyPairList = new List<XValuePair>();
-                    keyPairList.Add(new XValuePair
-                    {
+                    keyPairList.Add(new XValuePair {
                         Key = "Value",
                         Value = xValue
                     });
-                    keyPairList.Add(new XValuePair
-                    {
+                    keyPairList.Add(new XValuePair {
                         Key = "Description",
                         Value = xDescription
                     });
@@ -49,10 +42,8 @@ namespace FFXIVAPP.Client.Helpers
 
             /// <summary>
             /// </summary>
-            public static void Default()
-            {
-                try
-                {
+            public static void Default() {
+                try {
                     var att = Assembly.GetCallingAssembly()
                                       .GetCustomAttributes(typeof (AssemblyCompanyAttribute), false);
                     var companyName = ((AssemblyCompanyAttribute) att[0]).Company;
@@ -64,10 +55,8 @@ namespace FFXIVAPP.Client.Helpers
                     popupContent.CanSayNo = true;
                     PopupHelper.Toggle(popupContent);
                     EventHandler closedDelegate = null;
-                    closedDelegate = delegate
-                    {
-                        switch (PopupHelper.Result)
-                        {
+                    closedDelegate = delegate {
+                        switch (PopupHelper.Result) {
                             case MessageBoxResult.Yes:
                                 Settings.Default.Reset();
                                 Directory.Delete(combinedPath, true);
@@ -81,8 +70,7 @@ namespace FFXIVAPP.Client.Helpers
                     };
                     PopupHelper.MessagePopup.Closed += closedDelegate;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     var popupContent = new PopupContent();
                     popupContent.Title = "Exception!";
                     popupContent.Message = ex.Message;

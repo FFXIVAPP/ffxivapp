@@ -11,20 +11,16 @@ using FFXIVAPP.Client.Properties;
 
 #endregion
 
-namespace FFXIVAPP.Client.Windows
-{
+namespace FFXIVAPP.Client.Windows {
     /// <summary>
     ///     Interaction logic for xMetroWindow.xaml
     /// </summary>
-    public partial class xMetroWindow
-    {
-        public xMetroWindow()
-        {
+    public partial class xMetroWindow {
+        public xMetroWindow() {
             InitializeComponent();
         }
 
-        private void XMetroWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
+        private void XMetroWindow_OnLoaded(object sender, RoutedEventArgs e) {
             ThemeHelper.ChangeTheme(Settings.Default.Theme, this);
         }
     }

@@ -12,16 +12,13 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace FFXIVAPP.Common.Helpers
-{
-    public static class ResourceHelper
-    {
+namespace FFXIVAPP.Common.Helpers {
+    public static class ResourceHelper {
         /// <summary>
         /// </summary>
         /// <param name="key"> </param>
         /// <returns> </returns>
-        public static string StringResource(string key)
-        {
+        public static string StringResource(string key) {
             return (string) Application.Current.FindResource(key);
         }
 
@@ -30,8 +27,7 @@ namespace FFXIVAPP.Common.Helpers
         /// <param name="source"> </param>
         /// <param name="field"> </param>
         /// <returns> </returns>
-        public static string StringResource(object source, string field)
-        {
+        public static string StringResource(object source, string field) {
             return (string) source.GetType()
                                   .GetField(field)
                                   .GetValue(null);
@@ -41,8 +37,7 @@ namespace FFXIVAPP.Common.Helpers
         /// </summary>
         /// <param name="path"> </param>
         /// <returns> </returns>
-        public static StreamResourceInfo StreamResource(string path)
-        {
+        public static StreamResourceInfo StreamResource(string path) {
             return Application.GetResourceStream(new Uri(path));
         }
 
@@ -50,8 +45,7 @@ namespace FFXIVAPP.Common.Helpers
         /// </summary>
         /// <param name="path"> </param>
         /// <returns> </returns>
-        public static XDocument XDocResource(string path)
-        {
+        public static XDocument XDocResource(string path) {
             var resource = StreamResource(path);
             return (resource == null) ? null : new XDocument(XElement.Load(resource.Stream));
         }

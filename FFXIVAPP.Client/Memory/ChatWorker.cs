@@ -19,10 +19,8 @@ using Timer = System.Timers.Timer;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class ChatWorker : INotifyPropertyChanged, IDisposable
-    {
+namespace FFXIVAPP.Client.Memory {
+    internal class ChatWorker : INotifyPropertyChanged, IDisposable {
         #region Property Bindings
 
         #endregion
@@ -47,16 +45,14 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="chatEntry"> </param>
-        private void PostLineEvent(ChatEntry chatEntry)
-        {
+        private void PostLineEvent(ChatEntry chatEntry) {
             _sync.Post(RaiseLineEvent, chatEntry);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="state"> </param>
-        private void RaiseLineEvent(object state)
-        {
+        private void RaiseLineEvent(object state) {
             OnNewline((ChatEntry) state);
         }
 
@@ -68,8 +64,7 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        public ChatWorker()
-        {
+        public ChatWorker() {
             _scanTimer = new Timer(10);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
@@ -78,15 +73,13 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        public void StartScanning()
-        {
+        public void StartScanning() {
             _scanTimer.Enabled = true;
         }
 
         /// <summary>
         /// </summary>
-        public void StopScanning()
-        {
+        public void StopScanning() {
             _scanTimer.Enabled = false;
         }
 
@@ -98,53 +91,41 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (_isScanning) {
                 return;
             }
-            Func<bool> scannerWorker = delegate
-            {
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
-                {
+            Func<bool> scannerWorker = delegate {
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN")) {
                     return false;
                 }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG"))
-                {
+                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG")) {
                     MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20);
                 }
                 var chatPointerMap = MemoryHandler.Instance.SigScanner.Locations["CHATLOG"];
-                if (chatPointerMap == 0)
-                {
+                if (chatPointerMap == 0) {
                     return false;
                 }
                 _isScanning = true;
                 var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(chatPointerMap);
-                try
-                {
-                    if (_lastCount == 0)
-                    {
+                try {
+                    if (_lastCount == 0) {
                         _lastCount = (int) chatPointers.LineCount1;
                     }
-                    if (_lastCount == chatPointers.LineCount1)
-                    {
+                    if (_lastCount == chatPointers.LineCount1) {
                         throw new Exception("LastCount==LineCount");
                     }
                     _spots.Clear();
                     var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
                     var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
                     var lengths = new List<int>();
-                    for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
-                    {
+                    for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--) {
                         var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
                         int lineLen;
-                        if (getline == 0)
-                        {
+                        if (getline == 0) {
                             lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
                         }
-                        else
-                        {
+                        else {
                             var previousAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
                             var previous = MemoryHandler.Instance.GetInt32(previousAddress);
                             var currentAddress = chatPointers.OffsetArrayStart + (uint) (getline * 4);
@@ -156,38 +137,30 @@ namespace FFXIVAPP.Client.Memory
                         _spots.Add(chatPointers.LogStart + (uint) MemoryHandler.Instance.GetInt32(spotAddress));
                     }
                     var limit = _spots.Count;
-                    for (var i = 0; i < limit; i++)
-                    {
+                    for (var i = 0; i < limit; i++) {
                         _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
                         var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
                         var chatEntry = new ChatEntry(text.ToArray());
-                        if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
-                        {
-                            try
-                            {
+                        if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+")) {
+                            try {
                                 RaiseLineEvent(chatEntry);
                             }
-                            catch (Exception raiseEx)
-                            {
-                                try
-                                {
+                            catch (Exception raiseEx) {
+                                try {
                                     PostLineEvent(chatEntry);
                                 }
-                                catch (Exception postEx)
-                                {
+                                catch (Exception postEx) {
                                     DispatcherHelper.Invoke(() => PostLineEvent(chatEntry));
                                 }
                             }
                         }
-                        else
-                        {
+                        else {
                             Tracer.Debug("DebugLineEvent: {0}", text.ToArray());
                         }
                         _lastChatNum = _spots[i];
                     }
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
@@ -203,8 +176,7 @@ namespace FFXIVAPP.Client.Memory
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 
@@ -212,8 +184,7 @@ namespace FFXIVAPP.Client.Memory
 
         #region Implementation of IDisposable
 
-        public void Dispose()
-        {
+        public void Dispose() {
             _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 

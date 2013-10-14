@@ -3,15 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Controls
-{
+namespace FFXIVAPP.Client.Controls {
     /// <summary>
     ///     Interaction logic for xMetroPopup.xaml
     /// </summary>
-    public partial class xMetroPopup
-    {
-        public xMetroPopup()
-        {
+    public partial class xMetroPopup {
+        public xMetroPopup() {
             InitializeComponent();
         }
     }

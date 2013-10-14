@@ -6,27 +6,22 @@
 #region Usings
 
 using System.Text.RegularExpressions;
-using FFXIVAPP.Client.Enums;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models.Parse;
-using FFXIVAPP.Client.Models.Parse.Events;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
+using FFXIVAPP.Client.Plugins.Parse.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities
-{
-    public static partial class Filter
-    {
-        private static void ProcessBeneficial(Event e, Expressions exp)
-        {
-            var line = new Line
-            {
+namespace FFXIVAPP.Client.Utilities {
+    public static partial class Filter {
+        private static void ProcessBeneficial(Event e, Expressions exp) {
+            var line = new Line {
                 RawLine = e.RawLine
             };
             var beneficial = Regex.Match("ph", @"^\.$");
-            switch (e.Subject)
-            {
+            switch (e.Subject) {
                 case EventSubject.You:
                 case EventSubject.Party:
                     //switch (e.Direction)
@@ -82,8 +77,7 @@ namespace FFXIVAPP.Client.Utilities
                     //}
                     break;
             }
-            if (beneficial.Success)
-            {
+            if (beneficial.Success) {
                 return;
             }
             ClearLast();

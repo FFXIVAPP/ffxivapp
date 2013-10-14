@@ -3,9 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client
-{
-    internal static partial class PluginInitializer
-    {
-    }
+namespace FFXIVAPP.Client {
+    internal static partial class PluginInitializer {}
 }

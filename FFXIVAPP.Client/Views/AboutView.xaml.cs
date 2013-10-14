@@ -3,17 +3,14 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Views
-{
+namespace FFXIVAPP.Client.Views {
     /// <summary>
     ///     Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class AboutView
-    {
+    public partial class AboutView {
         public static AboutView View;
 
-        public AboutView()
-        {
+        public AboutView() {
             InitializeComponent();
             View = this;
         }

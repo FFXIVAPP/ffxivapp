@@ -21,11 +21,9 @@ using FFXIVAPP.Common.Helpers;
 
 #endregion
 
-namespace FFXIVAPP.Client
-{
+namespace FFXIVAPP.Client {
     [Export(typeof (AppViewModel))]
-    internal sealed class AppViewModel : INotifyPropertyChanged
-    {
+    internal sealed class AppViewModel : INotifyPropertyChanged {
         #region Property Bindings
 
         private static AppViewModel _instance;
@@ -49,32 +47,24 @@ namespace FFXIVAPP.Client
         private Style _tabControlCollapsedHeader;
         private List<string> _updateNotes;
 
-        public static AppViewModel Instance
-        {
+        public static AppViewModel Instance {
             get { return _instance ?? (_instance = new AppViewModel()); }
         }
 
-        public Dictionary<string, string> Locale
-        {
+        public Dictionary<string, string> Locale {
             get { return _locale ?? (_locale = new Dictionary<string, string>()); }
-            set
-            {
+            set {
                 _locale = value;
                 RaisePropertyChanged();
             }
         }
 
-        public NotifyIcon NotifyIcon
-        {
-            get
-            {
-                if (_notifyIcon == null)
-                {
+        public NotifyIcon NotifyIcon {
+            get {
+                if (_notifyIcon == null) {
                     using (var iconStream = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/Media/Icons/FFXIVAPP.ico")
-                                                          .Stream)
-                    {
-                        _notifyIcon = new NotifyIcon
-                        {
+                                                          .Stream) {
+                        _notifyIcon = new NotifyIcon {
                             Icon = new Icon(iconStream),
                             Visible = true
                         };
@@ -94,221 +84,174 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public string AppTitle
-        {
+        public string AppTitle {
             get { return _appTitle; }
-            set
-            {
+            set {
                 var tempvalue = Constants.IsOpen ? value : String.Format("{0} : OFFLINE", value);
                 _appTitle = String.IsNullOrWhiteSpace(tempvalue) ? "FFXIVAPP" : String.Format("FFXIVAPP ~ {0}", tempvalue);
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<UIElement> PluginTabItems
-        {
+        public ObservableCollection<UIElement> PluginTabItems {
             get { return _pluginTabItems ?? (_pluginTabItems = new ObservableCollection<UIElement>()); }
-            set
-            {
+            set {
                 _pluginTabItems = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool HasPlugins
-        {
+        public bool HasPlugins {
             get { return _hasPlugins; }
-            set
-            {
+            set {
                 _hasPlugins = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string Selected
-        {
+        public string Selected {
             get { return _selected; }
-            set
-            {
+            set {
                 _selected = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Style TabControlCollapsedHeader
-        {
-            get
-            {
-                if (_tabControlCollapsedHeader == null)
-                {
+        public Style TabControlCollapsedHeader {
+            get {
+                if (_tabControlCollapsedHeader == null) {
                     var s = new Style();
                     s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
                     _tabControlCollapsedHeader = s;
                 }
                 return _tabControlCollapsedHeader;
             }
-            set
-            {
+            set {
                 _tabControlCollapsedHeader = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string ConfigurationsPath
-        {
-            get
-            {
-                if (!Directory.Exists(_configurationsPath))
-                {
+        public string ConfigurationsPath {
+            get {
+                if (!Directory.Exists(_configurationsPath)) {
                     Directory.CreateDirectory(_configurationsPath);
                 }
                 return _configurationsPath;
             }
-            set
-            {
+            set {
                 _configurationsPath = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string LogsPath
-        {
-            get
-            {
-                if (!Directory.Exists(_logsPath))
-                {
+        public string LogsPath {
+            get {
+                if (!Directory.Exists(_logsPath)) {
                     Directory.CreateDirectory(_logsPath);
                 }
                 return _logsPath;
             }
-            set
-            {
+            set {
                 _logsPath = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string ScreenShotsPath
-        {
-            get
-            {
-                if (!Directory.Exists(_screenShotsPath))
-                {
+        public string ScreenShotsPath {
+            get {
+                if (!Directory.Exists(_screenShotsPath)) {
                     Directory.CreateDirectory(_screenShotsPath);
                 }
                 return _screenShotsPath;
             }
-            set
-            {
+            set {
                 _screenShotsPath = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string SoundsPath
-        {
-            get
-            {
-                if (!Directory.Exists(_soundsPath))
-                {
+        public string SoundsPath {
+            get {
+                if (!Directory.Exists(_soundsPath)) {
                     Directory.CreateDirectory(_soundsPath);
                 }
                 return _soundsPath;
             }
-            set
-            {
+            set {
                 _soundsPath = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string SettingsPath
-        {
-            get
-            {
-                if (!Directory.Exists(_settingsPath))
-                {
+        public string SettingsPath {
+            get {
+                if (!Directory.Exists(_settingsPath)) {
                     Directory.CreateDirectory(_settingsPath);
                 }
                 return _settingsPath;
             }
-            set
-            {
+            set {
                 _settingsPath = value;
                 RaisePropertyChanged();
             }
         }
 
-        public List<ChatEntry> ChatHistory
-        {
+        public List<ChatEntry> ChatHistory {
             get { return _chatHistory ?? (_chatHistory = new List<ChatEntry>()); }
-            set
-            {
+            set {
                 _chatHistory = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool HasNewVersion
-        {
+        public bool HasNewVersion {
             get { return _hasNewVersion; }
-            set
-            {
+            set {
                 _hasNewVersion = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string DownloadUri
-        {
+        public string DownloadUri {
             get { return _downloadUri; }
-            set
-            {
+            set {
                 _downloadUri = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string LatestVersion
-        {
+        public string LatestVersion {
             get { return _latestVersion; }
-            set
-            {
+            set {
                 _latestVersion = value;
                 RaisePropertyChanged();
             }
         }
 
-        public List<string> UpdateNotes
-        {
+        public List<string> UpdateNotes {
             get { return _updateNotes ?? (_updateNotes = new List<string>()); }
-            set
-            {
+            set {
                 _updateNotes = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string CurrentVersion
-        {
+        public string CurrentVersion {
             get { return _currentVersion; }
-            set
-            {
+            set {
                 _currentVersion = value;
                 RaisePropertyChanged();
             }
         }
 
-        public string Copyright
-        {
+        public string Copyright {
             get { return AssemblyHelper.Copyright; }
         }
 
-        public List<Signature> Signatures
-        {
+        public List<Signature> Signatures {
             get { return _signatures ?? (_signatures = new List<Signature>()); }
-            set
-            {
+            set {
                 _signatures = value;
                 RaisePropertyChanged();
             }
@@ -326,8 +269,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private static void NotifyIconOnRestoreClick(object sender, EventArgs eventArgs)
-        {
+        private static void NotifyIconOnRestoreClick(object sender, EventArgs eventArgs) {
             ShellView.View.WindowState = WindowState.Normal;
             ShellView.View.Topmost = true;
             ShellView.View.Topmost = Settings.Default.TopMost;
@@ -337,8 +279,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs)
-        {
+        private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs) {
             DispatcherHelper.Invoke(() => ShellView.CloseApplication());
         }
 
@@ -346,8 +287,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="mouseEventArgs"></param>
-        private static void NotifyIconOnMouseDoubleClick(object sender, MouseEventArgs mouseEventArgs)
-        {
+        private static void NotifyIconOnMouseDoubleClick(object sender, MouseEventArgs mouseEventArgs) {
             ShellView.View.WindowState = WindowState.Normal;
             ShellView.View.Topmost = true;
             ShellView.View.Topmost = Settings.Default.TopMost;
@@ -359,8 +299,7 @@ namespace FFXIVAPP.Client
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

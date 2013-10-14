@@ -14,10 +14,8 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Common.Converters
-{
-    public class StringToBrushConverter : IValueConverter
-    {
+namespace FFXIVAPP.Common.Converters {
+    public class StringToBrushConverter : IValueConverter {
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>
@@ -25,18 +23,15 @@ namespace FFXIVAPP.Common.Converters
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var brushConverter = new BrushConverter();
             value = (value.ToString()
                           .StartsWith("#")) ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
-            try
-            {
+            try {
                 result = (Brush) brushConverter.ConvertFrom(value);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             return result;
@@ -49,8 +44,7 @@ namespace FFXIVAPP.Common.Converters
         /// <param name="parameter"> </param>
         /// <param name="culture"> </param>
         /// <returns> </returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             return new BrushConverter().ConvertFrom("#FFFFFFFF");
         }
 
@@ -58,18 +52,15 @@ namespace FFXIVAPP.Common.Converters
         /// </summary>
         /// <param name="value"> </param>
         /// <returns> </returns>
-        public object Convert(object value)
-        {
+        public object Convert(object value) {
             var brushConverter = new BrushConverter();
             value = (value.ToString()
                           .Substring(0, 1) == "#") ? value : "#" + value;
             var result = (Brush) brushConverter.ConvertFrom("#FFFFFFFF");
-            try
-            {
+            try {
                 result = (Brush) brushConverter.ConvertFrom(value);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             return result;

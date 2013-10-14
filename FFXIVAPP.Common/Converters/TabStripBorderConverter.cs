@@ -12,15 +12,11 @@ using System.Windows.Data;
 
 #endregion
 
-namespace FFXIVAPP.Common.Converters
-{
-    public class TabStripBorderConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+namespace FFXIVAPP.Common.Converters {
+    public class TabStripBorderConverter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var thickness = new Thickness();
-            switch (value.ToString())
-            {
+            switch (value.ToString()) {
                 case "Left":
                     thickness.Left = 1;
                     break;
@@ -37,8 +33,7 @@ namespace FFXIVAPP.Common.Converters
             return thickness;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             throw new NotImplementedException();
         }
     }

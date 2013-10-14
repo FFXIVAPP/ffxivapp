@@ -3,17 +3,14 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Views
-{
+namespace FFXIVAPP.Client.Views {
     /// <summary>
     ///     Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainView
-    {
+    public partial class MainView {
         public static MainView View;
 
-        public MainView()
-        {
+        public MainView() {
             InitializeComponent();
             View = this;
         }

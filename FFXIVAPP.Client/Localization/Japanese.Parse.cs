@@ -3,12 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client.Localization
-{
-    public static partial class Japanese
-    {
-        private static void SetParseLocale()
-        {
+namespace FFXIVAPP.Client.Localization {
+    public static partial class Japanese {
+        private static void SetParseLocale() {
             Dictionary.Add("parse_PLACEHOLDER", "*PH*");
             Dictionary.Add("parse_NameHeader", "名前");
             Dictionary.Add("parse_TotalOverallDamageHeader", "合計");

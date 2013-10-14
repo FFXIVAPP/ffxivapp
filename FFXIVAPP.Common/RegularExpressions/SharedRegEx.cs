@@ -12,10 +12,8 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Common.RegularExpressions
-{
-    public static class SharedRegEx
-    {
+namespace FFXIVAPP.Common.RegularExpressions {
+    public static class SharedRegEx {
         public const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 
         public static readonly Regex Romans = new Regex(@"(?<roman>\b[IVXLCDM]+\b)", DefaultOptions);
@@ -24,19 +22,15 @@ namespace FFXIVAPP.Common.RegularExpressions
         /// </summary>
         /// <param name="pattern"> </param>
         /// <returns> </returns>
-        public static bool IsValidRegex(string pattern)
-        {
+        public static bool IsValidRegex(string pattern) {
             var result = true;
-            if (String.IsNullOrWhiteSpace(pattern))
-            {
+            if (String.IsNullOrWhiteSpace(pattern)) {
                 return false;
             }
-            try
-            {
+            try {
                 result = Regex.IsMatch("", pattern);
             }
-            catch (ArgumentException ex)
-            {
+            catch (ArgumentException ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 return result;
             }

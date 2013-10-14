@@ -10,10 +10,8 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory
-{
-    public static class UnsafeNativeMethods
-    {
+namespace FFXIVAPP.Client.Memory {
+    public static class UnsafeNativeMethods {
         public const int ProcessAllAccess = 0x1F0FFF;
 
         /// <summary>
@@ -148,8 +146,7 @@ namespace FFXIVAPP.Client.Memory
         public static extern int VirtualQueryEx(IntPtr hProcess, uint lpAddress, out MemoryBasicInformation lpBuffer, uint dwLength);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct MemoryBasicInformation
-        {
+        public struct MemoryBasicInformation {
             public readonly int BaseAddress;
             public readonly int AllocationBase;
             public readonly int AllocationProtect;
@@ -160,8 +157,7 @@ namespace FFXIVAPP.Client.Memory
         }
 
         [StructLayout(LayoutKind.Sequential, Size = 40)]
-        public struct ProcessMemoryCounters
-        {
+        public struct ProcessMemoryCounters {
             private readonly int cb;
             private readonly int PageFaultCount;
             private readonly int PeakWorkingSetSize;

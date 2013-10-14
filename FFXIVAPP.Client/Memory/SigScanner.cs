@@ -18,19 +18,15 @@ using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Memory
-{
-    public class SigScanner : INotifyPropertyChanged
-    {
+namespace FFXIVAPP.Client.Memory {
+    public class SigScanner : INotifyPropertyChanged {
         #region Property Bindings
 
         private Dictionary<string, uint> _locations;
 
-        public Dictionary<string, uint> Locations
-        {
+        public Dictionary<string, uint> Locations {
             get { return _locations ?? (_locations = new Dictionary<string, uint>()); }
-            private set
-            {
+            private set {
                 _locations = value;
                 RaisePropertyChanged();
             }
@@ -57,8 +53,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         ///     Where to return the pointer from
         /// </summary>
-        public enum ScanResultType
-        {
+        public enum ScanResultType {
             /// <summary>
             ///     Read in the pointer before the signature
             /// </summary>
@@ -93,8 +88,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        public SigScanner(Process process)
-        {
+        public SigScanner(Process process) {
             _process = process;
             Locations = new Dictionary<string, uint>();
         }
@@ -103,8 +97,7 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="process"> </param>
         /// <param name="signatures"> </param>
-        public SigScanner(Process process, List<Signature> signatures)
-        {
+        public SigScanner(Process process, List<Signature> signatures) {
             _process = process;
             LoadOffsets(signatures);
         }
@@ -112,22 +105,17 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="signatures"> </param>
-        private void LoadOffsets(List<Signature> signatures)
-        {
-            Func<bool> d = delegate
-            {
+        private void LoadOffsets(List<Signature> signatures) {
+            Func<bool> d = delegate {
                 var sw = new Stopwatch();
                 sw.Start();
-                if (_process == null)
-                {
+                if (_process == null) {
                     return false;
                 }
                 LoadRegions();
                 Locations = new Dictionary<string, uint>();
-                if (signatures.Any())
-                {
-                    foreach (var signature in signatures)
-                    {
+                if (signatures.Any()) {
+                    foreach (var signature in signatures) {
                         Locations.Add(signature.Key, (uint) FindSignature(signature.Value, signature.Offset, ScanResultType.AddressStartOfSig));
                     }
                 }
@@ -141,29 +129,23 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        private void LoadRegions()
-        {
-            try
-            {
+        private void LoadRegions() {
+            try {
                 _regions = new List<UnsafeNativeMethods.MemoryBasicInformation>();
                 var address = 0;
-                while (true)
-                {
+                while (true) {
                     var info = new UnsafeNativeMethods.MemoryBasicInformation();
                     var result = UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint) address, out info, (uint) Marshal.SizeOf(info));
-                    if (0 == result)
-                    {
+                    if (0 == result) {
                         break;
                     }
-                    if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard))
-                    {
+                    if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard)) {
                         _regions.Add(info);
                     }
                     address = info.BaseAddress + info.RegionSize;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
@@ -173,8 +155,7 @@ namespace FFXIVAPP.Client.Memory
         /// </summary>
         /// <param name="signature">The hex pattern to search for</param>
         /// <returns>The pointer found at the matching location</returns>
-        private IntPtr FindSignature(string signature, ScanResultType searchType)
-        {
+        private IntPtr FindSignature(string signature, ScanResultType searchType) {
             return FindSignature(signature, 0, searchType);
         }
 
@@ -186,27 +167,20 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offset">An offset to add to the pointer VALUE</param>
         /// <param name="searchType">What type os result to return</param>
         /// <returns>The pointer found at the matching location</returns>
-        private IntPtr FindSignature(string signature, int offset, ScanResultType searchType)
-        {
-            try
-            {
-                if (signature.Length == 0 || signature.Length % 2 != 0)
-                {
+        private IntPtr FindSignature(string signature, int offset, ScanResultType searchType) {
+            try {
+                if (signature.Length == 0 || signature.Length % 2 != 0) {
                     throw new Exception("FindSignature(): Invalid signature");
                 }
-                foreach (var region in _regions)
-                {
+                foreach (var region in _regions) {
                     var buffer = new byte[region.RegionSize];
-                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, 0))
-                    {
+                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, 0)) {
                         var errorCode = Marshal.GetLastWin32Error();
                         throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
                     }
                     var searchResult = FindSignature(buffer, signature, offset, searchType);
-                    if (IntPtr.Zero != searchResult)
-                    {
-                        if (ScanResultType.AddressStartOfSig == searchType)
-                        {
+                    if (IntPtr.Zero != searchResult) {
+                        if (ScanResultType.AddressStartOfSig == searchType) {
                             searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
                         }
 
@@ -214,9 +188,7 @@ namespace FFXIVAPP.Client.Memory
                     }
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) {}
             return IntPtr.Zero;
         }
 
@@ -231,33 +203,25 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offset">An offset to add to the found pointer VALUE.</param>
         /// <param name="searchType"></param>
         /// <returns>A pointer at the matching location</returns>
-        private static IntPtr FindSignature(byte[] buffer, string signature, int offset, ScanResultType searchType)
-        {
-            try
-            {
-                if (signature.Length == 0 || signature.Length % 2 != 0)
-                {
+        private static IntPtr FindSignature(byte[] buffer, string signature, int offset, ScanResultType searchType) {
+            try {
+                if (signature.Length == 0 || signature.Length % 2 != 0) {
                     return IntPtr.Zero;
                 }
                 var pattern = SigToByte(signature, WildCardChar);
-                if (pattern != null)
-                {
+                if (pattern != null) {
                     var pos = 0;
-                    for (pos = 0; pos < pattern.Length; pos++)
-                    {
-                        if (pattern[pos] == WildCardChar)
-                        {
+                    for (pos = 0; pos < pattern.Length; pos++) {
+                        if (pattern[pos] == WildCardChar) {
                             break;
                         }
                     }
                     var idx = -1;
                     idx = pos == pattern.Length ? Horspool(buffer, pattern) : BNDM(buffer, pattern, WildCardChar);
-                    if (idx < 0)
-                    {
+                    if (idx < 0) {
                         return IntPtr.Zero;
                     }
-                    switch (searchType)
-                    {
+                    switch (searchType) {
                         case ScanResultType.ValueBeforeSig:
                             return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
                         case ScanResultType.ValueAfterSig:
@@ -270,9 +234,7 @@ namespace FFXIVAPP.Client.Memory
                     }
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) {}
             return IntPtr.Zero;
         }
 
@@ -284,44 +246,34 @@ namespace FFXIVAPP.Client.Memory
         ///     does not expand.
         /// </param>
         /// <returns>The index the pattern was found at, or -1 if not found</returns>
-        private static int BNDM(byte[] buffer, byte[] pattern, byte wildcard)
-        {
+        private static int BNDM(byte[] buffer, byte[] pattern, byte wildcard) {
             var end = pattern.Length < 32 ? pattern.Length : 32;
             var b = new int[256];
             var j = 0;
-            for (var i = 0; i < end; ++i)
-            {
-                if (pattern[i] == wildcard)
-                {
+            for (var i = 0; i < end; ++i) {
+                if (pattern[i] == wildcard) {
                     j |= (1 << end - i - 1);
                 }
             }
-            if (j != 0)
-            {
-                for (var i = 0; i < b.Length; i++)
-                {
+            if (j != 0) {
+                for (var i = 0; i < b.Length; i++) {
                     b[i] = j;
                 }
             }
             j = 1;
-            for (var i = end - 1; i >= 0; --i, j <<= 1)
-            {
+            for (var i = end - 1; i >= 0; --i, j <<= 1) {
                 b[pattern[i]] |= j;
             }
             var pos = 0;
-            while (pos <= buffer.Length - pattern.Length)
-            {
+            while (pos <= buffer.Length - pattern.Length) {
                 j = pattern.Length - 1;
                 var last = pattern.Length;
                 var d = -1;
-                while (d != 0)
-                {
+                while (d != 0) {
                     d &= b[buffer[pos + j]];
 
-                    if (d != 0)
-                    {
-                        if (j == 0)
-                        {
+                    if (d != 0) {
+                        if (j == 0) {
                             return pos;
                         }
                         last = j;
@@ -338,28 +290,22 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="buffer">The haystack to search within</param>
         /// <param name="pattern">The needle to locate</param>
         /// <returns>The index the pattern was found at, or -1 if not found</returns>
-        private static int Horspool(byte[] buffer, byte[] pattern)
-        {
+        private static int Horspool(byte[] buffer, byte[] pattern) {
             var bcs = new int[256];
             var scan = 0;
-            for (scan = 0; scan < 256; scan = scan + 1)
-            {
+            for (scan = 0; scan < 256; scan = scan + 1) {
                 bcs[scan] = pattern.Length;
             }
             var last = pattern.Length - 1;
-            for (scan = 0; scan < last; scan = scan + 1)
-            {
+            for (scan = 0; scan < last; scan = scan + 1) {
                 bcs[pattern[scan]] = last - scan;
             }
             var hidx = 0;
             var hlen = buffer.Length;
             var nlen = pattern.Length;
-            while (hidx <= hlen - nlen)
-            {
-                for (scan = last; buffer[hidx + scan] == pattern[scan]; scan = scan - 1)
-                {
-                    if (scan == 0)
-                    {
+            while (hidx <= hlen - nlen) {
+                for (scan = last; buffer[hidx + scan] == pattern[scan]; scan = scan - 1) {
+                    if (scan == 0) {
                         return hidx;
                     }
                 }
@@ -374,30 +320,23 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="signature">A hex string "signature"</param>
         /// <param name="wildcard">The byte to treat as the wildcard</param>
         /// <returns>The converted binary array. Null if the conversion failed.</returns>
-        private static byte[] SigToByte(string signature, byte wildcard)
-        {
+        private static byte[] SigToByte(string signature, byte wildcard) {
             var pattern = new byte[signature.Length / 2];
-            var hexTable = new[]
-            {
+            var hexTable = new[] {
                 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
             };
-            try
-            {
-                for (int x = 0, i = 0; i < signature.Length; i += 2, x += 1)
-                {
-                    if (signature[i] == wildcard)
-                    {
+            try {
+                for (int x = 0, i = 0; i < signature.Length; i += 2, x += 1) {
+                    if (signature[i] == wildcard) {
                         pattern[x] = wildcard;
                     }
-                    else
-                    {
+                    else {
                         pattern[x] = (byte) (hexTable[Char.ToUpper(signature[i]) - '0'] << 4 | hexTable[Char.ToUpper(signature[i + 1]) - '0']);
                     }
                 }
                 return pattern;
             }
-            catch
-            {
+            catch {
                 return null;
             }
         }
@@ -406,8 +345,7 @@ namespace FFXIVAPP.Client.Memory
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

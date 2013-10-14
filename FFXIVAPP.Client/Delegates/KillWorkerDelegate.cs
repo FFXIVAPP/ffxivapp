@@ -16,10 +16,8 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace FFXIVAPP.Client.Delegates
-{
-    internal static class KillWorkerDelegate
-    {
+namespace FFXIVAPP.Client.Delegates {
+    internal static class KillWorkerDelegate {
         #region Declarations
 
         public static readonly IList<KillEntry> KillEntries = new List<KillEntry>();
@@ -30,42 +28,33 @@ namespace FFXIVAPP.Client.Delegates
 
         /// <summary>
         /// </summary>
-        public static void OnNewKill(KillEntry killEntry)
-        {
-            Func<bool> saveToDictionary = delegate
-            {
-                if (!killEntry.IsValid())
-                {
+        public static void OnNewKill(KillEntry killEntry) {
+            Func<bool> saveToDictionary = delegate {
+                if (!killEntry.IsValid()) {
                     return false;
                 }
-                if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry)))
-                {
+                if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry))) {
                     KillEntries.Add(killEntry);
                 }
                 XIVDBViewModel.Instance.KillSeen++;
                 return true;
             };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
-                {
+            saveToDictionary.BeginInvoke(delegate {
+                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration) {
                     return;
                 }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1)))
-                {
+                if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1))) {
                     return;
                 }
-                try
-                {
+                try {
                     UploadHelper.Processing = true;
                     UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
-                                                                                .Skip(chunksProcessed * chunkSize)));
+                                                                                   .Skip(chunksProcessed * chunkSize)));
                     XIVDBViewModel.Instance.KillProcessed++;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     UploadHelper.Processing = false;
                 }
             }, saveToDictionary);
@@ -73,18 +62,14 @@ namespace FFXIVAPP.Client.Delegates
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
-        {
+        public static void ProcessRemaining() {
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
-            try
-            {
+            try {
                 UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
-                                                                            .Skip(chunksProcessed * chunkSize)));
+                                                                               .Skip(chunksProcessed * chunkSize)));
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) {}
         }
     }
 }

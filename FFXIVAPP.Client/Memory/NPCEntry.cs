@@ -5,12 +5,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
-namespace FFXIVAPP.Client.Memory
-{
-    public class NPCEntry
-    {
+namespace FFXIVAPP.Client.Memory {
+    public class NPCEntry {
         private List<StatusEntry> _statusList;
 
         #region Property Backings
@@ -21,12 +18,9 @@ namespace FFXIVAPP.Client.Memory
         public uint NPCID { get; set; }
         public int Type { get; set; }
 
-        public NPCType NPCType
-        {
-            get
-            {
-                switch (Type)
-                {
+        public NPCType NPCType {
+            get {
+                switch (Type) {
                     case 1:
                         return NPCType.PC;
                     case 2:
@@ -50,16 +44,12 @@ namespace FFXIVAPP.Client.Memory
         public int HPCurrent { get; set; }
         public int HPMax { get; set; }
 
-        public byte HPPercent
-        {
-            get
-            {
-                try
-                {
+        public byte HPPercent {
+            get {
+                try {
                     return Convert.ToByte(Math.Ceiling((Convert.ToDouble(HPCurrent) / Convert.ToDouble(HPMax)) * 100.0));
                 }
-                catch
-                {
+                catch {
                     return 0;
                 }
             }
@@ -68,16 +58,12 @@ namespace FFXIVAPP.Client.Memory
         public int MPCurrent { get; set; }
         public int MPMax { get; set; }
 
-        public byte MPPercent
-        {
-            get
-            {
-                try
-                {
+        public byte MPPercent {
+            get {
+                try {
                     return Convert.ToByte(Math.Ceiling((Convert.ToDouble(MPCurrent) / Convert.ToDouble(MPMax)) * 100.0));
                 }
-                catch
-                {
+                catch {
                     return 0;
                 }
             }
@@ -86,47 +72,36 @@ namespace FFXIVAPP.Client.Memory
         public int TPCurrent { get; set; }
         public int TPMax { get; set; }
 
-        public List<StatusEntry> StatusList
-        {
+        public List<StatusEntry> StatusList {
             get { return _statusList ?? (_statusList = new List<StatusEntry>()); }
-            set
-            {
-                if (_statusList == null)
-                {
+            set {
+                if (_statusList == null) {
                     _statusList = new List<StatusEntry>();
                 }
                 _statusList = value;
             }
         }
 
-        public bool IsFate
-        {
+        public bool IsFate {
             get { return Fate == 0x801AFFFF && NPCType == NPCType.Monster; }
         }
 
-        public bool IsClaimed
-        {
+        public bool IsClaimed {
             get { return Claimed == 1; }
         }
 
-        public bool IsValid
-        {
-            get
-            {
-                if (Coordinate.X > 5000 || Coordinate.X < -5000)
-                {
+        public bool IsValid {
+            get {
+                if (Coordinate.X > 5000 || Coordinate.X < -5000) {
                     return false;
                 }
-                if (Coordinate.Y > 5000 || Coordinate.Y < -5000)
-                {
+                if (Coordinate.Y > 5000 || Coordinate.Y < -5000) {
                     return false;
                 }
-                if (Coordinate.Z > 5000 || Coordinate.Z < -5000)
-                {
+                if (Coordinate.Z > 5000 || Coordinate.Z < -5000) {
                     return false;
                 }
-                switch (NPCType)
-                {
+                switch (NPCType) {
                     case NPCType.NPC:
                         return !String.IsNullOrEmpty(Name) && ID != 0 && NPCID != 0;
                     default:

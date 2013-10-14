@@ -16,20 +16,15 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace FFXIVAPP.Client.Delegates
-{
-    internal static class MonsterWorkerDelegate
-    {
+namespace FFXIVAPP.Client.Delegates {
+    internal static class MonsterWorkerDelegate {
         #region Property Backings
 
         private static List<uint> _pets;
 
-        public static List<uint> Pets
-        {
-            get
-            {
-                return _pets ?? (_pets = new List<uint>
-                {
+        public static List<uint> Pets {
+            get {
+                return _pets ?? (_pets = new List<uint> {
                     1398,
                     1399,
                     1400,
@@ -61,78 +56,59 @@ namespace FFXIVAPP.Client.Delegates
 
         /// <summary>
         /// </summary>
-        public static void OnNewNPC(List<NPCEntry> npcEntries)
-        {
-            if (!npcEntries.Any())
-            {
+        public static void OnNewNPC(List<NPCEntry> npcEntries) {
+            if (!npcEntries.Any()) {
                 return;
             }
             NPCEntries = npcEntries;
             CurrentUser = npcEntries.First();
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
+            Func<bool> saveToDictionary = delegate {
+                try {
                     var monsters = npcEntries.Where(n => n.NPCType == NPCType.Monster && !Pets.Contains(n.ModelID));
                     var enumerable = UniqueNPCEntries.ToList();
-                    foreach (var npcEntry in monsters)
-                    {
+                    foreach (var npcEntry in monsters) {
                         var exists = enumerable.FirstOrDefault(n => n.ID == npcEntry.ID);
-                        if (exists != null)
-                        {
+                        if (exists != null) {
                             continue;
                         }
-                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry)))
-                        {
+                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry))) {
                             UniqueNPCEntries.Add(npcEntry);
                         }
                         XIVDBViewModel.Instance.MobSeen++;
                     }
                 }
-                catch (Exception ex)
-                {
-                }
-                try
-                {
+                catch (Exception ex) {}
+                try {
                     var players = npcEntries.Where(n => n.NPCType == NPCType.PC);
                     var enumerable = UniquePlayerEntries.ToList();
-                    foreach (var npcEntry in players)
-                    {
+                    foreach (var npcEntry in players) {
                         var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, npcEntry.Name, StringComparison.CurrentCultureIgnoreCase));
-                        if (exists != null)
-                        {
+                        if (exists != null) {
                             continue;
                         }
                         UniquePlayerEntries.Add(npcEntry);
                         XIVDBViewModel.Instance.PlayerSeen++;
                     }
                 }
-                catch (Exception ex)
-                {
-                }
+                catch (Exception ex) {}
                 return true;
             };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
-                {
+            saveToDictionary.BeginInvoke(delegate {
+                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration) {
                     return;
                 }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
-                {
+                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1))) {
                     return;
                 }
-                try
-                {
+                try {
                     UploadHelper.Processing = true;
                     UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                       .Skip(chunksProcessed * chunkSize)));
                     XIVDBViewModel.Instance.MobProcessed++;
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     UploadHelper.Processing = false;
                 }
             }, saveToDictionary);
@@ -140,18 +116,14 @@ namespace FFXIVAPP.Client.Delegates
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
-        {
+        public static void ProcessRemaining() {
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
-            try
-            {
+            try {
                 UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                   .Skip(chunksProcessed * chunkSize)));
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) {}
         }
     }
 }

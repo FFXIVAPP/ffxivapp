@@ -22,47 +22,37 @@ using FontFamily = System.Drawing.FontFamily;
 
 #endregion
 
-namespace FFXIVAPP.Client.SettingsProviders.Parse
-{
-    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged
-    {
+namespace FFXIVAPP.Client.SettingsProviders.Parse {
+    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged {
         private static Settings _default;
 
-        public static Settings Default
-        {
+        public static Settings Default {
             get { return _default ?? (_default = ((Settings) (Synchronized(new Settings())))); }
         }
 
-        public override void Save()
-        {
+        public override void Save() {
             XmlHelper.DeleteXmlNode(Constants.Parse.XSettings, "Setting");
             DefaultSettings();
-            foreach (var item in Constants.Parse.Settings)
-            {
-                try
-                {
+            foreach (var item in Constants.Parse.Settings) {
+                try {
                     var xKey = item;
                     var xValue = Default[xKey].ToString();
-                    var keyPairList = new List<XValuePair>
-                    {
-                        new XValuePair
-                        {
+                    var keyPairList = new List<XValuePair> {
+                        new XValuePair {
                             Key = "Value",
                             Value = xValue
                         }
                     };
                     XmlHelper.SaveXmlNode(Constants.Parse.XSettings, "Settings", "Setting", xKey, keyPairList);
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             Constants.Parse.XSettings.Save(AppViewModel.Instance.SettingsPath + "Settings.Parse.xml");
         }
 
-        private void DefaultSettings()
-        {
+        private void DefaultSettings() {
             Constants.Parse.Settings.Clear();
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
@@ -324,14 +314,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             #endregion
         }
 
-        public new void Reset()
-        {
+        public new void Reset() {
             DefaultSettings();
-            foreach (var key in Constants.Parse.Settings)
-            {
+            foreach (var key in Constants.Parse.Settings) {
                 var settingsProperty = Default.Properties[key];
-                if (settingsProperty == null)
-                {
+                if (settingsProperty == null) {
                     continue;
                 }
                 var value = settingsProperty.DefaultValue.ToString();
@@ -339,14 +326,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             }
         }
 
-        public static void SetValue(string key, string value)
-        {
-            try
-            {
+        public static void SetValue(string key, string value) {
+            try {
                 var type = Default[key].GetType()
                                        .Name;
-                switch (type)
-                {
+                switch (type) {
                     case "Boolean":
                         Default[key] = Convert.ToBoolean(value);
                         break;
@@ -368,12 +352,10 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                         break;
                 }
             }
-            catch (SettingsPropertyNotFoundException ex)
-            {
+            catch (SettingsPropertyNotFoundException ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
-            catch (SettingsPropertyWrongTypeException ex)
-            {
+            catch (SettingsPropertyWrongTypeException ex) {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
@@ -383,11 +365,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("100")]
-        public Double Zoom
-        {
+        public Double Zoom {
             get { return ((Double) (this["Zoom"])); }
-            set
-            {
+            set {
                 this["Zoom"] = value;
                 RaisePropertyChanged();
             }
@@ -396,11 +376,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowActionLogTab
-        {
+        public bool ShowActionLogTab {
             get { return ((bool) (this["ShowActionLogTab"])); }
-            set
-            {
+            set {
                 this["ShowActionLogTab"] = value;
                 RaisePropertyChanged();
             }
@@ -409,11 +387,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowPartyDamageTab
-        {
+        public bool ShowPartyDamageTab {
             get { return ((bool) (this["ShowPartyDamageTab"])); }
-            set
-            {
+            set {
                 this["ShowPartyDamageTab"] = value;
                 RaisePropertyChanged();
             }
@@ -422,11 +398,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowPartyHealingTab
-        {
+        public bool ShowPartyHealingTab {
             get { return ((bool) (this["ShowPartyHealingTab"])); }
-            set
-            {
+            set {
                 this["ShowPartyHealingTab"] = value;
                 RaisePropertyChanged();
             }
@@ -435,11 +409,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowPartyDamageTakenTab
-        {
+        public bool ShowPartyDamageTakenTab {
             get { return ((bool) (this["ShowPartyDamageTakenTab"])); }
-            set
-            {
+            set {
                 this["ShowPartyDamageTakenTab"] = value;
                 RaisePropertyChanged();
             }
@@ -448,11 +420,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowMonsterDamageTab
-        {
+        public bool ShowMonsterDamageTab {
             get { return ((bool) (this["ShowMonsterDamageTab"])); }
-            set
-            {
+            set {
                 this["ShowMonsterDamageTab"] = value;
                 RaisePropertyChanged();
             }
@@ -461,11 +431,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowMonsterHealingTab
-        {
+        public bool ShowMonsterHealingTab {
             get { return ((bool) (this["ShowMonsterHealingTab"])); }
-            set
-            {
+            set {
                 this["ShowMonsterHealingTab"] = value;
                 RaisePropertyChanged();
             }
@@ -474,11 +442,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowMonsterDamageTakenTab
-        {
+        public bool ShowMonsterDamageTakenTab {
             get { return ((bool) (this["ShowMonsterDamageTakenTab"])); }
-            set
-            {
+            set {
                 this["ShowMonsterDamageTakenTab"] = value;
                 RaisePropertyChanged();
             }
@@ -487,11 +453,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageByAction
-        {
+        public bool PlayerDamageByAction {
             get { return ((bool) (this["PlayerDamageByAction"])); }
-            set
-            {
+            set {
                 this["PlayerDamageByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -500,11 +464,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageToMonsters
-        {
+        public bool PlayerDamageToMonsters {
             get { return ((bool) (this["PlayerDamageToMonsters"])); }
-            set
-            {
+            set {
                 this["PlayerDamageToMonsters"] = value;
                 RaisePropertyChanged();
             }
@@ -513,11 +475,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageToMonstersByAction
-        {
+        public bool PlayerDamageToMonstersByAction {
             get { return ((bool) (this["PlayerDamageToMonstersByAction"])); }
-            set
-            {
+            set {
                 this["PlayerDamageToMonstersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -526,11 +486,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerHealingByAction
-        {
+        public bool PlayerHealingByAction {
             get { return ((bool) (this["PlayerHealingByAction"])); }
-            set
-            {
+            set {
                 this["PlayerHealingByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -539,11 +497,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerHealingToPlayers
-        {
+        public bool PlayerHealingToPlayers {
             get { return ((bool) (this["PlayerHealingToPlayers"])); }
-            set
-            {
+            set {
                 this["PlayerHealingToPlayers"] = value;
                 RaisePropertyChanged();
             }
@@ -552,11 +508,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerHealingToPlayersByAction
-        {
+        public bool PlayerHealingToPlayersByAction {
             get { return ((bool) (this["PlayerHealingToPlayersByAction"])); }
-            set
-            {
+            set {
                 this["PlayerHealingToPlayersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -565,11 +519,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByAction
-        {
+        public bool PlayerDamageTakenByAction {
             get { return ((bool) (this["PlayerDamageTakenByAction"])); }
-            set
-            {
+            set {
                 this["PlayerDamageTakenByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -578,11 +530,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByMonsters
-        {
+        public bool PlayerDamageTakenByMonsters {
             get { return ((bool) (this["PlayerDamageTakenByMonsters"])); }
-            set
-            {
+            set {
                 this["PlayerDamageTakenByMonsters"] = value;
                 RaisePropertyChanged();
             }
@@ -591,11 +541,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByMonstersByAction
-        {
+        public bool PlayerDamageTakenByMonstersByAction {
             get { return ((bool) (this["PlayerDamageTakenByMonstersByAction"])); }
-            set
-            {
+            set {
                 this["PlayerDamageTakenByMonstersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -604,11 +552,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageByAction
-        {
+        public bool MonsterDamageByAction {
             get { return ((bool) (this["MonsterDamageByAction"])); }
-            set
-            {
+            set {
                 this["MonsterDamageByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -617,11 +563,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageToPlayers
-        {
+        public bool MonsterDamageToPlayers {
             get { return ((bool) (this["MonsterDamageToPlayers"])); }
-            set
-            {
+            set {
                 this["MonsterDamageToPlayers"] = value;
                 RaisePropertyChanged();
             }
@@ -630,11 +574,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageToPlayersByAction
-        {
+        public bool MonsterDamageToPlayersByAction {
             get { return ((bool) (this["MonsterDamageToPlayersByAction"])); }
-            set
-            {
+            set {
                 this["MonsterDamageToPlayersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -643,11 +585,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterHealingByAction
-        {
+        public bool MonsterHealingByAction {
             get { return ((bool) (this["MonsterHealingByAction"])); }
-            set
-            {
+            set {
                 this["MonsterHealingByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -656,11 +596,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterHealingToMonsters
-        {
+        public bool MonsterHealingToMonsters {
             get { return ((bool) (this["MonsterHealingToMonsters"])); }
-            set
-            {
+            set {
                 this["MonsterHealingToMonsters"] = value;
                 RaisePropertyChanged();
             }
@@ -669,11 +607,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterHealingToMonstersByAction
-        {
+        public bool MonsterHealingToMonstersByAction {
             get { return ((bool) (this["MonsterHealingToMonstersByAction"])); }
-            set
-            {
+            set {
                 this["MonsterHealingToMonstersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -682,11 +618,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByAction
-        {
+        public bool MonsterDamageTakenByAction {
             get { return ((bool) (this["MonsterDamageTakenByAction"])); }
-            set
-            {
+            set {
                 this["MonsterDamageTakenByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -695,11 +629,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByPlayers
-        {
+        public bool MonsterDamageTakenByPlayers {
             get { return ((bool) (this["MonsterDamageTakenByPlayers"])); }
-            set
-            {
+            set {
                 this["MonsterDamageTakenByPlayers"] = value;
                 RaisePropertyChanged();
             }
@@ -708,11 +640,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByPlayersByAction
-        {
+        public bool MonsterDamageTakenByPlayersByAction {
             get { return ((bool) (this["MonsterDamageTakenByPlayersByAction"])); }
-            set
-            {
+            set {
                 this["MonsterDamageTakenByPlayersByAction"] = value;
                 RaisePropertyChanged();
             }
@@ -721,11 +651,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool MonsterDrops
-        {
+        public bool MonsterDrops {
             get { return ((bool) (this["MonsterDrops"])); }
-            set
-            {
+            set {
                 this["MonsterDrops"] = value;
                 RaisePropertyChanged();
             }
@@ -734,11 +662,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowBasicTotalOverallDamage
-        {
+        public bool ShowBasicTotalOverallDamage {
             get { return ((bool) (this["ShowBasicTotalOverallDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalOverallDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -747,11 +673,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicRegularDamage
-        {
+        public bool ShowBasicRegularDamage {
             get { return ((bool) (this["ShowBasicRegularDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicRegularDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -760,11 +684,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalDamage
-        {
+        public bool ShowBasicCriticalDamage {
             get { return ((bool) (this["ShowBasicCriticalDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicCriticalDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -773,11 +695,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicTotalDamageActionsUsed
-        {
+        public bool ShowBasicTotalDamageActionsUsed {
             get { return ((bool) (this["ShowBasicTotalDamageActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalDamageActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -786,11 +706,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowBasicDPS
-        {
+        public bool ShowBasicDPS {
             get { return ((bool) (this["ShowBasicDPS"])); }
-            set
-            {
+            set {
                 this["ShowBasicDPS"] = value;
                 RaisePropertyChanged();
             }
@@ -799,11 +717,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageDOT
-        {
+        public bool ShowBasicDamageDOT {
             get { return ((bool) (this["ShowBasicDamageDOT"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageDOT"] = value;
                 RaisePropertyChanged();
             }
@@ -812,11 +728,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageDOTAverage
-        {
+        public bool ShowBasicDamageDOTAverage {
             get { return ((bool) (this["ShowBasicDamageDOTAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -825,11 +739,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegHit
-        {
+        public bool ShowBasicDamageRegHit {
             get { return ((bool) (this["ShowBasicDamageRegHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -838,11 +750,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegMiss
-        {
+        public bool ShowBasicDamageRegMiss {
             get { return ((bool) (this["ShowBasicDamageRegMiss"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegMiss"] = value;
                 RaisePropertyChanged();
             }
@@ -851,11 +761,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowBasicDamageRegAccuracy
-        {
+        public bool ShowBasicDamageRegAccuracy {
             get { return ((bool) (this["ShowBasicDamageRegAccuracy"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegAccuracy"] = value;
                 RaisePropertyChanged();
             }
@@ -864,11 +772,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegLow
-        {
+        public bool ShowBasicDamageRegLow {
             get { return ((bool) (this["ShowBasicDamageRegLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -877,11 +783,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegHigh
-        {
+        public bool ShowBasicDamageRegHigh {
             get { return ((bool) (this["ShowBasicDamageRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -890,11 +794,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegAverage
-        {
+        public bool ShowBasicDamageRegAverage {
             get { return ((bool) (this["ShowBasicDamageRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -903,11 +805,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegMod
-        {
+        public bool ShowBasicDamageRegMod {
             get { return ((bool) (this["ShowBasicDamageRegMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -916,11 +816,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageRegModAverage
-        {
+        public bool ShowBasicDamageRegModAverage {
             get { return ((bool) (this["ShowBasicDamageRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -929,11 +827,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritHit
-        {
+        public bool ShowBasicDamageCritHit {
             get { return ((bool) (this["ShowBasicDamageCritHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -942,11 +838,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowBasicDamageCritPercent
-        {
+        public bool ShowBasicDamageCritPercent {
             get { return ((bool) (this["ShowBasicDamageCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -955,11 +849,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritLow
-        {
+        public bool ShowBasicDamageCritLow {
             get { return ((bool) (this["ShowBasicDamageCritLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -968,11 +860,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritHigh
-        {
+        public bool ShowBasicDamageCritHigh {
             get { return ((bool) (this["ShowBasicDamageCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -981,11 +871,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritAverage
-        {
+        public bool ShowBasicDamageCritAverage {
             get { return ((bool) (this["ShowBasicDamageCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -994,11 +882,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritMod
-        {
+        public bool ShowBasicDamageCritMod {
             get { return ((bool) (this["ShowBasicDamageCritMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1007,11 +893,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCritModAverage
-        {
+        public bool ShowBasicDamageCritModAverage {
             get { return ((bool) (this["ShowBasicDamageCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1020,11 +904,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCounter
-        {
+        public bool ShowBasicDamageCounter {
             get { return ((bool) (this["ShowBasicDamageCounter"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCounter"] = value;
                 RaisePropertyChanged();
             }
@@ -1033,11 +915,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCounterPercent
-        {
+        public bool ShowBasicDamageCounterPercent {
             get { return ((bool) (this["ShowBasicDamageCounterPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCounterPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1046,11 +926,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCounterMod
-        {
+        public bool ShowBasicDamageCounterMod {
             get { return ((bool) (this["ShowBasicDamageCounterMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCounterMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1059,11 +937,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageCounterModAverage
-        {
+        public bool ShowBasicDamageCounterModAverage {
             get { return ((bool) (this["ShowBasicDamageCounterModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageCounterModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1072,11 +948,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageBlock
-        {
+        public bool ShowBasicDamageBlock {
             get { return ((bool) (this["ShowBasicDamageBlock"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageBlock"] = value;
                 RaisePropertyChanged();
             }
@@ -1085,11 +959,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageBlockPercent
-        {
+        public bool ShowBasicDamageBlockPercent {
             get { return ((bool) (this["ShowBasicDamageBlockPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageBlockPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1098,11 +970,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageBlockMod
-        {
+        public bool ShowBasicDamageBlockMod {
             get { return ((bool) (this["ShowBasicDamageBlockMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageBlockMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1111,11 +981,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageBlockModAverage
-        {
+        public bool ShowBasicDamageBlockModAverage {
             get { return ((bool) (this["ShowBasicDamageBlockModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageBlockModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1124,11 +992,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageParry
-        {
+        public bool ShowBasicDamageParry {
             get { return ((bool) (this["ShowBasicDamageParry"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageParry"] = value;
                 RaisePropertyChanged();
             }
@@ -1137,11 +1003,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageParryPercent
-        {
+        public bool ShowBasicDamageParryPercent {
             get { return ((bool) (this["ShowBasicDamageParryPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageParryPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1150,11 +1014,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageParryMod
-        {
+        public bool ShowBasicDamageParryMod {
             get { return ((bool) (this["ShowBasicDamageParryMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageParryMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1163,11 +1025,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageParryModAverage
-        {
+        public bool ShowBasicDamageParryModAverage {
             get { return ((bool) (this["ShowBasicDamageParryModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageParryModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1176,11 +1036,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageResist
-        {
+        public bool ShowBasicDamageResist {
             get { return ((bool) (this["ShowBasicDamageResist"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageResist"] = value;
                 RaisePropertyChanged();
             }
@@ -1189,11 +1047,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageResistPercent
-        {
+        public bool ShowBasicDamageResistPercent {
             get { return ((bool) (this["ShowBasicDamageResistPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageResistPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1202,11 +1058,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageResistMod
-        {
+        public bool ShowBasicDamageResistMod {
             get { return ((bool) (this["ShowBasicDamageResistMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageResistMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1215,11 +1069,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageResistModAverage
-        {
+        public bool ShowBasicDamageResistModAverage {
             get { return ((bool) (this["ShowBasicDamageResistModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageResistModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1228,11 +1080,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageEvade
-        {
+        public bool ShowBasicDamageEvade {
             get { return ((bool) (this["ShowBasicDamageEvade"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageEvade"] = value;
                 RaisePropertyChanged();
             }
@@ -1241,11 +1091,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageEvadePercent
-        {
+        public bool ShowBasicDamageEvadePercent {
             get { return ((bool) (this["ShowBasicDamageEvadePercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageEvadePercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1254,11 +1102,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageEvadeMod
-        {
+        public bool ShowBasicDamageEvadeMod {
             get { return ((bool) (this["ShowBasicDamageEvadeMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageEvadeMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1267,11 +1113,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageEvadeModAverage
-        {
+        public bool ShowBasicDamageEvadeModAverage {
             get { return ((bool) (this["ShowBasicDamageEvadeModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageEvadeModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1280,11 +1124,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallDamage
-        {
+        public bool ShowBasicPercentOfTotalOverallDamage {
             get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfTotalOverallDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -1293,11 +1135,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularDamage
-        {
+        public bool ShowBasicPercentOfRegularDamage {
             get { return ((bool) (this["ShowBasicPercentOfRegularDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfRegularDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -1306,11 +1146,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalDamage
-        {
+        public bool ShowBasicPercentOfCriticalDamage {
             get { return ((bool) (this["ShowBasicPercentOfCriticalDamage"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfCriticalDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -1319,11 +1157,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallHealing
-        {
+        public bool ShowBasicTotalOverallHealing {
             get { return ((bool) (this["ShowBasicTotalOverallHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalOverallHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1332,11 +1168,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicRegularHealing
-        {
+        public bool ShowBasicRegularHealing {
             get { return ((bool) (this["ShowBasicRegularHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicRegularHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1345,11 +1179,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalHealing
-        {
+        public bool ShowBasicCriticalHealing {
             get { return ((bool) (this["ShowBasicCriticalHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicCriticalHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1358,11 +1190,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicTotalHealingActionsUsed
-        {
+        public bool ShowBasicTotalHealingActionsUsed {
             get { return ((bool) (this["ShowBasicTotalHealingActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalHealingActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -1371,11 +1201,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHPS
-        {
+        public bool ShowBasicHPS {
             get { return ((bool) (this["ShowBasicHPS"])); }
-            set
-            {
+            set {
                 this["ShowBasicHPS"] = value;
                 RaisePropertyChanged();
             }
@@ -1384,11 +1212,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegHit
-        {
+        public bool ShowBasicHealingRegHit {
             get { return ((bool) (this["ShowBasicHealingRegHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -1397,11 +1223,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegLow
-        {
+        public bool ShowBasicHealingRegLow {
             get { return ((bool) (this["ShowBasicHealingRegLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -1410,11 +1234,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegHigh
-        {
+        public bool ShowBasicHealingRegHigh {
             get { return ((bool) (this["ShowBasicHealingRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -1423,11 +1245,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegAverage
-        {
+        public bool ShowBasicHealingRegAverage {
             get { return ((bool) (this["ShowBasicHealingRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1436,11 +1256,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegMod
-        {
+        public bool ShowBasicHealingRegMod {
             get { return ((bool) (this["ShowBasicHealingRegMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1449,11 +1267,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingRegModAverage
-        {
+        public bool ShowBasicHealingRegModAverage {
             get { return ((bool) (this["ShowBasicHealingRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1462,11 +1278,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritHit
-        {
+        public bool ShowBasicHealingCritHit {
             get { return ((bool) (this["ShowBasicHealingCritHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -1475,11 +1289,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritPercent
-        {
+        public bool ShowBasicHealingCritPercent {
             get { return ((bool) (this["ShowBasicHealingCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1488,11 +1300,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritLow
-        {
+        public bool ShowBasicHealingCritLow {
             get { return ((bool) (this["ShowBasicHealingCritLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -1501,11 +1311,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritHigh
-        {
+        public bool ShowBasicHealingCritHigh {
             get { return ((bool) (this["ShowBasicHealingCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -1514,11 +1322,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritAverage
-        {
+        public bool ShowBasicHealingCritAverage {
             get { return ((bool) (this["ShowBasicHealingCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1527,11 +1333,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritMod
-        {
+        public bool ShowBasicHealingCritMod {
             get { return ((bool) (this["ShowBasicHealingCritMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1540,11 +1344,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicHealingCritModAverage
-        {
+        public bool ShowBasicHealingCritModAverage {
             get { return ((bool) (this["ShowBasicHealingCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicHealingCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1553,11 +1355,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallHealing
-        {
+        public bool ShowBasicPercentOfTotalOverallHealing {
             get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfTotalOverallHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1566,11 +1366,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularHealing
-        {
+        public bool ShowBasicPercentOfRegularHealing {
             get { return ((bool) (this["ShowBasicPercentOfRegularHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfRegularHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1579,11 +1377,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalHealing
-        {
+        public bool ShowBasicPercentOfCriticalHealing {
             get { return ((bool) (this["ShowBasicPercentOfCriticalHealing"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfCriticalHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -1592,11 +1388,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallDamageTaken
-        {
+        public bool ShowBasicTotalOverallDamageTaken {
             get { return ((bool) (this["ShowBasicTotalOverallDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalOverallDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -1605,11 +1399,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicRegularDamageTaken
-        {
+        public bool ShowBasicRegularDamageTaken {
             get { return ((bool) (this["ShowBasicRegularDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicRegularDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -1618,11 +1410,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalDamageTaken
-        {
+        public bool ShowBasicCriticalDamageTaken {
             get { return ((bool) (this["ShowBasicCriticalDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicCriticalDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -1631,11 +1421,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicTotalDamageTakenActionsUsed
-        {
+        public bool ShowBasicTotalDamageTakenActionsUsed {
             get { return ((bool) (this["ShowBasicTotalDamageTakenActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowBasicTotalDamageTakenActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -1644,11 +1432,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDTPS
-        {
+        public bool ShowBasicDTPS {
             get { return ((bool) (this["ShowBasicDTPS"])); }
-            set
-            {
+            set {
                 this["ShowBasicDTPS"] = value;
                 RaisePropertyChanged();
             }
@@ -1657,11 +1443,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenDOT
-        {
+        public bool ShowBasicDamageTakenDOT {
             get { return ((bool) (this["ShowBasicDamageTakenDOT"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenDOT"] = value;
                 RaisePropertyChanged();
             }
@@ -1670,11 +1454,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenDOTAverage
-        {
+        public bool ShowBasicDamageTakenDOTAverage {
             get { return ((bool) (this["ShowBasicDamageTakenDOTAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenDOTAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1683,11 +1465,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegHit
-        {
+        public bool ShowBasicDamageTakenRegHit {
             get { return ((bool) (this["ShowBasicDamageTakenRegHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -1696,11 +1476,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegMiss
-        {
+        public bool ShowBasicDamageTakenRegMiss {
             get { return ((bool) (this["ShowBasicDamageTakenRegMiss"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegMiss"] = value;
                 RaisePropertyChanged();
             }
@@ -1709,11 +1487,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegAccuracy
-        {
+        public bool ShowBasicDamageTakenRegAccuracy {
             get { return ((bool) (this["ShowBasicDamageTakenRegAccuracy"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegAccuracy"] = value;
                 RaisePropertyChanged();
             }
@@ -1722,11 +1498,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegLow
-        {
+        public bool ShowBasicDamageTakenRegLow {
             get { return ((bool) (this["ShowBasicDamageTakenRegLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -1735,11 +1509,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegHigh
-        {
+        public bool ShowBasicDamageTakenRegHigh {
             get { return ((bool) (this["ShowBasicDamageTakenRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -1748,11 +1520,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegAverage
-        {
+        public bool ShowBasicDamageTakenRegAverage {
             get { return ((bool) (this["ShowBasicDamageTakenRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1761,11 +1531,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegMod
-        {
+        public bool ShowBasicDamageTakenRegMod {
             get { return ((bool) (this["ShowBasicDamageTakenRegMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1774,11 +1542,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenRegModAverage
-        {
+        public bool ShowBasicDamageTakenRegModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1787,11 +1553,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritHit
-        {
+        public bool ShowBasicDamageTakenCritHit {
             get { return ((bool) (this["ShowBasicDamageTakenCritHit"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -1800,11 +1564,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritPercent
-        {
+        public bool ShowBasicDamageTakenCritPercent {
             get { return ((bool) (this["ShowBasicDamageTakenCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1813,11 +1575,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritLow
-        {
+        public bool ShowBasicDamageTakenCritLow {
             get { return ((bool) (this["ShowBasicDamageTakenCritLow"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -1826,11 +1586,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritHigh
-        {
+        public bool ShowBasicDamageTakenCritHigh {
             get { return ((bool) (this["ShowBasicDamageTakenCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -1839,11 +1597,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritAverage
-        {
+        public bool ShowBasicDamageTakenCritAverage {
             get { return ((bool) (this["ShowBasicDamageTakenCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1852,11 +1608,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritMod
-        {
+        public bool ShowBasicDamageTakenCritMod {
             get { return ((bool) (this["ShowBasicDamageTakenCritMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1865,11 +1619,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCritModAverage
-        {
+        public bool ShowBasicDamageTakenCritModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1878,11 +1630,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCounter
-        {
+        public bool ShowBasicDamageTakenCounter {
             get { return ((bool) (this["ShowBasicDamageTakenCounter"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCounter"] = value;
                 RaisePropertyChanged();
             }
@@ -1891,11 +1641,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCounterPercent
-        {
+        public bool ShowBasicDamageTakenCounterPercent {
             get { return ((bool) (this["ShowBasicDamageTakenCounterPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCounterPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1904,11 +1652,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCounterMod
-        {
+        public bool ShowBasicDamageTakenCounterMod {
             get { return ((bool) (this["ShowBasicDamageTakenCounterMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCounterMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1917,11 +1663,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenCounterModAverage
-        {
+        public bool ShowBasicDamageTakenCounterModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenCounterModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenCounterModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1930,11 +1674,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenBlock
-        {
+        public bool ShowBasicDamageTakenBlock {
             get { return ((bool) (this["ShowBasicDamageTakenBlock"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenBlock"] = value;
                 RaisePropertyChanged();
             }
@@ -1943,11 +1685,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenBlockPercent
-        {
+        public bool ShowBasicDamageTakenBlockPercent {
             get { return ((bool) (this["ShowBasicDamageTakenBlockPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenBlockPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -1956,11 +1696,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenBlockMod
-        {
+        public bool ShowBasicDamageTakenBlockMod {
             get { return ((bool) (this["ShowBasicDamageTakenBlockMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenBlockMod"] = value;
                 RaisePropertyChanged();
             }
@@ -1969,11 +1707,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenBlockModAverage
-        {
+        public bool ShowBasicDamageTakenBlockModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenBlockModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenBlockModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -1982,11 +1718,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenParry
-        {
+        public bool ShowBasicDamageTakenParry {
             get { return ((bool) (this["ShowBasicDamageTakenParry"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenParry"] = value;
                 RaisePropertyChanged();
             }
@@ -1995,11 +1729,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenParryPercent
-        {
+        public bool ShowBasicDamageTakenParryPercent {
             get { return ((bool) (this["ShowBasicDamageTakenParryPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenParryPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2008,11 +1740,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenParryMod
-        {
+        public bool ShowBasicDamageTakenParryMod {
             get { return ((bool) (this["ShowBasicDamageTakenParryMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenParryMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2021,11 +1751,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenParryModAverage
-        {
+        public bool ShowBasicDamageTakenParryModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenParryModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenParryModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2034,11 +1762,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenResist
-        {
+        public bool ShowBasicDamageTakenResist {
             get { return ((bool) (this["ShowBasicDamageTakenResist"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenResist"] = value;
                 RaisePropertyChanged();
             }
@@ -2047,11 +1773,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenResistPercent
-        {
+        public bool ShowBasicDamageTakenResistPercent {
             get { return ((bool) (this["ShowBasicDamageTakenResistPercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenResistPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2060,11 +1784,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenResistMod
-        {
+        public bool ShowBasicDamageTakenResistMod {
             get { return ((bool) (this["ShowBasicDamageTakenResistMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenResistMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2073,11 +1795,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenResistModAverage
-        {
+        public bool ShowBasicDamageTakenResistModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenResistModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenResistModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2086,11 +1806,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenEvade
-        {
+        public bool ShowBasicDamageTakenEvade {
             get { return ((bool) (this["ShowBasicDamageTakenEvade"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenEvade"] = value;
                 RaisePropertyChanged();
             }
@@ -2099,11 +1817,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenEvadePercent
-        {
+        public bool ShowBasicDamageTakenEvadePercent {
             get { return ((bool) (this["ShowBasicDamageTakenEvadePercent"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenEvadePercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2112,11 +1828,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenEvadeMod
-        {
+        public bool ShowBasicDamageTakenEvadeMod {
             get { return ((bool) (this["ShowBasicDamageTakenEvadeMod"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenEvadeMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2125,11 +1839,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenEvadeModAverage
-        {
+        public bool ShowBasicDamageTakenEvadeModAverage {
             get { return ((bool) (this["ShowBasicDamageTakenEvadeModAverage"])); }
-            set
-            {
+            set {
                 this["ShowBasicDamageTakenEvadeModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2138,11 +1850,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallDamageTaken
-        {
+        public bool ShowBasicPercentOfTotalOverallDamageTaken {
             get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfTotalOverallDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -2151,11 +1861,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularDamageTaken
-        {
+        public bool ShowBasicPercentOfRegularDamageTaken {
             get { return ((bool) (this["ShowBasicPercentOfRegularDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfRegularDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -2164,11 +1872,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalDamageTaken
-        {
+        public bool ShowBasicPercentOfCriticalDamageTaken {
             get { return ((bool) (this["ShowBasicPercentOfCriticalDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowBasicPercentOfCriticalDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -2177,11 +1883,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalOverallDamage
-        {
+        public bool ShowColumnTotalOverallDamage {
             get { return ((bool) (this["ShowColumnTotalOverallDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalOverallDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2190,11 +1894,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnRegularDamage
-        {
+        public bool ShowColumnRegularDamage {
             get { return ((bool) (this["ShowColumnRegularDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnRegularDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2203,11 +1905,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnCriticalDamage
-        {
+        public bool ShowColumnCriticalDamage {
             get { return ((bool) (this["ShowColumnCriticalDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnCriticalDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2216,11 +1916,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalDamageActionsUsed
-        {
+        public bool ShowColumnTotalDamageActionsUsed {
             get { return ((bool) (this["ShowColumnTotalDamageActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalDamageActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -2229,11 +1927,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDPS
-        {
+        public bool ShowColumnDPS {
             get { return ((bool) (this["ShowColumnDPS"])); }
-            set
-            {
+            set {
                 this["ShowColumnDPS"] = value;
                 RaisePropertyChanged();
             }
@@ -2242,11 +1938,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageDOT
-        {
+        public bool ShowColumnDamageDOT {
             get { return ((bool) (this["ShowColumnDamageDOT"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageDOT"] = value;
                 RaisePropertyChanged();
             }
@@ -2255,11 +1949,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageDOTAverage
-        {
+        public bool ShowColumnDamageDOTAverage {
             get { return ((bool) (this["ShowColumnDamageDOTAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2268,11 +1960,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegHit
-        {
+        public bool ShowColumnDamageRegHit {
             get { return ((bool) (this["ShowColumnDamageRegHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -2281,11 +1971,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegMiss
-        {
+        public bool ShowColumnDamageRegMiss {
             get { return ((bool) (this["ShowColumnDamageRegMiss"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegMiss"] = value;
                 RaisePropertyChanged();
             }
@@ -2294,11 +1982,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegAccuracy
-        {
+        public bool ShowColumnDamageRegAccuracy {
             get { return ((bool) (this["ShowColumnDamageRegAccuracy"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegAccuracy"] = value;
                 RaisePropertyChanged();
             }
@@ -2307,11 +1993,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegLow
-        {
+        public bool ShowColumnDamageRegLow {
             get { return ((bool) (this["ShowColumnDamageRegLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -2320,11 +2004,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegHigh
-        {
+        public bool ShowColumnDamageRegHigh {
             get { return ((bool) (this["ShowColumnDamageRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -2333,11 +2015,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegAverage
-        {
+        public bool ShowColumnDamageRegAverage {
             get { return ((bool) (this["ShowColumnDamageRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2346,11 +2026,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegMod
-        {
+        public bool ShowColumnDamageRegMod {
             get { return ((bool) (this["ShowColumnDamageRegMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2359,11 +2037,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageRegModAverage
-        {
+        public bool ShowColumnDamageRegModAverage {
             get { return ((bool) (this["ShowColumnDamageRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2372,11 +2048,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritHit
-        {
+        public bool ShowColumnDamageCritHit {
             get { return ((bool) (this["ShowColumnDamageCritHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -2385,11 +2059,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritPercent
-        {
+        public bool ShowColumnDamageCritPercent {
             get { return ((bool) (this["ShowColumnDamageCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2398,11 +2070,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritLow
-        {
+        public bool ShowColumnDamageCritLow {
             get { return ((bool) (this["ShowColumnDamageCritLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -2411,11 +2081,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritHigh
-        {
+        public bool ShowColumnDamageCritHigh {
             get { return ((bool) (this["ShowColumnDamageCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -2424,11 +2092,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritAverage
-        {
+        public bool ShowColumnDamageCritAverage {
             get { return ((bool) (this["ShowColumnDamageCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2437,11 +2103,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritMod
-        {
+        public bool ShowColumnDamageCritMod {
             get { return ((bool) (this["ShowColumnDamageCritMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2450,11 +2114,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCritModAverage
-        {
+        public bool ShowColumnDamageCritModAverage {
             get { return ((bool) (this["ShowColumnDamageCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2463,11 +2125,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCounter
-        {
+        public bool ShowColumnDamageCounter {
             get { return ((bool) (this["ShowColumnDamageCounter"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCounter"] = value;
                 RaisePropertyChanged();
             }
@@ -2476,11 +2136,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCounterPercent
-        {
+        public bool ShowColumnDamageCounterPercent {
             get { return ((bool) (this["ShowColumnDamageCounterPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCounterPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2489,11 +2147,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCounterMod
-        {
+        public bool ShowColumnDamageCounterMod {
             get { return ((bool) (this["ShowColumnDamageCounterMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCounterMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2502,11 +2158,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageCounterModAverage
-        {
+        public bool ShowColumnDamageCounterModAverage {
             get { return ((bool) (this["ShowColumnDamageCounterModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageCounterModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2515,11 +2169,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageBlock
-        {
+        public bool ShowColumnDamageBlock {
             get { return ((bool) (this["ShowColumnDamageBlock"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageBlock"] = value;
                 RaisePropertyChanged();
             }
@@ -2528,11 +2180,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageBlockPercent
-        {
+        public bool ShowColumnDamageBlockPercent {
             get { return ((bool) (this["ShowColumnDamageBlockPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageBlockPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2541,11 +2191,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageBlockMod
-        {
+        public bool ShowColumnDamageBlockMod {
             get { return ((bool) (this["ShowColumnDamageBlockMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageBlockMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2554,11 +2202,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageBlockModAverage
-        {
+        public bool ShowColumnDamageBlockModAverage {
             get { return ((bool) (this["ShowColumnDamageBlockModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageBlockModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2567,11 +2213,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageParry
-        {
+        public bool ShowColumnDamageParry {
             get { return ((bool) (this["ShowColumnDamageParry"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageParry"] = value;
                 RaisePropertyChanged();
             }
@@ -2580,11 +2224,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageParryPercent
-        {
+        public bool ShowColumnDamageParryPercent {
             get { return ((bool) (this["ShowColumnDamageParryPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageParryPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2593,11 +2235,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageParryMod
-        {
+        public bool ShowColumnDamageParryMod {
             get { return ((bool) (this["ShowColumnDamageParryMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageParryMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2606,11 +2246,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageParryModAverage
-        {
+        public bool ShowColumnDamageParryModAverage {
             get { return ((bool) (this["ShowColumnDamageParryModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageParryModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2619,11 +2257,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageResist
-        {
+        public bool ShowColumnDamageResist {
             get { return ((bool) (this["ShowColumnDamageResist"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageResist"] = value;
                 RaisePropertyChanged();
             }
@@ -2632,11 +2268,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageResistPercent
-        {
+        public bool ShowColumnDamageResistPercent {
             get { return ((bool) (this["ShowColumnDamageResistPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageResistPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2645,11 +2279,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageResistMod
-        {
+        public bool ShowColumnDamageResistMod {
             get { return ((bool) (this["ShowColumnDamageResistMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageResistMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2658,11 +2290,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageResistModAverage
-        {
+        public bool ShowColumnDamageResistModAverage {
             get { return ((bool) (this["ShowColumnDamageResistModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageResistModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2671,11 +2301,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageEvade
-        {
+        public bool ShowColumnDamageEvade {
             get { return ((bool) (this["ShowColumnDamageEvade"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageEvade"] = value;
                 RaisePropertyChanged();
             }
@@ -2684,11 +2312,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageEvadePercent
-        {
+        public bool ShowColumnDamageEvadePercent {
             get { return ((bool) (this["ShowColumnDamageEvadePercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageEvadePercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2697,11 +2323,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageEvadeMod
-        {
+        public bool ShowColumnDamageEvadeMod {
             get { return ((bool) (this["ShowColumnDamageEvadeMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageEvadeMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2710,11 +2334,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageEvadeModAverage
-        {
+        public bool ShowColumnDamageEvadeModAverage {
             get { return ((bool) (this["ShowColumnDamageEvadeModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageEvadeModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2723,11 +2345,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfTotalOverallDamage
-        {
+        public bool ShowColumnPercentOfTotalOverallDamage {
             get { return ((bool) (this["ShowColumnPercentOfTotalOverallDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfTotalOverallDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2736,11 +2356,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfRegularDamage
-        {
+        public bool ShowColumnPercentOfRegularDamage {
             get { return ((bool) (this["ShowColumnPercentOfRegularDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfRegularDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2749,11 +2367,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfCriticalDamage
-        {
+        public bool ShowColumnPercentOfCriticalDamage {
             get { return ((bool) (this["ShowColumnPercentOfCriticalDamage"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfCriticalDamage"] = value;
                 RaisePropertyChanged();
             }
@@ -2762,11 +2378,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalOverallHealing
-        {
+        public bool ShowColumnTotalOverallHealing {
             get { return ((bool) (this["ShowColumnTotalOverallHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalOverallHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -2775,11 +2389,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnRegularHealing
-        {
+        public bool ShowColumnRegularHealing {
             get { return ((bool) (this["ShowColumnRegularHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnRegularHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -2788,11 +2400,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnCriticalHealing
-        {
+        public bool ShowColumnCriticalHealing {
             get { return ((bool) (this["ShowColumnCriticalHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnCriticalHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -2801,11 +2411,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalHealingActionsUsed
-        {
+        public bool ShowColumnTotalHealingActionsUsed {
             get { return ((bool) (this["ShowColumnTotalHealingActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalHealingActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -2814,11 +2422,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHPS
-        {
+        public bool ShowColumnHPS {
             get { return ((bool) (this["ShowColumnHPS"])); }
-            set
-            {
+            set {
                 this["ShowColumnHPS"] = value;
                 RaisePropertyChanged();
             }
@@ -2827,11 +2433,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegHit
-        {
+        public bool ShowColumnHealingRegHit {
             get { return ((bool) (this["ShowColumnHealingRegHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -2840,11 +2444,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegLow
-        {
+        public bool ShowColumnHealingRegLow {
             get { return ((bool) (this["ShowColumnHealingRegLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -2853,11 +2455,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegHigh
-        {
+        public bool ShowColumnHealingRegHigh {
             get { return ((bool) (this["ShowColumnHealingRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -2866,11 +2466,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegAverage
-        {
+        public bool ShowColumnHealingRegAverage {
             get { return ((bool) (this["ShowColumnHealingRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2879,11 +2477,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegMod
-        {
+        public bool ShowColumnHealingRegMod {
             get { return ((bool) (this["ShowColumnHealingRegMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2892,11 +2488,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingRegModAverage
-        {
+        public bool ShowColumnHealingRegModAverage {
             get { return ((bool) (this["ShowColumnHealingRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2905,11 +2499,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritHit
-        {
+        public bool ShowColumnHealingCritHit {
             get { return ((bool) (this["ShowColumnHealingCritHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -2918,11 +2510,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritPercent
-        {
+        public bool ShowColumnHealingCritPercent {
             get { return ((bool) (this["ShowColumnHealingCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -2931,11 +2521,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritLow
-        {
+        public bool ShowColumnHealingCritLow {
             get { return ((bool) (this["ShowColumnHealingCritLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -2944,11 +2532,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritHigh
-        {
+        public bool ShowColumnHealingCritHigh {
             get { return ((bool) (this["ShowColumnHealingCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -2957,11 +2543,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritAverage
-        {
+        public bool ShowColumnHealingCritAverage {
             get { return ((bool) (this["ShowColumnHealingCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2970,11 +2554,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritMod
-        {
+        public bool ShowColumnHealingCritMod {
             get { return ((bool) (this["ShowColumnHealingCritMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -2983,11 +2565,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnHealingCritModAverage
-        {
+        public bool ShowColumnHealingCritModAverage {
             get { return ((bool) (this["ShowColumnHealingCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnHealingCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -2996,11 +2576,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfTotalOverallHealing
-        {
+        public bool ShowColumnPercentOfTotalOverallHealing {
             get { return ((bool) (this["ShowColumnPercentOfTotalOverallHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfTotalOverallHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -3009,11 +2587,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfRegularHealing
-        {
+        public bool ShowColumnPercentOfRegularHealing {
             get { return ((bool) (this["ShowColumnPercentOfRegularHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfRegularHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -3022,11 +2598,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfCriticalHealing
-        {
+        public bool ShowColumnPercentOfCriticalHealing {
             get { return ((bool) (this["ShowColumnPercentOfCriticalHealing"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfCriticalHealing"] = value;
                 RaisePropertyChanged();
             }
@@ -3035,11 +2609,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalOverallDamageTaken
-        {
+        public bool ShowColumnTotalOverallDamageTaken {
             get { return ((bool) (this["ShowColumnTotalOverallDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalOverallDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3048,11 +2620,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnRegularDamageTaken
-        {
+        public bool ShowColumnRegularDamageTaken {
             get { return ((bool) (this["ShowColumnRegularDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnRegularDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3061,11 +2631,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnCriticalDamageTaken
-        {
+        public bool ShowColumnCriticalDamageTaken {
             get { return ((bool) (this["ShowColumnCriticalDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnCriticalDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3074,11 +2642,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnTotalDamageTakenActionsUsed
-        {
+        public bool ShowColumnTotalDamageTakenActionsUsed {
             get { return ((bool) (this["ShowColumnTotalDamageTakenActionsUsed"])); }
-            set
-            {
+            set {
                 this["ShowColumnTotalDamageTakenActionsUsed"] = value;
                 RaisePropertyChanged();
             }
@@ -3087,11 +2653,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDTPS
-        {
+        public bool ShowColumnDTPS {
             get { return ((bool) (this["ShowColumnDTPS"])); }
-            set
-            {
+            set {
                 this["ShowColumnDTPS"] = value;
                 RaisePropertyChanged();
             }
@@ -3100,11 +2664,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenDOT
-        {
+        public bool ShowColumnDamageTakenDOT {
             get { return ((bool) (this["ShowColumnDamageTakenDOT"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenDOT"] = value;
                 RaisePropertyChanged();
             }
@@ -3113,11 +2675,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenDOTAverage
-        {
+        public bool ShowColumnDamageTakenDOTAverage {
             get { return ((bool) (this["ShowColumnDamageTakenDOTAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenDOTAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3126,11 +2686,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegHit
-        {
+        public bool ShowColumnDamageTakenRegHit {
             get { return ((bool) (this["ShowColumnDamageTakenRegHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegHit"] = value;
                 RaisePropertyChanged();
             }
@@ -3139,11 +2697,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegMiss
-        {
+        public bool ShowColumnDamageTakenRegMiss {
             get { return ((bool) (this["ShowColumnDamageTakenRegMiss"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegMiss"] = value;
                 RaisePropertyChanged();
             }
@@ -3152,11 +2708,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegAccuracy
-        {
+        public bool ShowColumnDamageTakenRegAccuracy {
             get { return ((bool) (this["ShowColumnDamageTakenRegAccuracy"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegAccuracy"] = value;
                 RaisePropertyChanged();
             }
@@ -3165,11 +2719,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegLow
-        {
+        public bool ShowColumnDamageTakenRegLow {
             get { return ((bool) (this["ShowColumnDamageTakenRegLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegLow"] = value;
                 RaisePropertyChanged();
             }
@@ -3178,11 +2730,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegHigh
-        {
+        public bool ShowColumnDamageTakenRegHigh {
             get { return ((bool) (this["ShowColumnDamageTakenRegHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -3191,11 +2741,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegAverage
-        {
+        public bool ShowColumnDamageTakenRegAverage {
             get { return ((bool) (this["ShowColumnDamageTakenRegAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3204,11 +2752,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegMod
-        {
+        public bool ShowColumnDamageTakenRegMod {
             get { return ((bool) (this["ShowColumnDamageTakenRegMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3217,11 +2763,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenRegModAverage
-        {
+        public bool ShowColumnDamageTakenRegModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenRegModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenRegModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3230,11 +2774,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritHit
-        {
+        public bool ShowColumnDamageTakenCritHit {
             get { return ((bool) (this["ShowColumnDamageTakenCritHit"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritHit"] = value;
                 RaisePropertyChanged();
             }
@@ -3243,11 +2785,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritPercent
-        {
+        public bool ShowColumnDamageTakenCritPercent {
             get { return ((bool) (this["ShowColumnDamageTakenCritPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3256,11 +2796,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritLow
-        {
+        public bool ShowColumnDamageTakenCritLow {
             get { return ((bool) (this["ShowColumnDamageTakenCritLow"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritLow"] = value;
                 RaisePropertyChanged();
             }
@@ -3269,11 +2807,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritHigh
-        {
+        public bool ShowColumnDamageTakenCritHigh {
             get { return ((bool) (this["ShowColumnDamageTakenCritHigh"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritHigh"] = value;
                 RaisePropertyChanged();
             }
@@ -3282,11 +2818,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritAverage
-        {
+        public bool ShowColumnDamageTakenCritAverage {
             get { return ((bool) (this["ShowColumnDamageTakenCritAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3295,11 +2829,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritMod
-        {
+        public bool ShowColumnDamageTakenCritMod {
             get { return ((bool) (this["ShowColumnDamageTakenCritMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3308,11 +2840,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCritModAverage
-        {
+        public bool ShowColumnDamageTakenCritModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenCritModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCritModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3321,11 +2851,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCounter
-        {
+        public bool ShowColumnDamageTakenCounter {
             get { return ((bool) (this["ShowColumnDamageTakenCounter"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCounter"] = value;
                 RaisePropertyChanged();
             }
@@ -3334,11 +2862,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCounterPercent
-        {
+        public bool ShowColumnDamageTakenCounterPercent {
             get { return ((bool) (this["ShowColumnDamageTakenCounterPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCounterPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3347,11 +2873,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCounterMod
-        {
+        public bool ShowColumnDamageTakenCounterMod {
             get { return ((bool) (this["ShowColumnDamageTakenCounterMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCounterMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3360,11 +2884,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenCounterModAverage
-        {
+        public bool ShowColumnDamageTakenCounterModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenCounterModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenCounterModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3373,11 +2895,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenBlock
-        {
+        public bool ShowColumnDamageTakenBlock {
             get { return ((bool) (this["ShowColumnDamageTakenBlock"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenBlock"] = value;
                 RaisePropertyChanged();
             }
@@ -3386,11 +2906,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenBlockPercent
-        {
+        public bool ShowColumnDamageTakenBlockPercent {
             get { return ((bool) (this["ShowColumnDamageTakenBlockPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenBlockPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3399,11 +2917,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenBlockMod
-        {
+        public bool ShowColumnDamageTakenBlockMod {
             get { return ((bool) (this["ShowColumnDamageTakenBlockMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenBlockMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3412,11 +2928,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenBlockModAverage
-        {
+        public bool ShowColumnDamageTakenBlockModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenBlockModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenBlockModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3425,11 +2939,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenParry
-        {
+        public bool ShowColumnDamageTakenParry {
             get { return ((bool) (this["ShowColumnDamageTakenParry"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenParry"] = value;
                 RaisePropertyChanged();
             }
@@ -3438,11 +2950,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenParryPercent
-        {
+        public bool ShowColumnDamageTakenParryPercent {
             get { return ((bool) (this["ShowColumnDamageTakenParryPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenParryPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3451,11 +2961,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenParryMod
-        {
+        public bool ShowColumnDamageTakenParryMod {
             get { return ((bool) (this["ShowColumnDamageTakenParryMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenParryMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3464,11 +2972,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenParryModAverage
-        {
+        public bool ShowColumnDamageTakenParryModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenParryModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenParryModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3477,11 +2983,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenResist
-        {
+        public bool ShowColumnDamageTakenResist {
             get { return ((bool) (this["ShowColumnDamageTakenResist"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenResist"] = value;
                 RaisePropertyChanged();
             }
@@ -3490,11 +2994,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenResistPercent
-        {
+        public bool ShowColumnDamageTakenResistPercent {
             get { return ((bool) (this["ShowColumnDamageTakenResistPercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenResistPercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3503,11 +3005,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenResistMod
-        {
+        public bool ShowColumnDamageTakenResistMod {
             get { return ((bool) (this["ShowColumnDamageTakenResistMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenResistMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3516,11 +3016,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenResistModAverage
-        {
+        public bool ShowColumnDamageTakenResistModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenResistModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenResistModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3529,11 +3027,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenEvade
-        {
+        public bool ShowColumnDamageTakenEvade {
             get { return ((bool) (this["ShowColumnDamageTakenEvade"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenEvade"] = value;
                 RaisePropertyChanged();
             }
@@ -3542,11 +3038,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenEvadePercent
-        {
+        public bool ShowColumnDamageTakenEvadePercent {
             get { return ((bool) (this["ShowColumnDamageTakenEvadePercent"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenEvadePercent"] = value;
                 RaisePropertyChanged();
             }
@@ -3555,11 +3049,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenEvadeMod
-        {
+        public bool ShowColumnDamageTakenEvadeMod {
             get { return ((bool) (this["ShowColumnDamageTakenEvadeMod"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenEvadeMod"] = value;
                 RaisePropertyChanged();
             }
@@ -3568,11 +3060,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenEvadeModAverage
-        {
+        public bool ShowColumnDamageTakenEvadeModAverage {
             get { return ((bool) (this["ShowColumnDamageTakenEvadeModAverage"])); }
-            set
-            {
+            set {
                 this["ShowColumnDamageTakenEvadeModAverage"] = value;
                 RaisePropertyChanged();
             }
@@ -3581,11 +3071,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfTotalOverallDamageTaken
-        {
+        public bool ShowColumnPercentOfTotalOverallDamageTaken {
             get { return ((bool) (this["ShowColumnPercentOfTotalOverallDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfTotalOverallDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3594,11 +3082,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfRegularDamageTaken
-        {
+        public bool ShowColumnPercentOfRegularDamageTaken {
             get { return ((bool) (this["ShowColumnPercentOfRegularDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfRegularDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3607,11 +3093,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
-        public bool ShowColumnPercentOfCriticalDamageTaken
-        {
+        public bool ShowColumnPercentOfCriticalDamageTaken {
             get { return ((bool) (this["ShowColumnPercentOfCriticalDamageTaken"])); }
-            set
-            {
+            set {
                 this["ShowColumnPercentOfCriticalDamageTaken"] = value;
                 RaisePropertyChanged();
             }
@@ -3623,8 +3107,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         public new event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 

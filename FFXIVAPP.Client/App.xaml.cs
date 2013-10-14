@@ -3,12 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Client
-{
+namespace FFXIVAPP.Client {
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App
-    {
-    }
+    public partial class App {}
 }

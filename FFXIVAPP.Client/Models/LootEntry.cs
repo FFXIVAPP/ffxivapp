@@ -6,10 +6,8 @@
 using System;
 using FFXIVAPP.Client.Memory;
 
-namespace FFXIVAPP.Client.Models
-{
-    public class LootEntry
-    {
+namespace FFXIVAPP.Client.Models {
+    public class LootEntry {
         #region Auto Properties
 
         public Coordinate Coordinate { get; set; }
@@ -19,16 +17,14 @@ namespace FFXIVAPP.Client.Models
 
         #endregion
 
-        public LootEntry(string itemName = "")
-        {
+        public LootEntry(string itemName = "") {
             Coordinate = new Coordinate();
             ItemName = itemName;
             MapIndex = 0;
             ModelID = 0;
         }
 
-        public bool IsValid()
-        {
+        public bool IsValid() {
             return !String.IsNullOrWhiteSpace(ItemName) && MapIndex > 0;
         }
     }
