@@ -6,25 +6,22 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using FFXIVAPP.Common.Utilities;
-using MahApps.Metro.Controls;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     internal class AppBootstrapper : INotifyPropertyChanged
     {
         #region Property Bindings
 
         private static AppBootstrapper _instance;
-        private MetroWindow _donations;
-        private List<Window> _styledWindows;
 
         public static AppBootstrapper Instance
         {

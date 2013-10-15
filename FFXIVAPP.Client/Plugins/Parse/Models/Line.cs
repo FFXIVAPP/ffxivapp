@@ -8,11 +8,13 @@
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class Line
     {
         // misc.

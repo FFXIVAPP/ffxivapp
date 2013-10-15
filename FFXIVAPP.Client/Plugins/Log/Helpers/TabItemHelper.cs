@@ -9,9 +9,11 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Log.Helpers
 {
+    [DoNotObfuscate]
     public static class TabItemHelper
     {
         /// <summary>

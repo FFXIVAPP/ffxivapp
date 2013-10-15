@@ -5,9 +5,11 @@
 
 using System;
 using System.Collections.Generic;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     public class NPCEntry
     {
         private List<StatusEntry> _statusList;

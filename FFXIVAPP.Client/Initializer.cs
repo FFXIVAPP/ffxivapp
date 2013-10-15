@@ -27,11 +27,13 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     internal static class Initializer
     {
         #region Declarations

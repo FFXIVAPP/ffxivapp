@@ -15,11 +15,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public class StatGroup : StatGroupTypeDescriptor, ICollection<StatGroup>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         #region Property Bindings

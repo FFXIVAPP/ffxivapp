@@ -5,10 +5,13 @@
 
 #region Usings
 
+using SmartAssembly.Attributes;
+
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static partial class SettingsHelper
     {
         /// <summary>

@@ -13,11 +13,13 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
 {
     internal static partial class SettingsHelper
     {
+        [DoNotObfuscate]
         public static class Client
         {
             /// <summary>

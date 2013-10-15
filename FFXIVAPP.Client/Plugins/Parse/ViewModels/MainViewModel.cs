@@ -24,11 +24,13 @@ using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 {
+    [DoNotObfuscate]
     internal sealed class MainViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

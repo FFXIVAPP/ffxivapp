@@ -6,11 +6,13 @@
 #region Usings
 
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {
+    [DoNotObfuscate]
     public class TotalStat : LinkedStat
     {
         public TotalStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)

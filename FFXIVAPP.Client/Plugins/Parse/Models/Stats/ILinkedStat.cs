@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public interface ILinkedStat
     {
         void DoDependencyValueChanged(object sender, object previousValue, object newValue);

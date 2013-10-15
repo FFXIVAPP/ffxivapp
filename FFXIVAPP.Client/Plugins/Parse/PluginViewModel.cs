@@ -10,11 +10,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Events;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse
 {
+    [DoNotObfuscate]
     public sealed class PluginViewModel : INotifyPropertyChanged
     {
         //used for global static properties

@@ -8,11 +8,13 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public abstract class Stat<T> : INotifyPropertyChanged
     {
         private string _name;

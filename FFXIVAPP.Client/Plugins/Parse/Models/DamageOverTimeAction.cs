@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class DamageOverTimeAction
     {
         public int ActionPotency { get; set; }

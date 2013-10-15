@@ -10,11 +10,13 @@ using System.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
+    [DoNotObfuscate]
     public partial class Player : StatGroup
     {
         private static readonly IList<string> LD = new[]

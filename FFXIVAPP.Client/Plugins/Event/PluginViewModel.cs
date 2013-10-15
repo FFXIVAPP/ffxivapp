@@ -10,11 +10,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Event.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Event
 {
+    [DoNotObfuscate]
     internal sealed class PluginViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

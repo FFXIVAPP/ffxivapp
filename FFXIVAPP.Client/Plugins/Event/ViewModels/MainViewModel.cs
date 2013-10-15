@@ -19,11 +19,13 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Event.ViewModels
 {
+    [DoNotObfuscate]
     internal sealed class MainViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

@@ -13,12 +13,14 @@ using System.Threading;
 using System.Timers;
 using FFXIVAPP.Common.Helpers;
 using NLog;
+using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     internal class NPCWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings

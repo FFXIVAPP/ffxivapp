@@ -9,11 +9,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.RegularExpressions;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class Expressions : INotifyPropertyChanged
     {
         private Match _mActions;

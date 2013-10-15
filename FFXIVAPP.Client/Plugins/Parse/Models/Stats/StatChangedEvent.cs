@@ -6,11 +6,13 @@
 #region Usings
 
 using System;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public class StatChangedEvent : EventArgs
     {
         #region Property Bindings

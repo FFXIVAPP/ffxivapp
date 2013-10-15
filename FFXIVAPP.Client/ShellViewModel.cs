@@ -15,11 +15,13 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {

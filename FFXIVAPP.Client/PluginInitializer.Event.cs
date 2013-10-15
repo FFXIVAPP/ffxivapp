@@ -10,11 +10,13 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Plugins.Event;
 using FFXIVAPP.Client.Plugins.Event.Models;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client
 {
     internal static partial class PluginInitializer
     {
+        [DoNotObfuscate]
         public static class Event
         {
             public static void LoadSettings()

@@ -7,11 +7,13 @@
 
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.RegularExpressions;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.RegularExpressions
 {
+    [DoNotObfuscate]
     internal static class PlayerRegEx
     {
         //ENGLISH REGULAR EXPRESSIONS

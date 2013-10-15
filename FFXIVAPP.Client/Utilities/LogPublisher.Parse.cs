@@ -9,17 +9,20 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using FFXIVAPP.Client.Plugins.Parse.Utilities;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
 {
     public static partial class LogPublisher
     {
+        [DoNotObfuscate]
         public static class Parse
         {
             public static void Process(ChatEntry chatEntry)

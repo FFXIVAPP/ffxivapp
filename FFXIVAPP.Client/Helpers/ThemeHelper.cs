@@ -12,12 +12,14 @@ using System.Windows.Media;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
 using MahApps.Metro;
+using SmartAssembly.Attributes;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class ThemeHelper
     {
         /// <summary>

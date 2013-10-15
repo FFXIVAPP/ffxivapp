@@ -13,11 +13,13 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Delegates
 {
+    [DoNotObfuscate]
     internal static class LootWorkerDelegate
     {
         #region Declarations

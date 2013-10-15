@@ -9,11 +9,13 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse
 {
+    [DoNotObfuscate]
     [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {

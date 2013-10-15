@@ -7,11 +7,13 @@
 
 using System;
 using System.Windows.Forms;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class NotifyIconHelper
     {
         /// <summary>

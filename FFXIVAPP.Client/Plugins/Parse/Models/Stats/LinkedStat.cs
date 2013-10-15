@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public abstract class LinkedStat : Stat<decimal>, ILinkedStat
     {
         #region Declarations

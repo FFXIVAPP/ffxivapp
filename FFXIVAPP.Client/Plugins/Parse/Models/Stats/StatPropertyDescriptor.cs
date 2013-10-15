@@ -7,11 +7,13 @@
 
 using System;
 using System.ComponentModel;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public class StatPropertyDescriptor : PropertyDescriptor
     {
         public StatPropertyDescriptor(string name) : base(name, null)

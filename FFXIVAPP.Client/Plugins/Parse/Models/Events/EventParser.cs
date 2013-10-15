@@ -10,11 +10,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 {
+    [DoNotObfuscate]
     public class EventParser
     {
         #region Property Bindings

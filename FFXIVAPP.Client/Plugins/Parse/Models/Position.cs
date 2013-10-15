@@ -4,9 +4,11 @@
 // © 2013 Ryan Wilson
 
 using System;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class Position
     {
         public Position(int x = 0, int y = 0)

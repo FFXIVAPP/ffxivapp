@@ -6,11 +6,13 @@
 #region Usings
 
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {
+    [DoNotObfuscate]
     public class PercentStat : LinkedStat
     {
         private readonly Stat<decimal> _denominator;

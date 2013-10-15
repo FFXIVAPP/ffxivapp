@@ -6,11 +6,13 @@
 #region Usings
 
 using System;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class DateTimeHelper
     {
         /// <summary>

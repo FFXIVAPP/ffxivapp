@@ -10,17 +10,16 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Common.Helpers;
 using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
     public static partial class Filter
     {
-        private static void ProcessActions(Event e, Expressions exp)
+        private static void ProcessActions(Models.Events.Event e, Expressions exp)
         {
             var line = new Line
             {

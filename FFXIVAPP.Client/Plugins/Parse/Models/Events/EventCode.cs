@@ -9,11 +9,13 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 {
+    [DoNotObfuscate]
     public class EventCode : INotifyPropertyChanged
     {
         #region Property Bindings

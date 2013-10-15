@@ -12,11 +12,13 @@ using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Delegates
 {
+    [DoNotObfuscate]
     internal static class ChatWorkerDelegate
     {
         public static bool IsPaused = false;

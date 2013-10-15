@@ -17,11 +17,13 @@ using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
 {
     public static partial class LogPublisher
     {
+        [DoNotObfuscate]
         public static class Log
         {
             public static void Process(ChatEntry chatEntry)

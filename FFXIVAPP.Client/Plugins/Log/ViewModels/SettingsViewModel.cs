@@ -12,11 +12,13 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Plugins.Log.Helpers;
 using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Common.ViewModelBase;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Log.ViewModels
 {
+    [DoNotObfuscate]
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

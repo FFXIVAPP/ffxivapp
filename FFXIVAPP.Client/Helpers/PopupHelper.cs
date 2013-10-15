@@ -12,11 +12,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class PopupHelper
     {
         private const int Time = 1000000000 / 100;

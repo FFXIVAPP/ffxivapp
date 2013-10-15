@@ -7,11 +7,13 @@
 
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 {
+    [DoNotObfuscate]
     public class TimelineChangedEvent : EventArgs
     {
         /// <summary>

@@ -13,11 +13,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscateType]
     public class MemoryHandler : INotifyPropertyChanged
     {
         #region Property Bindings

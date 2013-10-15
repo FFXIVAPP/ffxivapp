@@ -4,9 +4,11 @@
 // © 2013 Ryan Wilson
 
 using FFXIVAPP.Client.Memory;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Models
 {
+    [DoNotObfuscate]
     public class KillEntry
     {
         #region Auto Properties

@@ -15,6 +15,7 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
@@ -22,6 +23,7 @@ namespace FFXIVAPP.Client.Helpers
 {
     public static class XmlLogHelper
     {
+        [DoNotObfuscate]
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
             ChatWorkerDelegate.IsPaused = true;

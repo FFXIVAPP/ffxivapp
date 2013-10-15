@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// Filter.Failed.cs
+// Filter.Damage.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -10,22 +10,21 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using NLog;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
     public static partial class Filter
     {
-        private static void ProcessFailed(Event e, Expressions exp)
+        private static void ProcessDamage(Models.Events.Event e, Expressions exp)
         {
             var line = new Line
             {
                 RawLine = e.RawLine
             };
-            var failed = Regex.Match("ph", @"^\.$");
+            var damage = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {
                 case EventSubject.You:
@@ -33,20 +32,20 @@ namespace FFXIVAPP.Client.Utilities
                     {
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
-                            failed = exp.pFailed;
-                            switch (failed.Success)
+                            damage = exp.pDamage;
+                            switch (damage.Success)
                             {
                                 case true:
                                     line.Source = _lastNamePlayer;
-                                    UpdateFailedPlayer(failed, line, exp, false);
+                                    UpdateDamagePlayer(damage, line, exp, false);
                                     break;
                                 case false:
-                                    failed = exp.pFailedAuto;
-                                    if (failed.Success)
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
                                     {
                                         _autoAction = true;
                                         line.Source = _lastNamePlayer;
-                                        UpdateFailedPlayer(failed, line, exp, false);
+                                        UpdateDamagePlayer(damage, line, exp, false);
                                     }
                                     break;
                             }
@@ -58,20 +57,20 @@ namespace FFXIVAPP.Client.Utilities
                     {
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
-                            failed = exp.pFailed;
-                            switch (failed.Success)
+                            damage = exp.pDamage;
+                            switch (damage.Success)
                             {
                                 case true:
                                     line.Source = _lastNameParty;
-                                    UpdateFailedPlayer(failed, line, exp);
+                                    UpdateDamagePlayer(damage, line, exp);
                                     break;
                                 case false:
-                                    failed = exp.pFailedAuto;
-                                    if (failed.Success)
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
                                     {
                                         _autoAction = true;
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        UpdateFailedPlayer(failed, line, exp);
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        UpdateDamagePlayer(damage, line, exp);
                                     }
                                     break;
                             }
@@ -83,39 +82,43 @@ namespace FFXIVAPP.Client.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.You:
-                            failed = exp.mFailed;
-                            switch (failed.Success)
+                            damage = exp.mDamage;
+                            switch (damage.Success)
                             {
                                 case true:
                                     line.Source = _lastMobName;
-                                    UpdateFailedMonster(failed, line, exp, false);
+                                    line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                    UpdateDamageMonster(damage, line, exp, false);
                                     break;
                                 case false:
-                                    failed = exp.mFailedAuto;
-                                    if (failed.Success)
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
                                     {
                                         _autoAction = true;
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        UpdateFailedMonster(failed, line, exp, false);
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                                        UpdateDamageMonster(damage, line, exp, false);
                                     }
                                     break;
                             }
                             break;
                         case EventDirection.Party:
-                            failed = exp.mFailed;
-                            switch (failed.Success)
+                            damage = exp.mDamage;
+                            switch (damage.Success)
                             {
                                 case true:
                                     line.Source = _lastMobName;
-                                    UpdateFailedMonster(failed, line, exp);
+                                    line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                    UpdateDamageMonster(damage, line, exp);
                                     break;
                                 case false:
-                                    failed = exp.mFailedAuto;
-                                    if (failed.Success)
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
                                     {
                                         _autoAction = true;
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        UpdateFailedMonster(failed, line, exp);
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                        UpdateDamageMonster(damage, line, exp);
                                     }
                                     break;
                             }
@@ -123,21 +126,21 @@ namespace FFXIVAPP.Client.Utilities
                     }
                     break;
             }
-            if (failed.Success)
+            if (damage.Success)
             {
                 return;
             }
             ClearLast();
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Failed", e, exp);
+            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Damage", e, exp);
         }
 
-        private static void UpdateFailedPlayer(Match failed, Line line, Expressions exp, bool isParty = true)
+        private static void UpdateDamagePlayer(Match damage, Line line, Expressions exp, bool isParty = true)
         {
             _isParty = isParty;
             try
             {
-                line.Miss = true;
-                switch (failed.Groups["source"].Success)
+                line.Hit = true;
+                switch (damage.Groups["source"].Success)
                 {
                     case true:
                         line.Action = exp.Attack;
@@ -146,29 +149,26 @@ namespace FFXIVAPP.Client.Utilities
                         line.Action = isParty ? _lastActionParty : _lastActionPlayer;
                         break;
                 }
-                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMobName;
+                line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+                line.Block = damage.Groups["block"].Success;
+                line.Crit = damage.Groups["crit"].Success;
+                line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+                line.Parry = damage.Groups["parry"].Success;
+                line.Target = Convert.ToString(damage.Groups["target"].Value);
                 if (isParty)
                 {
                     _lastNameParty = line.Source;
-                    if (!_autoAction)
+                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions)))
                     {
-                        if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions))
-                        {
-                            ClearLast(true);
-                            return;
-                        }
+                        ClearLast(true);
+                        return;
                     }
                 }
                 else
                 {
-                    line.Target = ParseHelper.GetPetFromPlayer(line.Source, exp);
-                    _lastNamePlayer = line.Source;
-                    if (!_autoAction)
+                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions)))
                     {
-                        if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions))
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
@@ -179,17 +179,17 @@ namespace FFXIVAPP.Client.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
             }
         }
 
-        private static void UpdateFailedMonster(Match failed, Line line, Expressions exp, bool isParty = true)
+        private static void UpdateDamageMonster(Match damage, Line line, Expressions exp, bool isParty = true)
         {
             _isParty = isParty;
             try
             {
-                line.Miss = true;
-                switch (failed.Groups["source"].Success)
+                line.Hit = true;
+                switch (damage.Groups["source"].Success)
                 {
                     case true:
                         line.Action = exp.Attack;
@@ -198,7 +198,11 @@ namespace FFXIVAPP.Client.Utilities
                         line.Action = _lastMobAction;
                         break;
                 }
-                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : isParty ? _lastNameParty : _lastNamePlayer;
+                line.Amount = damage.Groups["amount"].Success ? Convert.ToDecimal(damage.Groups["amount"].Value) : 0m;
+                line.Block = damage.Groups["block"].Success;
+                line.Crit = damage.Groups["crit"].Success;
+                line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
+                line.Parry = damage.Groups["parry"].Success;
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
@@ -231,7 +235,7 @@ namespace FFXIVAPP.Client.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
             }
         }
     }

@@ -18,11 +18,13 @@ using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     [Export(typeof (AppViewModel))]
     internal sealed class AppViewModel : INotifyPropertyChanged
     {

@@ -11,11 +11,13 @@ using System.Linq;
 using System.Text;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     public class ChatEntry
     {
         public bool JP;

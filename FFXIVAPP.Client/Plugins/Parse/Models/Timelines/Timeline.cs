@@ -16,11 +16,13 @@ using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 {
+    [DoNotObfuscate]
     public sealed class Timeline : INotifyPropertyChanged
     {
         #region Property Bindings

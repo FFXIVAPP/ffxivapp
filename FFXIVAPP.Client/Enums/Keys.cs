@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Enums
 {
+    [DoNotObfuscate]
     public enum Keys
     {
         LButton = 1,

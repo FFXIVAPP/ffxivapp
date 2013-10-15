@@ -7,11 +7,13 @@
 
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {
+    [DoNotObfuscate]
     public class PerSecondAverageStat : LinkedStat
     {
         public PerSecondAverageStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)

@@ -6,11 +6,13 @@
 #region Usings
 
 using FFXIVAPP.IPluginInterface;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Models
 {
+    [DoNotObfuscate]
     internal class PluginInstance
     {
         public PluginInstance()

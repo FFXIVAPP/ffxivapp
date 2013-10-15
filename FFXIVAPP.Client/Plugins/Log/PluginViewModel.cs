@@ -12,11 +12,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using FFXIVAPP.Common.Events;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Log
 {
+    [DoNotObfuscate]
     internal sealed class PluginViewModel : INotifyPropertyChanged
     {
         public event EventHandler<PopupResultEvent> PopupResultChanged = delegate { };

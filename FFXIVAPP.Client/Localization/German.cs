@@ -6,11 +6,13 @@
 #region Usings
 
 using System.Windows;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Localization
 {
+    [DoNotObfuscate]
     public static partial class German
     {
         private static readonly ResourceDictionary Dictionary = new ResourceDictionary();

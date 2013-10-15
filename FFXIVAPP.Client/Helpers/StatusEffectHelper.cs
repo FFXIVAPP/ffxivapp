@@ -5,9 +5,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public static class StatusEffectHelper
     {
         private static Dictionary<int, StatusItem> _statusEffects;
@@ -3945,19 +3947,5 @@ namespace FFXIVAPP.Client.Helpers
                 CompanyAction = true,
             });
         }
-    }
-
-    public class StatusItem
-    {
-        public StatusLocalization Name { get; set; }
-        public bool CompanyAction { get; set; }
-    }
-
-    public class StatusLocalization
-    {
-        public string English { get; set; }
-        public string French { get; set; }
-        public string Japanese { get; set; }
-        public string German { get; set; }
     }
 }

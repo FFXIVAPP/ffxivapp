@@ -13,11 +13,13 @@ using FFXIVAPP.Client.RegularExpressions;
 using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client
 {
     internal static partial class PluginInitializer
     {
+        [DoNotObfuscate]
         public static class Parse
         {
             /// <summary>

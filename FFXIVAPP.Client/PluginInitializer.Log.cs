@@ -11,12 +11,14 @@ using FFXIVAPP.Client.Plugins.Log;
 using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Client.SettingsProviders.Log;
 using FFXIVAPP.Common.Controls;
+using SmartAssembly.Attributes;
 using TabItemHelper = FFXIVAPP.Client.Plugins.Log.Helpers.TabItemHelper;
 
 namespace FFXIVAPP.Client
 {
     internal static partial class PluginInitializer
     {
+        [DoNotObfuscate]
         public static class Log
         {
             /// <summary>

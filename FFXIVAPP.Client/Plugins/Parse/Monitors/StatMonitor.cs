@@ -15,11 +15,13 @@ using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Monitors
 {
+    [DoNotObfuscate]
     public class StatMonitor : EventMonitor
     {
         //player totals

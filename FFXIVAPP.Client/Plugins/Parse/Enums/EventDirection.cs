@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Plugins.Parse.Enums
 {
+    [DoNotObfuscate]
     public enum EventDirection
     {
         Unknown = 0x00000000,

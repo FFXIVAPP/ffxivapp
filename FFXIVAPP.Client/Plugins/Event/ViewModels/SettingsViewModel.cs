@@ -7,11 +7,13 @@
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Event.ViewModels
 {
+    [DoNotObfuscate]
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

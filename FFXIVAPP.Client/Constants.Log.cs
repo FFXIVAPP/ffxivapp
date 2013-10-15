@@ -8,11 +8,13 @@ using System.IO;
 using System.Xml.Linq;
 using FFXIVAPP.Client.SettingsProviders.Log;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client
 {
     public static partial class Constants
     {
+        [DoNotObfuscate]
         public static class Log
         {
             public static Settings PluginSettings

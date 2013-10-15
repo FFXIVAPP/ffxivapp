@@ -13,11 +13,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public sealed class StatContainer : IStatContainer
     {
         private readonly ConcurrentDictionary<string, Stat<decimal>> _statDict = new ConcurrentDictionary<string, Stat<decimal>>();

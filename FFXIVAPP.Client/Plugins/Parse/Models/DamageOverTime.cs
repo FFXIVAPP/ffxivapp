@@ -10,13 +10,16 @@ using System.Linq;
 using System.Timers;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class DamageOverTime
     {
+        [DoNotObfuscate]
         public class Monster : IDisposable
         {
             public void Dispose()
@@ -24,6 +27,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             }
         }
 
+        [DoNotObfuscate]
         public class Player : IDisposable
         {
             #region Auto Properties

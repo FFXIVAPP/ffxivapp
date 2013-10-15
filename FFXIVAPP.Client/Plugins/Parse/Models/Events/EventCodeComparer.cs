@@ -6,11 +6,13 @@
 #region Usings
 
 using System.Collections.Generic;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 {
+    [DoNotObfuscate]
     public class EventCodeComparer : IEqualityComparer<EventCode>
     {
         /// <summary>

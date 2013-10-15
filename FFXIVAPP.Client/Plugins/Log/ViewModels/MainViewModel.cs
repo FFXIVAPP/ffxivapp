@@ -16,11 +16,13 @@ using FFXIVAPP.Client.SettingsProviders.Log;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Log.ViewModels
 {
+    [DoNotObfuscate]
     internal sealed class MainViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

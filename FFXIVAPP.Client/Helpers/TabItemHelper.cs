@@ -10,11 +10,13 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class TabItemHelper
     {
         /// <summary>

@@ -8,11 +8,13 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Log
 {
+    [DoNotObfuscate]
     [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {

@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using MahApps.Metro;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Utilities
 {
+    [DoNotObfuscate]
     internal static class ThemeManager
     {
         private static readonly ResourceDictionary LightResource = new ResourceDictionary

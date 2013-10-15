@@ -8,11 +8,13 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {
+    [DoNotObfuscate]
     public abstract class StatGroupTypeDescriptor : CustomTypeDescriptor
     {
         protected StatGroup StatGroup;

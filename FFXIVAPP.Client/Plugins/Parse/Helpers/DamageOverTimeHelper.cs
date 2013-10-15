@@ -7,11 +7,13 @@
 
 using System.Collections.Generic;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 {
+    [DoNotObfuscate]
     public static class DamageOverTimeHelper
     {
         public static readonly List<string> Thunders = new List<string>

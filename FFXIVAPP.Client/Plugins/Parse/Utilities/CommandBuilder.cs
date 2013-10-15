@@ -12,11 +12,13 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.RegularExpressions;
+using SmartAssembly.Attributes;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
+    [DoNotObfuscate]
     internal static class CommandBuilder
     {
         public static readonly Regex CommandsRegEx = new Regex(@"com:(?<cmd>(show-(mob|total)|parse)) ((?<cm>[\w\s]+):)?(?<sub>[\w\s-']+)( (?<limit>\d))?$", SharedRegEx.DefaultOptions);

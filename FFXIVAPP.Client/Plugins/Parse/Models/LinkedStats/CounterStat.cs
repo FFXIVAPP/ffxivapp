@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {
+    [DoNotObfuscate]
     public class CounterStat : NumericStat
     {
         public CounterStat(string name, decimal value) : base(name, 0m)

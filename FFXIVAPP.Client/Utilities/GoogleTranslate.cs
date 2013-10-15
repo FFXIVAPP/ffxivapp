@@ -12,11 +12,13 @@ using System.Web;
 using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Client.Properties;
 using HtmlAgilityPack;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Utilities
 {
+    [DoNotObfuscate]
     internal static class GoogleTranslate
     {
         public static readonly Hashtable Offsets = GetLanguage();

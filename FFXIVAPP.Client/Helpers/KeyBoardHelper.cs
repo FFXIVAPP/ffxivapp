@@ -15,11 +15,13 @@ using System.Threading;
 using FFXIVAPP.Client.Enums;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public static class KeyBoardHelper
     {
         /// <summary>

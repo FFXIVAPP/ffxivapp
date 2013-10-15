@@ -9,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 {
+    [DoNotObfuscate]
     public static class ParseHelper
     {
         // setup pet info that comes through as "YOU"

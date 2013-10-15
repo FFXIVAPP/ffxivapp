@@ -7,11 +7,13 @@
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights
 {
+    [DoNotObfuscate]
     public sealed class Fight : INotifyPropertyChanged
     {
         #region Property Bindings

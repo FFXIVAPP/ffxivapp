@@ -14,11 +14,13 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.IPluginInterface;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     public static partial class Constants
     {
         #region Declarations

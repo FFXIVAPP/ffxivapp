@@ -6,9 +6,11 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.ViewModels
 {
+    [DoNotObfuscate]
     [Export(typeof (XIVDBViewModel))]
     internal sealed class XIVDBViewModel : INotifyPropertyChanged
     {

@@ -20,11 +20,13 @@ using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {
+    [DoNotObfuscate]
     [Export(typeof (SettingsViewModel))]
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {

@@ -8,24 +8,25 @@
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using SmartAssembly.Attributes;
 
 #endregion
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
+    [DoNotObfuscate]
     public static partial class Filter
     {
         public static bool IsEnabled = true;
 
         // setup self info
         private static readonly string You = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-        private static Event _lastEventPlayer;
+        private static Models.Events.Event _lastEventPlayer;
         private static string _lastNamePlayer = You;
         private static string _lastActionPlayer = "";
 
         // setup party info
-        private static Event _lastEventParty;
+        private static Models.Events.Event _lastEventParty;
         private static string _lastNameParty = "";
         private static string _lastActionParty = "";
 
@@ -37,15 +38,15 @@ namespace FFXIVAPP.Client.Utilities
         private static bool _isMulti;
         private static bool _isParty;
 
-        public static void Process(string cleaned, Event e)
+        public static void Process(string cleaned, Models.Events.Event e)
         {
             if (!IsEnabled)
             {
                 return;
             }
 
-            _lastEventParty = _lastEventParty ?? new Event();
-            _lastEventPlayer = _lastEventPlayer ?? new Event();
+            _lastEventParty = _lastEventParty ?? new Models.Events.Event();
+            _lastEventPlayer = _lastEventPlayer ?? new Models.Events.Event();
             _autoAction = false;
             _isParty = true;
 

@@ -15,11 +15,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     public class SigScanner : INotifyPropertyChanged
     {
         #region Property Bindings

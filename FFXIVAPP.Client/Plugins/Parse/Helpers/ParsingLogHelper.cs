@@ -9,11 +9,13 @@ using System;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 {
+    [DoNotObfuscate]
     public static class ParsingLogHelper
     {
         public static void Log(Logger logger, string type, Models.Events.Event e, Expressions exp = null)

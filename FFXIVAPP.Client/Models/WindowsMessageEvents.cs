@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Models
 {
+    [DoNotObfuscate]
     public static class WindowsMessageEvents
     {
         public const int KeyDown = 0x100;

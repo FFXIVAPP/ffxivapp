@@ -9,9 +9,11 @@ using System.Web;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using Newtonsoft.Json;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public class UploadHelper
     {
         #region Auto-Properties

@@ -3,8 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using SmartAssembly.Attributes;
+
 namespace FFXIVAPP.Client.Plugins.Event.Models
 {
+    [DoNotObfuscate]
     public class SoundEvent
     {
         public string Sound { get; set; }

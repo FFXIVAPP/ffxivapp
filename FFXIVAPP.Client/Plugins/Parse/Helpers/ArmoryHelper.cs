@@ -6,11 +6,13 @@
 #region Usings
 
 using System.Collections;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 {
+    [DoNotObfuscate]
     public static class ArmoryHelper
     {
         public static string GetClassOrJob(string key)

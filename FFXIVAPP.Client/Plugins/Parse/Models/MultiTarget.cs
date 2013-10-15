@@ -6,11 +6,13 @@
 #region Usings
 
 using System.Collections.Generic;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public static class MultiTarget
     {
         private static List<string> _multiTargetSkills;

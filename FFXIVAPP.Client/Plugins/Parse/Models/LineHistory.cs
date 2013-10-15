@@ -6,11 +6,13 @@
 #region Usings
 
 using System;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class LineHistory
     {
         public LineHistory(Line line)

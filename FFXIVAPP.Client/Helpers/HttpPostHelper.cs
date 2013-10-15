@@ -8,9 +8,11 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public static class HttpPostHelper
     {
         public enum PostType
