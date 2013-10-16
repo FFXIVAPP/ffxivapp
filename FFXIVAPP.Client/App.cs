@@ -61,36 +61,6 @@ namespace FFXIVAPP.Client
         [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         public static void Main()
         {
-            //if (AppDomain.CurrentDomain.FriendlyName != "FFXIVAPP.Shadowed")
-            //{
-            //    var domain = AppDomain.CreateDomain("FFXIVAPP.Shadowed");
-            //    domain.DoCallBack(delegate
-            //    {
-            //        var app = new App();
-            //        app.Run();
-            //    });
-            //}
-            //var startupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-            //                                                .Location);
-            //var cachePath = Path.Combine(startupPath, "__cache");
-            //var configFile = Path.Combine(startupPath, "FFXIVAPP.Client.exe.config");
-            //var assembly = Path.Combine(startupPath, "FFXIVAPP.Client.exe");
-            //var setup = new AppDomainSetup
-            //{
-            //    ApplicationName = "FFXIVAPP.Client",
-            //    ShadowCopyFiles = "true",
-            //    CachePath = cachePath,
-            //    ConfigurationFile = configFile
-            //};
-            //var domain = AppDomain.CreateDomain("FFXIVAPP.Client", AppDomain.CurrentDomain.Evidence, setup);
-            //domain.DoCallBack(delegate
-            //{
-            //    //domain.ExecuteAssembly(assembly);
-            //    //AppDomain.Unload(domain);
-            //    //Directory.Delete(cachePath, true);
-            //    var app = new App();
-            //    app.Run();
-            //});
             var app = new App();
             app.Run();
         }
@@ -211,7 +181,6 @@ namespace FFXIVAPP.Client
                     }
                     break;
             }
-            //SettingsHelper.Save();
         }
 
         /// <summary>
