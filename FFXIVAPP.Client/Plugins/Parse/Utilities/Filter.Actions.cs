@@ -72,6 +72,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 _lastMobName = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
                                 _lastMobAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                                UpdateActionsMonsters(actions, line, exp, false);
                             }
                             break;
                     }
@@ -89,6 +90,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 
         private static void UpdateActionsPlayers(Match actions, Line line, Expressions exp, bool isParty = true)
         {
+            _lastActionIsAttack = false;
             _isParty = isParty;
             try
             {
@@ -101,6 +103,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 {
                     _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                 }
+            }
+            catch (Exception ex)
+            {
+                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Action", exp.Event, ex);
+            }
+        }
+
+        private static void UpdateActionsMonsters(Match actions, Line line, Expressions exp, bool isParty = true)
+        {
+            _lastActionIsAttack = false;
+            _isParty = isParty;
+            try
+            {
             }
             catch (Exception ex)
             {

@@ -29,12 +29,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         private static Models.Events.Event _lastEventParty;
         private static string _lastNameParty = "";
         private static string _lastActionParty = "";
+        
 
         // setup monster info
         private static string _lastMobName = "";
         private static string _lastMobAction = "";
 
         private static bool _autoAction;
+        private static bool _lastActionIsAttack = false;
         private static bool _isMulti;
         private static bool _isParty;
 
@@ -92,6 +94,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         /// <param name="clearNames"></param>
         private static void ClearLast(bool clearNames = false)
         {
+            return;
             _lastActionParty = "";
             _lastMobAction = "";
             if (!clearNames)
