@@ -79,6 +79,7 @@ namespace FFXIVAPP.Client
 
         private static void CheckSettings()
         {
+            Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             try
             {
                 if (!Settings.Default.Application_UpgradeRequired)
@@ -89,7 +90,6 @@ namespace FFXIVAPP.Client
                 Settings.Default.Upgrade();
                 Settings.Default.Reload();
                 Settings.Default.Application_UpgradeRequired = false;
-                Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             }
             catch (Exception ex)
             {

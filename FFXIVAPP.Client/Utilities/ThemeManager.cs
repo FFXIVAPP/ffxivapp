@@ -30,17 +30,23 @@ namespace FFXIVAPP.Client.Utilities
             Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")
         };
 
+        private static IEnumerable<Accent> _defaultAccents;
+
         public static IEnumerable<Accent> DefaultAccents
         {
             get
             {
-                var accents = new[]
+                if (_defaultAccents == null)
                 {
-                    "Red", "Green", "Blue", "Purple", "Orange"
-                };
-                const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
-                return accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))
-                              .ToList();
+                    var accents = new[]
+                    {
+                        "Red", "Green", "Blue", "Purple", "Orange", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Indigo", "Magenta", "Mauve", "Olive", "Sienna", "Steel", "Teal", "Violet"
+                    };
+                    const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
+                    _defaultAccents = accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))
+                                             .ToList();
+                }
+                return _defaultAccents;
             }
         }
 

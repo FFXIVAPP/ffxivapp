@@ -22,8 +22,6 @@
                            Height="{Binding Height,
                                             Mode=TwoWay,
                                             Source={x:Static Properties:Settings.Default}}"
-                           MinWidth="720"
-                           MinHeight="480"
                            Closing="MetroWindowClosing"
                            Icon="Resources/Media/Icons/FFXIVAPP.ico"
                            Left="{Binding Left,
@@ -80,6 +78,7 @@
                                              Source={StaticResource AppProperties}}" />
                     <Label Content="{Binding Locale[app_SaveAndClearHistoryToolTip],
                                              Source={StaticResource AppProperties}}"
+                           Foreground="White"
                            Padding="5"
                            Visibility="{Binding EnableHelpLabels,
                                                 Source={x:Static Properties:Settings.Default},
@@ -97,6 +96,7 @@
                                              Source={StaticResource AppProperties}}" />
                     <Label Content="{Binding Locale[app_ScreenShotToolTip],
                                              Source={StaticResource AppProperties}}"
+                           Foreground="White"
                            Padding="5"
                            Visibility="{Binding EnableHelpLabels,
                                                 Source={x:Static Properties:Settings.Default},

@@ -23,7 +23,7 @@
     <Setting Name="CultureSet" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ThemeList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="ThemeList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;Red|Light&lt;/string&gt;
@@ -31,17 +31,43 @@
   &lt;string&gt;Blue|Light&lt;/string&gt;
   &lt;string&gt;Purple|Light&lt;/string&gt;
   &lt;string&gt;Orange|Light&lt;/string&gt;
+  &lt;string&gt;Brown|Light&lt;/string&gt;
+  &lt;string&gt;Cobalt|Light&lt;/string&gt;
+  &lt;string&gt;Crimson|Light&lt;/string&gt;
+  &lt;string&gt;Cyan|Light&lt;/string&gt;
+  &lt;string&gt;Emerald|Light&lt;/string&gt;
+  &lt;string&gt;Indigo|Light&lt;/string&gt;
+  &lt;string&gt;Magenta|Light&lt;/string&gt;
+  &lt;string&gt;Mauve|Light&lt;/string&gt;
+  &lt;string&gt;Olive|Light&lt;/string&gt;
+  &lt;string&gt;Sienna|Light&lt;/string&gt;
+  &lt;string&gt;Steel|Light&lt;/string&gt;
+  &lt;string&gt;Teal|Light&lt;/string&gt;
+  &lt;string&gt;Violet|Light&lt;/string&gt;
   &lt;string&gt;Red|Dark&lt;/string&gt;
   &lt;string&gt;Green|Dark&lt;/string&gt;
   &lt;string&gt;Blue|Dark&lt;/string&gt;
   &lt;string&gt;Purple|Dark&lt;/string&gt;
   &lt;string&gt;Orange|Dark&lt;/string&gt;
+  &lt;string&gt;Brown|Dark&lt;/string&gt;
+  &lt;string&gt;Cobalt|Dark&lt;/string&gt;
+  &lt;string&gt;Crimson|Dark&lt;/string&gt;
+  &lt;string&gt;Cyan|Dark&lt;/string&gt;
+  &lt;string&gt;Emerald|Dark&lt;/string&gt;
+  &lt;string&gt;Indigo|Dark&lt;/string&gt;
+  &lt;string&gt;Magenta|Dark&lt;/string&gt;
+  &lt;string&gt;Mauve|Dark&lt;/string&gt;
+  &lt;string&gt;Olive|Dark&lt;/string&gt;
+  &lt;string&gt;Sienna|Dark&lt;/string&gt;
+  &lt;string&gt;Steel|Dark&lt;/string&gt;
+  &lt;string&gt;Teal|Dark&lt;/string&gt;
+  &lt;string&gt;Violet|Dark&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="Theme" Type="System.String" Scope="User">
       <Value Profile="(Default)">Blue|Light</Value>
     </Setting>
-    <Setting Name="ServerList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="ServerList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;Atomos&lt;/string&gt;
@@ -107,7 +133,7 @@
   &lt;string&gt;Zalera&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="GameLanguageList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="GameLanguageList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;English&lt;/string&gt;

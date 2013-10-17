@@ -107,7 +107,7 @@ namespace FFXIVAPP.Client.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -116,18 +116,41 @@ namespace FFXIVAPP.Client.Properties {
   <string>Blue|Light</string>
   <string>Purple|Light</string>
   <string>Orange|Light</string>
+  <string>Brown|Light</string>
+  <string>Cobalt|Light</string>
+  <string>Crimson|Light</string>
+  <string>Cyan|Light</string>
+  <string>Emerald|Light</string>
+  <string>Indigo|Light</string>
+  <string>Magenta|Light</string>
+  <string>Mauve|Light</string>
+  <string>Olive|Light</string>
+  <string>Sienna|Light</string>
+  <string>Steel|Light</string>
+  <string>Teal|Light</string>
+  <string>Violet|Light</string>
   <string>Red|Dark</string>
   <string>Green|Dark</string>
   <string>Blue|Dark</string>
   <string>Purple|Dark</string>
   <string>Orange|Dark</string>
+  <string>Brown|Dark</string>
+  <string>Cobalt|Dark</string>
+  <string>Crimson|Dark</string>
+  <string>Cyan|Dark</string>
+  <string>Emerald|Dark</string>
+  <string>Indigo|Dark</string>
+  <string>Magenta|Dark</string>
+  <string>Mauve|Dark</string>
+  <string>Olive|Dark</string>
+  <string>Sienna|Dark</string>
+  <string>Steel|Dark</string>
+  <string>Teal|Dark</string>
+  <string>Violet|Dark</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ThemeList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ThemeList"]));
-            }
-            set {
-                this["ThemeList"] = value;
             }
         }
         
@@ -143,7 +166,7 @@ namespace FFXIVAPP.Client.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
@@ -173,12 +196,9 @@ namespace FFXIVAPP.Client.Properties {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ServerList"]));
             }
-            set {
-                this["ServerList"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -190,9 +210,6 @@ namespace FFXIVAPP.Client.Properties {
         public global::System.Collections.Specialized.StringCollection GameLanguageList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["GameLanguageList"]));
-            }
-            set {
-                this["GameLanguageList"] = value;
             }
         }
         
