@@ -29,7 +29,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         private static Models.Events.Event _lastEventParty;
         private static string _lastNameParty = "";
         private static string _lastActionParty = "";
-        
+
 
         // setup monster info
         private static string _lastMobName = "";
