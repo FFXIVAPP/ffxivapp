@@ -299,7 +299,7 @@
     <Compile Include="SettingsProviders\Parse\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
-    <Compile Include="Plugins\Parse\Utilities\CommandBuilder.cs" />
+    <Compile Include="Utilities\CommandBuilder.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Actions.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Beneficial.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.cs" />

@@ -152,11 +152,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             StatMonitor.Clear();
         }
 
-        public void Toggle()
-        {
-            Filter.IsEnabled = !Filter.IsEnabled;
-        }
-
         #endregion
 
         #region Implementation of INotifyPropertyChanged

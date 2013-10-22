@@ -21,8 +21,13 @@ namespace FFXIVAPP.Client.Utilities
         [DoNotObfuscate]
         public static class Event
         {
+            public static bool IsPaused = false;
             public static void Process(ChatEntry chatEntry)
             {
+                if (IsPaused)
+                {
+                    return;
+                }
                 try
                 {
                     var line = chatEntry.Line.Replace("  ", " ");

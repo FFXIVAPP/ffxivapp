@@ -17,8 +17,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     [DoNotObfuscate]
     public static partial class Filter
     {
-        public static bool IsEnabled = true;
-
         // setup self info
         private static readonly string You = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
         private static Models.Events.Event _lastEventPlayer;
@@ -42,11 +40,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 
         public static void Process(string cleaned, Models.Events.Event e)
         {
-            if (!IsEnabled)
-            {
-                return;
-            }
-
             _lastEventParty = _lastEventParty ?? new Models.Events.Event();
             _lastEventPlayer = _lastEventPlayer ?? new Models.Events.Event();
             _autoAction = false;

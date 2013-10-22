@@ -21,7 +21,7 @@ namespace FFXIVAPP.Client.Delegates
     [DoNotObfuscate]
     internal static class ChatWorkerDelegate
     {
-        public static bool IsPaused = false;
+        public static bool IsPaused { get; set; }
 
         /// <summary>
         /// </summary>
@@ -41,6 +41,11 @@ namespace FFXIVAPP.Client.Delegates
             {
                 DispatcherHelper.Invoke(delegate
                 {
+                    if (chatEntry.Line.ToLower()
+                                 .StartsWith("com:"))
+                    {
+                        LogPublisher.HandleCommands(chatEntry);
+                    }
                     LogPublisher.Event.Process(chatEntry);
                     LogPublisher.Log.Process(chatEntry);
                     LogPublisher.Parse.Process(chatEntry);

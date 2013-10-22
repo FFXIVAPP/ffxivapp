@@ -26,19 +26,26 @@ namespace FFXIVAPP.Client.Utilities
         [DoNotObfuscate]
         public static class Log
         {
+            public static bool IsPaused = false;
+
             public static void Process(ChatEntry chatEntry)
             {
-                // setup variables
-                var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
-                var line = chatEntry.Line.Replace("  ", " ");
-                var rawLine = line;
-                var color = (Constants.Colors.ContainsKey(chatEntry.Code)) ? Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                var isLS = Constants.Log.Linkshells.ContainsKey(chatEntry.Code);
-                line = isLS ? Constants.Log.Linkshells[chatEntry.Code] + line : line;
-                var playerName = "";
+                if (IsPaused)
+                {
+                    return;
+                }
                 try
                 {
+                    // setup variables
+                    var timeStampColor = Settings.Default.TimeStampColor.ToString();
+                    var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
+                    var line = chatEntry.Line.Replace("  ", " ");
+                    var rawLine = line;
+                    var color = (Constants.Colors.ContainsKey(chatEntry.Code)) ? Constants.Colors[chatEntry.Code][0] : "FFFFFF";
+                    var isLS = Constants.Log.Linkshells.ContainsKey(chatEntry.Code);
+                    line = isLS ? Constants.Log.Linkshells[chatEntry.Code] + line : line;
+                    var playerName = "";
+
                     // handle tabs
                     if (CheckMode(chatEntry.Code, Constants.Log.ChatPublic))
                     {
@@ -85,13 +92,6 @@ namespace FFXIVAPP.Client.Utilities
                             }, flowDoc._FDR);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
-                try
-                {
                     // handle translation
                     if (Constants.Log.PluginSettings.EnableTranslate)
                     {
@@ -124,13 +124,6 @@ namespace FFXIVAPP.Client.Utilities
                             GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
-                try
-                {
                     // handle debug tab
                     if (Constants.Log.PluginSettings.ShowAsciiDebug)
                     {
