@@ -49,43 +49,36 @@ namespace FFXIVAPP.Client.Delegates
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen)
-                {
-                    return;
-                }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
                 if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                try
-                {
-                    UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
-                                                                                   .Skip(chunksProcessed * chunkSize)));
-                    XIVDBViewModel.Instance.KillProcessed++;
-                }
-                catch (Exception ex)
-                {
-                    UploadHelper.Processing = false;
-                }
+                ProcessUploads();
             }, saveToDictionary);
         }
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
+        public static void ProcessUploads()
         {
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.KillUploadEnabled)
+            {
+                return;
+            }
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
+                UploadHelper.Processing = true;
                 UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
                                                                                .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.NPCProcessed++;
             }
             catch (Exception ex)
             {
+                UploadHelper.Processing = false;
             }
         }
     }

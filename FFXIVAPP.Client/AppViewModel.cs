@@ -37,6 +37,7 @@ namespace FFXIVAPP.Client
         private string _configurationsPath;
         private string _currentVersion;
         private string _downloadUri;
+        private Dictionary<string, bool> _enabledFeatures;
         private bool _hasNewVersion;
         private string _latestVersion;
         private Dictionary<string, string> _locale;
@@ -286,7 +287,25 @@ namespace FFXIVAPP.Client
             get { return _updateNotes ?? (_updateNotes = new List<string>()); }
             set
             {
+                if (_updateNotes == null)
+                {
+                    _updateNotes = new List<string>();
+                }
                 _updateNotes = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Dictionary<string, bool> EnabledFeatures
+        {
+            get { return _enabledFeatures ?? (_enabledFeatures = new Dictionary<string, bool>()); }
+            set
+            {
+                if (_enabledFeatures == null)
+                {
+                    _enabledFeatures = new Dictionary<string, bool>();
+                }
+                _enabledFeatures = value;
                 RaisePropertyChanged();
             }
         }

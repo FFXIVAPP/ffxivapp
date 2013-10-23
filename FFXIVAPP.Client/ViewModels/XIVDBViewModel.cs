@@ -137,6 +137,11 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
+        public bool KillUploadEnabled { get; set; }
+        public bool LootUploadEnabled { get; set; }
+        public bool MobUploadEnabled { get; set; }
+        public bool NPCUploadEnabled { get; set; }
+
         #endregion
 
         public XIVDBViewModel()

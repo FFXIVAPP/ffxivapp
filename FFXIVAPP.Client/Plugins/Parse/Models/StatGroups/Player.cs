@@ -5,8 +5,12 @@
 
 #region Usings
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
+using FFXIVAPP.Client.Delegates;
+using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
@@ -19,6 +23,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     [DoNotObfuscate]
     public partial class Player : StatGroup
     {
+        private static int _statusTimerTicks = 0;
+        private static readonly Timer StatusUpdateTimer = new Timer(1000);
+
+        public static List<StatusEntry> StatusEntries = new List<StatusEntry>();
+
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
@@ -30,12 +39,40 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             LineHistory = new List<LineHistory>();
             DamageOverTimeActions = new Dictionary<string, DamageOverTime.Player>();
             LastDamageAmount = 5;
+            StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
         }
 
         public List<LineHistory> LineHistory { get; set; }
+
         public Dictionary<string, DamageOverTime.Player> DamageOverTimeActions { get; set; }
 
         public decimal LastDamageAmount { get; set; }
+
+        private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            StatusEntries.Clear();
+            if (MonsterWorkerDelegate.NPCEntries.Any())
+            {
+                try
+                {
+                    StatusEntries = MonsterWorkerDelegate.NPCEntries.First(e => String.Equals(e.Name, Name, StringComparison.CurrentCultureIgnoreCase) && e.NPCType == NPCType.PC)
+                                                         .StatusList;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            _statusTimerTicks++;
+            if (_statusTimerTicks == 3)
+            {
+                _statusTimerTicks = 0;
+                // apply dot tracking if any
+                if (StatusEntries.Any())
+                {
+                    
+                }
+            }
+        }
 
         private void InitStats()
         {

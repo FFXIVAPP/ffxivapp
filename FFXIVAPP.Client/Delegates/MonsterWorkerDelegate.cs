@@ -116,43 +116,36 @@ namespace FFXIVAPP.Client.Delegates
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen)
-                {
-                    return;
-                }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
                 if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                try
-                {
-                    UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
-                                                                                      .Skip(chunksProcessed * chunkSize)));
-                    XIVDBViewModel.Instance.MobProcessed++;
-                }
-                catch (Exception ex)
-                {
-                    UploadHelper.Processing = false;
-                }
+                ProcessUploads();
             }, saveToDictionary);
         }
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
+        public static void ProcessUploads()
         {
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.MobUploadEnabled)
+            {
+                return;
+            }
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
+                UploadHelper.Processing = true;
                 UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                   .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.NPCProcessed++;
             }
             catch (Exception ex)
             {
+                UploadHelper.Processing = false;
             }
         }
     }

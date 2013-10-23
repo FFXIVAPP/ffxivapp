@@ -21,6 +21,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
@@ -240,7 +241,33 @@ namespace FFXIVAPP.Client
                     var jsonResult = JObject.Parse(responseText);
                     var latest = jsonResult["Version"].ToString();
                     var updateNotes = jsonResult["Notes"].ToList();
-                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
+                    var enabledFeatures = jsonResult["Features"];
+                    try
+                    {
+                        foreach (var feature in enabledFeatures)
+                        {
+                            var key = feature["Hash"].ToString();
+                            var enabled = (bool) feature["Enabled"];
+                            switch (key)
+                            {
+                                case "6965ABA3-D6E3-469B-A4A6-74C1C42938D9":
+                                    XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
+                                    break;
+                                case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
+                                    XIVDBViewModel.Instance.MobUploadEnabled = enabled;
+                                    break;
+                                case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
+                                    XIVDBViewModel.Instance.KillUploadEnabled = enabled;
+                                    break;
+                                case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
+                                    XIVDBViewModel.Instance.LootUploadEnabled = enabled;
+                                    break;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     try
                     {
                         foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
@@ -251,6 +278,7 @@ namespace FFXIVAPP.Client
                     catch (Exception ex)
                     {
                     }
+                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
                     AppViewModel.Instance.LatestVersion = latest;
                     switch (latest)
                     {

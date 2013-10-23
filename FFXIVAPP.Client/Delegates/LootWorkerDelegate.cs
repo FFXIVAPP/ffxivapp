@@ -49,43 +49,36 @@ namespace FFXIVAPP.Client.Delegates
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen)
-                {
-                    return;
-                }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
                 if (LootEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                try
-                {
-                    UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
-                                                                                   .Skip(chunksProcessed * chunkSize)));
-                    XIVDBViewModel.Instance.LootProcessed++;
-                }
-                catch (Exception ex)
-                {
-                    UploadHelper.Processing = false;
-                }
+                ProcessUploads();
             }, saveToDictionary);
         }
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
+        public static void ProcessUploads()
         {
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.NPCUploadEnabled)
+            {
+                return;
+            }
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
-                UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
-                                                                               .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.Processing = true;
+                UploadHelper.PostUpload("npc", new List<LootEntry>(LootEntries.ToList()
+                                                                              .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.NPCProcessed++;
             }
             catch (Exception ex)
             {
+                UploadHelper.Processing = false;
             }
         }
     }

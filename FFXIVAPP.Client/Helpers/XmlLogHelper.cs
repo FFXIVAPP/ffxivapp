@@ -29,19 +29,19 @@ namespace FFXIVAPP.Client.Helpers
             {
                 if (NPCWorkerDelegate.UniqueNPCEntries.Any())
                 {
-                    NPCWorkerDelegate.ProcessRemaining();
+                    NPCWorkerDelegate.ProcessUploads();
                 }
                 if (MonsterWorkerDelegate.UniqueNPCEntries.Any())
                 {
-                    MonsterWorkerDelegate.ProcessRemaining();
+                    MonsterWorkerDelegate.ProcessUploads();
                 }
                 if (KillWorkerDelegate.KillEntries.Any())
                 {
-                    KillWorkerDelegate.ProcessRemaining();
+                    KillWorkerDelegate.ProcessUploads();
                 }
                 if (LootWorkerDelegate.LootEntries.Any())
                 {
-                    LootWorkerDelegate.ProcessRemaining();
+                    LootWorkerDelegate.ProcessUploads();
                 }
             }
             if (AppViewModel.Instance.ChatHistory.Any())
