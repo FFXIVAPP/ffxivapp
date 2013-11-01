@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Delegates
                 UploadHelper.Processing = true;
                 UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
                                                                                .Skip(chunksProcessed * chunkSize)));
-                XIVDBViewModel.Instance.NPCProcessed++;
+                XIVDBViewModel.Instance.KillProcessed++;
             }
             catch (Exception ex)
             {

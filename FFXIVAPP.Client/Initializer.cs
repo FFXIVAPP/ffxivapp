@@ -319,7 +319,9 @@ namespace FFXIVAPP.Client
                                     break;
                                 }
                                 AppViewModel.Instance.HasNewVersion = true;
+                                break;
                             }
+                            AppViewModel.Instance.HasNewVersion = true;
                             break;
                     }
                 }

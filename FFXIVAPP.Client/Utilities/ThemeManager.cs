@@ -40,7 +40,7 @@ namespace FFXIVAPP.Client.Utilities
                 {
                     var accents = new[]
                     {
-                        "Red", "Green", "Blue", "Purple", "Orange", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Indigo", "Magenta", "Mauve", "Olive", "Sienna", "Steel", "Teal", "Violet"
+                        "Red", "Green", "Blue", "Purple", "Orange", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Indigo", "Magenta", "Mauve", "Olive", "Sienna", "Steel", "Teal", "Violet", "Amber", "Yellow", "Lime", "Pink"
                     };
                     const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
                     _defaultAccents = accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))

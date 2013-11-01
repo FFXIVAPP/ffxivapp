@@ -141,7 +141,7 @@ namespace FFXIVAPP.Client.Delegates
                 UploadHelper.Processing = true;
                 UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
                                                                                   .Skip(chunksProcessed * chunkSize)));
-                XIVDBViewModel.Instance.NPCProcessed++;
+                XIVDBViewModel.Instance.MobProcessed++;
             }
             catch (Exception ex)
             {

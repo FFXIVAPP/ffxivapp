@@ -44,6 +44,10 @@
   &lt;string&gt;Steel|Light&lt;/string&gt;
   &lt;string&gt;Teal|Light&lt;/string&gt;
   &lt;string&gt;Violet|Light&lt;/string&gt;
+  &lt;string&gt;Amber|Light&lt;/string&gt;
+  &lt;string&gt;Yellow|Light&lt;/string&gt;
+  &lt;string&gt;Lime|Light&lt;/string&gt;
+  &lt;string&gt;Pink|Light&lt;/string&gt;
   &lt;string&gt;Red|Dark&lt;/string&gt;
   &lt;string&gt;Green|Dark&lt;/string&gt;
   &lt;string&gt;Blue|Dark&lt;/string&gt;
@@ -62,6 +66,10 @@
   &lt;string&gt;Steel|Dark&lt;/string&gt;
   &lt;string&gt;Teal|Dark&lt;/string&gt;
   &lt;string&gt;Violet|Dark&lt;/string&gt;
+  &lt;string&gt;Amber|Dark&lt;/string&gt;
+  &lt;string&gt;Yellow|Dark&lt;/string&gt;
+  &lt;string&gt;Lime|Dark&lt;/string&gt;
+  &lt;string&gt;Pink|Dark&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="Theme" Type="System.String" Scope="User">

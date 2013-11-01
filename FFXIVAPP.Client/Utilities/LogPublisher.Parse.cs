@@ -5,11 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
-using FFXIVAPP.Client.Plugins.Parse.Utilities;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
@@ -25,7 +24,27 @@ namespace FFXIVAPP.Client.Utilities
         [DoNotObfuscate]
         public static class Parse
         {
+            #region Property Bindings
+
+            private static List<string> _needGreedHistory;
+
+            public static List<string> NeedGreedHistory
+            {
+                get { return _needGreedHistory ?? (_needGreedHistory = new List<string>()); }
+                set
+                {
+                    if (_needGreedHistory == null)
+                    {
+                        _needGreedHistory = new List<string>();
+                    }
+                    _needGreedHistory = value;
+                }
+            }
+
+            #endregion
+
             public static bool IsPaused = false;
+
             public static void Process(ChatEntry chatEntry)
             {
                 if (IsPaused)
@@ -44,6 +63,10 @@ namespace FFXIVAPP.Client.Utilities
                         {
                             timeStampColor, "#" + color
                         }, MainView.View.AbilityChatFD._FDR);
+                    }
+                    if (Constants.Parse.NeedGreed.Any(line.Contains))
+                    {
+                        NeedGreedHistory.Add(line);
                     }
                     DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatEntry.Code, 16), line));
                 }

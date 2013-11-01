@@ -16,6 +16,7 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.RegularExpressions;
+using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -116,8 +117,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="source"></param>
         private void AddKillToMonster(string target, string source)
         {
+            var mobName = target.Trim();
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", target, source));
-            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, target);
+            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, mobName);
             try
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
@@ -127,7 +129,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                     killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
                     killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
                 }
-                var mobName = target.Trim();
                 if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                 {
                     if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
@@ -135,6 +136,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                         var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
                         killEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
+                }
+                else
+                {
+                    killEntry.ModelID = 0;
                 }
                 DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
             }
@@ -197,6 +202,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Loot.NoKillInLastThreeSeconds", e);
             }
+            if (LogPublisher.Parse.NeedGreedHistory.Any(item => item.ToLowerInvariant()
+                                                                    .Contains(thing.ToLowerInvariant())))
+            {
+                return;
+            }
             try
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
@@ -213,6 +223,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                         var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
                         lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
+                }
+                else
+                {
+                    lootEntry.ModelID = 0;
                 }
                 DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
             }

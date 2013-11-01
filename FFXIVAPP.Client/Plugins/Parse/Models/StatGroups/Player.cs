@@ -35,12 +35,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public Player(string name) : base(name)
         {
+            NPCEntry = new NPCEntry
+            {
+                Name = name,
+                StatusList = new List<StatusEntry>()
+            };
             InitStats();
             LineHistory = new List<LineHistory>();
             DamageOverTimeActions = new Dictionary<string, DamageOverTime.Player>();
             LastDamageAmount = 5;
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
         }
+
+        public static NPCEntry NPCEntry { get; set; }
 
         public List<LineHistory> LineHistory { get; set; }
 
@@ -55,8 +62,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 try
                 {
-                    StatusEntries = MonsterWorkerDelegate.NPCEntries.First(e => String.Equals(e.Name, Name, StringComparison.CurrentCultureIgnoreCase) && e.NPCType == NPCType.PC)
-                                                         .StatusList;
+                    NPCEntry = MonsterWorkerDelegate.NPCEntries.First(e => String.Equals(e.Name, Name, StringComparison.CurrentCultureIgnoreCase) && e.NPCType == NPCType.PC);
+                    StatusEntries = NPCEntry.StatusList;
                 }
                 catch (Exception ex)
                 {
@@ -69,7 +76,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 // apply dot tracking if any
                 if (StatusEntries.Any())
                 {
-                    
                 }
             }
         }

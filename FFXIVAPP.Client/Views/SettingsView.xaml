@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Client="clr-namespace:FFXIVAPP.Client"
              xmlns:Common="clr-namespace:FFXIVAPP.Common;assembly=FFXIVAPP.Common"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
@@ -11,6 +12,10 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
 
     <UserControl.DataContext>
         <Binding Source="{StaticResource SettingsViewModel}" />
@@ -254,6 +259,7 @@
                                 </FlowDocumentScrollViewer>
                             </StackPanel>
                         </GroupBox>
+                        <Label>More details coming soon!</Label>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

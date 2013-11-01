@@ -37,22 +37,14 @@ namespace FFXIVAPP.Client.Delegates
             };
             AppViewModel.Instance.ChatHistory.Add(chatEntry);
             // process official plugins
-            Func<bool> publish = delegate
-            {
-                DispatcherHelper.Invoke(delegate
-                {
-                    if (chatEntry.Line.ToLower()
+            if (chatEntry.Line.ToLower()
                                  .StartsWith("com:"))
-                    {
-                        LogPublisher.HandleCommands(chatEntry);
-                    }
-                    LogPublisher.Event.Process(chatEntry);
-                    LogPublisher.Log.Process(chatEntry);
-                    LogPublisher.Parse.Process(chatEntry);
-                });
-                return true;
-            };
-            publish.BeginInvoke(null, null);
+            {
+                LogPublisher.HandleCommands(chatEntry);
+            }
+            LogPublisher.Event.Process(chatEntry);
+            LogPublisher.Log.Process(chatEntry);
+            LogPublisher.Parse.Process(chatEntry);
             // process thirdparty plugins
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {

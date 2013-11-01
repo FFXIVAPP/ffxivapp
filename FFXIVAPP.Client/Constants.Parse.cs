@@ -38,6 +38,14 @@ namespace FFXIVAPP.Client
                 "1BAB"
             };
 
+            public static readonly List<string> NeedGreed = new List<string>
+            {
+                "rolls Need",
+                "rolls Greed",
+                "dés Besoin",
+                "dés Cupidité"
+            };
+
             #endregion
 
             #region Property Bindings

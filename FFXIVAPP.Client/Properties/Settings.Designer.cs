@@ -109,45 +109,26 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Red|Light</string>
-  <string>Green|Light</string>
-  <string>Blue|Light</string>
-  <string>Purple|Light</string>
-  <string>Orange|Light</string>
-  <string>Brown|Light</string>
-  <string>Cobalt|Light</string>
-  <string>Crimson|Light</string>
-  <string>Cyan|Light</string>
-  <string>Emerald|Light</string>
-  <string>Indigo|Light</string>
-  <string>Magenta|Light</string>
-  <string>Mauve|Light</string>
-  <string>Olive|Light</string>
-  <string>Sienna|Light</string>
-  <string>Steel|Light</string>
-  <string>Teal|Light</string>
-  <string>Violet|Light</string>
-  <string>Red|Dark</string>
-  <string>Green|Dark</string>
-  <string>Blue|Dark</string>
-  <string>Purple|Dark</string>
-  <string>Orange|Dark</string>
-  <string>Brown|Dark</string>
-  <string>Cobalt|Dark</string>
-  <string>Crimson|Dark</string>
-  <string>Cyan|Dark</string>
-  <string>Emerald|Dark</string>
-  <string>Indigo|Dark</string>
-  <string>Magenta|Dark</string>
-  <string>Mauve|Dark</string>
-  <string>Olive|Dark</string>
-  <string>Sienna|Dark</string>
-  <string>Steel|Dark</string>
-  <string>Teal|Dark</string>
-  <string>Violet|Dark</string>
-</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>Red|Light</string>\r\n  <string>Green|Light</string>\r\n  <string>Blue|Light</" +
+            "string>\r\n  <string>Purple|Light</string>\r\n  <string>Orange|Light</string>\r\n  <st" +
+            "ring>Brown|Light</string>\r\n  <string>Cobalt|Light</string>\r\n  <string>Crimson|Li" +
+            "ght</string>\r\n  <string>Cyan|Light</string>\r\n  <string>Emerald|Light</string>\r\n " +
+            " <string>Indigo|Light</string>\r\n  <string>Magenta|Light</string>\r\n  <string>Mauv" +
+            "e|Light</string>\r\n  <string>Olive|Light</string>\r\n  <string>Sienna|Light</string" +
+            ">\r\n  <string>Steel|Light</string>\r\n  <string>Teal|Light</string>\r\n  <string>Viol" +
+            "et|Light</string>\r\n  <string>Amber|Light</string>\r\n  <string>Yellow|Light</strin" +
+            "g>\r\n  <string>Lime|Light</string>\r\n  <string>Pink|Light</string>\r\n  <string>Red|" +
+            "Dark</string>\r\n  <string>Green|Dark</string>\r\n  <string>Blue|Dark</string>\r\n  <s" +
+            "tring>Purple|Dark</string>\r\n  <string>Orange|Dark</string>\r\n  <string>Brown|Dark" +
+            "</string>\r\n  <string>Cobalt|Dark</string>\r\n  <string>Crimson|Dark</string>\r\n  <s" +
+            "tring>Cyan|Dark</string>\r\n  <string>Emerald|Dark</string>\r\n  <string>Indigo|Dark" +
+            "</string>\r\n  <string>Magenta|Dark</string>\r\n  <string>Mauve|Dark</string>\r\n  <st" +
+            "ring>Olive|Dark</string>\r\n  <string>Sienna|Dark</string>\r\n  <string>Steel|Dark</" +
+            "string>\r\n  <string>Teal|Dark</string>\r\n  <string>Violet|Dark</string>\r\n  <string" +
+            ">Amber|Dark</string>\r\n  <string>Yellow|Dark</string>\r\n  <string>Lime|Dark</strin" +
+            "g>\r\n  <string>Pink|Dark</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection ThemeList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ThemeList"]));
