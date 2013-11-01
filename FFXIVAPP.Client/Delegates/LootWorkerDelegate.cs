@@ -63,7 +63,7 @@ namespace FFXIVAPP.Client.Delegates
         /// </summary>
         public static void ProcessUploads()
         {
-            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.NPCUploadEnabled)
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.LootUploadEnabled)
             {
                 return;
             }
