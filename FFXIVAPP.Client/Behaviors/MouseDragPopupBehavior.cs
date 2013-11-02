@@ -8,11 +8,13 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Interactivity;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Behaviors
 {
+    [DoNotObfuscate]
     internal class MouseDragPopupBehavior : Behavior<Popup>
     {
         private bool _mouseDown;

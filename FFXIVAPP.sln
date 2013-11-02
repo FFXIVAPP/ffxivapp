@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Client", "FFXIVAPP.Client\FFXIVAPP.Client.csproj", "{6ECE4D37-06F2-4457-BA57-268430293246}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Common", "FFXIVAPP.Common\FFXIVAPP.Common.csproj", "{8D6CDA64-78BE-4BF0-B613-0C9AFA225DF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.IPluginInterface", "FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj", "{56E3FD21-17C4-4306-BA2C-ADAF6AAEA330}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Log", "FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.csproj", "{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A4C9A329-AAB2-4B43-B3AE-E3E29EB6A3ED}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,10 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A4C9A3
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Parse", "FFXIVAPP.Plugin.Parse\FFXIVAPP.Plugin.Parse.csproj", "{579B29CA-AAAB-4DEB-9718-6F23AF05094B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Event", "FFXIVAPP.Plugin.Event\FFXIVAPP.Plugin.Event.csproj", "{8B6E13D1-8849-4B1A-8329-2343240DE02C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Updater", "FFXIVAPP.Updater\FFXIVAPP.Updater.csproj", "{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}"
 EndProject
@@ -41,24 +37,6 @@ Global
 		{56E3FD21-17C4-4306-BA2C-ADAF6AAEA330}.Debug|x86.ActiveCfg = Debug|x86
 		{56E3FD21-17C4-4306-BA2C-ADAF6AAEA330}.Release|x86.ActiveCfg = Release|x86
 		{56E3FD21-17C4-4306-BA2C-ADAF6AAEA330}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.Debug|x86.ActiveCfg = Debug|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.Debug|x86.Build.0 = Debug|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.Release|x86.ActiveCfg = Release|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.Release|x86.Build.0 = Release|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{534B48FF-DC3B-47C9-86C4-1FD72BF61F66}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.Debug|x86.ActiveCfg = Debug|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.Debug|x86.Build.0 = Debug|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.Release|x86.ActiveCfg = Release|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.Release|x86.Build.0 = Release|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{579B29CA-AAAB-4DEB-9718-6F23AF05094B}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.Debug|x86.ActiveCfg = Debug|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.Debug|x86.Build.0 = Debug|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.Release|x86.ActiveCfg = Release|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.Release|x86.Build.0 = Release|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{8B6E13D1-8849-4B1A-8329-2343240DE02C}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Debug|x86.ActiveCfg = Debug|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Debug|x86.Build.0 = Debug|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Release|x86.ActiveCfg = Release|x86

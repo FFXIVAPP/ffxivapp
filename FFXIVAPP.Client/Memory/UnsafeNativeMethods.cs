@@ -7,11 +7,13 @@
 
 using System;
 using System.Runtime.InteropServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscateType]
     public static class UnsafeNativeMethods
     {
         public const int ProcessAllAccess = 0x1F0FFF;

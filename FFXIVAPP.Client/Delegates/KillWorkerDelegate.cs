@@ -13,16 +13,19 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Delegates
 {
+    [DoNotObfuscate]
     internal static class KillWorkerDelegate
     {
         #region Declarations
 
-        public static readonly IList<KillEntry> KillList = new List<KillEntry>();
+        public static readonly IList<KillEntry> KillEntries = new List<KillEntry>();
+
         private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
         #endregion
@@ -39,50 +42,43 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry)))
                 {
-                    KillList.Add(killEntry);
+                    KillEntries.Add(killEntry);
                 }
                 XIVDBViewModel.Instance.KillSeen++;
                 return true;
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
-                {
-                    return;
-                }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (KillList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                try
-                {
-                    UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList()
-                                                                                .Skip(chunksProcessed * chunkSize)));
-                    XIVDBViewModel.Instance.KillProcessed++;
-                }
-                catch (Exception ex)
-                {
-                    UploadHelper.Processing = false;
-                }
+                ProcessUploads();
             }, saveToDictionary);
         }
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
+        public static void ProcessUploads()
         {
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.KillUploadEnabled)
+            {
+                return;
+            }
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
-                UploadHelper.PostUpload("kill", new List<KillEntry>(KillList.ToList()
-                                                                            .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.Processing = true;
+                UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
+                                                                               .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.KillProcessed++;
             }
             catch (Exception ex)
             {
+                UploadHelper.Processing = false;
             }
         }
     }

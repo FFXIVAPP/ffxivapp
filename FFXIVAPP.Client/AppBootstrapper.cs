@@ -6,25 +6,22 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using FFXIVAPP.Common.Utilities;
-using MahApps.Metro.Controls;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     internal class AppBootstrapper : INotifyPropertyChanged
     {
         #region Property Bindings
 
         private static AppBootstrapper _instance;
-        private MetroWindow _donations;
-        private List<Window> _styledWindows;
 
         public static AppBootstrapper Instance
         {
@@ -59,6 +56,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.ConfigurationsPath = "./Configurations/";
             AppViewModel.Instance.LogsPath = "./Logs/";
             AppViewModel.Instance.ScreenShotsPath = "./ScreenShots/";
+            AppViewModel.Instance.SoundsPath = "./Sounds/";
+            AppViewModel.Instance.SettingsPath = "./Settings/";
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();

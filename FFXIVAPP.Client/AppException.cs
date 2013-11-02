@@ -7,11 +7,13 @@
 
 using System;
 using System.Runtime.Serialization;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     [Serializable]
     public class AppException : Exception
     {

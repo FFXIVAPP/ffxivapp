@@ -6,11 +6,13 @@
 #region Usings
 
 using System.Runtime.InteropServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     [StructLayout(LayoutKind.Sequential)]
     internal struct ChatPointers
     {

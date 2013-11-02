@@ -13,11 +13,13 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Delegates
 {
+    [DoNotObfuscate]
     internal static class MonsterWorkerDelegate
     {
         #region Property Backings
@@ -46,9 +48,15 @@ namespace FFXIVAPP.Client.Delegates
 
         #region Declarations
 
+        // FULL LIST
+        public static IList<NPCEntry> NPCEntries = new List<NPCEntry>();
+
         public static NPCEntry CurrentUser;
-        public static readonly IList<NPCEntry> NPCList = new List<NPCEntry>();
-        public static readonly IList<NPCEntry> PlayerList = new List<NPCEntry>();
+
+        //UNIQUE LISTS
+        public static readonly IList<NPCEntry> UniqueNPCEntries = new List<NPCEntry>();
+        public static readonly IList<NPCEntry> UniquePlayerEntries = new List<NPCEntry>();
+
         private static readonly UploadHelper UploadHelper = new UploadHelper(100);
 
         #endregion
@@ -61,13 +69,14 @@ namespace FFXIVAPP.Client.Delegates
             {
                 return;
             }
+            NPCEntries = npcEntries;
             CurrentUser = npcEntries.First();
             Func<bool> saveToDictionary = delegate
             {
                 try
                 {
                     var monsters = npcEntries.Where(n => n.NPCType == NPCType.Monster && !Pets.Contains(n.ModelID));
-                    var enumerable = NPCList.ToList();
+                    var enumerable = UniqueNPCEntries.ToList();
                     foreach (var npcEntry in monsters)
                     {
                         var exists = enumerable.FirstOrDefault(n => n.ID == npcEntry.ID);
@@ -77,7 +86,7 @@ namespace FFXIVAPP.Client.Delegates
                         }
                         if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry)))
                         {
-                            NPCList.Add(npcEntry);
+                            UniqueNPCEntries.Add(npcEntry);
                         }
                         XIVDBViewModel.Instance.MobSeen++;
                     }
@@ -88,7 +97,7 @@ namespace FFXIVAPP.Client.Delegates
                 try
                 {
                     var players = npcEntries.Where(n => n.NPCType == NPCType.PC);
-                    var enumerable = PlayerList.ToList();
+                    var enumerable = UniquePlayerEntries.ToList();
                     foreach (var npcEntry in players)
                     {
                         var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, npcEntry.Name, StringComparison.CurrentCultureIgnoreCase));
@@ -96,7 +105,7 @@ namespace FFXIVAPP.Client.Delegates
                         {
                             continue;
                         }
-                        PlayerList.Add(npcEntry);
+                        UniquePlayerEntries.Add(npcEntry);
                         XIVDBViewModel.Instance.PlayerSeen++;
                     }
                 }
@@ -107,43 +116,36 @@ namespace FFXIVAPP.Client.Delegates
             };
             saveToDictionary.BeginInvoke(delegate
             {
-                if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration)
-                {
-                    return;
-                }
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (NPCList.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
-                try
-                {
-                    UploadHelper.Processing = true;
-                    UploadHelper.PostUpload("mob", new List<NPCEntry>(NPCList.ToList()
-                                                                             .Skip(chunksProcessed * chunkSize)));
-                    XIVDBViewModel.Instance.MobProcessed++;
-                }
-                catch (Exception ex)
-                {
-                    UploadHelper.Processing = false;
-                }
+                ProcessUploads();
             }, saveToDictionary);
         }
 
         /// <summary>
         /// </summary>
-        public static void ProcessRemaining()
+        public static void ProcessUploads()
         {
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.MobUploadEnabled)
+            {
+                return;
+            }
             var chunkSize = UploadHelper.ChunkSize;
             var chunksProcessed = UploadHelper.ChunksProcessed;
             try
             {
-                UploadHelper.PostUpload("mob", new List<NPCEntry>(NPCList.ToList()
-                                                                         .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.Processing = true;
+                UploadHelper.PostUpload("mob", new List<NPCEntry>(UniqueNPCEntries.ToList()
+                                                                                  .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.MobProcessed++;
             }
             catch (Exception ex)
             {
+                UploadHelper.Processing = false;
             }
         }
     }

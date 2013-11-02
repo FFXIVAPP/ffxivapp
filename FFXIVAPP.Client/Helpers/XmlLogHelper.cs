@@ -7,14 +7,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
-using Newtonsoft.Json;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
@@ -22,35 +21,12 @@ namespace FFXIVAPP.Client.Helpers
 {
     public static class XmlLogHelper
     {
+        [DoNotObfuscate]
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
             ChatWorkerDelegate.IsPaused = true;
             if (!isTemporary)
             {
-                if (NPCWorkerDelegate.NPCList.Any())
-                {
-                    var npcLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "NPCHistory.json";
-                    File.WriteAllText(AppViewModel.Instance.LogsPath + npcLogName, JsonConvert.SerializeObject(NPCWorkerDelegate.NPCList));
-                    NPCWorkerDelegate.ProcessRemaining();
-                }
-                if (MonsterWorkerDelegate.NPCList.Any())
-                {
-                    var monsterLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "MonsterHistory.json";
-                    File.WriteAllText(AppViewModel.Instance.LogsPath + monsterLogName, JsonConvert.SerializeObject(MonsterWorkerDelegate.NPCList));
-                    MonsterWorkerDelegate.ProcessRemaining();
-                }
-                if (KillWorkerDelegate.KillList.Any())
-                {
-                    var killLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "KillHistory.json";
-                    File.WriteAllText(AppViewModel.Instance.LogsPath + killLogName, JsonConvert.SerializeObject(KillWorkerDelegate.KillList));
-                    KillWorkerDelegate.ProcessRemaining();
-                }
-                if (LootWorkerDelegate.LootList.Any())
-                {
-                    var lootLogName = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_") + "LootHistory.json";
-                    File.WriteAllText(AppViewModel.Instance.LogsPath + lootLogName, JsonConvert.SerializeObject(LootWorkerDelegate.LootList));
-                    LootWorkerDelegate.ProcessRemaining();
-                }
             }
             if (AppViewModel.Instance.ChatHistory.Any())
             {

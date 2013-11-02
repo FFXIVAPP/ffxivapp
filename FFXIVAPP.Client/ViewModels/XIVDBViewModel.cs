@@ -6,9 +6,11 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.ViewModels
 {
+    [DoNotObfuscate]
     [Export(typeof (XIVDBViewModel))]
     internal sealed class XIVDBViewModel : INotifyPropertyChanged
     {
@@ -17,12 +19,16 @@ namespace FFXIVAPP.Client.ViewModels
         private static XIVDBViewModel _instance;
         private int _killProcessed;
         private int _killSeen;
+        private bool _killUploadEnabled;
         private int _lootProcessed;
         private int _lootSeen;
+        private bool _lootUploadEnabled;
         private int _mobProcessed;
         private int _mobSeen;
+        private bool _mobUploadEnabled;
         private int _npcProcessed;
         private int _npcSeen;
+        private bool _npcUploadEnabled;
         private int _playerProcessed;
         private int _playerSeen;
 
@@ -134,6 +140,46 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Declarations
+
+        public bool KillUploadEnabled
+        {
+            get { return _killUploadEnabled; }
+            set
+            {
+                _killUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool LootUploadEnabled
+        {
+            get { return _lootUploadEnabled; }
+            set
+            {
+                _lootUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool MobUploadEnabled
+        {
+            get { return _mobUploadEnabled; }
+            set
+            {
+                _mobUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool NPCUploadEnabled
+        {
+            get { return _npcUploadEnabled; }
+            set
+            {
+                _npcUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
 

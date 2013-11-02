@@ -10,11 +10,13 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class TabItemHelper
     {
         /// <summary>
@@ -35,7 +37,6 @@ namespace FFXIVAPP.Client.Helpers
             var binding = BindingHelper.VisibilityBinding(Settings.Default, "EnableHelpLabels");
             labelFactory.SetBinding(UIElement.VisibilityProperty, binding);
             labelFactory.SetValue(ContentControl.ContentProperty, name);
-            labelFactory.SetValue(FrameworkElement.NameProperty, "FriendlyName");
             stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
             stackPanelFactory.AppendChild(imageFactory);
             stackPanelFactory.AppendChild(labelFactory);

@@ -22,11 +22,13 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using NLog.Config;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     public partial class App
     {
         #region Property Bindings
@@ -59,36 +61,6 @@ namespace FFXIVAPP.Client
         [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         public static void Main()
         {
-            //if (AppDomain.CurrentDomain.FriendlyName != "FFXIVAPP.Shadowed")
-            //{
-            //    var domain = AppDomain.CreateDomain("FFXIVAPP.Shadowed");
-            //    domain.DoCallBack(delegate
-            //    {
-            //        var app = new App();
-            //        app.Run();
-            //    });
-            //}
-            //var startupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-            //                                                .Location);
-            //var cachePath = Path.Combine(startupPath, "__cache");
-            //var configFile = Path.Combine(startupPath, "FFXIVAPP.Client.exe.config");
-            //var assembly = Path.Combine(startupPath, "FFXIVAPP.Client.exe");
-            //var setup = new AppDomainSetup
-            //{
-            //    ApplicationName = "FFXIVAPP.Client",
-            //    ShadowCopyFiles = "true",
-            //    CachePath = cachePath,
-            //    ConfigurationFile = configFile
-            //};
-            //var domain = AppDomain.CreateDomain("FFXIVAPP.Client", AppDomain.CurrentDomain.Evidence, setup);
-            //domain.DoCallBack(delegate
-            //{
-            //    //domain.ExecuteAssembly(assembly);
-            //    //AppDomain.Unload(domain);
-            //    //Directory.Delete(cachePath, true);
-            //    var app = new App();
-            //    app.Run();
-            //});
             var app = new App();
             app.Run();
         }
@@ -107,16 +79,17 @@ namespace FFXIVAPP.Client
 
         private static void CheckSettings()
         {
+            Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             try
             {
                 if (!Settings.Default.Application_UpgradeRequired)
                 {
+                    Settings.Default.Reload();
                     return;
                 }
                 Settings.Default.Upgrade();
                 Settings.Default.Reload();
                 Settings.Default.Application_UpgradeRequired = false;
-                Common.Constants.EnableNLog = Settings.Default.EnableNLog;
             }
             catch (Exception ex)
             {
@@ -165,7 +138,7 @@ namespace FFXIVAPP.Client
             switch (e.PropertyName)
             {
                 case "CharacterName":
-                    Constants.CharacterName = Settings.Default.CharacterName;
+                    Common.Constants.CharacterName = Constants.CharacterName = Settings.Default.CharacterName;
                     break;
                 case "FirstName":
                     Initializer.SetCharacter();
@@ -174,7 +147,7 @@ namespace FFXIVAPP.Client
                     Initializer.SetCharacter();
                     break;
                 case "GameLanguage":
-                    Constants.GameLanguage = Settings.Default.GameLanguage;
+                    Common.Constants.GameLanguage = Constants.GameLanguage = Settings.Default.GameLanguage;
                     var lang = Settings.Default.GameLanguage.ToLower();
                     var cultureInfo = new CultureInfo("en");
                     switch (lang)
@@ -204,11 +177,10 @@ namespace FFXIVAPP.Client
                 case "TopMost":
                     if (ShellView.View != null)
                     {
-                        ShellView.View.Topmost = Settings.Default.TopMost;    
+                        ShellView.View.Topmost = Settings.Default.TopMost;
                     }
                     break;
             }
-            //SettingsHelper.Save();
         }
 
         /// <summary>

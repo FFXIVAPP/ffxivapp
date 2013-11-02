@@ -14,16 +14,18 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.IPluginInterface;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
-    public static class Constants
+    [DoNotObfuscate]
+    public static partial class Constants
     {
         #region Declarations
 
-        public static readonly string[] Supported = new[]
+        public static readonly string[] Supported =
         {
             "ja", "fr", "en", "de"
         };

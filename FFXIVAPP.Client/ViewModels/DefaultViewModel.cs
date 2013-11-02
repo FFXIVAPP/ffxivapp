@@ -10,11 +10,13 @@ using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FFXIVAPP.Common.ViewModelBase;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {
+    [DoNotObfuscate]
     [Export(typeof (DefaultViewModel))]
     internal sealed class DefaultViewModel : INotifyPropertyChanged
     {

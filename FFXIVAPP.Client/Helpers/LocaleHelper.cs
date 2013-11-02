@@ -11,11 +11,13 @@ using System.Linq;
 using System.Windows;
 using FFXIVAPP.Client.Localization;
 using FFXIVAPP.Client.Models;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     internal static class LocaleHelper
     {
         /// <summary>

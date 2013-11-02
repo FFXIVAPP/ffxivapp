@@ -21,17 +21,20 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     internal static class Initializer
     {
         #region Declarations
@@ -169,6 +172,18 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void GetHomePlugin()
         {
+            switch (Settings.Default.HomePlugin)
+            {
+                case "Event":
+                    SetHomePlugin(0);
+                    break;
+                case "Log":
+                    SetHomePlugin(1);
+                    break;
+                case "Parse":
+                    SetHomePlugin(2);
+                    break;
+            }
             //var index = 0;
             //foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             //{
@@ -185,6 +200,15 @@ namespace FFXIVAPP.Client
             //    }
             //    index++;
             //}
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="pluginIndex"></param>
+        private static void SetHomePlugin(int pluginIndex)
+        {
+            ShellView.View.ShellViewTC.SelectedIndex = 1;
+            ShellView.View.PluginsTC.SelectedIndex = pluginIndex;
         }
 
         /// <summary>
@@ -238,7 +262,33 @@ namespace FFXIVAPP.Client
                     var jsonResult = JObject.Parse(responseText);
                     var latest = jsonResult["Version"].ToString();
                     var updateNotes = jsonResult["Notes"].ToList();
-                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
+                    var enabledFeatures = jsonResult["Features"];
+                    try
+                    {
+                        foreach (var feature in enabledFeatures)
+                        {
+                            var key = feature["Hash"].ToString();
+                            var enabled = (bool) feature["Enabled"];
+                            switch (key)
+                            {
+                                case "6965ABA3-D6E3-469B-A4A6-74C1C42938D9":
+                                    XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
+                                    break;
+                                case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
+                                    XIVDBViewModel.Instance.MobUploadEnabled = enabled;
+                                    break;
+                                case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
+                                    XIVDBViewModel.Instance.KillUploadEnabled = enabled;
+                                    break;
+                                case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
+                                    XIVDBViewModel.Instance.LootUploadEnabled = enabled;
+                                    break;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     try
                     {
                         foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
@@ -249,7 +299,8 @@ namespace FFXIVAPP.Client
                     catch (Exception ex)
                     {
                     }
-                    AppViewModel.Instance.LatestVersion = latest;
+                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
+                    AppViewModel.Instance.LatestVersion = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
                     switch (latest)
                     {
                         case "Unknown":
@@ -289,7 +340,9 @@ namespace FFXIVAPP.Client
                                     break;
                                 }
                                 AppViewModel.Instance.HasNewVersion = true;
+                                break;
                             }
+                            AppViewModel.Instance.HasNewVersion = true;
                             break;
                     }
                 }

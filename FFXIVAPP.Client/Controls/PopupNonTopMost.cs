@@ -6,16 +6,15 @@
 #region Usings
 
 using System;
-using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Interop;
 using FFXIVAPP.Client.Properties;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Controls
 {
+    [DoNotObfuscate]
     public class PopupNonTopmost : Popup
     {
         protected override void OnOpened(EventArgs e)

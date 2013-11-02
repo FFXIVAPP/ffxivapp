@@ -40,7 +40,11 @@ namespace FFXIVAPP.Common
 
         #region Auto-Properties
 
+        public static string CharacterName { get; set; }
+
         public static string ServerName { get; set; }
+
+        public static string GameLanguage { get; set; }
 
         public static bool EnableNLog { get; set; }
 

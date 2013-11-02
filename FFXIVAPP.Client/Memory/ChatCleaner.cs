@@ -16,11 +16,13 @@ using System.Text.RegularExpressions;
 using System.Web;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     internal class ChatCleaner : INotifyPropertyChanged
     {
         #region Property Bindings

@@ -1,8 +1,10 @@
 <SmartAssemblyProject ProjectId="{4c955a4c-898a-4eca-98ff-d84a0f81e364}" Version="2.0">
     <MainAssemblyFileName>..\build\Release\FFXIVAPP.Client.exe</MainAssemblyFileName>
+    <FriendlyName>FFXIVAPP.Client</FriendlyName>
+    <CompanyName>SyndicatedLife</CompanyName>
     <Configuration Name="Release">
         <Options>
-            <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
+            <ExceptionReporting EnableJitOptimization="1" ReportExceptions="0" Template="res:{SmartExceptions}.1033.dll" />
             <FeatureUsageReporting Template="res:SmartUsageWithUIConsentFirstRun1033.dll" />
             <StringsEncoding Compress="1" Encode="1" UseCache="1" UseImprovedEncoding="1" />
             <StrongNameSigning />
@@ -11,7 +13,7 @@
             <OtherProtections SuppressIldasm="1" />
             <Debugging />
         </Options>
-        <ApplicationName />
+        <ApplicationName>FFXIVAPP.Client</ApplicationName>
         <Destination DestinationFileName="..\obfuscated\FFXIVAPP.Client.exe" />
         <Assemblies>
             <Assembly AssemblyName="FFXIVAPP.Client, Culture=neutral, PublicKeyToken=null">
@@ -26,57 +28,27 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Views</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Windows</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Behaviors</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Controls</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Delegates</Namespace>
+                                <Namespace>FFXIVAPP.Client.Plugins.Event.Views</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Enums</Namespace>
+                                <Namespace>FFXIVAPP.Client.Plugins.Log.Views</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Helpers</Namespace>
+                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Controls</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Localization</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Memory</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Models</Namespace>
+                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Views</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
@@ -86,12 +58,27 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Utilities</Namespace>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Event</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.ViewModels</Namespace>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Log</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Parse</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Views</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Windows</Namespace>
                             </Token>
                         </Exclusion>
                     </Obfuscation>
@@ -399,6 +386,34 @@
             <Assembly AssemblyName="Newtonsoft.Json, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
                 <Merging />
                 <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="SmartAssembly.Shared, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
+            </Assembly>
+            <Assembly AssemblyName="SmartExceptionsCore, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
+            </Assembly>
+            <Assembly AssemblyName="SmartExceptionsWithUI1033, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
+            </Assembly>
+            <Assembly AssemblyName="SmartAssembly.Attributes, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
             </Assembly>
         </Assemblies>
     </Configuration>

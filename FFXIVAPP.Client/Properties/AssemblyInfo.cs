@@ -58,4 +58,4 @@ using System.Windows;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("2.0.*")]
 
-[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyVersion("3.0.*")]

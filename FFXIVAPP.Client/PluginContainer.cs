@@ -11,20 +11,20 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     internal class PluginContainer : IPluginHost
     {
         #region Property Bindings
@@ -108,6 +108,11 @@ namespace FFXIVAPP.Client
         {
             try
             {
+                if (fileName.ToLower()
+                            .Contains("ffxivapp"))
+                {
+                    return;
+                }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
                 var pAssembly = Assembly.LoadFile(fileName);
                 var pType = pAssembly.GetType(pAssembly.GetName()
@@ -210,78 +215,6 @@ namespace FFXIVAPP.Client
             if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen)
             {
                 return;
-            }
-            var monsters = MonsterWorkerDelegate.NPCList.ToList();
-            switch (key)
-            {
-                case "LootEntry":
-                    try
-                    {
-                        var lootEntryData = data as Dictionary<string, object>;
-                        if (lootEntryData == null)
-                        {
-                            return;
-                        }
-                        var lootEntry = new LootEntry(lootEntryData["ItemName"] as string);
-                        if (MonsterWorkerDelegate.CurrentUser != null)
-                        {
-                            lootEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                            lootEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
-                        }
-                        var s = lootEntryData["MobName"] as string;
-                        if (s != null)
-                        {
-                            var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
-                            {
-                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
-                                {
-                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
-                                    lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
-                                }
-                            }
-                        }
-                        DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
-                    }
-                    catch (Exception ex)
-                    {
-                        //MessageBox.Show(ex.Message);
-                    }
-                    break;
-                case "KillEntry":
-                    try
-                    {
-                        var killEntryData = data as Dictionary<string, object>;
-                        if (killEntryData == null)
-                        {
-                            return;
-                        }
-                        var killEntry = new KillEntry();
-                        if (MonsterWorkerDelegate.CurrentUser != null)
-                        {
-                            killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                            killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
-                        }
-                        var s = killEntryData["MobName"] as string;
-                        if (s != null)
-                        {
-                            var mobName = s.Trim();
-                            if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
-                            {
-                                if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
-                                {
-                                    var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
-                                    killEntry.ModelID = monster == null ? 0 : monster.ModelID;
-                                }
-                            }
-                        }
-                        DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
-                    }
-                    catch (Exception ex)
-                    {
-                        //MessageBox.Show(ex.Message);
-                    }
-                    break;
             }
         }
 

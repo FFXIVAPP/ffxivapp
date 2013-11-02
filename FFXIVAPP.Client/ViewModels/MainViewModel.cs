@@ -8,11 +8,13 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {
+    [DoNotObfuscate]
     [Export(typeof (MainViewModel))]
     internal sealed class MainViewModel : INotifyPropertyChanged
     {

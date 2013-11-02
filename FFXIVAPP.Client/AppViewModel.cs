@@ -18,11 +18,13 @@ using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     [Export(typeof (AppViewModel))]
     internal sealed class AppViewModel : INotifyPropertyChanged
     {
@@ -43,7 +45,9 @@ namespace FFXIVAPP.Client
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _screenShotsPath;
         private string _selected;
+        private string _settingsPath;
         private List<Signature> _signatures;
+        private string _soundsPath;
         private Style _tabControlCollapsedHeader;
         private List<string> _updateNotes;
 
@@ -203,6 +207,40 @@ namespace FFXIVAPP.Client
             }
         }
 
+        public string SoundsPath
+        {
+            get
+            {
+                if (!Directory.Exists(_soundsPath))
+                {
+                    Directory.CreateDirectory(_soundsPath);
+                }
+                return _soundsPath;
+            }
+            set
+            {
+                _soundsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string SettingsPath
+        {
+            get
+            {
+                if (!Directory.Exists(_settingsPath))
+                {
+                    Directory.CreateDirectory(_settingsPath);
+                }
+                return _settingsPath;
+            }
+            set
+            {
+                _settingsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public List<ChatEntry> ChatHistory
         {
             get { return _chatHistory ?? (_chatHistory = new List<ChatEntry>()); }
@@ -248,6 +286,10 @@ namespace FFXIVAPP.Client
             get { return _updateNotes ?? (_updateNotes = new List<string>()); }
             set
             {
+                if (_updateNotes == null)
+                {
+                    _updateNotes = new List<string>();
+                }
                 _updateNotes = value;
                 RaisePropertyChanged();
             }

@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using MahApps.Metro;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Utilities
 {
+    [DoNotObfuscate]
     internal static class ThemeManager
     {
         private static readonly ResourceDictionary LightResource = new ResourceDictionary
@@ -28,17 +30,23 @@ namespace FFXIVAPP.Client.Utilities
             Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml")
         };
 
+        private static IEnumerable<Accent> _defaultAccents;
+
         public static IEnumerable<Accent> DefaultAccents
         {
             get
             {
-                var accents = new[]
+                if (_defaultAccents == null)
                 {
-                    "Red", "Green", "Blue", "Purple", "Orange"
-                };
-                const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
-                return accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))
-                              .ToList();
+                    var accents = new[]
+                    {
+                        "Red", "Green", "Blue", "Purple", "Orange", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Indigo", "Magenta", "Mauve", "Olive", "Sienna", "Steel", "Teal", "Violet", "Amber", "Yellow", "Lime", "Pink"
+                    };
+                    const string path = "pack://application:,,,/MahApps.Metro;component/Styles/Accents/{0}.xaml";
+                    _defaultAccents = accents.Select(accent => new Accent(accent, new Uri(String.Format(path, accent))))
+                                             .ToList();
+                }
+                return _defaultAccents;
             }
         }
 

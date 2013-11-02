@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Client="clr-namespace:FFXIVAPP.Client"
              xmlns:Common="clr-namespace:FFXIVAPP.Common;assembly=FFXIVAPP.Common"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
@@ -11,6 +12,10 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
 
     <UserControl.DataContext>
         <Binding Source="{StaticResource SettingsViewModel}" />
@@ -22,9 +27,26 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="Home Plugin">
+                            <StackPanel>
+                                <ComboBox x:Name="HomePluginSelect"
+                                          Margin="5"
+                                          IsReadOnly="False"
+                                          ItemsSource="{Binding HomePluginList,
+                                                                Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding HomePlugin,
+                                                                  Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[app_ProcessIDHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
+                                <TextBlock Foreground="{DynamicResource BlackColorBrush}"
+                                           Visibility="{Binding EnableHelpLabels,
+                                                                Source={x:Static Properties:Settings.Default},
+                                                                Converter={StaticResource VisibilityConverter}}">
+                                    *Only use this if you restarted the game or are dual-boxing.
+                                </TextBlock>
                                 <ComboBox x:Name="PIDSelect"
                                           Margin="5" />
                                 <Button x:Name="SetProcess"
@@ -254,6 +276,7 @@
                                 </FlowDocumentScrollViewer>
                             </StackPanel>
                         </GroupBox>
+                        <Label>More details coming soon!</Label>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

@@ -153,55 +153,91 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0"
                                 Grid.Column="0">
                         <Label FontWeight="Bold">
+                            Enabled:
+                        </Label>
+                        <TextBlock x:Name="PlayerUploadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="N/A" />
+                        <TextBlock x:Name="MobUploadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="{Binding MobUploadEnabled,
+                                                  Source={StaticResource XIVDBViewModel}}" />
+                        <TextBlock x:Name="NPCUploadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="{Binding NPCUploadEnabled,
+                                                  Source={StaticResource XIVDBViewModel}}" />
+                        <TextBlock x:Name="KilloadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="{Binding KillUploadEnabled,
+                                                  Source={StaticResource XIVDBViewModel}}" />
+                        <TextBlock x:Name="LootploadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="{Binding LootUploadEnabled,
+                                                  Source={StaticResource XIVDBViewModel}}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1">
+                        <Label FontWeight="Bold">
                             Seen:
                         </Label>
                         <TextBlock x:Name="PlayerSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding PlayerSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=Players: {0:#\,###0}}" />
                         <TextBlock x:Name="MobSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding MobSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=Monsters: {0:#\,###0}}" />
                         <TextBlock x:Name="NPCSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding NPCSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=NPCs: {0:#\,###0}}" />
                         <TextBlock x:Name="KillSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding KillSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=Kills: {0:#\,###0}}" />
                         <TextBlock x:Name="LootSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding LootSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=Loot: {0:#\,###0}}" />
                     </StackPanel>
                     <StackPanel Grid.Row="0"
-                                Grid.Column="1">
+                                Grid.Column="2">
                         <Label FontWeight="Bold">
                             Chunks Processed:
                         </Label>
                         <TextBlock x:Name="PlayerProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="N/A" />
                         <TextBlock x:Name="MobProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding MobProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*100)}" />
                         <TextBlock x:Name="NPCProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding NPCProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*50)}" />
                         <TextBlock x:Name="KillProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding KillProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*5)}" />
                         <TextBlock x:Name="LootProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding LootProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*5)}" />

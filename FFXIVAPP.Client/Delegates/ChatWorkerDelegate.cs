@@ -8,16 +8,19 @@
 using System;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Delegates
 {
+    [DoNotObfuscate]
     internal static class ChatWorkerDelegate
     {
-        public static bool IsPaused = false;
+        public static bool IsPaused { get; set; }
 
         /// <summary>
         /// </summary>
@@ -32,6 +35,16 @@ namespace FFXIVAPP.Client.Delegates
                 chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp
             };
             AppViewModel.Instance.ChatHistory.Add(chatEntry);
+            // process official plugins
+            if (chatEntry.Line.ToLower()
+                         .StartsWith("com:"))
+            {
+                LogPublisher.HandleCommands(chatEntry);
+            }
+            LogPublisher.Event.Process(chatEntry);
+            LogPublisher.Log.Process(chatEntry);
+            LogPublisher.Parse.Process(chatEntry);
+            // process thirdparty plugins
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 bool success;

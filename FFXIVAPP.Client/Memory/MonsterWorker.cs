@@ -11,14 +11,16 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
-using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 using NLog;
+using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
+    [DoNotObfuscate]
     internal class MonsterWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings
@@ -163,31 +165,38 @@ namespace FFXIVAPP.Client.Memory
                             {
                             }
                         }
+                        // setup DoT: +12104
+                        for (uint x = 0; x < 30; x++)
+                        {
+                            var offset = 12116 + (x * 12);
+                            try
+                            {
+                                var statusEntry = new StatusEntry
+                                {
+                                    ID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
+                                    Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
+                                    OwnerID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
+                                };
+                                if (statusEntry.IsValid)
+                                {
+                                    npcEntry.StatusList.Add(statusEntry);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
                         if (!npcEntry.IsValid)
                         {
                             continue;
                         }
                         npcEntries.Add(npcEntry);
                     }
-                    try
-                    {
-                        RaiseNPCEvent(npcEntries);
-                    }
-                    catch (Exception raiseEx)
-                    {
-                        try
-                        {
-                            PostNPCEvent(npcEntries);
-                        }
-                        catch (Exception postEx)
-                        {
-                            DispatcherHelper.Invoke(() => PostNPCEvent(npcEntries));
-                        }
-                    }
+                    PostNPCEvent(npcEntries);
                 }
                 catch (Exception ex)
                 {
-                    //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
                 return true;

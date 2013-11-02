@@ -15,11 +15,13 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
+    [DoNotObfuscate]
     [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {
@@ -86,7 +88,8 @@ namespace FFXIVAPP.Client
         /// </summary>
         private static void UpdateSelectedPlugin()
         {
-            AppViewModel.Instance.Selected = ((TabItem) ShellView.View.PluginsTC.SelectedItem).Header.ToString();
+            var selectedItem = ((TabItem) ShellView.View.PluginsTC.SelectedItem);
+            AppViewModel.Instance.Selected = selectedItem.Header.ToString();
             UpdateTitle();
         }
 

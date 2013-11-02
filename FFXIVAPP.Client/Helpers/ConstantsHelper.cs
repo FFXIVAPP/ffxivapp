@@ -10,11 +10,13 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using NLog;
+using SmartAssembly.Attributes;
 
 #endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public static class ConstantsHelper
     {
         public static void UpdatePluginConstants(ConstantsType type, object data)

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -57,6 +58,19 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+            // get official plugin logos
+            var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
+            var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
+            var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
+            // setup headers for existing plugins
+            EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
+            LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
+            ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
+            // append third party plugins
+            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
+            {
+                View.PluginsTC.Items.Add(pluginTabItem);
+            }
         }
 
         /// <summary>
@@ -96,7 +110,7 @@ namespace FFXIVAPP.Client
         public static void CloseApplication(bool update = false)
         {
             Application.Current.MainWindow.WindowState = WindowState.Normal;
-            SettingsHelper.Save();
+            SettingsHelper.Save(update);
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 pluginInstance.Instance.Dispose(update);
