@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
-using FFXIVAPP.Client.Plugins.Parse.Utilities;
 using SmartAssembly.Attributes;
 
 #endregion

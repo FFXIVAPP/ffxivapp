@@ -122,8 +122,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_PercentOfTotalOverallDamageTakenHeader", "% of Total");
             Dictionary.Add("parse_PercentOfRegularDamageTakenHeader", "% of Reg");
             Dictionary.Add("parse_PercentOfCriticalDamageTakenHeader", "% of Crit");
-            Dictionary.Add("parse_BasicTabHeader", "Grund");
-            Dictionary.Add("parse_ActionLogTabHeader", "Aktionsprotokoll");
+            Dictionary.Add("parse_BasicButtonText", "Grund");
+            Dictionary.Add("parse_AdvancedButtonText", "Erweitert");
             Dictionary.Add("parse_PartyDamageTabHeader", "Gruppenschaden");
             Dictionary.Add("parse_PartyHealingTabHeader", "Gruppenheilung");
             Dictionary.Add("parse_PartyDamageTakenTabHeader", "Erlittener Gruppenschaden");
@@ -388,6 +388,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_ShowPercentOfRegularDamageTakenInfoHeader", "Ges. Erl. Norm. Schaden Info Anzeigen in %");
             Dictionary.Add("parse_ShowPercentOfCriticalDamageTakenInfoHeader", "Ges. Erl. Krit. Schaden Info Anzeigen in %");
             Dictionary.Add("parse_LoadExistingLogFileButtonText", "Bestehende Protokolldatei Laden");
+            Dictionary.Add("parse_BasicGlobalWarningLabel", "Dies ist eine globale tracker und hat als solche Werte im globalen Maßstab. Für körnige Vergleiche pro Spieler oder Monster (wie DPS) klicken Sie auf \"Erweitert\"");
         }
     }
 }

@@ -382,5 +382,32 @@ namespace FFXIVAPP.Client.Properties {
                 this["ChatFont"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Parse")]
+        public string HomePlugin {
+            get {
+                return ((string)(this["HomePlugin"]));
+            }
+            set {
+                this["HomePlugin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>None</string>
+  <string>Event</string>
+  <string>Log</string>
+  <string>Parse</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection HomePluginList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["HomePluginList"]));
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace FFXIVAPP.Client.Utilities
         public static class Event
         {
             public static bool IsPaused = false;
+
             public static void Process(ChatEntry chatEntry)
             {
                 if (IsPaused)

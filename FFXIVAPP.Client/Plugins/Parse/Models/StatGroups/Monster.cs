@@ -77,7 +77,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 // apply dot tracking if any
                 if (StatusEntries.Any())
                 {
-
                 }
             }
         }

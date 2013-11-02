@@ -36,10 +36,32 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         #region Property Bindings
 
         private static MainViewModel _instance;
+        private bool _isAdvancedView;
+        private bool _isBasicView;
 
         public static MainViewModel Instance
         {
             get { return _instance ?? (_instance = new MainViewModel()); }
+        }
+
+        public bool IsBasicView
+        {
+            get { return _isBasicView; }
+            set
+            {
+                _isBasicView = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsAdvancedView
+        {
+            get { return _isAdvancedView; }
+            set
+            {
+                _isAdvancedView = value;
+                RaisePropertyChanged();
+            }
         }
 
         #endregion
@@ -47,6 +69,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         #region Declarations
 
         public ICommand ProcessSampleCommand { get; private set; }
+        public ICommand SwitchToLogViewCommand { get; private set; }
+        public ICommand SwitchToAdvancedViewCommand { get; private set; }
+        public ICommand SwitchToBasicViewCommand { get; private set; }
         public ICommand ResetStatsCommand { get; private set; }
         public ICommand Convert2JsonCommand { get; private set; }
 
@@ -54,7 +79,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         public MainViewModel()
         {
+            IsBasicView = true;
             ProcessSampleCommand = new DelegateCommand(ProcessSample);
+            SwitchToLogViewCommand = new DelegateCommand(SwitchToLogView);
+            SwitchToAdvancedViewCommand = new DelegateCommand(SwitchToAdvancedView);
+            SwitchToBasicViewCommand = new DelegateCommand(SwitchToBasicView);
             ResetStatsCommand = new DelegateCommand(ResetStats);
             Convert2JsonCommand = new DelegateCommand(Convert2Json);
         }
@@ -137,6 +166,41 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                 dFunc.BeginInvoke(null, null);
             };
             openFileDialog.ShowDialog();
+        }
+
+        private static void SwitchToLogView()
+        {
+            if (MainView.View.MainViewTC.SelectedIndex == 2)
+            {
+                return;
+            }
+            MainView.View.MainViewTC.SelectedIndex = 2;
+            if (Instance.IsBasicView)
+            {
+                Instance.IsBasicView = false;
+                Instance.IsAdvancedView = true;
+                return;
+            }
+            if (!Instance.IsAdvancedView)
+            {
+                return;
+            }
+            Instance.IsBasicView = true;
+            Instance.IsAdvancedView = false;
+        }
+
+        private static void SwitchToAdvancedView()
+        {
+            MainView.View.MainViewTC.SelectedIndex = 1;
+            Instance.IsBasicView = false;
+            Instance.IsAdvancedView = true;
+        }
+
+        private static void SwitchToBasicView()
+        {
+            MainView.View.MainViewTC.SelectedIndex = 0;
+            Instance.IsBasicView = true;
+            Instance.IsAdvancedView = false;
         }
 
         /// <summary>

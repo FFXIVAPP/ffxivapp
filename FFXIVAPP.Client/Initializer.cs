@@ -172,6 +172,18 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void GetHomePlugin()
         {
+            switch (Settings.Default.HomePlugin)
+            {
+                case "Event":
+                    SetHomePlugin(0);
+                    break;
+                case "Log":
+                    SetHomePlugin(1);
+                    break;
+                case "Parse":
+                    SetHomePlugin(2);
+                    break;
+            }
             //var index = 0;
             //foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             //{
@@ -188,6 +200,15 @@ namespace FFXIVAPP.Client
             //    }
             //    index++;
             //}
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="pluginIndex"></param>
+        private static void SetHomePlugin(int pluginIndex)
+        {
+            ShellView.View.ShellViewTC.SelectedIndex = 1;
+            ShellView.View.PluginsTC.SelectedIndex = pluginIndex;
         }
 
         /// <summary>
@@ -279,7 +300,7 @@ namespace FFXIVAPP.Client
                     {
                     }
                     AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
-                    AppViewModel.Instance.LatestVersion = latest;
+                    AppViewModel.Instance.LatestVersion = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
                     switch (latest)
                     {
                         case "Unknown":

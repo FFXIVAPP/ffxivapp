@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-using System.Collections.Generic;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Utilities;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
@@ -16,7 +14,6 @@ namespace FFXIVAPP.Client.Utilities
     {
         public static void Process()
         {
-            
         }
 
         public static void HandleCommands(ChatEntry chatEntry)

@@ -35,6 +35,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public Player(string name) : base(name)
         {
+            ID = 0;
             NPCEntry = new NPCEntry
             {
                 Name = name,
@@ -46,6 +47,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             LastDamageAmount = 5;
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
         }
+
+        public uint ID { get; set; }
 
         public static NPCEntry NPCEntry { get; set; }
 

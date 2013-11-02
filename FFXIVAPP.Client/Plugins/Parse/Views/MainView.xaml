@@ -36,52 +36,56 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
-            <TabItem Header="{Binding Locale[parse_BasicTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem x:Name="BasicUI">
                 <views:ParseBasicView />
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_ActionLogTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowActionLogTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
-                <Controls:xFlowDocument x:Name="AbilityChatFD" />
-            </TabItem>
-            <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowPartyDamageTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
-                <views:ParsePartyDamageView />
-            </TabItem>
-            <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowPartyHealingTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
+            <TabItem x:Name="AdvancedUI">
+                <TabControl>
+                    <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
+                                              Source={StaticResource AppProperties}}"
+                             Visibility="{Binding ShowPartyDamageTab,
+                                                  Converter={StaticResource VisibilityConverter},
+                                                  Source={StaticResource PluginSettings}}">
+                        <views:ParsePartyDamageView />
+                    </TabItem>
+                    <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
+                                              Source={StaticResource AppProperties}}"
+                             Visibility="{Binding ShowPartyHealingTab,
+                                                  Converter={StaticResource VisibilityConverter},
+                                                  Source={StaticResource PluginSettings}}">
 
-                <views:ParsePartyHealingView />
+                        <views:ParsePartyHealingView />
+                    </TabItem>
+                    <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
+                                              Source={StaticResource AppProperties}}"
+                             Visibility="{Binding ShowPartyDamageTakenTab,
+                                                  Converter={StaticResource VisibilityConverter},
+                                                  Source={StaticResource PluginSettings}}">
+                        <views:ParsePartyDamageTakenView />
+                    </TabItem>
+                    <TabItem Header="{Binding Locale[parse_MonsterDamageTabHeader],
+                                              Source={StaticResource AppProperties}}"
+                             Visibility="{Binding ShowMonsterDamageTab,
+                                                  Converter={StaticResource VisibilityConverter},
+                                                  Source={StaticResource PluginSettings}}">
+                        <views:ParseMonsterDamageView />
+                    </TabItem>
+                    <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
+                                              Source={StaticResource AppProperties}}"
+                             Visibility="{Binding ShowMonsterDamageTakenTab,
+                                                  Converter={StaticResource VisibilityConverter},
+                                                  Source={StaticResource PluginSettings}}">
+                        <views:ParseMonsterDamageTakenView />
+                    </TabItem>
+                </TabControl>
             </TabItem>
-            <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowPartyDamageTakenTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
-                <views:ParsePartyDamageTakenView />
-            </TabItem>
-            <TabItem Header="{Binding Locale[parse_MonsterDamageTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowMonsterDamageTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
-                <views:ParseMonsterDamageView />
-            </TabItem>
-            <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
-                                      Source={StaticResource AppProperties}}"
-                     Visibility="{Binding ShowMonsterDamageTakenTab,
-                                          Converter={StaticResource VisibilityConverter},
-                                          Source={StaticResource PluginSettings}}">
-                <views:ParseMonsterDamageTakenView />
+            <TabItem x:Name="LogUI">
+                <Controls:xFlowDocument x:Name="AbilityChatFD" />
             </TabItem>
         </TabControl>
         <DockPanel Grid.Row="1"
@@ -105,7 +109,24 @@
                                                 Source={StaticResource Settings}}" />
                 </StackPanel>
             </Button>
-
+            <Button Width="100"
+                    Margin="3 0 0 0"
+                    Command="{Binding SwitchToBasicViewCommand}"
+                    Content="{Binding Locale[parse_BasicButtonText],
+                                      Source={StaticResource AppProperties}}"
+                    Visibility="{Binding IsAdvancedView,
+                                         Converter={StaticResource VisibilityConverter}}" />
+            <Button Width="100"
+                    Margin="3 0 0 0"
+                    Command="{Binding SwitchToAdvancedViewCommand}"
+                    Content="{Binding Locale[parse_AdvancedButtonText],
+                                      Source={StaticResource AppProperties}}"
+                    Visibility="{Binding IsBasicView,
+                                         Converter={StaticResource VisibilityConverter}}" />
+            <Button Width="100"
+                    Margin="3 0 0 0"
+                    Command="{Binding SwitchToLogViewCommand}"
+                    Content="Log" />
             <!--
                 <Button Margin="3 0 0 0"
                 Command="{Binding Convert2JsonCommand}"

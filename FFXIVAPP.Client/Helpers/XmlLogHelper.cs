@@ -27,22 +27,6 @@ namespace FFXIVAPP.Client.Helpers
             ChatWorkerDelegate.IsPaused = true;
             if (!isTemporary)
             {
-                if (NPCWorkerDelegate.UniqueNPCEntries.Any())
-                {
-                    NPCWorkerDelegate.ProcessUploads();
-                }
-                if (MonsterWorkerDelegate.UniqueNPCEntries.Any())
-                {
-                    MonsterWorkerDelegate.ProcessUploads();
-                }
-                if (KillWorkerDelegate.KillEntries.Any())
-                {
-                    KillWorkerDelegate.ProcessUploads();
-                }
-                if (LootWorkerDelegate.LootEntries.Any())
-                {
-                    LootWorkerDelegate.ProcessUploads();
-                }
             }
             if (AppViewModel.Instance.ChatHistory.Any())
             {

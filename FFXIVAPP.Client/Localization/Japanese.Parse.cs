@@ -122,8 +122,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_PercentOfTotalOverallDamageTakenHeader", "与ダメ%");
             Dictionary.Add("parse_PercentOfRegularDamageTakenHeader", "与ダメ%");
             Dictionary.Add("parse_PercentOfCriticalDamageTakenHeader", "クリ与ダメ%");
-            Dictionary.Add("parse_BasicTabHeader", "基本");
-            Dictionary.Add("parse_ActionLogTabHeader", "ログ");
+            Dictionary.Add("parse_BasicButtonText", "基本");
+            Dictionary.Add("parse_AdvancedButtonText", "詳細設定");
             Dictionary.Add("parse_PartyDamageTabHeader", "Party被ダメージ");
             Dictionary.Add("parse_PartyHealingTabHeader", "Party回復");
             Dictionary.Add("parse_PartyDamageTakenTabHeader", "Party損傷が受信");
@@ -388,6 +388,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_ShowPercentOfRegularDamageTakenInfoHeader", "Show Percent Of Regular Damage Taken Information");
             Dictionary.Add("parse_ShowPercentOfCriticalDamageTakenInfoHeader", "Show Percent Of Critical Damage Taken Information");
             Dictionary.Add("parse_LoadExistingLogFileButtonText", "Load Existing Log File");
+            Dictionary.Add("parse_BasicGlobalWarningLabel", "これはグローバルなトラッカーです、そのように地球規模での値を持っています。プレイヤーやモンスター（例えばDPSなど）当たり粒状比較に\"詳細設定\"をクリックしてください");
         }
     }
 }

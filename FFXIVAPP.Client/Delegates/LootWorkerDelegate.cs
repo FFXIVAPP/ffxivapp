@@ -72,8 +72,8 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("npc", new List<LootEntry>(LootEntries.ToList()
-                                                                              .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
+                                                                               .Skip(chunksProcessed * chunkSize)));
                 XIVDBViewModel.Instance.LootProcessed++;
             }
             catch (Exception ex)

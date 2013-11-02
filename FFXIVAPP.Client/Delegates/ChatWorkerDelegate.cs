@@ -9,7 +9,6 @@ using System;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Utilities;
-using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -38,7 +37,7 @@ namespace FFXIVAPP.Client.Delegates
             AppViewModel.Instance.ChatHistory.Add(chatEntry);
             // process official plugins
             if (chatEntry.Line.ToLower()
-                                 .StartsWith("com:"))
+                         .StartsWith("com:"))
             {
                 LogPublisher.HandleCommands(chatEntry);
             }

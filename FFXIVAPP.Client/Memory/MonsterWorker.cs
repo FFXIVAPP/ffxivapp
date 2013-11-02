@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
-using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
@@ -192,25 +192,11 @@ namespace FFXIVAPP.Client.Memory
                         }
                         npcEntries.Add(npcEntry);
                     }
-                    try
-                    {
-                        RaiseNPCEvent(npcEntries);
-                    }
-                    catch (Exception raiseEx)
-                    {
-                        try
-                        {
-                            PostNPCEvent(npcEntries);
-                        }
-                        catch (Exception postEx)
-                        {
-                            DispatcherHelper.Invoke(() => PostNPCEvent(npcEntries));
-                        }
-                    }
+                    PostNPCEvent(npcEntries);
                 }
                 catch (Exception ex)
                 {
-                    //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
                 return true;

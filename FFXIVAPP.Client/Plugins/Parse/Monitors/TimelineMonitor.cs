@@ -228,7 +228,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 {
                     lootEntry.ModelID = 0;
                 }
-                DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
+                if (lootEntry.ModelID > 0)
+                {
+                    DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
+                }
             }
             catch (Exception ex)
             {

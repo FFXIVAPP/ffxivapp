@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
-using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
@@ -165,32 +165,14 @@ namespace FFXIVAPP.Client.Memory
                         var chatEntry = new ChatEntry(text.ToArray());
                         if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
                         {
-                            try
-                            {
-                                RaiseLineEvent(chatEntry);
-                            }
-                            catch (Exception raiseEx)
-                            {
-                                try
-                                {
-                                    PostLineEvent(chatEntry);
-                                }
-                                catch (Exception postEx)
-                                {
-                                    DispatcherHelper.Invoke(() => PostLineEvent(chatEntry));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Tracer.Debug("DebugLineEvent: {0}", text.ToArray());
+                            PostLineEvent(chatEntry);
                         }
                         _lastChatNum = _spots[i];
                     }
                 }
                 catch (Exception ex)
                 {
-                    //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
                 _lastCount = (int) chatPointers.LineCount1;
