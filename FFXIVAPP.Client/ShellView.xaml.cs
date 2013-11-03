@@ -60,10 +60,12 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
             // get official plugin logos
             var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
+            var informerPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Informer.png"));
             var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
             var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
             // setup headers for existing plugins
             EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
+            InformerPlugin.HeaderTemplate = TabItemHelper.ImageHeader(informerPluginLogo, "Informer");
             LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
             ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
             // append third party plugins

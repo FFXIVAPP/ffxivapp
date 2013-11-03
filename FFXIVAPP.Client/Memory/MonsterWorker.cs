@@ -11,7 +11,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
@@ -66,7 +68,7 @@ namespace FFXIVAPP.Client.Memory
 
         public MonsterWorker()
         {
-            _scanTimer = new Timer(1000);
+            _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -150,6 +152,17 @@ namespace FFXIVAPP.Client.Memory
                         {
                             npcEntry.HPMax = 1;
                         }
+                        if (i == 0)
+                        {
+                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
+                            {
+                                var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
+                                if (targetAddress > 0)
+                                {
+                                    npcEntry.TargetID = MemoryHandler.Instance.GetInt32(targetAddress);
+                                }
+                            }
+                        }
                         if (npcEntry.TargetID == -536870912)
                         {
                             npcEntry.TargetID = -1;
@@ -168,7 +181,7 @@ namespace FFXIVAPP.Client.Memory
                         // setup DoT: +12104
                         for (uint x = 0; x < 30; x++)
                         {
-                            var offset = 12116 + (x * 12);
+                            var offset = 12104 + (x * 12);
                             try
                             {
                                 var statusEntry = new StatusEntry

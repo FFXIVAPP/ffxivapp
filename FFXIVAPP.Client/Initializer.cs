@@ -177,11 +177,14 @@ namespace FFXIVAPP.Client
                 case "Event":
                     SetHomePlugin(0);
                     break;
-                case "Log":
+                case "Informer":
                     SetHomePlugin(1);
                     break;
-                case "Parse":
+                case "Log":
                     SetHomePlugin(2);
+                    break;
+                case "Parse":
+                    SetHomePlugin(3);
                     break;
             }
             //var index = 0;
@@ -401,7 +404,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "CHARMAP",
                 Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
-                Offset = 764
+                Offset = 780
             });
             //+3436 list of agro
             //+5744 agro count
@@ -421,7 +424,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "TARGET",
                 Value = "DB0FC93F6F12833ADB0FC940920A063F",
-                Offset = 132
+                Offset = 224
             });
         }
 

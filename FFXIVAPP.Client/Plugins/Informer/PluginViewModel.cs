@@ -14,7 +14,7 @@ using SmartAssembly.Attributes;
 
 #endregion
 
-namespace FFXIVAPP.Client.Plugins.Parse
+namespace FFXIVAPP.Client.Plugins.Informer
 {
     [DoNotObfuscate]
     public sealed class PluginViewModel : INotifyPropertyChanged
@@ -42,8 +42,8 @@ namespace FFXIVAPP.Client.Plugins.Parse
             get
             {
                 var pluginInfo = new Dictionary<string, string>();
-                pluginInfo.Add("Name", "FFXIVAPP.Plugin.Parse");
-                pluginInfo.Add("Description", "Final Fantasy XIV Battle Parser");
+                pluginInfo.Add("Name", "FFXIVAPP.Plugin.Informer");
+                pluginInfo.Add("Description", "Final Fantasy XIV Information Analyzer");
                 pluginInfo.Add("Copyright", "Copyright © 2013 Ryan Wilson");
                 return pluginInfo;
             }

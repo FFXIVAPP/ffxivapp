@@ -52,7 +52,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public string Cleaned { get; set; }
         public string Counter { get; private set; }
         public string Added { get; private set; }
-        public string Type { get; private set; }
+        public string HealingType { get; private set; }
         public string RAttack { get; private set; }
         public string Attack { get; private set; }
         public string You { get; private set; }
@@ -315,7 +315,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     mDetrimentalLose = MonsterRegEx.DetrimentalLoseFr.Match(Cleaned);
                     Counter = "Contre";
                     Added = "Effet Supplémentaire";
-                    Type = "PV";
+                    HealingType = "PV";
                     RAttack = "D'Attaque À Distance";
                     Attack = "Attaque";
                     You = @"^[Vv]ous$";
@@ -346,7 +346,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     mDetrimentalLose = MonsterRegEx.DetrimentalLoseJa.Match(Cleaned);
                     Counter = "カウンター";
                     Added = "追加効果";
-                    Type = "ＨＰ";
+                    HealingType = "ＨＰ";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^\.$";
@@ -377,7 +377,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     mDetrimentalLose = MonsterRegEx.DetrimentalLoseDe.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Zusatzefeckt";
-                    Type = "HP";
+                    HealingType = "HP";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^[Dd](ich|ie|u)$";
@@ -408,7 +408,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     mDetrimentalLose = MonsterRegEx.DetrimentalLoseEn.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Additional Effect";
-                    Type = "HP";
+                    HealingType = "HP";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^[Yy]ou?$";

@@ -24,7 +24,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     public partial class Player : StatGroup
     {
         private static int _statusTimerTicks = 0;
-        private static readonly Timer StatusUpdateTimer = new Timer(1000);
+        private static readonly Timer StatusUpdateTimer = new Timer(3000);
 
         public static List<StatusEntry> StatusEntries = new List<StatusEntry>();
 

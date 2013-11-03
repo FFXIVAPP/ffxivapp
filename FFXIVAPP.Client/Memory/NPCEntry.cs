@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using FFXIVAPP.Client.Helpers;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory

@@ -93,8 +93,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         return;
                     }
                 }
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                            .SetHealing(line);
+                if (line.RecLossType == exp.HealingType)
+                {
+                    ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                .SetHealing(line);
+                }
             }
             catch (Exception ex)
             {

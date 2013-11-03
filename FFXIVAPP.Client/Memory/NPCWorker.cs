@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -66,7 +67,7 @@ namespace FFXIVAPP.Client.Memory
 
         public NPCWorker()
         {
-            _scanTimer = new Timer(1000);
+            _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 

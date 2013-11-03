@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Delegates;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
@@ -141,7 +142,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 {
                     killEntry.ModelID = 0;
                 }
-                DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
+                var mapInfo = ZoneHelper.GetMapInfo(killEntry.MapIndex);
+                if (killEntry.ModelID > 0 && !mapInfo.IsDungeonInstance)
+                {
+                    DispatcherHelper.Invoke(() => KillWorkerDelegate.OnNewKill(killEntry));
+                }
             }
             catch (Exception ex)
             {
@@ -228,7 +233,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 {
                     lootEntry.ModelID = 0;
                 }
-                if (lootEntry.ModelID > 0)
+                var mapInfo = ZoneHelper.GetMapInfo(lootEntry.MapIndex);
+                if (lootEntry.ModelID > 0 && !mapInfo.IsDungeonInstance)
                 {
                     DispatcherHelper.Invoke(() => LootWorkerDelegate.OnNewLoot(lootEntry));
                 }

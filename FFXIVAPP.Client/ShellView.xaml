@@ -5,6 +5,7 @@
                            xmlns:Controls="clr-namespace:FFXIVAPP.Client.Controls"
                            xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
                            xmlns:EventPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Event"
+                           xmlns:InformerPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Informer"
                            xmlns:LogPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Log"
                            xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                            xmlns:ParsePlugin="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
@@ -175,6 +176,10 @@
                         <TabItem x:Name="EventPlugin"
                                  Header="FFXIVAPP.Plugin.Event">
                             <EventPlugin:ShellView />
+                        </TabItem>
+                        <TabItem x:Name="InformerPlugin"
+                                 Header="FFXIVAPP.Plugin.Informer">
+                            <InformerPlugin:ShellView />
                         </TabItem>
                         <TabItem x:Name="LogPlugin"
                                  Header="FFXIVAPP.Plugin.Log">

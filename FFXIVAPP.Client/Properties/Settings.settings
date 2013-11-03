@@ -206,6 +206,7 @@
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;None&lt;/string&gt;
   &lt;string&gt;Event&lt;/string&gt;
+  &lt;string&gt;Informer&lt;/string&gt;
   &lt;string&gt;Log&lt;/string&gt;
   &lt;string&gt;Parse&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>

@@ -401,6 +401,7 @@ namespace FFXIVAPP.Client.Properties {
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>None</string>
   <string>Event</string>
+  <string>Informer</string>
   <string>Log</string>
   <string>Parse</string>
 </ArrayOfString>")]
