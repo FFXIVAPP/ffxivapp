@@ -41,6 +41,7 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels
 
         #region Declarations
 
+        public ICommand RefreshSoundListCommand { get; private set; }
         public ICommand AddEventCommand { get; private set; }
         public ICommand DeleteEventCommand { get; private set; }
         public ICommand EventSelectionCommand { get; private set; }
@@ -49,6 +50,7 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels
 
         public MainViewModel()
         {
+            RefreshSoundListCommand = new DelegateCommand(RefreshSoundList);
             AddEventCommand = new DelegateCommand(AddEvent);
             DeleteEventCommand = new DelegateCommand(DeleteEvent);
             EventSelectionCommand = new DelegateCommand(EventSelection);
@@ -75,6 +77,13 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void RefreshSoundList()
+        {
+            PluginInitializer.Event.LoadSounds();
+        }
 
         /// <summary>
         /// </summary>

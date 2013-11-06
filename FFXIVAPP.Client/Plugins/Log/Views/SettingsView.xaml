@@ -8,8 +8,8 @@
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Log.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:log="clr-namespace:FFXIVAPP.Client.Plugins.Log"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              x:Name="userControl"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -76,23 +76,22 @@
                         </DockPanel>
                     </DockPanel>
                     <DockPanel Grid.Row="1">
-                        <ListView x:Name="Codes"
-                                  ItemsSource="{x:Static Log:Constants.ChatCodes}"
-                                  Utilities:GridViewSort.AutoSort="True"
-                                  Utilities:GridViewSort.ShowSortGlyph="False">
-                            <ListView.View>
-                                <GridView AllowsColumnReorder="False">
-                                    <GridViewColumn DisplayMemberBinding="{Binding Key}"
+                        <DataGrid x:Name="Codes"
+                                  AutoGenerateColumns="False"
+                                  BorderBrush="{DynamicResource AccentColorBrush}"
+                                  BorderThickness="1"
+                                  ItemsSource="{x:Static Log:Constants.ChatCodes}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Key}"
                                                     Header="{Binding Locale[app_CodeHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Key" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Value}"
+                                <DataGridTextColumn Binding="{Binding Value}"
                                                     Header="{Binding Locale[app_DescriptionHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Value" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                     <DockPanel Grid.Row="2">
                         <DockPanel DockPanel.Dock="Bottom"

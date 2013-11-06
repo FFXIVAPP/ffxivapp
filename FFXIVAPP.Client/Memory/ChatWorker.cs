@@ -129,45 +129,44 @@ namespace FFXIVAPP.Client.Memory
                     {
                         _lastCount = (int) chatPointers.LineCount1;
                     }
-                    if (_lastCount == chatPointers.LineCount1)
+                    if (_lastCount != chatPointers.LineCount1)
                     {
-                        throw new Exception("LastCount==LineCount");
-                    }
-                    _spots.Clear();
-                    var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
-                    var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
-                    var lengths = new List<int>();
-                    for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
-                    {
-                        var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
-                        int lineLen;
-                        if (getline == 0)
+                        _spots.Clear();
+                        var index = (int)(chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
+                        var offset = (int)(chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
+                        var lengths = new List<int>();
+                        for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
                         {
-                            lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
+                            var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
+                            int lineLen;
+                            if (getline == 0)
+                            {
+                                lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
+                            }
+                            else
+                            {
+                                var previousAddress = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
+                                var previous = MemoryHandler.Instance.GetInt32(previousAddress);
+                                var currentAddress = chatPointers.OffsetArrayStart + (uint)(getline * 4);
+                                var current = MemoryHandler.Instance.GetInt32(currentAddress);
+                                lineLen = current - previous;
+                            }
+                            lengths.Add(lineLen);
+                            var spotAddress = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
+                            _spots.Add(chatPointers.LogStart + (uint)MemoryHandler.Instance.GetInt32(spotAddress));
                         }
-                        else
+                        var limit = _spots.Count;
+                        for (var i = 0; i < limit; i++)
                         {
-                            var previousAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                            var previous = MemoryHandler.Instance.GetInt32(previousAddress);
-                            var currentAddress = chatPointers.OffsetArrayStart + (uint) (getline * 4);
-                            var current = MemoryHandler.Instance.GetInt32(currentAddress);
-                            lineLen = current - previous;
+                            _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
+                            var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
+                            var chatEntry = new ChatEntry(text.ToArray());
+                            if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
+                            {
+                                PostLineEvent(chatEntry);
+                            }
+                            _lastChatNum = _spots[i];
                         }
-                        lengths.Add(lineLen);
-                        var spotAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                        _spots.Add(chatPointers.LogStart + (uint) MemoryHandler.Instance.GetInt32(spotAddress));
-                    }
-                    var limit = _spots.Count;
-                    for (var i = 0; i < limit; i++)
-                    {
-                        _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
-                        var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                        var chatEntry = new ChatEntry(text.ToArray());
-                        if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
-                        {
-                            PostLineEvent(chatEntry);
-                        }
-                        _lastChatNum = _spots[i];
                     }
                 }
                 catch (Exception ex)

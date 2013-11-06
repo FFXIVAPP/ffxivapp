@@ -127,7 +127,8 @@ namespace FFXIVAPP.Client.Memory
                         {
                             Name = MemoryHandler.Instance.GetString(characterAddress, 48),
                             ID = MemoryHandler.Instance.GetUInt32(characterAddress, 116),
-                            NPCID = MemoryHandler.Instance.GetUInt32(characterAddress, 128),
+                            NPCID1 = MemoryHandler.Instance.GetUInt32(characterAddress, 120),
+                            NPCID2 = MemoryHandler.Instance.GetUInt32(characterAddress, 128),
                             Type = MemoryHandler.Instance.GetByte(characterAddress, 138),
                             Coordinate = new Coordinate
                             {
@@ -141,12 +142,17 @@ namespace FFXIVAPP.Client.Memory
                             Icon = MemoryHandler.Instance.GetByte(characterAddress, 394),
                             Claimed = MemoryHandler.Instance.GetByte(characterAddress, 405),
                             TargetID = MemoryHandler.Instance.GetInt32(characterAddress, 416),
+                            Level = MemoryHandler.Instance.GetByte(characterAddress, 5769),
                             HPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5776),
                             HPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5780),
                             MPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5784),
                             MPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5788),
-                            TPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5792),
-                            TPMax = 1000
+                            TPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5792),
+                            TPMax = 1000,
+                            GPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5794),
+                            GPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5796),
+                            CPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5798),
+                            CPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5800)
                         };
                         if (npcEntry.HPMax == 0)
                         {

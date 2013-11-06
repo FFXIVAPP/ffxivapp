@@ -75,7 +75,7 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
 
         #region Declarations
 
-        public Timer InfoTimer = new Timer(1000);
+        public Timer InfoTimer = new Timer(100);
 
         #endregion
 
@@ -88,29 +88,23 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
         private void InfoTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             CurrentUser = MonsterWorkerDelegate.CurrentUser;
+            CurrentNPCs = NPCWorkerDelegate.NPCEntries;
+            CurrentMonsters = MonsterWorkerDelegate.NPCEntries;
             if (CurrentUser.TargetID > 0)
             {
-                if (NPCWorkerDelegate.NPCEntries.Any())
+                if (NPCWorkerDelegate.NPCEntries.Any(n => n.NPCID1 == CurrentUser.TargetID))
                 {
-                    if (NPCWorkerDelegate.NPCEntries.Any(n => n.ID == CurrentUser.TargetID))
-                    {
-                        CurrentTarget = NPCWorkerDelegate.NPCEntries.FirstOrDefault(n => n.ID == CurrentUser.TargetID);
-                    }
+                    CurrentTarget = NPCWorkerDelegate.NPCEntries.FirstOrDefault(n => n.NPCID1 == CurrentUser.TargetID);
                 }
-                if (MonsterWorkerDelegate.NPCEntries.Any())
+                else if (MonsterWorkerDelegate.NPCEntries.Any(m => m.ID == CurrentUser.TargetID))
                 {
-                    if (MonsterWorkerDelegate.NPCEntries.Any(m => m.ID == CurrentUser.TargetID))
-                    {
-                        CurrentTarget = MonsterWorkerDelegate.NPCEntries.FirstOrDefault(m => m.ID == CurrentUser.TargetID);
-                    }
+                    CurrentTarget = MonsterWorkerDelegate.NPCEntries.FirstOrDefault(m => m.ID == CurrentUser.TargetID);
                 }
             }
             else
             {
                 CurrentTarget = new NPCEntry();
             }
-            CurrentNPCs = NPCWorkerDelegate.NPCEntries;
-            CurrentMonsters = MonsterWorkerDelegate.NPCEntries;
         }
 
         #region Implementation of INotifyPropertyChanged

@@ -1,15 +1,17 @@
 ﻿<UserControl x:Class="FFXIVAPP.Client.Plugins.Event.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Event"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Event.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:event="clr-namespace:FFXIVAPP.Client.Plugins.Event"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+
     <UserControl.Resources>
         <x:Static x:Key="MainViewModel"
                   Member="ViewModels:MainViewModel.Instance" />
@@ -17,7 +19,9 @@
                   Member="event:PluginViewModel.Instance" />
         <x:Static x:Key="Settings"
                   Member="Properties:Settings.Default" />
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
+
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource MainViewModel}">
         <Grid.RowDefinitions>
@@ -55,41 +59,53 @@
         <DockPanel Grid.Row="1"
                    Margin="3"
                    LastChildFill="True">
-            <ListView x:Name="Events"
+            <DataGrid x:Name="Events"
+                      AutoGenerateColumns="False"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
                       ItemsSource="{Binding Events,
                                             Source={StaticResource PluginViewModel}}"
                       SelectionMode="Single"
-                      Utilities:GridViewSort.AutoSort="True"
-                      Utilities:GridViewSort.ShowSortGlyph="False"
                       Utilities:SelectionBehavior.SelectionChanged="{Binding EventSelectionCommand}">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False">
-                        <GridViewColumn Width="120"
-                                        DisplayMemberBinding="{Binding Sound}"
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Sound}"
                                         Header="{Binding Locale[event_SoundHeader],
                                                          Source={StaticResource AppProperties}}"
                                         Utilities:GridViewSort.PropertyName="Sound" />
-                        <GridViewColumn Width="120"
-                                        DisplayMemberBinding="{Binding Delay}"
+                    <DataGridTextColumn Binding="{Binding Delay}"
                                         Header="{Binding Locale[event_DelayHeader],
                                                          Source={StaticResource AppProperties}}"
                                         Utilities:GridViewSort.PropertyName="Delay" />
-                        <GridViewColumn Width="450"
-                                        DisplayMemberBinding="{Binding RegEx}"
+                    <DataGridTextColumn Binding="{Binding RegEx}"
                                         Header="{Binding Locale[event_RegExHeader],
                                                          Source={StaticResource AppProperties}}"
                                         Utilities:GridViewSort.PropertyName="RegEx" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
         <DockPanel Grid.Row="2"
+                   Margin="3"
                    LastChildFill="True">
+            <Button MinWidth="28"
+                    Command="{Binding RefreshSoundListCommand}"
+                    ToolTip="Refresh Sound List">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16"
+                           Height="16"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png" />
+                    <Label Content="Refresh Sound List"
+                           Padding="3,0,3,0"
+                           Visibility="{Binding EnableHelpLabels,
+                                                Converter={StaticResource VisibilityConverter},
+                                                Source={StaticResource Settings}}" />
+                </StackPanel>
+            </Button>
             <Button Width="27"
-                    Margin="3"
+                    Margin="3 0 0 0"
                     Command="{Binding DeleteEventCommand}"
                     Content="-" />
-            <Button Margin="3"
+            <Button Margin="3 0 0 0"
                     Command="{Binding AddEventCommand}"
                     Content="{Binding Locale[event_AddUpdateEventButtonText],
                                       Source={StaticResource AppProperties}}" />

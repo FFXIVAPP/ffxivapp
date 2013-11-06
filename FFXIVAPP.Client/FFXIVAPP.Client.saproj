@@ -20,7 +20,7 @@
                 <Merging>
                     <ResourcesCompression Compress="1" />
                     <MemberRefsProxy Proxy="1" />
-                    <Pruning>
+                    <Pruning Prune="0">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation Obfuscate="1">

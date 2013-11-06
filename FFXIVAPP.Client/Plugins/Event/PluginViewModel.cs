@@ -47,6 +47,10 @@ namespace FFXIVAPP.Client.Plugins.Event
             get { return _events ?? (_events = new ObservableCollection<SoundEvent>()); }
             set
             {
+                if (_events == null)
+                {
+                    _events = new ObservableCollection<SoundEvent>();
+                }
                 _events = value;
                 RaisePropertyChanged();
             }
@@ -57,6 +61,10 @@ namespace FFXIVAPP.Client.Plugins.Event
             get { return _soundFiles ?? (_soundFiles = new ObservableCollection<string>()); }
             set
             {
+                if (_soundFiles == null)
+                {
+                    _soundFiles = new ObservableCollection<string>();
+                }
                 _soundFiles = value;
                 RaisePropertyChanged();
             }

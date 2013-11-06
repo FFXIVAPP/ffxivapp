@@ -109,6 +109,12 @@
 
     <MetroControls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
+            <Grid.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding UIScale,
+                                                 Source={x:Static Properties:Settings.Default}}"
+                                ScaleY="{Binding UIScale,
+                                                 Source={x:Static Properties:Settings.Default}}" />
+            </Grid.LayoutTransform>
             <Controls:PopupNonTopmost x:Name="Notify"
                                       AllowsTransparency="True"
                                       PopupAnimation="Fade">

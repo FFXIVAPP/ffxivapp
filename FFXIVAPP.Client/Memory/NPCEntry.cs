@@ -20,7 +20,8 @@ namespace FFXIVAPP.Client.Memory
         public uint MapIndex { get; set; }
         public string Name { get; set; }
         public uint ID { get; set; }
-        public uint NPCID { get; set; }
+        public uint NPCID1 { get; set; }
+        public uint NPCID2 { get; set; }
         public int Type { get; set; }
 
         public NPCType NPCType
@@ -49,34 +50,43 @@ namespace FFXIVAPP.Client.Memory
         public byte Icon { get; set; }
         public byte Claimed { get; set; }
         public int TargetID { get; set; }
+        public byte Level { get; set; }
         public int HPCurrent { get; set; }
         public int HPMax { get; set; }
 
-        public byte HPPercent
+        public decimal HPPercent
         {
             get
             {
                 try
                 {
-                    return Convert.ToByte(Math.Ceiling((Convert.ToDouble(HPCurrent) / Convert.ToDouble(HPMax)) * 100.0));
+                    return (decimal) (Convert.ToDouble(HPCurrent) / Convert.ToDouble(HPMax));
                 }
                 catch
                 {
                     return 0;
                 }
+            }
+        }
+
+        public string HPString
+        {
+            get
+            {
+                return String.Format("{0}/{1} [{2:P2}]", HPCurrent, HPMax, HPPercent);
             }
         }
 
         public int MPCurrent { get; set; }
         public int MPMax { get; set; }
 
-        public byte MPPercent
+        public decimal MPPercent
         {
             get
             {
                 try
                 {
-                    return Convert.ToByte(Math.Ceiling((Convert.ToDouble(MPCurrent) / Convert.ToDouble(MPMax)) * 100.0));
+                    return (decimal) (Convert.ToDouble(MPCurrent) / Convert.ToDouble(MPMax));
                 }
                 catch
                 {
@@ -85,8 +95,91 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
+        public string MPString
+        {
+            get
+            {
+                return String.Format("{0}/{1} [{2:P2}]", MPCurrent, MPMax, MPPercent);
+            }
+        }
+
         public int TPCurrent { get; set; }
         public int TPMax { get; set; }
+
+        public decimal TPPercent
+        {
+            get
+            {
+                try
+                {
+                    return (decimal) (Convert.ToDouble(TPCurrent) / Convert.ToDouble(TPMax));
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public string TPString
+        {
+            get
+            {
+                return String.Format("{0}/{1} [{2:P2}]", TPCurrent, TPMax, TPPercent);
+            }
+        }
+
+        public int GPCurrent { get; set; }
+        public int GPMax { get; set; }
+
+        public decimal GPPercent
+        {
+            get
+            {
+                try
+                {
+                    return (decimal) (Convert.ToDouble(GPCurrent) / Convert.ToDouble(GPMax));
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public string GPString
+        {
+            get
+            {
+                return String.Format("{0}/{1} [{2:P2}]", GPCurrent, GPMax, GPPercent);
+            }
+        }
+
+        public int CPCurrent { get; set; }
+        public int CPMax { get; set; }
+
+        public decimal CPPercent
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToByte(Math.Ceiling((Convert.ToDouble(CPCurrent) / Convert.ToDouble(CPMax))));
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public string CPString
+        {
+            get
+            {
+                return String.Format("{0}/{1} [{2:P2}]", CPCurrent, CPMax, CPPercent);
+            }
+        }
 
         public List<StatusEntry> StatusList
         {
@@ -130,7 +223,7 @@ namespace FFXIVAPP.Client.Memory
                 switch (NPCType)
                 {
                     case NPCType.NPC:
-                        return !String.IsNullOrEmpty(Name) && ID != 0 && NPCID != 0;
+                        return !String.IsNullOrEmpty(Name) && ID != 0 && (NPCID1 != 0 || NPCID2 != 0);
                     default:
                         return !String.IsNullOrEmpty(Name) && ID != 0;
                 }
@@ -138,6 +231,12 @@ namespace FFXIVAPP.Client.Memory
         }
 
         #endregion
+
+        public NPCEntry()
+        {
+            Name = "";
+            StatusList = new List<StatusEntry>();
+        }
 
         #region Declarations
 

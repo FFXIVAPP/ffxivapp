@@ -410,5 +410,39 @@ namespace FFXIVAPP.Client.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["HomePluginList"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0")]
+        public string UIScale {
+            get {
+                return ((string)(this["UIScale"]));
+            }
+            set {
+                this["UIScale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.5</string>
+  <string>0.6</string>
+  <string>0.7</string>
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection UIScaleList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["UIScaleList"]));
+            }
+        }
     }
 }

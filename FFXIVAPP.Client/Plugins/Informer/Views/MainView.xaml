@@ -53,22 +53,22 @@
                                 Name:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current HP:
+                                Level:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max HP:
+                                HP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current MP:
+                                MP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max MP:
+                                TP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current TP:
+                                GP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max TP:
+                                CP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
                                 Status Count:
@@ -79,22 +79,23 @@
                             <Label Content="{Binding CurrentUser.Name,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.HPCurrent,
+                            <Label Content="{Binding CurrentUser.Level,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.HPMax,
+                            <Label Content="{Binding CurrentUser.HPString,
+                                                     Source={StaticResource XIVInfoViewModel},
+                                                     StringFormat=\{0:P2\}}"
+                                   Style="{StaticResource LabelStyle}" />
+                            <Label Content="{Binding CurrentUser.MPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.MPCurrent,
+                            <Label Content="{Binding CurrentUser.TPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.MPMax,
+                            <Label Content="{Binding CurrentUser.GPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.TPCurrent,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.TPMax,
+                            <Label Content="{Binding CurrentUser.CPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
                             <Label Content="{Binding CurrentUser.StatusList.Count,
@@ -118,22 +119,22 @@
                                 Name:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current HP:
+                                Level:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max HP:
+                                HP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current MP:
+                                MP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max MP:
+                                TP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Current TP:
+                                GP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
-                                Max TP:
+                                CP:
                             </Label>
                             <Label Style="{StaticResource LabelStyle}">
                                 Status Count:
@@ -144,22 +145,23 @@
                             <Label Content="{Binding CurrentTarget.Name,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.HPCurrent,
+                            <Label Content="{Binding CurrentTarget.Level,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.HPMax,
+                            <Label Content="{Binding CurrentTarget.HPString,
+                                                     Source={StaticResource XIVInfoViewModel},
+                                                     StringFormat=\{0:P2\}}"
+                                   Style="{StaticResource LabelStyle}" />
+                            <Label Content="{Binding CurrentTarget.MPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.MPCurrent,
+                            <Label Content="{Binding CurrentTarget.TPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.MPMax,
+                            <Label Content="{Binding CurrentTarget.GPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.TPCurrent,
-                                                     Source={StaticResource XIVInfoViewModel}}"
-                                   Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.TPMax,
+                            <Label Content="{Binding CurrentTarget.CPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
                             <Label Content="{Binding CurrentTarget.StatusList.Count,

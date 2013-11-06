@@ -43,6 +43,7 @@ namespace FFXIVAPP.Client
 
             public static void LoadSounds()
             {
+                PluginViewModel.Instance.SoundFiles.Clear();
                 //do your gui stuff here
                 var files = Directory.GetFiles(AppViewModel.Instance.SoundsPath)
                                      .Where(file => Regex.IsMatch(file, @"^.+\.(wav)$"))

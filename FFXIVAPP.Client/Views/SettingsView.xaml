@@ -27,6 +27,17 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="UI Scale">
+                            <StackPanel>
+                                <ComboBox x:Name="UIScaleSelect"
+                                          Margin="5"
+                                          IsReadOnly="False"
+                                          ItemsSource="{Binding UIScaleList,
+                                                                Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding UIScale,
+                                                                  Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="Home Plugin">
                             <StackPanel>
                                 <ComboBox x:Name="HomePluginSelect"
@@ -205,29 +216,28 @@
                     </DockPanel>
                     <DockPanel Grid.Row="1"
                                Margin="3">
-                        <ListView x:Name="Colors"
+                        <DataGrid x:Name="Colors"
+                                  AutoGenerateColumns="False"
+                                  BorderBrush="{DynamicResource AccentColorBrush}"
+                                  BorderThickness="1"
                                   ItemsSource="{Binding Source={x:Static Client:Constants.Colors}}"
                                   SelectionMode="Single"
-                                  Utilities:GridViewSort.AutoSort="True"
-                                  Utilities:GridViewSort.ShowSortGlyph="False"
                                   Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}">
-                            <ListView.View>
-                                <GridView AllowsColumnReorder="False">
-                                    <GridViewColumn DisplayMemberBinding="{Binding Key}"
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Key}"
                                                     Header="{Binding Locale[app_CodeHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Key" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Value[0]}"
+                                <DataGridTextColumn Binding="{Binding Value[0]}"
                                                     Header="{Binding Locale[app_ColorHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Value[0]" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Value[1]}"
+                                <DataGridTextColumn Binding="{Binding Value[1]}"
                                                     Header="{Binding Locale[app_DescriptionHeader],
                                                                      Source={StaticResource AppProperties}}"
                                                     Utilities:GridViewSort.PropertyName="Value[1]" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                     <DockPanel Grid.Row="2"
                                LastChildFill="True">

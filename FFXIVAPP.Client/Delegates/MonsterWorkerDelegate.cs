@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Delegates
         // FULL LIST
         public static IList<NPCEntry> NPCEntries = new List<NPCEntry>();
 
-        public static NPCEntry CurrentUser;
+        public static NPCEntry CurrentUser = new NPCEntry();
 
         //UNIQUE LISTS
         public static readonly IList<NPCEntry> UniqueNPCEntries = new List<NPCEntry>();
