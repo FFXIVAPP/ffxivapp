@@ -211,7 +211,7 @@
     <Compile Include="Helpers\SettingsHelper.Log.cs" />
     <Compile Include="Helpers\SettingsHelper.Parse.cs" />
     <Compile Include="Helpers\UploadHelper.cs" />
-    <Compile Include="Helpers\XmlLogHelper.cs" />
+    <Compile Include="Helpers\SavedlLogsHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
     <Compile Include="Helpers\PopupHelper.cs" />
@@ -255,7 +255,6 @@
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Plugins\Event\Models\SoundEvent.cs" />
-    <Compile Include="Plugins\Parse\Models\DamageOverTime.cs" />
     <Compile Include="Plugins\Parse\Models\DamageOverTimeAction.cs" />
     <Compile Include="Plugins\Parse\Models\Events\Event.cs" />
     <Compile Include="Plugins\Parse\Models\Events\EventCode.cs" />

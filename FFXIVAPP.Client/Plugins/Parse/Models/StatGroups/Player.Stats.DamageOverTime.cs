@@ -16,27 +16,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetupDamageOverTimeAction(Line line)
-        {
-            bool isValid;
-            var damageOverTime = new DamageOverTime.Player(line, out isValid);
-            switch (isValid)
-            {
-                case true:
-                    if (DamageOverTimeActions.ContainsKey(line.Action))
-                    {
-                        DamageOverTimeActions[line.Action].Dispose();
-                        DamageOverTimeActions[line.Action] = damageOverTime;
-                        return;
-                    }
-                    DamageOverTimeActions.Add(line.Action, damageOverTime);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="line"></param>
         public void SetDamageOverTime(Line line)
         {
             var abilityGroup = GetGroup("DamageByAction");

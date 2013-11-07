@@ -352,7 +352,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offset"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public string GetString(uint address, uint offset = 0, int size = 24)
+        public string GetString(uint address, uint offset = 0, int size = 256)
         {
             var bytes = new byte[size];
             Peek(Process, address + offset, bytes);

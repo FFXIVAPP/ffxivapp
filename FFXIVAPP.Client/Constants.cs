@@ -30,6 +30,8 @@ namespace FFXIVAPP.Client
             "ja", "fr", "en", "de"
         };
 
+        public static StringComparison InvariantComparer = StringComparison.InvariantCultureIgnoreCase;
+
         #endregion
 
         #region Property Bindings

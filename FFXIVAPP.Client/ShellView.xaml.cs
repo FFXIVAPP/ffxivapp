@@ -121,7 +121,7 @@ namespace FFXIVAPP.Client
             {
                 CloseDelegate(update);
             }
-            Func<bool> exportHistory = () => XmlLogHelper.SaveCurrentLog(false);
+            Func<bool> exportHistory = () => SavedlLogsHelper.SaveCurrentLog(false);
             exportHistory.BeginInvoke(delegate { CloseDelegate(update); }, exportHistory);
         }
 

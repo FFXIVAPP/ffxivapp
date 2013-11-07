@@ -203,16 +203,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         {
             ParseControl.Instance.Timeline.Fights.Clear();
             ParseControl.Instance.Timeline.Overall.Clear();
-            foreach (var player in ParseControl.Instance.Timeline.Party)
-            {
-                var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
-                var dotActionList = playerInstance.DamageOverTimeActions.Select(d => d.Key)
-                                                  .ToList();
-                foreach (var action in dotActionList)
-                {
-                    playerInstance.DamageOverTimeActions[action].Dispose();
-                }
-            }
             ParseControl.Instance.Timeline.Party.Clear();
             ParseControl.Instance.Timeline.Monster.Clear();
         }

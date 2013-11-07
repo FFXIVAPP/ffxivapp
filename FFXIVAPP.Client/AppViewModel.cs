@@ -41,6 +41,7 @@ namespace FFXIVAPP.Client
         private string _latestVersion;
         private Dictionary<string, string> _locale;
         private string _logsPath;
+        private List<string> _savedLogsDirectoryList; 
         private NotifyIcon _notifyIcon;
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _screenShotsPath;
@@ -186,6 +187,24 @@ namespace FFXIVAPP.Client
             set
             {
                 _logsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public List<string> SavedLogsDirectoryList
+        {
+            get { return _savedLogsDirectoryList ?? (_savedLogsDirectoryList = new List<string>()); }
+            set
+            {
+                foreach (var directoryPath in value)
+                {
+                    var path = String.Format("{0}{1}\\", LogsPath, directoryPath);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    } 
+                }
+                _savedLogsDirectoryList = value;
                 RaisePropertyChanged();
             }
         }

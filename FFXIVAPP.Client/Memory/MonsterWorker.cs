@@ -192,9 +192,10 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 var statusEntry = new StatusEntry
                                 {
-                                    ID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
+                                    TargetName = npcEntry.Name,
+                                    StatusID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
                                     Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
-                                    OwnerID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
+                                    CasterID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
                                 };
                                 if (statusEntry.IsValid)
                                 {

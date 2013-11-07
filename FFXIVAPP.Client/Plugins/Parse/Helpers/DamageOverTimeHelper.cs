@@ -16,13 +16,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     [DoNotObfuscate]
     public static class DamageOverTimeHelper
     {
-        public static readonly List<string> Thunders = new List<string>
-        {
-            "thunder",
-            "blitz",
-            "foudre",
-            "サンダ"
-        };
 
         private static Dictionary<string, DamageOverTimeAction> _playerActions;
         private static Dictionary<string, DamageOverTimeAction> _monsterActions;

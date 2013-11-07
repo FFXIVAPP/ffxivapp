@@ -6,6 +6,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Utilities;
@@ -55,6 +56,23 @@ namespace FFXIVAPP.Client
             //initialize application data
             AppViewModel.Instance.ConfigurationsPath = "./Configurations/";
             AppViewModel.Instance.LogsPath = "./Logs/";
+            AppViewModel.Instance.SavedLogsDirectoryList = new List<string>
+            {
+                "Say",
+                "Shout",
+                "Party",
+                "Tell",
+                "LS1",
+                "LS2",
+                "LS3",
+                "LS4",
+                "LS5",
+                "LS6",
+                "LS7",
+                "LS8",
+                "FC",
+                "Yell"
+            };
             AppViewModel.Instance.ScreenShotsPath = "./ScreenShots/";
             AppViewModel.Instance.SoundsPath = "./Sounds/";
             AppViewModel.Instance.SettingsPath = "./Settings/";

@@ -16,13 +16,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        public void SetupDamageOverTimeAction(Line line)
-        {
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="line"></param>
         public void SetDamageOverTime(Line line)
         {
         }

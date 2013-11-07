@@ -12,23 +12,16 @@ namespace FFXIVAPP.Client.Memory
     {
         #region Property Backings
 
-        public uint ID { get; set; }
+        public string TargetName { get; set; }
+        public uint StatusID { get; set; }
         public float Duration { get; set; }
-        public uint OwnerID { get; set; }
+        public uint CasterID { get; set; }
 
         public bool IsValid
         {
             get
             {
-                if (ID <= 0)
-                {
-                    return false;
-                }
-                if (OwnerID <= 0)
-                {
-                    return false;
-                }
-                return true;
+                return StatusID > 0 && CasterID > 0;
             }
         }
 

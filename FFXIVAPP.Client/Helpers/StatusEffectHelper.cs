@@ -12,22 +12,22 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     public static class StatusEffectHelper
     {
-        private static Dictionary<int, StatusItem> _statusEffects;
+        private static Dictionary<uint, StatusItem> _statusEffects;
 
-        private static Dictionary<int, StatusItem> StatusEffects
+        private static Dictionary<uint, StatusItem> StatusEffects
         {
-            get { return _statusEffects ?? (_statusEffects = new Dictionary<int, StatusItem>()); }
+            get { return _statusEffects ?? (_statusEffects = new Dictionary<uint, StatusItem>()); }
             set
             {
                 if (_statusEffects == null)
                 {
-                    _statusEffects = new Dictionary<int, StatusItem>();
+                    _statusEffects = new Dictionary<uint, StatusItem>();
                 }
                 _statusEffects = value;
             }
         }
 
-        public static StatusItem StatusInfo(int id)
+        public static StatusItem StatusInfo(uint id)
         {
             if (!StatusEffects.Any())
             {

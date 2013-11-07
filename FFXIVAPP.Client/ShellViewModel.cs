@@ -67,7 +67,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         private static void SaveAndClearHistory()
         {
-            XmlLogHelper.SaveCurrentLog();
+            SavedlLogsHelper.SaveCurrentLog();
         }
 
         /// <summary>
