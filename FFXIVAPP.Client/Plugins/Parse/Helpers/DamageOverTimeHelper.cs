@@ -16,7 +16,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     [DoNotObfuscate]
     public static class DamageOverTimeHelper
     {
-
         private static Dictionary<string, DamageOverTimeAction> _playerActions;
         private static Dictionary<string, DamageOverTimeAction> _monsterActions;
 

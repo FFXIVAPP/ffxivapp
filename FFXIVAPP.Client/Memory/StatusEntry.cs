@@ -19,10 +19,7 @@ namespace FFXIVAPP.Client.Memory
 
         public bool IsValid
         {
-            get
-            {
-                return StatusID > 0 && CasterID > 0;
-            }
+            get { return StatusID > 0 && CasterID > 0; }
         }
 
         #endregion

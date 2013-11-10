@@ -195,7 +195,6 @@
     <Compile Include="Plugins\Parse\Enums\EventType.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
-    <Compile Include="Plugins\Parse\Enums\StatusEffect.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineEventType.cs" />
     <Compile Include="Plugins\Parse\Helpers\ArmoryHelper.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
@@ -278,7 +277,6 @@
     <Compile Include="Plugins\Parse\Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Plugins\Parse\Models\MultiTarget.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
-    <Compile Include="Plugins\Parse\Models\Position.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Damage.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.DamageOverTime.cs" />

@@ -27,6 +27,8 @@ namespace FFXIVAPP.Client.Memory
     {
         #region Property Bindings
 
+        private uint ChatPointerMap { get; set; }
+
         #endregion
 
         #region Declarations
@@ -106,75 +108,85 @@ namespace FFXIVAPP.Client.Memory
             {
                 return;
             }
+            _isScanning = true;
             Func<bool> scannerWorker = delegate
             {
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
+                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
                 {
-                    return false;
-                }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG"))
-                {
-                    MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20);
-                }
-                var chatPointerMap = MemoryHandler.Instance.SigScanner.Locations["CHATLOG"];
-                if (chatPointerMap == 0)
-                {
-                    return false;
-                }
-                _isScanning = true;
-                var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(chatPointerMap);
-                try
-                {
-                    if (_lastCount == 0)
+                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG"))
                     {
+                        ChatPointerMap = MemoryHandler.Instance.SigScanner.Locations["CHATLOG"];
+                        if (ChatPointerMap <= 20)
+                        {
+                            return false;
+                        }
+                        var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(ChatPointerMap);
+                        try
+                        {
+                            if (_lastCount == 0)
+                            {
+                                _lastCount = (int) chatPointers.LineCount1;
+                            }
+                            if (_lastCount != chatPointers.LineCount1)
+                            {
+                                _spots.Clear();
+                                var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
+                                var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
+                                var lengths = new List<int>();
+                                for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
+                                {
+                                    var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
+                                    int lineLen;
+                                    if (getline == 0)
+                                    {
+                                        lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
+                                    }
+                                    else
+                                    {
+                                        var previousAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
+                                        var previous = MemoryHandler.Instance.GetInt32(previousAddress);
+                                        var currentAddress = chatPointers.OffsetArrayStart + (uint) (getline * 4);
+                                        var current = MemoryHandler.Instance.GetInt32(currentAddress);
+                                        lineLen = current - previous;
+                                    }
+                                    lengths.Add(lineLen);
+                                    var spotAddress = chatPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
+                                    _spots.Add(chatPointers.LogStart + (uint) MemoryHandler.Instance.GetInt32(spotAddress));
+                                }
+                                var limit = _spots.Count;
+                                for (var i = 0; i < limit; i++)
+                                {
+                                    _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
+                                    var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
+                                    var chatEntry = new ChatEntry(text.ToArray());
+                                    if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
+                                    {
+                                        PostLineEvent(chatEntry);
+                                    }
+                                    _lastChatNum = _spots[i];
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                        }
                         _lastCount = (int) chatPointers.LineCount1;
                     }
-                    if (_lastCount != chatPointers.LineCount1)
+                    else
                     {
-                        _spots.Clear();
-                        var index = (int)(chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
-                        var offset = (int)(chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
-                        var lengths = new List<int>();
-                        for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
+                        try
                         {
-                            var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
-                            int lineLen;
-                            if (getline == 0)
-                            {
-                                lineLen = MemoryHandler.Instance.GetInt32(chatPointers.OffsetArrayStart);
-                            }
-                            else
-                            {
-                                var previousAddress = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
-                                var previous = MemoryHandler.Instance.GetInt32(previousAddress);
-                                var currentAddress = chatPointers.OffsetArrayStart + (uint)(getline * 4);
-                                var current = MemoryHandler.Instance.GetInt32(currentAddress);
-                                lineLen = current - previous;
-                            }
-                            lengths.Add(lineLen);
-                            var spotAddress = chatPointers.OffsetArrayStart + (uint)((getline - 1) * 4);
-                            _spots.Add(chatPointers.LogStart + (uint)MemoryHandler.Instance.GetInt32(spotAddress));
+                            ChatPointerMap = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20;
+                            MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", ChatPointerMap);
                         }
-                        var limit = _spots.Count;
-                        for (var i = 0; i < limit; i++)
+                        catch (Exception ex)
                         {
-                            _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
-                            var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                            var chatEntry = new ChatEntry(text.ToArray());
-                            if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
-                            {
-                                PostLineEvent(chatEntry);
-                            }
-                            _lastChatNum = _spots[i];
+                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
                 _isScanning = false;
-                _lastCount = (int) chatPointers.LineCount1;
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);

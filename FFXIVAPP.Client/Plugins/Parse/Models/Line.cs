@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -17,12 +16,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     [DoNotObfuscate]
     public class Line
     {
-        // misc.
-        public string ActionType { get; set; }
-
-        // map information
-        public int MapID { get; set; }
-
         // battle data
         public decimal Amount { get; set; }
         public decimal Modifier { get; set; }
@@ -37,31 +30,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public bool Evade { get; set; }
         public string RawLine { get; set; }
 
-        // status effect info
-        public StatusEffect StatusEffect { get; set; }
-        public string StatusEffectName { get; set; }
-
         #region Property Backings
 
         private string _action;
         private string _direction;
-        private string _job;
         private string _part;
-        private Position _position;
         private string _source;
         private string _target;
-
-        public Position Position
-        {
-            get { return _position ?? (new Position()); }
-            set { _position = value; }
-        }
-
-        public string Job
-        {
-            get { return _job ?? ""; }
-            set { _job = StringHelper.TitleCase(value); }
-        }
 
         public string Source
         {

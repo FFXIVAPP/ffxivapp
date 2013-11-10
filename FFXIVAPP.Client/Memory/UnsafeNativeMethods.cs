@@ -61,10 +61,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpBaseAddress"> </param>
         /// <param name="lpBuffer"> </param>
         /// <param name="nSize"> </param>
-        /// <param name="lpNumberOfBytesWritten"> </param>
+        /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, Byte[] lpBuffer, int nSize, int lpNumberOfBytesWritten);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, Byte[] lpBuffer, int nSize, int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
@@ -86,7 +86,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int iSize, ref int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, ref int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>

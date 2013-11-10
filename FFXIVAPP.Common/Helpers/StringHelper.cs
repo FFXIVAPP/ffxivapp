@@ -28,6 +28,7 @@ namespace FFXIVAPP.Common.Helpers
             {
                 return "";
             }
+            s = TrimAndCleanSpaces(s);
             var result = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(all ? s.ToLower() : s);
             var reg = SharedRegEx.Romans.Match(s);
             if (reg.Success)
@@ -44,6 +45,16 @@ namespace FFXIVAPP.Common.Helpers
                 result = result.Replace(String.Format("{0}{1}", num, designator), String.Format("{0}{1}", num, designator.ToLower()));
             }
             return result;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string TrimAndCleanSpaces(string name)
+        {
+            return Regex.Replace(name, @"[ ]+", " ")
+                        .Trim();
         }
 
         /// <summary>

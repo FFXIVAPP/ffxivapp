@@ -5,12 +5,8 @@
 
 #region Usings
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Timers;
-using FFXIVAPP.Client.Delegates;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
@@ -39,7 +35,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public List<LineHistory> LineHistory { get; set; }
 
-        public Dictionary<string,decimal> LastDamageAmountByAction { get; set; }
+        public Dictionary<string, decimal> LastDamageAmountByAction { get; set; }
 
         private TotalStat TotalOverallDrops { get; set; }
 

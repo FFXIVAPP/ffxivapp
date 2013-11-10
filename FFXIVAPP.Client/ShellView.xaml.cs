@@ -117,10 +117,6 @@ namespace FFXIVAPP.Client
             {
                 pluginInstance.Instance.Dispose(update);
             }
-            if (!Settings.Default.SaveLog)
-            {
-                CloseDelegate(update);
-            }
             Func<bool> exportHistory = () => SavedlLogsHelper.SaveCurrentLog(false);
             exportHistory.BeginInvoke(delegate { CloseDelegate(update); }, exportHistory);
         }

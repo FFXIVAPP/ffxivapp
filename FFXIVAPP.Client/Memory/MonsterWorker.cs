@@ -11,9 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
-using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
-using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 using Timer = System.Timers.Timer;
@@ -102,121 +100,120 @@ namespace FFXIVAPP.Client.Memory
             {
                 return;
             }
+            _isScanning = true;
             Func<bool> scannerWorker = delegate
             {
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
+                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
                 {
-                    return false;
-                }
-                if (!MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                {
-                    return false;
-                }
-                _isScanning = true;
-                try
-                {
-                    var npcEntries = new List<NPCEntry>();
-                    for (uint i = 0; i <= 1000; i += 4)
+                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                     {
-                        var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
-                        if (characterAddress == 0)
+                        _isScanning = true;
+                        try
                         {
-                            continue;
-                        }
-                        var npcEntry = new NPCEntry
-                        {
-                            Name = MemoryHandler.Instance.GetString(characterAddress, 48),
-                            ID = MemoryHandler.Instance.GetUInt32(characterAddress, 116),
-                            NPCID1 = MemoryHandler.Instance.GetUInt32(characterAddress, 120),
-                            NPCID2 = MemoryHandler.Instance.GetUInt32(characterAddress, 128),
-                            Type = MemoryHandler.Instance.GetByte(characterAddress, 138),
-                            Coordinate = new Coordinate
+                            var npcEntries = new List<NPCEntry>();
+                            for (uint i = 0; i <= 1000; i += 4)
                             {
-                                X = MemoryHandler.Instance.GetFloat(characterAddress, 160),
-                                Y = MemoryHandler.Instance.GetFloat(characterAddress, 168),
-                                Z = MemoryHandler.Instance.GetFloat(characterAddress, 164)
-                            },
-                            Heading = MemoryHandler.Instance.GetFloat(characterAddress, 176),
-                            Fate = MemoryHandler.Instance.GetUInt32(characterAddress, 228),
-                            ModelID = MemoryHandler.Instance.GetUInt32(characterAddress, 388),
-                            Icon = MemoryHandler.Instance.GetByte(characterAddress, 394),
-                            Claimed = MemoryHandler.Instance.GetByte(characterAddress, 405),
-                            TargetID = MemoryHandler.Instance.GetInt32(characterAddress, 416),
-                            Level = MemoryHandler.Instance.GetByte(characterAddress, 5769),
-                            HPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5776),
-                            HPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5780),
-                            MPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5784),
-                            MPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5788),
-                            TPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5792),
-                            TPMax = 1000,
-                            GPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5794),
-                            GPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5796),
-                            CPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5798),
-                            CPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5800)
-                        };
-                        if (npcEntry.HPMax == 0)
-                        {
-                            npcEntry.HPMax = 1;
-                        }
-                        if (i == 0)
-                        {
-                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
-                            {
-                                var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
-                                if (targetAddress > 0)
+                                var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + i);
+                                if (characterAddress == 0)
                                 {
-                                    npcEntry.TargetID = MemoryHandler.Instance.GetInt32(targetAddress);
+                                    continue;
                                 }
-                            }
-                        }
-                        if (npcEntry.TargetID == -536870912)
-                        {
-                            npcEntry.TargetID = -1;
-                        }
-                        npcEntry.MapIndex = 0;
-                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                        {
-                            try
-                            {
-                                npcEntry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                            }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                        // setup DoT: +12104
-                        for (uint x = 0; x < 30; x++)
-                        {
-                            var offset = 12104 + (x * 12);
-                            try
-                            {
-                                var statusEntry = new StatusEntry
+                                var npcEntry = new NPCEntry
                                 {
-                                    TargetName = npcEntry.Name,
-                                    StatusID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
-                                    Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
-                                    CasterID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
+                                    Name = MemoryHandler.Instance.GetString(characterAddress, 48),
+                                    ID = MemoryHandler.Instance.GetUInt32(characterAddress, 116),
+                                    NPCID1 = MemoryHandler.Instance.GetUInt32(characterAddress, 120),
+                                    NPCID2 = MemoryHandler.Instance.GetUInt32(characterAddress, 128),
+                                    Type = MemoryHandler.Instance.GetByte(characterAddress, 138),
+                                    Coordinate = new Coordinate
+                                    {
+                                        X = MemoryHandler.Instance.GetFloat(characterAddress, 160),
+                                        Y = MemoryHandler.Instance.GetFloat(characterAddress, 168),
+                                        Z = MemoryHandler.Instance.GetFloat(characterAddress, 164)
+                                    },
+                                    Heading = MemoryHandler.Instance.GetFloat(characterAddress, 176),
+                                    Fate = MemoryHandler.Instance.GetUInt32(characterAddress, 228),
+                                    ModelID = MemoryHandler.Instance.GetUInt32(characterAddress, 388),
+                                    Icon = MemoryHandler.Instance.GetByte(characterAddress, 394),
+                                    Claimed = MemoryHandler.Instance.GetByte(characterAddress, 405),
+                                    TargetID = MemoryHandler.Instance.GetInt32(characterAddress, 416),
+                                    Level = MemoryHandler.Instance.GetByte(characterAddress, 5769),
+                                    HPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5776),
+                                    HPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5780),
+                                    MPCurrent = MemoryHandler.Instance.GetInt32(characterAddress, 5784),
+                                    MPMax = MemoryHandler.Instance.GetInt32(characterAddress, 5788),
+                                    TPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5792),
+                                    TPMax = 1000,
+                                    GPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5794),
+                                    GPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5796),
+                                    CPCurrent = MemoryHandler.Instance.GetInt16(characterAddress, 5798),
+                                    CPMax = MemoryHandler.Instance.GetInt16(characterAddress, 5800)
                                 };
-                                if (statusEntry.IsValid)
+                                if (npcEntry.HPMax == 0)
                                 {
-                                    npcEntry.StatusList.Add(statusEntry);
+                                    npcEntry.HPMax = 1;
                                 }
+                                if (i == 0)
+                                {
+                                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
+                                    {
+                                        var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
+                                        if (targetAddress > 0)
+                                        {
+                                            npcEntry.TargetID = MemoryHandler.Instance.GetInt32(targetAddress);
+                                        }
+                                    }
+                                }
+                                if (npcEntry.TargetID == -536870912)
+                                {
+                                    npcEntry.TargetID = -1;
+                                }
+                                npcEntry.MapIndex = 0;
+                                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                                {
+                                    try
+                                    {
+                                        npcEntry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                    }
+                                }
+                                // setup DoT: +12104
+                                for (uint x = 0; x < 30; x++)
+                                {
+                                    var offset = 12104 + (x * 12);
+                                    try
+                                    {
+                                        var statusEntry = new StatusEntry
+                                        {
+                                            TargetName = npcEntry.Name,
+                                            StatusID = MemoryHandler.Instance.GetUInt16(characterAddress, offset + 0),
+                                            Duration = MemoryHandler.Instance.GetFloat(characterAddress, offset + 4),
+                                            CasterID = MemoryHandler.Instance.GetUInt32(characterAddress, offset + 8)
+                                        };
+                                        if (statusEntry.IsValid)
+                                        {
+                                            npcEntry.StatusList.Add(statusEntry);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                    }
+                                }
+                                if (!npcEntry.IsValid)
+                                {
+                                    continue;
+                                }
+                                npcEntries.Add(npcEntry);
                             }
-                            catch (Exception ex)
-                            {
-                            }
+                            PostNPCEvent(npcEntries);
                         }
-                        if (!npcEntry.IsValid)
+                        catch (Exception ex)
                         {
-                            continue;
+                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
-                        npcEntries.Add(npcEntry);
                     }
-                    PostNPCEvent(npcEntries);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 _isScanning = false;
                 return true;

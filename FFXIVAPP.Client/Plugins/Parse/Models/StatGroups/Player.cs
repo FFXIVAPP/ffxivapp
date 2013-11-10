@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Timers;
-using System.Windows;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
@@ -20,8 +19,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -31,16 +28,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     [DoNotObfuscate]
     public partial class Player : StatGroup
     {
-        private static int _statusTimerTicks = 0;
-        private static readonly Timer StatusUpdateTimer = new Timer(1000);
-
-        public static List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
-        public static List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
-
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
+
+        public readonly Timer StatusUpdateTimer = new Timer(1000);
+        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
+
+        public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
 
         public Player(string name) : base(name)
         {
@@ -62,114 +59,110 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public List<LineHistory> LineHistory { get; set; }
 
-        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
-
         private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
+            NPCEntry = null;
             if (MonsterWorkerDelegate.NPCEntries.Any())
             {
                 try
                 {
-                    if (Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$"))
+                    if (Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer))
                     {
                         NPCEntry = MonsterWorkerDelegate.NPCEntries.First();
                     }
                     else
                     {
-                        var playerEntries = MonsterWorkerDelegate.NPCEntries.Where(n => n.NPCType == NPCType.PC);
-                        foreach (var playerEntry in playerEntries.Where(playerEntry => Name == playerEntry.Name))
+                        NPCEntry = MonsterWorkerDelegate.NPCEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
+                    }
+                    if (NPCEntry != null)
+                    {
+                        ID = NPCEntry.ID;
+                        StatusEntriesSelf = NPCEntry.StatusList;
+                        var monsters = MonsterWorkerDelegate.NPCEntries.Where(e => e.NPCType == NPCType.Monster);
+                        foreach (var statusEntry in monsters.SelectMany(monster => monster.StatusList)
+                                                            .Where(statusEntry => statusEntry.CasterID == ID))
                         {
-                            NPCEntry = playerEntry;
-                            break;
+                            StatusEntriesMonster.Add(statusEntry);
                         }
                     }
-                    ID = NPCEntry.ID;
-                    StatusEntriesSelf = NPCEntry.StatusList;
-                    var monsters = MonsterWorkerDelegate.NPCEntries.Where(e => e.NPCType == NPCType.Monster);
-                    foreach (var statusEntry in monsters.SelectMany(monster => monster.StatusList)
-                                                        .Where(statusEntry => statusEntry.CasterID == ID))
-                    {
-                        StatusEntriesMonster.Add(statusEntry);
-                    }
                 }
                 catch (Exception ex)
                 {
                 }
             }
-            if (!StatusEntriesMonster.Any())
+            if (StatusEntriesMonster.Any())
             {
-                return;
-            }
-            foreach (var statusEntry in StatusEntriesMonster)
-            {
-                try
+                foreach (var statusEntry in StatusEntriesMonster)
                 {
-                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                    var statusKey = "";
-                    switch (Settings.Default.GameLanguage)
+                    try
                     {
-                        case "English":
-                            statusKey = statusInfo.Name.English;
-                            break;
-                        case "French":
-                            statusKey = statusInfo.Name.French;
-                            break;
-                        case "German":
-                            statusKey = statusInfo.Name.German;
-                            break;
-                        case "Japanese":
-                            statusKey = statusInfo.Name.Japanese;
-                            break;
+                        var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                        var statusKey = "";
+                        switch (Settings.Default.GameLanguage)
+                        {
+                            case "English":
+                                statusKey = statusInfo.Name.English;
+                                break;
+                            case "French":
+                                statusKey = statusInfo.Name.French;
+                                break;
+                            case "German":
+                                statusKey = statusInfo.Name.German;
+                                break;
+                            case "Japanese":
+                                statusKey = statusInfo.Name.Japanese;
+                                break;
+                        }
+                        if (String.IsNullOrWhiteSpace(statusKey))
+                        {
+                            continue;
+                        }
+                        decimal amount = 0;
+                        var key = statusKey;
+                        foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
+                        {
+                            amount = lastDamageAmountByAction.Value;
+                        }
+                        DamageOverTimeAction actionData = null;
+                        foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
+                        {
+                            actionData = damageOverTimeAction.Value;
+                        }
+                        if (actionData == null)
+                        {
+                            continue;
+                        }
+                        if (actionData.ZeroBaseDamageDOT)
+                        {
+                            amount = 100;
+                        }
+                        amount = (amount == 0) ? 100 : amount;
+                        statusKey = String.Format("{0} [•]", statusKey);
+                        var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                        if (amount > 300)
+                        {
+                            tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
+                        }
+                        var line = new Line
+                        {
+                            Action = statusKey,
+                            Source = Name,
+                            Target = statusEntry.TargetName,
+                            Amount = tickDamage
+                        };
+                        DispatcherHelper.Invoke(delegate
+                        {
+                            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                        .SetDamageOverTime(line);
+                            ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                                        .SetDamageOverTimeFromPlayer(line);
+                        });
                     }
-                    if (String.IsNullOrWhiteSpace(statusKey))
+                    catch (Exception ex)
                     {
-                        continue;
                     }
-                    decimal amount = 0;
-                    var key = statusKey;
-                    foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                    {
-                        amount = lastDamageAmountByAction.Value;
-                    }
-                    DamageOverTimeAction actionData = null;
-                    foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                    {
-                        actionData = damageOverTimeAction.Value;
-                    }
-                    if (actionData == null)
-                    {
-                        continue;
-                    }
-                    if (actionData.ZeroBaseDamageDOT)
-                    {
-                        amount = 100;
-                    }
-                    amount = (amount == 0) ? 100 : amount;
-                    statusKey = String.Format("{0} [•]", statusKey);
-                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                    if (amount > 300)
-                    {
-                        tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
-                    }
-                    var line = new Line
-                    {
-                        Action = statusKey,
-                        Source = Name,
-                        Target = statusEntry.TargetName,
-                        Amount = tickDamage
-                    };
-                    DispatcherHelper.Invoke(delegate
-                    {
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetDamageOverTime(line);
-                        ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                    .SetDamageOverTimeFromPlayer(line);
-                    });
-                }
-                catch (Exception ex)
-                {
                 }
             }
         }

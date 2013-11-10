@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using FFXIVAPP.Client.Helpers;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
@@ -71,10 +70,7 @@ namespace FFXIVAPP.Client.Memory
 
         public string HPString
         {
-            get
-            {
-                return String.Format("{0}/{1} [{2:P2}]", HPCurrent, HPMax, HPPercent);
-            }
+            get { return String.Format("{0}/{1} [{2:P2}]", HPCurrent, HPMax, HPPercent); }
         }
 
         public int MPCurrent { get; set; }
@@ -97,10 +93,7 @@ namespace FFXIVAPP.Client.Memory
 
         public string MPString
         {
-            get
-            {
-                return String.Format("{0}/{1} [{2:P2}]", MPCurrent, MPMax, MPPercent);
-            }
+            get { return String.Format("{0}/{1} [{2:P2}]", MPCurrent, MPMax, MPPercent); }
         }
 
         public int TPCurrent { get; set; }
@@ -123,10 +116,7 @@ namespace FFXIVAPP.Client.Memory
 
         public string TPString
         {
-            get
-            {
-                return String.Format("{0}/{1} [{2:P2}]", TPCurrent, TPMax, TPPercent);
-            }
+            get { return String.Format("{0}/{1} [{2:P2}]", TPCurrent, TPMax, TPPercent); }
         }
 
         public int GPCurrent { get; set; }
@@ -149,10 +139,7 @@ namespace FFXIVAPP.Client.Memory
 
         public string GPString
         {
-            get
-            {
-                return String.Format("{0}/{1} [{2:P2}]", GPCurrent, GPMax, GPPercent);
-            }
+            get { return String.Format("{0}/{1} [{2:P2}]", GPCurrent, GPMax, GPPercent); }
         }
 
         public int CPCurrent { get; set; }
@@ -175,10 +162,7 @@ namespace FFXIVAPP.Client.Memory
 
         public string CPString
         {
-            get
-            {
-                return String.Format("{0}/{1} [{2:P2}]", CPCurrent, CPMax, CPPercent);
-            }
+            get { return String.Format("{0}/{1} [{2:P2}]", CPCurrent, CPMax, CPPercent); }
         }
 
         public List<StatusEntry> StatusList

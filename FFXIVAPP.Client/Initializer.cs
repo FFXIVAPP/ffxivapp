@@ -219,7 +219,7 @@ namespace FFXIVAPP.Client
         public static void SetCharacter()
         {
             var name = String.Format("{0} {1}", Settings.Default.FirstName, Settings.Default.LastName);
-            Settings.Default.CharacterName = name.Trim();
+            Settings.Default.CharacterName = StringHelper.TrimAndCleanSpaces(name);
         }
 
         /// <summary>

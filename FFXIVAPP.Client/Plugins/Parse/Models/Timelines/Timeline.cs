@@ -203,6 +203,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         {
             ParseControl.Instance.Timeline.Fights.Clear();
             ParseControl.Instance.Timeline.Overall.Clear();
+            foreach (var player in ParseControl.Instance.Timeline.Party)
+            {
+                var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
+                playerInstance.StatusUpdateTimer.Stop();
+                playerInstance.LastDamageAmountByAction.Clear();
+                playerInstance.StatusEntriesSelf.Clear();
+                playerInstance.StatusEntriesMonster.Clear();
+            }
             ParseControl.Instance.Timeline.Party.Clear();
             ParseControl.Instance.Timeline.Monster.Clear();
         }

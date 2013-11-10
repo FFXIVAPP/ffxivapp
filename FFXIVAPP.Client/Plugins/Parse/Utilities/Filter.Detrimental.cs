@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using NLog;
 
 #endregion
@@ -49,7 +48,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _isParty = isParty;
             try
             {
-                
             }
             catch (Exception ex)
             {
@@ -62,7 +60,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _isParty = isParty;
             try
             {
-               
             }
             catch (Exception ex)
             {
