@@ -94,7 +94,8 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="SmartAssembly.Attributes">
+    <Reference Include="SmartAssembly.Attributes, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\resources\SmartAssembly.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="System" />

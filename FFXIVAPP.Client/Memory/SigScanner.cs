@@ -174,6 +174,7 @@ namespace FFXIVAPP.Client.Memory
         ///     Searches the loaded process for the given byte signature
         /// </summary>
         /// <param name="signature">The hex pattern to search for</param>
+        /// <param name="searchType"></param>
         /// <returns>The pointer found at the matching location</returns>
         private IntPtr FindSignature(string signature, ScanResultType searchType)
         {
@@ -198,21 +199,27 @@ namespace FFXIVAPP.Client.Memory
                 }
                 foreach (var region in _regions)
                 {
-                    var buffer = new byte[region.RegionSize];
-                    if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, 0))
+                    try
                     {
-                        var errorCode = Marshal.GetLastWin32Error();
-                        throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
-                    }
-                    var searchResult = FindSignature(buffer, signature, offset, searchType);
-                    if (IntPtr.Zero != searchResult)
-                    {
+                        var buffer = new byte[region.RegionSize];
+                        if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, 0))
+                        {
+                            var errorCode = Marshal.GetLastWin32Error();
+                            throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
+                        }
+                        var searchResult = FindSignature(buffer, signature, offset, searchType);
+                        if (IntPtr.Zero == searchResult)
+                        {
+                            continue;
+                        }
                         if (ScanResultType.AddressStartOfSig == searchType)
                         {
                             searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
                         }
-
                         return searchResult;
+                    }
+                    catch (Exception ex)
+                    {
                     }
                 }
             }
