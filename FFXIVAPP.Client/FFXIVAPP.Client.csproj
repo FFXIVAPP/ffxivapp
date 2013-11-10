@@ -274,7 +274,7 @@
     <Compile Include="Plugins\Parse\Models\LinkedStats\PercentStat.cs" />
     <Compile Include="Plugins\Parse\Models\LinkedStats\PerSecondAverageStat.cs" />
     <Compile Include="Plugins\Parse\Models\LinkedStats\TotalStat.cs" />
-    <Compile Include="Plugins\Parse\Models\MultiTarget.cs" />
+    <Compile Include="Plugins\Parse\Models\LimitBreaks.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Damage.cs" />

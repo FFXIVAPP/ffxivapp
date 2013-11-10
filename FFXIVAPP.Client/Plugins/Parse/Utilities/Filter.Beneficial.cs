@@ -85,7 +85,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ClearLast();
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Beneficial", e, exp);
         }
     }

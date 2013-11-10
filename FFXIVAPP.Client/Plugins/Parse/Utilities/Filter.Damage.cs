@@ -130,7 +130,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ClearLast();
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Damage", e, exp);
         }
 
@@ -156,21 +155,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
                 line.Target = Convert.ToString(damage.Groups["target"].Value);
-                if (isParty)
+                if (line.IsEmpty())
                 {
-                    _lastNameParty = line.Source;
-                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions)) && !_lastActionIsAttack)
-                    {
-                        ClearLast(true);
-                        return;
-                    }
-                }
-                else
-                {
-                    if (!_autoAction && (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions)) && !_lastActionIsAttack)
-                    {
-                        return;
-                    }
+                    return;
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Target);
                 ParseControl.Instance.Timeline.GetSetMob(line.Target)
@@ -207,26 +194,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 if (isParty)
                 {
                     _lastNameParty = line.Target;
-                    if (!_autoAction)
-                    {
-                        if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions) && !_lastActionIsAttack)
-                        {
-                            ClearLast(true);
-                            return;
-                        }
-                    }
                 }
                 else
                 {
                     line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp);
                     _lastNamePlayer = line.Target;
-                    if (!_autoAction)
-                    {
-                        if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions) && !_lastActionIsAttack)
-                        {
-                            return;
-                        }
-                    }
+                }
+                if (line.IsEmpty())
+                {
+                    return;
                 }
                 ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.MobFighting, line.Source);
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Target)

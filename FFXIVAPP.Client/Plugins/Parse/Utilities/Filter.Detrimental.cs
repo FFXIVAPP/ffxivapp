@@ -39,7 +39,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ClearLast();
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Detrimental", e, exp);
         }
 

@@ -60,7 +60,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ClearLast();
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Cure", e, exp);
         }
 
@@ -75,23 +74,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
                 line.Target = Convert.ToString(cure.Groups["target"].Value);
                 line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpper());
-                if (isParty)
+                if (line.IsEmpty())
                 {
-                    _lastNameParty = line.Source;
-                    if (line.IsEmpty() || (!_isMulti && _lastEventParty.Type != EventType.Actions && _lastEventParty.Type != EventType.Items))
-                    {
-                        ClearLast(true);
-                        return;
-                    }
-                }
-                else
-                {
-                    line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp);
-                    _lastNamePlayer = line.Source;
-                    if (line.IsEmpty() || (!_isMulti && _lastEventPlayer.Type != EventType.Actions && _lastEventPlayer.Type != EventType.Items))
-                    {
-                        return;
-                    }
+                    return;
                 }
                 if (line.RecLossType == exp.HealingType)
                 {

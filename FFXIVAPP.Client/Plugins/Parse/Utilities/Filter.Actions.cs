@@ -80,11 +80,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             if (actions.Success)
             {
-                _isMulti = MultiTarget.IsMulti(StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value)));
                 return;
             }
-            _isMulti = false;
-            ClearLast(true);
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }
 

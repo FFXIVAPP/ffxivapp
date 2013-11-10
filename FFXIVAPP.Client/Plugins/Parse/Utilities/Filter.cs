@@ -34,8 +34,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         private static string _lastMobAction = "";
 
         private static bool _autoAction;
-        private static bool _lastActionIsAttack = false;
-        private static bool _isMulti;
+        private static bool _lastActionIsAttack;
         private static bool _isParty;
 
         public static void Process(string cleaned, Models.Events.Event e)
@@ -80,22 +79,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 _lastEventPlayer = e;
             }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="clearNames"></param>
-        private static void ClearLast(bool clearNames = false)
-        {
-            return;
-            _lastActionParty = "";
-            _lastMobAction = "";
-            if (!clearNames)
-            {
-                return;
-            }
-            _lastNameParty = "";
-            _lastMobName = "";
         }
     }
 }
