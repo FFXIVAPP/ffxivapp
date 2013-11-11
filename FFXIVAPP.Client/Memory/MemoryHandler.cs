@@ -25,13 +25,24 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private Process _process;
+        private IntPtr _processHandle;
 
-        private Process Process
+        public Process Process
         {
             get { return _process; }
             set
             {
                 _process = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public IntPtr ProcessHandle
+        {
+            get { return _processHandle; }
+            set
+            {
+                _processHandle = value;
                 RaisePropertyChanged();
             }
         }
@@ -58,208 +69,45 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        /// <param name="address"> </param>
-        public MemoryHandler(Process process, uint address)
+        public MemoryHandler(Process process)
         {
             Process = process;
+            try
+            {
+                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.All, false, (uint) process.Id);
+            }
+            catch (Exception ex)
+            {
+                ProcessHandle = process.Handle;
+            }
+        }
+
+        ~MemoryHandler()
+        {
+            UnsafeNativeMethods.CloseHandle(Instance.ProcessHandle);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="process"> </param>
         /// <param name="target"> </param>
         /// <param name="data"> </param>
         /// <returns> </returns>
-        private static bool Poke(Process process, uint target, byte[] data)
+        private static bool Poke(uint target, byte[] data)
         {
             var byteWritten = new IntPtr(0);
-            return UnsafeNativeMethods.WriteProcessMemory(process.Handle, new IntPtr(target), data, new UIntPtr((UInt32) data.Length), ref byteWritten);
+            return UnsafeNativeMethods.WriteProcessMemory(Instance.ProcessHandle, new IntPtr(target), data, new UIntPtr((UInt32) data.Length), ref byteWritten);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="process"> </param>
         /// <param name="address"> </param>
         /// <param name="buffer"> </param>
         /// <returns> </returns>
-        private static bool Peek(Process process, uint address, byte[] buffer)
+        private static bool Peek(uint address, byte[] buffer)
         {
             var target = new IntPtr(address);
-            return process != null && UnsafeNativeMethods.ReadProcessMemory(process.Handle, target, buffer, buffer.Length, 0);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <returns> </returns>
-        public static Process[] GetProcesses()
-        {
-            var result = Process.GetProcesses();
-            return result;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="id"> </param>
-        /// <returns> </returns>
-        public static Process GetProcessById(int id)
-        {
-            try
-            {
-                var result = Process.GetProcessById(id);
-                return result;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        /// <returns> </returns>
-        public static Process GetProcessByName(string name)
-        {
-            var processes = Process.GetProcessesByName(name);
-            if (processes.Length <= 0)
-            {
-                return null;
-            }
-            var result = processes[0];
-            return result;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"> </param>
-        /// <returns> </returns>
-        public static Process[] GetProcessesByName(string name)
-        {
-            var result = Process.GetProcessesByName(name);
-            return result;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <returns> </returns>
-        private static IEnumerable<ProcessModule> GetModules(Process process)
-        {
-            try
-            {
-                var modules = process.Modules;
-                var result = new ProcessModule[modules.Count];
-                for (var i = 0; i < modules.Count; i++)
-                {
-                    result[i] = modules[i];
-                }
-                return result;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="name"> </param>
-        /// <returns> </returns>
-        public static ProcessModule GetModuleByName(Process process, string name)
-        {
-            ProcessModule result = null;
-            try
-            {
-                var modules = GetModules(process);
-                foreach (var module in modules.Where(module => module.ModuleName.IndexOf(name, StringComparison.Ordinal) > -1))
-                {
-                    result = module;
-                    break;
-                }
-            }
-            catch
-            {
-                return null;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="address"> </param>
-        /// <returns> </returns>
-        public static ProcessModule GetModuleByAddress(Process process, Int32 address)
-        {
-            try
-            {
-                var modules = GetModules(process);
-                return (from module in modules let baseAddress = module.BaseAddress.ToInt32() where (baseAddress <= address) && (baseAddress + module.ModuleMemorySize >= address) select module).FirstOrDefault();
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="file"> </param>
-        /// <returns> </returns>
-        private static int GetModuleBaseAddress(Process process, string file)
-        {
-            var modCol = process.Modules;
-            foreach (var procMod in modCol.Cast<ProcessModule>()
-                                          .Where(procMod => procMod.FileName == file))
-            {
-                return procMod.BaseAddress.ToInt32();
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <param name="file"> </param>
-        /// <returns> </returns>
-        private static int GetModuleEndAddress(Process process, string file)
-        {
-            var modCol = process.Modules;
-            foreach (var procMod in modCol.Cast<ProcessModule>()
-                                          .Where(procMod => procMod.FileName == file))
-            {
-                return procMod.BaseAddress.ToInt32() + procMod.ModuleMemorySize;
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
-        /// <returns> </returns>
-        public static MemoryBlock GetProcessMemoryBlock(Process process)
-        {
-            var counter = new UnsafeNativeMethods.ProcessMemoryCounters();
-            UnsafeNativeMethods.GetProcessMemoryInfo(process.Handle, out counter, Marshal.SizeOf(counter));
-            var block = new MemoryBlock
-            {
-                Start = process.MainModule.BaseAddress.ToInt64(),
-                Length = counter.PagefileUsage
-            };
-            return block;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public string GetOperationCode(uint address, int length)
-        {
-            var buffer = GetByteArray(address, length);
-            return BitConverter.ToString(buffer);
+            int lpNumberOfBytesRead;
+            return UnsafeNativeMethods.ReadProcessMemory(Instance.ProcessHandle, target, buffer, buffer.Length, out lpNumberOfBytesRead);
         }
 
         /// <summary>
@@ -270,7 +118,7 @@ namespace FFXIVAPP.Client.Memory
         public byte GetByte(uint address, uint offset = 0)
         {
             var data = new byte[1];
-            Peek(Process, address + offset, data);
+            Peek(address + offset, data);
             return data[0];
         }
 
@@ -282,7 +130,7 @@ namespace FFXIVAPP.Client.Memory
         public byte[] GetByteArray(uint address, int length)
         {
             var data = new byte[length];
-            Peek(Process, address, data);
+            Peek(address, data);
             return data;
         }
 
@@ -294,7 +142,7 @@ namespace FFXIVAPP.Client.Memory
         public double GetDouble(uint address, uint offset = 0)
         {
             var value = new byte[8];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToDouble(value, 0);
         }
 
@@ -306,7 +154,7 @@ namespace FFXIVAPP.Client.Memory
         public float GetFloat(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToSingle(value, 0);
         }
 
@@ -318,7 +166,7 @@ namespace FFXIVAPP.Client.Memory
         public short GetInt16(uint address, uint offset = 0)
         {
             var value = new byte[2];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToInt16(value, 0);
         }
 
@@ -330,7 +178,7 @@ namespace FFXIVAPP.Client.Memory
         public int GetInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToInt32(value, 0);
         }
 
@@ -342,7 +190,7 @@ namespace FFXIVAPP.Client.Memory
         public long GetInt64(uint address, uint offset = 0)
         {
             var value = new byte[8];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToInt64(value, 0);
         }
 
@@ -355,7 +203,7 @@ namespace FFXIVAPP.Client.Memory
         public string GetString(uint address, uint offset = 0, int size = 256)
         {
             var bytes = new byte[size];
-            Peek(Process, address + offset, bytes);
+            Peek(address + offset, bytes);
             var realSize = 0;
             for (var i = 0; i < size; i++)
             {
@@ -378,7 +226,7 @@ namespace FFXIVAPP.Client.Memory
         public int GetProgram(uint address, uint offset = 0)
         {
             var value = new byte[30];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToInt32(value, 0);
         }
 
@@ -390,7 +238,7 @@ namespace FFXIVAPP.Client.Memory
         public UInt32 GetUInt32(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToUInt32(value, 0);
         }
 
@@ -402,7 +250,7 @@ namespace FFXIVAPP.Client.Memory
         public UInt16 GetUInt16(uint address, uint offset = 0)
         {
             var value = new byte[4];
-            Peek(Process, address + offset, value);
+            Peek(address + offset, value);
             return BitConverter.ToUInt16(value, 0);
         }
 
@@ -414,9 +262,9 @@ namespace FFXIVAPP.Client.Memory
         /// <returns></returns>
         public T GetStructure<T>(uint address, int offset = 0)
         {
-            var lpBytesWritten = 0;
+            int lpNumberOfBytesRead;
             var buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof (T)));
-            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof (T)), ref lpBytesWritten);
+            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof(T)), out lpNumberOfBytesRead);
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
@@ -430,7 +278,7 @@ namespace FFXIVAPP.Client.Memory
         public void Reset(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            Poke(Process, address + offset, data);
+            Poke(address + offset, data);
         }
 
         /// <summary>
@@ -442,7 +290,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetByte(uint address, byte val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -453,7 +301,7 @@ namespace FFXIVAPP.Client.Memory
         /// <returns></returns>
         public bool SetByteArray(uint address, byte[] val, uint offset = 0)
         {
-            return Poke(Process, address + offset, val);
+            return Poke(address + offset, val);
         }
 
         /// <summary>
@@ -465,7 +313,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetDouble(uint address, double val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -477,7 +325,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetFloat(uint address, float val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -489,7 +337,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetInt16(uint address, short val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -501,7 +349,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetInt32(uint address, int val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -513,7 +361,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetInt64(uint address, long val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -525,7 +373,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetUInt16(uint address, UInt16 val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>
@@ -537,7 +385,7 @@ namespace FFXIVAPP.Client.Memory
         public bool SetUInt32(uint address, UInt32 val, uint offset = 0)
         {
             var data = BitConverter.GetBytes(val);
-            return Poke(Process, address + offset, data);
+            return Poke(address + offset, data);
         }
 
         /// <summary>

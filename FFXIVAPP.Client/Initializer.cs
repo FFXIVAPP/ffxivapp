@@ -505,9 +505,9 @@ namespace FFXIVAPP.Client
                 return;
             }
             var process = Process.GetProcessById(id);
-            MemoryHandler.Instance = new MemoryHandler(process, 0)
+            MemoryHandler.Instance = new MemoryHandler(process)
             {
-                SigScanner = new SigScanner(process, AppViewModel.Instance.Signatures)
+                SigScanner = new SigScanner(AppViewModel.Instance.Signatures)
             };
             StopMemoryWorkers();
             _chatWorker = new ChatWorker();

@@ -86,7 +86,6 @@ namespace FFXIVAPP.Client.Memory
 
         #region Declarations
 
-        private readonly Process _process;
         private byte[] _memDump;
         private List<UnsafeNativeMethods.MemoryBasicInformation> _regions;
 
@@ -95,20 +94,17 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="process"> </param>
-        public SigScanner(Process process)
-        {
-            _process = process;
-            Locations = new Dictionary<string, uint>();
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="process"> </param>
         /// <param name="signatures"> </param>
-        public SigScanner(Process process, List<Signature> signatures)
+        public SigScanner(List<Signature> signatures = null)
         {
-            _process = process;
-            LoadOffsets(signatures);
+            if (signatures != null && signatures.Any())
+            {
+                LoadOffsets(signatures);
+            }
+            else
+            {
+                Locations = new Dictionary<string, uint>();
+            }
         }
 
         /// <summary>
@@ -120,7 +116,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 var sw = new Stopwatch();
                 sw.Start();
-                if (_process == null)
+                if (MemoryHandler.Instance.Process == null)
                 {
                     return false;
                 }
@@ -135,7 +131,6 @@ namespace FFXIVAPP.Client.Memory
                 }
                 _memDump = null;
                 sw.Stop();
-                Debug.Print("SigFinder Completion Time: " + sw.Elapsed.TotalSeconds.ToString(CultureInfo.InvariantCulture));
                 return true;
             };
             d.BeginInvoke(null, null);
@@ -152,7 +147,7 @@ namespace FFXIVAPP.Client.Memory
                 while (true)
                 {
                     var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                    var result = UnsafeNativeMethods.VirtualQueryEx(_process.Handle, (uint) address, out info, (uint) Marshal.SizeOf(info));
+                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint) address, out info, (uint) Marshal.SizeOf(info));
                     if (0 == result)
                     {
                         break;
@@ -202,7 +197,8 @@ namespace FFXIVAPP.Client.Memory
                     try
                     {
                         var buffer = new byte[region.RegionSize];
-                        if (!UnsafeNativeMethods.ReadProcessMemory(_process.Handle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, 0))
+                        int lpNumberOfByteRead;
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");

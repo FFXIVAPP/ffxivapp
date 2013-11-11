@@ -16,7 +16,19 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscateType]
     public static class UnsafeNativeMethods
     {
-        public const int ProcessAllAccess = 0x1F0FFF;
+        public enum ProcessAccessFlags
+        {
+            All = 0x001F0FFF,
+            Terminate = 0x00000001,
+            CreateThread = 0x00000002,
+            VMOperation = 0x00000008,
+            VMRead = 0x00000010,
+            VMWrite = 0x00000020,
+            DupHandle = 0x00000040,
+            SetInformation = 0x00000200,
+            QueryInformation = 0x00000400,
+            Synchronize = 0x00100000
+        }
 
         /// <summary>
         /// </summary>
@@ -28,32 +40,20 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="hwnd"> </param>
-        /// <param name="hwndInsertAfter"> </param>
-        /// <param name="x"> </param>
-        /// <param name="y"> </param>
-        /// <param name="cx"> </param>
-        /// <param name="cy"> </param>
-        /// <param name="wFlags"> </param>
-        /// <returns> </returns>
-        [DllImport("user32", EntryPoint = "SetWindowPos")]
-        public static extern int SetWindowPos(IntPtr hwnd, int hwndInsertAfter, int x, int y, int cx, int cy, int wFlags);
+        /// <param name="dwDesiredAccess"></param>
+        /// <param name="bInheritHandle"></param>
+        /// <param name="dwProcessId"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess,
+                                                 [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, UInt32 dwProcessId);
 
         /// <summary>
         /// </summary>
-        /// <param name="dwDesiredAccess"> </param>
-        /// <param name="bInheritHandle"> </param>
-        /// <param name="dwProcessId"> </param>
-        /// <returns> </returns>
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="hObject"> </param>
-        /// <returns> </returns>
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool CloseHandle(IntPtr hObject);
+        /// <param name="hObject"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern Int32 CloseHandle(IntPtr hObject);
 
         /// <summary>
         /// </summary>
@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, Byte[] lpBuffer, int nSize, int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, int nSize, out int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
@@ -72,21 +72,10 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpBaseAddress"> </param>
         /// <param name="lpBuffer"> </param>
         /// <param name="nSize"> </param>
-        /// <param name="lpNumberOfBytesRead"> </param>
-        /// <returns> </returns>
-        [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory([Out] IntPtr hProcess, [Out] IntPtr lpBaseAddress, [Out] byte[] lpBuffer, [Out] UIntPtr nSize, [Out] IntPtr lpNumberOfBytesRead);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="hProcess"> </param>
-        /// <param name="lpBaseAddress"> </param>
-        /// <param name="lpBuffer"> </param>
-        /// <param name="iSize"> </param>
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, ref int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, int nSize, out int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
