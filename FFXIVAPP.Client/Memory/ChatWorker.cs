@@ -120,20 +120,20 @@ namespace FFXIVAPP.Client.Memory
                         {
                             return false;
                         }
-                        var chatPointers = MemoryHandler.Instance.GetStructure<ChatPointers>(ChatPointerMap);
+                        var chatPointers = MemoryHandler.Instance.GetStructure<Structures.ChatLog>(ChatPointerMap);
                         try
                         {
                             if (_lastCount == 0)
                             {
-                                _lastCount = (int) chatPointers.LineCount1;
+                                _lastCount = (int) chatPointers.LineCount;
                             }
-                            if (_lastCount != chatPointers.LineCount1)
+                            if (_lastCount != chatPointers.LineCount)
                             {
                                 _spots.Clear();
                                 var index = (int) (chatPointers.OffsetArrayPos - chatPointers.OffsetArrayStart) / 4;
                                 var offset = (int) (chatPointers.OffsetArrayEnd - chatPointers.OffsetArrayStart) / 4;
                                 var lengths = new List<int>();
-                                for (var i = chatPointers.LineCount1 - _lastCount; i > 0; i--)
+                                for (var i = chatPointers.LineCount - _lastCount; i > 0; i--)
                                 {
                                     var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
                                     int lineLen;
@@ -171,7 +171,7 @@ namespace FFXIVAPP.Client.Memory
                         {
                             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
-                        _lastCount = (int) chatPointers.LineCount1;
+                        _lastCount = (int) chatPointers.LineCount;
                     }
                     else
                     {
