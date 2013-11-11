@@ -35,6 +35,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public static ParseControl Instance
         {
             get { return _instance ?? (_instance = new ParseControl()); }
+            set { _instance = value; }
         }
 
         public Timeline Timeline
@@ -50,7 +51,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public StatMonitor StatMonitor
         {
             get { return _statMonitor ?? (_statMonitor = new StatMonitor(this)); }
-            private set
+            set
             {
                 _statMonitor = value;
                 RaisePropertyChanged();
