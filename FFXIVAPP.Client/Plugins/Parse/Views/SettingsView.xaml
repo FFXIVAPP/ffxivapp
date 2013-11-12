@@ -7,9 +7,9 @@
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
              xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
+             xmlns:controls1="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls1="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -95,6 +95,26 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <controls1:BasicDisplaySettings />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="SettingsOtherTI"
+                     Header="{Binding Locale[app_OtherOptionsTabHeader],
+                                      Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_StoreHistoryIntervalHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <TextBox x:Name="StoreHistoryInterval"
+                                         Margin="5"
+                                         VerticalContentAlignment="Center"
+                                         AutoWordSelection="True"
+                                         MaxLength="32"
+                                         Text="{Binding StoreHistoryInterval,
+                                                        Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

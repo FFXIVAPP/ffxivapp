@@ -64,6 +64,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         private void DefaultSettings()
         {
             Constants.Parse.Settings.Clear();
+            Constants.Parse.Settings.Add("StoreHistoryInterval");
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
             Constants.Parse.Settings.Add("ShowPartyHealingTab");
@@ -389,6 +390,19 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["Zoom"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("10000")]
+        public string StoreHistoryInterval
+        {
+            get { return ((string) (this["StoreHistoryInterval"])); }
+            set
+            {
+                this["StoreHistoryInterval"] = value;
                 RaisePropertyChanged();
             }
         }

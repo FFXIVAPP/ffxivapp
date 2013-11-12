@@ -7,10 +7,11 @@
              xmlns:Parse="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+             xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
+             xmlns:Views="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Views.History"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Views="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Views.History"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -36,52 +37,56 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainViewTC"
                     Grid.Row="0">
-            <TabItem Header="Basic">
+            <TabItem Header="{Binding Locale[parse_BasicButtonText],
+                                      Source={StaticResource AppProperties}}">
                 <Views:ParseBasicView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTabHeader],
-                                              Source={StaticResource AppProperties}}"
-                             Visibility="{Binding ShowPartyDamageTab,
-                                                  Converter={StaticResource VisibilityConverter},
-                                                  Source={StaticResource PluginSettings}}">
+                                      Source={StaticResource AppProperties}}"
+                     Visibility="{Binding ShowPartyDamageTab,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource PluginSettings}}">
                 <Views:ParsePartyDamageView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyHealingTabHeader],
-                                              Source={StaticResource AppProperties}}"
-                             Visibility="{Binding ShowPartyHealingTab,
-                                                  Converter={StaticResource VisibilityConverter},
-                                                  Source={StaticResource PluginSettings}}">
+                                      Source={StaticResource AppProperties}}"
+                     Visibility="{Binding ShowPartyHealingTab,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource PluginSettings}}">
 
                 <Views:ParsePartyHealingView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_PartyDamageTakenTabHeader],
-                                              Source={StaticResource AppProperties}}"
-                             Visibility="{Binding ShowPartyDamageTakenTab,
-                                                  Converter={StaticResource VisibilityConverter},
-                                                  Source={StaticResource PluginSettings}}">
+                                      Source={StaticResource AppProperties}}"
+                     Visibility="{Binding ShowPartyDamageTakenTab,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource PluginSettings}}">
                 <Views:ParsePartyDamageTakenView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTabHeader],
-                                              Source={StaticResource AppProperties}}"
-                             Visibility="{Binding ShowMonsterDamageTab,
-                                                  Converter={StaticResource VisibilityConverter},
-                                                  Source={StaticResource PluginSettings}}">
+                                      Source={StaticResource AppProperties}}"
+                     Visibility="{Binding ShowMonsterDamageTab,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource PluginSettings}}">
                 <Views:ParseMonsterDamageView />
             </TabItem>
             <TabItem Header="{Binding Locale[parse_MonsterDamageTakenTabHeader],
-                                              Source={StaticResource AppProperties}}"
-                             Visibility="{Binding ShowMonsterDamageTakenTab,
-                                                  Converter={StaticResource VisibilityConverter},
-                                                  Source={StaticResource PluginSettings}}">
+                                      Source={StaticResource AppProperties}}"
+                     Visibility="{Binding ShowMonsterDamageTakenTab,
+                                          Converter={StaticResource VisibilityConverter},
+                                          Source={StaticResource PluginSettings}}">
                 <Views:ParseMonsterDamageTakenView />
             </TabItem>
         </TabControl>
         <DockPanel Grid.Row="1"
                    Margin="3"
                    LastChildFill="True">
-            <Button Margin="3 0 0 0"
-                Command="{Binding LoadHistoryItemCommand}"
-                Content="Load Last Parse" />
+            <ComboBox x:Name="HistoryList"
+                      DisplayMemberPath="Name"
+                      ItemsSource="{Binding ParseHistory,
+                                            Source={StaticResource HistoryViewModel}}"
+                      Utilities:SelectionBehavior.SelectionChanged="{Binding LoadHistoryItemCommand,
+                                                                             Source={StaticResource HistoryViewModel}}" />
         </DockPanel>
     </Grid>
 </UserControl>

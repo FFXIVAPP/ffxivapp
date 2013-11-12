@@ -1,7 +1,9 @@
 ﻿<UserControl x:Class="FFXIVAPP.Client.Plugins.Parse.Views.History.ParseMonsterDamageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls.History"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:HistoryViewModel="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
              xmlns:Models="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Models"
              xmlns:Parse="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
@@ -10,8 +12,6 @@
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels.History"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
-             xmlns:HistoryViewModel="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -24,7 +24,7 @@
         <x:Static x:Key="PluginSettings"
                   Member="PluginProperties:Settings.Default" />
         <x:Static x:Key="Parser"
-                  Member="HistoryViewModel:HistoryViewModel.Instance" />
+                  Member="Models:HistoryControl.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
 
@@ -33,7 +33,7 @@
         <ScrollViewer>
             <StackPanel>
                 <Controls:DamageDataGrid x:Name="MonsterOverallDamage"
-                                         DataContext="{Binding HistoryControl.Timeline.Monster,
+                                         DataContext="{Binding Timeline.Monster,
                                                                Source={StaticResource Parser}}"
                                          ItemsSource="{Binding}"
                                          Style="{DynamicResource MetroDataGrid}" />

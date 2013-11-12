@@ -8,11 +8,14 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
+using FFXIVAPP.Client.Plugins.Parse.ViewModels;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -107,6 +110,48 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         public override void Clear()
         {
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
+            foreach (var player in ParseControl.Instance.Timeline.Party)
+            {
+                var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
+                playerInstance.StatusUpdateTimer.Stop();
+                playerInstance.LastDamageAmountByAction.Clear();
+                playerInstance.StatusEntriesSelf.Clear();
+                playerInstance.StatusEntriesMonster.Clear();
+            }
+            foreach (var monster in ParseControl.Instance.Timeline.Monster)
+            {
+                var monsterInstance = ParseControl.Instance.Timeline.GetSetMob(monster.Name);
+                //monsterInstance.StatusUpdateTimer.Stop();
+                monsterInstance.LastDamageAmountByAction.Clear();
+                //monsterInstance.StatusEntriesSelf.Clear();
+                //monsterInstance.StatusEntriesMonster.Clear();
+            }
+            var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
+            if (hasDamage)
+            {
+                var historyItem = new ParseHistoryItem();
+                foreach (var stat in ParseControl.Instance.Timeline.Overall.Stats)
+                {
+                    historyItem.HistoryControl.Timeline.Overall.Stats.Add(stat);
+                }
+                foreach (var player in ParseControl.Instance.Timeline.Party)
+                {
+                    historyItem.HistoryControl.Timeline.Party.Add(player);
+                }
+                foreach (var monster in ParseControl.Instance.Timeline.Monster)
+                {
+                    historyItem.HistoryControl.Timeline.Monster.Add(monster);
+                }
+                historyItem.Start = ParseControl.Instance.Timeline.ParseStarted;
+                historyItem.End = DateTime.Now;
+                historyItem.ParseLength = historyItem.End - historyItem.Start;
+                if (MonsterWorkerDelegate.CurrentUser != null)
+                {
+                    historyItem.ZoneID = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                }
+                historyItem.Name = String.Format("Unknown {0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
+                DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Add(historyItem));
+            }
             TotalOverallDamage.Reset();
             TotalOverallHealing.Reset();
             TotalOverallDamageTaken.Reset();

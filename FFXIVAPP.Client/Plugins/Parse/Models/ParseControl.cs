@@ -138,9 +138,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         #endregion
 
-        public ParseControl()
+        public ParseControl(bool isHistoryBased = false)
         {
-            Timeline = new Timeline();
+            Timeline = new Timeline(isHistoryBased);
             TimelineMonitor = new TimelineMonitor(this);
             StatMonitor = new StatMonitor(this);
         }

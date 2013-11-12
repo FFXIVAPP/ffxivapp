@@ -45,8 +45,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="dwProcessId"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess,
-                                                 [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, UInt32 dwProcessId);
+        public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, UInt32 dwProcessId);
 
         /// <summary>
         /// </summary>

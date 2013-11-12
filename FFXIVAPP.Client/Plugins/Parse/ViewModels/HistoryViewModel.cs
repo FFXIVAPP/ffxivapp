@@ -1,17 +1,16 @@
 ﻿// FFXIVAPP.Client
-// AboutViewModel.cs
+// HistoryViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
 #region Usings
 
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
 
@@ -25,34 +24,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         #region Property Bindings
 
         private static HistoryViewModel _instance;
-        private List<ParseHistoryItem> _parseHistory;
-        private ParseControl _historyControl;
+        private ObservableCollection<ParseHistoryItem> _parseHistory;
 
         public static HistoryViewModel Instance
         {
             get { return _instance ?? (_instance = new HistoryViewModel()); }
         }
 
-        public List<ParseHistoryItem> ParseHistory
+        public ObservableCollection<ParseHistoryItem> ParseHistory
         {
-            get { return _parseHistory ?? (_parseHistory = new List<ParseHistoryItem>()); }
+            get { return _parseHistory ?? (_parseHistory = new ObservableCollection<ParseHistoryItem>()); }
             set
             {
                 if (_parseHistory == null)
                 {
-                    _parseHistory = new List<ParseHistoryItem>();
+                    _parseHistory = new ObservableCollection<ParseHistoryItem>();
                 }
                 _parseHistory = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public ParseControl HistoryControl
-        {
-            get { return _historyControl ?? (_historyControl = new ParseControl()); }
-            set
-            {
-                _historyControl = value;
                 RaisePropertyChanged();
             }
         }
@@ -82,23 +70,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         public void LoadHistoryItem()
         {
-            HistoryControl = new ParseControl();
-            if (!ParseHistory.Any())
+            HistoryControl.Instance.Timeline.Overall.Clear();
+            HistoryControl.Instance.Timeline.Party.Clear();
+            HistoryControl.Instance.Timeline.Monster.Clear();
+            var historyItem = ParseHistory[HistoryView.View.HistoryList.SelectedIndex];
+            foreach (var stat in historyItem.HistoryControl.Timeline.Overall.Stats)
             {
-                return;
+                HistoryControl.Instance.Timeline.Overall.Stats.Add(stat);
             }
-            var historyItem = ParseHistory.Last();
-            foreach (var stat in historyItem.Overall.Stats)
+            foreach (var player in historyItem.HistoryControl.Timeline.Party.Children)
             {
-                HistoryControl.Timeline.Overall.Stats.Add(stat); 
+                HistoryControl.Instance.Timeline.Party.Add(player);
             }
-            foreach (var player in historyItem.Party.Children)
+            foreach (var monster in historyItem.HistoryControl.Timeline.Monster.Children)
             {
-                HistoryControl.Timeline.Party.Add(player);
-            }
-            foreach (var monster in historyItem.Monster.Children)
-            {
-                HistoryControl.Timeline.Monster.Add(monster);
+                HistoryControl.Instance.Timeline.Monster.Add(monster);
             }
         }
 

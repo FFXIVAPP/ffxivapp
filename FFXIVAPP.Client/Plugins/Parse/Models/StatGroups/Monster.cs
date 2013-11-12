@@ -24,6 +24,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
+        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
+
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
@@ -34,8 +36,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         }
 
         public List<LineHistory> LineHistory { get; set; }
-
-        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
 
         private TotalStat TotalOverallDrops { get; set; }
 

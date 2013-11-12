@@ -444,5 +444,53 @@ namespace FFXIVAPP.Client.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["UIScaleList"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EventPluginEnabled {
+            get {
+                return ((bool)(this["EventPluginEnabled"]));
+            }
+            set {
+                this["EventPluginEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InformerPluginEnabled {
+            get {
+                return ((bool)(this["InformerPluginEnabled"]));
+            }
+            set {
+                this["InformerPluginEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LogPluginEnabled {
+            get {
+                return ((bool)(this["LogPluginEnabled"]));
+            }
+            set {
+                this["LogPluginEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ParsePluginEnabled {
+            get {
+                return ((bool)(this["ParsePluginEnabled"]));
+            }
+            set {
+                this["ParsePluginEnabled"] = value;
+            }
+        }
     }
 }

@@ -389,6 +389,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_ShowPercentOfCriticalDamageTakenInfoHeader", "Show Percent Of Critical Damage Taken Information");
             Dictionary.Add("parse_LoadExistingLogFileButtonText", "Charger un fichier Log existant");
             Dictionary.Add("parse_BasicGlobalWarningLabel", "Ceci est un tracker global et comporte donc des valeurs à une échelle globale. Pour les comparaisons détaillées par joueur ou monstre (DPS par exemple), veuillez cliquer sur \"Avancé\"");
+            Dictionary.Add("parse_HistoryToolTip", "History");
+            Dictionary.Add("parse_StoreHistoryIntervalHeader", "Store History Interval");
         }
     }
 }

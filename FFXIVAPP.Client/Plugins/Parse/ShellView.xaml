@@ -41,6 +41,25 @@
                 </TabItem.Header>
                 <Views:MainView />
             </TabItem>
+            <TabItem x:Name="HistoryTI">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/History.png"
+                               ToolTip="{Binding Locale[parse_HistoryToolTip],
+                                                 Source={StaticResource AppProperties}}" />
+                        <Label Content="{Binding Locale[parse_HistoryToolTip],
+                                                 Source={StaticResource AppProperties}}"
+                               Padding="5"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={x:Static Properties:Settings.Default},
+                                                    Converter={StaticResource VisibilityConverter}}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Views:HistoryView />
+            </TabItem>
             <TabItem x:Name="SettingsTI">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -78,25 +97,6 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Views:AboutView />
-            </TabItem>
-            <TabItem x:Name="HistoryTI">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="20"
-                               Height="20"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
-                               ToolTip="{Binding Locale[app_AboutToolTip],
-                                                 Source={StaticResource AppProperties}}" />
-                        <Label Content="{Binding Locale[app_AboutToolTip],
-                                                 Source={StaticResource AppProperties}}"
-                               Padding="5"
-                               Visibility="{Binding EnableHelpLabels,
-                                                    Source={x:Static Properties:Settings.Default},
-                                                    Converter={StaticResource VisibilityConverter}}" />
-                    </StackPanel>
-                </TabItem.Header>
-                <Views:HistoryView />
             </TabItem>
         </TabControl>
     </Grid>

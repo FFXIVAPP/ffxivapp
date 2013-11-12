@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -198,7 +197,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");

@@ -13,6 +13,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
@@ -68,6 +70,10 @@ namespace FFXIVAPP.Client
         private static void SaveAndClearHistory()
         {
             SavedlLogsHelper.SaveCurrentLog();
+            if (Settings.Default.ParsePluginEnabled)
+            {
+                ParseControl.Instance.StatMonitor.Clear();
+            }
         }
 
         /// <summary>

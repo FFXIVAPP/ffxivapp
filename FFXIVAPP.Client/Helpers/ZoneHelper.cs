@@ -73,8 +73,8 @@ namespace FFXIVAPP.Client.Helpers
                 new MapInfo(false, 179, "The Roost"),
                 new MapInfo(false, 180, "Outer La Noscea"),
                 new MapInfo(false, 198, "Command Room"),
-                new MapInfo(false, 199),
-                new MapInfo(false, 200),
+                new MapInfo(false, 199, "Unknown"),
+                new MapInfo(false, 200, "Unknown"),
                 new MapInfo(true, 202, "Bowl of Embers"),
                 new MapInfo(false, 204, "Seat of the First Bow"),
                 new MapInfo(false, 205, "Lotus Stand"),
@@ -128,25 +128,25 @@ namespace FFXIVAPP.Client.Helpers
 
             public string English
             {
-                get { return _english ?? (_english = String.Format("Unknown_{0}", Index)); }
+                get { return _english ?? String.Format("Unknown_{0}", Index); }
                 set { _english = value; }
             }
 
             public string French
             {
-                get { return _french ?? (_french = String.Format("Unknown_{0}", Index)); }
+                get { return _french ?? String.Format("Unknown_{0}", Index); }
                 set { _french = value; }
             }
 
             public string German
             {
-                get { return _german ?? (_german = String.Format("Unknown_{0}", Index)); }
+                get { return _german ?? String.Format("Unknown_{0}", Index); }
                 set { _german = value; }
             }
 
             public string Japanese
             {
-                get { return _japanese ?? (_japanese = String.Format("Unknown_{0}", Index)); }
+                get { return _japanese ?? String.Format("Unknown_{0}", Index); }
                 set { _japanese = value; }
             }
         }

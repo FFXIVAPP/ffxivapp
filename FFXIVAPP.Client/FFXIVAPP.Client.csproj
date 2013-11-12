@@ -176,6 +176,18 @@
     <Compile Include="Plugins\Parse\Controls\HealingDataGrid.xaml.cs">
       <DependentUpon>HealingDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Parse\Controls\History\DamageDataGrid.xaml.cs">
+      <DependentUpon>DamageDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Controls\History\DamageTakenDataGrid.xaml.cs">
+      <DependentUpon>DamageTakenDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Controls\History\EmptyDataGrid.xaml.cs">
+      <DependentUpon>EmptyDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Controls\History\HealingDataGrid.xaml.cs">
+      <DependentUpon>HealingDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Parse\Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
@@ -275,6 +287,7 @@
     <Compile Include="Plugins\Parse\Models\LinkedStats\PerSecondAverageStat.cs" />
     <Compile Include="Plugins\Parse\Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Plugins\Parse\Models\LimitBreaks.cs" />
+    <Compile Include="Plugins\Parse\Models\HistoryControl.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
     <Compile Include="Plugins\Parse\Models\ParseHistoryItem.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
@@ -503,6 +516,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Plugins\Parse\Controls\History\DamageDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Controls\History\DamageTakenDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Controls\History\EmptyDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Controls\History\HealingDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Plugins\Parse\Controls\PlayerInfoBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -680,7 +709,7 @@
     <Content Include="Licenses\License.NLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Media\Images\License.png" />
+    <Resource Include="Resources\Media\Images\History.png" />
     <None Include="app.config" />
     <None Include="app.manifest" />
     <Content Include="NLog.config">

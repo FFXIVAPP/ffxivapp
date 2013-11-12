@@ -1,10 +1,10 @@
 ﻿// FFXIVAPP.Client
-// ParseHistory.cs
+// ParseHistoryItem.cs
 // 
 // © 2013 Ryan Wilson
 
 using System;
-using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using FFXIVAPP.Client.Helpers;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
@@ -12,22 +12,30 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     {
         #region "Auto Properties"
 
+        public string Name { get; set; }
+
+        public ZoneHelper.MapInfo MapInfo
+        {
+            get { return ZoneHelper.GetMapInfo(ZoneID); }
+        }
+
+        public uint ZoneID { get; set; }
+        public HistoryControl HistoryControl { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public TimeSpan ParseLength { get; set; }
-        public string Name { get; set; }
-        public StatGroup Overall { get; set; }
-        public StatGroup Party { get; set; }
-        public StatGroup Monster { get; set; }
 
         #endregion
 
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="zoneID"></param>
         public ParseHistoryItem(string name = "UnknownEvent")
         {
             Name = name;
-            Overall = new StatGroup("Overall");
-            Party = new StatGroup("Party");
-            Monster = new StatGroup("Monster");
+            HistoryControl = new HistoryControl();
+            ZoneID = 0;
         }
     }
 }

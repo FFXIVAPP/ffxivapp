@@ -6,10 +6,8 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -264,7 +262,7 @@ namespace FFXIVAPP.Client.Memory
         {
             int lpNumberOfBytesRead;
             var buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof (T)));
-            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof(T)), out lpNumberOfBytesRead);
+            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof (T)), out lpNumberOfBytesRead);
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;

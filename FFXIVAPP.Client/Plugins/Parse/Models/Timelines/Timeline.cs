@@ -14,7 +14,7 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
-using FFXIVAPP.Client.Plugins.Parse.ViewModels;
+using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -51,6 +51,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
+        public bool IsHistoryBased { get; set; }
+
         public FightList Fights { get; private set; }
 
         public StatGroup Overall { get; internal set; }
@@ -83,8 +85,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         /// <summary>
         /// </summary>
-        public Timeline()
+        public Timeline(bool isHistoryBased = false)
         {
+            IsHistoryBased = isHistoryBased;
             ParseStarted = DateTime.Now;
             FightingRightNow = false;
             DeathFound = false;
@@ -99,46 +102,41 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 IncludeSelf = false
             };
             _fightingTimer.Elapsed += FightingTimerOnElapsed;
+            try
+            {
+                double interval;
+                double.TryParse(Settings.Default.StoreHistoryInterval, out interval);
+                _storeHistoryTimer.Interval = interval;
+            }
+            catch (Exception ex)
+            {
+            }
             _storeHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
+            _storeHistoryTimer.Start();
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             FightingRightNow = false;
             _fightingTimer.Stop();
+            _storeHistoryTimer.Start();
         }
 
         private void StoreHistoryTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
-            if (hasDamage)
+            try
             {
-                var historyItem = new ParseHistoryItem();
-                foreach (var statGroup in ParseControl.Instance.Timeline.Overall)
-                {
-                    historyItem.Overall.AddGroup(statGroup);
-                }
-                foreach (var player in ParseControl.Instance.Timeline.Party)
-                {
-                    var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
-                    playerInstance.StatusUpdateTimer.Stop();
-                    playerInstance.LastDamageAmountByAction.Clear();
-                    playerInstance.StatusEntriesSelf.Clear();
-                    playerInstance.StatusEntriesMonster.Clear();
-                    historyItem.Party.AddGroup(player);
-                }
-                foreach (var monster in ParseControl.Instance.Timeline.Monster)
-                {
-                    var monsterInstance = ParseControl.Instance.Timeline.GetSetMob(monster.Name);
-                    monsterInstance.LastDamageAmountByAction.Clear();
-                    historyItem.Monster.AddGroup(monster);
-                }
-                historyItem.Start = ParseStarted;
-                historyItem.End = DateTime.Now;
-                historyItem.ParseLength = historyItem.End - historyItem.Start;
-                HistoryViewModel.Instance.ParseHistory.Add(historyItem);
+                double interval;
+                double.TryParse(Settings.Default.StoreHistoryInterval, out interval);
+                _storeHistoryTimer.Interval = interval;
             }
-            ParseControl.Instance.StatMonitor.Clear();
+            catch (Exception ex)
+            {
+            }
+            if (!FightingRightNow && !IsHistoryBased)
+            {
+                ParseControl.Instance.StatMonitor.Clear();
+            }
             _storeHistoryTimer.Stop();
         }
 
@@ -202,7 +200,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         FightingRightNow = true;
                         DeathFound = false;
                         _fightingTimer.Start();
-                        _storeHistoryTimer.Start();
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {
@@ -244,16 +241,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         {
             ParseControl.Instance.Timeline.Fights.Clear();
             ParseControl.Instance.Timeline.Overall.Clear();
-            foreach (var player in ParseControl.Instance.Timeline.Party)
-            {
-                var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
-                playerInstance.StatusUpdateTimer.Stop();
-                playerInstance.LastDamageAmountByAction.Clear();
-                playerInstance.StatusEntriesSelf.Clear();
-                playerInstance.StatusEntriesMonster.Clear();
-            }
             ParseControl.Instance.Timeline.Party.Clear();
             ParseControl.Instance.Timeline.Monster.Clear();
+            ParseControl.Instance.Timeline.ParseStarted = DateTime.Now;
         }
 
         #region Implementation of INotifyPropertyChanged
