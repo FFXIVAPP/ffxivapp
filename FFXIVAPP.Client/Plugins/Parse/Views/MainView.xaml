@@ -127,14 +127,6 @@
                     Margin="3 0 0 0"
                     Command="{Binding SwitchToLogViewCommand}"
                     Content="Log" />
-            <Button Width="100"
-                    Margin="3 0 0 0"
-                    Command="{Binding SetCommand}"
-                    Content="Set" />
-            <Button Width="100"
-                    Margin="3 0 0 0"
-                    Command="{Binding GetCommand}"
-                    Content="Get" />
             <!--
                 <Button Margin="3 0 0 0"
                 Command="{Binding Convert2JsonCommand}"

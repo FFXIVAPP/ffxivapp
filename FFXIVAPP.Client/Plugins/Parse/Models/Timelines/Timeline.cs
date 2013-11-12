@@ -14,6 +14,7 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using FFXIVAPP.Client.Plugins.Parse.ViewModels;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -74,6 +75,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         #region Declarations
 
         private readonly Timer _fightingTimer = new Timer(1500);
+        private readonly Timer _storeHistoryTimer = new Timer(10000);
+
+        public DateTime ParseStarted { get; set; }
 
         #endregion
 
@@ -81,6 +85,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         /// </summary>
         public Timeline()
         {
+            ParseStarted = DateTime.Now;
             FightingRightNow = false;
             DeathFound = false;
             Fights = new FightList();
@@ -94,12 +99,47 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 IncludeSelf = false
             };
             _fightingTimer.Elapsed += FightingTimerOnElapsed;
+            _storeHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             FightingRightNow = false;
             _fightingTimer.Stop();
+        }
+
+        private void StoreHistoryTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            _storeHistoryTimer.Stop();
+            var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
+            if (hasDamage)
+            {
+                var historyItem = new ParseHistoryItem();
+                foreach (var statGroup in ParseControl.Instance.Timeline.Overall)
+                {
+                    historyItem.Overall.AddGroup(statGroup);
+                }
+                foreach (var player in ParseControl.Instance.Timeline.Party)
+                {
+                    var playerInstance = ParseControl.Instance.Timeline.GetSetPlayer(player.Name);
+                    playerInstance.StatusUpdateTimer.Stop();
+                    playerInstance.LastDamageAmountByAction.Clear();
+                    playerInstance.StatusEntriesSelf.Clear();
+                    playerInstance.StatusEntriesMonster.Clear();
+                    historyItem.Party.AddGroup(player);
+                }
+                foreach (var monster in ParseControl.Instance.Timeline.Monster)
+                {
+                    var monsterInstance = ParseControl.Instance.Timeline.GetSetMob(monster.Name);
+                    monsterInstance.LastDamageAmountByAction.Clear();
+                    historyItem.Monster.AddGroup(monster);
+                }
+                historyItem.Start = ParseStarted;
+                historyItem.End = DateTime.Now;
+                historyItem.ParseLength = historyItem.End - historyItem.Start;
+                HistoryViewModel.Instance.ParseHistory.Add(historyItem);
+            }
+            ParseControl.Instance.StatMonitor.Clear();
         }
 
         /// <summary>
@@ -162,6 +202,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         FightingRightNow = true;
                         DeathFound = false;
                         _fightingTimer.Start();
+                        _storeHistoryTimer.Start();
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {

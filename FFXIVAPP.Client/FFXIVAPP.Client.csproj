@@ -276,6 +276,7 @@
     <Compile Include="Plugins\Parse\Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Plugins\Parse\Models\LimitBreaks.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
+    <Compile Include="Plugins\Parse\Models\ParseHistoryItem.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Damage.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.DamageOverTime.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="PluginInitializer.Event.cs" />
     <Compile Include="PluginInitializer.Log.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\HistoryViewModel.cs" />
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
     <Compile Include="RegularExpressions\PlayerRegEx.cs" />
     <Compile Include="SettingsProviders\Event\Settings.cs" />

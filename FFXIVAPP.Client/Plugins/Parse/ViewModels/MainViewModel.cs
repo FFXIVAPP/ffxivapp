@@ -77,8 +77,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         public ICommand SwitchToBasicViewCommand { get; private set; }
         public ICommand ResetStatsCommand { get; private set; }
         public ICommand Convert2JsonCommand { get; private set; }
-        public ICommand SetCommand { get; private set; }
-        public ICommand GetCommand { get; private set; }
 
         #endregion
 
@@ -91,59 +89,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
             SwitchToBasicViewCommand = new DelegateCommand(SwitchToBasicView);
             ResetStatsCommand = new DelegateCommand(ResetStats);
             Convert2JsonCommand = new DelegateCommand(Convert2Json);
-            SetCommand = new DelegateCommand(Set);
-            GetCommand = new DelegateCommand(Get);
-        }
-
-        public static List<Dictionary<string,List<StatGroup>>> ParseHistoryList = new List<Dictionary<string, List<StatGroup>>>();
-
-        private static void Set()
-        {
-            var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
-            if (hasDamage)
-            {
-                var historyItem = new Dictionary<string, List<StatGroup>>
-                {
-                    {
-                        "Overall", new List<StatGroup>
-                        {
-                            ParseControl.Instance.Timeline.Overall
-                        }
-                    },
-                    {
-                        "Party", ParseControl.Instance.Timeline.Party.ToList()
-                    },
-                    {
-                        "Monster", ParseControl.Instance.Timeline.Monster.ToList()
-                    }
-                };
-                ParseHistoryList.Add(historyItem);
-            }
-            ParseControl.Instance.StatMonitor.Clear();
-        }
-
-        private static void Get()
-        {
-            if (!ParseHistoryList.Any())
-            {
-                return;
-            }
-            var historyItem = ParseHistoryList.First();
-            var overall = historyItem["Overall"];
-            foreach (var o in overall)
-            {
-                ParseControl.Instance.Timeline.Overall.Add(o);
-            }
-            var monsters = historyItem["Monster"];
-            foreach (var m in monsters)
-            {
-                ParseControl.Instance.Timeline.Monster.Add(m);
-            }
-            var party = historyItem["Party"];
-            foreach (var p in party)
-            {
-                ParseControl.Instance.Timeline.Party.Add(p);
-            }
         }
 
         #region Loading Functions
