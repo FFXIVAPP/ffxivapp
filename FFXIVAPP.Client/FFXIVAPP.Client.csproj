@@ -311,6 +311,33 @@
     <Compile Include="PluginInitializer.Log.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
     <Compile Include="Plugins\Parse\ViewModels\HistoryViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParseBasicViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParseMonsterDamageTakenViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParseMonsterDamageViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyDamageTakenViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyDamageViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyHealingViewModel.cs" />
+    <Compile Include="Plugins\Parse\Views\HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParseBasicView.xaml.cs">
+      <DependentUpon>ParseBasicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParseMonsterDamageTakenView.xaml.cs">
+      <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParseMonsterDamageView.xaml.cs">
+      <DependentUpon>ParseMonsterDamageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParsePartyDamageTakenView.xaml.cs">
+      <DependentUpon>ParsePartyDamageTakenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParsePartyDamageView.xaml.cs">
+      <DependentUpon>ParsePartyDamageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml.cs">
+      <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
     <Compile Include="RegularExpressions\PlayerRegEx.cs" />
     <Compile Include="SettingsProviders\Event\Settings.cs" />
@@ -481,6 +508,34 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\xMetroPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\HistoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParseBasicView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParseMonsterDamageTakenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParseMonsterDamageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParsePartyDamageTakenView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParsePartyDamageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

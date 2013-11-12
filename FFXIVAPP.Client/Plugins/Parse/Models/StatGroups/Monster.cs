@@ -35,7 +35,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public List<LineHistory> LineHistory { get; set; }
 
-        public Dictionary<string, decimal> LastDamageAmountByAction { get; set; }
+        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
 
         private TotalStat TotalOverallDrops { get; set; }
 

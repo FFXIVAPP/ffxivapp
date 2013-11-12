@@ -75,7 +75,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         #region Declarations
 
         private readonly Timer _fightingTimer = new Timer(1500);
-        private readonly Timer _storeHistoryTimer = new Timer(10000);
+        private readonly Timer _storeHistoryTimer = new Timer(5000);
 
         public DateTime ParseStarted { get; set; }
 
@@ -110,7 +110,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         private void StoreHistoryTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            _storeHistoryTimer.Stop();
             var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
             if (hasDamage)
             {
@@ -140,6 +139,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 HistoryViewModel.Instance.ParseHistory.Add(historyItem);
             }
             ParseControl.Instance.StatMonitor.Clear();
+            _storeHistoryTimer.Stop();
         }
 
         /// <summary>
