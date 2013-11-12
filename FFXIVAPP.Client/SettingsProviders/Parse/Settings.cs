@@ -396,7 +396,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("10000")]
+        [DefaultSettingValue("2500")]
         public string StoreHistoryInterval
         {
             get { return ((string) (this["StoreHistoryInterval"])); }

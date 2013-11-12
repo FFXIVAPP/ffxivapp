@@ -8,7 +8,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Client.Delegates;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
@@ -145,11 +145,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 historyItem.Start = ParseControl.Instance.Timeline.ParseStarted;
                 historyItem.End = DateTime.Now;
                 historyItem.ParseLength = historyItem.End - historyItem.Start;
-                if (MonsterWorkerDelegate.CurrentUser != null)
-                {
-                    historyItem.ZoneID = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                }
-                historyItem.Name = String.Format("Unknown {0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
+                var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
+                var zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                                     .English;
+                //switch (Settings.Default.GameLanguage)
+                //{
+                //    case "French":
+                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                //                     .French;
+                //        break;
+                //    case "German":
+                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                //                     .German;
+                //        break;
+                //    case "Japanese":
+                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                //                     .Japanese;
+                //        break;
+                //}
+                historyItem.Name = String.Format("{0} {1}", zone, parseTimeDetails);
                 DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Add(historyItem));
             }
             TotalOverallDamage.Reset();

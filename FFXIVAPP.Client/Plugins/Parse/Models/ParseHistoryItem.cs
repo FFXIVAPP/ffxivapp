@@ -4,22 +4,16 @@
 // © 2013 Ryan Wilson
 
 using System;
-using FFXIVAPP.Client.Helpers;
+using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
+    [DoNotObfuscate]
     public class ParseHistoryItem
     {
         #region "Auto Properties"
 
         public string Name { get; set; }
-
-        public ZoneHelper.MapInfo MapInfo
-        {
-            get { return ZoneHelper.GetMapInfo(ZoneID); }
-        }
-
-        public uint ZoneID { get; set; }
         public HistoryControl HistoryControl { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
@@ -33,9 +27,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         /// <param name="zoneID"></param>
         public ParseHistoryItem(string name = "UnknownEvent")
         {
-            Name = name;
             HistoryControl = new HistoryControl();
-            ZoneID = 0;
         }
     }
 }

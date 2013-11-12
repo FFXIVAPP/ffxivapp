@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
@@ -80,6 +81,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         private readonly Timer _storeHistoryTimer = new Timer(5000);
 
         public DateTime ParseStarted { get; set; }
+        public uint ZoneID { get; set; }
 
         #endregion
 
@@ -88,7 +90,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         public Timeline(bool isHistoryBased = false)
         {
             IsHistoryBased = isHistoryBased;
-            ParseStarted = DateTime.Now;
             FightingRightNow = false;
             DeathFound = false;
             Fights = new FightList();
@@ -102,6 +103,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 IncludeSelf = false
             };
             _fightingTimer.Elapsed += FightingTimerOnElapsed;
+            ParseStarted = DateTime.Now;
+            ZoneID = 0;
             try
             {
                 double interval;
@@ -244,6 +247,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             ParseControl.Instance.Timeline.Party.Clear();
             ParseControl.Instance.Timeline.Monster.Clear();
             ParseControl.Instance.Timeline.ParseStarted = DateTime.Now;
+            if (MonsterWorkerDelegate.CurrentUser != null)
+            {
+                ParseControl.Instance.Timeline.ZoneID = MonsterWorkerDelegate.CurrentUser.MapIndex;
+            }
         }
 
         #region Implementation of INotifyPropertyChanged

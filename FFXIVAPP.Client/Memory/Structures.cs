@@ -107,7 +107,7 @@ namespace FFXIVAPP.Client.Memory
             public byte Claimed;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(426)]
+            [FieldOffset(416)]
             public int TargetID;
 
             [MarshalAs(UnmanagedType.I1)]

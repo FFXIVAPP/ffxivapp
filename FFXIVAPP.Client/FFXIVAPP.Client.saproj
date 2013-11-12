@@ -80,6 +80,21 @@
                                 <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Windows</Namespace>
                             </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Views.History</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Controls.History</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Informer</Namespace>
+                            </Token>
                         </Exclusion>
                     </Obfuscation>
                     <ControlFlow Obfuscate="1" ObfuscationLevel="4" />
