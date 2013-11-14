@@ -5,8 +5,8 @@
 
 #region Usings
 
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Common.Core.ChatLog;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -20,12 +20,12 @@ namespace FFXIVAPP.Client.Utilities
         {
         }
 
-        public static void HandleCommands(ChatEntry chatEntry)
+        public static void HandleCommands(ChatLogEntry chatLogEntry)
         {
             // process commands
-            if (chatEntry.Code == "0038")
+            if (chatLogEntry.Code == "0038")
             {
-                var commandsRegEx = CommandBuilder.CommandsRegEx.Match(chatEntry.Line.Trim());
+                var commandsRegEx = CommandBuilder.CommandsRegEx.Match(chatLogEntry.Line.Trim());
                 if (commandsRegEx.Success)
                 {
                     var plugin = commandsRegEx.Groups["plugin"].Success ? commandsRegEx.Groups["plugin"].Value : "";

@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -50,10 +51,10 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="chatEntry"> </param>
-        private void PostLineEvent(ChatEntry chatEntry)
+        /// <param name="chatLogEntry"> </param>
+        private void PostLineEvent(ChatLogEntry chatLogEntry)
         {
-            _sync.Post(RaiseLineEvent, chatEntry);
+            _sync.Post(RaiseLineEvent, chatLogEntry);
         }
 
         /// <summary>
@@ -61,14 +62,14 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseLineEvent(object state)
         {
-            OnNewline((ChatEntry) state);
+            OnNewline((ChatLogEntry) state);
         }
 
         #endregion
 
         #region Delegates
 
-        public delegate void NewLineEventHandler(ChatEntry chatEntry);
+        public delegate void NewLineEventHandler(ChatLogEntry chatLogEntry);
 
         #endregion
 
@@ -158,10 +159,10 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
                                     var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                                    var chatEntry = new ChatEntry(text.ToArray());
-                                    if (Regex.IsMatch(chatEntry.Combined, @"[\w\d]{4}::?.+"))
+                                    var chatLogEntry = ChatEntry.Process(text.ToArray());
+                                    if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
                                     {
-                                        PostLineEvent(chatEntry);
+                                        PostLineEvent(chatLogEntry);
                                     }
                                     _lastChatNum = _spots[i];
                                 }

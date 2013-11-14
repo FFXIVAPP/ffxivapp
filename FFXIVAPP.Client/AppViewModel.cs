@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -33,7 +34,7 @@ namespace FFXIVAPP.Client
         private static AppViewModel _instance;
         private static bool _hasPlugins;
         private string _appTitle;
-        private List<ChatEntry> _chatHistory;
+        private List<ChatLogEntry> _chatHistory;
         private string _configurationsPath;
         private string _currentVersion;
         private string _downloadUri;
@@ -260,9 +261,9 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public List<ChatEntry> ChatHistory
+        public List<ChatLogEntry> ChatHistory
         {
-            get { return _chatHistory ?? (_chatHistory = new List<ChatEntry>()); }
+            get { return _chatHistory ?? (_chatHistory = new List<ChatLogEntry>()); }
             set
             {
                 _chatHistory = value;

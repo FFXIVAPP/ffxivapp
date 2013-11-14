@@ -22,10 +22,8 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
-using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
-using MahApps.Metro.Controls;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
@@ -519,6 +517,11 @@ namespace FFXIVAPP.Client
             {
                 ShellView.View.PluginsTC.Items.Add(pluginTabItem);
             }
+        }
+
+        public static void UpdatePluginConstants()
+        {
+            ConstantsHelper.UpdatePluginConstants();
         }
 
         /// <summary>

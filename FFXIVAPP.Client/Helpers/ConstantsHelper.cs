@@ -5,11 +5,7 @@
 
 #region Usings
 
-using System;
-using FFXIVAPP.Client.Models;
-using FFXIVAPP.Common.Utilities;
-using FFXIVAPP.IPluginInterface;
-using NLog;
+using FFXIVAPP.Common.Core.Constant;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -19,13 +15,22 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     public static class ConstantsHelper
     {
-        public static void UpdatePluginConstants(ConstantsType type, object data)
+        public static void UpdatePluginConstants()
         {
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
-            {
-                pluginInstance.Instance.SetConstants(type, data);
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ConstantsUpdated {0}:\n{1}", type, data));
-            }
+            ApplicationContextHelper.GetContext()
+                                    .ConstantWorker.RaiseValuesEvent(new ConstantEntry
+                                    {
+                                        AutoTranslate = Constants.AutoTranslate,
+                                        CharacterName = Constants.CharacterName,
+                                        ChatCodes = Constants.ChatCodes,
+                                        ChatCodesXml = Constants.ChatCodesXml,
+                                        Colors = Constants.Colors,
+                                        CultureInfo = Constants.CultureInfo,
+                                        EnableHelpLabels = Constants.EnableHelpLabels,
+                                        EnableNLog = Constants.EnableNLog,
+                                        GameLanguage = Constants.GameLanguage,
+                                        ServerName = Constants.ServerName
+                                    });
         }
     }
 }

@@ -125,7 +125,7 @@ namespace FFXIVAPP.Client
                 plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
                 plugin.AssemblyPath = fileName;
                 plugin.Instance.Host = this;
-                plugin.Instance.Initialize();
+                plugin.Instance.Initialize(ApplicationContextHelper.GetContext());
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);
             }
@@ -192,24 +192,6 @@ namespace FFXIVAPP.Client
             }
             MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
             displayed = true;
-        }
-
-        public void GetConstants(string pluginName)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            pluginInstance.Instance.SetConstants(ConstantsType.AutoTranslate, Constants.AutoTranslate);
-            pluginInstance.Instance.SetConstants(ConstantsType.ChatCodes, Constants.ChatCodes);
-            pluginInstance.Instance.SetConstants(ConstantsType.ChatCodesXml, Constants.ChatCodesXml);
-            pluginInstance.Instance.SetConstants(ConstantsType.Colors, Constants.Colors);
-            pluginInstance.Instance.SetConstants(ConstantsType.CultureInfo, Constants.CultureInfo);
-            pluginInstance.Instance.SetConstants(ConstantsType.CharacterName, Constants.CharacterName);
-            pluginInstance.Instance.SetConstants(ConstantsType.ServerName, Constants.ServerName);
-            pluginInstance.Instance.SetConstants(ConstantsType.GameLanguage, Constants.GameLanguage);
-            //throw new NotImplementedException();
         }
 
         public void ProcessDataByKey(string pluginName, string token, string key, object data)

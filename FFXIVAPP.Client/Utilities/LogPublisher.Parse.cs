@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Utilities
 
             public static bool IsPaused = false;
 
-            public static void Process(ChatEntry chatEntry)
+            public static void Process(ChatLogEntry chatLogEntry)
             {
                 if (IsPaused)
                 {
@@ -58,10 +58,10 @@ namespace FFXIVAPP.Client.Utilities
                 try
                 {
                     var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                    var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
-                    var line = chatEntry.Line.Replace("  ", " ");
-                    var color = (Constants.Colors.ContainsKey(chatEntry.Code)) ? Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                    if (Constants.Parse.Abilities.Contains(chatEntry.Code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
+                    var timeStamp = chatLogEntry.TimeStamp.ToString("[HH:mm:ss] ");
+                    var line = chatLogEntry.Line.Replace("  ", " ");
+                    var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
+                    if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                     {
                         Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
                         {
@@ -72,7 +72,7 @@ namespace FFXIVAPP.Client.Utilities
                     {
                         NeedGreedHistory.Add(line);
                     }
-                    DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatEntry.Code, 16), line));
+                    DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatLogEntry.Code, 16), line));
                 }
                 catch (Exception ex)
                 {

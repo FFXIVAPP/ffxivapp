@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Common
-// ChatEntry.cs
+// ChatLogEntry.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -9,9 +9,9 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Common.Chat
+namespace FFXIVAPP.Common.Core.ChatLog
 {
-    public struct ChatEntry
+    public class ChatLogEntry : IChatLogEntry
     {
         public DateTime TimeStamp { get; set; }
         public string Code { get; set; }

@@ -8,8 +8,8 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Timers;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Event;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
@@ -27,7 +27,7 @@ namespace FFXIVAPP.Client.Utilities
         {
             public static bool IsPaused = false;
 
-            public static void Process(ChatEntry chatEntry)
+            public static void Process(ChatLogEntry chatLogEntry)
             {
                 if (IsPaused)
                 {
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Client.Utilities
                 }
                 try
                 {
-                    var line = chatEntry.Line.Replace("  ", " ");
+                    var line = chatLogEntry.Line.Replace("  ", " ");
                     foreach (var item in PluginViewModel.Instance.Events)
                     {
                         var resuccess = false;

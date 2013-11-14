@@ -11,11 +11,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Log;
 using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -32,7 +32,7 @@ namespace FFXIVAPP.Client.Utilities
         {
             public static bool IsPaused = false;
 
-            public static void Process(ChatEntry chatEntry)
+            public static void Process(ChatLogEntry chatLogEntry)
             {
                 if (IsPaused)
                 {
@@ -42,16 +42,16 @@ namespace FFXIVAPP.Client.Utilities
                 {
                     // setup variables
                     var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                    var timeStamp = chatEntry.TimeStamp.ToString("[HH:mm:ss] ");
-                    var line = chatEntry.Line.Replace("  ", " ");
+                    var timeStamp = chatLogEntry.TimeStamp.ToString("[HH:mm:ss] ");
+                    var line = chatLogEntry.Line.Replace("  ", " ");
                     var rawLine = line;
-                    var color = (Constants.Colors.ContainsKey(chatEntry.Code)) ? Constants.Colors[chatEntry.Code][0] : "FFFFFF";
-                    var isLS = Constants.Log.Linkshells.ContainsKey(chatEntry.Code);
-                    line = isLS ? Constants.Log.Linkshells[chatEntry.Code] + line : line;
+                    var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
+                    var isLS = Constants.Log.Linkshells.ContainsKey(chatLogEntry.Code);
+                    line = isLS ? Constants.Log.Linkshells[chatLogEntry.Code] + line : line;
                     var playerName = "";
 
                     // handle tabs
-                    if (CheckMode(chatEntry.Code, Constants.Log.ChatPublic))
+                    if (CheckMode(chatLogEntry.Code, Constants.Log.ChatPublic))
                     {
                         playerName = line.Substring(0, line.IndexOf(":", StringComparison.Ordinal));
                         line = line.Replace(playerName + ":", "");
@@ -88,7 +88,7 @@ namespace FFXIVAPP.Client.Utilities
                                 }
                                 break;
                         }
-                        if (resuccess && flowDoc.Codes.Items.Contains(chatEntry.Code))
+                        if (resuccess && flowDoc.Codes.Items.Contains(chatLogEntry.Code))
                         {
                             Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
                             {
@@ -99,42 +99,42 @@ namespace FFXIVAPP.Client.Utilities
                     // handle translation
                     if (Constants.Log.PluginSettings.EnableTranslate)
                     {
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatSay) && Constants.Log.PluginSettings.TranslateSay)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatSay) && Constants.Log.PluginSettings.TranslateSay)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatTell) && Constants.Log.PluginSettings.TranslateTell)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatTell) && Constants.Log.PluginSettings.TranslateTell)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatParty) && Constants.Log.PluginSettings.TranslateParty)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatParty) && Constants.Log.PluginSettings.TranslateParty)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatShout) && Constants.Log.PluginSettings.TranslateShout)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatShout) && Constants.Log.PluginSettings.TranslateShout)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatYell) && Constants.Log.PluginSettings.TranslateYell)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatYell) && Constants.Log.PluginSettings.TranslateYell)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatLS) && Constants.Log.PluginSettings.TranslateLS)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatLS) && Constants.Log.PluginSettings.TranslateLS)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
-                        if (CheckMode(chatEntry.Code, Constants.Log.ChatFC) && Constants.Log.PluginSettings.TranslateFC)
+                        if (CheckMode(chatLogEntry.Code, Constants.Log.ChatFC) && Constants.Log.PluginSettings.TranslateFC)
                         {
-                            GoogleTranslate.RetreiveLang(rawLine, chatEntry.JP);
+                            GoogleTranslate.RetreiveLang(rawLine, chatLogEntry.JP);
                         }
                     }
                     // handle debug tab
                     if (Constants.Log.PluginSettings.ShowAsciiDebug)
                     {
                         var asciiString = "";
-                        for (var j = 0; j < chatEntry.Bytes.Length; j++)
+                        for (var j = 0; j < chatLogEntry.Bytes.Length; j++)
                         {
-                            asciiString += chatEntry.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
+                            asciiString += chatLogEntry.Bytes[j].ToString(CultureInfo.CurrentUICulture) + " ";
                         }
                         asciiString = asciiString.Trim();
                         Common.Constants.FD.AppendFlow("", "", asciiString, new[]
@@ -142,7 +142,7 @@ namespace FFXIVAPP.Client.Utilities
                             "", "#FFFFFFFF"
                         }, MainView.View.DebugFD._FDR);
                     }
-                    var raw = String.Format("{0}[{1}]{2}", chatEntry.Raw.Substring(0, 8), chatEntry.Code, chatEntry.Raw.Substring(12));
+                    var raw = String.Format("{0}[{1}]{2}", chatLogEntry.Raw.Substring(0, 8), chatLogEntry.Code, chatLogEntry.Raw.Substring(12));
                     Common.Constants.FD.AppendFlow("", "", raw, new[]
                     {
                         "", "#FFFFFFFF"

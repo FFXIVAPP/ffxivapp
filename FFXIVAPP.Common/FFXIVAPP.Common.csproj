@@ -69,7 +69,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chat\ChatEntry.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\xFlowDocument.xaml.cs">
       <DependentUpon>xFlowDocument.xaml</DependentUpon>
@@ -79,6 +78,16 @@
     <Compile Include="Converters\StringToBrushConverter.cs" />
     <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Core\ApplicationContext.cs" />
+    <Compile Include="Core\ChatLog\ChatLogEntry.cs" />
+    <Compile Include="Core\ChatLog\ChatLogWorker.cs" />
+    <Compile Include="Core\ChatLog\IChatLogEntry.cs" />
+    <Compile Include="Core\ChatLog\IChatLogWorker.cs" />
+    <Compile Include="Core\Constant\ConstantWorker.cs" />
+    <Compile Include="Core\Constant\ConstantEntry.cs" />
+    <Compile Include="Core\Constant\IConstantWorker.cs" />
+    <Compile Include="Core\Constant\IConstantEntry.cs" />
+    <Compile Include="Core\IApplicationContext.cs" />
     <Compile Include="Events\PopupResultEvent.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\BindingHelper.cs" />

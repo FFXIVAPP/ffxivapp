@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using FFXIVAPP.Common.Core;
 
 #endregion
 
@@ -29,11 +30,9 @@ namespace FFXIVAPP.IPluginInterface
         string Version { get; }
         string Notice { get; }
         Exception Trace { get; }
-        void Initialize();
+        void Initialize(IApplicationContext applicationContext);
         void Dispose(bool isUpdating = false);
         TabItem CreateTab();
         UserControl CreateControl();
-        void OnNewLine(out bool success, params object[] entry);
-        void SetConstants(ConstantsType type, object data);
     }
 }

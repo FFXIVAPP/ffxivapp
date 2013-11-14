@@ -5,12 +5,9 @@
 
 #region Usings
 
-using System;
-using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Utilities;
-using FFXIVAPP.Common.Utilities;
-using NLog;
+using FFXIVAPP.Common.Core.ChatLog;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -24,39 +21,24 @@ namespace FFXIVAPP.Client.Delegates
 
         /// <summary>
         /// </summary>
-        public static void OnNewLine(ChatEntry chatEntry)
+        public static void OnNewLine(ChatLogEntry chatLogEntry)
         {
             if (IsPaused)
             {
                 return;
             }
-            var entry = new object[]
-            {
-                chatEntry.Bytes, chatEntry.Code, chatEntry.Combined, chatEntry.JP, chatEntry.Line, chatEntry.Raw, chatEntry.TimeStamp
-            };
-            AppViewModel.Instance.ChatHistory.Add(chatEntry);
+            AppViewModel.Instance.ChatHistory.Add(chatLogEntry);
             // process official plugins
-            if (chatEntry.Line.ToLower()
-                         .StartsWith("com:"))
+            if (chatLogEntry.Line.ToLower()
+                            .StartsWith("com:"))
             {
-                LogPublisher.HandleCommands(chatEntry);
+                LogPublisher.HandleCommands(chatLogEntry);
             }
-            LogPublisher.Event.Process(chatEntry);
-            LogPublisher.Log.Process(chatEntry);
-            LogPublisher.Parse.Process(chatEntry);
-            // process thirdparty plugins
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
-            {
-                bool success;
-                pluginInstance.Instance.OnNewLine(out success, entry);
-                if (success)
-                {
-                    continue;
-                }
-                var notice = pluginInstance.Instance.Notice;
-                var exception = pluginInstance.Instance.Trace;
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("MessageFailed {0}:\n{1}", notice, exception.StackTrace));
-            }
+            LogPublisher.Event.Process(chatLogEntry);
+            LogPublisher.Log.Process(chatLogEntry);
+            LogPublisher.Parse.Process(chatLogEntry);
+            ApplicationContextHelper.GetContext()
+                                    .ChatLogWorker.RaiseLineEvent(chatLogEntry);
         }
     }
 }

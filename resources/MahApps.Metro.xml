@@ -52,6 +52,15 @@
             <see cref="T:System.Windows.Controls.ComboBox"/>
             </summary>
         </member>
+        <member name="T:MahApps.Metro.Controls.CustomValidationPopup">
+            <summary>
+            This custom popup is used by the validation error template.
+            It provides some additional nice features:
+                - repositioning if host-window size or location changed
+                - repositioning if host-window gets maximized and vice versa
+                - it's only topmost if the host-window is activated
+            </summary>
+        </member>
         <member name="T:MahApps.Metro.Controls.ControlsHelper">
             <summary>
             A helper class that provides various attached properties for the GroupBox, TabItem and MetroTabItem controls.

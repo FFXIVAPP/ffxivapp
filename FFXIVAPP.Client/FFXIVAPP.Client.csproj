@@ -133,11 +133,13 @@
     <Compile Include="Constants.Informer.cs" />
     <Compile Include="Constants.Parse.cs" />
     <Compile Include="Constants.Event.cs" />
+    <Compile Include="Helpers\ApplicationContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
+    <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="PluginInitializer.Informer.cs" />
     <Compile Include="Plugins\Informer\PluginViewModel.cs" />
     <Compile Include="Plugins\Informer\ShellView.xaml.cs">
@@ -232,7 +234,6 @@
     <Compile Include="Localization\Japanese.Log.cs" />
     <Compile Include="Localization\Japanese.Parse.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
-    <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\Structures.cs" />
     <Compile Include="Memory\StatusEntry.cs" />
     <Compile Include="Memory\MonsterWorker.cs" />

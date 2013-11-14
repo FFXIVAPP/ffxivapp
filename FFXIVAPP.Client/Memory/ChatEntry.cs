@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -18,42 +19,34 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
-    public class ChatEntry
+    public static class ChatEntry
     {
-        public bool JP;
-
-        /// <summary>
-        /// </summary>
-        /// <param name="raw"> </param>
-        public ChatEntry(byte[] raw)
+        public static ChatLogEntry Process(byte[] raw)
         {
+            var chatLogEntry = new ChatLogEntry();
             try
             {
-                Bytes = raw;
-                Raw = Encoding.UTF8.GetString(raw.ToArray());
-                var cut = (Raw.Substring(13, 1) == ":") ? 14 : 13;
-                var cleaned = new ChatCleaner(raw, CultureInfo.CurrentUICulture, out JP).Result;
-                Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
-                Line = new ChatCleaner(Line).Result;
-                Code = Raw.Substring(8, 4);
-                Combined = String.Format("{0}:{1}", Code, Line);
+                chatLogEntry.Bytes = raw;
+                chatLogEntry.Raw = Encoding.UTF8.GetString(raw.ToArray());
+                var cut = (chatLogEntry.Raw.Substring(13, 1) == ":") ? 14 : 13;
+                bool jp;
+                var cleaned = new ChatCleaner(raw, CultureInfo.CurrentUICulture, out jp).Result;
+                chatLogEntry.JP = jp;
+                chatLogEntry.Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
+                chatLogEntry.Line = new ChatCleaner(chatLogEntry.Line).Result;
+                chatLogEntry.Code = chatLogEntry.Raw.Substring(8, 4);
+                chatLogEntry.Combined = String.Format("{0}:{1}", chatLogEntry.Code, chatLogEntry.Line);
+                chatLogEntry.TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(chatLogEntry.Raw.Substring(0, 8), NumberStyles.HexNumber));
             }
             catch (Exception ex)
             {
-                Bytes = new byte[0];
-                Raw = "";
-                Line = "";
-                Code = "";
-                Combined = "";
+                chatLogEntry.Bytes = new byte[0];
+                chatLogEntry.Raw = "";
+                chatLogEntry.Line = "";
+                chatLogEntry.Code = "";
+                chatLogEntry.Combined = "";
             }
-            TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(Raw.Substring(0, 8), NumberStyles.HexNumber));
+            return chatLogEntry;
         }
-
-        public DateTime TimeStamp { get; private set; }
-        public string Code { get; private set; }
-        public string Line { get; private set; }
-        public string Combined { get; private set; }
-        public string Raw { get; private set; }
-        public byte[] Bytes { get; private set; }
     }
 }

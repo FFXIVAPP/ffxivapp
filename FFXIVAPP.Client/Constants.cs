@@ -13,7 +13,6 @@ using System.IO;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.IPluginInterface;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -106,7 +105,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _autoTranslate = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.AutoTranslate, _autoTranslate);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -116,7 +115,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _chatCodes = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.ChatCodes, _chatCodes);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -131,7 +130,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _colors = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.Colors, _colors);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -141,7 +140,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _cultureInfo = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.CultureInfo, _cultureInfo);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -151,7 +150,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _characterName = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.CharacterName, _characterName);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -161,7 +160,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _serverName = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.ServerName, _serverName);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -171,7 +170,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _gameLanguage = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.GameLanguage, _gameLanguage);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -181,7 +180,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _enableNLog = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableNLog, _enableNLog);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
@@ -191,7 +190,7 @@ namespace FFXIVAPP.Client
             set
             {
                 _enableHelpLabels = value;
-                ConstantsHelper.UpdatePluginConstants(ConstantsType.EnableHelpLabels, _enableHelpLabels);
+                ConstantsHelper.UpdatePluginConstants();
             }
         }
 
