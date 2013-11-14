@@ -8,6 +8,7 @@
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Properties;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -46,6 +47,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 
             var expressions = new Expressions(e, cleaned);
 
+            switch (Settings.Default.StoreHistoryEvent)
+            {
+                case "Any":
+                    ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                    break;
+                case "Damage Only":
+                    if (e.Type == EventType.Damage)
+                    {
+                        ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                    }
+                    break;
+            }
+
             switch (e.Type)
             {
                 case EventType.Damage:
@@ -78,6 +92,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             else
             {
                 _lastEventPlayer = e;
+            }
+
+            switch (Settings.Default.StoreHistoryEvent)
+            {
+                case "Any":
+                    ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+                    break;
+                case "Damage Only":
+                    if (e.Type == EventType.Damage)
+                    {
+                        ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+                    }
+                    break;
             }
         }
     }

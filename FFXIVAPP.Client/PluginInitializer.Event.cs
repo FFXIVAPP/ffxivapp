@@ -3,6 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,8 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Plugins.Event;
 using FFXIVAPP.Client.Plugins.Event.Models;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client
 {

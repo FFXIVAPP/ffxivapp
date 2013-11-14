@@ -19,7 +19,7 @@ namespace FFXIVAPP.Common.Models
 
         public string PluginName
         {
-            get { return (String.IsNullOrWhiteSpace(_pluginName) ? "" : _pluginName); }
+            get { return (String.IsNullOrWhiteSpace(_pluginName) ? "UnknownPlugin" : _pluginName); }
             set { _pluginName = value; }
         }
 
@@ -43,8 +43,6 @@ namespace FFXIVAPP.Common.Models
             set { _message = value; }
         }
 
-        public bool CanSayNo { get; set; }
-
-        public bool IsOkayOnly { get; set; }
+        public bool CanCancel { get; set; }
     }
 }

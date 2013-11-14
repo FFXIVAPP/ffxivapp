@@ -81,6 +81,10 @@
         <DockPanel Grid.Row="1"
                    Margin="3"
                    LastChildFill="True">
+            <Label MinWidth="30"
+                   MaxWidth="120"
+                   VerticalAlignment="Center"
+                   Content="Select Item:" />
             <ComboBox x:Name="HistoryList"
                       DisplayMemberPath="Name"
                       ItemsSource="{Binding ParseHistory,

@@ -122,7 +122,7 @@ namespace FFXIVAPP.Client.Memory
                                 var npc = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                 var entry = new NPCEntry
                                 {
-                                    Name = npc.Name,
+                                    Name = MemoryHandler.Instance.GetString(characterAddress, 48),
                                     ID = npc.ID,
                                     NPCID1 = npc.NPCID1,
                                     NPCID2 = npc.NPCID2,

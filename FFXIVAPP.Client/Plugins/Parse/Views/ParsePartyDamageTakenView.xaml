@@ -1,17 +1,16 @@
 ﻿<UserControl x:Class="FFXIVAPP.Client.Plugins.Parse.Views.ParsePartyDamageTakenView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              xmlns:Models="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Models"
              xmlns:Parse="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
-             xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
              xmlns:converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls1="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -32,7 +31,7 @@
           DataContext="{StaticResource ParsePartyDamageTakenViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="PlayerOverallDamageTaken"
+                <Controls:DamageTakenDataGrid x:Name="PlayerOverallDamageTaken"
                                               DataContext="{Binding Timeline.Party,
                                                                     Source={StaticResource Parser}}"
                                               ItemsSource="{Binding}"
@@ -49,7 +48,7 @@
                                Text="{Binding Locale[parse_PlayerDamageTakenByActionText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="PlayerDamageTakenByAction"
+                <Controls:DamageTakenDataGrid x:Name="PlayerDamageTakenByAction"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=PlayerOverallDamageTaken,
                                                                     NotifyOnTargetUpdated=True,
@@ -71,7 +70,7 @@
                                Text="{Binding Locale[parse_PlayerDamageTakenByMonstersText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonsters"
+                <Controls:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonsters"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=PlayerOverallDamageTaken,
                                                                     NotifyOnTargetUpdated=True,
@@ -93,7 +92,7 @@
                                Text="{Binding Locale[parse_PlayerDamageTakenByMonstersByActionText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonstersByAction"
+                <Controls:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonstersByAction"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=PlayerDamageTakenByMonsters,
                                                                     NotifyOnTargetUpdated=True,

@@ -50,10 +50,6 @@ namespace FFXIVAPP.Client.Memory
         [StructLayout(LayoutKind.Explicit)]
         internal struct NPCEntry
         {
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            [FieldOffset(48)]
-            public string Name;
-
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(116)]
             public uint ID;
@@ -69,6 +65,14 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(138)]
             public byte Type;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(140)]
+            public byte CurrentTarget;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(141)]
+            public byte Distance;
 
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(160)]
@@ -95,6 +99,10 @@ namespace FFXIVAPP.Client.Memory
             public uint ModelID;
 
             [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(392)]
+            public byte CurrentStatus;
+
+            [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(393)]
             public bool IsGM;
 
@@ -113,6 +121,18 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(5769)]
             public byte Level;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(5770)]
+            public byte GrandCompany;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(5771)]
+            public byte GrandCompanyRank;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(5774)]
+            public byte Title;
 
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(5776)]
@@ -149,6 +169,14 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.I2)]
             [FieldOffset(5800)]
             public short CPMax;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(11704)]
+            public byte Race;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(11705)]
+            public byte Sex;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
             [FieldOffset(12104)]

@@ -6,7 +6,6 @@
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Informer"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Informer.ViewModels"
-             xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"

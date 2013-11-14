@@ -2,16 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:CommonConverters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              xmlns:Models="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Models"
              xmlns:Parse="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
-             xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls1="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -92,21 +91,6 @@
                                                              Source={StaticResource AppProperties}}"
                                             Utilities:GridViewSort.PropertyName="DTPS"
                                             Visibility="{Binding ShowColumnDTPS,
-                                                                 Source={StaticResource PluginSettings},
-                                                                 Converter={StaticResource VisibilityConverter}}" />
-                        <DataGridTextColumn Binding="{Binding DamageTakenDOT}"
-                                            Header="{Binding Locale[parse_DamageTakenDOTHeader],
-                                                             Source={StaticResource AppProperties}}"
-                                            Utilities:GridViewSort.PropertyName="DamageTakenDOT"
-                                            Visibility="{Binding ShowColumnDamageTakenDOT,
-                                                                 Source={StaticResource PluginSettings},
-                                                                 Converter={StaticResource VisibilityConverter}}" />
-                        <DataGridTextColumn Binding="{Binding DamageTakenDOTAverage,
-                                                              StringFormat=\{0:F2\}}"
-                                            Header="{Binding Locale[parse_DamageTakenDOTAverageHeader],
-                                                             Source={StaticResource AppProperties}}"
-                                            Utilities:GridViewSort.PropertyName="DamageTakenDOTAverage"
-                                            Visibility="{Binding ShowColumnDamageTakenDOTAverage,
                                                                  Source={StaticResource PluginSettings},
                                                                  Converter={StaticResource VisibilityConverter}}" />
                         <DataGridTextColumn Binding="{Binding DamageTakenRegHit}"
@@ -405,7 +389,7 @@
                 </DataGrid>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="5"
-                              IsChecked="{Binding MonsterDamageToPlayersByAction,
+                              IsChecked="{Binding MonsterDamageTakenByAction,
                                                   Source={StaticResource PluginSettings}}" />
                     <TextBlock Margin="2"
                                HorizontalAlignment="Left"
@@ -415,14 +399,14 @@
                                Text="{Binding Locale[parse_MonsterDamageTakenByActionText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="MonsterDamageTakenByAction"
+                <Controls:DamageTakenDataGrid x:Name="MonsterDamageTakenByAction"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=MonsterOverallDamageTaken,
                                                                     NotifyOnTargetUpdated=True,
                                                                     NotifyOnSourceUpdated=True}"
                                               ItemsSource="{Binding DamageTakenByAction}"
                                               Style="{DynamicResource MetroDataGrid}"
-                                              Visibility="{Binding MonsterDamageToPlayersByAction,
+                                              Visibility="{Binding MonsterDamageTakenByAction,
                                                                    Source={StaticResource PluginSettings},
                                                                    Converter={StaticResource VisibilityConverter}}" />
                 <StackPanel Orientation="Horizontal">
@@ -437,7 +421,7 @@
                                Text="{Binding Locale[parse_MonsterDamageTakenByPlayersText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayers"
+                <Controls:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayers"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=MonsterOverallDamageTaken,
                                                                     NotifyOnTargetUpdated=True,
@@ -459,7 +443,7 @@
                                Text="{Binding Locale[parse_MonsterDamageTakenByPlayersByActionText],
                                               Source={StaticResource AppProperties}}" />
                 </StackPanel>
-                <controls1:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayersByAction"
+                <Controls:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayersByAction"
                                               DataContext="{Binding SelectedItem,
                                                                     ElementName=MonsterDamageTakenByPlayers,
                                                                     NotifyOnTargetUpdated=True,

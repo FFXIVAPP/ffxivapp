@@ -10,14 +10,14 @@ namespace FFXIVAPP.Client.Localization
         private static void SetEventLocale()
         {
             Dictionary.Add("event_PLACEHOLDER", "*PH*");
-            Dictionary.Add("event_AddUpdateEventButtonText", "加える / アップデート項目");
-            Dictionary.Add("event_RegExHeader", "RegEx");
-            Dictionary.Add("event_RegExLabel", "RegEx:");
-            Dictionary.Add("event_SampleText", "The scout vulture readies Wing Cutter.");
-            Dictionary.Add("event_SoundHeader", "Sound");
-            Dictionary.Add("event_SoundLabel", "Sound:");
-            Dictionary.Add("event_DelayHeader", "遅らせる (secs)");
-            Dictionary.Add("event_DelayLabel", "遅らせる (secs):");
+            Dictionary.Add("event_AddUpdateEventButtonText", "イベントの追加/保存");
+            Dictionary.Add("event_RegExHeader", "正規表現");
+            Dictionary.Add("event_RegExLabel", "正規表現:");
+            Dictionary.Add("event_SampleText", "スカウトヴァルチャーは「ウィングカッター」の構え。");
+            Dictionary.Add("event_SoundHeader", "サウンド");
+            Dictionary.Add("event_SoundLabel", "サウンド:");
+            Dictionary.Add("event_DelayHeader", "遅延(秒)");
+            Dictionary.Add("event_DelayLabel", "遅延(秒):");
         }
     }
 }

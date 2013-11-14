@@ -3,8 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {

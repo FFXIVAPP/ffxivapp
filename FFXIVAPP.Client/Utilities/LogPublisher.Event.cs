@@ -3,6 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Text.RegularExpressions;
 using System.Timers;
@@ -13,6 +15,8 @@ using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Utilities
 {

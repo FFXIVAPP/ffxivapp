@@ -17,8 +17,6 @@
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="PluginSettings"
                   Member="PluginProperties:Settings.Default" />
-        <x:Static x:Key="Parser"
-                  Member="Models:ParseControl.Instance" />
     </DataGrid.Resources>
     <DataGrid.Columns>
         <!--  <DataGridTextColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
@@ -60,21 +58,6 @@
                                              Source={StaticResource AppProperties}}"
                             Utilities:GridViewSort.PropertyName="DPS"
                             Visibility="{Binding ShowColumnDPS,
-                                                 Source={StaticResource PluginSettings},
-                                                 Converter={StaticResource VisibilityConverter}}" />
-        <DataGridTextColumn Binding="{Binding DamageDOT}"
-                            Header="{Binding Locale[parse_DamageDOTHeader],
-                                             Source={StaticResource AppProperties}}"
-                            Utilities:GridViewSort.PropertyName="DamageDOT"
-                            Visibility="{Binding ShowColumnDamageDOT,
-                                                 Source={StaticResource PluginSettings},
-                                                 Converter={StaticResource VisibilityConverter}}" />
-        <DataGridTextColumn Binding="{Binding DamageDOTAverage,
-                                              StringFormat=\{0:F2\}}"
-                            Header="{Binding Locale[parse_DamageDOTAverageHeader],
-                                             Source={StaticResource AppProperties}}"
-                            Utilities:GridViewSort.PropertyName="DamageDOTAverage"
-                            Visibility="{Binding ShowColumnDamageDOTAverage,
                                                  Source={StaticResource PluginSettings},
                                                  Converter={StaticResource VisibilityConverter}}" />
         <DataGridTextColumn Binding="{Binding DamageRegHit}"

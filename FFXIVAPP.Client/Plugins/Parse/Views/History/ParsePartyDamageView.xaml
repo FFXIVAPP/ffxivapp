@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FFXIVAPP.Client.Plugins.Parse.Views.History.ParsePartyDamageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls.History"
+             xmlns:Controls="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Controls"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:HistoryViewModel="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
              xmlns:Models="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Models"

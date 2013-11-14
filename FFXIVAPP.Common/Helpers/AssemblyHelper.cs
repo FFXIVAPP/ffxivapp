@@ -3,12 +3,16 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+
+#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

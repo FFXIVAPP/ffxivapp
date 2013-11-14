@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
@@ -171,21 +172,26 @@ namespace FFXIVAPP.Client
         public void PopupMessage(string pluginName, out bool displayed, object content)
         {
             var popupContent = content as PopupContent;
-            var pluginInstance = Loaded.Find(popupContent.PluginName);
-            if (pluginInstance == null || ShellView.View.Notify.IsOpen)
+            if (popupContent == null)
             {
                 displayed = false;
                 return;
             }
-            PopupHelper.Toggle(content);
-            displayed = true;
-            EventHandler onClosed = null;
-            onClosed = delegate
+            var pluginInstance = Loaded.Find(popupContent.PluginName);
+            if (pluginInstance == null)
             {
-                pluginInstance.Instance.PopupResult = PopupHelper.Result;
-                PopupHelper.MessagePopup.Closed -= onClosed;
-            };
-            PopupHelper.MessagePopup.Closed += onClosed;
+                displayed = false;
+                return;
+            }
+            var title = String.Format("[{0}] {1}", pluginName, popupContent.Title);
+            var message = popupContent.Message;
+            Action cancelAction = null;
+            if (popupContent.CanCancel)
+            {
+                cancelAction = delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel; };
+            }
+            MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
+            displayed = true;
         }
 
         public void GetConstants(string pluginName)

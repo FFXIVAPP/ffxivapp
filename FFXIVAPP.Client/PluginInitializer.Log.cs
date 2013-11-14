@@ -3,6 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Windows.Controls;
 using System.Xml.Linq;
@@ -13,6 +15,8 @@ using FFXIVAPP.Client.SettingsProviders.Log;
 using FFXIVAPP.Common.Controls;
 using SmartAssembly.Attributes;
 using TabItemHelper = FFXIVAPP.Client.Plugins.Log.Helpers.TabItemHelper;
+
+#endregion
 
 namespace FFXIVAPP.Client
 {

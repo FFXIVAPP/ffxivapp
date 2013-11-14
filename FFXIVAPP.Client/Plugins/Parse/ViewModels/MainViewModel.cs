@@ -19,7 +19,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
@@ -102,14 +101,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         {
             if (Constants.IsOpen)
             {
-                var popupContent = new PopupContent();
-                popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
-                popupContent.Message = "Game is open. Please close before choosing a file.";
-                popupContent.IsOkayOnly = true;
-                PopupHelper.Toggle(popupContent);
-                EventHandler closedDelegate = null;
-                closedDelegate = delegate { PopupHelper.MessagePopup.Closed -= closedDelegate; };
-                PopupHelper.MessagePopup.Closed += closedDelegate;
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                var message = "Game is open. Please close before choosing a file.";
+                MessageBoxHelper.ShowMessageAsync(title, message);
                 return;
             }
             var openFileDialog = new OpenFileDialog
@@ -207,26 +201,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         /// </summary>
         private static void ResetStats()
         {
-            var popupContent = new PopupContent();
-            popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
-            popupContent.Message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
-            popupContent.CanSayNo = true;
-            PopupHelper.Toggle(popupContent);
-            EventHandler closedDelegate = null;
-            closedDelegate = delegate
+            var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+            var message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
+            MessageBoxHelper.ShowMessageAsync(title, message, delegate
             {
-                switch (PopupHelper.Result)
-                {
-                    case MessageBoxResult.Yes:
-                        MainView.View.AbilityChatFD._FD.Blocks.Clear();
-                        ParseControl.Instance.StatMonitor.Clear();
-                        break;
-                    case MessageBoxResult.No:
-                        break;
-                }
-                PopupHelper.MessagePopup.Closed -= closedDelegate;
-            };
-            PopupHelper.MessagePopup.Closed += closedDelegate;
+                MainView.View.AbilityChatFD._FD.Blocks.Clear();
+                ParseControl.Instance.StatMonitor.Clear();
+            }, delegate { });
         }
 
         private static void Convert2Json()

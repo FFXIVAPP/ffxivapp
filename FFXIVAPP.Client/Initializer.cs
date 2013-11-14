@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Delegates;
@@ -23,9 +22,10 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using MahApps.Metro.Controls;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
@@ -296,11 +296,16 @@ namespace FFXIVAPP.Client
                     {
                         foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
                         {
+                            //DispatcherHelper.Invoke(delegate
+                            //{
+                            //    MainView.View.UpdateNotesSP.Children.Add(new Label{Content = note});
+                            //});
                             AppViewModel.Instance.UpdateNotes.Add(note);
                         }
                     }
                     catch (Exception ex)
                     {
+                        MessageBoxHelper.ShowMessage("Error", ex.Message);
                     }
                     AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
                     AppViewModel.Instance.LatestVersion = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
@@ -351,35 +356,9 @@ namespace FFXIVAPP.Client
                 }
                 if (AppViewModel.Instance.HasNewVersion)
                 {
-                    DispatcherHelper.Invoke(delegate
-                    {
-                        var popupContent = new PopupContent();
-                        popupContent.Title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
-                        popupContent.Message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
-                        popupContent.CanSayNo = true;
-                        PopupHelper.Toggle(popupContent);
-                        EventHandler closedDelegate = null;
-                        closedDelegate = delegate
-                        {
-                            switch (PopupHelper.Result)
-                            {
-                                case MessageBoxResult.Yes:
-                                    ShellView.CloseApplication(true);
-                                    break;
-                                case MessageBoxResult.No:
-                                    break;
-                            }
-                            PopupHelper.MessagePopup.Closed -= closedDelegate;
-                        };
-                        PopupHelper.MessagePopup.Closed += closedDelegate;
-                    });
-                    //EventHandler notifyEventHandler = null;
-                    //notifyEventHandler = delegate
-                    //{
-                    //    ShellView.CloseApplication(true);
-                    //    AppViewModel.Instance.NotifyIcon.BalloonTipClicked -= notifyEventHandler;
-                    //};
-                    //DispatcherHelper.Invoke(() => NotifyIconHelper.ShowBalloonMessage(title, message, notifyEventHandler));
+                    var title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
+                    var message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
+                    MessageBoxHelper.ShowMessageAsync(title, message, delegate { ShellView.CloseApplication(true); }, delegate { });
                 }
                 var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
@@ -519,6 +498,27 @@ namespace FFXIVAPP.Client
             _npcWorker = new NPCWorker();
             _npcWorker.StartScanning();
             _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void SetupPlugins()
+        {
+            // get official plugin logos
+            var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
+            var informerPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Informer.png"));
+            var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
+            var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
+            // setup headers for existing plugins
+            ShellView.View.EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
+            ShellView.View.InformerPlugin.HeaderTemplate = TabItemHelper.ImageHeader(informerPluginLogo, "Informer");
+            ShellView.View.LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
+            ShellView.View.ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
+            // append third party plugins
+            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
+            {
+                ShellView.View.PluginsTC.Items.Add(pluginTabItem);
+            }
         }
 
         /// <summary>

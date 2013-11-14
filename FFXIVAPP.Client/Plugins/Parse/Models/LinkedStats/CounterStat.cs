@@ -3,7 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {

@@ -19,6 +19,8 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -42,11 +44,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         public Player(string name) : base(name)
         {
             ID = 0;
-            NPCEntry = new NPCEntry
-            {
-                Name = name,
-                StatusList = new List<StatusEntry>()
-            };
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
@@ -63,7 +60,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
-            NPCEntry = null;
             if (MonsterWorkerDelegate.NPCEntries.Any())
             {
                 try
@@ -79,90 +75,106 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     if (NPCEntry != null)
                     {
                         ID = NPCEntry.ID;
-                        StatusEntriesSelf = NPCEntry.StatusList;
-                        var monsters = MonsterWorkerDelegate.NPCEntries.Where(e => e.NPCType == NPCType.Monster);
-                        foreach (var statusEntry in monsters.SelectMany(monster => monster.StatusList)
-                                                            .Where(statusEntry => statusEntry.CasterID == ID))
+                        if (ID > 0)
                         {
-                            StatusEntriesMonster.Add(statusEntry);
+                            StatusEntriesSelf = NPCEntry.StatusList;
+                            var monsters = MonsterWorkerDelegate.NPCEntries.Where(e => e.NPCType == NPCType.Monster);
+                            foreach (var statusEntry in monsters.SelectMany(monster => monster.StatusList)
+                                                                .Where(statusEntry => statusEntry.CasterID == ID))
+                            {
+                                StatusEntriesMonster.Add(statusEntry);
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
-            if (StatusEntriesMonster.Any())
+            if (!StatusEntriesMonster.Any())
             {
-                foreach (var statusEntry in StatusEntriesMonster)
+                return;
+            }
+            foreach (var statusEntry in StatusEntriesMonster)
+            {
+                try
                 {
-                    try
+                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                    var statusKey = "";
+                    switch (Settings.Default.GameLanguage)
                     {
-                        var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                        var statusKey = "";
-                        switch (Settings.Default.GameLanguage)
-                        {
-                            case "English":
-                                statusKey = statusInfo.Name.English;
-                                break;
-                            case "French":
-                                statusKey = statusInfo.Name.French;
-                                break;
-                            case "German":
-                                statusKey = statusInfo.Name.German;
-                                break;
-                            case "Japanese":
-                                statusKey = statusInfo.Name.Japanese;
-                                break;
-                        }
-                        if (String.IsNullOrWhiteSpace(statusKey))
-                        {
-                            continue;
-                        }
-                        decimal amount = 0;
-                        var key = statusKey;
-                        foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                        {
-                            amount = lastDamageAmountByAction.Value;
-                        }
-                        DamageOverTimeAction actionData = null;
-                        foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                        {
-                            actionData = damageOverTimeAction.Value;
-                        }
-                        if (actionData == null)
-                        {
-                            continue;
-                        }
-                        if (actionData.ZeroBaseDamageDOT)
-                        {
-                            amount = 100;
-                        }
-                        amount = (amount == 0) ? 100 : amount;
-                        statusKey = String.Format("{0} [•]", statusKey);
-                        var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                        if (amount > 300)
-                        {
-                            tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
-                        }
-                        var line = new Line
-                        {
-                            Action = statusKey,
-                            Source = Name,
-                            Target = statusEntry.TargetName,
-                            Amount = tickDamage
-                        };
-                        DispatcherHelper.Invoke(delegate
-                        {
-                            ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                        .SetDamageOverTime(line);
-                            ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                        .SetDamageOverTimeFromPlayer(line);
-                        });
+                        case "English":
+                            statusKey = statusInfo.Name.English;
+                            break;
+                        case "French":
+                            statusKey = statusInfo.Name.French;
+                            break;
+                        case "German":
+                            statusKey = statusInfo.Name.German;
+                            break;
+                        case "Japanese":
+                            statusKey = statusInfo.Name.Japanese;
+                            break;
                     }
-                    catch (Exception ex)
+                    if (String.IsNullOrWhiteSpace(statusKey))
                     {
+                        continue;
                     }
+                    decimal amount = 0;
+                    var key = statusKey;
+                    foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
+                    {
+                        amount = lastDamageAmountByAction.Value;
+                    }
+                    DamageOverTimeAction actionData = null;
+                    foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
+                    {
+                        actionData = damageOverTimeAction.Value;
+                    }
+                    if (actionData == null)
+                    {
+                        continue;
+                    }
+                    if (actionData.ZeroBaseDamageDOT)
+                    {
+                        amount = 100;
+                    }
+                    amount = (amount == 0) ? 100 : amount;
+                    statusKey = String.Format("{0} [•]", statusKey);
+                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                    if (amount > 300)
+                    {
+                        tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
+                    }
+                    var line = new Line
+                    {
+                        Action = statusKey,
+                        Source = Name,
+                        Target = statusEntry.TargetName,
+                        Amount = tickDamage
+                    };
+                    DispatcherHelper.Invoke(delegate
+                    {
+                        line.Hit = true;
+                        //var currentCritRate = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                        //                                  .Stats.GetStatValue("DamageCritPerecent");
+                        //var randomizer = new Random();
+                        //var critChance = randomizer.Next(0, 100) / 100;
+                        //if (critChance > (currentCritRate - 0.1m) && critChance < (currentCritRate + 0.1m))
+                        //{
+                        //    line.Crit = true;
+                        //    line.Amount += line.Amount * 0.5m;
+                        //}
+                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                    .SetDamage(line);
+                        ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                                    .SetDamageTaken(line);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
         }
@@ -321,8 +333,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             stats.Add("CriticalDamage", new TotalStat("CriticalDamage"));
             stats.Add("TotalDamageActionsUsed", new CounterStat("TotalDamageActionsUsed"));
             stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
-            stats.Add("DamageDOT", new TotalStat("DamageDOT"));
-            stats.Add("DamageDOTAverage", new AverageStat("DamageDOTAverage", stats["DamageDOT"]));
             stats.Add("DamageRegHit", new TotalStat("DamageRegHit"));
             stats.Add("DamageRegMiss", new TotalStat("DamageRegMiss"));
             stats.Add("DamageRegAccuracy", new AccuracyStat("DamageRegAccuracy", stats["TotalDamageActionsUsed"], stats["DamageRegMiss"]));
@@ -398,8 +408,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
             stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
             stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
-            stats.Add("DamageTakenDOT", new TotalStat("DamageTakenDOT"));
-            stats.Add("DamageTakenDOTAverage", new AverageStat("DamageTakenDOTAverage", stats["DamageTakenDOT"]));
             stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
             stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));

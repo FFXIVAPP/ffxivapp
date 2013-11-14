@@ -5,9 +5,13 @@
 
 #region Usings
 
+using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -31,7 +35,14 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
+        public DelegateCommand OpenWebSiteCommand { get; private set; }
+
         #endregion
+
+        public MainViewModel()
+        {
+            OpenWebSiteCommand = new DelegateCommand(OpenWebSite);
+        }
 
         #region Loading Functions
 
@@ -42,6 +53,18 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
+
+        public void OpenWebSite()
+        {
+            try
+            {
+                Process.Start("http://ffxiv-app.com");
+            }
+            catch (Exception ex)
+            {
+                MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
+            }
+        }
 
         #endregion
 

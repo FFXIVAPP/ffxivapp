@@ -3,17 +3,20 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Windows;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -60,35 +63,17 @@ namespace FFXIVAPP.Client.Helpers
                     var companyName = ((AssemblyCompanyAttribute) att[0]).Company;
                     var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                     var combinedPath = Path.Combine(appDataPath, companyName);
-                    var popupContent = new PopupContent();
-                    popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
-                    popupContent.Message = String.Format("{0} : {1}", AppViewModel.Instance.Locale["app_DeleteMessage"], combinedPath);
-                    popupContent.CanSayNo = true;
-                    PopupHelper.Toggle(popupContent);
-                    EventHandler closedDelegate = null;
-                    closedDelegate = delegate
+                    var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                    var message = String.Format("{0} : {1}", AppViewModel.Instance.Locale["app_DeleteMessage"], combinedPath);
+                    MessageBoxHelper.ShowMessageAsync(title, message, delegate
                     {
-                        switch (PopupHelper.Result)
-                        {
-                            case MessageBoxResult.Yes:
-                                Settings.Default.Reset();
-                                Directory.Delete(combinedPath, true);
-                                Settings.Default.Reload();
-                                Save();
-                                break;
-                            case MessageBoxResult.No:
-                                break;
-                        }
-                        PopupHelper.MessagePopup.Closed -= closedDelegate;
-                    };
-                    PopupHelper.MessagePopup.Closed += closedDelegate;
+                        Settings.Default.Reset();
+                        Directory.Delete(combinedPath, true);
+                        Settings.Default.Reload();
+                    }, delegate { });
                 }
                 catch (Exception ex)
                 {
-                    var popupContent = new PopupContent();
-                    popupContent.Title = "Exception!";
-                    popupContent.Message = ex.Message;
-                    PopupHelper.Toggle(popupContent);
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }

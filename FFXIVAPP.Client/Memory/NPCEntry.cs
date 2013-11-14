@@ -3,21 +3,33 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Collections.Generic;
+using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
     public class NPCEntry
     {
+        private string _name;
         private List<StatusEntry> _statusList;
 
         #region Property Backings
 
         public uint MapIndex { get; set; }
-        public string Name { get; set; }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = StringHelper.TitleCase(value); }
+        }
+
         public uint ID { get; set; }
         public uint NPCID1 { get; set; }
         public uint NPCID2 { get; set; }

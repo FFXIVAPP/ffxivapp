@@ -8,6 +8,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
@@ -15,6 +16,7 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.ViewModels;
+using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -126,45 +128,53 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 //monsterInstance.StatusEntriesSelf.Clear();
                 //monsterInstance.StatusEntriesMonster.Clear();
             }
-            var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
-            if (hasDamage)
+            if (Settings.Default.EnableStoreHistoryReset)
             {
-                var historyItem = new ParseHistoryItem();
-                foreach (var stat in ParseControl.Instance.Timeline.Overall.Stats)
+                var hasDamage = ParseControl.Instance.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
+                if (hasDamage)
                 {
-                    historyItem.HistoryControl.Timeline.Overall.Stats.Add(stat);
+                    var historyItem = new ParseHistoryItem();
+                    foreach (var stat in ParseControl.Instance.Timeline.Overall.Stats)
+                    {
+                        historyItem.HistoryControl.Timeline.Overall.Stats.Add(stat);
+                    }
+                    foreach (var player in ParseControl.Instance.Timeline.Party)
+                    {
+                        historyItem.HistoryControl.Timeline.Party.Add(player);
+                    }
+                    foreach (var monster in ParseControl.Instance.Timeline.Monster)
+                    {
+                        historyItem.HistoryControl.Timeline.Monster.Add(monster);
+                    }
+                    historyItem.Start = ParseControl.Instance.Timeline.ParseStarted;
+                    historyItem.End = DateTime.Now;
+                    historyItem.ParseLength = historyItem.End - historyItem.Start;
+                    var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
+                    var zone = "Unknown";
+                    if (MonsterWorkerDelegate.CurrentUser != null)
+                    {
+                        var mapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
+                        //switch (Settings.Default.GameLanguage)
+                        //{
+                        //    case "French":
+                        //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                        //                     .French;
+                        //        break;
+                        //    case "German":
+                        //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                        //                     .German;
+                        //        break;
+                        //    case "Japanese":
+                        //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
+                        //                     .Japanese;
+                        //        break;
+                        //}
+                        zone = ZoneHelper.GetMapInfo(mapIndex)
+                                         .English;
+                    }
+                    historyItem.Name = String.Format("{0} {1}", zone, parseTimeDetails);
+                    DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem));
                 }
-                foreach (var player in ParseControl.Instance.Timeline.Party)
-                {
-                    historyItem.HistoryControl.Timeline.Party.Add(player);
-                }
-                foreach (var monster in ParseControl.Instance.Timeline.Monster)
-                {
-                    historyItem.HistoryControl.Timeline.Monster.Add(monster);
-                }
-                historyItem.Start = ParseControl.Instance.Timeline.ParseStarted;
-                historyItem.End = DateTime.Now;
-                historyItem.ParseLength = historyItem.End - historyItem.Start;
-                var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
-                var zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                                     .English;
-                //switch (Settings.Default.GameLanguage)
-                //{
-                //    case "French":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .French;
-                //        break;
-                //    case "German":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .German;
-                //        break;
-                //    case "Japanese":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .Japanese;
-                //        break;
-                //}
-                historyItem.Name = String.Format("{0} {1}", zone, parseTimeDetails);
-                DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Add(historyItem));
             }
             TotalOverallDamage.Reset();
             TotalOverallHealing.Reset();

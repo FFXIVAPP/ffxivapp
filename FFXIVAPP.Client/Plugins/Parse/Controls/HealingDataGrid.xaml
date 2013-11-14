@@ -17,8 +17,6 @@
                   Member="Parse:PluginViewModel.Instance" />
         <x:Static x:Key="PluginSettings"
                   Member="PluginProperties:Settings.Default" />
-        <x:Static x:Key="Parser"
-                  Member="Models:ParseControl.Instance" />
     </DataGrid.Resources>
     <DataGrid.Columns>
         <!--  <DataGridTextColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->

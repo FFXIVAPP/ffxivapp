@@ -48,20 +48,6 @@
                                                             Source={StaticResource PluginSettings}}" />
         </StackPanel>
     </GroupBox>
-    <GroupBox Header="{Binding Locale[parse_ShowDamageDOTInfoHeader],
-                               Source={StaticResource AppProperties}}">
-        <StackPanel>
-            <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageDOT,
-                                                            Source={StaticResource PluginSettings}}" />
-        </StackPanel>
-    </GroupBox>
-    <GroupBox Header="{Binding Locale[parse_ShowDamageDOTAverageInfoHeader],
-                               Source={StaticResource AppProperties}}">
-        <StackPanel>
-            <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageDOTAverage,
-                                                            Source={StaticResource PluginSettings}}" />
-        </StackPanel>
-    </GroupBox>
     <GroupBox Header="{Binding Locale[parse_ShowDamageRegHitInfoHeader],
                                Source={StaticResource AppProperties}}">
         <StackPanel>

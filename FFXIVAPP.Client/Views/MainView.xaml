@@ -16,6 +16,9 @@
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/Header.png"
                        Stretch="None" />
+                <Button Width="200"
+                        Command="{Binding OpenWebSiteCommand}"
+                        Content="Open http://ffxiv-app.com" />
                 <WebBrowser x:Name="GoogleAnalytics"
                             Visibility="Collapsed" />
             </StackPanel>

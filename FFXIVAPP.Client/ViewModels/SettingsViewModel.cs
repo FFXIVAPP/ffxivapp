@@ -6,12 +6,16 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
@@ -19,6 +23,7 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
+using MahApps.Metro.Controls;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -99,7 +104,8 @@ namespace FFXIVAPP.Client.ViewModels
         /// </summary>
         private static void ChangeTheme()
         {
-            ThemeHelper.ChangeTheme(Settings.Default.Theme);
+            var windows = (from object window in Application.Current.Windows select window as MetroWindow).ToList();
+            ThemeHelper.ChangeTheme(Settings.Default.Theme, windows);
         }
 
         /// <summary>

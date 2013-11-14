@@ -126,7 +126,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Behaviors\MouseDragPopupBehavior.cs" />
     <Compile Include="Constants.Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
@@ -134,6 +133,7 @@
     <Compile Include="Constants.Informer.cs" />
     <Compile Include="Constants.Parse.cs" />
     <Compile Include="Constants.Event.cs" />
+    <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
@@ -176,24 +176,8 @@
     <Compile Include="Plugins\Parse\Controls\HealingDataGrid.xaml.cs">
       <DependentUpon>HealingDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Parse\Controls\History\DamageDataGrid.xaml.cs">
-      <DependentUpon>DamageDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Parse\Controls\History\DamageTakenDataGrid.xaml.cs">
-      <DependentUpon>DamageTakenDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Parse\Controls\History\EmptyDataGrid.xaml.cs">
-      <DependentUpon>EmptyDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Parse\Controls\History\HealingDataGrid.xaml.cs">
-      <DependentUpon>HealingDataGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Plugins\Parse\Controls\PlayerInfoBox.xaml.cs">
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PopupNonTopMost.cs" />
-    <Compile Include="Controls\xMetroPopup.xaml.cs">
-      <DependentUpon>xMetroPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Delegates\ChatWorkerDelegate.cs" />
@@ -224,7 +208,6 @@
     <Compile Include="Helpers\SavedlLogsHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
-    <Compile Include="Helpers\PopupHelper.cs" />
     <Compile Include="Helpers\TabItemHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Initializer.cs" />
@@ -292,14 +275,12 @@
     <Compile Include="Plugins\Parse\Models\ParseHistoryItem.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Damage.cs" />
-    <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.DamageOverTime.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.DamageTaken.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Drops.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Healing.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Kill.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Player.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Player.Stats.Damage.cs" />
-    <Compile Include="Plugins\Parse\Models\StatGroups\Player.Stats.DamageOverTime.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Player.Stats.DamageTaken.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Player.Stats.Healing.cs" />
     <Compile Include="Plugins\Parse\Models\Stats\ILinkedStat.cs" />
@@ -516,27 +497,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Parse\Controls\History\DamageDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Parse\Controls\History\DamageTakenDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Parse\Controls\History\EmptyDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Plugins\Parse\Controls\History\HealingDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Plugins\Parse\Controls\PlayerInfoBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\xMetroPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

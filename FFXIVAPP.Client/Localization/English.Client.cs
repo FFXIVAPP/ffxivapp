@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_LodestoneIDLabel", "Lodestone ID");
             Dictionary.Add("app_MainToolTip", "Main");
             Dictionary.Add("app_MainSettingsTabHeader", "Main Settings");
-            Dictionary.Add("app_NoButtonText", "No");
+            Dictionary.Add("app_CancelButtonText", "Cancel");
             Dictionary.Add("app_PluginsToolTip", "Plugins");
             Dictionary.Add("app_PluginSettingsTabHeader", "Plugin Settings");
             Dictionary.Add("app_PluginWarningText", "This will let any loaded plugin send commands to your game. Enable this if you trust them.");

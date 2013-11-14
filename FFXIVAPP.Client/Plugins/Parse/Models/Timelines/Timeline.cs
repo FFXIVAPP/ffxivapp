@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
@@ -77,11 +76,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         #region Declarations
 
+        public readonly Timer StoreHistoryTimer = new Timer(5000);
         private readonly Timer _fightingTimer = new Timer(1500);
-        private readonly Timer _storeHistoryTimer = new Timer(5000);
 
         public DateTime ParseStarted { get; set; }
-        public uint ZoneID { get; set; }
 
         #endregion
 
@@ -104,43 +102,40 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             };
             _fightingTimer.Elapsed += FightingTimerOnElapsed;
             ParseStarted = DateTime.Now;
-            ZoneID = 0;
-            try
-            {
-                double interval;
-                double.TryParse(Settings.Default.StoreHistoryInterval, out interval);
-                _storeHistoryTimer.Interval = interval;
-            }
-            catch (Exception ex)
-            {
-            }
-            _storeHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
-            _storeHistoryTimer.Start();
+            SetStoreHistoryInterval();
+            StoreHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             FightingRightNow = false;
             _fightingTimer.Stop();
-            _storeHistoryTimer.Start();
         }
 
-        private void StoreHistoryTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        private void SetStoreHistoryInterval()
         {
             try
             {
                 double interval;
                 double.TryParse(Settings.Default.StoreHistoryInterval, out interval);
-                _storeHistoryTimer.Interval = interval;
+                StoreHistoryTimer.Interval = interval;
             }
             catch (Exception ex)
             {
             }
-            if (!FightingRightNow && !IsHistoryBased)
+        }
+
+        private void StoreHistoryTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            SetStoreHistoryInterval();
+            if (Settings.Default.EnableStoreHistoryReset)
             {
-                ParseControl.Instance.StatMonitor.Clear();
+                if (!FightingRightNow && !IsHistoryBased)
+                {
+                    ParseControl.Instance.StatMonitor.Clear();
+                }
             }
-            _storeHistoryTimer.Stop();
+            StoreHistoryTimer.Stop();
         }
 
         /// <summary>
@@ -247,10 +242,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             ParseControl.Instance.Timeline.Party.Clear();
             ParseControl.Instance.Timeline.Monster.Clear();
             ParseControl.Instance.Timeline.ParseStarted = DateTime.Now;
-            if (MonsterWorkerDelegate.CurrentUser != null)
-            {
-                ParseControl.Instance.Timeline.ZoneID = MonsterWorkerDelegate.CurrentUser.MapIndex;
-            }
         }
 
         #region Implementation of INotifyPropertyChanged

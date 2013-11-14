@@ -3,10 +3,14 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using System;
 using System.Xml.Linq;
 using FFXIVAPP.Client.SettingsProviders.Parse;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client
 {

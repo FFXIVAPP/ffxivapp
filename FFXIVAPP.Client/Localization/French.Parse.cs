@@ -391,6 +391,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_BasicGlobalWarningLabel", "Ceci est un tracker global et comporte donc des valeurs à une échelle globale. Pour les comparaisons détaillées par joueur ou monstre (DPS par exemple), veuillez cliquer sur \"Avancé\"");
             Dictionary.Add("parse_HistoryToolTip", "History");
             Dictionary.Add("parse_StoreHistoryIntervalHeader", "Store History Interval");
+            Dictionary.Add("parse_EnableStoreHistoryResetHeader", "Enabled Store History Auto-Reset");
+            Dictionary.Add("parse_StoreHistoryEventHeader", "Store History Event Trigger");
+            Dictionary.Add("parse_StoreHistoryEventHelperText", "*If enabled the history and parser will be stored and reset if the selected event type does not happen after the chosen interval.");
         }
     }
 }

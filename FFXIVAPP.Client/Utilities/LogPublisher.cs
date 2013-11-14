@@ -3,9 +3,13 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using SmartAssembly.Attributes;
+
+#endregion
 
 namespace FFXIVAPP.Client.Utilities
 {

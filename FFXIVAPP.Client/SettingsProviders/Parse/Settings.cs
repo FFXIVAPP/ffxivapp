@@ -65,6 +65,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         {
             Constants.Parse.Settings.Clear();
             Constants.Parse.Settings.Add("StoreHistoryInterval");
+            Constants.Parse.Settings.Add("EnableStoreHistoryReset");
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
             Constants.Parse.Settings.Add("ShowPartyHealingTab");
@@ -99,8 +100,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicCriticalDamage");
             Constants.Parse.Settings.Add("ShowBasicTotalDamageActionsUsed");
             Constants.Parse.Settings.Add("ShowBasicDPS");
-            Constants.Parse.Settings.Add("ShowBasicDamageDOT");
-            Constants.Parse.Settings.Add("ShowBasicDamageDOTAverage");
             Constants.Parse.Settings.Add("ShowBasicDamageRegHit");
             Constants.Parse.Settings.Add("ShowBasicDamageRegMiss");
             Constants.Parse.Settings.Add("ShowBasicDamageRegAccuracy");
@@ -165,8 +164,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicCriticalDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicTotalDamageTakenActionsUsed");
             Constants.Parse.Settings.Add("ShowBasicDTPS");
-            Constants.Parse.Settings.Add("ShowBasicDamageTakenDOT");
-            Constants.Parse.Settings.Add("ShowBasicDamageTakenDOTAverage");
             Constants.Parse.Settings.Add("ShowBasicDamageTakenRegHit");
             Constants.Parse.Settings.Add("ShowBasicDamageTakenRegMiss");
             Constants.Parse.Settings.Add("ShowBasicDamageTakenRegAccuracy");
@@ -215,8 +212,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowColumnCriticalDamage");
             Constants.Parse.Settings.Add("ShowColumnTotalDamageActionsUsed");
             Constants.Parse.Settings.Add("ShowColumnDPS");
-            Constants.Parse.Settings.Add("ShowColumnDamageDOT");
-            Constants.Parse.Settings.Add("ShowColumnDamageDOTAverage");
             Constants.Parse.Settings.Add("ShowColumnDamageRegHit");
             Constants.Parse.Settings.Add("ShowColumnDamageRegMiss");
             Constants.Parse.Settings.Add("ShowColumnDamageRegAccuracy");
@@ -281,8 +276,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowColumnCriticalDamageTaken");
             Constants.Parse.Settings.Add("ShowColumnTotalDamageTakenActionsUsed");
             Constants.Parse.Settings.Add("ShowColumnDTPS");
-            Constants.Parse.Settings.Add("ShowColumnDamageTakenDOT");
-            Constants.Parse.Settings.Add("ShowColumnDamageTakenDOTAverage");
             Constants.Parse.Settings.Add("ShowColumnDamageTakenRegHit");
             Constants.Parse.Settings.Add("ShowColumnDamageTakenRegMiss");
             Constants.Parse.Settings.Add("ShowColumnDamageTakenRegAccuracy");
@@ -396,13 +389,26 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("2500")]
+        [DefaultSettingValue("10000")]
         public string StoreHistoryInterval
         {
             get { return ((string) (this["StoreHistoryInterval"])); }
             set
             {
                 this["StoreHistoryInterval"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool EnableStoreHistoryReset
+        {
+            get { return ((bool) (this["EnableStoreHistoryReset"])); }
+            set
+            {
+                this["EnableStoreHistoryReset"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -806,32 +812,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowBasicDPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageDOT
-        {
-            get { return ((bool) (this["ShowBasicDamageDOT"])); }
-            set
-            {
-                this["ShowBasicDamageDOT"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageDOTAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageDOTAverage"])); }
-            set
-            {
-                this["ShowBasicDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -1671,32 +1651,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenDOT
-        {
-            get { return ((bool) (this["ShowBasicDamageTakenDOT"])); }
-            set
-            {
-                this["ShowBasicDamageTakenDOT"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageTakenDOTAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageTakenDOTAverage"])); }
-            set
-            {
-                this["ShowBasicDamageTakenDOTAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
         public bool ShowBasicDamageTakenRegHit
         {
             get { return ((bool) (this["ShowBasicDamageTakenRegHit"])); }
@@ -2249,32 +2203,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowColumnDPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowColumnDamageDOT
-        {
-            get { return ((bool) (this["ShowColumnDamageDOT"])); }
-            set
-            {
-                this["ShowColumnDamageDOT"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowColumnDamageDOTAverage
-        {
-            get { return ((bool) (this["ShowColumnDamageDOTAverage"])); }
-            set
-            {
-                this["ShowColumnDamageDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -3107,32 +3035,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowColumnDTPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenDOT
-        {
-            get { return ((bool) (this["ShowColumnDamageTakenDOT"])); }
-            set
-            {
-                this["ShowColumnDamageTakenDOT"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowColumnDamageTakenDOTAverage
-        {
-            get { return ((bool) (this["ShowColumnDamageTakenDOTAverage"])); }
-            set
-            {
-                this["ShowColumnDamageTakenDOTAverage"] = value;
                 RaisePropertyChanged();
             }
         }

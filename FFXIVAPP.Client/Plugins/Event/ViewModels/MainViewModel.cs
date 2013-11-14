@@ -15,7 +15,6 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Event.Models;
 using FFXIVAPP.Client.Plugins.Event.Views;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using NLog;
@@ -107,14 +106,9 @@ namespace FFXIVAPP.Client.Plugins.Event.ViewModels
             }
             if (Regex.IsMatch(MainView.View.TDelay.Text, @"[^0-9]+"))
             {
-                var popupContent = new PopupContent();
-                popupContent.Title = AppViewModel.Instance.Locale["app_WarningMessage"];
-                popupContent.Message = "Delay can only be numeric.";
-                popupContent.IsOkayOnly = true;
-                PopupHelper.Toggle(popupContent);
-                EventHandler closedDelegate = null;
-                closedDelegate = delegate { PopupHelper.MessagePopup.Closed -= closedDelegate; };
-                PopupHelper.MessagePopup.Closed += closedDelegate;
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                var message = "Delay can only be numeric.";
+                MessageBoxHelper.ShowMessageAsync(title, message);
                 return;
             }
             var soundEvent = new SoundEvent

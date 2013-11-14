@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -50,29 +49,15 @@ namespace FFXIVAPP.Client
         {
             View.Topmost = Settings.Default.TopMost;
             LocaleHelper.Update(Settings.Default.Culture);
-            ThemeHelper.ChangeTheme(Settings.Default.Theme);
+            ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
             Initializer.GetHomePlugin();
             Initializer.SetSignatures();
             Initializer.StartMemoryWorkers();
+            Initializer.SetupPlugins();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
-            // get official plugin logos
-            var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
-            var informerPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Informer.png"));
-            var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
-            var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
-            // setup headers for existing plugins
-            EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
-            InformerPlugin.HeaderTemplate = TabItemHelper.ImageHeader(informerPluginLogo, "Informer");
-            LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
-            ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
-            // append third party plugins
-            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
-            {
-                View.PluginsTC.Items.Add(pluginTabItem);
-            }
         }
 
         /// <summary>

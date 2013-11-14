@@ -6,12 +6,15 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
 using MahApps.Metro;
+using MahApps.Metro.Controls;
 using SmartAssembly.Attributes;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 
@@ -26,14 +29,18 @@ namespace FFXIVAPP.Client.Helpers
         /// </summary>
         /// <param name="t"> </param>
         /// <param name="window"></param>
-        public static void ChangeTheme(string t, Window window = null)
+        public static void ChangeTheme(string t, List<MetroWindow> window)
         {
             try
             {
-                Apply(t, ShellView.View);
-                if (window != null)
+                if (window == null || !window.Any())
                 {
-                    Apply(t, window);
+                    Apply(t, ShellView.View);
+                    return;
+                }
+                foreach (var metroWindow in window)
+                {
+                    Apply(t, metroWindow);
                 }
             }
             catch (Exception ex)
