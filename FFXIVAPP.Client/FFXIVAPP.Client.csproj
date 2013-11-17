@@ -139,7 +139,7 @@
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
-    <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Memory\ChatEnty.cs" />
     <Compile Include="PluginInitializer.Informer.cs" />
     <Compile Include="Plugins\Informer\PluginViewModel.cs" />
     <Compile Include="Plugins\Informer\ShellView.xaml.cs">
@@ -259,6 +259,8 @@
     <Compile Include="Plugins\Parse\Models\Expressions.cs" />
     <Compile Include="Plugins\Parse\Models\Fights\Fight.cs" />
     <Compile Include="Plugins\Parse\Models\Fights\FightList.cs" />
+    <Compile Include="Plugins\Parse\Models\HistoryControl.cs" />
+    <Compile Include="Plugins\Parse\Models\IParsingControl.cs" />
     <Compile Include="Plugins\Parse\Models\Line.cs" />
     <Compile Include="Plugins\Parse\Models\LineHistory.cs" />
     <Compile Include="Plugins\Parse\Models\LinkedStats\AccuracyStat.cs" />
@@ -271,7 +273,6 @@
     <Compile Include="Plugins\Parse\Models\LinkedStats\PerSecondAverageStat.cs" />
     <Compile Include="Plugins\Parse\Models\LinkedStats\TotalStat.cs" />
     <Compile Include="Plugins\Parse\Models\LimitBreaks.cs" />
-    <Compile Include="Plugins\Parse\Models\HistoryControl.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
     <Compile Include="Plugins\Parse\Models\ParseHistoryItem.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />

@@ -7,7 +7,9 @@
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Web.UI;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
+using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -17,10 +19,20 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     [DoNotObfuscate]
     public class HistoryControl : INotifyPropertyChanged
     {
-        #region Property Bindings
+        #region Auto Properties
+
+        public ParseControl Controller { get; set; }
+
+        #endregion
+
+        public HistoryControl()
+        {
+            Controller = new ParseControl(true);
+        }
+
+        #region Implementation of IParsingControl
 
         private static HistoryControl _instance;
-        private Timeline _timeline;
 
         public static HistoryControl Instance
         {
@@ -30,30 +42,32 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public Timeline Timeline
         {
-            get { return _timeline ?? (_timeline = new Timeline(true)); }
+            get { return Controller.Timeline; }
             set
             {
-                _timeline = value;
+                Controller.Timeline = value;
+                RaisePropertyChanged();
+            }
+        }
+        public StatMonitor StatMonitor
+        {
+            get { return Controller.StatMonitor; }
+            set
+            {
+                Controller.StatMonitor = value;
                 RaisePropertyChanged();
             }
         }
 
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        public HistoryControl()
+        public TimelineMonitor TimelineMonitor
         {
-            Timeline = new Timeline(true);
+            get { return Controller.TimelineMonitor; }
+            set
+            {
+                Controller.TimelineMonitor = value;
+                RaisePropertyChanged();
+            }
         }
-
-        #region Utility Functions
 
         #endregion
 

@@ -17,7 +17,7 @@ using System.Windows;
 using System.Windows.Forms;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 

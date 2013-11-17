@@ -9,7 +9,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Plugins.Event;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;

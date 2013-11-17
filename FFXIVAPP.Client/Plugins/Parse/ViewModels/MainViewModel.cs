@@ -206,7 +206,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
             MessageBoxHelper.ShowMessageAsync(title, message, delegate
             {
                 MainView.View.AbilityChatFD._FD.Blocks.Clear();
-                ParseControl.Instance.StatMonitor.Clear();
+                ParseControl.Instance.Reset();
             }, delegate { });
         }
 

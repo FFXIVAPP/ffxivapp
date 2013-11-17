@@ -72,7 +72,7 @@ namespace FFXIVAPP.Client
             SavedlLogsHelper.SaveCurrentLog();
             if (Settings.Default.ParsePluginEnabled)
             {
-                ParseControl.Instance.StatMonitor.Clear();
+                ParseControl.Instance.Reset();
             }
         }
 

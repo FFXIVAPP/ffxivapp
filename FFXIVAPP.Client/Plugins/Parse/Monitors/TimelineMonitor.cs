@@ -33,9 +33,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
-        public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl)
+        public TimelineMonitor(ParseControl parseControl)
+            : base("Timeline", parseControl)
         {
-            Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32) EventType.Loot | (UInt32) EventType.Defeats);
+            if (!parseControl.IsHistoryBased)
+            {
+                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32)EventType.Loot | (UInt32)EventType.Defeats);   
+            }
         }
 
         private Expressions Expressions { get; set; }
@@ -188,11 +192,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"></param>
         private void AttachDropToMonster(string thing, Models.Events.Event e)
         {
-            var mobName = ParseControl.Instance.Timeline.FightingRightNow ? ParseControl.LastEngaged : "";
+            var mobName = ParseControl.Timeline.FightingRightNow ? ParseControl.Timeline.LastEngaged : "";
             if (ParseControl.Instance.Timeline.FightingRightNow)
             {
                 Fight fight;
-                if (ParseControl.Timeline.Fights.TryGet(ParseControl.LastEngaged, out fight))
+                if (ParseControl.Timeline.Fights.TryGet(ParseControl.Timeline.LastEngaged, out fight))
                 {
                     mobName = fight.MobName;
                     Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));

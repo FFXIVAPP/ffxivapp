@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -19,7 +19,7 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
-    public static class ChatEntry
+    public static class ChatEnty
     {
         public static ChatLogEntry Process(byte[] raw)
         {

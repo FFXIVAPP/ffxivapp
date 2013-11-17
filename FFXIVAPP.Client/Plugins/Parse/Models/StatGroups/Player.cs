@@ -41,13 +41,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
 
-        public Player(string name) : base(name)
+        private static ParseControl Controller { get; set; }
+
+        public Player(string name, ParseControl parseControl) : base(name)
         {
+            Controller = parseControl;
             ID = 0;
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
-            StatusUpdateTimer.Start();
+            if (!Controller.IsHistoryBased)
+            {
+                StatusUpdateTimer.Start();
+            }
         }
 
         public uint ID { get; set; }
@@ -213,26 +219,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
 
             //link to main party stats
-            StatMonitor.TotalOverallDamage.AddDependency(stats["TotalOverallDamage"]);
-            StatMonitor.RegularDamage.AddDependency(stats["RegularDamage"]);
-            StatMonitor.CriticalDamage.AddDependency(stats["CriticalDamage"]);
-            StatMonitor.TotalOverallHealing.AddDependency(stats["TotalOverallHealing"]);
-            StatMonitor.RegularHealing.AddDependency(stats["RegularHealing"]);
-            StatMonitor.CriticalHealing.AddDependency(stats["CriticalHealing"]);
-            StatMonitor.TotalOverallDamageTaken.AddDependency(stats["TotalOverallDamageTaken"]);
-            StatMonitor.RegularDamageTaken.AddDependency(stats["RegularDamageTaken"]);
-            StatMonitor.CriticalDamageTaken.AddDependency(stats["CriticalDamageTaken"]);
+            Controller.StatMonitor.TotalOverallDamage.AddDependency(stats["TotalOverallDamage"]);
+            Controller.StatMonitor.RegularDamage.AddDependency(stats["RegularDamage"]);
+            Controller.StatMonitor.CriticalDamage.AddDependency(stats["CriticalDamage"]);
+            Controller.StatMonitor.TotalOverallHealing.AddDependency(stats["TotalOverallHealing"]);
+            Controller.StatMonitor.RegularHealing.AddDependency(stats["RegularHealing"]);
+            Controller.StatMonitor.CriticalHealing.AddDependency(stats["CriticalHealing"]);
+            Controller.StatMonitor.TotalOverallDamageTaken.AddDependency(stats["TotalOverallDamageTaken"]);
+            Controller.StatMonitor.RegularDamageTaken.AddDependency(stats["RegularDamageTaken"]);
+            Controller.StatMonitor.CriticalDamageTaken.AddDependency(stats["CriticalDamageTaken"]);
 
             //setup global "percent of" stats
-            stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamage));
-            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamage));
-            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamage));
-            stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealing));
-            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealing));
-            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealing));
-            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTaken));
-            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTaken));
-            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTaken));
+            stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], Controller.StatMonitor.TotalOverallDamage));
+            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], Controller.StatMonitor.RegularDamage));
+            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], Controller.StatMonitor.CriticalDamage));
+            stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], Controller.StatMonitor.TotalOverallHealing));
+            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], Controller.StatMonitor.RegularHealing));
+            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], Controller.StatMonitor.CriticalHealing));
+            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Controller.StatMonitor.TotalOverallDamageTaken));
+            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Controller.StatMonitor.RegularDamageTaken));
+            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Controller.StatMonitor.CriticalDamageTaken));
 
             return stats.Select(s => s.Value)
                         .ToList();

@@ -7,7 +7,7 @@
 
 #endregion
 
-namespace FFXIVAPP.Common.Core.ChatLog
+namespace FFXIVAPP.Common.Core.Memory
 {
     // internal, not accessible by plugins
     public class ChatLogWorker : IChatLogWorker

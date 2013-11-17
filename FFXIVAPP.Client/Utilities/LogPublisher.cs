@@ -6,7 +6,7 @@
 #region Usings
 
 using FFXIVAPP.Client.Plugins.Parse.Models;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion

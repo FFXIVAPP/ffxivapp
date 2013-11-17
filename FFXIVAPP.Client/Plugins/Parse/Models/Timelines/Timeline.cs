@@ -28,8 +28,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
     {
         #region Property Bindings
 
-        private bool _deathFound;
         private bool _fightingRightNow;
+        private bool _deathFound;
 
         public bool FightingRightNow
         {
@@ -50,10 +50,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 RaisePropertyChanged();
             }
         }
+        
+        public string LastKilled { get; set; }
+        
+        public string LastEngaged { get; set; }
 
-        public bool IsHistoryBased { get; set; }
-
-        public FightList Fights { get; private set; }
+        public FightList Fights { get; internal set; }
 
         public StatGroup Overall { get; internal set; }
 
@@ -61,9 +63,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         public StatGroup Monster { get; internal set; }
 
+        private ParseControl Controller { get; set; }
+
         #endregion
 
-        #region Events
+        #region Implementation of TimelineChangedEvent
 
         public event EventHandler<TimelineChangedEvent> TimelineChangedEvent = delegate { };
 
@@ -79,15 +83,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         public readonly Timer StoreHistoryTimer = new Timer(5000);
         private readonly Timer _fightingTimer = new Timer(1500);
 
-        public DateTime ParseStarted { get; set; }
-
         #endregion
 
         /// <summary>
         /// </summary>
-        public Timeline(bool isHistoryBased = false)
+        public Timeline(ParseControl parseControl)
         {
-            IsHistoryBased = isHistoryBased;
+            Controller = parseControl;
             FightingRightNow = false;
             DeathFound = false;
             Fights = new FightList();
@@ -101,7 +103,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 IncludeSelf = false
             };
             _fightingTimer.Elapsed += FightingTimerOnElapsed;
-            ParseStarted = DateTime.Now;
             SetStoreHistoryInterval();
             StoreHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
         }
@@ -130,9 +131,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             SetStoreHistoryInterval();
             if (Settings.Default.EnableStoreHistoryReset)
             {
-                if (!FightingRightNow && !IsHistoryBased)
+                if (!FightingRightNow && !Controller.IsHistoryBased)
                 {
-                    ParseControl.Instance.StatMonitor.Clear();
+                    Controller.Reset();
                 }
             }
             StoreHistoryTimer.Stop();
@@ -148,7 +149,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             if (!Monster.TryGetGroup(mobName, out statGroup))
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for mob : {0}", mobName));
-                statGroup = new Monster(mobName);
+                statGroup = new Monster(mobName, Controller);
                 Monster.AddGroup(statGroup);
             }
             return (Monster) statGroup;
@@ -165,7 +166,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             {
                 return (Player) statGroup;
             }
-            statGroup = new Player(playerName);
+            statGroup = new Player(playerName, Controller);
             Party.AddGroup(statGroup);
             return (Player) statGroup;
         }
@@ -209,7 +210,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                             fighting = new Fight(mobName);
                             Fights.Add(fighting);
                         }
-                        ParseControl.Instance.LastEngaged = mobName;
+                        Controller.Timeline.LastEngaged = mobName;
                         break;
                     case TimelineEventType.MobKilled:
                         DeathFound = true;
@@ -226,7 +227,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         }
                         GetSetMob(mobName)
                             .SetKill(killed);
-                        ParseControl.Instance.LastKilled = mobName;
+                        Controller.Timeline.LastKilled = mobName;
                         break;
                 }
             }
@@ -235,13 +236,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         /// <summary>
         /// </summary>
-        public static void Clear()
+        public void Clear()
         {
-            ParseControl.Instance.Timeline.Fights.Clear();
-            ParseControl.Instance.Timeline.Overall.Clear();
-            ParseControl.Instance.Timeline.Party.Clear();
-            ParseControl.Instance.Timeline.Monster.Clear();
-            ParseControl.Instance.Timeline.ParseStarted = DateTime.Now;
+            Fights.Clear();
+            Overall.Clear();
+            Party.Clear();
+            Monster.Clear();
         }
 
         #region Implementation of INotifyPropertyChanged

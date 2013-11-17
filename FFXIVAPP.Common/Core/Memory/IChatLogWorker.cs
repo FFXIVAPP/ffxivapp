@@ -3,7 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Common.Core.ChatLog
+namespace FFXIVAPP.Common.Core.Memory
 {
     public interface IChatLogWorker
     {

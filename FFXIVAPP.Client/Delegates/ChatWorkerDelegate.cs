@@ -7,7 +7,7 @@
 
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Utilities;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion

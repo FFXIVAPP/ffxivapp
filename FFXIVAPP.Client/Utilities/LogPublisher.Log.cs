@@ -15,7 +15,7 @@ using FFXIVAPP.Client.Plugins.Log;
 using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;

@@ -5,8 +5,8 @@
 
 #region Usings
 
-using FFXIVAPP.Common.Core.ChatLog;
 using FFXIVAPP.Common.Core.Constant;
+using FFXIVAPP.Common.Core.Memory;
 
 #endregion
 
@@ -14,7 +14,11 @@ namespace FFXIVAPP.Common.Core
 {
     public interface IApplicationContext
     {
-        IChatLogWorker ChatLogWorker { get; }
         IConstantWorker ConstantWorker { get; }
+        IChatLogWorker ChatLogWorker { get; }
+        INPCWorker NPCWorker { get; }
+        IPCWorker PCWorker { get; }
+        IMonsterWorker MonsterWorker { get; }
+        IGatheringWorker GatheringWorker { get; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FFXIVAPP.Client.Plugins.Parse.Models;
@@ -70,22 +71,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         public void LoadHistoryItem()
         {
-            HistoryControl.Instance.Timeline.Overall.Clear();
-            HistoryControl.Instance.Timeline.Party.Clear();
-            HistoryControl.Instance.Timeline.Monster.Clear();
-            var historyItem = ParseHistory[HistoryView.View.HistoryList.SelectedIndex];
-            foreach (var stat in historyItem.HistoryControl.Timeline.Overall.Stats)
-            {
-                HistoryControl.Instance.Timeline.Overall.Stats.Add(stat);
-            }
-            foreach (var player in historyItem.HistoryControl.Timeline.Party.Children)
-            {
-                HistoryControl.Instance.Timeline.Party.Add(player);
-            }
-            foreach (var monster in historyItem.HistoryControl.Timeline.Monster.Children)
-            {
-                HistoryControl.Instance.Timeline.Monster.Add(monster);
-            }
+            var historyItem = ParseHistory[HistoryView.View.HistoryList.SelectedIndex].HistoryControl;
+            HistoryControl.Instance.StatMonitor = historyItem.StatMonitor;
+            HistoryControl.Instance.Timeline = historyItem.Timeline;
+            HistoryControl.Instance.TimelineMonitor = historyItem.TimelineMonitor;
         }
 
         #endregion

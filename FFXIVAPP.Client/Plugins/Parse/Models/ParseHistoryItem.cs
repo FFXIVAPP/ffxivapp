@@ -28,7 +28,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         /// <summary>
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="zoneID"></param>
         public ParseHistoryItem(string name = "UnknownEvent")
         {
             HistoryControl = new HistoryControl();

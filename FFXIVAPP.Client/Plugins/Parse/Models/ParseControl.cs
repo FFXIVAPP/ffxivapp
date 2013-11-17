@@ -5,6 +5,7 @@
 
 #region Usings
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -17,20 +18,30 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
     [DoNotObfuscate]
-    public class ParseControl : INotifyPropertyChanged
+    public class ParseControl : IParsingControl, INotifyPropertyChanged
     {
-        #region Property Bindings
+        #region Auto Properties
+
+        public DateTime StartTime { get; set; }
+        public bool IsHistoryBased { get; set; }
+
+        #endregion
+
+        public ParseControl(bool isHistoryBased = false)
+        {
+            IsHistoryBased = isHistoryBased;
+            Timeline = new Timeline(this);
+            TimelineMonitor = new TimelineMonitor(this);
+            StatMonitor = new StatMonitor(this);
+            StartTime = DateTime.Now;
+        }
+
+        #region Implementation of IParsingControl
 
         private static ParseControl _instance;
-        private string _lastEngaged = "";
-        private string _lastKilled = "";
         private StatMonitor _statMonitor;
         private Timeline _timeline;
         private TimelineMonitor _timelineMonitor;
-        private Dictionary<string, string> _totalA;
-        private Dictionary<string, string> _totalD;
-        private Dictionary<string, string> _totalDPS;
-        private Dictionary<string, string> _totalH;
 
         public static ParseControl Instance
         {
@@ -38,9 +49,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             set { _instance = value; }
         }
 
+        IParsingControl IParsingControl.Instance { get { return Instance; } }
+
         public Timeline Timeline
         {
-            get { return _timeline ?? (_timeline = new Timeline()); }
+            get { return _timeline ?? (_timeline = new Timeline(this)); }
             set
             {
                 _timeline = value;
@@ -58,7 +71,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             }
         }
 
-        private TimelineMonitor TimelineMonitor
+        public TimelineMonitor TimelineMonitor
         {
             get { return _timelineMonitor ?? (_timelineMonitor = new TimelineMonitor(this)); }
             set
@@ -67,89 +80,17 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 RaisePropertyChanged();
             }
         }
-
-        public Dictionary<string, string> TotalA
+        
+        public void Initialize()
         {
-            get { return _totalA ?? (_totalA = new Dictionary<string, string>()); }
-            set
-            {
-                _totalA = value;
-                RaisePropertyChanged();
-            }
+            
         }
-
-        public Dictionary<string, string> TotalD
-        {
-            get { return _totalD ?? (_totalD = new Dictionary<string, string>()); }
-            set
-            {
-                _totalD = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Dictionary<string, string> TotalH
-        {
-            get { return _totalH ?? (_totalH = new Dictionary<string, string>()); }
-            set
-            {
-                _totalH = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Dictionary<string, string> TotalDPS
-        {
-            get { return _totalDPS ?? (_totalDPS = new Dictionary<string, string>()); }
-            set
-            {
-                _totalDPS = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string LastKilled
-        {
-            get { return _lastKilled; }
-            set
-            {
-                _lastKilled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string LastEngaged
-        {
-            get { return _lastEngaged; }
-            set
-            {
-                _lastEngaged = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        public ParseControl(bool isHistoryBased = false)
-        {
-            Timeline = new Timeline(isHistoryBased);
-            TimelineMonitor = new TimelineMonitor(this);
-            StatMonitor = new StatMonitor(this);
-        }
-
-        #region Utility Functions
 
         public void Reset()
         {
             StatMonitor.Clear();
+            Timeline.Clear();
+            StartTime = DateTime.Now;
         }
 
         #endregion

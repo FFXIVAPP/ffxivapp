@@ -7,6 +7,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
+using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
@@ -24,18 +26,41 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
+        public readonly Timer StatusUpdateTimer = new Timer(1000);
         public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
+
+        public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
+
+        private ParseControl Controller { get; set; }
 
         /// <summary>
         /// </summary>
         /// <param name="name"> </param>
-        public Monster(string name) : base(name)
+        public Monster(string name, ParseControl parseControl) : base(name)
         {
+            Controller = parseControl;
+            ID = 0;
             InitStats();
             LineHistory = new List<LineHistory>();
+            StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
+            if (!Controller.IsHistoryBased)
+            {
+                StatusUpdateTimer.Start();
+            }
         }
 
+        public uint ID { get; set; }
+
+        public static NPCEntry NPCEntry { get; set; }
+
         public List<LineHistory> LineHistory { get; set; }
+
+        private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            StatusEntriesSelf.Clear();
+            StatusEntriesMonster.Clear();
+        }
 
         private TotalStat TotalOverallDrops { get; set; }
 
@@ -84,26 +109,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
 
             //link to main monster stats
-            StatMonitor.TotalOverallDamageMonster.AddDependency(stats["TotalOverallDamage"]);
-            StatMonitor.RegularDamageMonster.AddDependency(stats["RegularDamage"]);
-            StatMonitor.CriticalDamageMonster.AddDependency(stats["CriticalDamage"]);
-            StatMonitor.TotalOverallHealingMonster.AddDependency(stats["TotalOverallHealing"]);
-            StatMonitor.RegularHealingMonster.AddDependency(stats["RegularHealing"]);
-            StatMonitor.CriticalHealingMonster.AddDependency(stats["CriticalHealing"]);
-            StatMonitor.TotalOverallDamageTakenMonster.AddDependency(stats["TotalOverallDamageTaken"]);
-            StatMonitor.RegularDamageTakenMonster.AddDependency(stats["RegularDamageTaken"]);
-            StatMonitor.CriticalDamageTakenMonster.AddDependency(stats["CriticalDamageTaken"]);
+            Controller.StatMonitor.TotalOverallDamageMonster.AddDependency(stats["TotalOverallDamage"]);
+            Controller.StatMonitor.RegularDamageMonster.AddDependency(stats["RegularDamage"]);
+            Controller.StatMonitor.CriticalDamageMonster.AddDependency(stats["CriticalDamage"]);
+            Controller.StatMonitor.TotalOverallHealingMonster.AddDependency(stats["TotalOverallHealing"]);
+            Controller.StatMonitor.RegularHealingMonster.AddDependency(stats["RegularHealing"]);
+            Controller.StatMonitor.CriticalHealingMonster.AddDependency(stats["CriticalHealing"]);
+            Controller.StatMonitor.TotalOverallDamageTakenMonster.AddDependency(stats["TotalOverallDamageTaken"]);
+            Controller.StatMonitor.RegularDamageTakenMonster.AddDependency(stats["RegularDamageTaken"]);
+            Controller.StatMonitor.CriticalDamageTakenMonster.AddDependency(stats["CriticalDamageTaken"]);
 
             //setup global "percent of" stats
-            stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], StatMonitor.TotalOverallDamageMonster));
-            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], StatMonitor.RegularDamageMonster));
-            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], StatMonitor.CriticalDamageMonster));
-            stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], StatMonitor.TotalOverallHealingMonster));
-            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], StatMonitor.RegularHealingMonster));
-            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], StatMonitor.CriticalHealingMonster));
-            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], StatMonitor.TotalOverallDamageTakenMonster));
-            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], StatMonitor.RegularDamageTakenMonster));
-            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], StatMonitor.CriticalDamageTakenMonster));
+            stats.Add("PercentOfTotalOverallDamage", new PercentStat("PercentOfTotalOverallDamage", stats["TotalOverallDamage"], Controller.StatMonitor.TotalOverallDamageMonster));
+            stats.Add("PercentOfRegularDamage", new PercentStat("PercentOfRegularDamage", stats["RegularDamage"], Controller.StatMonitor.RegularDamageMonster));
+            stats.Add("PercentOfCriticalDamage", new PercentStat("PercentOfCriticalDamage", stats["CriticalDamage"], Controller.StatMonitor.CriticalDamageMonster));
+            stats.Add("PercentOfTotalOverallHealing", new PercentStat("PercentOfTotalOverallHealing", stats["TotalOverallHealing"], Controller.StatMonitor.TotalOverallHealingMonster));
+            stats.Add("PercentOfRegularHealing", new PercentStat("PercentOfRegularHealing", stats["RegularHealing"], Controller.StatMonitor.RegularHealingMonster));
+            stats.Add("PercentOfCriticalHealing", new PercentStat("PercentOfCriticalHealing", stats["CriticalHealing"], Controller.StatMonitor.CriticalHealingMonster));
+            stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Controller.StatMonitor.TotalOverallDamageTakenMonster));
+            stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Controller.StatMonitor.RegularDamageTakenMonster));
+            stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Controller.StatMonitor.CriticalDamageTakenMonster));
 
             return stats.Select(s => s.Value)
                         .ToList();

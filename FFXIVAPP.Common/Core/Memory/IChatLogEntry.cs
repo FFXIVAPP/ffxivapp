@@ -9,7 +9,7 @@ using System;
 
 #endregion
 
-namespace FFXIVAPP.Common.Core.ChatLog
+namespace FFXIVAPP.Common.Core.Memory
 {
     public interface IChatLogEntry
     {

@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
-using FFXIVAPP.Common.Core.ChatLog;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -62,7 +62,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="state"> </param>
         private void RaiseLineEvent(object state)
         {
-            OnNewline((ChatLogEntry) state);
+            OnNewline((ChatLogEntry)state);
         }
 
         #endregion
@@ -159,7 +159,7 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
                                     var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                                    var chatLogEntry = ChatEntry.Process(text.ToArray());
+                                    var chatLogEntry = ChatEnty.Process(text.ToArray());
                                     if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
                                     {
                                         PostLineEvent(chatLogEntry);
