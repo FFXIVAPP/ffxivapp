@@ -224,6 +224,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void CheckUpdates()
         {
+            return;
             Func<bool> updateCheck = delegate
             {
                 try

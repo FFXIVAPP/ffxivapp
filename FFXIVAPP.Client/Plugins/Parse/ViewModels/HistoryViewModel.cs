@@ -71,7 +71,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         public void LoadHistoryItem()
         {
-            var historyItem = ParseHistory[HistoryView.View.HistoryList.SelectedIndex].HistoryControl;
+            var historyItem = ParseHistory[HistoryView.View.HistoryList.SelectedIndex].HistoryControl.Controller;
             HistoryControl.Instance.StatMonitor = historyItem.StatMonitor;
             HistoryControl.Instance.Timeline = historyItem.Timeline;
             HistoryControl.Instance.TimelineMonitor = historyItem.TimelineMonitor;

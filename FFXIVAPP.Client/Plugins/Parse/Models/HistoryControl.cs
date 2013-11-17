@@ -21,14 +21,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     {
         #region Auto Properties
 
-        public ParseControl Controller { get; set; }
+        private ParseControl _controller;
+
+        public ParseControl Controller
+        {
+            get { return _controller ?? (_controller = new ParseControl(true)); }
+            set
+            {
+                if (_controller == null)
+                {
+                    _controller = new ParseControl(true);
+                }
+                _controller = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
-
-        public HistoryControl()
-        {
-            Controller = new ParseControl(true);
-        }
 
         #region Implementation of IParsingControl
 

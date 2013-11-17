@@ -167,39 +167,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             foreach (var player in playerList)
             {
                 var playerInstance = new Player(player.Name, controller);
-                RabbitHoleCopy(playerInstance, player, player.Stats);
-                //var playerInstance = new Player(player.Name, controller);
-                //var playerGroups = new StatGroup[player.Children.Count];
-                //player.CopyTo(playerGroups, 0);
-                //var playerStats = new Stat<decimal>[player.Stats.Count];
-                //player.Stats.CopyTo(playerStats,0);
-                //foreach (var playerGroup in playerGroups)
-                //{
-                //    playerInstance.AddGroup(playerGroup);
-                //}
-                //foreach (var playerStat in playerStats)
-                //{
-                //    playerInstance.Stats.SetOrAddStat(playerStat.Name, playerStat.Value);
-                //}
                 controller.Timeline.Party.Add(playerInstance);
+                foreach (var stat in player.Stats)
+                {
+                    playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                }
+                RabbitHoleCopy(playerInstance, player);
             }
             var monsterList = ParseControl.Timeline.Monster.ToArray();
             foreach (var monster in monsterList)
             {
-                var monsterInstance = new Player(monster.Name, controller);
-                //var monsterGroups = new StatGroup[monster.Children.Count];
-                //monster.CopyTo(monsterGroups, 0);
-                //var monsterStats = new Stat<decimal>[monster.Stats.Count];
-                //monster.Stats.CopyTo(monsterStats, 0);
-                //foreach (var monsterGroup in monsterGroups)
-                //{
-                //    monsterInstance.AddGroup(monsterGroup);
-                //}
-                //foreach (var monsterStat in monsterStats)
-                //{
-                //    monsterInstance.Stats.SetOrAddStat(monsterStat.Name, monsterStat.Value);
-                //}
+                var monsterInstance = new Monster(monster.Name, controller);
                 controller.Timeline.Monster.Add(monsterInstance);
+                foreach (var stat in monster.Stats)
+                {
+                    monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                }
+                RabbitHoleCopy(monsterInstance, monster);
             }
             historyItem.Start = ParseControl.StartTime;
             historyItem.End = DateTime.Now;
@@ -231,22 +215,22 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem));
         }
 
-        private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup, IEnumerable<Stat<decimal>> stats)
+        private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup)
         {
-            if (statGroup.Children.Any())
+            if (statGroup.Stats != null)
             {
-                foreach (var group in statGroup)
-                {
-                    RabbitHoleCopy(statGroup, group, group.Stats);
-                }
+                var newStats = new Stat<decimal>[statGroup.Stats.Count];
+                statGroup.Stats.CopyTo(newStats, 0);
+                parent.Stats.AddStats(newStats);
             }
-            if (stats == null)
+            if (!statGroup.Children.Any())
             {
                 return;
             }
-            foreach (var stat in stats)
+            foreach (var group in statGroup.Children)
             {
-                parent.Stats.SetOrAddStat(stat.Name, stat.Value);
+                var newParent = parent.GetGroup(@group.Name);
+                RabbitHoleCopy(newParent,@group);
             }
         }
 
