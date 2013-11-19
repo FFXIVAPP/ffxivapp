@@ -6,7 +6,7 @@
 #region Usings
 
 using System;
-using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion

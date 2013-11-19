@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// IParseControl.cs
+// IParsingControl.cs
 // 
 // © 2013 Ryan Wilson
 

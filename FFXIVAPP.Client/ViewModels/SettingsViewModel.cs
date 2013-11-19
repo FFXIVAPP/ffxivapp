@@ -85,7 +85,7 @@ namespace FFXIVAPP.Client.ViewModels
         /// </summary>
         private static void SetProcess()
         {
-            Initializer.SetPID();
+            Initializer.SetProcessID();
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace FFXIVAPP.Client.ViewModels
         {
             SettingsView.View.PIDSelect.Items.Clear();
             Initializer.StopMemoryWorkers();
-            Initializer.ResetPID();
+            Initializer.ResetProcessID();
             Initializer.StartMemoryWorkers();
         }
 

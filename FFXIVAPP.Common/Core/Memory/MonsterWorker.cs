@@ -5,20 +5,21 @@
 
 #region Usings
 
+using System.Collections.Generic;
+using FFXIVAPP.Common.Core.EventHandlers;
+
 #endregion
 
 namespace FFXIVAPP.Common.Core.Memory
 {
     // internal, not accessible by plugins
-    public class MonsterWorker : IMonsterWorker
+    public class MonsterWorker : IActorEntitiesEvent
     {
-        public delegate void NewEntryEventHandler(ActorEntity actorEntity);
+        public event ActorEntitiesEventHandler.Handler OnNewEntities = delegate { };
 
-        public event NewEntryEventHandler OnNewEntry = delegate { };
-
-        public void RaiseEntryEvent(ActorEntity actorEntity)
+        public void RaiseEntitiesEvent(List<ActorEntity> actorEntities)
         {
-            OnNewEntry(actorEntity);
+            OnNewEntities(actorEntities);
         }
     }
 }

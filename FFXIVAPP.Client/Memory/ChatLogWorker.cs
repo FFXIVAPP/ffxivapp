@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// ChatWorker.cs
+// ChatLogWorker.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -11,20 +11,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Timers;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
-using Timer = System.Timers.Timer;
 
 #endregion
 
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
-    internal class ChatWorker : INotifyPropertyChanged, IDisposable
+    internal class ChatLogWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings
 
@@ -38,42 +36,13 @@ namespace FFXIVAPP.Client.Memory
         private readonly Timer _scanTimer;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private readonly List<uint> _spots = new List<uint>();
-        private readonly SynchronizationContext _sync = SynchronizationContext.Current;
         private bool _isScanning;
         private uint _lastChatNum;
         private int _lastCount;
 
         #endregion
 
-        #region Events
-
-        public event NewLineEventHandler OnNewline = delegate { };
-
-        /// <summary>
-        /// </summary>
-        /// <param name="chatLogEntry"> </param>
-        private void PostLineEvent(ChatLogEntry chatLogEntry)
-        {
-            _sync.Post(RaiseLineEvent, chatLogEntry);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="state"> </param>
-        private void RaiseLineEvent(object state)
-        {
-            OnNewline((ChatLogEntry)state);
-        }
-
-        #endregion
-
-        #region Delegates
-
-        public delegate void NewLineEventHandler(ChatLogEntry chatLogEntry);
-
-        #endregion
-
-        public ChatWorker()
+        public ChatLogWorker()
         {
             _scanTimer = new Timer(10);
             _scanTimer.Elapsed += ScanTimerElapsed;
@@ -159,10 +128,11 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatPointers.LogStart;
                                     var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                                    var chatLogEntry = ChatEnty.Process(text.ToArray());
+                                    var chatLogEntry = ChatEntry.Process(text.ToArray());
                                     if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
                                     {
-                                        PostLineEvent(chatLogEntry);
+                                        ApplicationContextHelper.GetContext()
+                                                                .ChatLogWorker.RaiseLineEvent(chatLogEntry);
                                     }
                                     _lastChatNum = _spots[i];
                                 }

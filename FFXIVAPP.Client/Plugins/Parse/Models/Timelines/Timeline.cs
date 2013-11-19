@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
+using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.SettingsProviders.Parse;
@@ -28,8 +29,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
     {
         #region Property Bindings
 
-        private bool _fightingRightNow;
+        private ParseControl _controller;
         private bool _deathFound;
+        private bool _fightingRightNow;
+        private FightList _fights;
+        private string _lastEngaged;
+        private string _lastKilled;
+        private StatGroup _monster;
+        private StatGroup _overall;
+        private StatGroup _party;
 
         public bool FightingRightNow
         {
@@ -50,20 +58,76 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 RaisePropertyChanged();
             }
         }
-        
-        public string LastKilled { get; set; }
-        
-        public string LastEngaged { get; set; }
 
-        public FightList Fights { get; internal set; }
+        public string LastKilled
+        {
+            get { return _lastKilled; }
+            set
+            {
+                _lastKilled = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        public StatGroup Overall { get; internal set; }
+        public string LastEngaged
+        {
+            get { return _lastEngaged; }
+            set
+            {
+                _lastEngaged = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        public StatGroup Party { get; internal set; }
+        public FightList Fights
+        {
+            get { return _fights; }
+            internal set
+            {
+                _fights = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        public StatGroup Monster { get; internal set; }
+        public StatGroup Overall
+        {
+            get { return _overall; }
+            internal set
+            {
+                _overall = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        private ParseControl Controller { get; set; }
+        public StatGroup Party
+        {
+            get { return _party; }
+            internal set
+            {
+                _party = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public StatGroup Monster
+        {
+            get { return _monster; }
+            internal set
+            {
+                _monster = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ParseControl Controller
+        {
+            get { return _controller; }
+            set
+            {
+                _controller = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -80,8 +144,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         #region Declarations
 
+        public readonly Timer FightingTimer = new Timer(2500);
         public readonly Timer StoreHistoryTimer = new Timer(5000);
-        private readonly Timer _fightingTimer = new Timer(1500);
 
         #endregion
 
@@ -102,15 +166,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             {
                 IncludeSelf = false
             };
-            _fightingTimer.Elapsed += FightingTimerOnElapsed;
             SetStoreHistoryInterval();
             StoreHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
+            FightingTimer.Elapsed += FightingTimerOnElapsed;
+            InitStats();
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             FightingRightNow = false;
-            _fightingTimer.Stop();
+            FightingTimer.Stop();
         }
 
         private void SetStoreHistoryInterval()
@@ -146,12 +211,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         public Monster GetSetMob(string mobName)
         {
             StatGroup statGroup;
-            if (!Monster.TryGetGroup(mobName, out statGroup))
+            if (Monster.TryGetGroup(mobName, out statGroup))
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for mob : {0}", mobName));
-                statGroup = new Monster(mobName, Controller);
-                Monster.AddGroup(statGroup);
+                return (Monster) statGroup;
             }
+            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for mob : {0}", mobName));
+            statGroup = new Monster(mobName, Controller);
+            Monster.AddGroup(statGroup);
             return (Monster) statGroup;
         }
 
@@ -166,6 +232,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             {
                 return (Player) statGroup;
             }
+            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
             statGroup = new Player(playerName, Controller);
             Party.AddGroup(statGroup);
             return (Player) statGroup;
@@ -198,7 +265,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                     case TimelineEventType.MobFighting:
                         FightingRightNow = true;
                         DeathFound = false;
-                        _fightingTimer.Start();
+                        FightingTimer.Start();
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {
@@ -234,6 +301,32 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             RaiseTimelineChangedEvent(this, new TimelineChangedEvent(eventType, eventArgs));
         }
 
+        private void InitStats()
+        {
+            Overall.Stats.Add(new TotalStat("TotalOverallDamage"));
+            Overall.Stats.Add(new TotalStat("TotalOverallHealing"));
+            Overall.Stats.Add(new TotalStat("TotalOverallDamageTaken"));
+            Overall.Stats.Add(new TotalStat("TotalOverallTP"));
+            Overall.Stats.Add(new TotalStat("TotalOverallMP"));
+            Overall.Stats.Add(new TotalStat("RegularDamage"));
+            Overall.Stats.Add(new TotalStat("CriticalDamage"));
+            Overall.Stats.Add(new TotalStat("RegularHealing"));
+            Overall.Stats.Add(new TotalStat("CriticalHealing"));
+            Overall.Stats.Add(new TotalStat("RegularDamageTaken"));
+            Overall.Stats.Add(new TotalStat("CriticalDamageTaken"));
+            Overall.Stats.Add(new TotalStat("TotalOverallDamageMonster"));
+            Overall.Stats.Add(new TotalStat("TotalOverallHealingMonster"));
+            Overall.Stats.Add(new TotalStat("TotalOverallDamageTakenMonster"));
+            Overall.Stats.Add(new TotalStat("TotalOverallTPMonster"));
+            Overall.Stats.Add(new TotalStat("TotalOverallMPMonster"));
+            Overall.Stats.Add(new TotalStat("RegularDamageMonster"));
+            Overall.Stats.Add(new TotalStat("CriticalDamageMonster"));
+            Overall.Stats.Add(new TotalStat("RegularHealingMonster"));
+            Overall.Stats.Add(new TotalStat("CriticalHealingMonster"));
+            Overall.Stats.Add(new TotalStat("RegularDamageTakenMonster"));
+            Overall.Stats.Add(new TotalStat("CriticalDamageTakenMonster"));
+        }
+
         /// <summary>
         /// </summary>
         public void Clear()
@@ -242,6 +335,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             Overall.Clear();
             Party.Clear();
             Monster.Clear();
+            InitStats();
         }
 
         #region Implementation of INotifyPropertyChanged

@@ -162,22 +162,22 @@
                         <Label FontWeight="Bold">
                             Enabled:
                         </Label>
-                        <TextBlock x:Name="PlayerUploadEnabled"
+                        <TextBlock x:Name="MonsterUploadEnabled"
                                    Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="N/A" />
-                        <TextBlock x:Name="MobUploadEnabled"
-                                   Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="{Binding MobUploadEnabled,
+                                   Text="{Binding MonsterUploadEnabled,
                                                   Source={StaticResource XIVDBViewModel}}" />
                         <TextBlock x:Name="NPCUploadEnabled"
                                    Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding NPCUploadEnabled,
                                                   Source={StaticResource XIVDBViewModel}}" />
-                        <TextBlock x:Name="KilloadEnabled"
+                        <TextBlock x:Name="PCUploadEnabled"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="N/A" />
+                        <TextBlock x:Name="KillUploadEnabled"
                                    Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding KillUploadEnabled,
                                                   Source={StaticResource XIVDBViewModel}}" />
-                        <TextBlock x:Name="LootploadEnabled"
+                        <TextBlock x:Name="LootUploadEnabled"
                                    Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding LootUploadEnabled,
                                                   Source={StaticResource XIVDBViewModel}}" />
@@ -187,14 +187,9 @@
                         <Label FontWeight="Bold">
                             Seen:
                         </Label>
-                        <TextBlock x:Name="PlayerSeen"
+                        <TextBlock x:Name="MonsterSeen"
                                    Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="{Binding PlayerSeen,
-                                                  Source={StaticResource XIVDBViewModel},
-                                                  StringFormat=Players: {0:#\,###0}}" />
-                        <TextBlock x:Name="MobSeen"
-                                   Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="{Binding MobSeen,
+                                   Text="{Binding MonsterSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=Monsters: {0:#\,###0}}" />
                         <TextBlock x:Name="NPCSeen"
@@ -202,6 +197,11 @@
                                    Text="{Binding NPCSeen,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=NPCs: {0:#\,###0}}" />
+                        <TextBlock x:Name="PCSeen"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="{Binding PCSeen,
+                                                  Source={StaticResource XIVDBViewModel},
+                                                  StringFormat=PC: {0:#\,###0}}" />
                         <TextBlock x:Name="KillSeen"
                                    Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding KillSeen,
@@ -218,12 +218,9 @@
                         <Label FontWeight="Bold">
                             Chunks Processed:
                         </Label>
-                        <TextBlock x:Name="PlayerProcessed"
+                        <TextBlock x:Name="MonsterProcessed"
                                    Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="N/A" />
-                        <TextBlock x:Name="MobProcessed"
-                                   Foreground="{DynamicResource BlackColorBrush}"
-                                   Text="{Binding MobProcessed,
+                                   Text="{Binding MonsterProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*100)}" />
                         <TextBlock x:Name="NPCProcessed"
@@ -231,6 +228,9 @@
                                    Text="{Binding NPCProcessed,
                                                   Source={StaticResource XIVDBViewModel},
                                                   StringFormat=\{0:#\,###0\} (*50)}" />
+                        <TextBlock x:Name="PCProcessed"
+                                   Foreground="{DynamicResource BlackColorBrush}"
+                                   Text="N/A" />
                         <TextBlock x:Name="KillProcessed"
                                    Foreground="{DynamicResource BlackColorBrush}"
                                    Text="{Binding KillProcessed,

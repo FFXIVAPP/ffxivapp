@@ -24,14 +24,18 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (Type)
                 {
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.Type.PC;
-                    case 2:
+                    case 0x2:
                         return Enums.Actor.Type.Monster;
-                    case 3:
+                    case 0x3:
                         return Enums.Actor.Type.NPC;
-                    case 6:
+                    case 0x5:
+                        return Enums.Actor.Type.Aetheryte;
+                    case 0x6:
                         return Enums.Actor.Type.Gathering;
+                    case 0x9:
+                        return Enums.Actor.Type.Minion;
                     default:
                         return Enums.Actor.Type.Unknown;
                 }
@@ -44,11 +48,11 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (TargetType)
                 {
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.TargetType.Own;
-                    case 2:
+                    case 0x2:
                         return Enums.Actor.TargetType.True;
-                    case 4:
+                    case 0x4:
                         return Enums.Actor.TargetType.False;
                     default:
                         return Enums.Actor.TargetType.Unknown;
@@ -62,21 +66,21 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (Status)
                 {
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.Status.Idle;
-                    case 2:
+                    case 0x2:
                         return Enums.Actor.Status.Dead;
-                    case 3:
+                    case 0x3:
                         return Enums.Actor.Status.Sitting;
-                    case 4:
+                    case 0x4:
                         return Enums.Actor.Status.Mounted;
-                    case 5:
+                    case 0x5:
                         return Enums.Actor.Status.Crafting;
-                    case 6:
+                    case 0x6:
                         return Enums.Actor.Status.Gathering;
-                    case 7:
+                    case 0x7:
                         return Enums.Actor.Status.Melding;
-                    case 8:
+                    case 0x8:
                         return Enums.Actor.Status.SMachine;
                     default:
                         return Enums.Actor.Status.Unknown;
@@ -90,59 +94,61 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (Icon)
                 {
-                    case 0:
+                    case 0x0:
                         return Enums.Actor.Icon.None;
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.Icon.Yoshida;
-                    case 2:
+                    case 0x2:
                         return Enums.Actor.Icon.GM;
-                    case 3:
+                    case 0x3:
                         return Enums.Actor.Icon.SGM;
-                    case 4:
+                    case 0x4:
                         return Enums.Actor.Icon.Clover;
-                    case 5:
+                    case 0x5:
                         return Enums.Actor.Icon.DC;
-                    case 6:
+                    case 0x6:
                         return Enums.Actor.Icon.Smiley;
-                    case 9:
-                        return Enums.Actor.Icon.Red_Cross;
-                    case 10:
-                        return Enums.Actor.Icon.Grey_DC;
-                    case 11:
+                    case 0x9:
+                        return Enums.Actor.Icon.RedCross;
+                    case 0xA:
+                        return Enums.Actor.Icon.GreyDC;
+                    case 0xB:
                         return Enums.Actor.Icon.Processing;
-                    case 12:
+                    case 0xC:
                         return Enums.Actor.Icon.Busy;
-                    case 13:
+                    case 0xD:
                         return Enums.Actor.Icon.Duty;
-                    case 14:
-                        return Enums.Actor.Icon.Processing_Yellow;
-                    case 15:
-                        return Enums.Actor.Icon.Processing_Grey;
-                    case 16:
+                    case 0xE:
+                        return Enums.Actor.Icon.ProcessingYellow;
+                    case 0xF:
+                        return Enums.Actor.Icon.ProcessingGrey;
+                    case 0x10:
                         return Enums.Actor.Icon.Cutscene;
-                    case 18:
+                    case 0x12:
                         return Enums.Actor.Icon.Chocobo;
-                    case 19:
+                    case 0x13:
                         return Enums.Actor.Icon.Sitting;
-                    case 20:
-                        return Enums.Actor.Icon.Wrench_Yellow;
-                    case 21:
+                    case 0x14:
+                        return Enums.Actor.Icon.WrenchYellow;
+                    case 0x15:
                         return Enums.Actor.Icon.Wrench;
-                    case 22:
+                    case 0x16:
                         return Enums.Actor.Icon.Dice;
-                    case 23:
-                        return Enums.Actor.Icon.Processing_Green;
-                    case 24:
+                    case 0x17:
+                        return Enums.Actor.Icon.ProcessingGreen;
+                    case 0x18:
                         return Enums.Actor.Icon.Sword;
-                    case 25:
+                    case 0x19:
                         return Enums.Actor.Icon.DutyFinder;
-                    case 26:
-                        return Enums.Actor.Icon.Alliance_Leader;
-                    case 27:
-                        return Enums.Actor.Icon.Alliance_Blue_Leader;
-                    case 28:
-                        return Enums.Actor.Icon.Alliance_Blue;
-                    case 32:
+                    case 0x1A:
+                        return Enums.Actor.Icon.AllianceLeader;
+                    case 0x1B:
+                        return Enums.Actor.Icon.AllianceBlueLeader;
+                    case 0x1C:
+                        return Enums.Actor.Icon.AllianceBlue;
+                    case 0x1F:
+                        return Enums.Actor.Icon.Sprout;
+                    case 0x20:
                         return Enums.Actor.Icon.Gil;
                     default:
                         return Enums.Actor.Icon.Unknown;
@@ -156,10 +162,12 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (Claimed)
                 {
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.Claimed.Claimed;
-                    case 2:
-                        return Enums.Actor.Claimed.UnClaimed;
+                    case 0x2:
+                        return Enums.Actor.Claimed.Idle;
+                    case 0x5:
+                        return Enums.Actor.Claimed.Crafting;
                     default:
                         return Enums.Actor.Claimed.Unknown;
                 }
@@ -274,9 +282,9 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 switch (Sex)
                 {
-                    case 0:
+                    case 0x0:
                         return Enums.Actor.Sex.Male;
-                    case 1:
+                    case 0x1:
                         return Enums.Actor.Sex.Female;
                     default:
                         return Enums.Actor.Sex.Unknown;
@@ -308,9 +316,13 @@ namespace FFXIVAPP.Common.Core.Memory
             }
         }
 
+        public Coordinate Coordinate { get; set; }
+
+        public uint MapIndex { get; set; }
+
         public string Name
         {
-            get { return _name; }
+            get { return _name ?? ""; }
             set { _name = StringHelper.TitleCase(value); }
         }
 
@@ -322,9 +334,9 @@ namespace FFXIVAPP.Common.Core.Memory
         public byte TargetType { get; set; }
 
         public byte Distance { get; set; }
-        public float X { get; set; }
-        public float Z { get; set; }
-        public float Y { get; set; }
+        public double X { get; set; }
+        public double Z { get; set; }
+        public double Y { get; set; }
         public float Heading { get; set; }
         public uint Fate { get; set; }
         public uint ModelID { get; set; }

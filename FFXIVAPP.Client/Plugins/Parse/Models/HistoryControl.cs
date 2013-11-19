@@ -7,7 +7,6 @@
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Web.UI;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using SmartAssembly.Attributes;
@@ -58,6 +57,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 RaisePropertyChanged();
             }
         }
+
         public StatMonitor StatMonitor
         {
             get { return Controller.StatMonitor; }

@@ -27,7 +27,6 @@ namespace FFXIVAPP.Client.Helpers
                                         Colors = Constants.Colors,
                                         CultureInfo = Constants.CultureInfo,
                                         EnableHelpLabels = Constants.EnableHelpLabels,
-                                        EnableNLog = Constants.EnableNLog,
                                         GameLanguage = Constants.GameLanguage,
                                         ServerName = Constants.ServerName
                                     });

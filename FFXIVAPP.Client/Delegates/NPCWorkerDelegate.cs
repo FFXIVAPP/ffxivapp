@@ -9,10 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
-using Newtonsoft.Json;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -24,58 +23,13 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Declarations
 
-        public static IList<NPCEntry> NPCEntries = new List<NPCEntry>();
+        public static IList<ActorEntity> NPCEntries = new List<ActorEntity>();
 
-        public static readonly IList<NPCEntry> UniqueNPCEntries = new List<NPCEntry>();
+        public static readonly IList<ActorEntity> UniqueNPCEntries = new List<ActorEntity>();
 
-        private static readonly UploadHelper UploadHelper = new UploadHelper(50);
+        public static readonly UploadHelper UploadHelper = new UploadHelper(50);
 
         #endregion
-
-        /// <summary>
-        /// </summary>
-        public static void OnNewNPC(List<NPCEntry> npcEntries)
-        {
-            if (!npcEntries.Any())
-            {
-                return;
-            }
-            NPCEntries = npcEntries;
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = UniqueNPCEntries.ToList();
-                    foreach (var npcEntry in npcEntries)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.NPCID2 == npcEntry.NPCID2);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(npcEntry)))
-                        {
-                            UniqueNPCEntries.Add(npcEntry);
-                        }
-                        XIVDBViewModel.Instance.NPCSeen++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                var chunkSize = UploadHelper.ChunkSize;
-                var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
-                {
-                    return;
-                }
-                ProcessUploads();
-            }, saveToDictionary);
-        }
 
         /// <summary>
         /// </summary>
@@ -90,8 +44,8 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("npc", new List<NPCEntry>(UniqueNPCEntries.ToList()
-                                                                                  .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.PostUpload("npc", new List<ActorEntity>(UniqueNPCEntries.ToList()
+                                                                                     .Skip(chunksProcessed * chunkSize)));
                 XIVDBViewModel.Instance.NPCProcessed++;
             }
             catch (Exception ex)

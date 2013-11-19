@@ -6,7 +6,6 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
@@ -49,7 +48,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             set { _instance = value; }
         }
 
-        IParsingControl IParsingControl.Instance { get { return Instance; } }
+        IParsingControl IParsingControl.Instance
+        {
+            get { return Instance; }
+        }
 
         public Timeline Timeline
         {
@@ -80,16 +82,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 RaisePropertyChanged();
             }
         }
-        
+
         public void Initialize()
         {
-            
         }
 
         public void Reset()
         {
             StatMonitor.Clear();
             Timeline.Clear();
+            TimelineMonitor.Clear();
             StartTime = DateTime.Now;
         }
 

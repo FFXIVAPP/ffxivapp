@@ -96,12 +96,12 @@ namespace FFXIVAPP.Client.Converters
             {
                 return new BitmapImage(new Uri(cachePath));
             }
-            var useAvatars = !String.IsNullOrWhiteSpace(Common.Constants.ServerName);
+            var useAvatars = !String.IsNullOrWhiteSpace(Constants.ServerName);
             if (useAvatars)
             {
                 ThreadPool.QueueUserWorkItem(delegate
                 {
-                    var serverName = Common.Constants.ServerName;
+                    var serverName = Constants.ServerName;
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                     var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";

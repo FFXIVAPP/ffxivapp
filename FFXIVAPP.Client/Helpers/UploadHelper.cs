@@ -8,8 +8,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
+using FFXIVAPP.Common.Core.Memory;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
 
@@ -51,10 +51,10 @@ namespace FFXIVAPP.Client.Helpers
             switch (postKey)
             {
                 case "npc":
-                    data = entries as IList<NPCEntry>;
+                    data = entries as IList<ActorEntity>;
                     break;
                 case "mob":
-                    data = entries as IList<NPCEntry>;
+                    data = entries as IList<ActorEntity>;
                     break;
                 case "kill":
                     data = entries as IList<KillEntry>;

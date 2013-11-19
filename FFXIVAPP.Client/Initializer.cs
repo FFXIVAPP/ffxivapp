@@ -15,7 +15,6 @@ using System.Net;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
@@ -37,9 +36,10 @@ namespace FFXIVAPP.Client
     {
         #region Declarations
 
-        private static ChatWorker _chatWorker;
-        private static NPCWorker _npcWorker;
+        private static ChatLogWorker _chatLogWorker;
         private static MonsterWorker _monsterWorker;
+        private static NPCWorker _npcWorker;
+        private static PlayerInfoWorker _playerInfoWorker;
 
         #endregion
 
@@ -224,7 +224,6 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void CheckUpdates()
         {
-            return;
             Func<bool> updateCheck = delegate
             {
                 try
@@ -273,16 +272,16 @@ namespace FFXIVAPP.Client
                             var enabled = (bool) feature["Enabled"];
                             switch (key)
                             {
-                                case "6965ABA3-D6E3-469B-A4A6-74C1C42938D9":
-                                    XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
-                                    break;
                                 case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
-                                    XIVDBViewModel.Instance.MobUploadEnabled = enabled;
+                                    XIVDBViewModel.Instance.MonsterUploadEnabled = enabled;
                                     break;
                                 case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
-                                    XIVDBViewModel.Instance.KillUploadEnabled = enabled;
+                                    XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
                                     break;
                                 case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
+                                    XIVDBViewModel.Instance.KillUploadEnabled = enabled;
+                                    break;
+                                case "6A50A13B-BA83-45D7-862F-F110049E7E78":
                                     XIVDBViewModel.Instance.LootUploadEnabled = enabled;
                                     break;
                             }
@@ -357,7 +356,7 @@ namespace FFXIVAPP.Client
                 {
                     var title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
                     var message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
-                    MessageBoxHelper.ShowMessageAsync(title, message, delegate { ShellView.CloseApplication(true); }, delegate { });
+                    MessageBoxHelper.ShowMessageAsync(title, message, () => ShellView.CloseApplication(true), delegate { });
                 }
                 var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
@@ -384,7 +383,7 @@ namespace FFXIVAPP.Client
                 Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
                 Offset = 780
             });
-            //+3436 list of agro
+            //+3436 list of agro 
             //+5744 agro count
             signatures.Add(new Signature
             {
@@ -409,7 +408,7 @@ namespace FFXIVAPP.Client
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private static int GetPID()
+        private static int GetProcessID()
         {
             if (Constants.IsOpen && Constants.ProcessID > 0)
             {
@@ -436,28 +435,28 @@ namespace FFXIVAPP.Client
                 SettingsView.View.PIDSelect.Items.Add(process.Id);
             }
             SettingsView.View.PIDSelect.SelectedIndex = 0;
-            PID(Constants.ProcessIDs.First()
-                         .Id);
+            UpdateProcessID(Constants.ProcessIDs.First()
+                                     .Id);
             return Constants.ProcessIDs.First()
                             .Id;
         }
 
         /// <summary>
         /// </summary>
-        public static void SetPID()
+        public static void SetProcessID()
         {
             StopMemoryWorkers();
             if (SettingsView.View.PIDSelect.Text == "")
             {
                 return;
             }
-            PID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
+            UpdateProcessID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
             StartMemoryWorkers();
         }
 
         /// <summary>
         /// </summary>
-        public static void ResetPID()
+        public static void ResetProcessID()
         {
             Constants.ProcessID = -1;
         }
@@ -465,7 +464,7 @@ namespace FFXIVAPP.Client
         /// <summary>
         /// </summary>
         /// <param name="pid"> </param>
-        private static void PID(int pid)
+        private static void UpdateProcessID(int pid)
         {
             Constants.ProcessID = pid;
             Constants.ProcessHandle = Constants.ProcessIDs[SettingsView.View.PIDSelect.SelectedIndex].MainWindowHandle;
@@ -475,7 +474,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void StartMemoryWorkers()
         {
-            var id = SettingsView.View.PIDSelect.Text == "" ? GetPID() : Constants.ProcessID;
+            var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessID;
             Constants.IsOpen = true;
             if (id < 0)
             {
@@ -488,15 +487,14 @@ namespace FFXIVAPP.Client
                 SigScanner = new SigScanner(AppViewModel.Instance.Signatures)
             };
             StopMemoryWorkers();
-            _chatWorker = new ChatWorker();
-            _chatWorker.StartScanning();
-            _chatWorker.OnNewline += ChatWorkerDelegate.OnNewLine;
+            _chatLogWorker = new ChatLogWorker();
+            _chatLogWorker.StartScanning();
             _monsterWorker = new MonsterWorker();
             _monsterWorker.StartScanning();
-            _monsterWorker.OnNewNPC += MonsterWorkerDelegate.OnNewNPC;
             _npcWorker = new NPCWorker();
             _npcWorker.StartScanning();
-            _npcWorker.OnNewNPC += NPCWorkerDelegate.OnNewNPC;
+            _playerInfoWorker = new PlayerInfoWorker();
+            _playerInfoWorker.StartScanning();
         }
 
         /// <summary>
@@ -529,23 +527,25 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void StopMemoryWorkers()
         {
-            if (_chatWorker != null)
+            if (_chatLogWorker != null)
             {
-                _chatWorker.OnNewline -= ChatWorkerDelegate.OnNewLine;
-                _chatWorker.StopScanning();
-                _chatWorker.Dispose();
+                _chatLogWorker.StopScanning();
+                _chatLogWorker.Dispose();
             }
             if (_monsterWorker != null)
             {
-                _monsterWorker.OnNewNPC -= MonsterWorkerDelegate.OnNewNPC;
                 _monsterWorker.StopScanning();
                 _monsterWorker.Dispose();
             }
             if (_npcWorker != null)
             {
-                _npcWorker.OnNewNPC -= NPCWorkerDelegate.OnNewNPC;
                 _npcWorker.StopScanning();
                 _npcWorker.Dispose();
+            }
+            if (_playerInfoWorker != null)
+            {
+                _playerInfoWorker.StopScanning();
+                _playerInfoWorker.Dispose();
             }
         }
     }

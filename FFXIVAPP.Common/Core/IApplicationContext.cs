@@ -5,8 +5,7 @@
 
 #region Usings
 
-using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.EventHandlers;
 
 #endregion
 
@@ -14,11 +13,11 @@ namespace FFXIVAPP.Common.Core
 {
     public interface IApplicationContext
     {
-        IConstantWorker ConstantWorker { get; }
-        IChatLogWorker ChatLogWorker { get; }
-        INPCWorker NPCWorker { get; }
-        IPCWorker PCWorker { get; }
-        IMonsterWorker MonsterWorker { get; }
-        IGatheringWorker GatheringWorker { get; }
+        IConstantEntryEvent ConstantWorker { get; }
+        IChatLogEntryEvent ChatLogWorker { get; }
+        IActorEntitiesEvent MonsterWorker { get; }
+        IActorEntitiesEvent NPCWorker { get; }
+        IActorEntitiesEvent PCWorker { get; }
+        IPlayerEntityEvent PlayerInfoWorker { get; }
     }
 }

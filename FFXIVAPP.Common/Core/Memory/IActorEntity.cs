@@ -13,6 +13,7 @@ namespace FFXIVAPP.Common.Core.Memory
 {
     public interface IActorEntity
     {
+        uint MapIndex { get; set; }
         string Name { get; set; }
         uint ID { get; set; }
         uint NPCID1 { get; set; }
@@ -20,9 +21,9 @@ namespace FFXIVAPP.Common.Core.Memory
         byte Type { get; set; }
         byte TargetType { get; set; }
         byte Distance { get; set; }
-        float X { get; set; }
-        float Z { get; set; }
-        float Y { get; set; }
+        double X { get; set; }
+        double Z { get; set; }
+        double Y { get; set; }
         float Heading { get; set; }
         uint Fate { get; set; }
         uint ModelID { get; set; }

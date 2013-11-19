@@ -133,13 +133,16 @@
     <Compile Include="Constants.Informer.cs" />
     <Compile Include="Constants.Parse.cs" />
     <Compile Include="Constants.Event.cs" />
+    <Compile Include="Delegates\MemoryDelegates.cs" />
+    <Compile Include="Delegates\PCWorkerDelegate.cs" />
     <Compile Include="Helpers\ApplicationContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
-    <Compile Include="Memory\ChatEnty.cs" />
+    <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="PluginInitializer.Informer.cs" />
     <Compile Include="Plugins\Informer\PluginViewModel.cs" />
     <Compile Include="Plugins\Informer\ShellView.xaml.cs">
@@ -182,7 +185,7 @@
       <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameToAvatarConverter.cs" />
-    <Compile Include="Delegates\ChatWorkerDelegate.cs" />
+    <Compile Include="Delegates\ChatLogWorkerDelegate.cs" />
     <Compile Include="Delegates\KillWorkerDelegate.cs" />
     <Compile Include="Delegates\LootWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
@@ -235,16 +238,12 @@
     <Compile Include="Localization\Japanese.Parse.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\Structures.cs" />
-    <Compile Include="Memory\StatusEntry.cs" />
     <Compile Include="Memory\MonsterWorker.cs" />
-    <Compile Include="Memory\NPCEntry.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />
     <Compile Include="Memory\Signature.cs" />
-    <Compile Include="Memory\Coordinate.cs" />
-    <Compile Include="Memory\NPCType.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
-    <Compile Include="Memory\ChatWorker.cs" />
+    <Compile Include="Memory\ChatLogWorker.cs" />
     <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />

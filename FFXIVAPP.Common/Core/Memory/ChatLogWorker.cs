@@ -5,16 +5,16 @@
 
 #region Usings
 
+using FFXIVAPP.Common.Core.EventHandlers;
+
 #endregion
 
 namespace FFXIVAPP.Common.Core.Memory
 {
     // internal, not accessible by plugins
-    public class ChatLogWorker : IChatLogWorker
+    public class ChatLogWorker : IChatLogEntryEvent
     {
-        public delegate void NewLineEventHandler(ChatLogEntry chatLogEntry);
-
-        public event NewLineEventHandler OnNewLine = delegate { };
+        public event ChatLogEntryEventHandler.Handler OnNewLine = delegate { };
 
         public void RaiseLineEvent(ChatLogEntry chatLogEntry)
         {

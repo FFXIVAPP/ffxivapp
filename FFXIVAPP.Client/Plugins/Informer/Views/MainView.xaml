@@ -98,7 +98,7 @@
                             <Label Content="{Binding CurrentUser.CPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentUser.StatusList.Count,
+                            <Label Content="{Binding CurrentUser.StatusEntries.Count,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
                         </StackPanel>
@@ -164,7 +164,7 @@
                             <Label Content="{Binding CurrentTarget.CPString,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
-                            <Label Content="{Binding CurrentTarget.StatusList.Count,
+                            <Label Content="{Binding CurrentTarget.StatusEntries.Count,
                                                      Source={StaticResource XIVInfoViewModel}}"
                                    Style="{StaticResource LabelStyle}" />
                         </StackPanel>

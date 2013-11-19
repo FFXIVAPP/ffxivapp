@@ -27,36 +27,27 @@ namespace FFXIVAPP.Client.ViewModels
         private int _lootProcessed;
         private int _lootSeen;
         private bool _lootUploadEnabled;
-        private int _mobProcessed;
-        private int _mobSeen;
-        private bool _mobUploadEnabled;
+        private int _monsterProcessed;
+        private int _monsterSeen;
+        private bool _monsterUploadEnabled;
         private int _npcProcessed;
         private int _npcSeen;
         private bool _npcUploadEnabled;
-        private int _playerProcessed;
-        private int _playerSeen;
+        private int _pcProcessed;
+        private int _pcSeen;
+        private bool _pcUploadEnabled;
 
         public static XIVDBViewModel Instance
         {
             get { return _instance ?? (_instance = new XIVDBViewModel()); }
         }
 
-        public int PlayerSeen
+        public int MonsterSeen
         {
-            get { return _playerSeen; }
+            get { return _monsterSeen; }
             set
             {
-                _playerSeen = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public int MobSeen
-        {
-            get { return _mobSeen; }
-            set
-            {
-                _mobSeen = value;
+                _monsterSeen = value;
                 RaisePropertyChanged();
             }
         }
@@ -67,6 +58,16 @@ namespace FFXIVAPP.Client.ViewModels
             set
             {
                 _npcSeen = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int PCSeen
+        {
+            get { return _pcSeen; }
+            set
+            {
+                _pcSeen = value;
                 RaisePropertyChanged();
             }
         }
@@ -91,22 +92,12 @@ namespace FFXIVAPP.Client.ViewModels
             }
         }
 
-        public int PlayerProcessed
+        public int MonsterProcessed
         {
-            get { return _playerProcessed; }
+            get { return _monsterProcessed; }
             set
             {
-                _playerProcessed = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public int MobProcessed
-        {
-            get { return _mobProcessed; }
-            set
-            {
-                _mobProcessed = value;
+                _monsterProcessed = value;
                 RaisePropertyChanged();
             }
         }
@@ -117,6 +108,16 @@ namespace FFXIVAPP.Client.ViewModels
             set
             {
                 _npcProcessed = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int PCProcessed
+        {
+            get { return _pcProcessed; }
+            set
+            {
+                _pcProcessed = value;
                 RaisePropertyChanged();
             }
         }
@@ -145,6 +146,36 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
+        public bool MonsterUploadEnabled
+        {
+            get { return _monsterUploadEnabled; }
+            set
+            {
+                _monsterUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool NPCUploadEnabled
+        {
+            get { return _npcUploadEnabled; }
+            set
+            {
+                _npcUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool PCUploadEnabled
+        {
+            get { return _pcUploadEnabled; }
+            set
+            {
+                _pcUploadEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public bool KillUploadEnabled
         {
             get { return _killUploadEnabled; }
@@ -165,38 +196,18 @@ namespace FFXIVAPP.Client.ViewModels
             }
         }
 
-        public bool MobUploadEnabled
-        {
-            get { return _mobUploadEnabled; }
-            set
-            {
-                _mobUploadEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool NPCUploadEnabled
-        {
-            get { return _npcUploadEnabled; }
-            set
-            {
-                _npcUploadEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion
 
         public XIVDBViewModel()
         {
-            PlayerSeen = 0;
-            MobSeen = 0;
+            MonsterSeen = 0;
             NPCSeen = 0;
+            PCSeen = 0;
             KillSeen = 0;
             LootSeen = 0;
-            PlayerProcessed = 0;
-            MobProcessed = 0;
+            MonsterProcessed = 0;
             NPCProcessed = 0;
+            PCProcessed = 0;
             KillProcessed = 0;
             LootProcessed = 0;
         }

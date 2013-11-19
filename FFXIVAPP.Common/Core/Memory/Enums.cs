@@ -7,7 +7,7 @@ namespace FFXIVAPP.Common.Core.Memory
 {
     public class Enums
     {
-        public enum Job
+        public enum Job : byte
         {
             Unknown,
             GLD,
@@ -44,14 +44,15 @@ namespace FFXIVAPP.Common.Core.Memory
 
         public class Actor
         {
-            public enum Claimed
+            public enum Claimed : byte
             {
                 Unknown,
                 Claimed,
-                UnClaimed
+                Idle,
+                Crafting
             }
 
-            public enum Icon
+            public enum Icon : byte
             {
                 Unknown,
                 None,
@@ -61,37 +62,37 @@ namespace FFXIVAPP.Common.Core.Memory
                 Clover,
                 DC,
                 Smiley,
-                Red_Cross,
-                Grey_DC,
+                RedCross,
+                GreyDC,
                 Processing,
                 Busy,
                 Duty,
-                Processing_Yellow,
-                Processing_Grey,
+                ProcessingYellow,
+                ProcessingGrey,
                 Cutscene,
                 Chocobo,
                 Sitting,
-                Wrench_Yellow,
+                WrenchYellow,
                 Wrench,
                 Dice,
-                Processing_Green,
+                ProcessingGreen,
                 Sword,
                 DutyFinder,
-                Alliance_Leader,
-                Alliance_Blue_Leader,
-                Alliance_Blue,
+                AllianceLeader,
+                AllianceBlueLeader,
+                AllianceBlue,
                 Sprout,
                 Gil
             }
 
-            public enum Sex
+            public enum Sex : byte
             {
                 Unknown,
                 Male,
                 Female
             }
 
-            public enum Status
+            public enum Status : byte
             {
                 Unknown,
                 Idle,
@@ -104,7 +105,7 @@ namespace FFXIVAPP.Common.Core.Memory
                 SMachine
             }
 
-            public enum TargetType
+            public enum TargetType : byte
             {
                 Unknown,
                 Own,
@@ -112,13 +113,15 @@ namespace FFXIVAPP.Common.Core.Memory
                 False,
             }
 
-            public enum Type
+            public enum Type : byte
             {
                 Unknown,
-                NPC,
                 PC,
                 Monster,
-                Gathering
+                NPC,
+                Aetheryte,
+                Gathering,
+                Minion
             }
         }
     }

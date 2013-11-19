@@ -27,7 +27,7 @@ namespace FFXIVAPP.Client.Helpers
         [DoNotObfuscate]
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
-            ChatWorkerDelegate.IsPaused = true;
+            ChatLogWorkerDelegate.IsPaused = true;
             if (!isTemporary)
             {
             }
@@ -247,7 +247,7 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             }
             AppViewModel.Instance.ChatHistory.Clear();
-            ChatWorkerDelegate.IsPaused = false;
+            ChatLogWorkerDelegate.IsPaused = false;
             return true;
         }
     }

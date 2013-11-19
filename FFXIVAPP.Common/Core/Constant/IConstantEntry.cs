@@ -22,7 +22,6 @@ namespace FFXIVAPP.Common.Core.Constant
         string CharacterName { get; set; }
         string ServerName { get; set; }
         string GameLanguage { get; set; }
-        bool EnableNLog { get; set; }
         bool EnableHelpLabels { get; set; }
     }
 }

@@ -19,7 +19,7 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
-    public static class ChatEnty
+    public static class ChatEntry
     {
         public static ChatLogEntry Process(byte[] raw)
         {

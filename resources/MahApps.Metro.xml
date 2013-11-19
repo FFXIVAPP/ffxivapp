@@ -2155,7 +2155,7 @@
             <summary>
             Scans a resources and returns it's accent and theme.
             </summary>
-            <param name="window">The resource to check.</param>
+            <param name="resources">The ResourceDictionary to check.</param>
         </member>
         <member name="M:MahApps.Metro.ThemeManager.OnThemeChanged(MahApps.Metro.Accent,MahApps.Metro.Theme)">
             <summary>

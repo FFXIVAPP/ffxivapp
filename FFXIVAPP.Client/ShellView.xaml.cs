@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -57,6 +58,7 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             Initializer.SetupPlugins();
             Initializer.UpdatePluginConstants();
+            MemoryDelegates.Instance.Initialize();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
         }

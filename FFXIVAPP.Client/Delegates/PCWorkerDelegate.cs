@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// MonsterWorkerDelegate.cs
+// PCWorkerDelegate.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -19,7 +19,7 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Delegates
 {
     [DoNotObfuscate]
-    internal static class MonsterWorkerDelegate
+    internal static class PCWorkerDelegate
     {
         #region Declarations
 
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Client.Delegates
         /// </summary>
         public static void ProcessUploads()
         {
-            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.MonsterUploadEnabled)
+            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.PCUploadEnabled)
             {
                 return;
             }
@@ -44,9 +44,9 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("mob", new List<ActorEntity>(UniqueNPCEntries.ToList()
-                                                                                     .Skip(chunksProcessed * chunkSize)));
-                XIVDBViewModel.Instance.MonsterProcessed++;
+                UploadHelper.PostUpload("pc", new List<ActorEntity>(UniqueNPCEntries.ToList()
+                                                                                    .Skip(chunksProcessed * chunkSize)));
+                XIVDBViewModel.Instance.PCProcessed++;
             }
             catch (Exception ex)
             {

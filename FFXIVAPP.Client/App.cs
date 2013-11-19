@@ -45,11 +45,11 @@ namespace FFXIVAPP.Client
             StartupUri = new Uri("ShellView.xaml", UriKind.Relative);
             var resourceLocater = new Uri("/FFXIVAPP.Client;component/App.xaml", UriKind.Relative);
             LoadComponent(this, resourceLocater);
+            ConfigureNLog();
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             Settings.Default.PropertyChanged += SettingsPropertyChanged;
             Settings.Default.SettingChanging += SettingsSettingChanging;
             CheckSettings();
-            ConfigureNLog();
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace FFXIVAPP.Client
             switch (e.PropertyName)
             {
                 case "CharacterName":
-                    Common.Constants.CharacterName = Constants.CharacterName = Settings.Default.CharacterName;
+                    Constants.CharacterName = Settings.Default.CharacterName;
                     break;
                 case "FirstName":
                     Initializer.SetCharacter();
@@ -147,7 +147,7 @@ namespace FFXIVAPP.Client
                     Initializer.SetCharacter();
                     break;
                 case "GameLanguage":
-                    Common.Constants.GameLanguage = Constants.GameLanguage = Settings.Default.GameLanguage;
+                    Constants.GameLanguage = Settings.Default.GameLanguage;
                     var lang = Settings.Default.GameLanguage.ToLower();
                     var cultureInfo = new CultureInfo("en");
                     switch (lang)
@@ -166,7 +166,7 @@ namespace FFXIVAPP.Client
                     LocaleHelper.Update(Settings.Default.Culture);
                     break;
                 case "ServerName":
-                    Common.Constants.ServerName = Constants.ServerName = Settings.Default.ServerName;
+                    Constants.ServerName = Settings.Default.ServerName;
                     break;
                 case "EnableNLog":
                     Common.Constants.EnableNLog = Constants.EnableNLog = Settings.Default.EnableNLog;

@@ -18,6 +18,7 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.RegularExpressions;
 using FFXIVAPP.Client.Utilities;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -33,12 +34,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
-        public TimelineMonitor(ParseControl parseControl)
-            : base("Timeline", parseControl)
+        public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl)
         {
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32)EventType.Loot | (UInt32)EventType.Defeats);   
+                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32) EventType.Loot | (UInt32) EventType.Defeats);
             }
         }
 
@@ -129,10 +129,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
                 var killEntry = new KillEntry();
-                if (MonsterWorkerDelegate.CurrentUser != null)
+                if (MemoryDelegates.Instance.CurrentUser != null)
                 {
-                    killEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                    killEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                    var currentUser = MemoryDelegates.Instance.CurrentUser;
+                    killEntry.MapIndex = currentUser.MapIndex;
+                    killEntry.Coordinate = new Coordinate
+                    {
+                        X = currentUser.X,
+                        Z = currentUser.Z,
+                        Y = currentUser.Y,
+                    };
                 }
                 if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                 {
@@ -220,10 +226,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
                 var lootEntry = new LootEntry(thing);
-                if (MonsterWorkerDelegate.CurrentUser != null)
+                if (MemoryDelegates.Instance.CurrentUser != null)
                 {
-                    lootEntry.MapIndex = MonsterWorkerDelegate.CurrentUser.MapIndex;
-                    lootEntry.Coordinate = MonsterWorkerDelegate.CurrentUser.Coordinate;
+                    var currentUser = MemoryDelegates.Instance.CurrentUser;
+                    lootEntry.MapIndex = currentUser.MapIndex;
+                    lootEntry.Coordinate = new Coordinate
+                    {
+                        X = currentUser.X,
+                        Z = currentUser.Z,
+                        Y = currentUser.Y,
+                    };
                 }
                 if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
                 {
