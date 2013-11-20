@@ -108,6 +108,13 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
                 {
                     CurrentTarget = PCWorkerDelegate.NPCEntries.FirstOrDefault(p => p.ID == CurrentUser.TargetID);
                 }
+                else
+                {
+                    CurrentTarget = new ActorEntity
+                    {
+                        Name = "NotFound"
+                    };
+                }
             }
             else
             {

@@ -18,8 +18,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     {
         /// <summary>
         /// </summary>
-        /// <param name="line"> </param>
-        public void SetDamageTaken(Line line)
+        /// <param name="line"></param>
+        /// <param name="isDamageOverTime"></param>
+        public void SetDamageTaken(Line line, bool isDamageOverTime = false)
         {
             LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
@@ -48,10 +49,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 subMonsterAbilityGroup.Stats.AddStats(DamageTakenStatList(subMonsterGroup, true));
                 abilities.AddGroup(subMonsterAbilityGroup);
             }
-            Stats.IncrementStat("TotalDamageTakenActionsUsed");
-            subAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
-            subMonsterGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
-            subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+            if (!isDamageOverTime)
+            {
+                Stats.IncrementStat("TotalDamageTakenActionsUsed");
+                subAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+                subMonsterGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+                subMonsterAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+            }
             if (line.Hit)
             {
                 Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);

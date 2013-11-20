@@ -171,9 +171,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         //    line.Amount += line.Amount * 0.5m;
                         //}
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetDamage(line);
+                                    .SetDamage(line, true);
                         ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                    .SetDamageTaken(line);
+                                    .SetDamageTaken(line, true);
                     });
                 }
                 catch (Exception ex)
