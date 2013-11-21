@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Core;
@@ -84,9 +85,18 @@ namespace FFXIVAPP.Client.Delegates
             {
                 LogPublisher.HandleCommands(chatLogEntry);
             }
-            LogPublisher.Event.Process(chatLogEntry);
-            LogPublisher.Log.Process(chatLogEntry);
-            LogPublisher.Parse.Process(chatLogEntry);
+            if (Settings.Default.EventPluginEnabled)
+            {
+                LogPublisher.Event.Process(chatLogEntry);
+            }
+            if (Settings.Default.LogPluginEnabled)
+            {
+                LogPublisher.Log.Process(chatLogEntry);
+            }
+            if (Settings.Default.ParsePluginEnabled)
+            {
+                LogPublisher.Parse.Process(chatLogEntry);
+            }
         }
 
         private void MonsterWorkerOnNewEntities(List<ActorEntity> actorEntities)

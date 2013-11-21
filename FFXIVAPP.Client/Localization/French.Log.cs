@@ -34,6 +34,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("log_TranslateShoutHeader", "Crier");
             Dictionary.Add("log_TranslateTellHeader", "Murmurer");
             Dictionary.Add("log_TranslateYellHeader", "Hurler");
+            Dictionary.Add("log_EnableAllHeader", "Enable All");
         }
     }
 }

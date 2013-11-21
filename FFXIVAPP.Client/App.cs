@@ -180,6 +180,21 @@ namespace FFXIVAPP.Client
                         ShellView.View.Topmost = Settings.Default.TopMost;
                     }
                     break;
+                case "EventPluginEnabled":
+                case "InformerPluginEnabled":
+                case "LogPluginEnabled":
+                case "ParsePluginEnabled":
+                    if (!Settings.Default.EventPluginEnabled && !Settings.Default.InformerPluginEnabled && !Settings.Default.LogPluginEnabled && !Settings.Default.ParsePluginEnabled)
+                    {
+                        try
+                        {
+                            ShellView.View.PluginsTC.SelectedIndex = 0;
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                    break;
             }
         }
 

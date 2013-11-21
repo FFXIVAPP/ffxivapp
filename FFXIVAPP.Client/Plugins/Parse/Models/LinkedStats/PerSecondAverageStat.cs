@@ -48,8 +48,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
         /// <param name="newValue"> </param>
         public override void DoDependencyValueChanged(object sender, object previousValue, object newValue)
         {
-            var ovalue = (decimal) previousValue;
-            var nvalue = (decimal) newValue;
+            var oValue = (decimal) previousValue;
+            var nValue = (decimal) newValue;
             if (FirstEventReceived == default(DateTime))
             {
                 FirstEventReceived = DateTime.Now;
@@ -59,7 +59,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
                                                                     .TotalSeconds);
             if (timeDifference >= 1)
             {
-                Value = nvalue / timeDifference;
+                Value = nValue / timeDifference;
             }
         }
     }

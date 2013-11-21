@@ -390,10 +390,11 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_LoadExistingLogFileButtonText", "保存済みログファイルを読み込む");
             Dictionary.Add("parse_BasicGlobalWarningLabel", "これは全ての戦闘をまとめて計測したものです。プレイヤーあるいは敵毎のより詳細な比較(DPS等)を知りたい場合には\"詳細表示\"をクリックして下さい。");
             Dictionary.Add("parse_HistoryToolTip", "履歴");
-            Dictionary.Add("parse_StoreHistoryIntervalHeader", "履歴の保存頻度");
-            Dictionary.Add("parse_EnableStoreHistoryResetHeader", "Enabled Store History Auto-Reset");
-            Dictionary.Add("parse_StoreHistoryEventHeader", "Store History Event Trigger");
-            Dictionary.Add("parse_StoreHistoryEventHelperText", "*If enabled the history and parser will be stored and reset if the selected event type does not happen after the chosen interval.");
+            Dictionary.Add("parse_StoreHistoryIntervalHeader", "履歴の保存間隔");
+            Dictionary.Add("parse_EnableStoreHistoryResetHeader", "保存済み履歴の自動リセットを有効にする");
+            Dictionary.Add("parse_StoreHistoryEventHeader", "履歴の保存トリガーとなるイベント");
+            Dictionary.Add("parse_StoreHistoryEventHelperText", "*有効にすると履歴と解析結果は、選択したイベントが指定した間隔後に発生しなかった時に保存・リセットされます。");
+            Dictionary.Add("parse_IgnoreLimitBreaksHeader", "Ignore Limit Break Damage");
         }
     }
 }

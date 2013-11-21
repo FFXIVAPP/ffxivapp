@@ -103,6 +103,13 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_IgnoreLimitBreaksHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding IgnoreLimitBreaks,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_EnableStoreHistoryResetHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

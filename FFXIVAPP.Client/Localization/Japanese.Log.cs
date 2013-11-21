@@ -34,6 +34,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("log_TranslateShoutHeader", "翻訳するShout");
             Dictionary.Add("log_TranslateTellHeader", "翻訳するTell");
             Dictionary.Add("log_TranslateYellHeader", "翻訳するYell");
+            Dictionary.Add("log_EnableAllHeader", "Enable All");
         }
     }
 }

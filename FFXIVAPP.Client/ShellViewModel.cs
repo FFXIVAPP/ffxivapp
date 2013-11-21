@@ -95,7 +95,14 @@ namespace FFXIVAPP.Client
         private static void UpdateSelectedPlugin()
         {
             var selectedItem = ((TabItem) ShellView.View.PluginsTC.SelectedItem);
-            AppViewModel.Instance.Selected = selectedItem.Header.ToString();
+            try
+            {
+                AppViewModel.Instance.Selected = selectedItem.Header.ToString();
+            }
+            catch (Exception)
+            {
+                AppViewModel.Instance.Selected = "(NONE)";
+            }
             UpdateTitle();
         }
 

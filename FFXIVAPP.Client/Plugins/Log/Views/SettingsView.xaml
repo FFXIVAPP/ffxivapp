@@ -33,6 +33,13 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="{Binding Locale[log_EnableAllHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableAll,
+                                                                                Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[log_EnableDebugHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

@@ -44,7 +44,7 @@ namespace FFXIVAPP.Client.Utilities
             {
                 timeStampColor, "#EAFF00"
             }, MainView.View.TranslatedFD._FDR);
-            if (SettingsProviders.Log.Settings.Default.SendToEcho)
+            if (Constants.Log.PluginSettings.SendToEcho)
             {
                 //Plugin.PHost.Commands(Plugin.PName, new[]
                 //{
@@ -63,8 +63,8 @@ namespace FFXIVAPP.Client.Utilities
         private static string Translate(string line, bool jp)
         {
             var tempString = "";
-            var jpOnly = SettingsProviders.Log.Settings.Default.TranslateJPOnly;
-            var outLang = Offsets[SettingsProviders.Log.Settings.Default.TranslateTo].ToString();
+            var jpOnly = Constants.Log.PluginSettings.TranslateJPOnly;
+            var outLang = Offsets[Constants.Log.PluginSettings.TranslateTo].ToString();
             if (jpOnly)
             {
                 if (jp)
@@ -121,7 +121,7 @@ namespace FFXIVAPP.Client.Utilities
                     {
                         result = translated.InnerText;
                     }
-                    if (SettingsProviders.Log.Settings.Default.SendRomanization)
+                    if (Constants.Log.PluginSettings.SendRomanization)
                     {
                         var roman = doc.DocumentNode.SelectSingleNode("//div[@id='res-translit']");
                         if (roman != null)

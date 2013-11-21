@@ -6,8 +6,8 @@
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Log"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Log.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:log="clr-namespace:FFXIVAPP.Client.Plugins.Log"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -38,7 +38,10 @@
                 <TabControl.ItemsSource>
                     <CompositeCollection>
                         <TabItem Header="{Binding Locale[log_AllTabHeader],
-                                                  Source={StaticResource AppProperties}}">
+                                                  Source={StaticResource AppProperties}}"
+                                 Visibility="{Binding EnableAll,
+                                                      Source={StaticResource Settings},
+                                                      Converter={StaticResource VisibilityConverter}}">
                             <Controls:xFlowDocument x:Name="AllFD" />
                         </TabItem>
                         <TabItem Header="{Binding Locale[log_TranslatedTabHeader],

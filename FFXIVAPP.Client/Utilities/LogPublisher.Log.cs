@@ -16,6 +16,7 @@ using FFXIVAPP.Client.Plugins.Log.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -56,46 +57,52 @@ namespace FFXIVAPP.Client.Utilities
                         playerName = line.Substring(0, line.IndexOf(":", StringComparison.Ordinal));
                         line = line.Replace(playerName + ":", "");
                     }
-                    Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
+                    if (Constants.Log.PluginSettings.EnableAll)
                     {
-                        timeStampColor, "#" + color
-                    }, MainView.View.AllFD._FDR);
-                    foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument) ((TabItem) ti).Content))
-                    {
-                        var resuccess = false;
-                        var xRegularExpression = flowDoc.RegEx.Text;
-                        switch (xRegularExpression)
+                        Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
                         {
-                            case "*":
-                                resuccess = true;
-                                break;
-                            default:
-                                try
-                                {
-                                    var check = new Regex(xRegularExpression);
-                                    if (SharedRegEx.IsValidRegex(xRegularExpression))
+                            timeStampColor, "#" + color
+                        }, MainView.View.AllFD._FDR);
+                    }
+                    DispatcherHelper.Invoke(delegate
+                    {
+                        foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument)((TabItem)ti).Content))
+                        {
+                            var resuccess = false;
+                            var xRegularExpression = flowDoc.RegEx.Text;
+                            switch (xRegularExpression)
+                            {
+                                case "*":
+                                    resuccess = true;
+                                    break;
+                                default:
+                                    try
                                     {
-                                        var reg = check.Match(line);
-                                        if (reg.Success)
+                                        var check = new Regex(xRegularExpression);
+                                        if (SharedRegEx.IsValidRegex(xRegularExpression))
                                         {
-                                            resuccess = true;
+                                            var reg = check.Match(line);
+                                            if (reg.Success)
+                                            {
+                                                resuccess = true;
+                                            }
                                         }
                                     }
-                                }
-                                catch
-                                {
-                                    resuccess = true;
-                                }
-                                break;
-                        }
-                        if (resuccess && flowDoc.Codes.Items.Contains(chatLogEntry.Code))
-                        {
-                            Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
+                                    catch
+                                    {
+                                        resuccess = true;
+                                    }
+                                    break;
+                            }
+                            if (resuccess && flowDoc.Codes.Items.Contains(chatLogEntry.Code))
+                            {
+                                Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
                             {
                                 timeStampColor, "#" + color
                             }, flowDoc._FDR);
+                            }
                         }
-                    }
+                    });
                     // handle translation
                     if (Constants.Log.PluginSettings.EnableTranslate)
                     {
@@ -129,7 +136,7 @@ namespace FFXIVAPP.Client.Utilities
                         }
                     }
                     // handle debug tab
-                    if (Constants.Log.PluginSettings.ShowAsciiDebug)
+                    if (Constants.Log.PluginSettings.ShowASCIIDebug)
                     {
                         var asciiString = "";
                         for (var j = 0; j < chatLogEntry.Bytes.Length; j++)
@@ -142,11 +149,14 @@ namespace FFXIVAPP.Client.Utilities
                             "", "#FFFFFFFF"
                         }, MainView.View.DebugFD._FDR);
                     }
-                    var raw = String.Format("{0}[{1}]{2}", chatLogEntry.Raw.Substring(0, 8), chatLogEntry.Code, chatLogEntry.Raw.Substring(12));
-                    Common.Constants.FD.AppendFlow("", "", raw, new[]
+                    if (Constants.Log.PluginSettings.EnableDebug)
                     {
-                        "", "#FFFFFFFF"
-                    }, MainView.View.DebugFD._FDR);
+                        var raw = String.Format("{0}[{1}]{2}", chatLogEntry.Raw.Substring(0, 8), chatLogEntry.Code, chatLogEntry.Raw.Substring(12));
+                        Common.Constants.FD.AppendFlow("", "", raw, new[]
+                        {
+                            "", "#FFFFFFFF"
+                        }, MainView.View.DebugFD._FDR);
+                    }
                 }
                 catch (Exception ex)
                 {

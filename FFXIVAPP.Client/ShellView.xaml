@@ -168,20 +168,51 @@
                         <TabControl.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource AccentColor}" />
                         </TabControl.BorderBrush>
+                        <TabItem Visibility="Collapsed">
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <Image HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Oops.png"
+                                           Stretch="None" />
+                                    <TextBlock HorizontalAlignment="Center"
+                                               Text="{Binding Locale[app_NoPluginsLineOneTextBlock],
+                                                              Source={StaticResource AppProperties}}"
+                                               TextWrapping="WrapWithOverflow" />
+                                    <TextBlock HorizontalAlignment="Center"
+                                               Text="{Binding Locale[app_NoPluginsLineTwoTextBlock],
+                                                              Source={StaticResource AppProperties}}"
+                                               TextWrapping="WrapWithOverflow" />
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
                         <TabItem x:Name="EventPlugin"
-                                 Header="FFXIVAPP.Plugin.Event">
+                                 Header="FFXIVAPP.Plugin.Event"
+                                 Visibility="{Binding EventPluginEnabled,
+                                                      Source={x:Static Properties:Settings.Default},
+                                                      Converter={StaticResource VisibilityConverter}}">
                             <EventPlugin:ShellView />
                         </TabItem>
                         <TabItem x:Name="InformerPlugin"
-                                 Header="FFXIVAPP.Plugin.Informer">
+                                 Header="FFXIVAPP.Plugin.Informer"
+                                 Visibility="{Binding InformerPluginEnabled,
+                                                      Source={x:Static Properties:Settings.Default},
+                                                      Converter={StaticResource VisibilityConverter}}">
                             <InformerPlugin:ShellView />
                         </TabItem>
                         <TabItem x:Name="LogPlugin"
-                                 Header="FFXIVAPP.Plugin.Log">
+                                 Header="FFXIVAPP.Plugin.Log"
+                                 Visibility="{Binding LogPluginEnabled,
+                                                      Source={x:Static Properties:Settings.Default},
+                                                      Converter={StaticResource VisibilityConverter}}">
                             <LogPlugin:ShellView />
                         </TabItem>
                         <TabItem x:Name="ParsePlugin"
-                                 Header="FFXIVAPP.Plugin.Parse">
+                                 Header="FFXIVAPP.Plugin.Parse"
+                                 Visibility="{Binding ParsePluginEnabled,
+                                                      Source={x:Static Properties:Settings.Default},
+                                                      Converter={StaticResource VisibilityConverter}}">
                             <ParsePlugin:ShellView />
                         </TabItem>
                     </TabControl>

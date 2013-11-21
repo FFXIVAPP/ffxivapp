@@ -5,7 +5,9 @@
 
 #region Usings
 
+using System.Web.UI;
 using System.Windows;
+using FFXIVAPP.Client.Plugins.Log.Views;
 
 #endregion
 
@@ -38,6 +40,7 @@ namespace FFXIVAPP.Client.Plugins.Log
             }
             IsRendered = true;
             PluginInitializer.Log.ApplyTheming();
+            ((MainView) MainTI.Content).MainViewTC.SelectedIndex = Constants.Log.PluginSettings.EnableAll ? 0 : 1;
         }
     }
 }

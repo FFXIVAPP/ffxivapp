@@ -5,7 +5,9 @@
 
 #region Usings
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -25,7 +27,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public static bool IsLimit(string action)
         {
-            return LimitBreakSkills.Contains(action.ToLower());
+            return LimitBreakSkills.Any(lb => String.Equals(lb, action, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private static List<string> GetLimitBreakList()

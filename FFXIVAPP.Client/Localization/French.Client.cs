@@ -67,6 +67,11 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_EnableHelpLabelsHeader", "Activer Aide étiquettes");
             Dictionary.Add("app_OKButtonText", "OK");
             Dictionary.Add("app_TopMostHeader", "Always On Top");
+            Dictionary.Add("app_OfficialPluginsTabHeader", "Official Plugins");
+            Dictionary.Add("app_ThirdPartyPluginsTabHeader", "Third Party Plugins");
+            Dictionary.Add("app_IntegrationSettingsTabHeader", "Integration Settings");
+            Dictionary.Add("app_NoPluginsLineOneTextBlock", "You might have recently turned on or off all plugins; or just have nothing loaded at all.");
+            Dictionary.Add("app_NoPluginsLineTwoTextBlock", "Confirm your settings and if loaded choose a plugin icon from the tab menu.");
         }
     }
 }

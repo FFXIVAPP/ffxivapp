@@ -92,6 +92,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         private void DefaultSettings()
         {
             Constants.Log.Settings.Clear();
+            Constants.Log.Settings.Add("EnableAll");
             Constants.Log.Settings.Add("EnableDebug");
             Constants.Log.Settings.Add("ShowASCIIDebug");
             Constants.Log.Settings.Add("EnableTranslate");
@@ -168,6 +169,19 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
+        public bool EnableAll
+        {
+            get { return ((bool)(this["EnableAll"])); }
+            set
+            {
+                this["EnableAll"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
         public bool EnableDebug
         {
             get { return ((bool) (this["EnableDebug"])); }
@@ -181,7 +195,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowAsciiDebug
+        public bool ShowASCIIDebug
         {
             get { return ((bool) (this["ShowASCIIDebug"])); }
             set

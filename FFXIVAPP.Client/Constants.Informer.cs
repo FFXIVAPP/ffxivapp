@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
+using FFXIVAPP.Client.SettingsProviders.Informer;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -20,6 +21,11 @@ namespace FFXIVAPP.Client
         [DoNotObfuscate]
         public static class Informer
         {
+            public static Settings PluginSettings
+            {
+                get { return SettingsProviders.Informer.Settings.Default; }
+            }
+
             #region Declarations
 
             #endregion

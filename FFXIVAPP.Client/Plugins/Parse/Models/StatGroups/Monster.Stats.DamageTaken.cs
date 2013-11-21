@@ -23,6 +23,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         public void SetDamageTaken(Line line, bool isDamageOverTime = false)
         {
             LineHistory.Add(new LineHistory(line));
+            if ((LimitBreaks.IsLimit(line.Action) || line.Amount > 2000) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
+            {
+                return;
+            }
             var fields = line.GetType()
                              .GetProperties();
             var abilityGroup = GetGroup("DamageTakenByAction");

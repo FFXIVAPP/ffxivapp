@@ -173,34 +173,30 @@ namespace FFXIVAPP.Client
             switch (Settings.Default.HomePlugin)
             {
                 case "Event":
-                    SetHomePlugin(0);
+                    if (Settings.Default.EventPluginEnabled)
+                    {
+                        SetHomePlugin(1);
+                    }
                     break;
                 case "Informer":
-                    SetHomePlugin(1);
+                    if (Settings.Default.InformerPluginEnabled)
+                    {
+                        SetHomePlugin(2);
+                    }
                     break;
                 case "Log":
-                    SetHomePlugin(2);
+                    if (Settings.Default.LogPluginEnabled)
+                    {
+                        SetHomePlugin(3);
+                    }
                     break;
                 case "Parse":
-                    SetHomePlugin(3);
+                    if (Settings.Default.ParsePluginEnabled)
+                    {
+                        SetHomePlugin(4);
+                    }
                     break;
             }
-            //var index = 0;
-            //foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
-            //{
-            //    if (pluginInstance.Instance.Name == Settings.Default.DefaultHomePlugin)
-            //    {
-            //        try
-            //        {
-            //            ShellView.View.PluginsTC.SelectedIndex = index;
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //        }
-            //        return;
-            //    }
-            //    index++;
-            //}
         }
 
         /// <summary>

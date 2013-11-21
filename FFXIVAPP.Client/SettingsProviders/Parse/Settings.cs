@@ -66,6 +66,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Clear();
             Constants.Parse.Settings.Add("StoreHistoryInterval");
             Constants.Parse.Settings.Add("EnableStoreHistoryReset");
+            Constants.Parse.Settings.Add("IgnoreLimitBreaks");
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
             Constants.Parse.Settings.Add("ShowPartyHealingTab");
@@ -405,10 +406,23 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("True")]
         public bool EnableStoreHistoryReset
         {
-            get { return ((bool) (this["EnableStoreHistoryReset"])); }
+            get { return ((bool)(this["EnableStoreHistoryReset"])); }
             set
             {
                 this["EnableStoreHistoryReset"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool IgnoreLimitBreaks
+        {
+            get { return ((bool)(this["IgnoreLimitBreaks"])); }
+            set
+            {
+                this["IgnoreLimitBreaks"] = value;
                 RaisePropertyChanged();
             }
         }

@@ -248,7 +248,7 @@
                     </DockPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_PluginSettingsTabHeader],
+            <TabItem Header="{Binding Locale[app_IntegrationSettingsTabHeader],
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
@@ -286,7 +286,54 @@
                                 </FlowDocumentScrollViewer>
                             </StackPanel>
                         </GroupBox>
-                        <Label>More details coming soon!</Label>
+                        <TextBlock HorizontalAlignment="Center">
+                            More details to come!
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding Locale[app_OfficialPluginsTabHeader],
+                                      Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <GroupBox Header="Event">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EventPluginEnabled,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Informer">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding InformerPluginEnabled,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Log">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding LogPluginEnabled,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Parse">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ParsePluginEnabled,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding Locale[app_ThirdPartyPluginsTabHeader],
+                                      Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center">
+                            More details to come!
+                        </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
