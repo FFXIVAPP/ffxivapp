@@ -463,13 +463,13 @@ namespace FFXIVAPP.Client
         private static void UpdateProcessID(int pid)
         {
             Constants.ProcessID = pid;
-            Constants.ProcessHandle = Constants.ProcessIDs[SettingsView.View.PIDSelect.SelectedIndex].MainWindowHandle;
         }
 
         /// <summary>
         /// </summary>
         public static void StartMemoryWorkers()
         {
+            StopMemoryWorkers();
             var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessID;
             Constants.IsOpen = true;
             if (id < 0)
@@ -478,11 +478,8 @@ namespace FFXIVAPP.Client
                 return;
             }
             var process = Process.GetProcessById(id);
-            MemoryHandler.Instance = new MemoryHandler(process)
-            {
-                SigScanner = new SigScanner(AppViewModel.Instance.Signatures)
-            };
-            StopMemoryWorkers();
+            MemoryHandler.Instance.SetProcess(process);
+            MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
             _monsterWorker = new MonsterWorker();

@@ -66,7 +66,7 @@ namespace FFXIVAPP.Client.Utilities
                     }
                     DispatcherHelper.Invoke(delegate
                     {
-                        foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument)((TabItem)ti).Content))
+                        foreach (var flowDoc in PluginViewModel.Instance.Tabs.Select(ti => (xFlowDocument) ((TabItem) ti).Content))
                         {
                             var resuccess = false;
                             var xRegularExpression = flowDoc.RegEx.Text;
@@ -97,9 +97,9 @@ namespace FFXIVAPP.Client.Utilities
                             if (resuccess && flowDoc.Codes.Items.Contains(chatLogEntry.Code))
                             {
                                 Common.Constants.FD.AppendFlow(timeStamp, playerName, line, new[]
-                            {
-                                timeStampColor, "#" + color
-                            }, flowDoc._FDR);
+                                {
+                                    timeStampColor, "#" + color
+                                }, flowDoc._FDR);
                             }
                         }
                     });

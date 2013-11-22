@@ -23,6 +23,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public DateTime StartTime { get; set; }
         public bool IsHistoryBased { get; set; }
+        public bool FirstActionFound { get; set; }
 
         #endregion
 
@@ -89,10 +90,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public void Reset()
         {
+            if (!FirstActionFound)
+            {
+                FirstActionFound = true;
+                StartTime = DateTime.Now;
+            }
+            else
+            {
+                FirstActionFound = false;
+            }
             StatMonitor.Clear();
             Timeline.Clear();
             TimelineMonitor.Clear();
-            StartTime = DateTime.Now;
         }
 
         #endregion

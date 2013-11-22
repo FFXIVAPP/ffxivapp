@@ -6,6 +6,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -303,28 +304,47 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         private void InitStats()
         {
-            Overall.Stats.Add(new TotalStat("TotalOverallDamage"));
-            Overall.Stats.Add(new TotalStat("TotalOverallHealing"));
-            Overall.Stats.Add(new TotalStat("TotalOverallDamageTaken"));
-            Overall.Stats.Add(new TotalStat("TotalOverallTP"));
-            Overall.Stats.Add(new TotalStat("TotalOverallMP"));
-            Overall.Stats.Add(new TotalStat("RegularDamage"));
-            Overall.Stats.Add(new TotalStat("CriticalDamage"));
-            Overall.Stats.Add(new TotalStat("RegularHealing"));
-            Overall.Stats.Add(new TotalStat("CriticalHealing"));
-            Overall.Stats.Add(new TotalStat("RegularDamageTaken"));
-            Overall.Stats.Add(new TotalStat("CriticalDamageTaken"));
-            Overall.Stats.Add(new TotalStat("TotalOverallDamageMonster"));
-            Overall.Stats.Add(new TotalStat("TotalOverallHealingMonster"));
-            Overall.Stats.Add(new TotalStat("TotalOverallDamageTakenMonster"));
-            Overall.Stats.Add(new TotalStat("TotalOverallTPMonster"));
-            Overall.Stats.Add(new TotalStat("TotalOverallMPMonster"));
-            Overall.Stats.Add(new TotalStat("RegularDamageMonster"));
-            Overall.Stats.Add(new TotalStat("CriticalDamageMonster"));
-            Overall.Stats.Add(new TotalStat("RegularHealingMonster"));
-            Overall.Stats.Add(new TotalStat("CriticalHealingMonster"));
-            Overall.Stats.Add(new TotalStat("RegularDamageTakenMonster"));
-            Overall.Stats.Add(new TotalStat("CriticalDamageTakenMonster"));
+            Overall.Stats.Clear();
+            var overallStats = OverallStats()
+                .Select(s => s.Value)
+                .ToList();
+            Overall.Stats.AddStats(overallStats);
+        }
+
+        private static Dictionary<string, Stat<decimal>> OverallStats()
+        {
+            var stats = new Dictionary<string, Stat<decimal>>();
+
+            stats.Add("TotalOverallDamage", new TotalStat("TotalOverallDamage"));
+            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
+            stats.Add("StaticPlayerDPS", new TotalStat("StaticPlayerDPS"));
+            stats.Add("TotalOverallHealing", new TotalStat("TotalOverallHealing"));
+            stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"]));
+            stats.Add("StaticPlayerHPS", new TotalStat("StaticPlayerHPS"));
+            stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
+            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
+            stats.Add("StaticPlayerDTPS", new TotalStat("StaticPlayerDTPS"));
+            stats.Add("TotalOverallTP", new TotalStat("TotalOverallTP"));
+            stats.Add("TotalOverallMP", new TotalStat("TotalOverallMP"));
+            stats.Add("RegularDamage", new TotalStat("RegularDamage"));
+            stats.Add("CriticalDamage", new TotalStat("CriticalDamage"));
+            stats.Add("RegularHealing", new TotalStat("RegularHealing"));
+            stats.Add("CriticalHealing", new TotalStat("CriticalHealing"));
+            stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
+            stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
+            stats.Add("TotalOverallDamageMonster", new TotalStat("TotalOverallDamageMonster"));
+            stats.Add("TotalOverallHealingMonster", new TotalStat("TotalOverallHealingMonster"));
+            stats.Add("TotalOverallDamageTakenMonster", new TotalStat("TotalOverallDamageTakenMonster"));
+            stats.Add("TotalOverallTPMonster", new TotalStat("TotalOverallTPMonster"));
+            stats.Add("TotalOverallMPMonster", new TotalStat("TotalOverallMPMonster"));
+            stats.Add("RegularDamageMonster", new TotalStat("RegularDamageMonster"));
+            stats.Add("CriticalDamageMonster", new TotalStat("CriticalDamageMonster"));
+            stats.Add("RegularHealingMonster", new TotalStat("RegularHealingMonster"));
+            stats.Add("CriticalHealingMonster", new TotalStat("CriticalHealingMonster"));
+            stats.Add("RegularDamageTakenMonster", new TotalStat("RegularDamageTakenMonster"));
+            stats.Add("CriticalDamageTakenMonster", new TotalStat("CriticalDamageTakenMonster"));
+
+            return stats;
         }
 
         /// <summary>

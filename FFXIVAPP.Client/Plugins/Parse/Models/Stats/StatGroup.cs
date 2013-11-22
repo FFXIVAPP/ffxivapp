@@ -239,7 +239,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
         public virtual void Clear()
         {
             _children.Clear();
-            _statList.Clear();
+            foreach (var stat in _statList)
+            {
+                stat.Reset();
+            }
             DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
         }
 

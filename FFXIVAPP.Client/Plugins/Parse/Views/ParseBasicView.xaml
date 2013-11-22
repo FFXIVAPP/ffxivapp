@@ -11,6 +11,7 @@
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -33,6 +34,54 @@
           DataContext="{StaticResource ParseBasicViewModel}">
         <ScrollViewer>
             <StackPanel>
+                <GroupBox DataContext="{Binding Timeline.Overall,
+                                                Source={StaticResource Parser}}"
+                          Header="Score Card (Party)">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="0">
+                            <TextBlock Text="{Binding Locale[parse_TotalOverallDamageLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                            <TextBlock Text="{Binding Locale[parse_TotalOverallHealingLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                            <TextBlock Text="{Binding Locale[parse_TotalOverallDamageTakenLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="1">
+                            <TextBlock Text="{Binding TotalOverallDamage}" />
+                            <TextBlock Text="{Binding TotalOverallHealing}" />
+                            <TextBlock Text="{Binding TotalOverallDamageTaken}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="2">
+                            <TextBlock Text="{Binding Locale[parse_DPSLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                            <TextBlock Text="{Binding Locale[parse_HPSLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                            <TextBlock Text="{Binding Locale[parse_DTPSLabel],
+                                                      Source={StaticResource AppProperties}}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0"
+                                    Grid.Column="3">
+                            <TextBlock Text="{Binding DPS,
+                                                      StringFormat=\{0:F0\}}" />
+                            <TextBlock Text="{Binding HPS,
+                                                      StringFormat=\{0:F0\}}" />
+                            <TextBlock Text="{Binding DTPS,
+                                                      StringFormat=\{0:F0\}}" />
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
                 <TextBlock HorizontalAlignment="Center"
                            Foreground="{DynamicResource BlackColorBrush}"
                            Text="{Binding Locale[parse_BasicGlobalWarningLabel],
@@ -46,10 +95,12 @@
                         <CollectionViewSource x:Key="Party"
                                               Source="{Binding Timeline.Party,
                                                                Source={StaticResource Parser}}">
-                            <!--<CollectionViewSource.SortDescriptions>
+                            <!--
+                                <CollectionViewSource.SortDescriptions>
                                 <ComponentModel:SortDescription Direction="Descending"
-                                                                PropertyName="DPS" />
-                            </CollectionViewSource.SortDescriptions>-->
+                                PropertyName="DPS" />
+                                </CollectionViewSource.SortDescriptions>
+                            -->
                         </CollectionViewSource>
                     </ItemsControl.Resources>
                     <ItemsControl.ItemsSource>

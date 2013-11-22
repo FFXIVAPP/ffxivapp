@@ -406,7 +406,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("True")]
         public bool EnableStoreHistoryReset
         {
-            get { return ((bool)(this["EnableStoreHistoryReset"])); }
+            get { return ((bool) (this["EnableStoreHistoryReset"])); }
             set
             {
                 this["EnableStoreHistoryReset"] = value;
@@ -419,7 +419,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool IgnoreLimitBreaks
         {
-            get { return ((bool)(this["IgnoreLimitBreaks"])); }
+            get { return ((bool) (this["IgnoreLimitBreaks"])); }
             set
             {
                 this["IgnoreLimitBreaks"] = value;

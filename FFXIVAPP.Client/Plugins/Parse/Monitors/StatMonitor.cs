@@ -78,11 +78,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             }
             var historyItem = new ParseHistoryItem();
             var controller = historyItem.HistoryControl.Controller;
-            var oStatList = ParseControl.Timeline.Overall.Stats.ToArray();
-            foreach (var oStat in oStatList)
-            {
-                controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
-            }
+            var oStats = ParseControl.Timeline.Overall.Stats;
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDPS", oStats.GetStatValue("DPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHPS", oStats.GetStatValue("HPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTPS", oStats.GetStatValue("DTPS"));
             var playerList = ParseControl.Timeline.Party.ToArray();
             foreach (var player in playerList)
             {
@@ -129,7 +128,33 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 zone = ZoneHelper.GetMapInfo(mapIndex)
                                  .English;
             }
-            historyItem.Name = String.Format("{0} {1}", zone, parseTimeDetails);
+            var monsterName = "NULL";
+            try
+            {
+                StatGroup biggestMonster = null;
+                foreach (var monster in ParseControl.Timeline.Monster)
+                {
+                    if (biggestMonster == null)
+                    {
+                        biggestMonster = monster;
+                    }
+                    else
+                    {
+                        if (monster.Stats.GetStatValue("TotalOverallDamage") > biggestMonster.Stats.GetStatValue("TotalOverallDamage"))
+                        {
+                            biggestMonster = monster;
+                        }
+                    }
+                }
+                if (biggestMonster != null)
+                {
+                    monsterName = biggestMonster.Name;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
             DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem));
         }
 

@@ -22,8 +22,10 @@ namespace FFXIVAPP.Client.Memory
     {
         #region Property Bindings
 
+        private static MemoryHandler _instance;
         private Process _process;
         private IntPtr _processHandle;
+        private SigScanner _sigScanner;
 
         public Process Process
         {
@@ -45,8 +47,24 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
-        public static MemoryHandler Instance { get; set; }
-        public SigScanner SigScanner { get; set; }
+        public static MemoryHandler Instance
+        {
+            get { return _instance ?? (_instance = new MemoryHandler(null)); }
+            set { _instance = value; }
+        }
+
+        public SigScanner SigScanner
+        {
+            get { return _sigScanner ?? (_sigScanner = new SigScanner()); }
+            set
+            {
+                if (_sigScanner == null)
+                {
+                    _sigScanner = new SigScanner();
+                }
+                _sigScanner = value;
+            }
+        }
 
         #endregion
 
@@ -69,6 +87,25 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="process"> </param>
         public MemoryHandler(Process process)
         {
+            if (process != null)
+            {
+                SetProcess(process);
+            }
+        }
+
+        ~MemoryHandler()
+        {
+            try
+            {
+                UnsafeNativeMethods.CloseHandle(Instance.ProcessHandle);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public void SetProcess(Process process)
+        {
             Process = process;
             try
             {
@@ -78,11 +115,8 @@ namespace FFXIVAPP.Client.Memory
             {
                 ProcessHandle = process.Handle;
             }
-        }
-
-        ~MemoryHandler()
-        {
-            UnsafeNativeMethods.CloseHandle(Instance.ProcessHandle);
+            Constants.ProcessHandle = ProcessHandle;
+            SigScanner.Locations.Clear();
         }
 
         /// <summary>

@@ -171,7 +171,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Log
         [DefaultSettingValue("False")]
         public bool EnableAll
         {
-            get { return ((bool)(this["EnableAll"])); }
+            get { return ((bool) (this["EnableAll"])); }
             set
             {
                 this["EnableAll"] = value;

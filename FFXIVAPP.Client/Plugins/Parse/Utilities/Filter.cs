@@ -40,6 +40,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 
         public static void Process(string cleaned, Models.Events.Event e)
         {
+            if (!ParseControl.Instance.FirstActionFound)
+            {
+                ParseControl.Instance.Reset();
+            }
+
             _lastEventParty = _lastEventParty ?? new Models.Events.Event();
             _lastEventPlayer = _lastEventPlayer ?? new Models.Events.Event();
             _autoAction = false;

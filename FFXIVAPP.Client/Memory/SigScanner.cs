@@ -32,6 +32,10 @@ namespace FFXIVAPP.Client.Memory
             get { return _locations ?? (_locations = new Dictionary<string, uint>()); }
             private set
             {
+                if (_locations == null)
+                {
+                    _locations = new Dictionary<string, uint>();
+                }
                 _locations = value;
                 RaisePropertyChanged();
             }
@@ -100,16 +104,12 @@ namespace FFXIVAPP.Client.Memory
             {
                 LoadOffsets(signatures);
             }
-            else
-            {
-                Locations = new Dictionary<string, uint>();
-            }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="signatures"> </param>
-        private void LoadOffsets(List<Signature> signatures)
+        public void LoadOffsets(List<Signature> signatures)
         {
             Func<bool> d = delegate
             {

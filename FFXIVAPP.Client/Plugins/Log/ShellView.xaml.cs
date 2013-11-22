@@ -5,7 +5,6 @@
 
 #region Usings
 
-using System.Web.UI;
 using System.Windows;
 using FFXIVAPP.Client.Plugins.Log.Views;
 
