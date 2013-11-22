@@ -65,7 +65,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
-            if (PCWorkerDelegate.NPCEntries.Any())
+            var pcEntries = PCWorkerDelegate.NPCEntries.ToList();
+            var monsterEntries = MonsterWorkerDelegate.NPCEntries.ToList();
+            if (pcEntries.Any())
             {
                 try
                 {
@@ -75,7 +77,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     }
                     else
                     {
-                        NPCEntry = PCWorkerDelegate.NPCEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
+                        NPCEntry = pcEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
                     }
                     if (NPCEntry != null)
                     {
@@ -83,8 +85,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         if (ID > 0)
                         {
                             StatusEntriesSelf = NPCEntry.StatusEntries;
-                            foreach (var statusEntry in MonsterWorkerDelegate.NPCEntries.SelectMany(monster => monster.StatusEntries)
-                                                                             .Where(statusEntry => statusEntry.CasterID == ID))
+                            foreach (var statusEntry in
+                                monsterEntries.SelectMany(monster => monster.StatusEntries)
+                                              .Where(statusEntry => statusEntry.CasterID == ID))
                             {
                                 StatusEntriesMonster.Add(statusEntry);
                             }

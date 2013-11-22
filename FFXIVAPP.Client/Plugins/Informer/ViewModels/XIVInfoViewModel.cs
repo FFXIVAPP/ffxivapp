@@ -26,6 +26,7 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
         private static XIVInfoViewModel _instance;
         private IList<ActorEntity> _currentMonsters;
         private IList<ActorEntity> _currentNPCs;
+        private IList<ActorEntity> _currentPCs;
         private ActorEntity _currentTarget;
         private ActorEntity _currentUser;
 
@@ -75,6 +76,16 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
             }
         }
 
+        public IList<ActorEntity> CurrentPCs
+        {
+            get { return _currentPCs ?? (_currentPCs = new List<ActorEntity>()); }
+            set
+            {
+                _currentPCs = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Declarations
@@ -92,21 +103,22 @@ namespace FFXIVAPP.Client.Plugins.Informer.ViewModels
         private void InfoTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             CurrentUser = MemoryDelegates.Instance.CurrentUser;
-            CurrentNPCs = NPCWorkerDelegate.NPCEntries;
-            CurrentMonsters = MonsterWorkerDelegate.NPCEntries;
+            CurrentNPCs = NPCWorkerDelegate.NPCEntries.ToList();
+            CurrentMonsters = MonsterWorkerDelegate.NPCEntries.ToList();
+            CurrentPCs = PCWorkerDelegate.NPCEntries.ToList();
             if (CurrentUser.TargetID > 0)
             {
-                if (MonsterWorkerDelegate.NPCEntries.Any(m => m.ID == CurrentUser.TargetID))
+                if (CurrentMonsters.Any(m => m.ID == CurrentUser.TargetID))
                 {
-                    CurrentTarget = MonsterWorkerDelegate.NPCEntries.FirstOrDefault(m => m.ID == CurrentUser.TargetID);
+                    CurrentTarget = CurrentMonsters.FirstOrDefault(m => m.ID == CurrentUser.TargetID);
                 }
-                else if (NPCWorkerDelegate.NPCEntries.Any(n => n.NPCID1 == CurrentUser.TargetID))
+                else if (CurrentNPCs.Any(n => n.NPCID1 == CurrentUser.TargetID))
                 {
-                    CurrentTarget = NPCWorkerDelegate.NPCEntries.FirstOrDefault(n => n.NPCID1 == CurrentUser.TargetID);
+                    CurrentTarget = CurrentNPCs.FirstOrDefault(n => n.NPCID1 == CurrentUser.TargetID);
                 }
-                else if (PCWorkerDelegate.NPCEntries.Any(p => p.ID == CurrentUser.TargetID))
+                else if (CurrentPCs.Any(p => p.ID == CurrentUser.TargetID))
                 {
-                    CurrentTarget = PCWorkerDelegate.NPCEntries.FirstOrDefault(p => p.ID == CurrentUser.TargetID);
+                    CurrentTarget = CurrentPCs.FirstOrDefault(p => p.ID == CurrentUser.TargetID);
                 }
                 else
                 {
