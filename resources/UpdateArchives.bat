@@ -15,7 +15,6 @@ del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip System.Windows.Interactivity.dll
 #"C:\Program Files\7-Zip\7z.exe" a Debug.zip WebSocket4Net.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Licenses\*.txt
-"C:\Program Files\7-Zip\7z.exe" a Debug.zip Sounds\*.wav
 
 cd "..\Release"
 del Release.zip /q
@@ -34,7 +33,6 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip System.Windows.Interactivity.dll
 #"C:\Program Files\7-Zip\7z.exe" a Release.zip WebSocket4Net.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Licenses\*.txt
-"C:\Program Files\7-Zip\7z.exe" a Release.zip Sounds\*.wav
 
 cd "..\SmartAssembly"
 del SmartAssembly.zip /q
@@ -53,4 +51,3 @@ del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip System.Windows.Interactivity.dll
 #"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip WebSocket4Net.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Licenses\*.txt
-"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Sounds\*.wav
