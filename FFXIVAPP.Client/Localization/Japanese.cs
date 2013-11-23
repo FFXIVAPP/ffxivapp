@@ -24,8 +24,6 @@ namespace FFXIVAPP.Client.Localization
         {
             Dictionary.Clear();
             SetClientLocale();
-            SetEventLocale();
-            SetLogLocale();
             SetParseLocale();
             return Dictionary;
         }
