@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using NLog;
 
 #endregion
@@ -17,7 +18,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
     public static partial class Filter
     {
-        private static void ProcessBeneficial(Models.Events.Event e, Expressions exp)
+        private static void ProcessBeneficial(Event e, Expressions exp)
         {
             var line = new Line
             {

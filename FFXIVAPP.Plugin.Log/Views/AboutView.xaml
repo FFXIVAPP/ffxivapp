@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Log.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Log.ViewModels"
+             xmlns:Plugin="clr-namespace:FFXIVAPP.Plugin.Log"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Log.Properties"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="AboutViewModel"
+                  Member="ViewModels:AboutViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Plugin:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+        <Converters:IconConverter x:Key="IconConverter" />
+        <Style x:Key="LabelStyle">
+            <Setter Property="Control.Padding" Value="0" />
+            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style x:Key="NameHeaderStyle">
+            <Setter Property="Control.FontSize" Value="16" />
+            <Setter Property="Control.Padding" Value="0" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+            <Grid x:Name="LayoutRoot"
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        Background="{DynamicResource AccentColorBrush}"
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        BorderThickness="1" />
+                <Label x:Name="PluginName"
+                       Content="{Binding PluginInfo[Name],
+                                         Source={StaticResource PluginViewModel}}"
+                       Visibility="Collapsed" />
+                <Label x:Name="PluginIcon"
+                       Content="{Binding PluginInfo[Icon],
+                                         Source={StaticResource PluginViewModel}}"
+                       Visibility="Collapsed" />
+                <Image Grid.Row="1"
+                       Grid.RowSpan="3"
+                       Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       RenderOptions.BitmapScalingMode="HighQuality">
+                    <Image.Source>
+                        <MultiBinding Converter="{StaticResource IconConverter}">
+                            <MultiBinding.Bindings>
+                                <Binding Source="{StaticResource PluginViewModel}" />
+                                <Binding ElementName="PluginName"
+                                         Path="Content" />
+                                <Binding ElementName="PluginIcon"
+                                         Path="Content" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </Image.Source>
+                    <Image.Effect>
+                        <DropShadowEffect BlurRadius="3"
+                                          Direction="0"
+                                          RenderingBias="Quality"
+                                          ShadowDepth="0" />
+                    </Image.Effect>
+                </Image>
+                <DockPanel Grid.Row="0"
+                           Grid.RowSpan="3"
+                           Grid.Column="3"
+                           LastChildFill="True">
+                    <DockPanel>
+                        <TextBlock Margin="4"
+                                   VerticalAlignment="Bottom"
+                                   Padding="0"
+                                   Style="{StaticResource NameHeaderStyle}"
+                                   Text="{Binding PluginInfo[Name],
+                                                  Source={StaticResource PluginViewModel}}" />
+                    </DockPanel>
+                    <DockPanel />
+                </DockPanel>
+                <Border Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        BorderThickness="1 0" />
+                <Border Grid.Row="4"
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        BorderThickness="1 0 1 1" />
+                <Grid Grid.Row="3"
+                      Grid.RowSpan="3"
+                      Grid.Column="3"
+                      Grid.ColumnSpan="2"
+                      Margin="5">
+                    <DockPanel LastChildFill="True">
+                        <DockPanel DockPanel.Dock="Left">
+                            <StackPanel x:Name="PluginsNamesPanel"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left">
+                                <Label Content="{Binding Locale[app_DescriptionLabel],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding Locale[app_CopyrightLabel],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding Locale[app_VersionLabel],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <DockPanel Margin="5 0">
+                            <StackPanel Grid.Column="1"
+                                        Height="Auto"
+                                        HorizontalAlignment="Left">
+                                <Label Content="{Binding PluginInfo[Description],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding PluginInfo[Copyright],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                                <Label Content="{Binding PluginInfo[Version],
+                                                         Source={StaticResource PluginViewModel}}"
+                                       Style="{StaticResource LabelStyle}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Log.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Plugin="clr-namespace:FFXIVAPP.Plugin.Log"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:FFXIVAPP.Plugin.Log.Views"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <x:Static x:Key="ShellViewModel"
+                  Member="Plugin:ShellViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Plugin:PluginViewModel.Instance" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ShellViewModel}">
+        <TabControl x:Name="ShellViewTC"
+                    TabStripPlacement="Right">
+            <TabItem x:Name="MainTI">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Plugin.Log;component/Media/Images/Main.png"
+                               ToolTip="{Binding Locale[app_MainToolTip],
+                                                 Source={StaticResource PluginViewModel}}" />
+                        <Label Content="{Binding Locale[app_MainToolTip],
+                                                 Source={StaticResource PluginViewModel}}"
+                               Padding="5"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={StaticResource PluginViewModel},
+                                                    Converter={StaticResource VisibilityConverter}}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <views:MainView x:Name="MainV" />
+            </TabItem>
+            <TabItem x:Name="SettingsTI">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Plugin.Log;component/Media/Images/Settings.png"
+                               ToolTip="{Binding Locale[app_SettingsToolTip],
+                                                 Source={StaticResource PluginViewModel}}" />
+                        <Label Content="{Binding Locale[app_SettingsToolTip],
+                                                 Source={StaticResource PluginViewModel}}"
+                               Padding="5"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={StaticResource PluginViewModel},
+                                                    Converter={StaticResource VisibilityConverter}}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <views:SettingsView x:Name="SettingsV" />
+            </TabItem>
+            <TabItem x:Name="AboutTI">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20"
+                               Height="20"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/FFXIVAPP.Plugin.Log;component/Media/Images/About.png"
+                               ToolTip="{Binding Locale[app_AboutToolTip],
+                                                 Source={StaticResource PluginViewModel}}" />
+                        <Label Content="{Binding Locale[app_AboutToolTip],
+                                                 Source={StaticResource PluginViewModel}}"
+                               Padding="5"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={StaticResource PluginViewModel},
+                                                    Converter={StaticResource VisibilityConverter}}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <views:AboutView x:Name="AboutV" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

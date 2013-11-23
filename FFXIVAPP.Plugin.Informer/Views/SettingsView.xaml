@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="FFXIVAPP.Plugin.Informer.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Plugin="clr-namespace:FFXIVAPP.Plugin.Informer"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Informer.Properties"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Informer.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="SettingsViewModel"
+                  Member="ViewModels:SettingsViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Plugin:PluginViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="Properties:Settings.Default" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource SettingsViewModel}">
+        <StackPanel>
+            <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <FlowDocument>
+                    <Paragraph FontSize="12">
+                        <Run Foreground="{DynamicResource TextBrush}"
+                             Text="{Binding Locale[app_ComingSoonText],
+                                            Source={StaticResource PluginViewModel}}" />
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </StackPanel>
+    </Grid>
+</UserControl>

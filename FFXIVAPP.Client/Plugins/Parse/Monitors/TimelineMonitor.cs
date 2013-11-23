@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleEvent(Models.Events.Event e)
+        protected override void HandleEvent(Event e)
         {
             Expressions = new Expressions(e, e.RawLine);
 
@@ -71,7 +71,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
 
         /// <summary>
         /// </summary>
-        private void ProcessDefeated(Models.Events.Event e)
+        private void ProcessDefeated(Event e)
         {
             Match matches;
             var you = Constants.CharacterName;
@@ -165,7 +165,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
 
         /// <summary>
         /// </summary>
-        private void ProcessLoot(Models.Events.Event e)
+        private void ProcessLoot(Event e)
         {
             Match matches;
             switch (Constants.GameLanguage)
@@ -196,7 +196,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// </summary>
         /// <param name="thing"> </param>
         /// <param name="e"></param>
-        private void AttachDropToMonster(string thing, Models.Events.Event e)
+        private void AttachDropToMonster(string thing, Event e)
         {
             var mobName = ParseControl.Timeline.FightingRightNow ? ParseControl.Timeline.LastEngaged : "";
             if (ParseControl.Instance.Timeline.FightingRightNow)

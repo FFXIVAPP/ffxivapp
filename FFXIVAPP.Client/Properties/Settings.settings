@@ -205,9 +205,6 @@
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;None&lt;/string&gt;
-  &lt;string&gt;Event&lt;/string&gt;
-  &lt;string&gt;Informer&lt;/string&gt;
-  &lt;string&gt;Log&lt;/string&gt;
   &lt;string&gt;Parse&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
@@ -229,18 +226,6 @@
   &lt;string&gt;1.4&lt;/string&gt;
   &lt;string&gt;1.5&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
-    </Setting>
-    <Setting Name="EventPluginEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="InformerPluginEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="LogPluginEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="ParsePluginEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="StoreHistoryEvent" Type="System.String" Scope="User">
       <Value Profile="(Default)">Damage Only</Value>

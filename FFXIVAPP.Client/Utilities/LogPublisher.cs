@@ -32,28 +32,6 @@ namespace FFXIVAPP.Client.Utilities
                     var command = commandsRegEx.Groups["command"].Success ? commandsRegEx.Groups["command"].Value : "";
                     switch (plugin)
                     {
-                        case "event":
-                            switch (command)
-                            {
-                                case "on":
-                                    Event.IsPaused = false;
-                                    break;
-                                case "off":
-                                    Event.IsPaused = true;
-                                    break;
-                            }
-                            break;
-                        case "log":
-                            switch (command)
-                            {
-                                case "on":
-                                    Log.IsPaused = false;
-                                    break;
-                                case "off":
-                                    Log.IsPaused = true;
-                                    break;
-                            }
-                            break;
                         case "parse":
                             switch (command)
                             {

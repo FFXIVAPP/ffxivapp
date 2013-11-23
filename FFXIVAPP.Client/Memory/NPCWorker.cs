@@ -81,7 +81,6 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var gatheringEntries = new List<ActorEntity>();
                             var monsterEntries = new List<ActorEntity>();
                             var npcEntries = new List<ActorEntity>();
                             var pcEntries = new List<ActorEntity>();
@@ -183,12 +182,21 @@ namespace FFXIVAPP.Client.Memory
                                         break;
                                 }
                             }
-                            ApplicationContextHelper.GetContext()
-                                                    .MonsterWorker.RaiseEntitiesEvent(monsterEntries);
-                            ApplicationContextHelper.GetContext()
-                                                    .NPCWorker.RaiseEntitiesEvent(npcEntries);
-                            ApplicationContextHelper.GetContext()
-                                                    .PCWorker.RaiseEntitiesEvent(pcEntries);
+                            if (monsterEntries.Any())
+                            {
+                                ApplicationContextHelper.GetContext()
+                                                        .MonsterWorker.RaiseEntitiesEvent(monsterEntries);
+                            }
+                            if (npcEntries.Any())
+                            {
+                                ApplicationContextHelper.GetContext()
+                                                        .NPCWorker.RaiseEntitiesEvent(npcEntries);
+                            }
+                            if (pcEntries.Any())
+                            {
+                                ApplicationContextHelper.GetContext()
+                                                        .PCWorker.RaiseEntitiesEvent(pcEntries);
+                            }
                         }
                         catch (Exception ex)
                         {

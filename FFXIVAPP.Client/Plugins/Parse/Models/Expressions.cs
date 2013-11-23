@@ -8,6 +8,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.RegularExpressions;
 using SmartAssembly.Attributes;
 
@@ -41,14 +42,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         private Match _pFailedAuto;
         private Match _pItems;
 
-        public Expressions(Events.Event e, string cleaned)
+        public Expressions(Event e, string cleaned)
         {
             Event = e;
             Cleaned = cleaned;
             Initialize();
         }
 
-        public Events.Event Event { get; set; }
+        public Event Event { get; set; }
         public string Cleaned { get; set; }
         public string Counter { get; private set; }
         public string Added { get; private set; }

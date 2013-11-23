@@ -7,6 +7,7 @@
 
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -18,7 +19,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     [DoNotObfuscate]
     public static class ParsingLogHelper
     {
-        public static void Log(Logger logger, string type, Models.Events.Event e, Expressions exp = null)
+        public static void Log(Logger logger, string type, Event e, Expressions exp = null)
         {
             var cleaned = "";
             if (exp != null)
@@ -29,7 +30,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             Logging.Log(logger, data);
         }
 
-        public static void Error(Logger logger, string type, Models.Events.Event e, Exception ex)
+        public static void Error(Logger logger, string type, Event e, Exception ex)
         {
             var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.RawLine, ex.StackTrace);
             Logging.Log(logger, data);

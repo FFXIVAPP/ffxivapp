@@ -2,9 +2,6 @@
                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                            xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-                           xmlns:EventPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Event"
-                           xmlns:InformerPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Informer"
-                           xmlns:LogPlugin="clr-namespace:FFXIVAPP.Client.Plugins.Log"
                            xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                            xmlns:ParsePlugin="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
                            xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
@@ -168,51 +165,8 @@
                         <TabControl.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource AccentColor}" />
                         </TabControl.BorderBrush>
-                        <TabItem Visibility="Collapsed">
-                            <ScrollViewer>
-                                <StackPanel>
-                                    <Image HorizontalAlignment="Center"
-                                           VerticalAlignment="Top"
-                                           RenderOptions.BitmapScalingMode="HighQuality"
-                                           Source="/FFXIVAPP.Client;component/Resources/Media/Images/Oops.png"
-                                           Stretch="None" />
-                                    <TextBlock HorizontalAlignment="Center"
-                                               Text="{Binding Locale[app_NoPluginsLineOneTextBlock],
-                                                              Source={StaticResource AppProperties}}"
-                                               TextWrapping="WrapWithOverflow" />
-                                    <TextBlock HorizontalAlignment="Center"
-                                               Text="{Binding Locale[app_NoPluginsLineTwoTextBlock],
-                                                              Source={StaticResource AppProperties}}"
-                                               TextWrapping="WrapWithOverflow" />
-                                </StackPanel>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem x:Name="EventPlugin"
-                                 Header="FFXIVAPP.Plugin.Event"
-                                 Visibility="{Binding EventPluginEnabled,
-                                                      Source={x:Static Properties:Settings.Default},
-                                                      Converter={StaticResource VisibilityConverter}}">
-                            <EventPlugin:ShellView />
-                        </TabItem>
-                        <TabItem x:Name="InformerPlugin"
-                                 Header="FFXIVAPP.Plugin.Informer"
-                                 Visibility="{Binding InformerPluginEnabled,
-                                                      Source={x:Static Properties:Settings.Default},
-                                                      Converter={StaticResource VisibilityConverter}}">
-                            <InformerPlugin:ShellView />
-                        </TabItem>
-                        <TabItem x:Name="LogPlugin"
-                                 Header="FFXIVAPP.Plugin.Log"
-                                 Visibility="{Binding LogPluginEnabled,
-                                                      Source={x:Static Properties:Settings.Default},
-                                                      Converter={StaticResource VisibilityConverter}}">
-                            <LogPlugin:ShellView />
-                        </TabItem>
                         <TabItem x:Name="ParsePlugin"
-                                 Header="FFXIVAPP.Plugin.Parse"
-                                 Visibility="{Binding ParsePluginEnabled,
-                                                      Source={x:Static Properties:Settings.Default},
-                                                      Converter={StaticResource VisibilityConverter}}">
+                                 Header="FFXIVAPP.Plugin.Parse">
                             <ParsePlugin:ShellView />
                         </TabItem>
                     </TabControl>

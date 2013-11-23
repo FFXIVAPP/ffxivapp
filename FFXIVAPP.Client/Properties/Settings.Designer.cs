@@ -397,14 +397,9 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>None</string>
-  <string>Event</string>
-  <string>Informer</string>
-  <string>Log</string>
-  <string>Parse</string>
-</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>None</string>\r\n  <string>Parse</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection HomePluginList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["HomePluginList"]));
@@ -442,54 +437,6 @@ namespace FFXIVAPP.Client.Properties {
         public global::System.Collections.Specialized.StringCollection UIScaleList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["UIScaleList"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool EventPluginEnabled {
-            get {
-                return ((bool)(this["EventPluginEnabled"]));
-            }
-            set {
-                this["EventPluginEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool InformerPluginEnabled {
-            get {
-                return ((bool)(this["InformerPluginEnabled"]));
-            }
-            set {
-                this["InformerPluginEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool LogPluginEnabled {
-            get {
-                return ((bool)(this["LogPluginEnabled"]));
-            }
-            set {
-                this["LogPluginEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ParsePluginEnabled {
-            get {
-                return ((bool)(this["ParsePluginEnabled"]));
-            }
-            set {
-                this["ParsePluginEnabled"] = value;
             }
         }
         

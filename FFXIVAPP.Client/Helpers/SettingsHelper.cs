@@ -22,8 +22,6 @@ namespace FFXIVAPP.Client.Helpers
             {
             }
             Client.Save();
-            Event.Save();
-            Log.Save();
             Parse.Save();
         }
 

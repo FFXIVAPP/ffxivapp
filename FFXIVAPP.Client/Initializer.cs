@@ -172,29 +172,8 @@ namespace FFXIVAPP.Client
         {
             switch (Settings.Default.HomePlugin)
             {
-                case "Event":
-                    if (Settings.Default.EventPluginEnabled)
-                    {
-                        SetHomePlugin(1);
-                    }
-                    break;
-                case "Informer":
-                    if (Settings.Default.InformerPluginEnabled)
-                    {
-                        SetHomePlugin(2);
-                    }
-                    break;
-                case "Log":
-                    if (Settings.Default.LogPluginEnabled)
-                    {
-                        SetHomePlugin(3);
-                    }
-                    break;
                 case "Parse":
-                    if (Settings.Default.ParsePluginEnabled)
-                    {
-                        SetHomePlugin(4);
-                    }
+                    SetHomePlugin(0);
                     break;
             }
         }
@@ -495,15 +474,9 @@ namespace FFXIVAPP.Client
         public static void SetupPlugins()
         {
             // get official plugin logos
-            var eventPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Event.png"));
-            var informerPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Informer.png"));
-            var logPluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Log.png"));
-            var parsePluginLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
+            var parseLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
             // setup headers for existing plugins
-            ShellView.View.EventPlugin.HeaderTemplate = TabItemHelper.ImageHeader(eventPluginLogo, "Event");
-            ShellView.View.InformerPlugin.HeaderTemplate = TabItemHelper.ImageHeader(informerPluginLogo, "Informer");
-            ShellView.View.LogPlugin.HeaderTemplate = TabItemHelper.ImageHeader(logPluginLogo, "Log");
-            ShellView.View.ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parsePluginLogo, "Parse");
+            ShellView.View.ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parseLogo, "Parse");
             // append third party plugins
             foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
             {

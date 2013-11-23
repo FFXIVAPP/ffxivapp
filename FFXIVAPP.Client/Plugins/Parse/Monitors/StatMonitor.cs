@@ -180,7 +180,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleEvent(Models.Events.Event e)
+        protected override void HandleEvent(Event e)
         {
             #region Clean Mob Names
 
@@ -192,7 +192,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <summary>
         /// </summary>
         /// <param name="e"> </param>
-        protected override void HandleUnknownEvent(Models.Events.Event e)
+        protected override void HandleUnknownEvent(Event e)
         {
             var line = e.RawLine;
         }
