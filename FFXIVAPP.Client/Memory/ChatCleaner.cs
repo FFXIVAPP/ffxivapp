@@ -69,11 +69,10 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="bytes"></param>
-        /// <param name="ci"></param>
         /// <param name="jp"></param>
-        public ChatCleaner(byte[] bytes, CultureInfo ci, out bool jp)
+        public ChatCleaner(byte[] bytes, out bool jp)
         {
-            Result = ProcessFullLine(bytes, ci, out jp)
+            Result = ProcessFullLine(bytes, out jp)
                 .Trim();
         }
 
@@ -83,7 +82,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="ci"> </param>
         /// <param name="jp"> </param>
         /// <returns> </returns>
-        private string ProcessFullLine(byte[] bytes, CultureInfo ci, out bool jp)
+        private string ProcessFullLine(byte[] bytes, out bool jp)
         {
             jp = false;
             var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
@@ -151,10 +150,8 @@ namespace FFXIVAPP.Client.Memory
                             break;
                     }
                 }
-                var jpc = (ci.TwoLetterISOLanguageName == "ja");
-                var cleaned = jpc ? HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
-                                               .Replace("  ", " ") : HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
-                                                                                .Replace("  ", " ");
+                var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
+                                         .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
                 cleaned = Regex.Replace(cleaned, @"", "⇒");

@@ -30,7 +30,7 @@ namespace FFXIVAPP.Client.Memory
                 chatLogEntry.Raw = Encoding.UTF8.GetString(raw.ToArray());
                 var cut = (chatLogEntry.Raw.Substring(13, 1) == ":") ? 14 : 13;
                 bool jp;
-                var cleaned = new ChatCleaner(raw, CultureInfo.CurrentUICulture, out jp).Result;
+                var cleaned = new ChatCleaner(raw, out jp).Result;
                 chatLogEntry.JP = jp;
                 chatLogEntry.Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
                 chatLogEntry.Line = new ChatCleaner(chatLogEntry.Line).Result;

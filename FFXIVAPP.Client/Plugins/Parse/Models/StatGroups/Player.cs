@@ -85,11 +85,17 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         if (ID > 0)
                         {
                             StatusEntriesSelf = NPCEntry.StatusEntries;
-                            foreach (var statusEntry in
-                                monsterEntries.SelectMany(monster => monster.StatusEntries)
-                                              .Where(statusEntry => statusEntry.CasterID == ID))
+                            try
                             {
-                                StatusEntriesMonster.Add(statusEntry);
+                                foreach (var statusEntry in
+                                    monsterEntries.SelectMany(monster => monster.StatusEntries)
+                                                  .Where(statusEntry => statusEntry.CasterID == ID))
+                                {
+                                    StatusEntriesMonster.Add(statusEntry);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
                             }
                         }
                     }

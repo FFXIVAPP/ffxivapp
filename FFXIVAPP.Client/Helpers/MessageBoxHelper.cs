@@ -8,8 +8,10 @@
 using System;
 using System.Linq;
 using System.Windows;
+using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Common.Helpers;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -59,8 +61,8 @@ namespace FFXIVAPP.Client.Helpers
                     }
                     else
                     {
-                        mw.MessageDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
-                        mw.MessageDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
+                        mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
+                        mw.MetroDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
                         if (cancelAction != null)
                         {
                             mw.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative)

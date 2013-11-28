@@ -83,6 +83,198 @@
             This property can be used to set the Transition for animated TabControls
             </summary>
         </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.#ctor(MahApps.Metro.Controls.MetroWindow)">
+            <summary>
+            Initializes a new MahApps.Metro.Controls.BaseMetroDialog.
+            </summary>
+            <param name="owningWindow">The window that is the parent of the dialog.</param>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.#ctor">
+            <summary>
+            Initializes a new MahApps.Metro.Controls.BaseMetroDialog.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.WaitForLoadAsync">
+            <summary>
+            Waits for the dialog to become ready for interaction.
+            </summary>
+            <returns>A task that represents the operation and it's status.</returns>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.Title">
+            <summary>
+            Gets/sets the dialog's title.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.DialogBody">
+            <summary>
+            Gets/sets arbitrary content in the "message" area in the dialog. 
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.DialogTop">
+            <summary>
+            Gets/sets arbitrary content on top of the dialog.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.DialogBottom">
+            <summary>
+            Gets/sets arbitrary content below the dialog.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.MetroDialogSettings">
+            <summary>
+            A class that represents the settings used by Metro Dialogs.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.MetroDialogSettings.AffirmativeButtonText">
+            <summary>
+            Gets/sets the text used for the Affirmative button. For example: "OK" or "Yes".
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.MetroDialogSettings.NegativeButtonText">
+            <summary>
+            Gets/sets the text used for the Negative bytton. For example: "Cancel" or "No".
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.MetroDialogSettings.ColorScheme">
+            <summary>
+            Gets/sets whether the metro dialog should use the default black/white appearance (theme) or try to use the current accent.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.MetroDialogColorScheme">
+            <summary>
+            An enum representing the different choices for a color scheme in a Metro Dialog.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.MessageDialog">
+            <summary>
+            An internal control that represents a message dialog. Please use MetroWindow.ShowMessage instead!
+            </summary>
+            <summary>
+            MessageDialog
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.MessageDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.MessageDialogResult">
+            <summary>
+            An enum representing the result of a Message Dialog.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.MessageDialogStyle">
+            <summary>
+            An enum representing the different button states for a Message Dialog.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.Dialogs.MessageDialogStyle.Affirmative">
+            <summary>
+            Just "OK"
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.Dialogs.MessageDialogStyle.AffirmativeAndNegative">
+            <summary>
+            "OK" and "Cancel"
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMessageAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,MahApps.Metro.Controls.Dialogs.MessageDialogStyle)">
+            <summary>
+            Creates a MessageDialog inside of the current window.
+            </summary>
+            <param name="title">The title of the MessageDialog.</param>
+            <param name="message">The message contained within the MessageDialog.</param>
+            <param name="style">The type of buttons to use.</param>
+            <returns>A task promising the result of which button was pressed.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowProgressAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a ProgressDialog inside of the current window.
+            </summary>
+            <param name="title">The title of the ProgressDialog.</param>
+            <param name="message">The message within the ProgressDialog.</param>
+            <param name="isCancelable">Determines if the cancel button is visible.</param>
+            <returns>A task promising the instance of ProgressDialogController for this operation.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,System.String,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
+            <summary>
+            Adds a Metro Dialog instance to the specified window and makes it visible.
+            </summary>
+            <param name="window">The owning window of the dialog.</param>
+            <param name="title">The title to be set in the dialog.</param>
+            <param name="dialog">The dialog instance itself.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.HideMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
+            <summary>
+            Hides a visible Metro Dialog instance.
+            </summary>
+            <param name="window">The window with the dialog that is visible.</param>
+            <param name="dialog">The dialog instance to hide.</param>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.ProgressDialog">
+            <summary>
+            An internal control that represents a message dialog. Please use MetroWindow.ShowMessage instead!
+            </summary>
+            <summary>
+            ProgressDialog
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.ProgressDialogController">
+            <summary>
+            A class for manipulating an open ProgressDialog.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialogController.SetIndeterminate">
+            <summary>
+            Sets the ProgressBar's IsIndeterminate to true. To set it to false, call SetProgress.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialogController.SetCancelable(System.Boolean)">
+            <summary>
+            Sets if the Cancel button is visible.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialogController.SetProgress(System.Double)">
+            <summary>
+            Sets the dialog's progress bar value and sets IsIndeterminate to false.
+            </summary>
+            <param name="value">The percentage to set as the value.</param>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialogController.SetMessage(System.String)">
+            <summary>
+            Sets the dialog's message content.
+            </summary>
+            <param name="message">The message to be set.</param>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.ProgressDialogController.CloseAsync">
+            <summary>
+            Begins an operation to close the ProgressDialog.
+            </summary>
+            <returns>A task representing the operation.</returns>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.ProgressDialogController.IsOpen">
+            <summary>
+            Gets if the wrapped ProgressDialog is open.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.ProgressDialogController.IsCanceled">
+            <summary>
+            Gets if the Cancel button has been pressed.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.Dialogs.SimpleDialog">
+            <summary>
+            A simple implementation of BaseMetroDialog allowing arbitrary content.
+            </summary>
+        </member>
         <member name="T:MahApps.Metro.Controls.FlipView">
             <summary>
             A control that imitate a slideshow with back/forward buttons.
@@ -191,21 +383,6 @@
             Raises the PropertyChanged event if needed.
             </summary>
             <param name="propertyName">The name of the property that changed.</param>
-        </member>
-        <member name="T:MahApps.Metro.Controls.MessageDialog">
-            <summary>
-            An internal control that represents a message dialog. Please use MetroWindow.ShowMessage instead!
-            </summary>
-        </member>
-        <member name="F:MahApps.Metro.Controls.MessageDialogStyle.Affirmative">
-            <summary>
-            Just "OK"
-            </summary>
-        </member>
-        <member name="F:MahApps.Metro.Controls.MessageDialogStyle.AffirmativeAndNegative">
-            <summary>
-            "OK" and "Cancel"
-            </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.MetroAnimatedSingleRowTabControl">
             <summary>
@@ -1892,14 +2069,17 @@
             An extended, metrofied Window class.
             </summary>
         </member>
-        <member name="M:MahApps.Metro.Controls.MetroWindow.ShowMessageAsync(System.String,System.String,MahApps.Metro.Controls.MessageDialogStyle)">
+        <member name="M:MahApps.Metro.Controls.MetroWindow.ShowOverlayAsync">
             <summary>
-            Creates a MessageDialog inside of the current window.
+            Begins to show the MetroWindow's overlay effect.
             </summary>
-            <param name="title">The title of the MessageDialog.</param>
-            <param name="message">The message contained within the MessageDialog.</param>
-            <param name="style">The type of buttons to use.</param>
-            <returns></returns>
+            <returns>A task representing the process.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroWindow.HideOverlayAsync">
+            <summary>
+            Begins to hide the MetroWindow's overlay effect.
+            </summary>
+            <returns>A task representing the process.</returns>
         </member>
         <member name="M:MahApps.Metro.Controls.MetroWindow.#ctor">
             <summary>
@@ -2172,6 +2352,36 @@
             <summary>
             This event fires if accent color and theme was changed
             this should be using the weak event pattern, but for now it's enough
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
             </summary>
         </member>
     </members>
