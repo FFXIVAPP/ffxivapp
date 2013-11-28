@@ -39,7 +39,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         private static bool _lastActionIsAttack;
         private static bool _isParty;
 
-        public static void Process(string cleaned, Event e)
+        public static void Process(Event e)
         {
             if (!ParseControl.Instance.FirstActionFound)
             {
@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _autoAction = false;
             _isParty = true;
 
-            var expressions = new Expressions(e, cleaned);
+            var expressions = new Expressions(e);
 
             switch (Settings.Default.StoreHistoryEvent)
             {

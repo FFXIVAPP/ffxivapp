@@ -186,7 +186,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
 
             #endregion
 
-            Utilities.Filter.Process(e.RawLine, e);
+            Utilities.Filter.Process(e);
         }
 
         /// <summary>
@@ -194,7 +194,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleUnknownEvent(Event e)
         {
-            var line = e.RawLine;
         }
     }
 }

@@ -22,10 +22,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     {
         private static void ProcessItems(Event e, Expressions exp)
         {
-            var line = new Line
-            {
-                RawLine = e.RawLine
-            };
+            var line = new Line(e.ChatLogEntry);
             var items = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {

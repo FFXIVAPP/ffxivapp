@@ -6,6 +6,7 @@
 #region Usings
 
 using System;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
@@ -17,6 +18,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     public class Line
     {
         // battle data
+        public Line(ChatLogEntry chatLogEntry = null)
+        {
+            if (chatLogEntry != null)
+            {
+                ChatLogEntry = chatLogEntry;
+            }
+        }
+
         public decimal Amount { get; set; }
         public decimal Modifier { get; set; }
         public string RecLossType { get; set; }
@@ -28,7 +37,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public bool Parry { get; set; }
         public bool Resist { get; set; }
         public bool Evade { get; set; }
-        public string RawLine { get; set; }
+        public ChatLogEntry ChatLogEntry { get; set; }
 
         #region Property Backings
 

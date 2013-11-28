@@ -8,7 +8,6 @@
 using System;
 using System.Linq;
 using System.Windows;
-using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Common.Helpers;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;

@@ -42,10 +42,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         private Match _pFailedAuto;
         private Match _pItems;
 
-        public Expressions(Event e, string cleaned)
+        public Expressions(Event e)
         {
             Event = e;
-            Cleaned = cleaned;
+            Cleaned = e.ChatLogEntry.Line;
             Initialize();
         }
 

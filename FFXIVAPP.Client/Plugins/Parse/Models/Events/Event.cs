@@ -9,6 +9,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -20,8 +21,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
     {
         #region Property Bindings
 
+        private ChatLogEntry _chatLogEntry;
         private EventCode _eventCode;
-        private string _rawLine;
         private DateTime _timestamp;
 
         public DateTime Timestamp
@@ -44,12 +45,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
         }
 
-        public string RawLine
+        public ChatLogEntry ChatLogEntry
         {
-            get { return _rawLine; }
+            get { return _chatLogEntry; }
             set
             {
-                _rawLine = value;
+                _chatLogEntry = value;
                 RaisePropertyChanged();
             }
         }
@@ -81,16 +82,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         #endregion
 
-        public Event(EventCode eventCode = null, string rawLine = null)
+        public Event(EventCode eventCode = null, ChatLogEntry chatLogEntry = null)
         {
-            Initialize(DateTime.Now, eventCode, rawLine);
+            Initialize(DateTime.Now, eventCode, chatLogEntry);
         }
 
-        private void Initialize(DateTime timeStamp, EventCode eventCode, string rawLine)
+        private void Initialize(DateTime timeStamp, EventCode eventCode, ChatLogEntry chatLogEntry)
         {
             Timestamp = timeStamp;
             EventCode = eventCode;
-            RawLine = rawLine;
+            ChatLogEntry = chatLogEntry;
         }
 
         #region Utility Functions

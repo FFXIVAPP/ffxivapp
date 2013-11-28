@@ -20,10 +20,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     {
         private static void ProcessBeneficial(Event e, Expressions exp)
         {
-            var line = new Line
-            {
-                RawLine = e.RawLine
-            };
+            var line = new Line(e.ChatLogEntry);
             var beneficial = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {

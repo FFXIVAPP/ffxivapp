@@ -19,6 +19,7 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
@@ -137,23 +138,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                 {
                     foreach (var item in items)
                     {
-                        var code = item.Value[0];
-                        var line = item.Value[1];
-                        line = line.Replace("", "⇒");
-                        line = line.Replace("[01010101]", "");
-                        line = line.Replace("[CF010101]", "");
+                        var chatLogEntry = new ChatLogEntry
+                        {
+                            Code = item.Value[0],
+                            Line = item.Value[1].Replace("  ", " ")
+                        };
                         var timeStampColor = Settings.Default.TimeStampColor.ToString();
                         var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                         timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
-                        var color = (Constants.Colors.ContainsKey(code)) ? Constants.Colors[code][0] : "FFFFFF";
-                        if (Constants.Parse.Abilities.Contains(code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
+                        var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
+                        if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(chatLogEntry.Line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                         {
-                            Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                            Common.Constants.FD.AppendFlow(timeStamp, "", chatLogEntry.Line, new[]
                             {
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        EventParser.Instance.ParseAndPublish(Convert.ToUInt32(code, 16), line, false);
+                        EventParser.Instance.ParseAndPublish(chatLogEntry, false);
                     }
                     return true;
                 };

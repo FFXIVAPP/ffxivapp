@@ -59,20 +59,20 @@ namespace FFXIVAPP.Client.Utilities
                 {
                     var timeStampColor = Settings.Default.TimeStampColor.ToString();
                     var timeStamp = chatLogEntry.TimeStamp.ToString("[HH:mm:ss] ");
-                    var line = chatLogEntry.Line.Replace("  ", " ");
+                    chatLogEntry.Line = chatLogEntry.Line.Replace("  ", " ");
                     var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
-                    if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
+                    if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(chatLogEntry.Line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                     {
-                        Common.Constants.FD.AppendFlow(timeStamp, "", line, new[]
+                        Common.Constants.FD.AppendFlow(timeStamp, "", chatLogEntry.Line, new[]
                         {
                             timeStampColor, "#" + color
                         }, MainView.View.AbilityChatFD._FDR);
                     }
-                    if (Constants.Parse.NeedGreed.Any(line.Contains))
+                    if (Constants.Parse.NeedGreed.Any(chatLogEntry.Line.Contains))
                     {
-                        NeedGreedHistory.Add(line);
+                        NeedGreedHistory.Add(chatLogEntry.Line);
                     }
-                    DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(Convert.ToUInt32(chatLogEntry.Code, 16), line));
+                    DispatcherHelper.Invoke(() => EventParser.Instance.ParseAndPublish(chatLogEntry));
                 }
                 catch (Exception ex)
                 {

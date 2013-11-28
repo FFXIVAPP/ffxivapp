@@ -49,9 +49,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleEvent(Event e)
         {
-            Expressions = new Expressions(e, e.RawLine);
+            Expressions = new Expressions(e);
 
-            if (String.IsNullOrWhiteSpace(e.RawLine))
+            if (String.IsNullOrWhiteSpace(e.ChatLogEntry.Line))
             {
                 return;
             }
@@ -78,16 +78,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             switch (Constants.GameLanguage)
             {
                 case "French":
-                    matches = PlayerRegEx.DefeatsFr.Match(e.RawLine);
+                    matches = PlayerRegEx.DefeatsFr.Match(e.ChatLogEntry.Line);
                     break;
                 case "Japanese":
-                    matches = PlayerRegEx.DefeatsJa.Match(e.RawLine);
+                    matches = PlayerRegEx.DefeatsJa.Match(e.ChatLogEntry.Line);
                     break;
                 case "German":
-                    matches = PlayerRegEx.DefeatsDe.Match(e.RawLine);
+                    matches = PlayerRegEx.DefeatsDe.Match(e.ChatLogEntry.Line);
                     break;
                 default:
-                    matches = PlayerRegEx.DefeatsEn.Match(e.RawLine);
+                    matches = PlayerRegEx.DefeatsEn.Match(e.ChatLogEntry.Line);
                     break;
             }
             if (!matches.Success)
@@ -100,12 +100,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var source = matches.Groups["source"];
             if (!target.Success)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.RawLine));
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.ChatLogEntry.Line));
                 return;
             }
             if (source.Success)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.RawLine));
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.ChatLogEntry.Line));
             }
             if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, Expressions.You) || target.Value == you)
             {
@@ -171,16 +171,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             switch (Constants.GameLanguage)
             {
                 case "French":
-                    matches = PlayerRegEx.ObtainsFr.Match(e.RawLine);
+                    matches = PlayerRegEx.ObtainsFr.Match(e.ChatLogEntry.Line);
                     break;
                 case "Japanese":
-                    matches = PlayerRegEx.ObtainsJa.Match(e.RawLine);
+                    matches = PlayerRegEx.ObtainsJa.Match(e.ChatLogEntry.Line);
                     break;
                 case "German":
-                    matches = PlayerRegEx.ObtainsDe.Match(e.RawLine);
+                    matches = PlayerRegEx.ObtainsDe.Match(e.ChatLogEntry.Line);
                     break;
                 default:
-                    matches = PlayerRegEx.ObtainsEn.Match(e.RawLine);
+                    matches = PlayerRegEx.ObtainsEn.Match(e.ChatLogEntry.Line);
                     break;
             }
             if (!matches.Success)

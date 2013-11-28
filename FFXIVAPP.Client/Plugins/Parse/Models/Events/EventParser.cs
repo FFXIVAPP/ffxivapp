@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -215,31 +216,31 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         /// <summary>
         /// </summary>
-        /// <param name="code"> </param>
-        /// <param name="line"> </param>
-        /// <returns> </returns>
-        private Event Parse(UInt32 code, string line)
+        /// <param name="chatLogEntry"></param>
+        /// <param name="live"></param>
+        /// <returns></returns>
+        private Event Parse(ChatLogEntry chatLogEntry)
         {
             EventCode eventCode;
+            var code = Convert.ToUInt32(chatLogEntry.Code, 16);
             if (EventCodes.TryGetValue(code, out eventCode))
             {
-                return new Event(eventCode, line);
+                return new Event(eventCode, chatLogEntry);
             }
             var unknownEventCode = new EventCode
             {
                 Code = code
             };
-            return new Event(unknownEventCode, line);
+            return new Event(unknownEventCode, chatLogEntry);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="code"> </param>
-        /// <param name="line"> </param>
+        /// <param name="chatLogEntry"></param>
         /// <param name="live"></param>
-        public void ParseAndPublish(UInt32 code, string line, bool live = true)
+        public void ParseAndPublish(ChatLogEntry chatLogEntry, bool live = true)
         {
-            var @event = Parse(code, line);
+            var @event = Parse(chatLogEntry);
             var eventHandler = @event.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
             if (eventHandler == null)
             {

@@ -32,7 +32,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
         public static void Error(Logger logger, string type, Event e, Exception ex)
         {
-            var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.RawLine, ex.StackTrace);
+            var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.ChatLogEntry.Line, ex.StackTrace);
             Logging.Log(logger, data);
         }
     }
