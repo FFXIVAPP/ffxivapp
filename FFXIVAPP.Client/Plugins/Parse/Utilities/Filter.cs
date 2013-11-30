@@ -66,6 +66,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     break;
             }
 
+            if (e.Type == EventType.Damage)
+            {
+                ParseControl.Instance.Timeline.FightingRightNow = true;
+                ParseControl.Instance.Timeline.FightingTimer.Stop();
+            }
+
             switch (e.Type)
             {
                 case EventType.Damage:
@@ -111,6 +117,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
                     }
                     break;
+            }
+
+            if (e.Type == EventType.Damage)
+            {
+                ParseControl.Instance.Timeline.FightingTimer.Start();
             }
         }
     }

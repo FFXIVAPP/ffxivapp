@@ -84,7 +84,8 @@
             <Label MinWidth="30"
                    MaxWidth="120"
                    VerticalAlignment="Center"
-                   Content="Select Item:" />
+                   Content="{Binding Locale[parse_SelectItemText],
+                                     Source={StaticResource AppProperties}}" />
             <ComboBox x:Name="HistoryList"
                       DisplayMemberPath="Name"
                       ItemsSource="{Binding ParseHistory,

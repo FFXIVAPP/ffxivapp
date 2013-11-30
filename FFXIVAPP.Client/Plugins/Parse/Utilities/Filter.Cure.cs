@@ -71,7 +71,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 line.Crit = cure.Groups["crit"].Success;
                 line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
                 line.Target = Convert.ToString(cure.Groups["target"].Value);
-                line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpper());
+                line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpperInvariant());
                 if (line.IsEmpty())
                 {
                     return;

@@ -117,6 +117,13 @@
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_AutoLoadLastParseFromHistoryHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding AutoLoadLastParseFromHistory,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_StoreHistoryIntervalHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

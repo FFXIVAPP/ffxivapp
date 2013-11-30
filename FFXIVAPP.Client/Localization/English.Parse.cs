@@ -395,6 +395,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_StoreHistoryEventHeader", "Store History Event Trigger");
             Dictionary.Add("parse_StoreHistoryEventHelperText", "*If enabled the history and parser will be stored and reset if the selected event type does not happen after the chosen interval.");
             Dictionary.Add("parse_IgnoreLimitBreaksHeader", "Ignore Limit Break Damage");
+            Dictionary.Add("parse_SelectItemText", "Select Item:");
+            Dictionary.Add("parse_AutoLoadLastParseFromHistoryHeader", "Automatically Load The Last Parse From History On Each Reset");
         }
     }
 }

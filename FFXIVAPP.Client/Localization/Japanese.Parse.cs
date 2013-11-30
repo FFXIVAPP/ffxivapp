@@ -394,7 +394,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_EnableStoreHistoryResetHeader", "保存済み履歴の自動リセットを有効にする");
             Dictionary.Add("parse_StoreHistoryEventHeader", "履歴の保存トリガーとなるイベント");
             Dictionary.Add("parse_StoreHistoryEventHelperText", "*有効にすると履歴と解析結果は、選択したイベントが指定した間隔後に発生しなかった時に保存・リセットされます。");
-            Dictionary.Add("parse_IgnoreLimitBreaksHeader", "Ignore Limit Break Damage");
+            Dictionary.Add("parse_IgnoreLimitBreaksHeader", "リミットブレイクでのダメージを除外する");
+            Dictionary.Add("parse_SelectItemText", "Select Item:");
+            Dictionary.Add("parse_AutoLoadLastParseFromHistoryHeader", "Automatically Load The Last Parse From History On Each Reset");
         }
     }
 }

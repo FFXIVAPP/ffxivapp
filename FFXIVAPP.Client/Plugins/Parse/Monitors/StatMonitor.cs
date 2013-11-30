@@ -14,6 +14,7 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.ViewModels;
+using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
@@ -155,7 +156,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
             }
             historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
-            DispatcherHelper.Invoke(() => HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem));
+            DispatcherHelper.Invoke(delegate
+            {
+                HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem);
+                if (Constants.Parse.PluginSettings.AutoLoadLastParseFromHistory)
+                {
+                    HistoryView.View.HistoryList.SelectedIndex = 0;
+                }
+            });
         }
 
         private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup)

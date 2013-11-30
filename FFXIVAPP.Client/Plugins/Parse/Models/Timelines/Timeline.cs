@@ -43,7 +43,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         public bool FightingRightNow
         {
             get { return _fightingRightNow; }
-            private set
+            set
             {
                 _fightingRightNow = value;
                 RaisePropertyChanged();
@@ -264,9 +264,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         var whoLeft = eventArgs.Any() ? eventArgs.First() as string : String.Empty;
                         break;
                     case TimelineEventType.MobFighting:
-                        FightingRightNow = true;
                         DeathFound = false;
-                        FightingTimer.Start();
                         if (mobName != null && (mobName.ToLower()
                                                        .Contains("target") || mobName == ""))
                         {
