@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -228,6 +229,8 @@ namespace FFXIVAPP.Client
                     {
                     }
                 }
+                int latestMajor = 0, latestMinor = 0, latestBuild = 0, latestRevision = 0;
+                int currentMajor = 0, currentMinor = 0, currentBuild = 0, currentRevision = 0;
                 if (response.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
                 {
                     AppViewModel.Instance.HasNewVersion = false;
@@ -269,10 +272,6 @@ namespace FFXIVAPP.Client
                     {
                         foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
                         {
-                            //DispatcherHelper.Invoke(delegate
-                            //{
-                            //    MainView.View.UpdateNotesSP.Children.Add(new Label{Content = note});
-                            //});
                             AppViewModel.Instance.UpdateNotes.Add(note);
                         }
                     }
@@ -281,43 +280,42 @@ namespace FFXIVAPP.Client
                         MessageBoxHelper.ShowMessage("Error", ex.Message);
                     }
                     AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
-                    AppViewModel.Instance.LatestVersion = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
+                    latest = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
+                    AppViewModel.Instance.LatestVersion = latest;
                     switch (latest)
                     {
                         case "Unknown":
                             AppViewModel.Instance.HasNewVersion = false;
                             break;
                         default:
-                            var lver = latest.Split('.');
-                            var cver = current.Split('.');
-                            int lmajor = 0, lminor = 0, lbuild = 0, lrevision = 0;
-                            int cmajor = 0, cminor = 0, cbuild = 0, crevision = 0;
+                            var latestVersionSplit = latest.Split('.');
+                            var currentVersionSplit = current.Split('.');
                             try
                             {
-                                lmajor = Int32.Parse(lver[0]);
-                                lminor = Int32.Parse(lver[1]);
-                                lbuild = Int32.Parse(lver[2]);
-                                lrevision = Int32.Parse(lver[3]);
-                                cmajor = Int32.Parse(cver[0]);
-                                cminor = Int32.Parse(cver[1]);
-                                cbuild = Int32.Parse(cver[2]);
-                                crevision = Int32.Parse(cver[3]);
+                                latestMajor = Int32.Parse(latestVersionSplit[0]);
+                                latestMinor = Int32.Parse(latestVersionSplit[1]);
+                                latestBuild = Int32.Parse(latestVersionSplit[2]);
+                                latestRevision = Int32.Parse(latestVersionSplit[3]);
+                                currentMajor = Int32.Parse(currentVersionSplit[0]);
+                                currentMinor = Int32.Parse(currentVersionSplit[1]);
+                                currentBuild = Int32.Parse(currentVersionSplit[2]);
+                                currentRevision = Int32.Parse(currentVersionSplit[3]);
                             }
                             catch (Exception ex)
                             {
                                 AppViewModel.Instance.HasNewVersion = false;
                                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                             }
-                            if (lmajor <= cmajor)
+                            if (latestMajor <= currentMajor)
                             {
-                                if (lminor <= cminor)
+                                if (latestMinor <= currentMinor)
                                 {
-                                    if (lbuild == cbuild)
+                                    if (latestBuild == currentBuild)
                                     {
-                                        AppViewModel.Instance.HasNewVersion = lrevision > crevision;
+                                        AppViewModel.Instance.HasNewVersion = latestRevision > currentRevision;
                                         break;
                                     }
-                                    AppViewModel.Instance.HasNewVersion = lbuild > cbuild;
+                                    AppViewModel.Instance.HasNewVersion = latestBuild > currentBuild;
                                     break;
                                 }
                                 AppViewModel.Instance.HasNewVersion = true;
@@ -329,9 +327,26 @@ namespace FFXIVAPP.Client
                 }
                 if (AppViewModel.Instance.HasNewVersion)
                 {
-                    var title = AppViewModel.Instance.Locale["app_DownloadNoticeHeader"];
-                    var message = AppViewModel.Instance.Locale["app_DownloadNoticeMessage"];
-                    MessageBoxHelper.ShowMessageAsync(title, message, () => ShellView.CloseApplication(true), delegate { });
+                    var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
+                    var message = new StringBuilder();
+                    try
+                    {
+                        var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild + TimeSpan.TicksPerSecond * 2 * latestRevision));
+                        var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild + TimeSpan.TicksPerSecond * 2 * currentRevision));
+                        var timeSpan = latestBuildDateTime - currentBuildDateTime;
+                        if (timeSpan.TotalSeconds > 0)
+                        {
+                            message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    finally
+                    {
+                        message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
+                    }
+                    MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                 }
                 var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                 DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
@@ -358,8 +373,8 @@ namespace FFXIVAPP.Client
                 Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
                 Offset = 780
             });
-            //+3436 list of agro 
-            //+5744 agro count
+            //+3372 list of agro. mobs are 68 bytes in size, uint ID, string name
+            //+5680 agro count
             signatures.Add(new Signature
             {
                 Key = "NPCMAP",

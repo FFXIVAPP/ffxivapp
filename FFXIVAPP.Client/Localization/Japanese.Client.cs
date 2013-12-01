@@ -67,11 +67,13 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_EnableHelpLabelsHeader", "ラベルヘルプを有効にする");
             Dictionary.Add("app_OKButtonText", "OK");
             Dictionary.Add("app_TopMostHeader", "常に上に表示する");
-            Dictionary.Add("app_OfficialPluginsTabHeader", "Official Plugins");
-            Dictionary.Add("app_ThirdPartyPluginsTabHeader", "Third Party Plugins");
-            Dictionary.Add("app_IntegrationSettingsTabHeader", "Integration Settings");
-            Dictionary.Add("app_NoPluginsLineOneTextBlock", "You might have recently turned on or off all plugins; or just have nothing loaded at all.");
-            Dictionary.Add("app_NoPluginsLineTwoTextBlock", "Confirm your settings and if loaded choose a plugin icon from the tab menu.");
+            Dictionary.Add("app_OfficialPluginsHeader", "公式プラグイン");
+            Dictionary.Add("app_ThirdPartyPluginsHeader", "サードパーティプラグイン");
+            Dictionary.Add("app_IntegrationSettingsTabHeader", "連動設定");
+            Dictionary.Add("app_NoPluginsLineOneTextBlock", "すべてのプラグインをオン・オフしてあるか、プラグインがロードされていません");
+            Dictionary.Add("app_NoPluginsLineTwoTextBlock", "設定確認後にタブメニューから読み込まれたプラグインアイコンを選んで下さい。");
+            Dictionary.Add("app_AlwaysReadUpdatesMessage", "常にすべての変更のための更新履歴を参照してください。");
+            Dictionary.Add("app_UpdateNotesHeader", "Update Notes");
         }
     }
 }

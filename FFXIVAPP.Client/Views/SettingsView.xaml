@@ -7,6 +7,7 @@
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
@@ -15,6 +16,8 @@
 
     <UserControl.Resources>
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <x:Static x:Key="XIVDBViewModel"
+                  Member="ViewModels:XIVDBViewModel.Instance" />
     </UserControl.Resources>
 
     <UserControl.DataContext>
@@ -285,6 +288,106 @@
                                     </FlowDocument>
                                 </FlowDocumentScrollViewer>
                             </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="XIVDB Statistics"
+                                  Visibility="{Binding AllowXIVDBIntegration,
+                                                       Source={x:Static Properties:Settings.Default},
+                                                       Converter={StaticResource VisibilityConverter}}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="0">
+                                    <Label FontWeight="Bold">
+                                        Enabled:
+                                    </Label>
+                                    <TextBlock x:Name="MonsterUploadEnabled"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding MonsterUploadEnabled,
+                                                              Source={StaticResource XIVDBViewModel}}" />
+                                    <TextBlock x:Name="NPCUploadEnabled"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding NPCUploadEnabled,
+                                                              Source={StaticResource XIVDBViewModel}}" />
+                                    <TextBlock x:Name="PCUploadEnabled"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="N/A" />
+                                    <TextBlock x:Name="KillUploadEnabled"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding KillUploadEnabled,
+                                                              Source={StaticResource XIVDBViewModel}}" />
+                                    <TextBlock x:Name="LootUploadEnabled"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding LootUploadEnabled,
+                                                              Source={StaticResource XIVDBViewModel}}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Label FontWeight="Bold">
+                                        Seen:
+                                    </Label>
+                                    <TextBlock x:Name="MonsterSeen"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding MonsterSeen,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=Monsters: {0:#\,###0}}" />
+                                    <TextBlock x:Name="NPCSeen"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding NPCSeen,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=NPCs: {0:#\,###0}}" />
+                                    <TextBlock x:Name="PCSeen"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding PCSeen,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=PC: {0:#\,###0}}" />
+                                    <TextBlock x:Name="KillSeen"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding KillSeen,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=Kills: {0:#\,###0}}" />
+                                    <TextBlock x:Name="LootSeen"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding LootSeen,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=Loot: {0:#\,###0}}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="2">
+                                    <Label FontWeight="Bold">
+                                        Chunks Processed:
+                                    </Label>
+                                    <TextBlock x:Name="MonsterProcessed"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding MonsterProcessed,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=\{0:#\,###0\} (*100)}" />
+                                    <TextBlock x:Name="NPCProcessed"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding NPCProcessed,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=\{0:#\,###0\} (*50)}" />
+                                    <TextBlock x:Name="PCProcessed"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="N/A" />
+                                    <TextBlock x:Name="KillProcessed"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding KillProcessed,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=\{0:#\,###0\} (*5)}" />
+                                    <TextBlock x:Name="LootProcessed"
+                                               Foreground="{DynamicResource BlackColorBrush}"
+                                               Text="{Binding LootProcessed,
+                                                              Source={StaticResource XIVDBViewModel},
+                                                              StringFormat=\{0:#\,###0\} (*5)}" />
+                                </StackPanel>
+                            </Grid>
                         </GroupBox>
                         <TextBlock HorizontalAlignment="Center">
                             More details to come!
