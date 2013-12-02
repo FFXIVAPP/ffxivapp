@@ -41,6 +41,7 @@ namespace FFXIVAPP.Client
         private static MonsterWorker _monsterWorker;
         private static NPCWorker _npcWorker;
         private static PlayerInfoWorker _playerInfoWorker;
+        private static AgroWorker _agroWorker;
 
         #endregion
 
@@ -373,8 +374,6 @@ namespace FFXIVAPP.Client
                 Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
                 Offset = 780
             });
-            //+3372 list of agro. mobs are 68 bytes in size, uint ID, string name
-            //+5680 agro count
             signatures.Add(new Signature
             {
                 Key = "NPCMAP",
@@ -475,13 +474,15 @@ namespace FFXIVAPP.Client
             MemoryHandler.Instance.SetProcess(process);
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
-            _chatLogWorker.StartScanning();
+            //_chatLogWorker.StartScanning();
             _monsterWorker = new MonsterWorker();
-            _monsterWorker.StartScanning();
+            //_monsterWorker.StartScanning();
             _npcWorker = new NPCWorker();
-            _npcWorker.StartScanning();
+            //_npcWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
-            _playerInfoWorker.StartScanning();
+            //_playerInfoWorker.StartScanning();
+            _agroWorker = new AgroWorker();
+            _agroWorker.StartScanning();
         }
 
         /// <summary>
@@ -527,6 +528,11 @@ namespace FFXIVAPP.Client
             {
                 _playerInfoWorker.StopScanning();
                 _playerInfoWorker.Dispose();
+            }
+            if (_agroWorker != null)
+            {
+                _agroWorker.StopScanning();
+                _agroWorker.Dispose();
             }
         }
     }

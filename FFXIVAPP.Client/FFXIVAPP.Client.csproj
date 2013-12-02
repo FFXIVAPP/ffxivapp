@@ -139,6 +139,7 @@
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Memory\AgroWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Plugins\Parse\Controls\BasicDisplaySettings.xaml.cs">
       <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>

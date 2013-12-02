@@ -21,6 +21,7 @@ namespace FFXIVAPP.Common.Core
         private IActorEntitiesEvent _npcWorker;
         private IActorEntitiesEvent _pcWorker;
         private IPlayerEntityEvent _playerInfoWorker;
+        private IAgroEntriesEvent _agroWorker;
 
         public IPlayerEntityEvent PlayerInfoWorker
         {
@@ -50,6 +51,11 @@ namespace FFXIVAPP.Common.Core
         public IConstantEntryEvent ConstantWorker
         {
             get { return _constantWorker ?? (_constantWorker = new ConstantWorker()); }
+        }
+
+        public IAgroEntriesEvent AgroWorker
+        {
+            get { return _agroWorker ?? (_agroWorker = new AgroWorker()); }
         }
     }
 }

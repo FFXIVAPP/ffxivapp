@@ -79,7 +79,6 @@ namespace FFXIVAPP.Client.Memory
                 {
                     if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                     {
-                        _isScanning = true;
                         try
                         {
                             var gatheringEntries = new List<ActorEntity>();

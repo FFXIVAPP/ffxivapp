@@ -79,6 +79,8 @@
     <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Core\ApplicationContext.cs" />
+    <Compile Include="Core\EventHandlers\AgroEntriesEventHandler.cs" />
+    <Compile Include="Core\EventHandlers\IAgroEntriesEvent.cs" />
     <Compile Include="Core\EventHandlers\PlayerEntityEventHandler.cs" />
     <Compile Include="Core\EventHandlers\ActorEntitiesEventHandler.cs" />
     <Compile Include="Core\EventHandlers\ConstantEntryEventHandler.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Core\EventHandlers\IConstantEntryEvent.cs" />
     <Compile Include="Core\EventHandlers\IChatLogEntryEvent.cs" />
     <Compile Include="Core\EventHandlers\IActorEntitiesEvent.cs" />
+    <Compile Include="Core\Memory\AgroWorker.cs" />
     <Compile Include="Core\Memory\Coordinate.cs" />
     <Compile Include="Core\Memory\Enums.cs" />
     <Compile Include="Core\Memory\IActorEntity.cs" />
