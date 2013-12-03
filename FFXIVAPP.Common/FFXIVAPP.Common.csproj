@@ -79,8 +79,7 @@
     <Compile Include="Converters\TabStripBorderConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Core\ApplicationContext.cs" />
-    <Compile Include="Core\EventHandlers\AgroEntriesEventHandler.cs" />
-    <Compile Include="Core\EventHandlers\IAgroEntriesEvent.cs" />
+    <Compile Include="Core\EventHandlers\ITargetEntityEvent.cs" />
     <Compile Include="Core\EventHandlers\PlayerEntityEventHandler.cs" />
     <Compile Include="Core\EventHandlers\ActorEntitiesEventHandler.cs" />
     <Compile Include="Core\EventHandlers\ConstantEntryEventHandler.cs" />
@@ -89,13 +88,17 @@
     <Compile Include="Core\EventHandlers\IConstantEntryEvent.cs" />
     <Compile Include="Core\EventHandlers\IChatLogEntryEvent.cs" />
     <Compile Include="Core\EventHandlers\IActorEntitiesEvent.cs" />
-    <Compile Include="Core\Memory\AgroWorker.cs" />
+    <Compile Include="Core\EventHandlers\TargetEntityEventHandler.cs" />
+    <Compile Include="Core\Memory\TargetWorker.cs" />
     <Compile Include="Core\Memory\Coordinate.cs" />
+    <Compile Include="Core\Memory\EnmityEntry.cs" />
     <Compile Include="Core\Memory\Enums.cs" />
     <Compile Include="Core\Memory\IActorEntity.cs" />
     <Compile Include="Core\Memory\ICoordinate.cs" />
     <Compile Include="Core\Memory\ActorEntity.cs" />
+    <Compile Include="Core\Memory\IEnmityEntry.cs" />
     <Compile Include="Core\Memory\IStatusEntry.cs" />
+    <Compile Include="Core\Memory\ITargetEntity.cs" />
     <Compile Include="Core\Memory\MonsterWorker.cs" />
     <Compile Include="Core\Memory\PlayerInfoWorker.cs" />
     <Compile Include="Core\Memory\PCWorker.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Core\Memory\IPlayerEntity.cs" />
     <Compile Include="Core\Memory\PlayerEntity.cs" />
     <Compile Include="Core\Memory\StatusEntry.cs" />
+    <Compile Include="Core\Memory\TargetEntity.cs" />
     <Compile Include="Events\PopupResultEvent.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\BindingHelper.cs" />

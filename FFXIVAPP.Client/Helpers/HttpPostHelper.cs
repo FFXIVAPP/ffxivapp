@@ -49,20 +49,20 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="postData"></param>
         public static string Post(string url, PostType type, string postData)
         {
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
-            switch (type)
-            {
-                case PostType.Json:
-                    httpWebRequest.ContentType = "application/json";
-                    break;
-                case PostType.Form:
-                    httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-                    break;
-            }
-            httpWebRequest.ContentLength = Encoding.UTF8.GetByteCount(postData);
-            httpWebRequest.Method = "POST";
             try
             {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                switch (type)
+                {
+                    case PostType.Json:
+                        httpWebRequest.ContentType = "application/json";
+                        break;
+                    case PostType.Form:
+                        httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                        break;
+                }
+                httpWebRequest.ContentLength = Encoding.UTF8.GetByteCount(postData);
+                httpWebRequest.Method = "POST";
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
                     streamWriter.Write(postData);

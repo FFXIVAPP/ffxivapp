@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// MonsterWorker.cs
+// TargetWorker.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -8,12 +8,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -22,9 +22,11 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Memory
 {
     [DoNotObfuscate]
-    internal class AgroWorker : INotifyPropertyChanged, IDisposable
+    internal class TargetWorker : INotifyPropertyChanged, IDisposable
     {
         #region Property Bindings
+
+        private TargetEntity LastTargetEntity { get; set; }
 
         #endregion
 
@@ -36,7 +38,7 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        public AgroWorker()
+        public TargetWorker()
         {
             _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
@@ -81,23 +83,56 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var agroCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5680);
-                            var agroStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3372;
-                            if (agroCount < 32 && agroStructure > 0)
+                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1064;
+                            var enmityEntries = new List<EnmityEntry>();
+                            var targetEntity = new TargetEntity();
+                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
                             {
-                                var agroEntities = new List<uint>();
-                                for (uint i = 0; i <= agroCount; i++)
+                                var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
+                                if (targetAddress > 0)
                                 {
-                                    var id = (uint) MemoryHandler.Instance.GetInt32(agroStructure + (i * 68));
-                                    if (id > 0)
+                                    targetEntity.ID = (uint) MemoryHandler.Instance.GetInt32(targetAddress);
+                                }
+                            }
+                            if (targetEntity.ID > 0)
+                            {
+                                for (uint i = 0; i < 16; i++)
+                                {
+                                    var address = targetHateStructure + (i * 72);
+                                    var enmityEntry = new EnmityEntry
                                     {
-                                        agroEntities.Add(id);
+                                        Name = MemoryHandler.Instance.GetString(address),
+                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                    };
+                                    if (enmityEntry.ID > 0)
+                                    {
+                                        enmityEntries.Add(enmityEntry);
                                     }
                                 }
-                                if (agroEntities.Any())
+                                targetEntity.EnmityEntries = enmityEntries;
+                                var notify = false;
+                                if (LastTargetEntity == null)
+                                {
+                                    LastTargetEntity = targetEntity;
+                                    notify = true;
+                                }
+                                else
+                                {
+                                    var hash1 = JsonConvert.SerializeObject(LastTargetEntity)
+                                                           .GetHashCode();
+                                    var hash2 = JsonConvert.SerializeObject(targetEntity)
+                                                           .GetHashCode();
+                                    if (!hash1.Equals(hash2))
+                                    {
+                                        LastTargetEntity = targetEntity;
+                                        notify = true;
+                                    }
+                                }
+                                if (notify)
                                 {
                                     ApplicationContextHelper.GetContext()
-                                                            .AgroWorker.RaiseEntriesEvent(agroEntities);
+                                                            .TargetWorker.RaiseEntityEvent(targetEntity);
                                 }
                             }
                         }

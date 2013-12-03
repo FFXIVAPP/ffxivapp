@@ -6,12 +6,14 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -26,6 +28,8 @@ namespace FFXIVAPP.Client.Memory
 
         private uint PlayerInfoMap { get; set; }
 
+        private PlayerEntity LastPlayerEntity { get; set; }
+
         #endregion
 
         #region Declarations
@@ -38,7 +42,7 @@ namespace FFXIVAPP.Client.Memory
 
         public PlayerInfoWorker()
         {
-            _scanTimer = new Timer(1000);
+            _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -84,12 +88,33 @@ namespace FFXIVAPP.Client.Memory
                         {
                             return false;
                         }
+                        var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5680);
+                        var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3376;
+                        var enmityEntries = new List<EnmityEntry>();
+                        if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
+                        {
+                            for (uint i = 0; i < enmityCount; i++)
+                            {
+                                var address = enmityStructure + (i * 72);
+                                var enmityEntry = new EnmityEntry
+                                {
+                                    Name = MemoryHandler.Instance.GetString(address),
+                                    ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                    Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                };
+                                if (enmityEntry.ID > 0)
+                                {
+                                    enmityEntries.Add(enmityEntry);
+                                }
+                            }
+                        }
                         try
                         {
                             var playerInfo = MemoryHandler.Instance.GetStructure<Structures.PlayerInfo>(PlayerInfoMap);
                             var playerEntity = new PlayerEntity
                             {
                                 Name = MemoryHandler.Instance.GetString(PlayerInfoMap, 1),
+                                EnmityEntries = enmityEntries,
                                 Accuracy = playerInfo.Accuracy,
                                 ACN_CurrentEXP = playerInfo.ACN_CurrentEXP,
                                 ALC = playerInfo.ALC,
@@ -167,8 +192,29 @@ namespace FFXIVAPP.Client.Memory
                                 WaterResistance = playerInfo.WaterResistance,
                                 WindResistance = playerInfo.WindResistance
                             };
-                            ApplicationContextHelper.GetContext()
-                                                    .PlayerInfoWorker.RaiseEntityEvent(playerEntity);
+                            var notify = false;
+                            if (LastPlayerEntity == null)
+                            {
+                                LastPlayerEntity = playerEntity;
+                                notify = true;
+                            }
+                            else
+                            {
+                                var hash1 = JsonConvert.SerializeObject(LastPlayerEntity)
+                                                       .GetHashCode();
+                                var hash2 = JsonConvert.SerializeObject(playerEntity)
+                                                       .GetHashCode();
+                                if (!hash1.Equals(hash2))
+                                {
+                                    LastPlayerEntity = playerEntity;
+                                    notify = true;
+                                }
+                            }
+                            if (notify)
+                            {
+                                ApplicationContextHelper.GetContext()
+                                                        .PlayerInfoWorker.RaiseEntityEvent(playerEntity);
+                            }
                         }
                         catch (Exception ex)
                         {

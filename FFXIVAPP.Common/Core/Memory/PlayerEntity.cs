@@ -5,6 +5,7 @@
 
 #region Usings
 
+using System.Collections.Generic;
 using FFXIVAPP.Common.Helpers;
 
 #endregion
@@ -13,12 +14,26 @@ namespace FFXIVAPP.Common.Core.Memory
 {
     public class PlayerEntity : IPlayerEntity
     {
+        private List<EnmityEntry> _enmityEntries;
         private string _name;
 
         public string Name
         {
             get { return _name; }
             set { _name = StringHelper.TitleCase(value); }
+        }
+
+        public List<EnmityEntry> EnmityEntries
+        {
+            get { return _enmityEntries ?? (_enmityEntries = new List<EnmityEntry>()); }
+            set
+            {
+                if (_enmityEntries == null)
+                {
+                    _enmityEntries = new List<EnmityEntry>();
+                }
+                _enmityEntries = value;
+            }
         }
 
         public byte JobID { get; set; }

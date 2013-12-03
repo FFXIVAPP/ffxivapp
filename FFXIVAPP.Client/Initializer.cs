@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client
         private static MonsterWorker _monsterWorker;
         private static NPCWorker _npcWorker;
         private static PlayerInfoWorker _playerInfoWorker;
-        private static AgroWorker _agroWorker;
+        private static TargetWorker _targetWorker;
 
         #endregion
 
@@ -474,15 +474,15 @@ namespace FFXIVAPP.Client
             MemoryHandler.Instance.SetProcess(process);
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
-            //_chatLogWorker.StartScanning();
+            _chatLogWorker.StartScanning();
             _monsterWorker = new MonsterWorker();
-            //_monsterWorker.StartScanning();
+            _monsterWorker.StartScanning();
             _npcWorker = new NPCWorker();
-            //_npcWorker.StartScanning();
+            _npcWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
-            //_playerInfoWorker.StartScanning();
-            _agroWorker = new AgroWorker();
-            _agroWorker.StartScanning();
+            _playerInfoWorker.StartScanning();
+            _targetWorker = new TargetWorker();
+            _targetWorker.StartScanning();
         }
 
         /// <summary>
@@ -529,10 +529,10 @@ namespace FFXIVAPP.Client
                 _playerInfoWorker.StopScanning();
                 _playerInfoWorker.Dispose();
             }
-            if (_agroWorker != null)
+            if (_targetWorker != null)
             {
-                _agroWorker.StopScanning();
-                _agroWorker.Dispose();
+                _targetWorker.StopScanning();
+                _targetWorker.Dispose();
             }
         }
     }

@@ -19,6 +19,6 @@ namespace FFXIVAPP.Common.Core
         IActorEntitiesEvent NPCWorker { get; }
         IActorEntitiesEvent PCWorker { get; }
         IPlayerEntityEvent PlayerInfoWorker { get; }
-        IAgroEntriesEvent AgroWorker { get; }
+        ITargetEntityEvent TargetWorker { get; }
     }
 }

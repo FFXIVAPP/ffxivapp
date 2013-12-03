@@ -407,7 +407,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("True")]
         public bool EnableStoreHistoryReset
         {
-            get { return ((bool)(this["EnableStoreHistoryReset"])); }
+            get { return ((bool) (this["EnableStoreHistoryReset"])); }
             set
             {
                 this["EnableStoreHistoryReset"] = value;
@@ -420,7 +420,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("false")]
         public bool AutoLoadLastParseFromHistory
         {
-            get { return ((bool)(this["AutoLoadLastParseFromHistory"])); }
+            get { return ((bool) (this["AutoLoadLastParseFromHistory"])); }
             set
             {
                 this["AutoLoadLastParseFromHistory"] = value;

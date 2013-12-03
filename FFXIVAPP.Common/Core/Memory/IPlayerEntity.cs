@@ -3,6 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
+#region Usings
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace FFXIVAPP.Common.Core.Memory
 {
     public interface IPlayerEntity
@@ -10,6 +16,8 @@ namespace FFXIVAPP.Common.Core.Memory
         string Name { get; set; }
 
         #region Properties
+
+        List<EnmityEntry> EnmityEntries { get; set; }
 
         byte JobID { get; set; }
 
