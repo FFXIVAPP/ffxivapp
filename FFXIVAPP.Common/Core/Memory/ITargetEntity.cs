@@ -13,7 +13,11 @@ namespace FFXIVAPP.Common.Core.Memory
 {
     public interface ITargetEntity
     {
-        uint ID { get; set; }
+        ActorEntity CurrentTarget { get; set; }
+        ActorEntity MouseOverTarget { get; set; }
+        ActorEntity FocusTarget { get; set; }
+        ActorEntity PreviousTarget { get; set; }
+        uint CurrentTargetID { get; set; }
         List<EnmityEntry> EnmityEntries { get; set; }
     }
 }

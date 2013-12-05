@@ -73,7 +73,7 @@ namespace FFXIVAPP.Client.Helpers
             {
                 var jsonData = JsonConvert.SerializeObject(ImportData);
                 var postData = String.Format("jobj={0}", HttpUtility.UrlEncode(jsonData));
-                var jsonResult = HttpPostHelper.Post("http://db.xivdev.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
+                var jsonResult = HttpPostHelper.Post("http://xivtooltips.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
                 var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
                 switch (result)
                 {

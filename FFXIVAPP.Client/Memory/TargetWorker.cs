@@ -8,12 +8,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
-using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -89,47 +89,329 @@ namespace FFXIVAPP.Client.Memory
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
                             {
                                 var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
+                                var somethingFound = false;
                                 if (targetAddress > 0)
                                 {
-                                    targetEntity.ID = (uint) MemoryHandler.Instance.GetInt32(targetAddress);
+                                    var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
+                                    if (targetInfo.CurrentTarget > 0)
+                                    {
+                                        try
+                                        {
+                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.CurrentTarget);
+                                            var entry = new ActorEntity
+                                            {
+                                                Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48),
+                                                ID = actor.ID,
+                                                NPCID1 = actor.NPCID1,
+                                                NPCID2 = actor.NPCID2,
+                                                Type = actor.Type,
+                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                                X = actor.X,
+                                                Z = actor.Z,
+                                                Y = actor.Y,
+                                                Heading = actor.Heading,
+                                                Fate = actor.Fate,
+                                                ModelID = actor.ModelID,
+                                                Icon = actor.Icon,
+                                                Claimed = actor.Claimed,
+                                                TargetID = actor.TargetID,
+                                                Level = actor.Level,
+                                                HPCurrent = actor.HPCurrent,
+                                                HPMax = actor.HPMax,
+                                                MPCurrent = actor.MPCurrent,
+                                                MPMax = actor.MPMax,
+                                                TPCurrent = actor.TPCurrent,
+                                                TPMax = 1000,
+                                                GPCurrent = actor.GPCurrent,
+                                                GPMax = actor.GPMax,
+                                                CPCurrent = actor.CPCurrent,
+                                                CPMax = actor.CPMax
+                                            };
+                                            if (entry.HPMax == 0)
+                                            {
+                                                entry.HPMax = 1;
+                                            }
+                                            if (entry.TargetID == -536870912)
+                                            {
+                                                entry.TargetID = -1;
+                                            }
+                                            entry.MapIndex = 0;
+                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                                            {
+                                                try
+                                                {
+                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                }
+                                            }
+                                            // setup DoT: +12104
+                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            {
+                                                entry.StatusEntries.Add(new StatusEntry
+                                                {
+                                                    TargetName = entry.Name,
+                                                    StatusID = status.StatusID,
+                                                    Duration = status.Duration,
+                                                    CasterID = status.CasterID
+                                                });
+                                            }
+                                            if (entry.IsValid)
+                                            {
+                                                somethingFound = true;
+                                                targetEntity.CurrentTarget = entry;
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    }
+                                    if (targetInfo.MouseOverTarget > 0)
+                                    {
+                                        try
+                                        {
+                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.MouseOverTarget);
+                                            var entry = new ActorEntity
+                                            {
+                                                Name = MemoryHandler.Instance.GetString(targetInfo.MouseOverTarget, 48),
+                                                ID = actor.ID,
+                                                NPCID1 = actor.NPCID1,
+                                                NPCID2 = actor.NPCID2,
+                                                Type = actor.Type,
+                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                                X = actor.X,
+                                                Z = actor.Z,
+                                                Y = actor.Y,
+                                                Heading = actor.Heading,
+                                                Fate = actor.Fate,
+                                                ModelID = actor.ModelID,
+                                                Icon = actor.Icon,
+                                                Claimed = actor.Claimed,
+                                                TargetID = actor.TargetID,
+                                                Level = actor.Level,
+                                                HPCurrent = actor.HPCurrent,
+                                                HPMax = actor.HPMax,
+                                                MPCurrent = actor.MPCurrent,
+                                                MPMax = actor.MPMax,
+                                                TPCurrent = actor.TPCurrent,
+                                                TPMax = 1000,
+                                                GPCurrent = actor.GPCurrent,
+                                                GPMax = actor.GPMax,
+                                                CPCurrent = actor.CPCurrent,
+                                                CPMax = actor.CPMax
+                                            };
+                                            if (entry.HPMax == 0)
+                                            {
+                                                entry.HPMax = 1;
+                                            }
+                                            if (entry.TargetID == -536870912)
+                                            {
+                                                entry.TargetID = -1;
+                                            }
+                                            entry.MapIndex = 0;
+                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                                            {
+                                                try
+                                                {
+                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                }
+                                            }
+                                            // setup DoT: +12104
+                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            {
+                                                entry.StatusEntries.Add(new StatusEntry
+                                                {
+                                                    TargetName = entry.Name,
+                                                    StatusID = status.StatusID,
+                                                    Duration = status.Duration,
+                                                    CasterID = status.CasterID
+                                                });
+                                            }
+                                            if (entry.IsValid)
+                                            {
+                                                somethingFound = true;
+                                                targetEntity.MouseOverTarget = entry;
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    }
+                                    if (targetInfo.FocusTarget > 0)
+                                    {
+                                        somethingFound = true;
+                                        var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.FocusTarget);
+                                        var entry = new ActorEntity
+                                        {
+                                            Name = MemoryHandler.Instance.GetString(targetInfo.FocusTarget, 48),
+                                            ID = actor.ID,
+                                            NPCID1 = actor.NPCID1,
+                                            NPCID2 = actor.NPCID2,
+                                            Type = actor.Type,
+                                            Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                            X = actor.X,
+                                            Z = actor.Z,
+                                            Y = actor.Y,
+                                            Heading = actor.Heading,
+                                            Fate = actor.Fate,
+                                            ModelID = actor.ModelID,
+                                            Icon = actor.Icon,
+                                            Claimed = actor.Claimed,
+                                            TargetID = actor.TargetID,
+                                            Level = actor.Level,
+                                            HPCurrent = actor.HPCurrent,
+                                            HPMax = actor.HPMax,
+                                            MPCurrent = actor.MPCurrent,
+                                            MPMax = actor.MPMax,
+                                            TPCurrent = actor.TPCurrent,
+                                            TPMax = 1000,
+                                            GPCurrent = actor.GPCurrent,
+                                            GPMax = actor.GPMax,
+                                            CPCurrent = actor.CPCurrent,
+                                            CPMax = actor.CPMax
+                                        };
+                                        if (entry.HPMax == 0)
+                                        {
+                                            entry.HPMax = 1;
+                                        }
+                                        if (entry.TargetID == -536870912)
+                                        {
+                                            entry.TargetID = -1;
+                                        }
+                                        entry.MapIndex = 0;
+                                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                                        {
+                                            try
+                                            {
+                                                entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                            }
+                                        }
+                                        // setup DoT: +12104
+                                        foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                        {
+                                            entry.StatusEntries.Add(new StatusEntry
+                                            {
+                                                TargetName = entry.Name,
+                                                StatusID = status.StatusID,
+                                                Duration = status.Duration,
+                                                CasterID = status.CasterID
+                                            });
+                                        }
+                                        if (entry.IsValid)
+                                        {
+                                            targetEntity.FocusTarget = entry;
+                                        }
+                                    }
+                                    if (targetInfo.PreviousTarget > 0)
+                                    {
+                                        try
+                                        {
+                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.PreviousTarget);
+                                            var entry = new ActorEntity
+                                            {
+                                                Name = MemoryHandler.Instance.GetString(targetInfo.PreviousTarget, 48),
+                                                ID = actor.ID,
+                                                NPCID1 = actor.NPCID1,
+                                                NPCID2 = actor.NPCID2,
+                                                Type = actor.Type,
+                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                                X = actor.X,
+                                                Z = actor.Z,
+                                                Y = actor.Y,
+                                                Heading = actor.Heading,
+                                                Fate = actor.Fate,
+                                                ModelID = actor.ModelID,
+                                                Icon = actor.Icon,
+                                                Claimed = actor.Claimed,
+                                                TargetID = actor.TargetID,
+                                                Level = actor.Level,
+                                                HPCurrent = actor.HPCurrent,
+                                                HPMax = actor.HPMax,
+                                                MPCurrent = actor.MPCurrent,
+                                                MPMax = actor.MPMax,
+                                                TPCurrent = actor.TPCurrent,
+                                                TPMax = 1000,
+                                                GPCurrent = actor.GPCurrent,
+                                                GPMax = actor.GPMax,
+                                                CPCurrent = actor.CPCurrent,
+                                                CPMax = actor.CPMax
+                                            };
+                                            if (entry.HPMax == 0)
+                                            {
+                                                entry.HPMax = 1;
+                                            }
+                                            if (entry.TargetID == -536870912)
+                                            {
+                                                entry.TargetID = -1;
+                                            }
+                                            entry.MapIndex = 0;
+                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                                            {
+                                                try
+                                                {
+                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                }
+                                            }
+                                            // setup DoT: +12104
+                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            {
+                                                entry.StatusEntries.Add(new StatusEntry
+                                                {
+                                                    TargetName = entry.Name,
+                                                    StatusID = status.StatusID,
+                                                    Duration = status.Duration,
+                                                    CasterID = status.CasterID
+                                                });
+                                            }
+                                            if (entry.IsValid)
+                                            {
+                                                somethingFound = true;
+                                                targetEntity.PreviousTarget = entry;
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                        }
+                                    }
+                                    if (targetInfo.CurrentTargetID > 0)
+                                    {
+                                        somethingFound = true;
+                                        targetEntity.CurrentTargetID = targetInfo.CurrentTargetID;
+                                    }
                                 }
-                            }
-                            if (targetEntity.ID > 0)
-                            {
-                                for (uint i = 0; i < 16; i++)
+                                if (targetEntity.CurrentTargetID > 0)
                                 {
-                                    var address = targetHateStructure + (i * 72);
-                                    var enmityEntry = new EnmityEntry
+                                    for (uint i = 0; i < 16; i++)
                                     {
-                                        Name = MemoryHandler.Instance.GetString(address),
-                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
-                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
-                                    };
-                                    if (enmityEntry.ID > 0)
-                                    {
-                                        enmityEntries.Add(enmityEntry);
+                                        var address = targetHateStructure + (i * 72);
+                                        var enmityEntry = new EnmityEntry
+                                        {
+                                            Name = MemoryHandler.Instance.GetString(address),
+                                            ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                            Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                        };
+                                        if (enmityEntry.Enmity > 32768)
+                                        {
+                                            enmityEntry.Enmity = 32768;
+                                        }
+                                        if (enmityEntry.ID > 0)
+                                        {
+                                            enmityEntries.Add(enmityEntry);
+                                        }
                                     }
                                 }
                                 targetEntity.EnmityEntries = enmityEntries;
-                                var notify = false;
-                                if (LastTargetEntity == null)
-                                {
-                                    LastTargetEntity = targetEntity;
-                                    notify = true;
-                                }
-                                else
-                                {
-                                    var hash1 = JsonConvert.SerializeObject(LastTargetEntity)
-                                                           .GetHashCode();
-                                    var hash2 = JsonConvert.SerializeObject(targetEntity)
-                                                           .GetHashCode();
-                                    if (!hash1.Equals(hash2))
-                                    {
-                                        LastTargetEntity = targetEntity;
-                                        notify = true;
-                                    }
-                                }
-                                if (notify)
+                                if (somethingFound)
                                 {
                                     ApplicationContextHelper.GetContext()
                                                             .TargetWorker.RaiseEntityEvent(targetEntity);

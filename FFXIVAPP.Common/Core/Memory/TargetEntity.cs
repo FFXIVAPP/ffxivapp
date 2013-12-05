@@ -14,7 +14,12 @@ namespace FFXIVAPP.Common.Core.Memory
     public class TargetEntity : ITargetEntity
     {
         private List<EnmityEntry> _enmityEntries;
-        public uint ID { get; set; }
+
+        public ActorEntity CurrentTarget { get; set; }
+        public ActorEntity MouseOverTarget { get; set; }
+        public ActorEntity FocusTarget { get; set; }
+        public ActorEntity PreviousTarget { get; set; }
+        public uint CurrentTargetID { get; set; }
 
         public List<EnmityEntry> EnmityEntries
         {

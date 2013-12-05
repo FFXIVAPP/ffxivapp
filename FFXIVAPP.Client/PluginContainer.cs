@@ -35,6 +35,14 @@ namespace FFXIVAPP.Client
         public PluginCollectionHelper Loaded
         {
             get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
+            set
+            {
+                if (_loaded == null)
+                {
+                    _loaded = new PluginCollectionHelper();
+                }
+                _loaded = value;
+            }
         }
 
         #endregion
@@ -47,11 +55,10 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        /// <param name="path"> </param>
+        /// <param name="path"></param>
         public void LoadPlugins(string path = "")
         {
             path = (path == "") ? AppDomain.CurrentDomain.BaseDirectory : path;
-            Loaded.Clear();
             if (!Directory.Exists(path))
             {
                 return;
@@ -101,7 +108,7 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        /// <param name="fileName"> </param>
+        /// <param name="fileName"></param>
         private void VerifyPlugin(string fileName)
         {
             try

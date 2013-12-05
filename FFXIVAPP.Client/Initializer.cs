@@ -390,7 +390,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "TARGET",
                 Value = "DB0FC93F6F12833ADB0FC940920A063F",
-                Offset = 224
+                Offset = 128
             });
         }
 

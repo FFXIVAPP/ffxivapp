@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Helpers
         {
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
                 switch (type)
                 {
                     case PostType.Json:

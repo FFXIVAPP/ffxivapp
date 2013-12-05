@@ -133,7 +133,8 @@ namespace FFXIVAPP.Client.Memory
                                         var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
                                         if (targetAddress > 0)
                                         {
-                                            entry.TargetID = MemoryHandler.Instance.GetInt32(targetAddress);
+                                            var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
+                                            entry.TargetID = (int) targetInfo.CurrentTargetID;
                                         }
                                     }
                                 }
