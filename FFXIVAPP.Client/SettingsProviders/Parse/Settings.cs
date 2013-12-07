@@ -64,6 +64,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         private void DefaultSettings()
         {
             Constants.Parse.Settings.Clear();
+            Constants.Parse.Settings.Add("ShowDPSWidgetOnLoad");
+            Constants.Parse.Settings.Add("DPSWidgetTop");
+            Constants.Parse.Settings.Add("DPSWidgetLeft");
             Constants.Parse.Settings.Add("StoreHistoryInterval");
             Constants.Parse.Settings.Add("EnableStoreHistoryReset");
             Constants.Parse.Settings.Add("AutoLoadLastParseFromHistory");
@@ -359,6 +362,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                         var font = fc.ConvertFromString(value);
                         Default[key] = font ?? new Font(new FontFamily("Microsoft Sans Serif"), 12);
                         break;
+                    case "Int32":
+                        Default[key] = Convert.ToInt32(value);
+                        break;
                     default:
                         Default[key] = value;
                         break;
@@ -385,6 +391,45 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["Zoom"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowDPSWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowDPSWidgetOnLoad"])); }
+            set
+            {
+                this["ShowDPSWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("100")]
+        public int DPSWidgetTop
+        {
+            get { return ((int) (this["DPSWidgetTop"])); }
+            set
+            {
+                this["DPSWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("100")]
+        public int DPSWidgetLeft
+        {
+            get { return ((int) (this["DPSWidgetLeft"])); }
+            set
+            {
+                this["DPSWidgetLeft"] = value;
                 RaisePropertyChanged();
             }
         }

@@ -88,28 +88,28 @@ namespace FFXIVAPP.Client.Memory
                         {
                             return false;
                         }
-                        var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5680);
-                        var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3376;
-                        var enmityEntries = new List<EnmityEntry>();
-                        if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
-                        {
-                            for (uint i = 0; i < enmityCount; i++)
-                            {
-                                var address = enmityStructure + (i * 72);
-                                var enmityEntry = new EnmityEntry
-                                {
-                                    Name = MemoryHandler.Instance.GetString(address),
-                                    ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
-                                    Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
-                                };
-                                if (enmityEntry.ID > 0)
-                                {
-                                    enmityEntries.Add(enmityEntry);
-                                }
-                            }
-                        }
                         try
                         {
+                            var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5680);
+                            var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3376;
+                            var enmityEntries = new List<EnmityEntry>();
+                            if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
+                            {
+                                for (uint i = 0; i < enmityCount; i++)
+                                {
+                                    var address = enmityStructure + (i * 72);
+                                    var enmityEntry = new EnmityEntry
+                                    {
+                                        Name = MemoryHandler.Instance.GetString(address),
+                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                    };
+                                    if (enmityEntry.ID > 0)
+                                    {
+                                        enmityEntries.Add(enmityEntry);
+                                    }
+                                }
+                            }
                             var playerInfo = MemoryHandler.Instance.GetStructure<Structures.PlayerInfo>(PlayerInfoMap);
                             var playerEntity = new PlayerEntity
                             {

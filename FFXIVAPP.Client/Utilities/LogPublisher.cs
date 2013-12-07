@@ -5,6 +5,8 @@
 
 #region Usings
 
+using System;
+using FFXIVAPP.Client.Plugins.Parse;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
@@ -43,6 +45,9 @@ namespace FFXIVAPP.Client.Utilities
                                     break;
                                 case "reset":
                                     ParseControl.Instance.Reset();
+                                    break;
+                                case "dpswidget":
+                                    Widgets.Instance.ShowDPSWidget();
                                     break;
                             }
                             break;

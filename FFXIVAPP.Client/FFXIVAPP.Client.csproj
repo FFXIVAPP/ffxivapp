@@ -139,7 +139,6 @@
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
-    <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Plugins\Parse\Controls\BasicDisplaySettings.xaml.cs">
@@ -299,6 +298,12 @@
     <Compile Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml.cs">
       <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Parse\Widgets.cs" />
+    <Compile Include="Plugins\Parse\WidgetWindows\DPSWidget.xaml.cs">
+      <DependentUpon>DPSWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
+    <Compile Include="Reflection\AssemblyReflectionManager.cs" />
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
     <Compile Include="RegularExpressions\PlayerRegEx.cs" />
     <Compile Include="SettingsProviders\Parse\Settings.cs" />
@@ -439,6 +444,10 @@
     <Page Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\WidgetWindows\DPSWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\TabItem.xaml">
       <SubType>Designer</SubType>

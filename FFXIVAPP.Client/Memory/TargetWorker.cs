@@ -398,12 +398,8 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             Name = MemoryHandler.Instance.GetString(address),
                                             ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
-                                            Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address + 68)
                                         };
-                                        if (enmityEntry.Enmity > 32768)
-                                        {
-                                            enmityEntry.Enmity = 32768;
-                                        }
                                         if (enmityEntry.ID > 0)
                                         {
                                             enmityEntries.Add(enmityEntry);

@@ -15,6 +15,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
@@ -106,26 +107,37 @@ namespace FFXIVAPP.Client
             Loaded.Clear();
         }
 
+        public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
+
         /// <summary>
         /// </summary>
-        /// <param name="fileName"></param>
-        private void VerifyPlugin(string fileName)
+        /// <param name="assemblyPath"></param>
+        private void VerifyPlugin(string assemblyPath)
         {
             try
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", fileName));
-                var pAssembly = Assembly.LoadFile(fileName);
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", assemblyPath));
+                //var domainName = Path.GetFileNameWithoutExtension(assemblyPath);
+                //var success = AssemblyReflectionManager.LoadAssembly(assemblyPath, domainName);
+                //var results = AssemblyReflectionManager.Reflect(assemblyPath, (a) =>
+                //{
+                //    var types = a.GetTypes();
+                //    var implements = types.Select(t => t.Name)
+                //                          .ToList();
+                //    return implements;
+                //});
+                var pAssembly = Assembly.LoadFile(assemblyPath);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
-                var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
+                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
                 var plugin = new PluginInstance();
-                plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
-                plugin.AssemblyPath = fileName;
+                plugin.Instance = (IPlugin)Activator.CreateInstance(pType);
+                plugin.AssemblyPath = assemblyPath;
                 plugin.Instance.Host = this;
                 plugin.Instance.Initialize(ApplicationContextHelper.GetContext());
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
@@ -206,5 +218,13 @@ namespace FFXIVAPP.Client
         }
 
         #endregion
+    }
+
+    public class IPluginFactory : MarshalByRefObject
+    {
+        public IPlugin Create(string assembly, string typeName)
+        {
+            return (IPlugin)Activator.CreateInstance(assembly, typeName).Unwrap();
+        }
     }
 }

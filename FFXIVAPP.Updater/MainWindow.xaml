@@ -39,7 +39,7 @@
                      IsManipulationEnabled="True"
                      Value="0">
             <ProgressBar.Resources>
-                <ResourceDictionary Source="/PresentationFramework.Aero;v3.0.0.0;31bf3856ad364e35;component/themes/aero.normalcolor.xaml" />
+                <ResourceDictionary Source="/PresentationFramework.Aero;component/themes/aero.normalcolor.xaml" />
             </ProgressBar.Resources>
         </ProgressBar>
         <WebBrowser x:Name="GoogleAnalytics"

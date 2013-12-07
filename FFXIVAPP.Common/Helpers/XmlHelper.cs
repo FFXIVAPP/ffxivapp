@@ -5,7 +5,6 @@
 
 #region Usings
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,7 +67,7 @@ namespace FFXIVAPP.Common.Helpers
         {
             if (xValue == null)
             {
-                throw new ArgumentNullException("xValue");
+                return "";
             }
             var buffer = new StringBuilder(xValue.Length);
             foreach (var xChar in xValue.Where(xChar => IsLegalXmlChar(xChar)))

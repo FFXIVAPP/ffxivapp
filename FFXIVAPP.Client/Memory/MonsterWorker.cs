@@ -81,7 +81,6 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var gatheringEntries = new List<ActorEntity>();
                             var monsterEntries = new List<ActorEntity>();
                             var npcEntries = new List<ActorEntity>();
                             var pcEntries = new List<ActorEntity>();
