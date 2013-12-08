@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Threading;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
@@ -55,9 +56,9 @@ namespace FFXIVAPP.Client.ViewModels
 
         /// <summary>
         /// </summary>
-        private static void ManualUpdate()
+        private void ManualUpdate()
         {
-            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true));
+            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
         }
 
         #endregion

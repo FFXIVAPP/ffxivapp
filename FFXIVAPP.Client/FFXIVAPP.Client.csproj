@@ -130,9 +130,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Constants.Parse.cs" />
-    <Compile Include="Delegates\MemoryDelegates.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
-    <Compile Include="Helpers\ApplicationContextHelper.cs" />
+    <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
@@ -266,7 +265,7 @@
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="Plugins\Parse\Monitors\StatMonitor.cs" />
     <Compile Include="Plugins\Parse\Monitors\TimelineMonitor.cs" />
-    <Compile Include="PluginContainer.cs" />
+    <Compile Include="PluginHost.cs" />
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
@@ -298,7 +297,6 @@
     <Compile Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml.cs">
       <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Parse\Widgets.cs" />
     <Compile Include="Plugins\Parse\WidgetWindows\DPSWidget.xaml.cs">
       <DependentUpon>DPSWidget.xaml</DependentUpon>
     </Compile>

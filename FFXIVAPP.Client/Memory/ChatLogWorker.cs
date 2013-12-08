@@ -13,6 +13,8 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -134,8 +136,7 @@ namespace FFXIVAPP.Client.Memory
                                     var chatLogEntry = ChatEntry.Process(text.ToArray());
                                     if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
                                     {
-                                        ApplicationContextHelper.GetContext()
-                                                                .ChatLogWorker.RaiseLineEvent(chatLogEntry);
+                                        AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
                                     }
                                     _lastChatNum = _spots[i];
                                 }

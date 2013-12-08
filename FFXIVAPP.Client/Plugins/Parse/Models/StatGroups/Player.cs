@@ -73,7 +73,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                     if (Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer))
                     {
-                        NPCEntry = MemoryDelegates.Instance.CurrentUser;
+                        NPCEntry = AppContextHelper.Instance.CurrentUser;
                     }
                     else
                     {

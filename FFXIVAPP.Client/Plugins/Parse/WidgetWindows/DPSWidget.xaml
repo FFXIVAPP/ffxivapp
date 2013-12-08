@@ -7,7 +7,6 @@
         xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
         xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.Plugins.Parse.ViewModels"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:controls="clr-namespace:FFXIVAPP.Common.Controls;assembly=FFXIVAPP.Common"
         Title="DPSWidget"
         Width="250"
         Height="450"
@@ -232,22 +231,36 @@
                         BorderThickness="1"
                         CornerRadius="2">
                     <DockPanel LastChildFill="True">
-                        <Button Width="20"
-                                Height="20"
+                        <Button Width="15"
+                                Height="15"
                                 Margin="2"
                                 Click="ButtonClick"
-                                Content="X"
                                 DockPanel.Dock="Right"
                                 Padding="0"
-                                ToolTip="Close" />
+                                ToolTip="Close">
+                            <Path Data="M0,0 L5,5 M0,5 L5,0"
+                                  Stretch="None"
+                                  Stroke="Black" />
+                        </Button>
                         <DockPanel PreviewMouseDown="UIElement_OnPreviewMouseDown">
-                            <Label Margin="5 2"
-                                   HorizontalAlignment="Center"
-                                   Content="FFXIV-APP [STATS]"
-                                   FontSize="14"
-                                   FontWeight="Bold"
-                                   Foreground="Black"
-                                   Padding="0" />
+                            <Grid>
+                                <Label Grid.Row="0"
+                                       Margin="5 -1"
+                                       HorizontalAlignment="Right"
+                                       Content="[DAMAGE|DPS]"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Padding="0" />
+                                <Label Grid.Row="0"
+                                       Margin="5 2"
+                                       HorizontalAlignment="Left"
+                                       Content="FFXIV-APP"
+                                       FontSize="10"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Padding="0" />
+                            </Grid>
                         </DockPanel>
                     </DockPanel>
                 </Border>
@@ -281,10 +294,11 @@
                                         BorderBrush="Black"
                                         BorderThickness="1"
                                         CornerRadius="2">
-                                    <DockPanel Margin="3"
+                                    <DockPanel Margin="1"
                                                LastChildFill="True">
                                         <DockPanel DockPanel.Dock="Right">
-                                            <Label HorizontalAlignment="Left"
+                                            <Label Margin="5 0"
+                                                   HorizontalAlignment="Left"
                                                    Content="{Binding DPS}"
                                                    FontSize="12"
                                                    FontWeight="Bold"
@@ -292,7 +306,8 @@
                                                    Style="{StaticResource DecimalStyle}" />
                                         </DockPanel>
                                         <DockPanel>
-                                            <Label HorizontalAlignment="Left"
+                                            <Label Margin="5 0"
+                                                   HorizontalAlignment="Left"
                                                    Content="{Binding Name}"
                                                    FontSize="12"
                                                    FontWeight="Bold"
@@ -303,7 +318,7 @@
                                 </Border>
                                 <ProgressBar Grid.Row="0"
                                              Grid.RowSpan="2"
-                                             Height="20"
+                                             Height="18"
                                              VerticalAlignment="Top"
                                              BorderBrush="Black"
                                              Maximum="1"
@@ -311,7 +326,7 @@
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
                                              Value="{Binding PercentOfTotalOverallDamage}" />
                                 <Label Grid.Row="0"
-                                       Margin="5 1"
+                                       Margin="5 0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        Content="{Binding TotalOverallDamage}"
@@ -319,7 +334,7 @@
                                        Foreground="Black"
                                        Style="{StaticResource CommaNumberStyle}" />
                                 <Label Grid.Row="0"
-                                       Margin="5 1"
+                                       Margin="5 0"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
                                        Content="{Binding PercentOfTotalOverallDamage}"

@@ -7,20 +7,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
-using FFXIVAPP.Common.Core;
 
 #endregion
 
 namespace FFXIVAPP.IPluginInterface
 {
-    /// <summary>
-    /// </summary>
+    [InheritedExport(typeof (IPlugin))]
     public interface IPlugin
     {
         MessageBoxResult PopupResult { get; set; }
-        IPluginHost Host { get; set; }
         Dictionary<string, string> Locale { get; set; }
         string FriendlyName { get; }
         string Name { get; }
@@ -30,7 +28,7 @@ namespace FFXIVAPP.IPluginInterface
         string Version { get; }
         string Notice { get; }
         Exception Trace { get; }
-        void Initialize(IApplicationContext applicationContext);
+        void Initialize(IPluginHost pluginHost);
         void Dispose(bool isUpdating = false);
         TabItem CreateTab();
         UserControl CreateControl();

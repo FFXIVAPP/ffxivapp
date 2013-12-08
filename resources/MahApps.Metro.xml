@@ -224,6 +224,7 @@
             <param name="title">The title to be set in the dialog.</param>
             <param name="dialog">The dialog instance itself.</param>
             <returns>A task representing the operation.</returns>
+            <exception cref="T:System.InvalidOperationException">The <paramref name="dialog"/> is already visible in the window.</exception>
         </member>
         <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.HideMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
             <summary>
@@ -232,6 +233,10 @@
             <param name="window">The window with the dialog that is visible.</param>
             <param name="dialog">The dialog instance to hide.</param>
             <returns>A task representing the operation.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            The <paramref name="dialog"/> is not visible in the window.
+            This happens if <see cref="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)"/> hasn't been called before.
+            </exception>
         </member>
         <member name="T:MahApps.Metro.Controls.Dialogs.ProgressDialog">
             <summary>
@@ -367,6 +372,11 @@
             Gets/sets whether this flyout is pinnable.
             </summary>
         </member>
+        <member name="P:MahApps.Metro.Controls.Flyout.IsModal">
+            <summary>
+            Gets/sets whether this flyout is modal.
+            </summary>
+        </member>
         <member name="P:MahApps.Metro.Controls.Flyout.Position">
             <summary>
             Gets/sets this flyout's position in the FlyoutsControl/MetroWindow.
@@ -494,6 +504,103 @@
             <summary>
             Gets the owning MetroTabControl of this MetroTabItem.
             </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.NumericUpDown">
+            <summary>
+                Represents a Windows spin box (also known as an up-down control) that displays numeric values.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.MaximumReachedEvent">
+            <summary>
+                Event for "To value has been reached"
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.MinimumReachedEvent">
+            <summary>
+                Event for "From value has been reached"
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.DelayProperty">
+            <summary>
+                DependencyProperty for <see cref="P:MahApps.Metro.Controls.NumericUpDown.Delay"/> property.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.TextAlignmentProperty">
+            <summary>
+                DependencyProperty for <see cref="P:MahApps.Metro.Controls.NumericUpDown.TextAlignment"/> property.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.SpeedupProperty">
+            <summary>
+                DependencyProperty for <see cref="P:MahApps.Metro.Controls.NumericUpDown.Speedup"/> property.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.IsReadOnlyProperty">
+            <summary>
+                DependencyProperty for <see cref="P:MahApps.Metro.Controls.NumericUpDown.IsReadOnly"/> property.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.NumericUpDown.StringFormatProperty">
+            <summary>
+                DependencyProperty for <see cref="P:MahApps.Metro.Controls.NumericUpDown.StringFormat"/> property.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.NumericUpDown.OnApplyTemplate">
+            <summary>
+                When overridden in a derived class, is invoked whenever application code or internal processes call
+                <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.NumericUpDown.OnValueChanged(System.Double,System.Double)">
+            <summary>
+                Raises the <see cref="E:System.Windows.Controls.Primitives.RangeBase.ValueChanged" /> routed event.
+            </summary>
+            <param name="oldValue">
+                Old value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value" /> property
+            </param>
+            <param name="newValue">
+                New value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value" /> property
+            </param>
+        </member>
+        <member name="E:MahApps.Metro.Controls.NumericUpDown.MaximumReached">
+            <summary>
+                Event fired from this NumericUpDown when its value has reached the maximum value
+            </summary>
+        </member>
+        <member name="E:MahApps.Metro.Controls.NumericUpDown.MinimumReached">
+            <summary>
+                Event fired from this NumericUpDown when its value has reached the minimum value
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.Delay">
+            <summary>
+                Gets or sets the amount of time, in milliseconds, the NumericUpDown waits while the up/down button is pressed before it starts increasing/decreasing the
+                <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value"/> for the specified <see cref="P:System.Windows.Controls.Primitives.RangeBase.SmallChange"/> . The value must be non-negative.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.IsReadOnly">
+            <summary>
+                Gets or sets a value indicating whether the NumericUpDown allows to get UserInput or not
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.TextAlignment">
+            <summary>
+            Gets or sets the horizontal alignment of the contents of the text box. 
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.Speedup">
+            <summary>
+                Gets or sets a value indicating whether the value to be added to or subtracted from remains always
+                <see cref="P:System.Windows.Controls.Primitives.RangeBase.SmallChange"/> or it will change to <see cref="P:System.Windows.Controls.Primitives.RangeBase.LargeChange"/> and increase this.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.StringFormat">
+            <summary>
+                Gets or sets the formatting for the displaying <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value"/>
+            </summary>
+            <remarks>
+                <see href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx"></see>
+            </remarks>
         </member>
         <member name="T:MahApps.Metro.Controls.Position">
             <summary>

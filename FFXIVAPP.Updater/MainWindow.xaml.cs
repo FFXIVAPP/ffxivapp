@@ -13,8 +13,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Ionic.Zip;
 
@@ -25,18 +27,22 @@ namespace FFXIVAPP.Updater
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : INotifyPropertyChanged
     {
+        #region Auto Properties
+
+        #endregion
+
+        #region Declarations
+
         private readonly WebClient _webClient = new WebClient();
+
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        private string DownloadUri { get; set; }
-        private string Version { get; set; }
-        private string ZipFileName { get; set; }
 
         /// <summary>
         /// </summary>
@@ -51,9 +57,9 @@ namespace FFXIVAPP.Updater
             }
             else
             {
-                DownloadUri = properties["DownloadUri"] as string;
-                Version = properties["Version"] as string;
-                ZipFileName = String.Format("FFXIVAPP_{0}.zip", Version);
+                MainWindowViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
+                MainWindowViewModel.Instance.Version = properties["Version"] as string;
+                MainWindowViewModel.Instance.ZipFileName = String.Format("FFXIVAPP_{0}.zip", MainWindowViewModel.Instance.Version);
                 var app = Process.GetProcessesByName("FFXIVAPP.Client");
                 foreach (var p in app)
                 {
@@ -67,7 +73,7 @@ namespace FFXIVAPP.Updater
                 }
                 Func<bool> initializeUpdate = delegate
                 {
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send, new ThreadStart((DownloadUpdate)));
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart((DownloadUpdate)));
                     return true;
                 };
                 initializeUpdate.BeginInvoke(null, null);
@@ -81,12 +87,11 @@ namespace FFXIVAPP.Updater
             GoogleAnalytics.Navigate("http://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
             GoogleAnalytics.LoadCompleted += delegate
             {
-                Thread.Sleep(1000);
                 try
                 {
                     _webClient.DownloadFileCompleted += WebClientOnDownloadFileCompleted;
                     _webClient.DownloadProgressChanged += WebClientOnDownloadProgressChanged;
-                    _webClient.DownloadFileAsync(new Uri(DownloadUri), ZipFileName);
+                    _webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
                 }
                 catch (Exception ex)
                 {
@@ -101,10 +106,20 @@ namespace FFXIVAPP.Updater
         /// <param name="asyncCompletedEventArgs"></param>
         private void WebClientOnDownloadFileCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs)
         {
+            Func<bool> func = delegate
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(ExtractAndClean));
+                return true;
+            };
+            func.BeginInvoke(null, null);
+        }
+
+        private void ExtractAndClean()
+        {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
                                                      .Location);
             CleanupTemporary(path);
-            using (var zip = ZipFile.Read(ZipFileName))
+            using (var zip = ZipFile.Read(MainWindowViewModel.Instance.ZipFileName))
             {
                 foreach (var zipEntry in zip)
                 {
@@ -153,7 +168,7 @@ namespace FFXIVAPP.Updater
         {
             var bytesIn = double.Parse(downloadProgressChangedEventArgs.BytesReceived.ToString(CultureInfo.InvariantCulture));
             var totalBytes = double.Parse(downloadProgressChangedEventArgs.TotalBytesToReceive.ToString(CultureInfo.InvariantCulture));
-            ProgressBarSingle.Value = Math.Truncate(bytesIn / totalBytes * 100);
+            ProgressBarSingle.Value = bytesIn / totalBytes;
         }
 
         /// <summary>
@@ -172,5 +187,24 @@ namespace FFXIVAPP.Updater
             {
             }
         }
+
+        private void UIElement_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
+
+        #endregion
     }
 }

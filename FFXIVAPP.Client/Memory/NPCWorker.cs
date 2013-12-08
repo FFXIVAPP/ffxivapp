@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -185,18 +186,15 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (monsterEntries.Any())
                             {
-                                ApplicationContextHelper.GetContext()
-                                                        .MonsterWorker.RaiseEntitiesEvent(monsterEntries);
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
                             }
                             if (npcEntries.Any())
                             {
-                                ApplicationContextHelper.GetContext()
-                                                        .NPCWorker.RaiseEntitiesEvent(npcEntries);
+                                AppContextHelper.Instance.RaiseNewNPCEntries(npcEntries);
                             }
                             if (pcEntries.Any())
                             {
-                                ApplicationContextHelper.GetContext()
-                                                        .PCWorker.RaiseEntitiesEvent(pcEntries);
+                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
                             }
                         }
                         catch (Exception ex)

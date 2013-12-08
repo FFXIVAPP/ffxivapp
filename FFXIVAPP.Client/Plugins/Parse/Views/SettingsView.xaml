@@ -98,31 +98,6 @@
                     <Controls:BasicDisplaySettings />
                 </ScrollViewer>
             </TabItem>
-            <TabItem x:Name="SettingsWidgetsTI"
-                     Header="Widgets">
-                <ScrollViewer>
-                    <StackPanel>
-                        <GroupBox Header="Show DPS Widget On Load">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowDPSWidgetOnLoad,
-                                                                                Source={StaticResource PluginSettings}}" />
-                                <DockPanel Margin="10 5"
-                                           LastChildFill="True">
-                                    <Button Margin="3"
-                                            Command="{Binding ResetDPSWidgetCommand,
-                                                              Source={StaticResource SettingsViewModel}}"
-                                            Content="Reset Position (0,0)"
-                                            DockPanel.Dock="Right" />
-                                    <Button Margin="3"
-                                            Command="{Binding OpenDPSWidgetCommand,
-                                                              Source={StaticResource SettingsViewModel}}"
-                                            Content="Open Now" />
-                                </DockPanel>
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
             <TabItem x:Name="SettingsOtherTI"
                      Header="{Binding Locale[app_OtherOptionsTabHeader],
                                       Source={StaticResource AppProperties}}">

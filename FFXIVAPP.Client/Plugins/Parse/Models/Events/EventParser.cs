@@ -237,8 +237,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
         /// <summary>
         /// </summary>
         /// <param name="chatLogEntry"></param>
-        /// <param name="live"></param>
-        public void ParseAndPublish(ChatLogEntry chatLogEntry, bool live = true)
+        public void ParseAndPublish(ChatLogEntry chatLogEntry)
         {
             var @event = Parse(chatLogEntry);
             var eventHandler = @event.IsUnknown ? OnUnknownLogEvent : OnLogEvent;
@@ -248,10 +247,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
             lock (eventHandler)
             {
-                if (live)
-                {
-                    Thread.Sleep(10);
-                }
                 eventHandler(this, @event);
             }
         }

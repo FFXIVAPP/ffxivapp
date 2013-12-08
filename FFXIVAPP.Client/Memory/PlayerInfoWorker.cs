@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json;
@@ -212,8 +213,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (notify)
                             {
-                                ApplicationContextHelper.GetContext()
-                                                        .PlayerInfoWorker.RaiseEntityEvent(playerEntity);
+                                AppContextHelper.Instance.RaiseNewPlayerEntity(playerEntity);
                             }
                         }
                         catch (Exception ex)

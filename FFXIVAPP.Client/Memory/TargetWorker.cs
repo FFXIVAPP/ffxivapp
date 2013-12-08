@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -409,8 +410,7 @@ namespace FFXIVAPP.Client.Memory
                                 targetEntity.EnmityEntries = enmityEntries;
                                 if (somethingFound)
                                 {
-                                    ApplicationContextHelper.GetContext()
-                                                            .TargetWorker.RaiseEntityEvent(targetEntity);
+                                    AppContextHelper.Instance.RaiseNewTargetEntity(targetEntity);
                                 }
                             }
                         }

@@ -1,36 +1,34 @@
 ﻿// FFXIVAPP.Client
-// MemoryDelegates.cs
+// AppContextHelper.cs
 // 
 // © 2013 Ryan Wilson
-
-#region Usings
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
-using FFXIVAPP.Common.Core;
+using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Parse;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
+using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
-#endregion
-
-namespace FFXIVAPP.Client.Delegates
+namespace FFXIVAPP.Client.Helpers
 {
     [DoNotObfuscate]
-    public class MemoryDelegates
+    public class AppContextHelper
     {
         #region Property Backings
 
-        private static MemoryDelegates _instance;
+        private static AppContextHelper _instance;
         private List<uint> _pets;
 
-        public static MemoryDelegates Instance
+        public static AppContextHelper Instance
         {
-            get { return _instance ?? (_instance = new MemoryDelegates()); }
+            get { return _instance ?? (_instance = new AppContextHelper()); }
             set { _instance = value; }
         }
 
@@ -57,21 +55,12 @@ namespace FFXIVAPP.Client.Delegates
 
         #endregion
 
-        public IApplicationContext ApplicationContext
+        public void RaiseNewConstants(ConstantsEntity constantsEntity)
         {
-            get { return ApplicationContextHelper.GetContext(); }
+            PluginHost.Instance.RaiseNewConstantsEntity(constantsEntity);
         }
 
-        public void Initialize()
-        {
-            ApplicationContext.ChatLogWorker.OnNewLine += ChatLogWorkerOnNewLine;
-            ApplicationContext.MonsterWorker.OnNewEntities += MonsterWorkerOnNewEntities;
-            ApplicationContext.NPCWorker.OnNewEntities += NPCWorkerOnNewEntities;
-            ApplicationContext.PCWorker.OnNewEntities += PCWorkerOnNewEntities;
-            ApplicationContext.PlayerInfoWorker.OnNewEntity += PlayerInfoWorkerOnNewEntity;
-        }
-
-        private void ChatLogWorkerOnNewLine(ChatLogEntry chatLogEntry)
+        public void RaiseNewChatLogEntry(ChatLogEntry chatLogEntry)
         {
             if (ChatLogWorkerDelegate.IsPaused)
             {
@@ -85,9 +74,11 @@ namespace FFXIVAPP.Client.Delegates
                 LogPublisher.HandleCommands(chatLogEntry);
             }
             LogPublisher.Parse.Process(chatLogEntry);
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
         }
 
-        private void MonsterWorkerOnNewEntities(List<ActorEntity> actorEntities)
+        public void RaiseNewMonsterEntries(List<ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -128,9 +119,11 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 MonsterWorkerDelegate.ProcessUploads();
             }, saveToDictionary);
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
 
-        private void NPCWorkerOnNewEntities(List<ActorEntity> actorEntities)
+        public void RaiseNewNPCEntries(List<ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -171,9 +164,11 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 NPCWorkerDelegate.ProcessUploads();
             }, saveToDictionary);
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
 
-        private void PCWorkerOnNewEntities(List<ActorEntity> actorEntities)
+        public void RaiseNewPCEntries(List<ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -212,11 +207,27 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 PCWorkerDelegate.ProcessUploads();
             }, saveToDictionary);
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
 
-        private void PlayerInfoWorkerOnNewEntity(PlayerEntity playerEntity)
+        public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
         {
             CurrentUserStats = playerEntity;
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPlayerEntity(playerEntity);
+        }
+
+        public void RaiseNewTargetEntity(TargetEntity targetEntity)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
+        }
+
+        public void RaiseNewParseEntity(ParseEntity parseEntity)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewParseEntity(parseEntity);
         }
     }
 }

@@ -8,6 +8,7 @@
 using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 using FFXIVAPP.Common.Helpers;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -71,19 +72,19 @@ namespace FFXIVAPP.Client.Helpers
                                   {
                                       if (okAction != null)
                                       {
-                                          DispatcherHelper.Invoke(okAction);
+                                          DispatcherHelper.Invoke(okAction, DispatcherPriority.Send);
                                       }
                                   }
                                   if (x.Result == MessageDialogResult.Negative)
                                   {
-                                      DispatcherHelper.Invoke(cancelAction);
+                                      DispatcherHelper.Invoke(cancelAction, DispatcherPriority.Send);
                                   }
-                              }));
+                              }, DispatcherPriority.Send));
                         }
                         else
                         {
                             mw.ShowMessageAsync(title, message)
-                              .ContinueWith(x => DispatcherHelper.Invoke(delegate { DispatcherHelper.Invoke(okAction); }));
+                              .ContinueWith(x => DispatcherHelper.Invoke(() => DispatcherHelper.Invoke(okAction), DispatcherPriority.Send));
                         }
                     }
                 }
@@ -91,7 +92,7 @@ namespace FFXIVAPP.Client.Helpers
                 {
                     MessageBox.Show(String.Format("Unable to process MessageBox[{0}]:NotProcessingResult", message), title, MessageBoxButton.OK);
                 }
-            });
+            }, DispatcherPriority.Send);
         }
     }
 }

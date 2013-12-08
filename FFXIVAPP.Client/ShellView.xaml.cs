@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
@@ -58,7 +59,6 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             Initializer.SetupPlugins();
             Initializer.UpdatePluginConstants();
-            MemoryDelegates.Instance.Initialize();
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
         }
@@ -91,7 +91,7 @@ namespace FFXIVAPP.Client
         private void MetroWindowClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
-            DispatcherHelper.Invoke(() => CloseApplication());
+            DispatcherHelper.Invoke(() => CloseApplication(), DispatcherPriority.Send);
         }
 
         /// <summary>
@@ -117,19 +117,23 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.NotifyIcon.Visible = false;
             if (update)
             {
-                var updaters = Process.GetProcessesByName("FFXIVAPP.Updater");
-                foreach (var updater in updaters)
-                {
-                    updater.Kill();
-                }
                 try
                 {
+                    var updaters = Process.GetProcessesByName("FFXIVAPP.Updater");
+                    foreach (var updater in updaters)
+                    {
+                        updater.Kill();
+                    }
+                    if (File.Exists("FFXIVAPP.Updater.exe"))
+                    {
+                        File.Delete("FFXIVAPP.Updater.Backup.exe");
+                    }
                     File.Move("FFXIVAPP.Updater.exe", "FFXIVAPP.Updater.Backup.exe");
-                    Process.Start("FFXIVAPP.Updater.Backup.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
                 }
                 catch (Exception ex)
                 {
                 }
+                Process.Start("FFXIVAPP.Updater.Backup.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
             }
             Environment.Exit(0);
         }

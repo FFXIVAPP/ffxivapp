@@ -108,9 +108,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             historyItem.ParseLength = historyItem.End - historyItem.Start;
             var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
             var zone = "Unknown";
-            if (MemoryDelegates.Instance.CurrentUser != null)
+            if (AppContextHelper.Instance.CurrentUser != null)
             {
-                var mapIndex = MemoryDelegates.Instance.CurrentUser.MapIndex;
+                var mapIndex = AppContextHelper.Instance.CurrentUser.MapIndex;
                 //switch (Settings.Default.GameLanguage)
                 //{
                 //    case "French":

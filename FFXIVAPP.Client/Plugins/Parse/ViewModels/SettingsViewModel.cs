@@ -5,12 +5,8 @@
 
 #region Usings
 
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
 
 #endregion
@@ -33,9 +29,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         #region Declarations
 
-        public ICommand ResetDPSWidgetCommand { get; private set; }
-        public ICommand OpenDPSWidgetCommand { get; private set; }
-
         #endregion
 
         #region Loading Functions
@@ -44,8 +37,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
         public SettingsViewModel()
         {
-            ResetDPSWidgetCommand = new DelegateCommand(ResetDPSWidget);
-            OpenDPSWidgetCommand = new DelegateCommand(OpenDPSWidget);
         }
 
         #region Utility Functions
@@ -53,17 +44,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
         #endregion
 
         #region Command Bindings
-
-        public void ResetDPSWidget()
-        {
-            Constants.Parse.PluginSettings.DPSWidgetTop = 0;
-            Constants.Parse.PluginSettings.DPSWidgetLeft = 0;
-        }
-
-        public void OpenDPSWidget()
-        {
-            Widgets.Instance.ShowDPSWidget();
-        }
 
         #endregion
 

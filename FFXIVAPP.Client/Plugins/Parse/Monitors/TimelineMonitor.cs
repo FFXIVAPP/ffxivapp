@@ -103,7 +103,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.ChatLogEntry.Line));
                 return;
             }
-            if (source.Success)
+            if (!source.Success)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.ChatLogEntry.Line));
             }
@@ -129,9 +129,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
                 var killEntry = new KillEntry();
-                if (MemoryDelegates.Instance.CurrentUser != null)
+                if (AppContextHelper.Instance.CurrentUser != null)
                 {
-                    var currentUser = MemoryDelegates.Instance.CurrentUser;
+                    var currentUser = AppContextHelper.Instance.CurrentUser;
                     killEntry.MapIndex = currentUser.MapIndex;
                     killEntry.Coordinate = new Coordinate
                     {
@@ -226,9 +226,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
                 var lootEntry = new LootEntry(thing);
-                if (MemoryDelegates.Instance.CurrentUser != null)
+                if (AppContextHelper.Instance.CurrentUser != null)
                 {
-                    var currentUser = MemoryDelegates.Instance.CurrentUser;
+                    var currentUser = AppContextHelper.Instance.CurrentUser;
                     lootEntry.MapIndex = currentUser.MapIndex;
                     lootEntry.Coordinate = new Coordinate
                     {

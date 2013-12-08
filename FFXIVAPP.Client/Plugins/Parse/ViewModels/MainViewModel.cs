@@ -134,7 +134,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                     });
                     ++count;
                 }
-                Func<bool> dFunc = delegate
+                Func<bool> func = delegate
                 {
                     foreach (var item in items)
                     {
@@ -154,11 +154,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                                 timeStampColor, "#" + color
                             }, MainView.View.AbilityChatFD._FDR);
                         }
-                        EventParser.Instance.ParseAndPublish(chatLogEntry, false);
+                        EventParser.Instance.ParseAndPublish(chatLogEntry);
                     }
                     return true;
                 };
-                dFunc.BeginInvoke(null, null);
+                func.BeginInvoke(null, null);
             };
             openFileDialog.ShowDialog();
         }

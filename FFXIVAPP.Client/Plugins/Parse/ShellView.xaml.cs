@@ -39,10 +39,6 @@ namespace FFXIVAPP.Client.Plugins.Parse
             }
             IsRendered = true;
             PluginInitializer.Parse.ApplyTheming();
-            if (Constants.Parse.PluginSettings.ShowDPSWidgetOnLoad)
-            {
-                Widgets.Instance.ShowDPSWidget();
-            }
         }
     }
 }

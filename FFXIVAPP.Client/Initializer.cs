@@ -201,15 +201,30 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void CheckUpdates()
         {
-            Func<bool> updateCheck = delegate
+            try
             {
-                try
+                var updaters = Process.GetProcessesByName("FFXIVAPP.Updater");
+                foreach (var updater in updaters)
+                {
+                    updater.Kill();
+                }
+                if (File.Exists("FFXIVAPP.Updater.exe"))
                 {
                     File.Delete("FFXIVAPP.Updater.Backup.exe");
                 }
-                catch (Exception ex)
+                else
                 {
+                    if (File.Exists("FFXIVAPP.Updater.Backup.exe"))
+                    {
+                        File.Move("FFXIVAPP.Updater.Backup.exe", "FFXIVAPP.Updater.exe");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+            }
+            Func<bool> updateCheck = delegate
+            {
                 var current = Assembly.GetExecutingAssembly()
                                       .GetName()
                                       .Version.ToString();

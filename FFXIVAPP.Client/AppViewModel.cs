@@ -15,6 +15,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
@@ -365,7 +366,7 @@ namespace FFXIVAPP.Client
         /// <param name="eventArgs"></param>
         private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs)
         {
-            DispatcherHelper.Invoke(() => ShellView.CloseApplication());
+            DispatcherHelper.Invoke(() => ShellView.CloseApplication(), DispatcherPriority.Send);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace FFXIVAPP.Common.Core.Constant
 {
-    public class ConstantEntry : IConstantEntry
+    public class ConstantsEntity : IConstantsEntity
     {
         public Dictionary<string, string> AutoTranslate { get; set; }
         public Dictionary<string, string> ChatCodes { get; set; }

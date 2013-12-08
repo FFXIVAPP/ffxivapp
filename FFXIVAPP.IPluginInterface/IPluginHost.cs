@@ -5,7 +5,9 @@
 
 #region Usings
 
-using System.Collections.Generic;
+using System;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.IPluginInterface.Events;
 
 #endregion
 
@@ -13,8 +15,14 @@ namespace FFXIVAPP.IPluginInterface
 {
     public interface IPluginHost
     {
-        void Commands(string pluginName, IEnumerable<string> commands);
-        void PopupMessage(string pluginName, out bool displayed, object content);
-        void ProcessDataByKey(string pluginName, string token, string key, object data);
+        void PopupMessage(string pluginName, PopupContent content);
+        event EventHandler<ConstantsEntityEvent> NewConstantsEntity;
+        event EventHandler<ChatLogEntryEvent> NewChatLogEntry;
+        event EventHandler<ActorEntitiesEvent> NewMonsterEntries;
+        event EventHandler<ActorEntitiesEvent> NewNPCEntries;
+        event EventHandler<ActorEntitiesEvent> NewPCEntries;
+        event EventHandler<PlayerEntityEvent> NewPlayerEntity;
+        event EventHandler<TargetEntityEvent> NewTargetEntity;
+        event EventHandler<ParseEntityEvent> NewParseEntity;
     }
 }

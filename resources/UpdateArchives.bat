@@ -25,6 +25,9 @@ del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml
 
 cd "..\Release"
 del Release.zip /q
@@ -53,6 +56,9 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml
 
 cd "..\SmartAssembly"
 del SmartAssembly.zip /q
@@ -81,3 +87,6 @@ del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml

@@ -16,9 +16,9 @@ namespace FFXIVAPP.Common.Helpers
 {
     public static class DispatcherHelper
     {
-        public static void Invoke(Action action)
+        public static void Invoke(Action action, DispatcherPriority dispatcherPriority = DispatcherPriority.Background)
         {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send, new ThreadStart((action)));
+            Application.Current.Dispatcher.BeginInvoke(dispatcherPriority, new ThreadStart((action)));
         }
     }
 }

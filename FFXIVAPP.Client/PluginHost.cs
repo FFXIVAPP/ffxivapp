@@ -1,5 +1,5 @@
 // FFXIVAPP.Client
-// PluginContainer.cs
+// PluginHost.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -8,29 +8,33 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Reflection;
+using FFXIVAPP.Common.Core.Constant;
+using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Parse;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
+using FFXIVAPP.IPluginInterface.Events;
 using NLog;
 using SmartAssembly.Attributes;
+using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
 #endregion
 
 namespace FFXIVAPP.Client
 {
     [DoNotObfuscate]
-    internal class PluginContainer : IPluginHost
+    internal class PluginHost : MarshalByRefObject, IPluginHost
     {
         #region Property Bindings
 
+        private static PluginHost _instance;
         private PluginCollectionHelper _loaded;
 
         public PluginCollectionHelper Loaded
@@ -46,11 +50,17 @@ namespace FFXIVAPP.Client
             }
         }
 
+        public static PluginHost Instance
+        {
+            get { return _instance ?? (_instance = new PluginHost()); }
+            set { _instance = value; }
+        }
+
         #endregion
 
         #region Declarations
 
-        private List<string> _authorizedPublishers = new List<string>();
+        public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
 
         #endregion
 
@@ -107,8 +117,6 @@ namespace FFXIVAPP.Client
             Loaded.Clear();
         }
 
-        public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
-
         /// <summary>
         /// </summary>
         /// <param name="assemblyPath"></param>
@@ -116,7 +124,6 @@ namespace FFXIVAPP.Client
         {
             try
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginFileName:{0}", assemblyPath));
                 //var domainName = Path.GetFileNameWithoutExtension(assemblyPath);
                 //var success = AssemblyReflectionManager.LoadAssembly(assemblyPath, domainName);
                 //var results = AssemblyReflectionManager.Reflect(assemblyPath, (a) =>
@@ -129,17 +136,16 @@ namespace FFXIVAPP.Client
                 var pAssembly = Assembly.LoadFile(assemblyPath);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
-                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
+                var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
                 var plugin = new PluginInstance();
-                plugin.Instance = (IPlugin)Activator.CreateInstance(pType);
+                plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
                 plugin.AssemblyPath = assemblyPath;
-                plugin.Instance.Host = this;
-                plugin.Instance.Initialize(ApplicationContextHelper.GetContext());
+                plugin.Instance.Initialize(Instance);
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);
             }
@@ -153,48 +159,17 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        /// <param name="pluginName"> </param>
-        /// <param name="commands"> </param>
-        public void Commands(string pluginName, IEnumerable<string> commands)
-        {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null)
-            {
-                return;
-            }
-            if (!Settings.Default.AllowPluginCommands)
-            {
-                var enumerable = commands as List<string> ?? commands.ToList();
-                var commandlist = enumerable.Aggregate("", (current, s) => current + (s + ","));
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PluginCommandAborted: {0}: \n{1}", pluginName, commandlist.Substring(0, commandlist.Length - 1)));
-                return;
-            }
-            // return for now as all commands are disabled
-            return;
-            //foreach (var command in commands)
-            //{
-            //    var ascii = Encoding.GetEncoding("utf-16");
-            //    KeyBoardHelper.SendNotify(ascii.GetBytes(command));
-            //}
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="pluginName"></param>
-        /// <param name="displayed"> </param>
-        /// <param name="content"> </param>
-        public void PopupMessage(string pluginName, out bool displayed, object content)
+        /// <param name="popupContent"></param>
+        public void PopupMessage(string pluginName, PopupContent popupContent)
         {
-            var popupContent = content as PopupContent;
             if (popupContent == null)
             {
-                displayed = false;
                 return;
             }
             var pluginInstance = Loaded.Find(popupContent.PluginName);
             if (pluginInstance == null)
             {
-                displayed = false;
                 return;
             }
             var title = String.Format("[{0}] {1}", pluginName, popupContent.Title);
@@ -205,26 +180,104 @@ namespace FFXIVAPP.Client
                 cancelAction = delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel; };
             }
             MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
-            displayed = true;
         }
 
-        public void ProcessDataByKey(string pluginName, string token, string key, object data)
+        public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };
+
+        public event EventHandler<ChatLogEntryEvent> NewChatLogEntry = delegate { };
+
+        public event EventHandler<ActorEntitiesEvent> NewMonsterEntries = delegate { };
+
+        public event EventHandler<ActorEntitiesEvent> NewNPCEntries = delegate { };
+
+        public event EventHandler<ActorEntitiesEvent> NewPCEntries = delegate { };
+
+        public event EventHandler<PlayerEntityEvent> NewPlayerEntity = delegate { };
+
+        public event EventHandler<TargetEntityEvent> NewTargetEntity = delegate { };
+
+        public event EventHandler<ParseEntityEvent> NewParseEntity = delegate { };
+
+        public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
         {
-            var pluginInstance = Loaded.Find(pluginName);
-            if (pluginInstance == null || !_authorizedPublishers.Contains(token) || !Constants.IsOpen)
+            var constantsEntityEvent = new ConstantsEntityEvent(this, e);
+            var handler = NewConstantsEntity;
+            if (handler != null)
             {
-                return;
+                handler(this, constantsEntityEvent);
+            }
+        }
+
+        public virtual void RaiseNewChatLogEntry(ChatLogEntry e)
+        {
+            var chatLogEntryEvent = new ChatLogEntryEvent(this, e);
+            var handler = NewChatLogEntry;
+            if (handler != null)
+            {
+                handler(this, chatLogEntryEvent);
+            }
+        }
+
+        public virtual void RaiseNewMonsterEntries(List<ActorEntity> e)
+        {
+            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
+            var handler = NewMonsterEntries;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewNPCEntries(List<ActorEntity> e)
+        {
+            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
+            var handler = NewNPCEntries;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewPCEntries(List<ActorEntity> e)
+        {
+            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
+            var handler = NewPCEntries;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewPlayerEntity(PlayerEntity e)
+        {
+            var playerEntityEvent = new PlayerEntityEvent(this, e);
+            var handler = NewPlayerEntity;
+            if (handler != null)
+            {
+                handler(this, playerEntityEvent);
+            }
+        }
+
+        public virtual void RaiseNewTargetEntity(TargetEntity e)
+        {
+            var targetEntityEvent = new TargetEntityEvent(this, e);
+            var handler = NewTargetEntity;
+            if (handler != null)
+            {
+                handler(this, targetEntityEvent);
+            }
+        }
+
+        public virtual void RaiseNewParseEntity(ParseEntity e)
+        {
+            var parseEntityEvent = new ParseEntityEvent(this, e);
+            var handler = NewParseEntity;
+            if (handler != null)
+            {
+                handler(this, parseEntityEvent);
             }
         }
 
         #endregion
-    }
-
-    public class IPluginFactory : MarshalByRefObject
-    {
-        public IPlugin Create(string assembly, string typeName)
-        {
-            return (IPlugin)Activator.CreateInstance(assembly, typeName).Unwrap();
-        }
     }
 }

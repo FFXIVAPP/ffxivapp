@@ -5,6 +5,7 @@
 
 #region Usings
 
+using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using SmartAssembly.Attributes;
 
@@ -17,19 +18,18 @@ namespace FFXIVAPP.Client.Helpers
     {
         public static void UpdatePluginConstants()
         {
-            ApplicationContextHelper.GetContext()
-                                    .ConstantWorker.RaiseValuesEvent(new ConstantEntry
-                                    {
-                                        AutoTranslate = Constants.AutoTranslate,
-                                        CharacterName = Constants.CharacterName,
-                                        ChatCodes = Constants.ChatCodes,
-                                        ChatCodesXml = Constants.ChatCodesXml,
-                                        Colors = Constants.Colors,
-                                        CultureInfo = Constants.CultureInfo,
-                                        EnableHelpLabels = Constants.EnableHelpLabels,
-                                        GameLanguage = Constants.GameLanguage,
-                                        ServerName = Constants.ServerName
-                                    });
+            PluginHost.Instance.RaiseNewConstantsEntity(new ConstantsEntity
+            {
+                AutoTranslate = Constants.AutoTranslate,
+                CharacterName = Constants.CharacterName,
+                ChatCodes = Constants.ChatCodes,
+                ChatCodesXml = Constants.ChatCodesXml,
+                Colors = Constants.Colors,
+                CultureInfo = Constants.CultureInfo,
+                EnableHelpLabels = Constants.EnableHelpLabels,
+                GameLanguage = Constants.GameLanguage,
+                ServerName = Constants.ServerName
+            });
         }
     }
 }

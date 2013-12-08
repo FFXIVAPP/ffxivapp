@@ -33,7 +33,7 @@ namespace FFXIVAPP.Client
     {
         #region Property Bindings
 
-        internal static readonly PluginContainer Plugins = new PluginContainer();
+        internal static readonly PluginHost Plugins = new PluginHost();
 
         public static string[] MArgs { get; private set; }
 

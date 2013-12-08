@@ -46,9 +46,6 @@ namespace FFXIVAPP.Client.Utilities
                                 case "reset":
                                     ParseControl.Instance.Reset();
                                     break;
-                                case "dpswidget":
-                                    Widgets.Instance.ShowDPSWidget();
-                                    break;
                             }
                             break;
                     }

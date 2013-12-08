@@ -47,6 +47,8 @@ namespace FFXIVAPP.Client.Utilities
 
             #endregion
 
+            public static Queue<ChatLogEntry> ChatLogEntries = new Queue<ChatLogEntry>();
+            public static bool Processing { get; set; }
             public static bool IsPaused = false;
 
             public static void Process(ChatLogEntry chatLogEntry)
@@ -55,6 +57,11 @@ namespace FFXIVAPP.Client.Utilities
                 {
                     return;
                 }
+                if (Processing)
+                {
+                    ChatLogEntries.Enqueue(chatLogEntry);
+                }
+                Processing = true;
                 try
                 {
                     var timeStampColor = Settings.Default.TimeStampColor.ToString();
