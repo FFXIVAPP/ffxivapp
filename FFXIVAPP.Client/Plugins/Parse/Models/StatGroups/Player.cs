@@ -43,7 +43,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             ID = 0;
             InitStats();
             LineHistory = new List<LineHistory>();
-            PlayerStatHistory = new List<PlayerStatHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
             if (!Controller.IsHistoryBased)
             {
@@ -60,8 +59,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         public static ActorEntity NPCEntry { get; set; }
 
         public List<LineHistory> LineHistory { get; set; }
-
-        public List<PlayerStatHistory> PlayerStatHistory { get; set; }
 
         private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {

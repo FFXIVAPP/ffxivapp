@@ -12,6 +12,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="line"></param>
         public void SetHealing(Line line)
         {
+            if (!Controller.IsHistoryBased)
+            {
+                //LineHistory.Add(new LineHistory(line));
+            }
         }
     }
 }

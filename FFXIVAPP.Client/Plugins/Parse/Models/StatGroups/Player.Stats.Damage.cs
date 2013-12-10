@@ -22,7 +22,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
             {
                 //LineHistory.Add(new LineHistory(line));
-                //PlayerStatHistory.Add(new PlayerStatHistory(Controller.Timeline.GetSetPlayer(line.Source)));
             }
             if ((LimitBreaks.IsLimit(line.Action) || line.Amount > 2000) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {

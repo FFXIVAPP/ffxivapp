@@ -22,7 +22,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
             {
                 //LineHistory.Add(new LineHistory(line));
-                //PlayerStatHistory.Add(new PlayerStatHistory(Controller.Timeline.GetSetPlayer(line.Target)));
             }
             var fields = line.GetType()
                              .GetProperties();

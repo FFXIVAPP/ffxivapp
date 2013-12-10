@@ -18,6 +18,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="isDamageOverTime"></param>
         public void SetDamage(Line line, bool isDamageOverTime = false)
         {
+            if (!Controller.IsHistoryBased)
+            {
+                //LineHistory.Add(new LineHistory(line));
+            }
             var fields = line.GetType()
                              .GetProperties();
             var abilityGroup = GetGroup("DamageByAction");
