@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,8 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Memory
 {

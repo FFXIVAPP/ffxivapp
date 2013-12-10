@@ -3,12 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using FFXIVAPP.IPluginInterface;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Models
 {

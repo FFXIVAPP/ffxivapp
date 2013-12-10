@@ -3,16 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using FFXIVAPP.Common.Utilities;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Common.Converters
 {

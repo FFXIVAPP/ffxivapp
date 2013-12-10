@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Common
-// ParserData.cs
+// ParseEntity.cs
 // 
 // © 2013 Ryan Wilson
 

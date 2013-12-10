@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections.Generic;
 using System.Windows;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using MahApps.Metro.Controls;
-
-#endregion
 
 namespace FFXIVAPP.Client.Windows
 {

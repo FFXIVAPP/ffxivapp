@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Specialized;
@@ -13,8 +11,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights
 {

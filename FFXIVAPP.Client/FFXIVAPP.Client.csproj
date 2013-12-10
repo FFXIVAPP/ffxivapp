@@ -240,6 +240,7 @@
     <Compile Include="Plugins\Parse\Models\LimitBreaks.cs" />
     <Compile Include="Plugins\Parse\Models\ParseControl.cs" />
     <Compile Include="Plugins\Parse\Models\ParseHistoryItem.cs" />
+    <Compile Include="Plugins\Parse\Models\PlayerStatHistory.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.Damage.cs" />
     <Compile Include="Plugins\Parse\Models\StatGroups\Monster.Stats.DamageTaken.cs" />

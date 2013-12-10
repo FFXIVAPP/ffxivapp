@@ -3,14 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
-
-#endregion
+using FFXIVAPP.Client.Properties;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
@@ -22,7 +19,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="isDamageOverTime"></param>
         public void SetDamage(Line line, bool isDamageOverTime = false)
         {
-            LineHistory.Add(new LineHistory(line));
+            if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
+            {
+                //LineHistory.Add(new LineHistory(line));
+                //PlayerStatHistory.Add(new PlayerStatHistory(Controller.Timeline.GetSetPlayer(line.Source)));
+            }
             if ((LimitBreaks.IsLimit(line.Action) || line.Amount > 2000) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {
                 return;

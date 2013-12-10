@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Data;
-
-#endregion
 
 namespace FFXIVAPP.Common.Converters
 {

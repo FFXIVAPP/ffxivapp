@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
-
-#endregion
 
 namespace FFXIVAPP.IPluginInterface
 {

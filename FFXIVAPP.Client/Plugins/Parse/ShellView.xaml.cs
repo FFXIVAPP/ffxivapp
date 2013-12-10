@@ -3,12 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
-using System;
 using System.Windows;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse
 {

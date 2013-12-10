@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Linq;
 using System.Windows;
@@ -13,8 +11,6 @@ using FFXIVAPP.Common.Helpers;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

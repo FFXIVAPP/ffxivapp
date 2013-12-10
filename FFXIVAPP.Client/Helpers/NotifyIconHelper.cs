@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Windows.Forms;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

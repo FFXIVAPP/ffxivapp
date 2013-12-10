@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-
-#endregion
 
 namespace FFXIVAPP.Updater
 {

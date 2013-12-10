@@ -3,11 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using FFXIVAPP.Common.Helpers;
-
-#endregion
 
 namespace FFXIVAPP.Common.Core.Memory
 {

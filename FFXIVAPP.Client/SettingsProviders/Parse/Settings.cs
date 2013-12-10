@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,8 +17,6 @@ using FFXIVAPP.Common.Utilities;
 using NLog;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
-
-#endregion
 
 namespace FFXIVAPP.Client.SettingsProviders.Parse
 {

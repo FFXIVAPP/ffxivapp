@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,8 +14,6 @@ using System.Web;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Memory
 {

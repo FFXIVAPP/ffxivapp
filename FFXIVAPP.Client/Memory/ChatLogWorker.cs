@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +11,9 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -146,7 +140,7 @@ namespace FFXIVAPP.Client.Memory
                         {
                             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
-                        _lastCount = chatPointersSet ? (int) chatLogPointers.LineCount : _lastCount; 
+                        _lastCount = chatPointersSet ? (int) chatLogPointers.LineCount : _lastCount;
                     }
                     else
                     {

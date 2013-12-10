@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
@@ -13,8 +11,6 @@ using System.Windows.Threading;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {

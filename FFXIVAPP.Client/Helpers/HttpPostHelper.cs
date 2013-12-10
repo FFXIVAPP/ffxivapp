@@ -3,16 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

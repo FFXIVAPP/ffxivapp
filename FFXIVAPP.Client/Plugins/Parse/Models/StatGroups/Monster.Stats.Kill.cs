@@ -3,14 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Common.Utilities;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {

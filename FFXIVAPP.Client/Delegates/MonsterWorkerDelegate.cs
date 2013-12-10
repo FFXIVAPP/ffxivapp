@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +11,6 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Delegates
 {

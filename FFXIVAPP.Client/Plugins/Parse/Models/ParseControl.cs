@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +15,6 @@ using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Common.Core.Parse;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
@@ -35,9 +31,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         #region Declarations
 
-        private ParseEntity LastParseEntity { get; set; }
-
         private Timer ParseEntityTimer = new Timer(100);
+        private ParseEntity LastParseEntity { get; set; }
 
         #endregion
 

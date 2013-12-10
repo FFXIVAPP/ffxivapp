@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
-
-#endregion
 
 namespace FFXIVAPP.Common
 {

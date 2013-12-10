@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Windows;
 using System.Windows.Data;
 using FFXIVAPP.Common.Converters;
-
-#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

@@ -3,14 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
@@ -22,7 +18,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="isDamageOverTime"></param>
         public void SetDamage(Line line, bool isDamageOverTime = false)
         {
-            LineHistory.Add(new LineHistory(line));
             var fields = line.GetType()
                              .GetProperties();
             var abilityGroup = GetGroup("DamageByAction");

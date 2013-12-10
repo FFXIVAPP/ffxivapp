@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -16,8 +14,6 @@ using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

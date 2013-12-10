@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -24,8 +22,6 @@ using HtmlAgilityPack;
 using MahApps.Metro.Controls;
 using NLog;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.ViewModels
 {

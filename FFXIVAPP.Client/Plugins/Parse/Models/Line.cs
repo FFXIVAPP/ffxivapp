@@ -3,14 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
@@ -25,6 +22,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 ChatLogEntry = chatLogEntry;
             }
         }
+
+        #region Event Information
+
+        public EventDirection EventDirection { get; set; }
+        public EventSubject EventSubject { get; set; }
+        public EventType EventType { get; set; }
+
+        #endregion
 
         public decimal Amount { get; set; }
         public decimal Modifier { get; set; }

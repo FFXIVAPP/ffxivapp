@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,8 +25,6 @@ using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

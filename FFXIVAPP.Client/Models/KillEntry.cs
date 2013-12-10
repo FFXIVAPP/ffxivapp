@@ -3,12 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Models
 {

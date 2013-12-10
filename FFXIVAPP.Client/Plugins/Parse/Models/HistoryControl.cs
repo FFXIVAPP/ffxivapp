@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {

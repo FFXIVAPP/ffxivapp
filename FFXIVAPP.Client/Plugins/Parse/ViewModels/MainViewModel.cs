@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,8 +23,6 @@ using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 {

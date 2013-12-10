@@ -3,16 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.RegularExpressions;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {

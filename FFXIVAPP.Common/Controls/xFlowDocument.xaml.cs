@@ -3,12 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
-#endregion
 
 namespace FFXIVAPP.Common.Controls
 {

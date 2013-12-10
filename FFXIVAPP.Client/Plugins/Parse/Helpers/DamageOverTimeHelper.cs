@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections.Generic;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 {

@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-
-#endregion
 
 namespace FFXIVAPP.Common.ViewModelBase
 {

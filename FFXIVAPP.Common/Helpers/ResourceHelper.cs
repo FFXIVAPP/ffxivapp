@@ -3,14 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Windows;
 using System.Windows.Resources;
 using System.Xml.Linq;
-
-#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

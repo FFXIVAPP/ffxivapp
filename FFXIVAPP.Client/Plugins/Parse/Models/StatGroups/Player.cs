@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
@@ -21,8 +20,6 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
@@ -46,12 +43,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             ID = 0;
             InitStats();
             LineHistory = new List<LineHistory>();
+            PlayerStatHistory = new List<PlayerStatHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
             if (!Controller.IsHistoryBased)
             {
                 StatusUpdateTimer.Start();
             }
         }
+
+        public bool StatusUpdateTimerProcessing { get; set; }
 
         private static ParseControl Controller { get; set; }
 
@@ -61,8 +61,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public List<LineHistory> LineHistory { get; set; }
 
+        public List<PlayerStatHistory> PlayerStatHistory { get; set; }
+
         private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
+            if (StatusUpdateTimerProcessing)
+            {
+                return;
+            }
+            StatusUpdateTimerProcessing = true;
+            var isYou = Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer);
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
             var pcEntries = PCWorkerDelegate.NPCEntries.ToList();
@@ -71,14 +79,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 try
                 {
-                    if (Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer))
-                    {
-                        NPCEntry = AppContextHelper.Instance.CurrentUser;
-                    }
-                    else
-                    {
-                        NPCEntry = pcEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
-                    }
+                    NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : pcEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
                     if (NPCEntry != null)
                     {
                         ID = NPCEntry.ID;
@@ -107,6 +108,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             if (!StatusEntriesMonster.Any())
             {
+                StatusUpdateTimerProcessing = false;
                 return;
             }
             foreach (var statusEntry in StatusEntriesMonster)
@@ -160,12 +162,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
                     }
+
                     var line = new Line
                     {
                         Action = statusKey,
                         Source = Name,
                         Target = statusEntry.TargetName,
-                        Amount = tickDamage
+                        Amount = tickDamage,
+                        EventDirection = EventDirection.Engaged,
+                        EventSubject = isYou ? EventSubject.You : EventSubject.Party,
+                        EventType = EventType.Damage
                     };
                     DispatcherHelper.Invoke(delegate
                     {
@@ -190,6 +196,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
+            StatusUpdateTimerProcessing = false;
         }
 
         private void InitStats()

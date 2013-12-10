@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.RegularExpressions;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.RegularExpressions
 {

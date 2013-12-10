@@ -95,7 +95,7 @@ namespace FFXIVAPP.Client.Reflection
                     _proxies.Remove(assemblyPath);
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                 }
             }

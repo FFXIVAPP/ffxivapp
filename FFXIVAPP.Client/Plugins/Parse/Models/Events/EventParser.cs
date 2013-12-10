@@ -3,17 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 {

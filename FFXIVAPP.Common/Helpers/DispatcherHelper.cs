@@ -3,14 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-
-#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

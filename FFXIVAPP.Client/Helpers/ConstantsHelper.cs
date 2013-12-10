@@ -3,13 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
-using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

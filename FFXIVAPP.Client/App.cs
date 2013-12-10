@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
@@ -23,8 +21,6 @@ using FFXIVAPP.Common.Utilities;
 using NLog;
 using NLog.Config;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

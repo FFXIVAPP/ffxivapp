@@ -3,21 +3,16 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

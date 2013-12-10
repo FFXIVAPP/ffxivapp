@@ -1,14 +1,10 @@
 ﻿// FFXIVAPP.Common
-// ConstantEntry.cs
+// ConstantsEntity.cs
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections.Generic;
 using System.Globalization;
-
-#endregion
 
 namespace FFXIVAPP.Common.Core.Constant
 {

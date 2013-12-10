@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +16,6 @@ using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Utilities
 {
@@ -48,8 +44,8 @@ namespace FFXIVAPP.Client.Utilities
             #endregion
 
             public static Queue<ChatLogEntry> ChatLogEntries = new Queue<ChatLogEntry>();
-            public static bool Processing { get; set; }
             public static bool IsPaused = false;
+            public static bool Processing { get; set; }
 
             public static void Process(ChatLogEntry chatLogEntry)
             {

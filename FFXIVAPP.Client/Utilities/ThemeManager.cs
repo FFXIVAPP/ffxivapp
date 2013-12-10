@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,8 +10,6 @@ using System.Linq;
 using System.Windows;
 using MahApps.Metro;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Utilities
 {

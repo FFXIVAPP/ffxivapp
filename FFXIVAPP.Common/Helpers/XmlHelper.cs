@@ -3,15 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Models;
-
-#endregion
 
 namespace FFXIVAPP.Common.Helpers
 {

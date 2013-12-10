@@ -3,14 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Common.RegularExpressions
 {

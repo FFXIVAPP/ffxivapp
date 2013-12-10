@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +11,6 @@ using MahApps.Metro;
 using MahApps.Metro.Controls;
 using SmartAssembly.Attributes;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

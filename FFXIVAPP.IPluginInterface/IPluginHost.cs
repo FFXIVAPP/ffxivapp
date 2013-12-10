@@ -3,13 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.IPluginInterface.Events;
-
-#endregion
 
 namespace FFXIVAPP.IPluginInterface
 {

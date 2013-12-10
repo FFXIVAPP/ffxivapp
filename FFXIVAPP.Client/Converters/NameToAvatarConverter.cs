@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Globalization;
 using System.IO;
@@ -19,8 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using HtmlAgilityPack;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Converters
 {

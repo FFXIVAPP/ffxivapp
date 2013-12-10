@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,8 +22,6 @@ using FFXIVAPP.IPluginInterface.Events;
 using NLog;
 using SmartAssembly.Attributes;
 using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

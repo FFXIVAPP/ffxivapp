@@ -3,11 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
-
-#endregion
 
 namespace FFXIVAPP.Common.Events
 {

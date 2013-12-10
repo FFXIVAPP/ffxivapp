@@ -3,16 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Helpers
 {

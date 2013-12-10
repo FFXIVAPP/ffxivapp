@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Common
-// IPlayerData.cs
+// IPlayerEntity.cs
 // 
 // © 2013 Ryan Wilson
 

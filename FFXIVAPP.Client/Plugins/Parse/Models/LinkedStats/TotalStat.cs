@@ -3,12 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
 {

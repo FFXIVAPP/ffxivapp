@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-using System.Windows;
-
 namespace FFXIVAPP.Client.Views
 {
     /// <summary>

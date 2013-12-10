@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,8 +12,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Stats
 {

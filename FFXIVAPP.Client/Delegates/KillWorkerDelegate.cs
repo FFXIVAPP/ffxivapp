@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +12,6 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client.Delegates
 {

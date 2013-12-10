@@ -3,12 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Common.Utilities
 {

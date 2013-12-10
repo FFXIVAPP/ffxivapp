@@ -3,12 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
-
-#endregion
+using FFXIVAPP.Client.Properties;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
@@ -19,7 +16,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="line"> </param>
         public void SetHealing(Line line)
         {
-            LineHistory.Add(new LineHistory(line));
+            if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
+            {
+                //LineHistory.Add(new LineHistory(line));
+                //PlayerStatHistory.Add(new PlayerStatHistory(Controller.Timeline.GetSetPlayer(line.Source)));
+            }
             var abilityGroup = GetGroup("HealingByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))

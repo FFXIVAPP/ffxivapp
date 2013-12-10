@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Common
-// IParserData.cs
+// IParseEntity.cs
 // 
 // © 2013 Ryan Wilson
 

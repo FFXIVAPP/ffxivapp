@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,8 +17,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Ionic.Zip;
-
-#endregion
 
 namespace FFXIVAPP.Updater
 {

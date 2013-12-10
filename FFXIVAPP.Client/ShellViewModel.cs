@@ -3,8 +3,6 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -17,8 +15,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
-
-#endregion
 
 namespace FFXIVAPP.Client
 {

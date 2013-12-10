@@ -3,11 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-#region Usings
-
 using System.Collections.Generic;
-
-#endregion
 
 namespace FFXIVAPP.Common.Core.Memory
 {

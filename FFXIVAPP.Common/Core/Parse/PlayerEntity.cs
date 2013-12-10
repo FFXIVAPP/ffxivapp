@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Common
-// PlayerData.cs
+// PlayerEntity.cs
 // 
 // © 2013 Ryan Wilson
 
