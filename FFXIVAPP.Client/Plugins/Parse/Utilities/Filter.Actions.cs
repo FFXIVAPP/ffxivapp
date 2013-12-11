@@ -55,7 +55,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (actions.Success)
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNameParty = line.Source;
+                                _lastNamePartyFrom = line.Source;
                                 UpdateActionsPlayers(actions, line, exp);
                             }
                             break;
@@ -93,7 +93,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
                 if (isParty)
                 {
-                    _lastActionParty = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                    _lastActionPartyFrom = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                 }
                 else
                 {

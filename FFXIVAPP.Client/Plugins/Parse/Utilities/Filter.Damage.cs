@@ -60,7 +60,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             switch (damage.Success)
                             {
                                 case true:
-                                    line.Source = _lastNameParty;
+                                    line.Source = _lastNamePartyFrom;
                                     UpdateDamagePlayer(damage, line, exp);
                                     break;
                                 case false:
@@ -144,7 +144,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         line.Action = exp.Attack;
                         break;
                     case false:
-                        line.Action = isParty ? _lastActionParty : _lastActionPlayer;
+                        line.Action = isParty ? _lastActionPartyFrom : _lastActionPlayer;
                         line.Action = _lastActionIsAttack ? String.Format("{0} [+]", exp.Attack) : line.Action;
                         break;
                 }
@@ -192,7 +192,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 line.Parry = damage.Groups["parry"].Success;
                 if (isParty)
                 {
-                    _lastNameParty = line.Target;
+                    _lastNamePartyTo = line.Target;
                 }
                 else
                 {

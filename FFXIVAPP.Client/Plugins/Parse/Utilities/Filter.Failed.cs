@@ -60,7 +60,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             switch (failed.Success)
                             {
                                 case true:
-                                    line.Source = _lastNameParty;
+                                    line.Source = _lastNamePartyFrom;
                                     UpdateFailedPlayer(failed, line, exp);
                                     break;
                                 case false:
@@ -140,17 +140,17 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         line.Action = exp.Attack;
                         break;
                     case false:
-                        line.Action = isParty ? _lastActionParty : _lastActionPlayer;
+                        line.Action = isParty ? _lastActionPartyFrom : _lastActionPlayer;
                         break;
                 }
                 line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : _lastMobName;
                 if (isParty)
                 {
-                    _lastNameParty = line.Source;
+                    _lastNamePartyFrom = line.Source;
                 }
                 else
                 {
-                    line.Target = ParseHelper.GetPetFromPlayer(line.Source, exp);
+                    line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp);
                     _lastNamePlayer = line.Source;
                 }
                 if (line.IsEmpty())
@@ -184,10 +184,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         line.Action = _lastMobAction;
                         break;
                 }
-                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : isParty ? _lastNameParty : _lastNamePlayer;
+                line.Target = failed.Groups["target"].Success ? Convert.ToString(failed.Groups["target"].Value) : isParty ? _lastNamePartyTo : _lastNamePlayer;
                 if (isParty)
                 {
-                    _lastNameParty = line.Target;
+                    _lastNamePartyTo = line.Target;
                 }
                 else
                 {

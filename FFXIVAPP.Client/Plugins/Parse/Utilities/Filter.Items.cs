@@ -49,8 +49,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (items.Success)
                             {
                                 line.Source = Convert.ToString(items.Groups["source"].Value);
-                                _lastNameParty = line.Source;
-                                _lastActionParty = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                                _lastNamePartyFrom = line.Source;
+                                _lastActionPartyFrom = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;
                     }

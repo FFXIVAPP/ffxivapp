@@ -148,18 +148,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
+                    statusKey = String.Format("{0} [•]", statusKey);
+                    var levelDamage = NPCEntry.Level * 3;
+                    if (amount == 0)
+                    {
+                        amount = levelDamage > 0 ? levelDamage : 100;
+                    }
+                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
                     if (actionData.ZeroBaseDamageDOT)
                     {
-                        amount = 100;
+                        foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => !d.Key.Contains("•")).Where(lastDamageAmountByAction => lastDamageAmountByAction.Value > 0))
+                        {
+                            amount = lastDamageAmountByAction.Value;
+                        }
+                        var damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                        tickDamage = damage > 0 ? damage : tickDamage;
                     }
-                    amount = (amount == 0) ? 100 : amount;
-                    statusKey = String.Format("{0} [•]", statusKey);
-                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
                     if (amount > 300)
                     {
                         tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
                     }
-
                     var line = new Line
                     {
                         Action = statusKey,
@@ -173,11 +181,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
-                        //var currentCritRate = ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                        //                                  .Stats.GetStatValue("DamageCritPerecent");
+                        //var currentCritRate = Math.Ceiling(Controller.Timeline.GetSetPlayer(line.Source)
+                        //                                             .Stats.GetStatValue("DamageCritPerecent") * 100);
                         //var randomizer = new Random();
                         //var critChance = randomizer.Next(0, 100) / 100;
-                        //if (critChance > (currentCritRate - 0.1m) && critChance < (currentCritRate + 0.1m))
+                        //if (critChance > (currentCritRate - 5) && critChance < (currentCritRate + 5))
                         //{
                         //    line.Crit = true;
                         //    line.Amount += line.Amount * 0.5m;

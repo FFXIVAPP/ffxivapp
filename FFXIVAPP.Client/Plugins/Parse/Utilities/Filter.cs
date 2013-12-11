@@ -23,8 +23,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 
         // setup party info
         private static Event _lastEventParty;
-        private static string _lastNameParty = "";
-        private static string _lastActionParty = "";
+        private static string _lastNamePartyFrom = "";
+        private static string _lastActionPartyFrom = "";
+        private static string _lastNamePartyTo = "";
+        private static string _lastActionPartyTo = "";
 
 
         // setup monster info

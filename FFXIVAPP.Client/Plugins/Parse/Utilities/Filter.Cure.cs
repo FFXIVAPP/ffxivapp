@@ -48,7 +48,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = _lastNameParty;
+                                line.Source = _lastNamePartyFrom;
                                 UpdateHealingPlayer(cure, line, exp);
                             }
                             break;
@@ -67,7 +67,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _isParty = isParty;
             try
             {
-                line.Action = isParty ? _lastActionParty : _lastActionPlayer;
+                line.Action = isParty ? _lastActionPartyFrom : _lastActionPlayer;
                 line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
                 line.Crit = cure.Groups["crit"].Success;
                 line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;

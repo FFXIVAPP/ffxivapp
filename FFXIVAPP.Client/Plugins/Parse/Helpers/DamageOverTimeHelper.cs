@@ -170,7 +170,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
                 _playerActions.Add("bio", new DamageOverTimeAction
                 {
-                    ActionPotency = 45,
+                    ActionPotency = 80,
                     DamageOverTimePotency = 40,
                     Duration = 18,
                     ZeroBaseDamageDOT = true
@@ -181,7 +181,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
                 _playerActions.Add("bio ii", new DamageOverTimeAction
                 {
-                    ActionPotency = 40,
+                    ActionPotency = 80,
                     DamageOverTimePotency = 35,
                     Duration = 30,
                     ZeroBaseDamageDOT = true
