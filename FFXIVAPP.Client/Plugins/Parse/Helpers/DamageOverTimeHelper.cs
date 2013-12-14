@@ -15,6 +15,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
         private static Dictionary<string, DamageOverTimeAction> _playerActions;
         private static Dictionary<string, DamageOverTimeAction> _monsterActions;
         private static Dictionary<string, List<string>> _thunderActions;
+        private static Dictionary<string, List<string>> _bioActions;
+        private static Dictionary<string, List<string>> _ruinActions;
 
         public static Dictionary<string, List<string>> ThunderActions
         {
@@ -49,7 +51,60 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
                 });
                 return _thunderActions;
             }
-            set { _thunderActions = value; }
+        }
+
+        public static Dictionary<string, List<string>> BioActions
+        {
+            get
+            {
+                if (_bioActions != null)
+                {
+                    return _bioActions;
+                }
+                _bioActions = new Dictionary<string, List<string>>();
+
+                _bioActions.Add("I", new List<string>
+                {
+                    "bio",
+                    "bactérie",
+                    "バイオ"
+                });
+                _bioActions.Add("II", new List<string>
+                {
+                    "bio ii",
+                    "biora",
+                    "extra bactérie",
+                    "バイオラ"
+                });
+                return _bioActions;
+            }
+        }
+
+        public static Dictionary<string, List<string>> RuinActions
+        {
+            get
+            {
+                if (_ruinActions != null)
+                {
+                    return _ruinActions;
+                }
+                _ruinActions = new Dictionary<string, List<string>>();
+
+                _ruinActions.Add("I", new List<string>
+                {
+                    "ruin",
+                    "ruine",
+                    "ルイン"
+                });
+                _ruinActions.Add("II", new List<string>
+                {
+                    "ruin ii",
+                    "ruinra",
+                    "extra ruine",
+                    "ルインラ"
+                });
+                return _ruinActions;
+            }
         }
 
         public static Dictionary<string, DamageOverTimeAction> PlayerActions

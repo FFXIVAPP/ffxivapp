@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
-                    decimal amount = NPCEntry.Level * 3;
+                    var amount = NPCEntry.Level * 3.5m;
                     var key = statusKey;
                     DamageOverTimeAction actionData = null;
                     foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.ToList()
@@ -63,29 +63,58 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
+                    var zeroFoundInList = false;
                     foreach (var lastDamageAmountByAction in LastDamageAmountByAction.ToList())
                     {
                         if (Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
                         {
-                            amount = 75;
+                            var found = false;
                             var thunderActions = DamageOverTimeHelper.ThunderActions;
                             var action = lastDamageAmountByAction;
                             if (thunderActions["III"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
-                                amount = (lastDamageAmountByAction.Value / DamageOverTimeHelper.PlayerActions["thunder iii"].ActionPotency) * 30;
+                                found = true;
+                                amount = (action.Value / DamageOverTimeHelper.PlayerActions["thunder iii"].ActionPotency) * 30;
                             }
                             if (thunderActions["II"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
-                                amount = (lastDamageAmountByAction.Value / DamageOverTimeHelper.PlayerActions["thunder ii"].ActionPotency) * 30;
+                                found = true;
+                                amount = (action.Value / DamageOverTimeHelper.PlayerActions["thunder ii"].ActionPotency) * 30;
                             }
                             if (thunderActions["I"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
-                                amount = lastDamageAmountByAction.Value;
+                                found = true;
+                                amount = action.Value;
+                            }
+                            if (found)
+                            {
+                                break;
                             }
                         }
-                        else if (String.Equals(lastDamageAmountByAction.Key, key, Constants.InvariantComparer))
+                        if (Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
+                        {
+                            var found = false;
+                            var ruinActions = DamageOverTimeHelper.RuinActions;
+                            var action = lastDamageAmountByAction;
+                            if (ruinActions["II"].Any(ruinAction => String.Equals(action.Key, ruinAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                amount = action.Value;
+                            }
+                            if (ruinActions["I"].Any(ruinAction => String.Equals(action.Key, ruinAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                amount = action.Value;
+                            }
+                            if (found)
+                            {
+                                break;
+                            }
+                        }
+                        if (String.Equals(lastDamageAmountByAction.Key, key, Constants.InvariantComparer))
                         {
                             amount = lastDamageAmountByAction.Value;
+                            break;
                         }
                     }
                     statusKey = String.Format("{0} [•]", statusKey);
@@ -94,15 +123,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         amount = 75;
                     }
                     var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                    if (actionData.ZeroBaseDamageDOT)
+                    if (actionData.ZeroBaseDamageDOT && !zeroFoundInList)
                     {
                         var nonZeroActions = LastDamageAmountByAction.ToList()
-                                                                     .Where(d => !d.Key.Contains("•"))
-                                                                     .Where(lastDamageAmountByAction => lastDamageAmountByAction.Value > 0);
+                                                                     .Where(d => !d.Key.Contains("•"));
                         var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
                         amount = keyValuePairs.Sum(action => action.Value);
                         amount = amount / keyValuePairs.Count();
-                        var damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                        var damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) * (NPCEntry.Level / 50m));
                         tickDamage = damage > 0 ? damage : tickDamage;
                     }
                     if (amount > 300)

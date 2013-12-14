@@ -260,6 +260,10 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(136)]
             public byte FSH;
 
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(138)]
+            public byte ACN;
+
             #endregion
 
             #region Job Exp In Level

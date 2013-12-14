@@ -33,6 +33,8 @@ namespace FFXIVAPP.Common.Core.Memory
 
         byte CNJ { get; set; }
 
+        byte ACN { get; set; }
+
         byte CPT { get; set; }
 
         byte BSM { get; set; }

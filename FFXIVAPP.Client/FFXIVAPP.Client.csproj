@@ -178,7 +178,6 @@
     <Compile Include="Plugins\Parse\Helpers\DamageOverTimeHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HttpPostHelper.cs" />
-    <Compile Include="Helpers\KeyBoardHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\ParseHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\ParsingLogHelper.cs" />

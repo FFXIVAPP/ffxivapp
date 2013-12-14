@@ -59,7 +59,6 @@ namespace FFXIVAPP.Client
         [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         public static void Main()
         {
-            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
             var app = new App();
             app.Run();
         }
@@ -136,6 +135,17 @@ namespace FFXIVAPP.Client
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PropertyChanged : {0}", e.PropertyName));
             switch (e.PropertyName)
             {
+                case "PerformanceMode":
+                    switch (Settings.Default.PerformanceMode)
+                    {
+                        case "Software":
+                            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
+                            break;
+                        case "Hardware (If Available)":
+                            RenderOptions.ProcessRenderMode = RenderMode.Default;
+                            break;
+                    }
+                    break;
                 case "CharacterName":
                     Constants.CharacterName = Settings.Default.CharacterName;
                     break;

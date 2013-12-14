@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.Core.Memory;

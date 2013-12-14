@@ -112,6 +112,7 @@ namespace FFXIVAPP.Client.Memory
                                 Name = MemoryHandler.Instance.GetString(PlayerInfoMap, 1),
                                 EnmityEntries = enmityEntries,
                                 Accuracy = playerInfo.Accuracy,
+                                ACN = playerInfo.ACN,
                                 ACN_CurrentEXP = playerInfo.ACN_CurrentEXP,
                                 ALC = playerInfo.ALC,
                                 ARC = playerInfo.ARC,
