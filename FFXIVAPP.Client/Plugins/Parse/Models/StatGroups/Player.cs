@@ -10,13 +10,10 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Plugins.Parse.Enums;
-using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -108,100 +105,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimerProcessing = false;
                 return;
             }
-            foreach (var statusEntry in StatusEntriesMonster)
-            {
-                try
-                {
-                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                    var statusKey = "";
-                    switch (Settings.Default.GameLanguage)
-                    {
-                        case "English":
-                            statusKey = statusInfo.Name.English;
-                            break;
-                        case "French":
-                            statusKey = statusInfo.Name.French;
-                            break;
-                        case "German":
-                            statusKey = statusInfo.Name.German;
-                            break;
-                        case "Japanese":
-                            statusKey = statusInfo.Name.Japanese;
-                            break;
-                    }
-                    if (String.IsNullOrWhiteSpace(statusKey))
-                    {
-                        continue;
-                    }
-                    decimal amount = 0;
-                    var key = statusKey;
-                    foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                    {
-                        amount = lastDamageAmountByAction.Value;
-                    }
-                    DamageOverTimeAction actionData = null;
-                    foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
-                    {
-                        actionData = damageOverTimeAction.Value;
-                    }
-                    if (actionData == null)
-                    {
-                        continue;
-                    }
-                    statusKey = String.Format("{0} [•]", statusKey);
-                    var levelDamage = NPCEntry.Level * 3;
-                    if (amount == 0)
-                    {
-                        amount = levelDamage > 0 ? levelDamage : 100;
-                    }
-                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                    if (actionData.ZeroBaseDamageDOT)
-                    {
-                        foreach (var lastDamageAmountByAction in LastDamageAmountByAction.Where(d => !d.Key.Contains("•")).Where(lastDamageAmountByAction => lastDamageAmountByAction.Value > 0))
-                        {
-                            amount = lastDamageAmountByAction.Value;
-                        }
-                        var damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                        tickDamage = damage > 0 ? damage : tickDamage;
-                    }
-                    if (amount > 300)
-                    {
-                        tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
-                    }
-                    var line = new Line
-                    {
-                        Action = statusKey,
-                        Source = Name,
-                        Target = statusEntry.TargetName,
-                        Amount = tickDamage,
-                        EventDirection = EventDirection.Engaged,
-                        EventSubject = isYou ? EventSubject.You : EventSubject.Party,
-                        EventType = EventType.Damage
-                    };
-                    DispatcherHelper.Invoke(delegate
-                    {
-                        line.Hit = true;
-                        //var currentCritRate = Math.Ceiling(Controller.Timeline.GetSetPlayer(line.Source)
-                        //                                             .Stats.GetStatValue("DamageCritPerecent") * 100);
-                        //var randomizer = new Random();
-                        //var critChance = randomizer.Next(0, 100) / 100;
-                        //if (critChance > (currentCritRate - 5) && critChance < (currentCritRate + 5))
-                        //{
-                        //    line.Crit = true;
-                        //    line.Amount += line.Amount * 0.5m;
-                        //}
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetDamage(line, true);
-                        ParseControl.Instance.Timeline.GetSetMob(line.Target)
-                                    .SetDamageTaken(line, true);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
-            }
-            StatusUpdateTimerProcessing = false;
+            ProcessDamageOverTime(StatusEntriesMonster, isYou);
         }
 
         private void InitStats()

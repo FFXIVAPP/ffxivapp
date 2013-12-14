@@ -29,7 +29,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 // process you => monster
                 foreach (var actorEntity in pcEntries)
                 {
-                    if (!String.Equals(actorEntity.Name, line.Source, StringComparison.InvariantCultureIgnoreCase))
+                    if (!String.Equals(actorEntity.Name, line.Source, Constants.InvariantComparer))
                     {
                         continue;
                     }
@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 }
                 foreach (var actorEntity in monsterEntries)
                 {
-                    if (!String.Equals(actorEntity.Name, line.Target, StringComparison.InvariantCultureIgnoreCase))
+                    if (!String.Equals(actorEntity.Name, line.Target, Constants.InvariantComparer))
                     {
                         return;
                     }
@@ -56,7 +56,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 // process monster => you
                 foreach (var actorEntity in pcEntries)
                 {
-                    if (!String.Equals(actorEntity.Name, line.Target, StringComparison.InvariantCultureIgnoreCase))
+                    if (!String.Equals(actorEntity.Name, line.Target, Constants.InvariantComparer))
                     {
                         continue;
                     }
@@ -68,7 +68,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 }
                 foreach (var actorEntity in monsterEntries)
                 {
-                    if (!String.Equals(actorEntity.Name, line.Source, StringComparison.InvariantCultureIgnoreCase))
+                    if (!String.Equals(actorEntity.Name, line.Source, Constants.InvariantComparer))
                     {
                         return;
                     }

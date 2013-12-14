@@ -23,7 +23,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public static bool IsLimit(string action)
         {
-            return LimitBreakSkills.Any(lb => String.Equals(lb, action, StringComparison.InvariantCultureIgnoreCase));
+            return LimitBreakSkills.Any(lb => String.Equals(lb, action, Constants.InvariantComparer));
         }
 
         private static List<string> GetLimitBreakList()

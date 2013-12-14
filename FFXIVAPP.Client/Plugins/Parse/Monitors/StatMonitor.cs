@@ -58,10 +58,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 //monsterInstance.StatusEntriesSelf.Clear();
                 //monsterInstance.StatusEntriesMonster.Clear();
             }
-            if (Settings.Default.EnableStoreHistoryReset)
-            {
-                InitializeHistory();
-            }
+            InitializeHistory();
             base.Clear();
         }
 

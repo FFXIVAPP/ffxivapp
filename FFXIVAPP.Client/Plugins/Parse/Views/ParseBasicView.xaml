@@ -28,6 +28,14 @@
         <x:Static x:Key="Parser"
                   Member="Models:ParseControl.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <Style x:Key="StatLabelStyle">
+            <Setter Property="Control.Padding" Value="0" />
+            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style x:Key="CommaNumberStyle"
+               BasedOn="{StaticResource StatLabelStyle}">
+            <Setter Property="ContentControl.ContentStringFormat" Value="{}{0:N0}" />
+        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot"
@@ -58,9 +66,12 @@
                         </StackPanel>
                         <StackPanel Grid.Row="0"
                                     Grid.Column="1">
-                            <TextBlock Text="{Binding TotalOverallDamage}" />
-                            <TextBlock Text="{Binding TotalOverallHealing}" />
-                            <TextBlock Text="{Binding TotalOverallDamageTaken}" />
+                            <Label Content="{Binding TotalOverallDamage}"
+                                   Style="{StaticResource CommaNumberStyle}" />
+                            <Label Content="{Binding TotalOverallHealing}"
+                                   Style="{StaticResource CommaNumberStyle}" />
+                            <Label Content="{Binding TotalOverallDamageTaken}"
+                                   Style="{StaticResource CommaNumberStyle}" />
                         </StackPanel>
                         <StackPanel Grid.Row="0"
                                     Grid.Column="2">

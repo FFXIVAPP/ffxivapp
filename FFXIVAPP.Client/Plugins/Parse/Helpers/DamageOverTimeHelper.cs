@@ -14,6 +14,43 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     {
         private static Dictionary<string, DamageOverTimeAction> _playerActions;
         private static Dictionary<string, DamageOverTimeAction> _monsterActions;
+        private static Dictionary<string, List<string>> _thunderActions;
+
+        public static Dictionary<string, List<string>> ThunderActions
+        {
+            get
+            {
+                if (_thunderActions != null)
+                {
+                    return _thunderActions;
+                }
+                _thunderActions = new Dictionary<string, List<string>>();
+
+                _thunderActions.Add("I", new List<string>
+                {
+                    "thunder",
+                    "blitz",
+                    "foudre",
+                    "サンダー"
+                });
+                _thunderActions.Add("II", new List<string>
+                {
+                    "thunder ii",
+                    "blitzra",
+                    "extra foudre",
+                    "サンダラ"
+                });
+                _thunderActions.Add("III", new List<string>
+                {
+                    "thunder iii",
+                    "blitzga",
+                    "méga foudre",
+                    "サンダガ"
+                });
+                return _thunderActions;
+            }
+            set { _thunderActions = value; }
+        }
 
         public static Dictionary<string, DamageOverTimeAction> PlayerActions
         {

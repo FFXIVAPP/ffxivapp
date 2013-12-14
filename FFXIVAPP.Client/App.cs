@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -57,6 +59,7 @@ namespace FFXIVAPP.Client
         [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
         public static void Main()
         {
+            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
             var app = new App();
             app.Run();
         }
