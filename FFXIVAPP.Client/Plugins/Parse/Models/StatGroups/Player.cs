@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;

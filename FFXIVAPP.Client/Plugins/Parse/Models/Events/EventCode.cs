@@ -26,7 +26,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
         }
 
-        public UInt32 Code
+        public UInt64 Code
         {
             get { return _code; }
             set
@@ -46,9 +46,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
         }
 
-        public UInt32 Flags
+        public UInt64 Flags
         {
-            get { return (ushort) (Group == null ? 0x00000000 : Group.Flags); }
+            get { return (ushort) (Group == null ? 0x0 : Group.Flags); }
         }
 
         public EventDirection Direction
@@ -68,7 +68,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         #endregion
 
-        private uint _code;
+        private UInt64 _code;
         private string _description;
         private EventGroup _group;
 
@@ -81,7 +81,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
         /// <param name="description"> </param>
         /// <param name="code"> </param>
         /// <param name="group"> </param>
-        public EventCode(string description, UInt32 code, EventGroup group)
+        public EventCode(string description, UInt64 code, EventGroup group)
         {
             Description = description;
             Code = code;

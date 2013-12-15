@@ -17,7 +17,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
     {
         #region Property Bindings
 
-        private SortedDictionary<UInt32, EventCode> EventCodes
+        private SortedDictionary<UInt64, EventCode> EventCodes
         {
             get { return _eventCodes; }
         }
@@ -33,13 +33,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         #region Declarations
 
-        public const UInt32 DirectionMask = 0x0000007F;
-        public const UInt32 SubjectMask = 0x00001F80;
-        public const UInt32 TypeMask = 0x3FFFE000;
-        public const UInt32 AllEvents = 0xFFFFFFFF;
-        public const UInt32 UnknownEvent = 0x00000000;
+        public const UInt64 DirectionMask = 0x1FFF;
+        public const UInt64 SubjectMask = 0x1FFE000;
+        public const UInt64 TypeMask = 0x3FFFE000000;
+        public const UInt64 AllEvents = 0xFFFFFFFFFFF;
+        public const UInt64 UnknownEvent = 0x0;
         private static EventParser _instance;
-        private readonly SortedDictionary<UInt32, EventCode> _eventCodes = new SortedDictionary<UInt32, EventCode>();
+        private readonly SortedDictionary<UInt64, EventCode> _eventCodes = new SortedDictionary<UInt64, EventCode>();
 
         #endregion
 
@@ -158,6 +158,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
                     case "NPC":
                         thisGroup.Subject = EventSubject.NPC;
                         break;
+                    case "AllianceMember":
+                        thisGroup.Subject = EventSubject.AllianceMember;
+                        break;
+                    case "FriendlyNPC":
+                        thisGroup.Subject = EventSubject.FriendlyNPC;
+                        break;
+                    case "Pets":
+                        thisGroup.Subject = EventSubject.Pets;
+                        break;
+                    case "PetsParty":
+                        thisGroup.Subject = EventSubject.PetsParty;
+                        break;
+                    case "PetsAlliance":
+                        thisGroup.Subject = EventSubject.PetsAlliance;
+                        break;
+                    case "PetsOther":
+                        thisGroup.Subject = EventSubject.PetsOther;
+                        break;
                     case "Engaged":
                         thisGroup.Subject = EventSubject.Engaged;
                         break;
@@ -185,6 +203,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
                     case "NPC":
                         thisGroup.Direction = EventDirection.NPC;
                         break;
+                    case "AllianceMember":
+                        thisGroup.Subject = EventSubject.AllianceMember;
+                        break;
+                    case "FriendlyNPC":
+                        thisGroup.Subject = EventSubject.FriendlyNPC;
+                        break;
+                    case "Pets":
+                        thisGroup.Subject = EventSubject.Pets;
+                        break;
+                    case "PetsParty":
+                        thisGroup.Subject = EventSubject.PetsParty;
+                        break;
+                    case "PetsAlliance":
+                        thisGroup.Subject = EventSubject.PetsAlliance;
+                        break;
+                    case "PetsOther":
+                        thisGroup.Subject = EventSubject.PetsOther;
+                        break;
                     case "Engaged":
                         thisGroup.Direction = EventDirection.Engaged;
                         break;
@@ -199,7 +235,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
             foreach (var xElement in root.Elements("Code"))
             {
-                var xKey = Convert.ToUInt32((string) xElement.Attribute("Key"), 16);
+                var xKey = Convert.ToUInt64((string) xElement.Attribute("Key"), 16);
                 var xDescription = (string) xElement.Element("Description");
                 _eventCodes.Add(xKey, new EventCode(xDescription, xKey, thisGroup));
             }
@@ -217,7 +253,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
         private Event Parse(ChatLogEntry chatLogEntry)
         {
             EventCode eventCode;
-            var code = Convert.ToUInt32(chatLogEntry.Code, 16);
+            var code = Convert.ToUInt64(chatLogEntry.Code, 16);
             if (EventCodes.TryGetValue(code, out eventCode))
             {
                 return new Event(eventCode, chatLogEntry);

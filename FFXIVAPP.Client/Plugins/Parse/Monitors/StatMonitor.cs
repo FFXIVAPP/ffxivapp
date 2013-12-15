@@ -12,7 +12,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.ViewModels;
 using FFXIVAPP.Client.Plugins.Parse.Views;
-using FFXIVAPP.Client.SettingsProviders.Parse;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -31,7 +30,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             IncludeSelf = false;
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.TypeMask | (UInt32) EventSubject.You | (UInt32) EventSubject.Party | (UInt32) EventSubject.Engaged | (UInt32) EventSubject.UnEngaged | (UInt32) EventDirection.Self | (UInt32) EventDirection.You | (UInt32) EventDirection.Party | (UInt32) EventDirection.Engaged | (UInt32) EventDirection.UnEngaged);
+                Filter = (EventParser.TypeMask | (UInt64) EventSubject.You | (UInt64) EventSubject.Party | (UInt64) EventSubject.Engaged | (UInt64) EventSubject.UnEngaged | (UInt64) EventDirection.Self | (UInt64) EventDirection.You | (UInt64) EventDirection.Party | (UInt64) EventDirection.Engaged | (UInt64) EventDirection.UnEngaged);
             }
         }
 

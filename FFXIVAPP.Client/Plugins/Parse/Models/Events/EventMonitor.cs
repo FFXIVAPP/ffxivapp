@@ -16,7 +16,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
     {
         #region Property Bindings
 
-        private uint _filter;
+        private UInt64 _filter;
         private DateTime _lastEventReceived;
         private ParseControl _parseControl;
 
@@ -30,7 +30,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
         }
 
-        protected UInt32 Filter
+        protected UInt64 Filter
         {
             private get { return _filter; }
             set

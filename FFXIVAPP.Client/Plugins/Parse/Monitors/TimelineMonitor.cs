@@ -34,7 +34,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         {
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt32) EventType.Loot | (UInt32) EventType.Defeats);
+                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt64) EventType.Loot | (UInt64) EventType.Defeats);
             }
         }
 
