@@ -30,7 +30,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             IncludeSelf = false;
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.TypeMask | (UInt64) EventSubject.You | (UInt64) EventSubject.Party | (UInt64) EventSubject.Engaged | (UInt64) EventSubject.UnEngaged | (UInt64) EventDirection.Self | (UInt64) EventDirection.You | (UInt64) EventDirection.Party | (UInt64) EventDirection.Engaged | (UInt64) EventDirection.UnEngaged);
+                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Engaged | EventParser.UnEngaged);
             }
         }
 

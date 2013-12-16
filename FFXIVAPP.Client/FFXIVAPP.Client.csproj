@@ -297,9 +297,6 @@
     <Compile Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml.cs">
       <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Parse\WidgetWindows\DPSWidget.xaml.cs">
-      <DependentUpon>DPSWidget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
@@ -443,10 +440,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Plugins\Parse\WidgetWindows\DPSWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Styles\TabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -552,10 +545,9 @@
     </Content>
     <Resource Include="Resources\Media\Images\History.png" />
     <None Include="app.config" />
-    <None Include="app.manifest" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

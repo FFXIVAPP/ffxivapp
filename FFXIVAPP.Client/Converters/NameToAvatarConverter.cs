@@ -97,20 +97,20 @@ namespace FFXIVAPP.Client.Converters
             {
                 ThreadPool.QueueUserWorkItem(delegate
                 {
-                    var serverName = Constants.ServerName;
-                    var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
-                    var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
-                    request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                    var response = (HttpWebResponse) request.GetResponse();
-                    var stream = response.GetResponseStream();
-                    if (response.StatusCode != HttpStatusCode.OK || stream == null)
-                    {
-                        return;
-                    }
-                    var doc = new HtmlDocument();
-                    doc.Load(stream);
                     try
                     {
+                        var serverName = Constants.ServerName;
+                        var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
+                        var request = (HttpWebRequest)WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
+                        request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                        var response = (HttpWebResponse)request.GetResponse();
+                        var stream = response.GetResponseStream();
+                        if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                        {
+                            return;
+                        }
+                        var doc = new HtmlDocument();
+                        doc.Load(stream);
                         var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
                                             .OuterHtml;
                         var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);

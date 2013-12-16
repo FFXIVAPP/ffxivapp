@@ -174,7 +174,7 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(11705)]
             public byte Sex;
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
             [FieldOffset(12104)]
             public Status[] Statuses;
         }

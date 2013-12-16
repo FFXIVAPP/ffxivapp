@@ -83,12 +83,12 @@
                         </StackPanel>
                         <StackPanel Grid.Row="0"
                                     Grid.Column="3">
-                            <TextBlock Text="{Binding StaticPlayerDPS,
-                                                      StringFormat=\{0:F0\}}" />
-                            <TextBlock Text="{Binding StaticPlayerHPS,
-                                                      StringFormat=\{0:F0\}}" />
-                            <TextBlock Text="{Binding StaticPlayerDTPS,
-                                                      StringFormat=\{0:F0\}}" />
+                            <Label Content="{Binding StaticPlayerDPS}"
+                                   Style="{StaticResource CommaNumberStyle}" />
+                            <Label Content="{Binding StaticPlayerHPS}"
+                                   Style="{StaticResource CommaNumberStyle}" />
+                            <Label Content="{Binding StaticPlayerDTPS}"
+                                   Style="{StaticResource CommaNumberStyle}" />
                         </StackPanel>
                     </Grid>
                 </GroupBox>

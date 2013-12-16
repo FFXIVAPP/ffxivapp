@@ -238,7 +238,7 @@
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="PerformanceMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Software</Value>
+      <Value Profile="(Default)">Hardware (If Available)</Value>
     </Setting>
     <Setting Name="PerformanceModeList" Type="System.Collections.Specialized.StringCollection" Scope="Application">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;

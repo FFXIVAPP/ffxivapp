@@ -41,13 +41,6 @@
     <Grid x:Name="LayoutRoot"
           Width="270"
           Margin="5">
-        <Grid.BitmapEffect>
-            <BitmapEffectGroup>
-                <BlurBitmapEffect x:Name="GaussianBlur"
-                                  KernelType="Gaussian"
-                                  Radius="10" />
-            </BitmapEffectGroup>
-        </Grid.BitmapEffect>
         <Grid.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard x:Name="LayoutRootBeginStoryBoard">
@@ -59,13 +52,6 @@
                                          Storyboard.TargetName="LayoutRoot"
                                          Storyboard.TargetProperty="(UIElement.Opacity)"
                                          To="1" />
-                        <DoubleAnimation AutoReverse="false"
-                                         BeginTime="0:0:0"
-                                         Duration="0:0:.5"
-                                         From="10"
-                                         Storyboard.TargetName="GaussianBlur"
-                                         Storyboard.TargetProperty="(Radius)"
-                                         To="0" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -104,12 +90,6 @@
                     <Binding Path="Name" />
                 </MultiBinding>
             </Image.Source>
-            <Image.Effect>
-                <DropShadowEffect BlurRadius="3"
-                                  Direction="0"
-                                  RenderingBias="Quality"
-                                  ShadowDepth="0" />
-            </Image.Effect>
         </Image>
         <DockPanel Grid.Row="0"
                    Grid.RowSpan="3"

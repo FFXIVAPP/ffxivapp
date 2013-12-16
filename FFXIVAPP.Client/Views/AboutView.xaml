@@ -65,12 +65,7 @@
                        Height="40"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/FFXIVAPP.png">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="3"
-                                          Direction="0"
-                                          RenderingBias="Quality"
-                                          ShadowDepth="0" />
-                    </Image.Effect>
+      
                 </Image>
                 <DockPanel Grid.Row="0"
                            Grid.RowSpan="3"

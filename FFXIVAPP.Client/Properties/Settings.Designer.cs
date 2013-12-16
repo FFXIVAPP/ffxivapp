@@ -465,7 +465,7 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Software")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hardware (If Available)")]
         public string PerformanceMode {
             get {
                 return ((string)(this["PerformanceMode"]));

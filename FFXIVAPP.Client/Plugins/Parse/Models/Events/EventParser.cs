@@ -33,6 +33,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         #region Declarations
 
+        #region Filtered Events
+
+        public const UInt64 AllianceMember = ((UInt64) EventDirection.AllianceMember | (UInt64) EventSubject.AllianceMember);
+        public const UInt64 Engaged = ((UInt64) EventDirection.Engaged | (UInt64) EventSubject.Engaged);
+        public const UInt64 FriendlyNPC = ((UInt64) EventDirection.FriendlyNPC | (UInt64) EventSubject.FriendlyNPC);
+        public const UInt64 NPC = ((UInt64) EventDirection.NPC | (UInt64) EventSubject.NPC);
+        public const UInt64 Other = ((UInt64) EventDirection.Other | (UInt64) EventSubject.Other);
+        public const UInt64 Party = ((UInt64) EventDirection.Party | (UInt64) EventSubject.Party);
+        public const UInt64 Pets = ((UInt64) EventDirection.Pets | (UInt64) EventSubject.Pets);
+        public const UInt64 PetsAlliance = ((UInt64) EventDirection.PetsAlliance | (UInt64) EventSubject.PetsAlliance);
+        public const UInt64 PetsOther = ((UInt64) EventDirection.PetsOther | (UInt64) EventSubject.PetsOther);
+        public const UInt64 PetsParty = ((UInt64) EventDirection.PetsParty | (UInt64) EventSubject.PetsParty);
+        public const UInt64 Self = ((UInt64) EventDirection.Self);
+        public const UInt64 UnEngaged = ((UInt64) EventDirection.UnEngaged | (UInt64) EventSubject.UnEngaged);
+        public const UInt64 Unknown = ((UInt64) EventDirection.Unknown | (UInt64) EventSubject.Unknown);
+        public const UInt64 You = ((UInt64) EventDirection.You | (UInt64) EventSubject.You);
+
+        #endregion
+
         public const UInt64 DirectionMask = 0x1FFF;
         public const UInt64 SubjectMask = 0x1FFE000;
         public const UInt64 TypeMask = 0x3FFFE000000;
