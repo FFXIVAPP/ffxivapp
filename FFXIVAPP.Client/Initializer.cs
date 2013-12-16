@@ -133,6 +133,13 @@ namespace FFXIVAPP.Client
             App.Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
+                var pluginName = pluginInstance.Instance.FriendlyName;
+                if (SettingsViewModel.Instance.HomePluginList.Any(p => p.ToUpperInvariant()
+                                                                        .StartsWith(pluginName.ToUpperInvariant())))
+                {
+                    pluginName = String.Format("{0}[{1}]", pluginName, new Random().Next(1000, 9999));
+                }
+                SettingsViewModel.Instance.HomePluginList.Add(pluginName);
                 try
                 {
                     var tabItem = pluginInstance.Instance.CreateTab();
@@ -168,10 +175,23 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void GetHomePlugin()
         {
-            switch (Settings.Default.HomePlugin)
+            var homePlugin = Settings.Default.HomePlugin;;
+            switch (homePlugin)
             {
+                case "None":
+                    break;
                 case "Parse":
                     SetHomePlugin(0);
+                    break;
+                default:
+                    try
+                    {
+                        var index = SettingsViewModel.Instance.HomePluginList.IndexOf(homePlugin);
+                        SetHomePlugin(--index);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     break;
             }
         }

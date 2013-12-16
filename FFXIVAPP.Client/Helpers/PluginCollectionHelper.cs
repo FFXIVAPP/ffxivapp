@@ -14,7 +14,6 @@ namespace FFXIVAPP.Client.Helpers
     internal class PluginCollectionHelper : CollectionBase
     {
         /// <summary>
-        ///     add to collection
         /// </summary>
         /// <param name="plugin"> </param>
         public void Add(PluginInstance plugin)
@@ -23,7 +22,6 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         /// <summary>
-        ///     remove from collection
         /// </summary>
         /// <param name="plugin"> </param>
         public void Remove(PluginInstance plugin)
@@ -32,7 +30,6 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         /// <summary>
-        ///     find plugin by name
         /// </summary>
         /// <param name="plugin"> </param>
         /// <returns> </returns>

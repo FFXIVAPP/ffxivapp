@@ -64,6 +64,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         continue;
                     }
                     var zeroFoundInList = false;
+                    var bio = false;
                     foreach (var lastDamageAmountByAction in LastDamageAmountByAction.ToList())
                     {
                         if (Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
@@ -93,6 +94,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         }
                         if (Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
                         {
+                            bio = true;
                             var found = false;
                             var ruinActions = DamageOverTimeHelper.RuinActions;
                             var action = lastDamageAmountByAction;
@@ -130,7 +132,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
                         amount = keyValuePairs.Sum(action => action.Value);
                         amount = amount / keyValuePairs.Count();
-                        var damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) * (NPCEntry.Level / 50m));
+                        var damage = 0m;
+                        switch (bio)
+                        {
+                            case true:
+                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) * (NPCEntry.Level / 50m));
+                                break;
+                            case false:
+                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                                break;
+                        }
                         tickDamage = damage > 0 ? damage : tickDamage;
                     }
                     if (amount > 300)

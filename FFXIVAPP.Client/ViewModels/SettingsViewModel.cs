@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
@@ -32,10 +34,30 @@ namespace FFXIVAPP.Client.ViewModels
         #region Property Bindings
 
         private static SettingsViewModel _instance;
+        private List<string> _homePluginList;
 
         public static SettingsViewModel Instance
         {
             get { return _instance ?? (_instance = new SettingsViewModel()); }
+        }
+
+        public List<string> HomePluginList
+        {
+            get
+            {
+                return _homePluginList ?? (_homePluginList = new List<string>(Settings.Default.HomePluginList.Cast<string>()
+                                                                                      .ToList()));
+            }
+            set
+            {
+                if (_homePluginList == null)
+                {
+                    _homePluginList = new List<string>(Settings.Default.HomePluginList.Cast<string>()
+                                                               .ToList());
+                }
+                _homePluginList = value;
+                RaisePropertyChanged();
+            }
         }
 
         #endregion
@@ -44,6 +66,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static string _key = "";
         private static string _value = "";
+        
         public ICommand SetProcessCommand { get; private set; }
         public ICommand RefreshListCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }

@@ -46,8 +46,7 @@
                                 <ComboBox x:Name="HomePluginSelect"
                                           Margin="5"
                                           IsReadOnly="False"
-                                          ItemsSource="{Binding HomePluginList,
-                                                                Source={x:Static Properties:Settings.Default}}"
+                                          ItemsSource="{Binding HomePluginList}"
                                           SelectedValue="{Binding HomePlugin,
                                                                   Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
