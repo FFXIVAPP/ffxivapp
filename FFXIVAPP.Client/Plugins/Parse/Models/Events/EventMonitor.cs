@@ -6,7 +6,9 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
@@ -102,10 +104,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
         /// <param name="e"> </param>
         private void FilterUnknownEvent(object source, Event e)
         {
-            if (!e.MatchesFilter(Filter, e))
-            {
-                return;
-            }
             LastEventReceived = e.Timestamp;
             HandleUnknownEvent(e);
         }

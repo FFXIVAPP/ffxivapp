@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
@@ -79,7 +80,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1064;
+                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] +  1136;
                             var enmityEntries = new List<EnmityEntry>();
                             var targetEntity = new TargetEntity();
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
@@ -143,15 +144,15 @@ namespace FFXIVAPP.Client.Memory
                                                 }
                                             }
                                             // setup DoT: +12104
-                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                             {
-                                                entry.StatusEntries.Add(new StatusEntry
-                                                {
-                                                    TargetName = entry.Name,
-                                                    StatusID = status.StatusID,
-                                                    Duration = status.Duration,
-                                                    CasterID = status.CasterID
-                                                });
+                                                TargetName = entry.Name,
+                                                StatusID = status.StatusID,
+                                                Duration = status.Duration,
+                                                CasterID = status.CasterID
+                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            {
+                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {
@@ -217,15 +218,15 @@ namespace FFXIVAPP.Client.Memory
                                                 }
                                             }
                                             // setup DoT: +12104
-                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                             {
-                                                entry.StatusEntries.Add(new StatusEntry
-                                                {
-                                                    TargetName = entry.Name,
-                                                    StatusID = status.StatusID,
-                                                    Duration = status.Duration,
-                                                    CasterID = status.CasterID
-                                                });
+                                                TargetName = entry.Name,
+                                                StatusID = status.StatusID,
+                                                Duration = status.Duration,
+                                                CasterID = status.CasterID
+                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            {
+                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {
@@ -290,15 +291,15 @@ namespace FFXIVAPP.Client.Memory
                                             }
                                         }
                                         // setup DoT: +12104
-                                        foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                        foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                         {
-                                            entry.StatusEntries.Add(new StatusEntry
-                                            {
-                                                TargetName = entry.Name,
-                                                StatusID = status.StatusID,
-                                                Duration = status.Duration,
-                                                CasterID = status.CasterID
-                                            });
+                                            TargetName = entry.Name,
+                                            StatusID = status.StatusID,
+                                            Duration = status.Duration,
+                                            CasterID = status.CasterID
+                                        }).Where(statusEntry => statusEntry.IsValid()))
+                                        {
+                                            entry.StatusEntries.Add(statusEntry);
                                         }
                                         if (entry.IsValid)
                                         {
@@ -359,15 +360,15 @@ namespace FFXIVAPP.Client.Memory
                                                 }
                                             }
                                             // setup DoT: +12104
-                                            foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                             {
-                                                entry.StatusEntries.Add(new StatusEntry
-                                                {
-                                                    TargetName = entry.Name,
-                                                    StatusID = status.StatusID,
-                                                    Duration = status.Duration,
-                                                    CasterID = status.CasterID
-                                                });
+                                                TargetName = entry.Name,
+                                                StatusID = status.StatusID,
+                                                Duration = status.Duration,
+                                                CasterID = status.CasterID
+                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            {
+                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {
@@ -389,15 +390,23 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < 16; i++)
                                     {
-                                        var address = targetHateStructure + (i * 72);
+                                        var address = targetHateStructure + (i * 64);
                                         var enmityEntry = new EnmityEntry
                                         {
-                                            Name = MemoryHandler.Instance.GetString(address),
-                                            ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
-                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address + 68)
+                                            ID = (uint) MemoryHandler.Instance.GetInt32(address),
+                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address + 4)
                                         };
                                         if (enmityEntry.ID > 0)
                                         {
+                                            if (PCWorkerDelegate.UniqueNPCEntries.Any())
+                                            {
+                                                if (PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                    .Any(a => a.ID == enmityEntry.ID))
+                                                {
+                                                    enmityEntry.Name = PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                                       .First(a => a.ID == enmityEntry.ID).Name;
+                                                }
+                                            }
                                             enmityEntries.Add(enmityEntry);
                                         }
                                     }

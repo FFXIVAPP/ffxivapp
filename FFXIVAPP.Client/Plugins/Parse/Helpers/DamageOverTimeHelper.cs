@@ -141,10 +141,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
                 _playerActions.Add("demolish", new DamageOverTimeAction
                 {
-                    ActionPotency = 100,
+                    ActionPotency = 55,
                     DamageOverTimePotency = 40,
                     Duration = 18,
-                    ZeroBaseDamageDOT = true
+                    ZeroBaseDamageDOT = false
                 });
                 _playerActions.Add("demolieren", _playerActions["demolish"]);
                 _playerActions.Add("démolition", _playerActions["demolish"]);
@@ -164,7 +164,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
                 _playerActions.Add("phlebotomize", new DamageOverTimeAction
                 {
                     ActionPotency = 170,
-                    DamageOverTimePotency = 20,
+                    DamageOverTimePotency = 25,
                     Duration = 18,
                     ZeroBaseDamageDOT = false
                 });
@@ -174,7 +174,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
                 _playerActions.Add("chaos thrust", new DamageOverTimeAction
                 {
-                    ActionPotency = 160,
+                    ActionPotency = 200,
                     DamageOverTimePotency = 20,
                     Duration = 30,
                     ZeroBaseDamageDOT = false

@@ -16,12 +16,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
         Party = 0x00000000004,
         Other = 0x00000000008,
         NPC = 0x00000000010,
-        AllianceMember = 0x00000000020,
+        Alliance = 0x00000000020,
         FriendlyNPC = 0x00000000040,
-        Pets = 0x00000000080,
-        PetsParty = 0x00000000100,
-        PetsAlliance = 0x00000000200,
-        PetsOther = 0x00000000400,
+        Pet = 0x00000000080,
+        PetParty = 0x00000000100,
+        PetAlliance = 0x00000000200,
+        PetOther = 0x00000000400,
         Engaged = 0x00000000800,
         UnEngaged = 0x00000001000
     }

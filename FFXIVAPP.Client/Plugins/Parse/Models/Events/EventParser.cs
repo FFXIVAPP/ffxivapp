@@ -35,16 +35,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
 
         #region Filtered Events
 
-        public const UInt64 AllianceMember = ((UInt64) EventDirection.AllianceMember | (UInt64) EventSubject.AllianceMember);
+        public const UInt64 Alliance = ((UInt64) EventDirection.Alliance | (UInt64) EventSubject.Alliance);
         public const UInt64 Engaged = ((UInt64) EventDirection.Engaged | (UInt64) EventSubject.Engaged);
         public const UInt64 FriendlyNPC = ((UInt64) EventDirection.FriendlyNPC | (UInt64) EventSubject.FriendlyNPC);
         public const UInt64 NPC = ((UInt64) EventDirection.NPC | (UInt64) EventSubject.NPC);
         public const UInt64 Other = ((UInt64) EventDirection.Other | (UInt64) EventSubject.Other);
         public const UInt64 Party = ((UInt64) EventDirection.Party | (UInt64) EventSubject.Party);
-        public const UInt64 Pets = ((UInt64) EventDirection.Pets | (UInt64) EventSubject.Pets);
-        public const UInt64 PetsAlliance = ((UInt64) EventDirection.PetsAlliance | (UInt64) EventSubject.PetsAlliance);
-        public const UInt64 PetsOther = ((UInt64) EventDirection.PetsOther | (UInt64) EventSubject.PetsOther);
-        public const UInt64 PetsParty = ((UInt64) EventDirection.PetsParty | (UInt64) EventSubject.PetsParty);
+        public const UInt64 Pet = ((UInt64) EventDirection.Pet | (UInt64) EventSubject.Pet);
+        public const UInt64 PetAlliance = ((UInt64) EventDirection.PetAlliance | (UInt64) EventSubject.PetAlliance);
+        public const UInt64 PetOther = ((UInt64) EventDirection.PetOther | (UInt64) EventSubject.PetOther);
+        public const UInt64 PetParty = ((UInt64) EventDirection.PetParty | (UInt64) EventSubject.PetParty);
         public const UInt64 Self = ((UInt64) EventDirection.Self);
         public const UInt64 UnEngaged = ((UInt64) EventDirection.UnEngaged | (UInt64) EventSubject.UnEngaged);
         public const UInt64 Unknown = ((UInt64) EventDirection.Unknown | (UInt64) EventSubject.Unknown);
@@ -177,23 +177,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
                     case "NPC":
                         thisGroup.Subject = EventSubject.NPC;
                         break;
-                    case "AllianceMember":
-                        thisGroup.Subject = EventSubject.AllianceMember;
+                    case "Alliance":
+                        thisGroup.Subject = EventSubject.Alliance;
                         break;
                     case "FriendlyNPC":
                         thisGroup.Subject = EventSubject.FriendlyNPC;
                         break;
-                    case "Pets":
-                        thisGroup.Subject = EventSubject.Pets;
+                    case "Pet":
+                        thisGroup.Subject = EventSubject.Pet;
                         break;
-                    case "PetsParty":
-                        thisGroup.Subject = EventSubject.PetsParty;
+                    case "PetParty":
+                        thisGroup.Subject = EventSubject.PetParty;
                         break;
-                    case "PetsAlliance":
-                        thisGroup.Subject = EventSubject.PetsAlliance;
+                    case "PetAlliance":
+                        thisGroup.Subject = EventSubject.PetAlliance;
                         break;
-                    case "PetsOther":
-                        thisGroup.Subject = EventSubject.PetsOther;
+                    case "PetOther":
+                        thisGroup.Subject = EventSubject.PetOther;
                         break;
                     case "Engaged":
                         thisGroup.Subject = EventSubject.Engaged;
@@ -222,23 +222,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
                     case "NPC":
                         thisGroup.Direction = EventDirection.NPC;
                         break;
-                    case "AllianceMember":
-                        thisGroup.Subject = EventSubject.AllianceMember;
+                    case "Alliance":
+                        thisGroup.Subject = EventSubject.Alliance;
                         break;
                     case "FriendlyNPC":
                         thisGroup.Subject = EventSubject.FriendlyNPC;
                         break;
-                    case "Pets":
-                        thisGroup.Subject = EventSubject.Pets;
+                    case "Pet":
+                        thisGroup.Subject = EventSubject.Pet;
                         break;
-                    case "PetsParty":
-                        thisGroup.Subject = EventSubject.PetsParty;
+                    case "PetParty":
+                        thisGroup.Subject = EventSubject.PetParty;
                         break;
-                    case "PetsAlliance":
-                        thisGroup.Subject = EventSubject.PetsAlliance;
+                    case "PetAlliance":
+                        thisGroup.Subject = EventSubject.PetAlliance;
                         break;
-                    case "PetsOther":
-                        thisGroup.Subject = EventSubject.PetsOther;
+                    case "PetOther":
+                        thisGroup.Subject = EventSubject.PetOther;
                         break;
                     case "Engaged":
                         thisGroup.Direction = EventDirection.Engaged;
@@ -267,7 +267,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
         /// <summary>
         /// </summary>
         /// <param name="chatLogEntry"></param>
-        /// <param name="live"></param>
         /// <returns></returns>
         private Event Parse(ChatLogEntry chatLogEntry)
         {

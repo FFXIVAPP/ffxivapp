@@ -402,26 +402,26 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "DB0FC93F6F1283??????????000000??DB0FC93F6F1283????????00",
-                Offset = 780
+                Value = "DB0FC93FDB0F49416F12833AFFFFFFFF000000E0000000E0DB0FC93F",
+                Offset = 804
             });
             signatures.Add(new Signature
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2444
+                Offset = 2524
             });
             signatures.Add(new Signature
             {
                 Key = "MAP",
-                Value = "F783843E????????DB0FC93F6F12833A",
-                Offset = 784
+                Value = "F783843E????????????????DB0FC93FDB0F49416F1283??",
+                Offset = 820
             });
             signatures.Add(new Signature
             {
                 Key = "TARGET",
-                Value = "DB0FC93F6F12833ADB0FC940920A063F",
-                Offset = 128
+                Value = "DB0F49416F1283??????????????????DB0FC940920A063F",
+                Offset = 136
             });
         }
 

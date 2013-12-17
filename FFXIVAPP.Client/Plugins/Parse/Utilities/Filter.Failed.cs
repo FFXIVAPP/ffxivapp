@@ -31,6 +31,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     {
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
+                        case EventDirection.Unknown:
                             failed = exp.pFailed;
                             switch (failed.Success)
                             {
@@ -56,6 +57,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     {
                         case EventDirection.Engaged:
                         case EventDirection.UnEngaged:
+                        case EventDirection.Unknown:
                             failed = exp.pFailed;
                             switch (failed.Success)
                             {

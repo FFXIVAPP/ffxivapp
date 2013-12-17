@@ -21,7 +21,7 @@ namespace FFXIVAPP.Common.Core.Memory
         public float Duration { get; set; }
         public uint CasterID { get; set; }
 
-        bool IStatusEntry.IsValid()
+        public bool IsValid()
         {
             return StatusID > 0 && CasterID > 0;
         }

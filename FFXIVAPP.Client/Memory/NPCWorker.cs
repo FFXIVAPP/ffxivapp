@@ -149,15 +149,15 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                 }
                                 // setup DoT: +12104
-                                foreach (var status in actor.Statuses.Where(s => s.StatusID > 0))
+                                foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                 {
-                                    entry.StatusEntries.Add(new StatusEntry
-                                    {
-                                        TargetName = entry.Name,
-                                        StatusID = status.StatusID,
-                                        Duration = status.Duration,
-                                        CasterID = status.CasterID
-                                    });
+                                    TargetName = entry.Name,
+                                    StatusID = status.StatusID,
+                                    Duration = status.Duration,
+                                    CasterID = status.CasterID
+                                }).Where(statusEntry => statusEntry.IsValid()))
+                                {
+                                    entry.StatusEntries.Add(statusEntry);
                                 }
                                 if (!entry.IsValid)
                                 {

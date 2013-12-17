@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
@@ -30,7 +31,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             IncludeSelf = false;
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Engaged | EventParser.UnEngaged);
+                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Engaged | EventParser.UnEngaged | (UInt64) EventDirection.Unknown);
+                //Filter = (EventParser.AllEvents);
             }
         }
 
@@ -193,6 +195,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleUnknownEvent(Event e)
         {
+            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "UnknownEvent", e);
         }
     }
 }

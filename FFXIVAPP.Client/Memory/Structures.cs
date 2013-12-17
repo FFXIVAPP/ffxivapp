@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Client
+﻿    // FFXIVAPP.Client
 // Structures.cs
 // 
 // © 2013 Ryan Wilson
@@ -115,55 +115,55 @@ namespace FFXIVAPP.Client.Memory
             public int TargetID;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(5769)]
+            [FieldOffset(5785)]
             public byte Level;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(5770)]
+            [FieldOffset(5786)]
             public byte GrandCompany;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(5771)]
+            [FieldOffset(5787)]
             public byte GrandCompanyRank;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(5774)]
+            [FieldOffset(5790)]
             public byte Title;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(5776)]
+            [FieldOffset(5792)]
             public int HPCurrent;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(5780)]
+            [FieldOffset(5796)]
             public int HPMax;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(5784)]
+            [FieldOffset(5800)]
             public int MPCurrent;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(5788)]
+            [FieldOffset(5804)]
             public int MPMax;
 
             [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(5792)]
+            [FieldOffset(5808)]
             public short TPCurrent;
 
             [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(5794)]
+            [FieldOffset(5810)]
             public short GPCurrent;
 
             [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(5796)]
+            [FieldOffset(5812)]
             public short GPMax;
 
             [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(5798)]
+            [FieldOffset(5814)]
             public short CPCurrent;
 
             [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(5800)]
+            [FieldOffset(5816)]
             public short CPMax;
 
             [MarshalAs(UnmanagedType.I1)]
@@ -175,7 +175,7 @@ namespace FFXIVAPP.Client.Memory
             public byte Sex;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
-            [FieldOffset(12104)]
+            [FieldOffset(12112)]
             public Status[] Statuses;
         }
 

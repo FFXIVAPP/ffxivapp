@@ -17,19 +17,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     {
         public static void Log(Logger logger, string type, Event e, Expressions exp = null)
         {
-            var cleaned = "";
+            var cleaned = String.Format("{0}:{1}", e.ChatLogEntry.Code, e.ChatLogEntry.Line);
             if (exp != null)
             {
-                cleaned = exp.Cleaned;
+                cleaned = String.Format("{0}:{1}", e.Code, exp.Cleaned);
             }
-            var data = String.Format("Unknown {0} Line -> [Subject:{1}][Direction:{2}] {3}:{4}", type, e.Subject, e.Direction, String.Format("{0:X4}", e.Code), cleaned);
+            var data = String.Format("Unknown {0} Line -> [Type:{1}][Subject:{2}][Direction:{3}] {4}", type,e.Type, e.Subject, e.Direction, cleaned);
             Logging.Log(logger, data);
         }
 
         public static void Error(Logger logger, string type, Event e, Exception ex)
         {
             var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.ChatLogEntry.Line, ex.StackTrace);
-            Logging.Log(logger, data);
+            Logging.Log(logger, data, ex);
         }
     }
 }

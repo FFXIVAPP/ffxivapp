@@ -87,35 +87,35 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     continue;
                                 }
-                                var npc = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
+                                var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                 var entry = new ActorEntity
                                 {
                                     Name = MemoryHandler.Instance.GetString(characterAddress, 48),
-                                    ID = npc.ID,
-                                    NPCID1 = npc.NPCID1,
-                                    NPCID2 = npc.NPCID2,
-                                    Type = npc.Type,
-                                    Coordinate = new Coordinate(npc.X, npc.Z, npc.Y),
-                                    X = npc.X,
-                                    Z = npc.Z,
-                                    Y = npc.Y,
-                                    Heading = npc.Heading,
-                                    Fate = npc.Fate,
-                                    ModelID = npc.ModelID,
-                                    Icon = npc.Icon,
-                                    Claimed = npc.Claimed,
-                                    TargetID = npc.TargetID,
-                                    Level = npc.Level,
-                                    HPCurrent = npc.HPCurrent,
-                                    HPMax = npc.HPMax,
-                                    MPCurrent = npc.MPCurrent,
-                                    MPMax = npc.MPMax,
-                                    TPCurrent = npc.TPCurrent,
+                                    ID = actor.ID,
+                                    NPCID1 = actor.NPCID1,
+                                    NPCID2 = actor.NPCID2,
+                                    Type = actor.Type,
+                                    Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                    X = actor.X,
+                                    Z = actor.Z,
+                                    Y = actor.Y,
+                                    Heading = actor.Heading,
+                                    Fate = actor.Fate,
+                                    ModelID = actor.ModelID,
+                                    Icon = actor.Icon,
+                                    Claimed = actor.Claimed,
+                                    TargetID = actor.TargetID,
+                                    Level = actor.Level,
+                                    HPCurrent = actor.HPCurrent,
+                                    HPMax = actor.HPMax,
+                                    MPCurrent = actor.MPCurrent,
+                                    MPMax = actor.MPMax,
+                                    TPCurrent = actor.TPCurrent,
                                     TPMax = 1000,
-                                    GPCurrent = npc.GPCurrent,
-                                    GPMax = npc.GPMax,
-                                    CPCurrent = npc.CPCurrent,
-                                    CPMax = npc.CPMax
+                                    GPCurrent = actor.GPCurrent,
+                                    GPMax = actor.GPMax,
+                                    CPCurrent = actor.CPCurrent,
+                                    CPMax = actor.CPMax
                                 };
                                 if (entry.HPMax == 0)
                                 {
@@ -149,15 +149,15 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                 }
                                 // setup DoT: +12104
-                                foreach (var status in npc.Statuses.Where(s => s.StatusID > 0))
+                                foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
                                 {
-                                    entry.StatusEntries.Add(new StatusEntry
-                                    {
-                                        TargetName = entry.Name,
-                                        StatusID = status.StatusID,
-                                        Duration = status.Duration,
-                                        CasterID = status.CasterID
-                                    });
+                                    TargetName = entry.Name,
+                                    StatusID = status.StatusID,
+                                    Duration = status.Duration,
+                                    CasterID = status.CasterID
+                                }).Where(statusEntry => statusEntry.IsValid()))
+                                {
+                                    entry.StatusEntries.Add(statusEntry);
                                 }
                                 if (!entry.IsValid)
                                 {
