@@ -31,12 +31,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.Self:
-                            _isParty = false;
                             items = exp.pItems;
                             if (items.Success)
                             {
-                                line.Source = _lastNamePlayer;
-                                _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                                line.Source = You;
+                                _lastActionYou = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Pet:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
+                                _lastNamePet = line.Source;
+                                _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;
                     }
@@ -51,6 +65,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 line.Source = Convert.ToString(items.Groups["source"].Value);
                                 _lastNamePartyFrom = line.Source;
                                 _lastActionPartyFrom = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetParty:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
+                                _lastNamePetPartyFrom = line.Source;
+                                _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;
                     }

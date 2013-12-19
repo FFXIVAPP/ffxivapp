@@ -14,23 +14,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights
     {
         #region Property Bindings
 
-        private string _mobName;
+        private string _monsterName;
 
-        public string MobName
+        public string MonsterName
         {
-            get { return _mobName; }
+            get { return _monsterName; }
             private set
             {
-                _mobName = value;
+                _monsterName = value;
                 RaisePropertyChanged();
             }
         }
 
         #endregion
 
-        public Fight(string mobName = "")
+        public Fight(string monsterName = "")
         {
-            MobName = mobName;
+            MonsterName = monsterName;
         }
 
         #region Implementation of INotifyPropertyChanged

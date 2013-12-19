@@ -16,26 +16,57 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     public static partial class Filter
     {
         // setup self info
-        private static readonly string You = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-        private static Event _lastEventPlayer;
-        private static string _lastNamePlayer = You;
-        private static string _lastActionPlayer = "";
+
+        // setup you
+        private static Event _lastEventYou;
+        private static string _lastActionYou = "";
+        private static bool _lastActionYouIsAttack;
+
+        // setup you pet
+        private static Event _lastEventPet;
+        private static string _lastNamePet = "";
+        private static string _lastActionPet = "";
+        private static bool _lastActionPetIsAttack;
 
         // setup party info
         private static Event _lastEventParty;
         private static string _lastNamePartyFrom = "";
         private static string _lastActionPartyFrom = "";
         private static string _lastNamePartyTo = "";
-        private static string _lastActionPartyTo = "";
+        private static bool _lastActionPartyIsAttack;
 
+        // setup party pet info
+        private static Event _lastEventPetParty;
+        private static string _lastNamePetPartyFrom = "";
+        private static string _lastActionPetPartyFrom = "";
+        private static string _lastNamePetPartyTo = "";
+        private static bool _lastActionPetPartyIsAttack;
+
+        // setup alliance info
+        private static Event _lastEventAlliance;
+        private static string _lastNameAllianceFrom = "";
+        private static string _lastActionAllianceFrom = "";
+        private static string _lastNameAllianceTo = "";
+        private static bool _lastActionAllianceIsAttack;
+
+        // setup alliancepet  info
+        private static Event _lastEventPetAlliance;
+        private static string _lastNamePetAllianceFrom = "";
+        private static string _lastActionPetAllianceFrom = "";
+        private static string _lastNamePetAllianceTo = "";
+        private static bool _lastActionPetAllianceIsAttack;
 
         // setup monster info
-        private static string _lastMobName = "";
-        private static string _lastMobAction = "";
+        private static string _lastNameMonster = "";
+        private static string _lastActionMonster = "";
+        private static bool _lastActionMonsterIsAttack;
 
-        private static bool _autoAction;
-        private static bool _lastActionIsAttack;
-        private static bool _isParty;
+        private static FilterType _type;
+
+        private static string You
+        {
+            get { return String.IsNullOrWhiteSpace(Constants.CharacterName.Trim()) ? "You" : Constants.CharacterName; }
+        }
 
         public static void Process(Event e)
         {
@@ -44,10 +75,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 ParseControl.Instance.Reset();
             }
 
+            _lastEventYou = _lastEventYou ?? new Event();
+            _lastEventPet = _lastEventPet ?? new Event();
             _lastEventParty = _lastEventParty ?? new Event();
-            _lastEventPlayer = _lastEventPlayer ?? new Event();
-            _autoAction = false;
-            _isParty = true;
+            _lastEventPetParty = _lastEventPetParty ?? new Event();
+            _lastEventAlliance = _lastEventAlliance ?? new Event();
+            _lastEventPetAlliance = _lastEventPetAlliance ?? new Event();
+
+            _type = FilterType.Unknown;
 
             var expressions = new Expressions(e);
 
@@ -95,13 +130,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     break;
             }
 
-            if (_isParty)
+            switch (_type)
             {
-                _lastEventParty = e;
-            }
-            else
-            {
-                _lastEventPlayer = e;
+                case FilterType.You:
+                    _lastEventYou = e;
+                    break;
+                case FilterType.Pet:
+                    _lastEventPet = e;
+                    break;
+                case FilterType.Party:
+                    _lastEventParty = e;
+                    break;
+                case FilterType.PetParty:
+                    _lastEventPetParty = e;
+                    break;
+                case FilterType.Alliance:
+                    _lastEventAlliance = e;
+                    break;
+                case FilterType.PetAlliance:
+                    _lastEventPetAlliance = e;
+                    break;
             }
 
             switch (Settings.Default.StoreHistoryEvent)

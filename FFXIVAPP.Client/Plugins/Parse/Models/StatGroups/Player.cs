@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;
@@ -27,6 +28,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
+
+        public TimelineType Type { get; set; }
 
         public readonly Timer StatusUpdateTimer = new Timer(1000);
         public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
@@ -105,7 +108,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimerProcessing = false;
                 return;
             }
-            ProcessDamageOverTime(StatusEntriesMonster, isYou);
+            ProcessDamageOverTime(StatusEntriesMonster, Type);
         }
 
         private void InitStats()

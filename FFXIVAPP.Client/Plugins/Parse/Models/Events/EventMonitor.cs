@@ -6,9 +6,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
-using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.Events

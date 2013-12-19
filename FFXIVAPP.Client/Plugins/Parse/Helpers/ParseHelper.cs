@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using SmartAssembly.Attributes;
 
@@ -64,14 +66,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
         /// <summary>
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="exp"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetPetFromPlayer(string name, Expressions exp)
+        public static string GetPetFromPlayer(string name, Expressions exp, TimelineType type)
         {
-            if (Regex.IsMatch(name, exp.You))
+            foreach (var pet in _pets.Where(pet => String.Equals(pet, name, Constants.InvariantComparer)))
             {
-                name = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
+                switch (type)
+                {
+                    case TimelineType.You:
+                        return String.Format("{0} [{1}]", name, exp.YouString);
+                    case TimelineType.Party:
+                        return String.Format("{0} [P]", name);
+                    case TimelineType.Alliance:
+                        return String.Format("{0} [A]", name);
+                }
             }
-            return _pets.Contains(name.ToLower()) ? String.Format("{0} [{1}]", name, exp.YouString) : name;
+            return String.Format("{0} [{1}]", name, "???");
         }
     }
 }

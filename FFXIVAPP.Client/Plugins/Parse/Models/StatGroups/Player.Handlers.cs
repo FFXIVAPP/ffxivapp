@@ -23,8 +23,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="statusEntriesMonster"></param>
-        /// <param name="isYou"></param>
-        private void ProcessDamageOverTime(IEnumerable<StatusEntry> statusEntriesMonster, bool isYou)
+        /// <param name="type"></param>
+        private void ProcessDamageOverTime(IEnumerable<StatusEntry> statusEntriesMonster, TimelineType type)
         {
             foreach (var statusEntry in statusEntriesMonster)
             {
@@ -155,15 +155,26 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         Target = statusEntry.TargetName,
                         Amount = tickDamage,
                         EventDirection = EventDirection.Engaged,
-                        EventSubject = isYou ? EventSubject.You : EventSubject.Party,
                         EventType = EventType.Damage
                     };
+                    switch (type)
+                    {
+                        case TimelineType.You:
+                            line.EventSubject = EventSubject.You;
+                            break;
+                        case TimelineType.Party:
+                            line.EventSubject = EventSubject.Party;
+                            break;
+                        case TimelineType.Alliance:
+                            line.EventSubject = EventSubject.Alliance;
+                            break;
+                    }
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source, type)
                                     .SetDamage(line, true);
-                        ParseControl.Instance.Timeline.GetSetMob(line.Target)
+                        ParseControl.Instance.Timeline.GetSetMonster(line.Target, type)
                                     .SetDamageTaken(line, true);
                     });
                 }

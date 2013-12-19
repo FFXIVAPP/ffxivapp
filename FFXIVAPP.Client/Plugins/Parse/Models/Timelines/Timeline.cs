@@ -32,9 +32,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         private FightList _fights;
         private string _lastEngaged;
         private string _lastKilled;
-        private StatGroup _monster;
-        private StatGroup _overall;
-        private StatGroup _party;
 
         public bool FightingRightNow
         {
@@ -86,6 +83,22 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
+        private ParseControl Controller
+        {
+            get { return _controller; }
+            set
+            {
+                _controller = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #region Party
+
+        private StatGroup _monster;
+        private StatGroup _overall;
+        private StatGroup _party;
+
         public StatGroup Overall
         {
             get { return _overall; }
@@ -116,15 +129,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
-        private ParseControl Controller
-        {
-            get { return _controller; }
-            set
-            {
-                _controller = value;
-                RaisePropertyChanged();
-            }
-        }
+        #endregion
 
         #endregion
 
@@ -154,6 +159,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             FightingRightNow = false;
             DeathFound = false;
             Fights = new FightList();
+            // setup party
             Overall = new StatGroup("Overall");
             Party = new StatGroup("Party")
             {
@@ -203,35 +209,50 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         /// <summary>
         /// </summary>
-        /// <param name="mobName"> </param>
+        /// <param name="monsterName"> </param>
+        /// <param name="type"></param>
         /// <returns> </returns>
-        public Monster GetSetMob(string mobName)
+        public Monster GetSetMonster(string monsterName, TimelineType type)
         {
-            StatGroup statGroup;
-            if (Monster.TryGetGroup(mobName, out statGroup))
+            StatGroup statGroup = null;
+            switch (type)
             {
-                return (Monster) statGroup;
+                case TimelineType.You:
+                case TimelineType.Party:
+                    if (Monster.TryGetGroup(monsterName, out statGroup))
+                    {
+                        return (Monster) statGroup;
+                    }
+                    statGroup = new Monster(monsterName, Controller);
+                    ((Monster) statGroup).Type = type;
+                    Monster.AddGroup(statGroup);
+                    break;
             }
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for mob : {0}", mobName));
-            statGroup = new Monster(mobName, Controller);
-            Monster.AddGroup(statGroup);
+            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
             return (Monster) statGroup;
         }
 
         /// <summary>
         /// </summary>
         /// <param name="playerName"> </param>
+        /// <param name="type"></param>
         /// <returns> </returns>
-        public Player GetSetPlayer(string playerName)
+        public Player GetSetPlayer(string playerName, TimelineType type)
         {
-            StatGroup statGroup;
-            if (Party.TryGetGroup(playerName, out statGroup))
+            StatGroup statGroup = null;
+            switch (type)
             {
-                return (Player) statGroup;
+                case TimelineType.You:
+                case TimelineType.Party:
+                    if (Party.TryGetGroup(playerName, out statGroup))
+                    {
+                        return (Player) statGroup;
+                    }
+                    statGroup = new Player(playerName, Controller);
+                    Party.AddGroup(statGroup);
+                    break;
             }
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
-            statGroup = new Player(playerName, Controller);
-            Party.AddGroup(statGroup);
             return (Player) statGroup;
         }
 
@@ -245,7 +266,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("TimelineEvent : {0} {1}", eventType, args));
             if (eventArgs != null)
             {
-                var mobName = eventArgs.First() as String;
+                var monsterName = eventArgs.First() as String;
                 switch (eventType)
                 {
                     case TimelineEventType.PartyJoin:
@@ -259,37 +280,37 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                     case TimelineEventType.PartyLeave:
                         var whoLeft = eventArgs.Any() ? eventArgs.First() as string : String.Empty;
                         break;
-                    case TimelineEventType.MobFighting:
+                    case TimelineEventType.PartyMonsterFighting:
                         DeathFound = false;
-                        if (mobName != null && (mobName.ToLower()
-                                                       .Contains("target") || mobName == ""))
+                        if (monsterName != null && (monsterName.ToLower()
+                                                               .Contains("target") || monsterName == ""))
                         {
                             break;
                         }
                         Fight fighting;
-                        if (!Fights.TryGet(mobName, out fighting))
+                        if (!Fights.TryGet(monsterName, out fighting))
                         {
-                            fighting = new Fight(mobName);
+                            fighting = new Fight(monsterName);
                             Fights.Add(fighting);
                         }
-                        Controller.Timeline.LastEngaged = mobName;
+                        Controller.Timeline.LastEngaged = monsterName;
                         break;
-                    case TimelineEventType.MobKilled:
+                    case TimelineEventType.PartyMonsterKilled:
                         DeathFound = true;
-                        if (mobName != null && (mobName.ToLower()
-                                                       .Contains("target") || mobName == ""))
+                        if (monsterName != null && (monsterName.ToLower()
+                                                               .Contains("target") || monsterName == ""))
                         {
                             break;
                         }
                         Fight killed;
-                        if (!Fights.TryGet(mobName, out killed))
+                        if (!Fights.TryGet(monsterName, out killed))
                         {
-                            killed = new Fight(mobName);
+                            killed = new Fight(monsterName);
                             Fights.Add(killed);
                         }
-                        GetSetMob(mobName)
+                        GetSetMonster(monsterName, TimelineType.Party)
                             .SetKill(killed);
-                        Controller.Timeline.LastKilled = mobName;
+                        Controller.Timeline.LastKilled = monsterName;
                         break;
                 }
             }

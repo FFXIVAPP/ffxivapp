@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.Core.Memory;
@@ -20,6 +21,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
+
+        public TimelineType Type { get; set; }
 
         public readonly Timer StatusUpdateTimer = new Timer(1000);
         public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();

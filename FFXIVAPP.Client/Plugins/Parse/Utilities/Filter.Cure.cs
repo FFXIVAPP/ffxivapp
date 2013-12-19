@@ -30,12 +30,31 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.You:
+                        case EventDirection.Pet:
                         case EventDirection.Party:
+                        case EventDirection.PetParty:
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = _lastNamePlayer;
-                                UpdateHealingPlayer(cure, line, exp, false);
+                                line.Source = You;
+                                UpdateHealingParty(cure, line, exp, FilterType.You);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Pet:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.You:
+                        case EventDirection.Pet:
+                        case EventDirection.Party:
+                        case EventDirection.PetParty:
+                            cure = exp.pCure;
+                            if (cure.Success)
+                            {
+                                line.Source = _lastNamePet;
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
+                                UpdateHealingParty(cure, line, exp, FilterType.Pet);
                             }
                             break;
                     }
@@ -44,12 +63,31 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     switch (e.Direction)
                     {
                         case EventDirection.You:
+                        case EventDirection.Pet:
                         case EventDirection.Party:
+                        case EventDirection.PetParty:
                             cure = exp.pCure;
                             if (cure.Success)
                             {
                                 line.Source = _lastNamePartyFrom;
-                                UpdateHealingPlayer(cure, line, exp);
+                                UpdateHealingParty(cure, line, exp, FilterType.Party);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetParty:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.You:
+                        case EventDirection.Pet:
+                        case EventDirection.Party:
+                        case EventDirection.PetParty:
+                            cure = exp.pCure;
+                            if (cure.Success)
+                            {
+                                line.Source = _lastNamePetPartyFrom;
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
+                                UpdateHealingParty(cure, line, exp, FilterType.Pet);
                             }
                             break;
                     }
@@ -62,16 +100,30 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Cure", e, exp);
         }
 
-        private static void UpdateHealingPlayer(Match cure, Line line, Expressions exp, bool isParty = true)
+        private static void UpdateHealingParty(Match cure, Line line, Expressions exp, FilterType type)
         {
-            _isParty = isParty;
+            _type = type;
             try
             {
-                line.Action = isParty ? _lastActionPartyFrom : _lastActionPlayer;
+                switch (type)
+                {
+                    case FilterType.You:
+                        line.Action = _lastActionYou;
+                        break;
+                    case FilterType.Pet:
+                        line.Action = _lastActionPet;
+                        break;
+                    case FilterType.Party:
+                        line.Action = _lastActionPartyFrom;
+                        break;
+                    case FilterType.PetParty:
+                        line.Action = _lastActionPetPartyFrom;
+                        break;
+                }
                 line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;
                 line.Crit = cure.Groups["crit"].Success;
                 line.Modifier = cure.Groups["modifier"].Success ? Convert.ToDecimal(cure.Groups["modifier"].Value) / 100 : 0m;
-                line.Target = Convert.ToString(cure.Groups["target"].Value);
+                line.Target = exp.Event.Direction == EventDirection.You ? You : Convert.ToString(cure.Groups["target"].Value);
                 line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpperInvariant());
                 if (line.IsEmpty())
                 {
@@ -79,7 +131,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 }
                 if (line.RecLossType == exp.HealingType)
                 {
-                    ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                    ParseControl.Instance.Timeline.GetSetPlayer(line.Source, TimelineType.Party)
                                 .SetHealing(line);
                 }
             }

@@ -155,7 +155,8 @@ namespace FFXIVAPP.Client.Memory
                                     StatusID = status.StatusID,
                                     Duration = status.Duration,
                                     CasterID = status.CasterID
-                                }).Where(statusEntry => statusEntry.IsValid()))
+                                })
+                                                                 .Where(statusEntry => statusEntry.IsValid()))
                                 {
                                     entry.StatusEntries.Add(statusEntry);
                                 }

@@ -80,7 +80,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] +  1136;
+                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1136;
                             var enmityEntries = new List<EnmityEntry>();
                             var targetEntity = new TargetEntity();
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
@@ -150,7 +150,8 @@ namespace FFXIVAPP.Client.Memory
                                                 StatusID = status.StatusID,
                                                 Duration = status.Duration,
                                                 CasterID = status.CasterID
-                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            })
+                                                                             .Where(statusEntry => statusEntry.IsValid()))
                                             {
                                                 entry.StatusEntries.Add(statusEntry);
                                             }
@@ -224,7 +225,8 @@ namespace FFXIVAPP.Client.Memory
                                                 StatusID = status.StatusID,
                                                 Duration = status.Duration,
                                                 CasterID = status.CasterID
-                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            })
+                                                                             .Where(statusEntry => statusEntry.IsValid()))
                                             {
                                                 entry.StatusEntries.Add(statusEntry);
                                             }
@@ -297,7 +299,8 @@ namespace FFXIVAPP.Client.Memory
                                             StatusID = status.StatusID,
                                             Duration = status.Duration,
                                             CasterID = status.CasterID
-                                        }).Where(statusEntry => statusEntry.IsValid()))
+                                        })
+                                                                         .Where(statusEntry => statusEntry.IsValid()))
                                         {
                                             entry.StatusEntries.Add(statusEntry);
                                         }
@@ -366,7 +369,8 @@ namespace FFXIVAPP.Client.Memory
                                                 StatusID = status.StatusID,
                                                 Duration = status.Duration,
                                                 CasterID = status.CasterID
-                                            }).Where(statusEntry => statusEntry.IsValid()))
+                                            })
+                                                                             .Where(statusEntry => statusEntry.IsValid()))
                                             {
                                                 entry.StatusEntries.Add(statusEntry);
                                             }
@@ -390,25 +394,53 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < 16; i++)
                                     {
-                                        var address = targetHateStructure + (i * 64);
+                                        var address = targetHateStructure + (i * 72);
                                         var enmityEntry = new EnmityEntry
                                         {
                                             ID = (uint) MemoryHandler.Instance.GetInt32(address),
                                             Enmity = (uint) MemoryHandler.Instance.GetInt32(address + 4)
                                         };
-                                        if (enmityEntry.ID > 0)
+                                        if (enmityEntry.ID <= 0)
                                         {
-                                            if (PCWorkerDelegate.UniqueNPCEntries.Any())
+                                            continue;
+                                        }
+                                        if (PCWorkerDelegate.UniqueNPCEntries.Any())
+                                        {
+                                            if (PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                .Any(a => a.ID == enmityEntry.ID))
                                             {
-                                                if (PCWorkerDelegate.UniqueNPCEntries.ToList()
-                                                                    .Any(a => a.ID == enmityEntry.ID))
+                                                enmityEntry.Name = PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                                   .First(a => a.ID == enmityEntry.ID)
+                                                                                   .Name;
+                                            }
+                                        }
+                                        if (String.IsNullOrWhiteSpace(enmityEntry.Name))
+                                        {
+                                            if (NPCWorkerDelegate.UniqueNPCEntries.Any())
+                                            {
+                                                if (NPCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                     .Any(a => a.ID == enmityEntry.ID))
                                                 {
-                                                    enmityEntry.Name = PCWorkerDelegate.UniqueNPCEntries.ToList()
-                                                                                       .First(a => a.ID == enmityEntry.ID).Name;
+                                                    enmityEntry.Name = NPCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                                        .First(a => a.NPCID2 == enmityEntry.ID)
+                                                                                        .Name;
                                                 }
                                             }
-                                            enmityEntries.Add(enmityEntry);
                                         }
+                                        if (String.IsNullOrWhiteSpace(enmityEntry.Name))
+                                        {
+                                            if (MonsterWorkerDelegate.UniqueNPCEntries.Any())
+                                            {
+                                                if (MonsterWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                         .Any(a => a.ID == enmityEntry.ID))
+                                                {
+                                                    enmityEntry.Name = MonsterWorkerDelegate.UniqueNPCEntries.ToList()
+                                                                                            .First(a => a.ID == enmityEntry.ID)
+                                                                                            .Name;
+                                                }
+                                            }
+                                        }
+                                        enmityEntries.Add(enmityEntry);
                                     }
                                 }
                                 targetEntity.EnmityEntries = enmityEntries;

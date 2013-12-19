@@ -175,7 +175,8 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void GetHomePlugin()
         {
-            var homePlugin = Settings.Default.HomePlugin;;
+            var homePlugin = Settings.Default.HomePlugin;
+            ;
             switch (homePlugin)
             {
                 case "None":
@@ -402,8 +403,8 @@ namespace FFXIVAPP.Client
             signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "DB0FC93FDB0F49416F12833AFFFFFFFF000000E0000000E0DB0FC93F",
-                Offset = 804
+                Value = "??FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
+                Offset = 792
             });
             signatures.Add(new Signature
             {

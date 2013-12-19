@@ -13,11 +13,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
         PartyJoin,
         PartyLeave,
         PartyDisband,
-        MobFighting,
-        MobKilled,
-        BeneficialGain,
-        BeneficialLose,
-        DetrimentalGain,
-        DetrimentalLose,
+        PartyMonsterFighting,
+        PartyMonsterKilled
     };
 }

@@ -1,4 +1,4 @@
-﻿    // FFXIVAPP.Client
+﻿// FFXIVAPP.Client
 // Structures.cs
 // 
 // © 2013 Ryan Wilson
@@ -175,7 +175,7 @@ namespace FFXIVAPP.Client.Memory
             public byte Sex;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
-            [FieldOffset(12112)]
+            [FieldOffset(12280)]
             public Status[] Statuses;
         }
 

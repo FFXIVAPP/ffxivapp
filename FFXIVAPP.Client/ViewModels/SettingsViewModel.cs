@@ -13,7 +13,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
@@ -66,7 +65,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static string _key = "";
         private static string _value = "";
-        
+
         public ICommand SetProcessCommand { get; private set; }
         public ICommand RefreshListCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }

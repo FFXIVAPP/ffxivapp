@@ -71,8 +71,7 @@
                        Width="40"
                        Height="40"
                        RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/Parse.png">
-                </Image>
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/Parse.png" />
                 <DockPanel Grid.Row="0"
                            Grid.RowSpan="3"
                            Grid.Column="3"

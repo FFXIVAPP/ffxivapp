@@ -35,12 +35,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Fights
 
         /// <summary>
         /// </summary>
-        /// <param name="mobName"> </param>
+        /// <param name="monsterName"> </param>
         /// <param name="result"> </param>
         /// <returns> </returns>
-        public bool TryGet(string mobName, out Fight result)
+        public bool TryGet(string monsterName, out Fight result)
         {
-            foreach (var fight in this.Where(fight => fight.MobName.ToLower() == mobName.ToLower()))
+            foreach (var fight in this.Where(fight => fight.MonsterName.ToLower() == monsterName.ToLower()))
             {
                 result = fight;
                 return true;

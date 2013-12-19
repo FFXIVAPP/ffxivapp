@@ -22,7 +22,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             {
                 cleaned = String.Format("{0}:{1}", e.Code, exp.Cleaned);
             }
-            var data = String.Format("Unknown {0} Line -> [Type:{1}][Subject:{2}][Direction:{3}] {4}", type,e.Type, e.Subject, e.Direction, cleaned);
+            var data = String.Format("Unknown {0} Line -> [Type:{1}][Subject:{2}][Direction:{3}] {4}", type, e.Type, e.Subject, e.Direction, cleaned);
             Logging.Log(logger, data);
         }
 

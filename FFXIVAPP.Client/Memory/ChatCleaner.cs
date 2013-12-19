@@ -151,8 +151,8 @@ namespace FFXIVAPP.Client.Memory
                 newList.Clear();
                 cleaned = Regex.Replace(cleaned, @"", "⇒");
                 cleaned = Regex.Replace(cleaned, @"", "[HQ]");
-                cleaned = Regex.Replace(cleaned, @"\[01010101\]", "");
-                cleaned = Regex.Replace(cleaned, @"\[CF010101\]", "");
+                cleaned = Regex.Replace(cleaned, @"\[01010101([\w]+)?\]", "");
+                cleaned = Regex.Replace(cleaned, @"\[CF010101([\w]+)?\]", "");
                 cleaned = Regex.Replace(cleaned, @"\[..FF\w{6}\]|\[EC\]", "");
                 line = cleaned;
             }

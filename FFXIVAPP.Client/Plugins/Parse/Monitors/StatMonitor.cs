@@ -10,9 +10,11 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.ViewModels;
 using FFXIVAPP.Client.Plugins.Parse.Views;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -31,7 +33,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             IncludeSelf = false;
             if (!parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Engaged | EventParser.UnEngaged | (UInt64) EventDirection.Unknown);
+                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Pet | EventParser.PetParty | EventParser.Alliance | EventParser.PetAlliance | EventParser.Engaged | EventParser.UnEngaged);
                 //Filter = (EventParser.AllEvents);
             }
         }
@@ -43,7 +45,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
             foreach (var player in ParseControl.Timeline.Party)
             {
-                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);
+                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name, ((Player) player).Type);
                 playerInstance.LineHistory.Clear();
                 playerInstance.StatusUpdateTimer.Stop();
                 playerInstance.LastDamageAmountByAction.Clear();
@@ -52,7 +54,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             }
             foreach (var monster in ParseControl.Timeline.Monster)
             {
-                var monsterInstance = ParseControl.Timeline.GetSetMob(monster.Name);
+                var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name, ((Monster) monster).Type);
                 monsterInstance.LineHistory.Clear();
                 //monsterInstance.StatusUpdateTimer.Stop();
                 monsterInstance.LastDamageAmountByAction.Clear();
@@ -79,7 +81,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var playerList = ParseControl.Timeline.Party.ToArray();
             foreach (var player in playerList)
             {
-                var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
+                var playerInstance = controller.Timeline.GetSetPlayer(player.Name, ((Player) player).Type);
                 foreach (var stat in player.Stats)
                 {
                     playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -89,7 +91,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var monsterList = ParseControl.Timeline.Monster.ToArray();
             foreach (var monster in monsterList)
             {
-                var monsterInstance = controller.Timeline.GetSetMob(monster.Name);
+                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name, ((Monster) monster).Type);
                 foreach (var stat in monster.Stats)
                 {
                     monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -104,23 +106,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             if (AppContextHelper.Instance.CurrentUser != null)
             {
                 var mapIndex = AppContextHelper.Instance.CurrentUser.MapIndex;
-                //switch (Settings.Default.GameLanguage)
-                //{
-                //    case "French":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .French;
-                //        break;
-                //    case "German":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .German;
-                //        break;
-                //    case "Japanese":
-                //        zone = ZoneHelper.GetMapInfo(ParseControl.Instance.Timeline.ZoneID)
-                //                     .Japanese;
-                //        break;
-                //}
                 zone = ZoneHelper.GetMapInfo(mapIndex)
                                  .English;
+                switch (Settings.Default.GameLanguage)
+                {
+                    case "French":
+                        zone = ZoneHelper.GetMapInfo(mapIndex)
+                                         .French;
+                        break;
+                    case "German":
+                        zone = ZoneHelper.GetMapInfo(mapIndex)
+                                         .German;
+                        break;
+                    case "Japanese":
+                        zone = ZoneHelper.GetMapInfo(mapIndex)
+                                         .Japanese;
+                        break;
+                }
             }
             var monsterName = "NULL";
             try
@@ -183,7 +185,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleEvent(Event e)
         {
-            #region Clean Mob Names
+            #region Clean Monster Names
 
             #endregion
 

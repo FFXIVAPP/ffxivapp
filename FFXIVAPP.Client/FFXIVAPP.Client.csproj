@@ -172,7 +172,9 @@
     <Compile Include="Plugins\Parse\Enums\EventType.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
+    <Compile Include="Plugins\Parse\Enums\FilterType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineEventType.cs" />
+    <Compile Include="Plugins\Parse\Enums\TimelineType.cs" />
     <Compile Include="Plugins\Parse\Helpers\ArmoryHelper.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\DamageOverTimeHelper.cs" />

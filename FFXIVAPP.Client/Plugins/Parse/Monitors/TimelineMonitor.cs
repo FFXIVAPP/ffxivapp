@@ -94,7 +94,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             }
             if (!matches.Success)
             {
-                ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, "");
+                ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterKilled, "");
                 ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Defeat", e);
                 return;
             }
@@ -115,18 +115,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             }
             var targetName = StringHelper.TitleCase(target.Value);
             var sourceName = StringHelper.TitleCase(source.Success ? source.Value : "Unknown");
-            AddKillToMonster(targetName, sourceName);
+            AddKillToPartyMonster(targetName, sourceName);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="target"></param>
         /// <param name="source"></param>
-        private void AddKillToMonster(string target, string source)
+        private void AddKillToPartyMonster(string target, string source)
         {
-            var mobName = target.Trim();
+            var monsterName = target.Trim();
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("KillEvent : {0} By : {1}", target, source));
-            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.MobKilled, mobName);
+            ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterKilled, monsterName);
             try
             {
                 var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
@@ -142,11 +142,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                         Y = currentUser.Y,
                     };
                 }
-                if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                if (!String.IsNullOrWhiteSpace(monsterName.Replace(" ", "")))
                 {
-                    if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
+                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
                     {
-                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
                         killEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
                 }
@@ -191,27 +191,27 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 return;
             }
             var thing = StringHelper.TitleCase(matches.Groups["item"].Value);
-            AttachDropToMonster(thing, e);
+            AttachDropToPartyMonster(thing, e);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="thing"> </param>
         /// <param name="e"></param>
-        private void AttachDropToMonster(string thing, Event e)
+        private void AttachDropToPartyMonster(string thing, Event e)
         {
-            var mobName = ParseControl.Timeline.FightingRightNow ? ParseControl.Timeline.LastEngaged : "";
+            var monsterName = ParseControl.Timeline.FightingRightNow ? ParseControl.Timeline.LastEngaged : "";
             if (ParseControl.Instance.Timeline.FightingRightNow)
             {
                 Fight fight;
                 if (ParseControl.Timeline.Fights.TryGet(ParseControl.Timeline.LastEngaged, out fight))
                 {
-                    mobName = fight.MobName;
-                    Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MobName, thing));
-                    if (mobName.Replace(" ", "") != "")
+                    monsterName = fight.MonsterName;
+                    Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MonsterName, thing));
+                    if (monsterName.Replace(" ", "") != "")
                     {
-                        var mobGroup = ParseControl.Timeline.GetSetMob(mobName);
-                        mobGroup.SetDrop(thing);
+                        var monsterGroup = ParseControl.Timeline.GetSetMonster(monsterName, TimelineType.Party);
+                        monsterGroup.SetDrop(thing);
                     }
                 }
             }
@@ -239,11 +239,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                         Y = currentUser.Y,
                     };
                 }
-                if (!String.IsNullOrWhiteSpace(mobName.Replace(" ", "")))
+                if (!String.IsNullOrWhiteSpace(monsterName.Replace(" ", "")))
                 {
-                    if (monsters.Any(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
+                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
                     {
-                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, mobName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
                         lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
                 }

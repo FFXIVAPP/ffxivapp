@@ -35,13 +35,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = String.IsNullOrWhiteSpace(Constants.CharacterName) ? "You" : Constants.CharacterName;
-                                if (actions.Groups["source"].Success)
-                                {
-                                    line.Source = ParseHelper.GetPetFromPlayer(Convert.ToString(actions.Groups["source"].Value), exp);
-                                }
-                                _lastNamePlayer = line.Source;
-                                UpdateActionsPlayers(actions, line, exp, false);
+                                line.Source = You;
+                                UpdateActionsParty(actions, line, exp, FilterType.You);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Pet:
+                    switch (e.Direction)
+                    {
+                        // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                _lastNamePet = line.Source;
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
+                                UpdateActionsParty(actions, line, exp, FilterType.Pet);
                             }
                             break;
                     }
@@ -56,7 +67,23 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 _lastNamePartyFrom = line.Source;
-                                UpdateActionsPlayers(actions, line, exp);
+                                UpdateActionsParty(actions, line, exp, FilterType.Party);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetParty:
+                    switch (e.Direction)
+                    {
+                        // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                _lastNamePetPartyFrom = line.Source;
+                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
+                                UpdateActionsParty(actions, line, exp, FilterType.Pet);
                             }
                             break;
                     }
@@ -69,9 +96,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.mActions;
                             if (actions.Success)
                             {
-                                _lastMobName = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
-                                _lastMobAction = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
-                                UpdateActionsMonsters(actions, line, exp, false);
+                                _lastNameMonster = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
+                                _lastActionMonster = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                                UpdateActionsPartyMonster(actions, line, exp, FilterType.MonsterParty);
                             }
                             break;
                     }
@@ -84,20 +111,30 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }
 
-        private static void UpdateActionsPlayers(Match actions, Line line, Expressions exp, bool isParty = true)
+        private static void UpdateActionsParty(Match actions, Line line, Expressions exp, FilterType type)
         {
-            _lastActionIsAttack = false;
-            _isParty = isParty;
+            _type = type;
+            _lastActionYouIsAttack = false;
+            _lastActionPetIsAttack = false;
+            _lastActionPartyIsAttack = false;
+            _lastActionPetPartyIsAttack = false;
+            _lastActionAllianceIsAttack = false;
+            _lastActionPetAllianceIsAttack = false;
             try
             {
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
-                if (isParty)
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source, TimelineType.Party);
+                var action = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                switch (type)
                 {
-                    _lastActionPartyFrom = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
-                }
-                else
-                {
-                    _lastActionPlayer = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                    case FilterType.You:
+                        _lastActionYou = action;
+                        break;
+                    case FilterType.Pet:
+                        _lastActionPet = action; 
+                        break;
+                    case FilterType.Party:
+                        _lastActionPartyFrom = action;
+                        break;
                 }
             }
             catch (Exception ex)
@@ -106,10 +143,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
         }
 
-        private static void UpdateActionsMonsters(Match actions, Line line, Expressions exp, bool isParty = true)
+        private static void UpdateActionsPartyMonster(Match actions, Line line, Expressions exp, FilterType type)
         {
-            _lastActionIsAttack = false;
-            _isParty = isParty;
+            _type = type;
+            _lastActionYouIsAttack = false;
+            _lastActionPetIsAttack = false;
+            _lastActionPartyIsAttack = false;
+            _lastActionPetPartyIsAttack = false;
+            _lastActionAllianceIsAttack = false;
+            _lastActionPetAllianceIsAttack = false;
             try
             {
             }
