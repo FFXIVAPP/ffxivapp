@@ -18,7 +18,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// <param name="isDamageOverTime"></param>
         public void SetDamageTaken(Line line, bool isDamageOverTime = false)
         {
-            if ((LimitBreaks.IsLimit(line.Action) || line.Amount > 2000) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
+            if ((LimitBreaks.IsLimit(line.Action)) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {
                 return;
             }

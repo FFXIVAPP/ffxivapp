@@ -122,6 +122,13 @@ namespace FFXIVAPP.Client
                         xValue, xDescription
                     });
                 }
+                foreach (var chatCode in Constants.ChatCodes.Where(chatCode => !Constants.Colors.ContainsKey(chatCode.Key)))
+                {
+                    Constants.Colors.Add(chatCode.Key, new []
+                    {
+                        "FFFFFF", chatCode.Value
+                    });
+                }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedColors : {0} KeyValuePairs", Constants.Colors.Count));
             }
         }
@@ -142,17 +149,20 @@ namespace FFXIVAPP.Client
                 SettingsViewModel.Instance.HomePluginList.Add(pluginName);
                 try
                 {
-                    var tabItem = pluginInstance.Instance.CreateTab();
-                    var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
-                    var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
-                    icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
-                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
-                    var info = new Dictionary<string, string>();
-                    info.Add("Icon", pluginInstance.Instance.Icon);
-                    info.Add("Description", pluginInstance.Instance.Description);
-                    info.Add("Copyright", pluginInstance.Instance.Copyright);
-                    info.Add("Version", pluginInstance.Instance.Version);
-                    AppViewModel.Instance.PluginTabItems.Add(tabItem);
+                    if (pluginInstance.Instance.IsEnabled)
+                    {
+                        var tabItem = pluginInstance.Instance.CreateTab();
+                        var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
+                        var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
+                        icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
+                        tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
+                        var info = new Dictionary<string, string>();
+                        info.Add("Icon", pluginInstance.Instance.Icon);
+                        info.Add("Description", pluginInstance.Instance.Description);
+                        info.Add("Copyright", pluginInstance.Instance.Copyright);
+                        info.Add("Version", pluginInstance.Instance.Version);
+                        AppViewModel.Instance.PluginTabItems.Add(tabItem);
+                    }
                 }
                 catch (AppException ex)
                 {

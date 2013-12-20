@@ -103,7 +103,7 @@
             This property can be used to set the Transition for animated TabControls
             </summary>
         </member>
-        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.#ctor(MahApps.Metro.Controls.MetroWindow)">
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.#ctor(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.MetroDialogSettings)">
             <summary>
             Initializes a new MahApps.Metro.Controls.BaseMetroDialog.
             </summary>
@@ -119,6 +119,17 @@
             Waits for the dialog to become ready for interaction.
             </summary>
             <returns>A task that represents the operation and it's status.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.RequestClose">
+            <summary>
+            Requests an externally shown Dialog to close. Will throw an exception if the Dialog is inside of a MetroWindow.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.OnRequestClose">
+            <summary>
+            A last chance virtual method for stopping an external dialog from closing.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.Title">
             <summary>
@@ -138,6 +149,16 @@
         <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.DialogBottom">
             <summary>
             Gets/sets arbitrary content below the dialog.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.ParentDialogWindow">
+            <summary>
+            Gets the window that owns the current Dialog IF AND ONLY IF the dialog is shown externally.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.OwningWindow">
+            <summary>
+            Gets the window that owns the current Dialog IF AND ONLY IF the dialog is shown inside of a window.
             </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.Dialogs.MetroDialogSettings">
@@ -164,6 +185,48 @@
             <summary>
             An enum representing the different choices for a color scheme in a Metro Dialog.
             </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.DialogManager.ShowMessageAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,MahApps.Metro.Controls.Dialogs.MessageDialogStyle,MahApps.Metro.Controls.Dialogs.MetroDialogSettings)">
+            <summary>
+            Creates a MessageDialog inside of the current window.
+            </summary>
+            <param name="title">The title of the MessageDialog.</param>
+            <param name="message">The message contained within the MessageDialog.</param>
+            <param name="style">The type of buttons to use.</param>
+            <param name="settings">Optional Settings that override the global metro dialog settings.</param>
+            <returns>A task promising the result of which button was pressed.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.DialogManager.ShowProgressAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,System.Boolean,MahApps.Metro.Controls.Dialogs.MetroDialogSettings)">
+            <summary>
+            Creates a ProgressDialog inside of the current window.
+            </summary>
+            <param name="title">The title of the ProgressDialog.</param>
+            <param name="message">The message within the ProgressDialog.</param>
+            <param name="isCancelable">Determines if the cancel button is visible.</param>
+            <param name="settings">Optional Settings that override the global metro dialog settings.</param>
+            <returns>A task promising the instance of ProgressDialogController for this operation.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.DialogManager.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
+            <summary>
+            Adds a Metro Dialog instance to the specified window and makes it visible.
+            </summary>
+            <param name="window">The owning window of the dialog.</param>
+            <param name="title">The title to be set in the dialog.</param>
+            <param name="dialog">The dialog instance itself.</param>
+            <returns>A task representing the operation.</returns>
+            <exception cref="T:System.InvalidOperationException">The <paramref name="dialog"/> is already visible in the window.</exception>
+        </member>
+        <member name="M:MahApps.Metro.Controls.Dialogs.DialogManager.HideMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
+            <summary>
+            Hides a visible Metro Dialog instance.
+            </summary>
+            <param name="window">The window with the dialog that is visible.</param>
+            <param name="dialog">The dialog instance to hide.</param>
+            <returns>A task representing the operation.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            The <paramref name="dialog"/> is not visible in the window.
+            This happens if <see cref="M:MahApps.Metro.Controls.Dialogs.DialogManager.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)"/> hasn't been called before.
+            </exception>
         </member>
         <member name="T:MahApps.Metro.Controls.Dialogs.MessageDialog">
             <summary>
@@ -197,46 +260,6 @@
             <summary>
             "OK" and "Cancel"
             </summary>
-        </member>
-        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMessageAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,MahApps.Metro.Controls.Dialogs.MessageDialogStyle)">
-            <summary>
-            Creates a MessageDialog inside of the current window.
-            </summary>
-            <param name="title">The title of the MessageDialog.</param>
-            <param name="message">The message contained within the MessageDialog.</param>
-            <param name="style">The type of buttons to use.</param>
-            <returns>A task promising the result of which button was pressed.</returns>
-        </member>
-        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowProgressAsync(MahApps.Metro.Controls.MetroWindow,System.String,System.String,System.Boolean)">
-            <summary>
-            Creates a ProgressDialog inside of the current window.
-            </summary>
-            <param name="title">The title of the ProgressDialog.</param>
-            <param name="message">The message within the ProgressDialog.</param>
-            <param name="isCancelable">Determines if the cancel button is visible.</param>
-            <returns>A task promising the instance of ProgressDialogController for this operation.</returns>
-        </member>
-        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
-            <summary>
-            Adds a Metro Dialog instance to the specified window and makes it visible.
-            </summary>
-            <param name="window">The owning window of the dialog.</param>
-            <param name="title">The title to be set in the dialog.</param>
-            <param name="dialog">The dialog instance itself.</param>
-            <returns>A task representing the operation.</returns>
-            <exception cref="T:System.InvalidOperationException">The <paramref name="dialog"/> is already visible in the window.</exception>
-        </member>
-        <member name="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.HideMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)">
-            <summary>
-            Hides a visible Metro Dialog instance.
-            </summary>
-            <param name="window">The window with the dialog that is visible.</param>
-            <param name="dialog">The dialog instance to hide.</param>
-            <returns>A task representing the operation.</returns>
-            <exception cref="T:System.InvalidOperationException">
-            The <paramref name="dialog"/> is not visible in the window.
-            This happens if <see cref="M:MahApps.Metro.Controls.Dialogs.MetroWindowDialogExtensions.ShowMetroDialogAsync(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.BaseMetroDialog)"/> hasn't been called before.
-            </exception>
         </member>
         <member name="T:MahApps.Metro.Controls.Dialogs.ProgressDialog">
             <summary>

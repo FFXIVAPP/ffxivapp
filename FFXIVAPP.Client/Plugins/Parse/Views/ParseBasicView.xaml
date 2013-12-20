@@ -44,7 +44,8 @@
             <StackPanel>
                 <GroupBox DataContext="{Binding Timeline.Overall,
                                                 Source={StaticResource Parser}}"
-                          Header="Score Card (Party)">
+                          Header="{Binding Locale[parse_ScoreCardHeader],
+                                           Source={StaticResource AppProperties}}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />

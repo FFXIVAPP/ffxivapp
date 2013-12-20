@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
-                    var amount = NPCEntry.Level * 3.5m;
+                    var amount = NPCEntry.Level / ((60 - NPCEntry.Level) * .025m);
                     var key = statusKey;
                     DamageOverTimeAction actionData = null;
                     foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.ToList()
@@ -64,8 +64,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         continue;
                     }
                     var zeroFoundInList = false;
-                    var bio = false;
-                    foreach (var lastDamageAmountByAction in LastDamageAmountByAction.ToList())
+                    bool bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+                    var lastDamageOverTimeActionsList = ParseHelper.LastDamageByAction.GetPlayer(Name)
+                                                                   .ToList();
+                    foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)
                     {
                         if (Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
                         {
@@ -92,9 +94,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                                 break;
                             }
                         }
-                        if (Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
+                        if (bio)
                         {
-                            bio = true;
                             var found = false;
                             var ruinActions = DamageOverTimeHelper.RuinActions;
                             var action = lastDamageAmountByAction;
@@ -127,18 +128,20 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
                     if (actionData.ZeroBaseDamageDOT && !zeroFoundInList)
                     {
-                        var nonZeroActions = LastDamageAmountByAction.ToList()
-                                                                     .Where(d => !d.Key.Contains("•"));
+                        var nonZeroActions = lastDamageOverTimeActionsList.Where(d => !d.Key.Contains("•"));
                         var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
-                        amount = keyValuePairs.Sum(action => action.Value);
-                        amount = amount / keyValuePairs.Count();
                         var damage = 0m;
                         switch (bio)
                         {
                             case true:
-                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) * (NPCEntry.Level / 50m));
+                                damage = Math.Ceiling(((amount / 80) * actionData.DamageOverTimePotency) / 3);
                                 break;
                             case false:
+                                if (keyValuePairs.Any())
+                                {
+                                    amount = keyValuePairs.Sum(action => action.Value);
+                                    amount = amount / keyValuePairs.Count();
+                                }
                                 damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
                                 break;
                         }

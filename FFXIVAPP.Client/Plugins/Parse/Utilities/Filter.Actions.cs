@@ -44,7 +44,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 case EventSubject.Pet:
                     switch (e.Direction)
                     {
-                        // casts/uses
+                            // casts/uses
                         case EventDirection.Self:
                             actions = exp.pActions;
                             if (actions.Success)
@@ -75,7 +75,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 case EventSubject.PetParty:
                     switch (e.Direction)
                     {
-                        // casts/uses
+                            // casts/uses
                         case EventDirection.Self:
                             actions = exp.pActions;
                             if (actions.Success)
@@ -130,7 +130,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         _lastActionYou = action;
                         break;
                     case FilterType.Pet:
-                        _lastActionPet = action; 
+                        _lastActionPet = action;
                         break;
                     case FilterType.Party:
                         _lastActionPartyFrom = action;

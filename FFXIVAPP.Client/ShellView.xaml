@@ -28,8 +28,8 @@
                            ShowIconOnTitleBar="False"
                            StateChanged="MetroWindowStateChanged"
                            Top="{Binding Top,
-                                         Source={x:Static Properties:Settings.Default},
-                                         Mode=TwoWay}"
+                                         Mode=TwoWay,
+                                         Source={x:Static Properties:Settings.Default}}"
                            Topmost="{Binding TopMost,
                                              Source={x:Static Properties:Settings.Default}}"
                            WindowStyle="None"

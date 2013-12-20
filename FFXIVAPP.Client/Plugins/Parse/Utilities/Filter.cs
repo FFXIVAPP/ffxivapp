@@ -15,8 +15,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     [DoNotObfuscate]
     public static partial class Filter
     {
-        // setup self info
-
         // setup you
         private static Event _lastEventYou;
         private static string _lastActionYou = "";

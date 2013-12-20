@@ -395,8 +395,11 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_StoreHistoryEventHeader", "履歴の保存トリガーとなるイベント");
             Dictionary.Add("parse_StoreHistoryEventHelperText", "*有効にすると履歴と解析結果は、選択したイベントが指定した間隔後に発生しなかった時に保存・リセットされます。");
             Dictionary.Add("parse_IgnoreLimitBreaksHeader", "リミットブレイクでのダメージを除外する");
-            Dictionary.Add("parse_SelectItemText", "Select Item:");
-            Dictionary.Add("parse_AutoLoadLastParseFromHistoryHeader", "Automatically Load The Last Parse From History On Each Reset");
+            Dictionary.Add("parse_SelectItemText", "履歴の選択:");
+            Dictionary.Add("parse_AutoLoadLastParseFromHistoryHeader", "履歴からリセット毎の最新解析結果を自動で読み込む");
+            Dictionary.Add("parse_ResetDamageOnlyOption", "ダメージのみ");
+            Dictionary.Add("parse_ResetAnyOption", "すべて");
+            Dictionary.Add("parse_ScoreCardHeader", "スコアカード (パーティ)");
         }
     }
 }

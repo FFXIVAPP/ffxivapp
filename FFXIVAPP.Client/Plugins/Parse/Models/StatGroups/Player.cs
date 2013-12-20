@@ -29,10 +29,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
-        public TimelineType Type { get; set; }
-
         public readonly Timer StatusUpdateTimer = new Timer(1000);
-        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
 
         public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
@@ -41,6 +38,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             Controller = parseControl;
             ID = 0;
+            Type = TimelineType.Unknown;
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
@@ -49,6 +47,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimer.Start();
             }
         }
+
+        public TimelineType Type { get; set; }
 
         public bool StatusUpdateTimerProcessing { get; set; }
 
@@ -68,15 +68,28 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             StatusUpdateTimerProcessing = true;
             var isYou = Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer);
+            var isPet = false;
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
             var pcEntries = PCWorkerDelegate.NPCEntries.ToList();
             var monsterEntries = MonsterWorkerDelegate.NPCEntries.ToList();
+            var cleanedName = Regex.Replace(Name, @" \[[\w]+\]", "");
             if (pcEntries.Any())
             {
                 try
                 {
-                    NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : pcEntries.First(p => String.Equals(p.Name, Name, Constants.InvariantComparer));
+                    NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : null;
+                    if (!isYou)
+                    {
+                        try
+                        {
+                            NPCEntry = pcEntries.First(p => String.Equals(p.Name, cleanedName, Constants.InvariantComparer));
+                        }
+                        catch (Exception ex)
+                        {
+                            isPet = true;
+                        }
+                    }
                     if (NPCEntry != null)
                     {
                         ID = NPCEntry.ID;

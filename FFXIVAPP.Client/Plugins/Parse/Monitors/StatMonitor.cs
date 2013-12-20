@@ -45,21 +45,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
             foreach (var player in ParseControl.Timeline.Party)
             {
-                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name, ((Player) player).Type);
+                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name, TimelineType.Party);
                 playerInstance.LineHistory.Clear();
                 playerInstance.StatusUpdateTimer.Stop();
-                playerInstance.LastDamageAmountByAction.Clear();
                 playerInstance.StatusEntriesSelf.Clear();
                 playerInstance.StatusEntriesMonster.Clear();
             }
             foreach (var monster in ParseControl.Timeline.Monster)
             {
-                var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name, ((Monster) monster).Type);
+                var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name, TimelineType.Party);
                 monsterInstance.LineHistory.Clear();
-                //monsterInstance.StatusUpdateTimer.Stop();
-                monsterInstance.LastDamageAmountByAction.Clear();
-                //monsterInstance.StatusEntriesSelf.Clear();
-                //monsterInstance.StatusEntriesMonster.Clear();
+                monsterInstance.StatusUpdateTimer.Stop();
+                monsterInstance.StatusEntriesSelf.Clear();
+                monsterInstance.StatusEntriesPlayer.Clear();
             }
             InitializeHistory();
             base.Clear();
@@ -81,7 +79,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var playerList = ParseControl.Timeline.Party.ToArray();
             foreach (var player in playerList)
             {
-                var playerInstance = controller.Timeline.GetSetPlayer(player.Name, ((Player) player).Type);
+                var playerInstance = controller.Timeline.GetSetPlayer(player.Name, TimelineType.Party);
                 foreach (var stat in player.Stats)
                 {
                     playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -91,7 +89,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var monsterList = ParseControl.Timeline.Monster.ToArray();
             foreach (var monster in monsterList)
             {
-                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name, ((Monster) monster).Type);
+                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name, TimelineType.Party);
                 foreach (var stat in monster.Stats)
                 {
                     monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);

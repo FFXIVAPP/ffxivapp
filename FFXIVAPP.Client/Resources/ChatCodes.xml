@@ -14,6 +14,9 @@
       <Code Key="000C">
         <Description>Tell (Out)</Description>
       </Code>
+      <Code Key="000F">
+        <Description>Alliance</Description>
+      </Code>
       <Code Key="0010">
         <Description>Linkshell[1]</Description>
       </Code>

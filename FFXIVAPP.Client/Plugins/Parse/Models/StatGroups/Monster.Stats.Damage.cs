@@ -58,14 +58,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             if (line.Hit)
             {
                 var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, (decimal) .5) : 0 : line.Amount;
-                if (LastDamageAmountByAction.ContainsKey(line.Action))
-                {
-                    LastDamageAmountByAction[line.Action] = currentDamage;
-                }
-                else
-                {
-                    LastDamageAmountByAction.Add(line.Action, currentDamage);
-                }
+                ParseHelper.LastDamageByAction.EnsureMonsterAction(line.Source, line.Action, currentDamage);
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subPlayerGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);

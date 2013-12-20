@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using SmartAssembly.Attributes;
@@ -16,6 +16,61 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     [DoNotObfuscate]
     public static class ParseHelper
     {
+        #region LastDamage Helper Dictionaries
+
+        public static class LastDamageByAction
+        {
+            private static Dictionary<string, Dictionary<string, decimal>> Monster = new Dictionary<string, Dictionary<string, decimal>>();
+
+            private static Dictionary<string, Dictionary<string, decimal>> Player = new Dictionary<string, Dictionary<string, decimal>>();
+
+            public static Dictionary<string, decimal> GetMonster(string name)
+            {
+                if (!Monster.ContainsKey(name))
+                {
+                    Monster.Add(name, new Dictionary<string, decimal>());        
+                }
+                return Monster[name];
+            }
+
+            public static void EnsureMonsterAction(string name, string action, decimal amount)
+            {
+                GetMonster(name);
+                if (Monster[name].ContainsKey(action))
+                {
+                    Monster[name][action] = amount;
+                }
+                else
+                {
+                    Monster[name].Add(action, amount);
+                }
+            }
+
+            public static Dictionary<string, decimal> GetPlayer(string name)
+            {
+                if (!Player.ContainsKey(name))
+                {
+                    Player.Add(name, new Dictionary<string, decimal>());
+                }
+                return Player[name];
+            }
+
+            public static void EnsurePlayerAction(string name, string action, decimal amount)
+            {
+                GetPlayer(name);
+                if (Player[name].ContainsKey(action))
+                {
+                    Player[name][action] = amount;
+                }
+                else
+                {
+                    Player[name].Add(action, amount);
+                }
+            }
+        }
+
+        #endregion
+
         // setup pet info that comes through as "YOU"
         private static List<string> _pets = new List<string>
         {

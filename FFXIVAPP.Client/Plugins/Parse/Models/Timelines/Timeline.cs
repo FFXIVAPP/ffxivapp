@@ -249,6 +249,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         return (Player) statGroup;
                     }
                     statGroup = new Player(playerName, Controller);
+                    ((Player) statGroup).Type = type;
                     Party.AddGroup(statGroup);
                     break;
             }

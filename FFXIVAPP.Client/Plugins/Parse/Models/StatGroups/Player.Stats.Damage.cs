@@ -23,7 +23,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 //LineHistory.Add(new LineHistory(line));
             }
-            if ((LimitBreaks.IsLimit(line.Action) || line.Amount > 2000) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
+            if ((LimitBreaks.IsLimit(line.Action)) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {
                 return;
             }
@@ -63,14 +63,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             if (line.Hit)
             {
                 var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, (decimal) .5) : 0 : line.Amount;
-                if (LastDamageAmountByAction.ContainsKey(line.Action))
-                {
-                    LastDamageAmountByAction[line.Action] = currentDamage;
-                }
-                else
-                {
-                    LastDamageAmountByAction.Add(line.Action, currentDamage);
-                }
+                ParseHelper.LastDamageByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);

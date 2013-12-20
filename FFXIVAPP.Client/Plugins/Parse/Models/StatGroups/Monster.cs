@@ -22,12 +22,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
-        public TimelineType Type { get; set; }
-
         public readonly Timer StatusUpdateTimer = new Timer(1000);
-        public Dictionary<string, decimal> LastDamageAmountByAction = new Dictionary<string, decimal>();
 
-        public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesPlayer = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
 
         /// <summary>
@@ -37,6 +34,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             Controller = parseControl;
             ID = 0;
+            Type = TimelineType.Unknown;
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
@@ -45,6 +43,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimer.Start();
             }
         }
+
+        public TimelineType Type { get; set; }
 
         private ParseControl Controller { get; set; }
 
@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             StatusEntriesSelf.Clear();
-            StatusEntriesMonster.Clear();
+            StatusEntriesPlayer.Clear();
         }
 
         /// <summary>

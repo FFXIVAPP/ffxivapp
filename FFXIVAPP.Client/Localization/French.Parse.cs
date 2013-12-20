@@ -397,6 +397,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_IgnoreLimitBreaksHeader", "Ignore Limit Break Damage");
             Dictionary.Add("parse_SelectItemText", "Select Item:");
             Dictionary.Add("parse_AutoLoadLastParseFromHistoryHeader", "Automatically Load The Last Parse From History On Each Reset");
+            Dictionary.Add("parse_ResetDamageOnlyOption", "Damage Only");
+            Dictionary.Add("parse_ResetAnyOption", "Any");
+            Dictionary.Add("parse_ScoreCardHeader", "Score Card (Party)");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace FFXIVAPP.IPluginInterface
     [InheritedExport(typeof (IPlugin))]
     public interface IPlugin
     {
+        bool IsEnabled { get; set; }
         MessageBoxResult PopupResult { get; set; }
         Dictionary<string, string> Locale { get; set; }
         string FriendlyName { get; }
