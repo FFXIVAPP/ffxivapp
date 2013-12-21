@@ -68,6 +68,11 @@ namespace FFXIVAPP.Client
                     if (_xSettings == null)
                     {
                         var found = File.Exists(file);
+                        if (!found)
+                        {
+                            file = "./Settings/Settings.Parse.xml";
+                            found = File.Exists(file);
+                        }
                         _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                     }
                     return _xSettings;

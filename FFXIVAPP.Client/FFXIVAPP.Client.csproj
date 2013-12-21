@@ -137,7 +137,7 @@
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
-    <Compile Include="Helpers\SettingsHelper.Applicatoin.cs" />
+    <Compile Include="Helpers\SettingsHelper.Application.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
