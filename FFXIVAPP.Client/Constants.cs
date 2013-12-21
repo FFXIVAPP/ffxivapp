@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client
             {
                 if (_xAutoTranslate == null)
                 {
-                    const string file = "./Configurations/AutoTranslate.xml";
+                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/AutoTranslate.xml");
                     var found = File.Exists(file);
                     _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
@@ -56,7 +56,7 @@ namespace FFXIVAPP.Client
             {
                 if (_xChatCodes == null)
                 {
-                    const string file = "./Configurations/ChatCodes.xml";
+                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/ChatCodes.xml");
                     var found = File.Exists(file);
                     _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
                 }
@@ -71,7 +71,7 @@ namespace FFXIVAPP.Client
             {
                 if (_xColors == null)
                 {
-                    const string file = "./Configurations/Colors.xml";
+                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/Colors.xml");
                     var found = File.Exists(file);
                     _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
                 }

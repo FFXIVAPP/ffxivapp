@@ -14,7 +14,6 @@ namespace FFXIVAPP.IPluginInterface
     [InheritedExport(typeof (IPlugin))]
     public interface IPlugin
     {
-        bool IsEnabled { get; set; }
         MessageBoxResult PopupResult { get; set; }
         Dictionary<string, string> Locale { get; set; }
         string FriendlyName { get; }
@@ -28,6 +27,5 @@ namespace FFXIVAPP.IPluginInterface
         void Initialize(IPluginHost pluginHost);
         void Dispose(bool isUpdating = false);
         TabItem CreateTab();
-        UserControl CreateControl();
     }
 }

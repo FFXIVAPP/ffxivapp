@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         continue;
                     }
                     var zeroFoundInList = false;
-                    bool bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+                    var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var lastDamageOverTimeActionsList = ParseHelper.LastDamageByAction.GetPlayer(Name)
                                                                    .ToList();
                     foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)

@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFXIVAPP.Client.Helpers;
+using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using SmartAssembly.Attributes;
@@ -28,7 +28,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             {
                 if (!Monster.ContainsKey(name))
                 {
-                    Monster.Add(name, new Dictionary<string, decimal>());        
+                    Monster.Add(name, new Dictionary<string, decimal>());
                 }
                 return Monster[name];
             }
@@ -98,6 +98,85 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             "カーバンクル・アンバー"
         };
 
+        private static List<string> _healingActions;
+
+        public static List<string> HealingActions
+        {
+            get
+            {
+                if (_healingActions == null)
+                {
+                    _healingActions = new List<string>();
+                    _healingActions.Add("内丹");
+                    _healingActions.Add("Second Wind");
+                    _healingActions.Add("Second souffle");
+                    _healingActions.Add("Chakra");
+                    _healingActions.Add("ケアル");
+                    _healingActions.Add("Cure");
+                    _healingActions.Add("Soin");
+                    _healingActions.Add("Vita");
+                    _healingActions.Add("メディカ");
+                    _healingActions.Add("Medica");
+                    _healingActions.Add("Médica");
+                    _healingActions.Add("Reseda");
+                    _healingActions.Add("ケアルガ");
+                    _healingActions.Add("Cure III");
+                    _healingActions.Add("Méga Soin");
+                    _healingActions.Add("Vitaga");
+                    _healingActions.Add("メディカラ");
+                    _healingActions.Add("Medica II");
+                    _healingActions.Add("Extra Médica");
+                    _healingActions.Add("Resedra");
+                    _healingActions.Add("ケアルラ");
+                    _healingActions.Add("Cure II");
+                    _healingActions.Add("Extra Soin");
+                    _healingActions.Add("Vitra");
+                    _healingActions.Add("鼓舞激励の策");
+                    _healingActions.Add("Adloquium");
+                    _healingActions.Add("Traité du réconfort");
+                    _healingActions.Add("Adloquium");
+                    _healingActions.Add("士気高揚の策");
+                    _healingActions.Add("Succor");
+                    _healingActions.Add("Traité du soulagement");
+                    _healingActions.Add("Kurieren");
+                    _healingActions.Add("フィジク");
+                    _healingActions.Add("Physick");
+                    _healingActions.Add("Médecine");
+                    _healingActions.Add("Physick");
+                    _healingActions.Add("光の癒し");
+                    _healingActions.Add("Embrace");
+                    _healingActions.Add("Embrassement");
+                    _healingActions.Add("Sanfte Umarmung");
+                    _healingActions.Add("光の囁き");
+                    _healingActions.Add("Whispering Dawn");
+                    _healingActions.Add("Murmure de l'aurore");
+                    _healingActions.Add("Erhebendes Flüstern");
+                    _healingActions.Add("光の癒し");
+                    _healingActions.Add("Embrace");
+                    _healingActions.Add("Embrassement");
+                    _healingActions.Add("Sanfte Umarmung");
+                    _healingActions.Add("チョコメディカ");
+                    _healingActions.Add("Choco Medica");
+                    _healingActions.Add("Choco-médica");
+                    _healingActions.Add("Chocobo-Reseda");
+                    _healingActions.Add("チョコケアル");
+                    _healingActions.Add("Choco Cure");
+                    _healingActions.Add("Choco-soin");
+                    _healingActions.Add("Chocobo-Vita");
+                    _healingActions.Add("チョコリジェネ");
+                    _healingActions.Add("Choco Regen");
+                    _healingActions.Add("Choco-récup");
+                    _healingActions.Add("Chocobo-Regena");
+                    //_healingActions.Add("リジェネ");
+                    //_healingActions.Add("Regen");
+                    //_healingActions.Add("Récup");
+                    //_healingActions.Add("Regena");
+                }
+                return _healingActions;
+            }
+            set { _healingActions = value; }
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="amount"></param>
@@ -126,19 +205,31 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
         /// <returns></returns>
         public static string GetPetFromPlayer(string name, Expressions exp, TimelineType type)
         {
+            var tag = "???";
+            name = name.Trim();
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                name = "UNKNOWN";
+            }
+            name = Regex.Replace(name, @" \[[\w]+\]", "");
+            var petFound = false;
             foreach (var pet in _pets.Where(pet => String.Equals(pet, name, Constants.InvariantComparer)))
             {
-                switch (type)
-                {
-                    case TimelineType.You:
-                        return String.Format("{0} [{1}]", name, exp.YouString);
-                    case TimelineType.Party:
-                        return String.Format("{0} [P]", name);
-                    case TimelineType.Alliance:
-                        return String.Format("{0} [A]", name);
-                }
+                petFound = true;
             }
-            return String.Format("{0} [{1}]", name, "???");
+            switch (type)
+            {
+                case TimelineType.You:
+                    tag = exp.YouString;
+                    break;
+                case TimelineType.Party:
+                    tag = "P";
+                    break;
+                case TimelineType.Alliance:
+                    tag = "A";
+                    break;
+            }
+            return String.Format("{0} [{1}]", name, tag);
         }
     }
 }

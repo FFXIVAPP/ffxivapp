@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
 
@@ -16,6 +17,22 @@ namespace FFXIVAPP.Common
         public const string DefaultAvatar = AppPack + "Resources/Media/Images/DefaultAvatar.jpg";
 
         public static readonly FlowDocHelper FD = new FlowDocHelper();
+
+        public static string CachePath
+        {
+            get
+            {
+                try
+                {
+                    var location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    return Path.Combine(location, "FFXIVAPP");
+                }
+                catch
+                {
+                    return "./";
+                }
+            }
+        }
 
         public static bool IsValidRegex(string pattern)
         {

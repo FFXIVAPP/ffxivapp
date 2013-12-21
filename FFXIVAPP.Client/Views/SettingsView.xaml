@@ -8,6 +8,8 @@
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
@@ -421,7 +423,8 @@
                                 </StackPanel>
                             </Grid>
                         </GroupBox>
-                        <TextBlock HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource BlackColorBrush}">
                             More details to come!
                         </TextBlock>
                     </StackPanel>
@@ -431,9 +434,38 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Center">
-                            More details to come!
-                        </TextBlock>
+                        <GroupBox Header="NOTICE">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Foreground="{DynamicResource BlackColorBrush}"
+                                       Text="{Binding Locale[app_ChangesOnRestartMessage],
+                                                      Source={StaticResource AppProperties}}"
+                                       TextWrapping="WrapWithOverflow" />
+                        </GroupBox>
+                        <ItemsControl>
+                            <ItemsControl.Resources>
+                                <CollectionViewSource x:Key="PluginInfo"
+                                                      Source="{Binding PluginInfo,
+                                                                       Source={StaticResource AppProperties}}">
+                                    <CollectionViewSource.SortDescriptions>
+                                        <componentModel:SortDescription Direction="Ascending"
+                                                                        PropertyName="Name" />
+                                    </CollectionViewSource.SortDescriptions>
+                                </CollectionViewSource>
+                            </ItemsControl.Resources>
+                            <ItemsControl.ItemsSource>
+                                <Binding Source="{StaticResource PluginInfo}" />
+                            </ItemsControl.ItemsSource>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:PluginInfoBox DataContext="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

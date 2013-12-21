@@ -74,6 +74,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_NoPluginsLineTwoTextBlock", "設定確認後にタブメニューから読み込まれたプラグインアイコンを選んで下さい。");
             Dictionary.Add("app_AlwaysReadUpdatesMessage", "常にすべての変更のための更新履歴を参照してください。");
             Dictionary.Add("app_UpdateNotesHeader", "Update Notes");
+            Dictionary.Add("app_ChangesOnRestartMessage", "*Changes will take place after restarting the application.");
         }
     }
 }

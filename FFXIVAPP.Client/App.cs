@@ -45,6 +45,7 @@ namespace FFXIVAPP.Client
             LoadComponent(this, resourceLocater);
             ConfigureNLog();
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            Dispatcher.UnhandledExceptionFilter += OnUnhandledExceptionFilter;
             Settings.Default.PropertyChanged += SettingsPropertyChanged;
             Settings.Default.SettingChanging += SettingsSettingChanging;
             CheckSettings();
@@ -123,7 +124,15 @@ namespace FFXIVAPP.Client
         {
             var ex = e.Exception;
             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-            e.Handled = true;
+            MessageBoxHelper.ShowMessage("CRITICAL! [CRASHING]", ex.Message);
+        }
+
+        private void OnUnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e)
+        {
+            e.RequestCatch = false;
+            var ex = e.Exception;
+            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+            MessageBoxHelper.ShowMessage("CRITICAL! [CRASHING]", ex.Message);
         }
 
         /// <summary>

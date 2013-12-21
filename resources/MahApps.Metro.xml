@@ -176,6 +176,11 @@
             Gets/sets the text used for the Negative bytton. For example: "Cancel" or "No".
             </summary>
         </member>
+        <member name="P:MahApps.Metro.Controls.Dialogs.MetroDialogSettings.CanChangeSizeToContent">
+            <summary>
+            Gets/sets whether opening a dialog inside the mainwindow will change the sizeToContent value to "height" (default:true)
+            </summary>
+        </member>
         <member name="P:MahApps.Metro.Controls.Dialogs.MetroDialogSettings.ColorScheme">
             <summary>
             Gets/sets whether the metro dialog should use the default black/white appearance (theme) or try to use the current accent.

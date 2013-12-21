@@ -4,7 +4,6 @@
 // © 2013 Ryan Wilson
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -124,12 +123,40 @@ namespace FFXIVAPP.Client
                 }
                 foreach (var chatCode in Constants.ChatCodes.Where(chatCode => !Constants.Colors.ContainsKey(chatCode.Key)))
                 {
-                    Constants.Colors.Add(chatCode.Key, new []
+                    Constants.Colors.Add(chatCode.Key, new[]
                     {
                         "FFFFFF", chatCode.Value
                     });
                 }
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedColors : {0} KeyValuePairs", Constants.Colors.Count));
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void LoadApplicationSettings()
+        {
+            if (Constants.Application.XSettings != null)
+            {
+                foreach (var xElement in Constants.Application.XSettings.Descendants()
+                                                  .Elements("Setting"))
+                {
+                    var xKey = (string) xElement.Attribute("Key");
+                    bool xEnabled;
+                    bool.TryParse((string) xElement.Element("Enabled"), out xEnabled);
+                    if (String.IsNullOrWhiteSpace(xKey))
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        Constants.Application.EnabledPlugins.Add(xKey, xEnabled);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedApplicationSettings : {0} KeyValuePairs", Constants.Application.Settings.Count));
             }
         }
 
@@ -149,20 +176,39 @@ namespace FFXIVAPP.Client
                 SettingsViewModel.Instance.HomePluginList.Add(pluginName);
                 try
                 {
-                    if (pluginInstance.Instance.IsEnabled)
+                    // get basic plugin info for settings panel
+                    var pluginInfo = new PluginInformation
                     {
-                        var tabItem = pluginInstance.Instance.CreateTab();
-                        var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
-                        var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
-                        icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
-                        tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
-                        var info = new Dictionary<string, string>();
-                        info.Add("Icon", pluginInstance.Instance.Icon);
-                        info.Add("Description", pluginInstance.Instance.Description);
-                        info.Add("Copyright", pluginInstance.Instance.Copyright);
-                        info.Add("Version", pluginInstance.Instance.Version);
-                        AppViewModel.Instance.PluginTabItems.Add(tabItem);
+                        Copyright = pluginInstance.Instance.Copyright,
+                        Description = pluginInstance.Instance.Description,
+                        Icon = pluginInstance.Instance.Icon,
+                        Name = pluginInstance.Instance.Name,
+                        Version = pluginInstance.Instance.Version
+                    };
+                    // if enabled setup tabItem
+                    if (Constants.Application.EnabledPlugins.ContainsKey(pluginInstance.Instance.Name))
+                    {
+                        if (Constants.Application.EnabledPlugins[pluginInstance.Instance.Name])
+                        {
+                            pluginInfo.IsEnabled = true;
+                        }
                     }
+                    else
+                    {
+                        Constants.Application.EnabledPlugins.Add(pluginInstance.Instance.Name, true);
+                        pluginInfo.IsEnabled = true;
+                    }
+                    AppViewModel.Instance.PluginInfo.Add(pluginInfo);
+                    if (!pluginInfo.IsEnabled)
+                    {
+                        continue;
+                    }
+                    var tabItem = pluginInstance.Instance.CreateTab();
+                    var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
+                    var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
+                    icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
+                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
+                    AppViewModel.Instance.PluginTabItems.Add(tabItem);
                 }
                 catch (AppException ex)
                 {

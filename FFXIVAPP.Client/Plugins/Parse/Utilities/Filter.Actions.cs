@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
@@ -81,9 +82,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (actions.Success)
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNamePetPartyFrom = line.Source;
                                 line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
-                                UpdateActionsParty(actions, line, exp, FilterType.Pet);
+                                UpdateActionsParty(actions, line, exp, FilterType.PetParty);
                             }
                             break;
                     }
@@ -122,8 +122,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _lastActionPetAllianceIsAttack = false;
             try
             {
+                var isHealingSkill = false;
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source, TimelineType.Party);
                 var action = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
+                foreach (var healingAction in ParseHelper.HealingActions.Where(healingAction => String.Equals(healingAction, action, Constants.InvariantComparer)))
+                {
+                    isHealingSkill = true;
+                }
                 switch (type)
                 {
                     case FilterType.You:
@@ -133,7 +138,28 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         _lastActionPet = action;
                         break;
                     case FilterType.Party:
-                        _lastActionPartyFrom = action;
+                        if (isHealingSkill)
+                        {
+                            _lastActionPartyHealingFrom = action;
+                            _lastNamePartyHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionPartyFrom = action;
+                            _lastNamePartyFrom = line.Source;
+                        }
+                        break;
+                    case FilterType.PetParty:
+                        if (isHealingSkill)
+                        {
+                            _lastActionPetPartyHealingFrom = action;
+                            _lastNamePetPartyHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionPetPartyFrom = action;
+                            _lastNamePetPartyFrom = line.Source;
+                        }
                         break;
                 }
             }

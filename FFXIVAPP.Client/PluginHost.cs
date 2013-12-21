@@ -120,15 +120,6 @@ namespace FFXIVAPP.Client
         {
             try
             {
-                //var domainName = Path.GetFileNameWithoutExtension(assemblyPath);
-                //var success = AssemblyReflectionManager.LoadAssembly(assemblyPath, domainName);
-                //var results = AssemblyReflectionManager.Reflect(assemblyPath, (a) =>
-                //{
-                //    var types = a.GetTypes();
-                //    var implements = types.Select(t => t.Name)
-                //                          .ToList();
-                //    return implements;
-                //});
                 var pAssembly = Assembly.LoadFile(assemblyPath);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
@@ -138,9 +129,11 @@ namespace FFXIVAPP.Client
                     Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
                     return;
                 }
-                var plugin = new PluginInstance();
-                plugin.Instance = (IPlugin) Activator.CreateInstance(pType);
-                plugin.AssemblyPath = assemblyPath;
+                var plugin = new PluginInstance
+                {
+                    Instance = (IPlugin) Activator.CreateInstance(pType),
+                    AssemblyPath = assemblyPath
+                };
                 plugin.Instance.Initialize(Instance);
                 Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);

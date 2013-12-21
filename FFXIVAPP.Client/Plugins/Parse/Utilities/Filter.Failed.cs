@@ -156,7 +156,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNameMonster;
-                                    line.Target = Convert.ToString(failed.Groups["target"].Value);
+                                    line.Target = _lastNamePet;
                                     line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.You);
                                     UpdateFailedPartyMonster(failed, line, exp, FilterType.Pet);
                                     break;
@@ -178,7 +178,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNameMonster;
-                                    line.Target = Convert.ToString(failed.Groups["target"].Value);
+                                    line.Target = _lastNamePartyTo;
                                     UpdateFailedPartyMonster(failed, line, exp, FilterType.Party);
                                     break;
                                 case false:
@@ -198,7 +198,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNameMonster;
-                                    line.Target = Convert.ToString(failed.Groups["target"].Value);
+                                    line.Target = _lastNamePetPartyTo;
                                     line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.Party);
                                     UpdateFailedPartyMonster(failed, line, exp, FilterType.PetParty);
                                     break;

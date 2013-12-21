@@ -54,7 +54,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
-            Constants.Parse.XSettings.Save(AppViewModel.Instance.SettingsPath + "Settings.Parse.xml");
+            Constants.Parse.XSettings.Save(AppViewModel.Instance.PluginsSettingsPath + "FFXIVAPP.Plugin.Parse.xml");
         }
 
         private void DefaultSettings()

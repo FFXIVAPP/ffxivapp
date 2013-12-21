@@ -7,7 +7,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
@@ -30,13 +29,13 @@ namespace FFXIVAPP.Client.Converters
         /// </summary>
         public NameToAvatarConverter()
         {
-            if (Directory.Exists(CachePath))
+            if (Directory.Exists(AvatarCache))
             {
                 return;
             }
             try
             {
-                Directory.CreateDirectory(CachePath);
+                Directory.CreateDirectory(AvatarCache);
             }
             catch
             {
@@ -44,26 +43,9 @@ namespace FFXIVAPP.Client.Converters
             }
         }
 
-        /// <summary>
-        /// </summary>
-        private string CachePath
+        public string AvatarCache
         {
-            get
-            {
-                try
-                {
-                    var location = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    var applicationName = Assembly.GetEntryAssembly()
-                                                  .GetName()
-                                                  .Name;
-                    return Path.Combine(location, applicationName, "./Avatars/");
-                }
-                catch
-                {
-                    _cachingEnabled = false;
-                    return "./Avatars/";
-                }
-            }
+            get { return Path.Combine(Common.Constants.CachePath, "./Avatars/"); }
         }
 
         /// <summary>
@@ -87,7 +69,7 @@ namespace FFXIVAPP.Client.Converters
                 return source;
             }
             var fileName = String.Format("{0}.{1}.{2}", Constants.ServerName, name.Replace(" ", ""), "png");
-            var cachePath = Path.Combine(CachePath, fileName);
+            var cachePath = Path.Combine(AvatarCache, fileName);
             if (_cachingEnabled && File.Exists(cachePath))
             {
                 return new BitmapImage(new Uri(cachePath));
@@ -160,19 +142,25 @@ namespace FFXIVAPP.Client.Converters
         /// <returns> </returns>
         private string SaveToCache(string fileName, Uri imageUri)
         {
-            var request = (HttpWebRequest) WebRequest.Create(imageUri);
-            var response = (HttpWebResponse) request.GetResponse();
-            var stream = response.GetResponseStream();
-            if (stream != null)
+            try
             {
-                if (response.ContentType == "image/jpeg" || response.ContentType == "image/png")
+                var request = (HttpWebRequest) WebRequest.Create(imageUri);
+                var response = (HttpWebResponse) request.GetResponse();
+                var stream = response.GetResponseStream();
+                if (stream != null)
                 {
-                    var imagePath = Path.Combine(CachePath, fileName);
-                    var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
-                    stream.CopyTo(fileStream);
-                    fileStream.Close();
-                    return imagePath;
+                    if (response.ContentType == "image/jpeg" || response.ContentType == "image/png")
+                    {
+                        var imagePath = Path.Combine(AvatarCache, fileName);
+                        var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
+                        stream.CopyTo(fileStream);
+                        fileStream.Close();
+                        return imagePath;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
             }
             return DefaultAvatar;
         }

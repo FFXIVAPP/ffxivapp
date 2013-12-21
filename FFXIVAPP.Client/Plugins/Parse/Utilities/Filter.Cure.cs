@@ -69,7 +69,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = _lastNamePartyFrom;
+                                line.Source = _lastNamePartyHealingFrom;
                                 UpdateHealingParty(cure, line, exp, FilterType.Party);
                             }
                             break;
@@ -85,9 +85,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             cure = exp.pCure;
                             if (cure.Success)
                             {
-                                line.Source = _lastNamePetPartyFrom;
+                                line.Source = _lastNamePetPartyHealingFrom;
                                 line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
-                                UpdateHealingParty(cure, line, exp, FilterType.Pet);
+                                UpdateHealingParty(cure, line, exp, FilterType.PetParty);
                             }
                             break;
                     }
@@ -114,10 +114,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         line.Action = _lastActionPet;
                         break;
                     case FilterType.Party:
-                        line.Action = _lastActionPartyFrom;
+                        line.Action = _lastActionPartyHealingFrom;
                         break;
                     case FilterType.PetParty:
-                        line.Action = _lastActionPetPartyFrom;
+                        line.Action = _lastActionPetPartyHealingFrom;
                         break;
                 }
                 line.Amount = cure.Groups["amount"].Success ? Convert.ToDecimal(cure.Groups["amount"].Value) : 0m;

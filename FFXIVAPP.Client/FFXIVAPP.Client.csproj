@@ -129,10 +129,15 @@
     <Compile Include="Constants.Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
+    <Compile Include="Constants.Application.cs" />
     <Compile Include="Constants.Parse.cs" />
+    <Compile Include="Controls\PluginInfoBox.xaml.cs">
+      <DependentUpon>PluginInfoBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
+    <Compile Include="Helpers\SettingsHelper.Applicatoin.cs" />
     <Compile Include="Helpers\StatusEffectHelper.cs" />
     <Compile Include="Helpers\StatusItem.cs" />
     <Compile Include="Helpers\StatusLocalization.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
+    <Compile Include="Models\PluginInfo.cs" />
     <Compile Include="Plugins\Parse\Controls\BasicDisplaySettings.xaml.cs">
       <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
     </Compile>
@@ -271,6 +277,7 @@
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
+    <Compile Include="Plugins\Parse\Utilities\Filter.Declarations.cs" />
     <Compile Include="Plugins\Parse\ViewModels\HistoryViewModel.cs" />
     <Compile Include="Plugins\Parse\ViewModels\History\ParseBasicViewModel.cs" />
     <Compile Include="Plugins\Parse\ViewModels\History\ParseMonsterDamageTakenViewModel.cs" />
@@ -304,6 +311,7 @@
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
     <Compile Include="RegularExpressions\PlayerRegEx.cs" />
     <Compile Include="SettingsProviders\Parse\Settings.cs" />
+    <Compile Include="SettingsProviders\Application\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
@@ -385,6 +393,10 @@
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PluginInfoBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Plugins\Parse\Controls\BasicDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -529,7 +541,7 @@
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
     <Resource Include="Defaults\RegularExpressions.xml" />
-    <Resource Include="Defaults\Settings.Parse.xml" />
+    <Resource Include="Defaults\Settings.xml" />
     <Content Include="Licenses\License.DotNetZip.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

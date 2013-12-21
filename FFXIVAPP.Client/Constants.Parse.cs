@@ -64,11 +64,11 @@ namespace FFXIVAPP.Client
             {
                 get
                 {
-                    var file = AppViewModel.Instance.SettingsPath + "Settings.Parse.xml";
+                    var file = AppViewModel.Instance.PluginsSettingsPath + "FFXIVAPP.Plugin.Parse.xml";
                     if (_xSettings == null)
                     {
                         var found = File.Exists(file);
-                        _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.Parse.xml");
+                        _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                     }
                     return _xSettings;
                 }

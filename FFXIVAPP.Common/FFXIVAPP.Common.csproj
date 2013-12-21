@@ -78,6 +78,7 @@
       <DependentUpon>xFlowDocument.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToWidthConverter.cs" />
+    <Compile Include="Converters\IconConverterFromModel.cs" />
     <Compile Include="Converters\IconConverter.cs" />
     <Compile Include="Converters\StringToBrushConverter.cs" />
     <Compile Include="Converters\TabStripBorderConverter.cs" />

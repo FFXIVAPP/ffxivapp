@@ -74,6 +74,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_NoPluginsLineTwoTextBlock", "Confirm your settings and if loaded choose a plugin icon from the tab menu.");
             Dictionary.Add("app_AlwaysReadUpdatesMessage", "Always read the update history for all changes.");
             Dictionary.Add("app_UpdateNotesHeader", "Update Notes");
+            Dictionary.Add("app_ChangesOnRestartMessage", "*Changes will take place after restarting the application.");
         }
     }
 }

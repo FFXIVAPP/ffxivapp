@@ -51,6 +51,7 @@ namespace FFXIVAPP.Client.Helpers
                                     .FirstOrDefault();
                 if (mw != null)
                 {
+                    mw.MetroDialogOptions.CanChangeSizeToContent = false;
                     if (okAction == null && cancelAction == null)
                     {
                         mw.ShowMessageAsync(title, message);

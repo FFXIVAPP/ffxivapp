@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
@@ -40,7 +41,9 @@ namespace FFXIVAPP.Client
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private NotifyIcon _notifyIcon;
+        private List<PluginInformation> _pluginInfo;
         private ObservableCollection<UIElement> _pluginTabItems;
+        private string _pluginsSettingsPath;
         private List<string> _savedLogsDirectoryList;
         private string _screenShotsPath;
         private string _selected;
@@ -112,6 +115,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _pluginTabItems = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public List<PluginInformation> PluginInfo
+        {
+            get { return _pluginInfo ?? (_pluginInfo = new List<PluginInformation>()); }
+            set
+            {
+                _pluginInfo = value;
                 RaisePropertyChanged();
             }
         }
@@ -254,6 +267,23 @@ namespace FFXIVAPP.Client
             set
             {
                 _settingsPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string PluginsSettingsPath
+        {
+            get
+            {
+                if (!Directory.Exists(_pluginsSettingsPath))
+                {
+                    Directory.CreateDirectory(_pluginsSettingsPath);
+                }
+                return _pluginsSettingsPath;
+            }
+            set
+            {
+                _pluginsSettingsPath = value;
                 RaisePropertyChanged();
             }
         }
