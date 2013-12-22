@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -105,7 +106,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
             }
             var openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Logs",
+                InitialDirectory = Path.Combine(Common.Constants.CachePath,"Logs"),
                 Multiselect = false,
                 Filter = "XML Files (*.xml)|*.xml"
             };
