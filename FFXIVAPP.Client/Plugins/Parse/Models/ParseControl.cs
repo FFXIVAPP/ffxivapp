@@ -10,6 +10,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
+using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Common.Core.Parse;
@@ -55,58 +57,70 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         private void ParseEntityTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            if (ParseEntityTimerProcessing)
+            try
             {
-                return;
-            }
-            ParseEntityTimerProcessing = true;
-            var parseEntity = new ParseEntity
-            {
-                Players = new List<PlayerEntity>()
-            };
-            foreach (var playerEntity in Timeline.Party.Select(player => new PlayerEntity
-            {
-                Name = player.Name,
-                DPS = (decimal) player.GetStatValue("DPS"),
-                HPS = (decimal) player.GetStatValue("HPS"),
-                DTPS = (decimal) player.GetStatValue("DTPS"),
-                TotalOverallDamage = (decimal) player.GetStatValue("TotalOverallDamage"),
-                TotalOverallHealing = (decimal) player.GetStatValue("TotalOverallHealing"),
-                TotalOverallDamageTaken = (decimal) player.GetStatValue("TotalOverallDamageTaken"),
-                PercentOfTotalOverallDamage = (decimal) player.GetStatValue("PercentOfTotalOverallDamage"),
-                PercentOfTotalOverallHealing = (decimal) player.GetStatValue("PercentOfTotalOverallHealing"),
-                PercentOfTotalOverallDamageTaken = (decimal) player.GetStatValue("PercentOfTotalOverallDamageTaken")
-            }))
-            {
-                parseEntity.Players.Add(playerEntity);
-            }
-            parseEntity.DPS = (decimal) Timeline.Overall.GetStatValue("DPS");
-            parseEntity.HPS = (decimal) Timeline.Overall.GetStatValue("HPS");
-            parseEntity.DTPS = (decimal) Timeline.Overall.GetStatValue("DTPS");
-            parseEntity.TotalOverallDamage = (decimal) Timeline.Overall.GetStatValue("TotalOverallDamage");
-            parseEntity.TotalOverallHealing = (decimal) Timeline.Overall.GetStatValue("TotalOverallHealing");
-            parseEntity.TotalOverallDamageTaken = (decimal) Timeline.Overall.GetStatValue("TotalOverallDamageTaken");
-            var notify = false;
-            if (LastParseEntity == null)
-            {
-                LastParseEntity = parseEntity;
-                notify = true;
-            }
-            else
-            {
-                var hash1 = JsonConvert.SerializeObject(LastParseEntity)
-                                       .GetHashCode();
-                var hash2 = JsonConvert.SerializeObject(parseEntity)
-                                       .GetHashCode();
-                if (!hash1.Equals(hash2))
+                if (ParseEntityTimerProcessing)
+                {
+                    return;
+                }
+                ParseEntityTimerProcessing = true;
+                var parseEntity = new ParseEntity
+                {
+                    Players = new List<PlayerEntity>()
+                };
+                foreach (Player player in Timeline.Party)
+                {
+                    var playerEntity = new PlayerEntity
+                    {
+                        Name = player.Name,
+                        Job = Common.Core.Memory.Enums.Actor.Job.Unknown,
+                        DPS = (decimal) player.GetStatValue("DPS"),
+                        HPS = (decimal) player.GetStatValue("HPS"),
+                        DTPS = (decimal) player.GetStatValue("DTPS"),
+                        TotalOverallDamage = (decimal) player.GetStatValue("TotalOverallDamage"),
+                        TotalOverallHealing = (decimal) player.GetStatValue("TotalOverallHealing"),
+                        TotalOverallDamageTaken = (decimal) player.GetStatValue("TotalOverallDamageTaken"),
+                        PercentOfTotalOverallDamage = (decimal) player.GetStatValue("PercentOfTotalOverallDamage"),
+                        PercentOfTotalOverallHealing = (decimal) player.GetStatValue("PercentOfTotalOverallHealing"),
+                        PercentOfTotalOverallDamageTaken = (decimal) player.GetStatValue("PercentOfTotalOverallDamageTaken")
+                    };
+                    if (player.NPCEntry != null)
+                    {
+                        playerEntity.Job = player.NPCEntry.ActorJob;
+                    }
+                    parseEntity.Players.Add(playerEntity);
+                }
+                parseEntity.DPS = (decimal)Timeline.Overall.GetStatValue("DPS");
+                parseEntity.HPS = (decimal)Timeline.Overall.GetStatValue("HPS");
+                parseEntity.DTPS = (decimal)Timeline.Overall.GetStatValue("DTPS");
+                parseEntity.TotalOverallDamage = (decimal)Timeline.Overall.GetStatValue("TotalOverallDamage");
+                parseEntity.TotalOverallHealing = (decimal)Timeline.Overall.GetStatValue("TotalOverallHealing");
+                parseEntity.TotalOverallDamageTaken = (decimal)Timeline.Overall.GetStatValue("TotalOverallDamageTaken");
+                var notify = false;
+                if (LastParseEntity == null)
                 {
                     LastParseEntity = parseEntity;
                     notify = true;
                 }
+                else
+                {
+                    var hash1 = JsonConvert.SerializeObject(LastParseEntity)
+                                           .GetHashCode();
+                    var hash2 = JsonConvert.SerializeObject(parseEntity)
+                                           .GetHashCode();
+                    if (!hash1.Equals(hash2))
+                    {
+                        LastParseEntity = parseEntity;
+                        notify = true;
+                    }
+                }
+                if (notify)
+                {
+                    AppContextHelper.Instance.RaiseNewParseEntity(parseEntity);
+                }
             }
-            if (notify)
+            catch (Exception ex)
             {
-                AppContextHelper.Instance.RaiseNewParseEntity(parseEntity);
             }
             ParseEntityTimerProcessing = false;
         }

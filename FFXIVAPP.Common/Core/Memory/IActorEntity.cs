@@ -17,10 +17,12 @@ namespace FFXIVAPP.Common.Core.Memory
         byte Type { get; set; }
         byte TargetType { get; set; }
         byte Distance { get; set; }
+        byte GatheringStatus { get; set; }
         double X { get; set; }
         double Z { get; set; }
         double Y { get; set; }
         float Heading { get; set; }
+        byte GatheringInvisible { get; set; }
         uint Fate { get; set; }
         uint ModelID { get; set; }
         byte Status { get; set; }
@@ -28,6 +30,7 @@ namespace FFXIVAPP.Common.Core.Memory
         byte Icon { get; set; }
         byte Claimed { get; set; }
         int TargetID { get; set; }
+        byte Job { get; set; }
         byte Level { get; set; }
         byte GrandCompany { get; set; }
         byte GrandCompanyRank { get; set; }

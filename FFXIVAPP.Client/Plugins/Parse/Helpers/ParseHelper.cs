@@ -60,7 +60,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
                 GetPlayer(name);
                 if (Player[name].ContainsKey(action))
                 {
-                    Player[name][action] = amount;
+                    var original = Player[name][action];
+                    Player[name][action] = (original + amount) / 2;
                 }
                 else
                 {

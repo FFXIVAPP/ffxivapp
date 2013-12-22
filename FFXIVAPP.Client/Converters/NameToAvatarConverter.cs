@@ -98,7 +98,7 @@ namespace FFXIVAPP.Client.Converters
                         var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                         var imageUrl = src.Match(htmlSource)
                                           .Groups["image"].Value;
-                        imageUrl = imageUrl.Substring(0, imageUrl.IndexOf('?'))
+                        imageUrl = imageUrl.Substring(0, imageUrl.IndexOf("?", Constants.InvariantComparer))
                                            .Replace("50x50", "96x96");
                         image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
                         {

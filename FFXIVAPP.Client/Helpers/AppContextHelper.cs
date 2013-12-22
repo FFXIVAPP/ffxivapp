@@ -183,7 +183,7 @@ namespace FFXIVAPP.Client.Helpers
                     var enumerable = PCWorkerDelegate.UniqueNPCEntries.ToList();
                     foreach (var actor in actorEntities)
                     {
-                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, StringComparison.CurrentCultureIgnoreCase));
+                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
                         if (exists != null)
                         {
                             continue;

@@ -96,10 +96,12 @@ namespace FFXIVAPP.Client.Memory
                                     NPCID2 = actor.NPCID2,
                                     Type = actor.Type,
                                     Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                                    GatheringStatus = actor.GatheringStatus,
                                     X = actor.X,
                                     Z = actor.Z,
                                     Y = actor.Y,
                                     Heading = actor.Heading,
+                                    GatheringInvisible = actor.GatheringInvisible,
                                     Fate = actor.Fate,
                                     ModelID = actor.ModelID,
                                     Icon = actor.Icon,
@@ -115,7 +117,16 @@ namespace FFXIVAPP.Client.Memory
                                     GPCurrent = actor.GPCurrent,
                                     GPMax = actor.GPMax,
                                     CPCurrent = actor.CPCurrent,
-                                    CPMax = actor.CPMax
+                                    CPMax = actor.CPMax,
+                                    GrandCompany = actor.GrandCompany,
+                                    GrandCompanyRank = actor.GrandCompanyRank,
+                                    IsGM = actor.IsGM,
+                                    Job = actor.Job,
+                                    Race = actor.Race,
+                                    Sex = actor.Sex,
+                                    Status = actor.CurrentStatus,
+                                    Title = actor.Title,
+                                    TargetType = actor.Type
                                 };
                                 if (entry.HPMax == 0)
                                 {

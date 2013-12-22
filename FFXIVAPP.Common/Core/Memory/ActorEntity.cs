@@ -170,6 +170,78 @@ namespace FFXIVAPP.Common.Core.Memory
             }
         }
 
+        public Enums.Actor.Job ActorJob
+        {
+            get
+            {
+                switch (Job)
+                {
+                    case 0x1:
+                        return Enums.Actor.Job.GLD;
+                    case 0x2:
+                        return Enums.Actor.Job.PGL;
+                    case 0x3:
+                        return Enums.Actor.Job.MRD;
+                    case 0x4:
+                        return Enums.Actor.Job.LNC;
+                    case 0x5:
+                        return Enums.Actor.Job.ARC;
+                    case 0x6:
+                        return Enums.Actor.Job.CNJ;
+                    case 0x7:
+                        return Enums.Actor.Job.THM;
+                    case 0x8:
+                        return Enums.Actor.Job.CPT;
+                    case 0x9:
+                        return Enums.Actor.Job.BSM;
+                    case 0xA:
+                        return Enums.Actor.Job.ARC;
+                    case 0xB:
+                        return Enums.Actor.Job.GSM;
+                    case 0xC:
+                        return Enums.Actor.Job.LTW;
+                    case 0xD:
+                        return Enums.Actor.Job.WVR;
+                    case 0xE:
+                        return Enums.Actor.Job.ALC;
+                    case 0xF:
+                        return Enums.Actor.Job.CUL;
+                    case 0x10:
+                        return Enums.Actor.Job.MIN;
+                    case 0x11:
+                        return Enums.Actor.Job.BOT;
+                    case 0x12:
+                        return Enums.Actor.Job.FSH;
+                    case 0x13:
+                        return Enums.Actor.Job.PLD;
+                    case 0x14:
+                        return Enums.Actor.Job.MNK;
+                    case 0x15:
+                        return Enums.Actor.Job.WAR;
+                    case 0x16:
+                        return Enums.Actor.Job.DRG;
+                    case 0x17:
+                        return Enums.Actor.Job.BRD;
+                    case 0x18:
+                        return Enums.Actor.Job.WHM;
+                    case 0x19:
+                        return Enums.Actor.Job.BLM;
+                    case 0x2A:
+                        return Enums.Actor.Job.ACN;
+                    case 0x2B:
+                        return Enums.Actor.Job.SMN;
+                    case 0x2C:
+                        return Enums.Actor.Job.SCH;
+                    case 0x2D:
+                        return Enums.Actor.Job.Chocobo;
+                    case 0x2E:
+                        return Enums.Actor.Job.Pet;
+                    default:
+                        return Enums.Actor.Job.Unknown;
+                }
+            }
+        }
+
         public decimal HPPercent
         {
             get
@@ -313,7 +385,7 @@ namespace FFXIVAPP.Common.Core.Memory
         }
 
         public Coordinate Coordinate { get; set; }
-
+        public byte GatheringStatus { get; set; }
         public uint MapIndex { get; set; }
 
         public string Name
@@ -326,42 +398,34 @@ namespace FFXIVAPP.Common.Core.Memory
         public uint NPCID1 { get; set; }
         public uint NPCID2 { get; set; }
         public byte Type { get; set; }
-
         public byte TargetType { get; set; }
-
         public byte Distance { get; set; }
         public double X { get; set; }
         public double Z { get; set; }
         public double Y { get; set; }
         public float Heading { get; set; }
+        public byte GatheringInvisible { get; set; }
         public uint Fate { get; set; }
         public uint ModelID { get; set; }
         public byte Status { get; set; }
-
         public bool IsGM { get; set; }
         public byte Icon { get; set; }
-
         public byte Claimed { get; set; }
-
         public int TargetID { get; set; }
+        public byte Job { get; set; }
         public byte Level { get; set; }
         public byte GrandCompany { get; set; }
         public byte GrandCompanyRank { get; set; }
         public byte Title { get; set; }
         public int HPCurrent { get; set; }
         public int HPMax { get; set; }
-
         public int MPCurrent { get; set; }
         public int MPMax { get; set; }
-
         public int TPCurrent { get; set; }
-
         public short GPCurrent { get; set; }
         public short GPMax { get; set; }
-
         public short CPCurrent { get; set; }
         public short CPMax { get; set; }
-
         public byte Race { get; set; }
         public byte Sex { get; set; }
 

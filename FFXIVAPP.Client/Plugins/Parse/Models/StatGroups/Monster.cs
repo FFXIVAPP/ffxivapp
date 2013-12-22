@@ -50,7 +50,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public uint ID { get; set; }
 
-        public static ActorEntity NPCEntry { get; set; }
+        public ActorEntity NPCEntry { get; set; }
 
         public List<LineHistory> LineHistory { get; set; }
 

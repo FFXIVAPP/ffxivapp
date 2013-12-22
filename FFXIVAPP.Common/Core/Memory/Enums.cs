@@ -7,41 +7,6 @@ namespace FFXIVAPP.Common.Core.Memory
 {
     public class Enums
     {
-        public enum Job : byte
-        {
-            Unknown,
-            GLD,
-            PGL,
-            MRD,
-            LNC,
-            ARC,
-            CNJ,
-            THM,
-            CPT,
-            BSM,
-            ARM,
-            GSM,
-            LTW,
-            WVR,
-            ALC,
-            CUL,
-            MIN,
-            BOT,
-            FSH,
-            PLD,
-            MNK,
-            WAR,
-            DRG,
-            BRD,
-            WHM,
-            BLM,
-            ACN,
-            SMN,
-            SCH,
-            Chocobo,
-            Pet
-        }
-
         public class Actor
         {
             public enum Claimed : byte
@@ -122,6 +87,41 @@ namespace FFXIVAPP.Common.Core.Memory
                 Aetheryte,
                 Gathering,
                 Minion
+            }
+
+            public enum Job : byte
+            {
+                Unknown,
+                GLD,
+                PGL,
+                MRD,
+                LNC,
+                ARC,
+                CNJ,
+                THM,
+                CPT,
+                BSM,
+                ARM,
+                GSM,
+                LTW,
+                WVR,
+                ALC,
+                CUL,
+                MIN,
+                BOT,
+                FSH,
+                PLD,
+                MNK,
+                WAR,
+                DRG,
+                BRD,
+                WHM,
+                BLM,
+                ACN,
+                SMN,
+                SCH,
+                Chocobo,
+                Pet
             }
         }
     }

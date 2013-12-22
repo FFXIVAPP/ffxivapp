@@ -49,13 +49,11 @@ namespace FFXIVAPP.Client.Reflection
         private Assembly OnReflectionOnlyResolve(ResolveEventArgs args, DirectoryInfo directory)
         {
             var loadedAssembly = AppDomain.CurrentDomain.ReflectionOnlyGetAssemblies()
-                                          .FirstOrDefault(asm => string.Equals(asm.FullName, args.Name, StringComparison.OrdinalIgnoreCase));
-
+                                          .FirstOrDefault(asm => string.Equals(asm.FullName, args.Name, Constants.InvariantComparer));
             if (loadedAssembly != null)
             {
                 return loadedAssembly;
             }
-
             var assemblyName = new AssemblyName(args.Name);
             var dependentAssemblyFilename = Path.Combine(directory.FullName, assemblyName.Name + ".dll");
 

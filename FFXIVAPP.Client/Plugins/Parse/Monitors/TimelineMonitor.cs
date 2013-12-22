@@ -144,9 +144,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 }
                 if (!String.IsNullOrWhiteSpace(monsterName.Replace(" ", "")))
                 {
-                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex))
+                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, Constants.InvariantComparer) && entry.MapIndex == killEntry.MapIndex))
                     {
-                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == killEntry.MapIndex);
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, Constants.InvariantComparer) && entry.MapIndex == killEntry.MapIndex);
                         killEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
                 }
@@ -241,9 +241,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 }
                 if (!String.IsNullOrWhiteSpace(monsterName.Replace(" ", "")))
                 {
-                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex))
+                    if (monsters.Any(entry => String.Equals(entry.Name, monsterName, Constants.InvariantComparer) && entry.MapIndex == lootEntry.MapIndex))
                     {
-                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, StringComparison.CurrentCultureIgnoreCase) && entry.MapIndex == lootEntry.MapIndex);
+                        var monster = monsters.FirstOrDefault(entry => String.Equals(entry.Name, monsterName, Constants.InvariantComparer) && entry.MapIndex == lootEntry.MapIndex);
                         lootEntry.ModelID = monster == null ? 0 : monster.ModelID;
                     }
                 }

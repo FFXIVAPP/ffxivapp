@@ -422,9 +422,6 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.5</string>
-  <string>0.6</string>
-  <string>0.7</string>
   <string>0.8</string>
   <string>0.9</string>
   <string>1.0</string>

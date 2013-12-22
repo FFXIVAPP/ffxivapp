@@ -26,6 +26,7 @@ namespace FFXIVAPP.Client
         };
 
         public static StringComparison InvariantComparer = StringComparison.InvariantCultureIgnoreCase;
+        public static StringComparison CultureComparer = StringComparison.CurrentCultureIgnoreCase;
 
         #endregion
 

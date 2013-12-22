@@ -70,6 +70,10 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(141)]
             public byte Distance;
 
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(142)]
+            public byte GatheringStatus;
+
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(160)]
             public float X;
@@ -89,6 +93,10 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(228)]
             public uint Fate;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(284)]
+            public byte GatheringInvisible;
 
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(388)]
@@ -113,6 +121,10 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(416)]
             public int TargetID;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(5784)]
+            public byte Job;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(5785)]
@@ -167,12 +179,16 @@ namespace FFXIVAPP.Client.Memory
             public short CPMax;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(11704)]
+            [FieldOffset(11864)]
             public byte Race;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(11705)]
+            [FieldOffset(11865)]
             public byte Sex;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(11890)]
+            public byte Agro;
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
             [FieldOffset(12280)]
