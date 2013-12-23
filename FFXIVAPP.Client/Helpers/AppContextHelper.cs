@@ -84,12 +84,12 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            MonsterWorkerDelegate.NPCEntries = actorEntities;
+            MonsterWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
             Func<bool> saveToDictionary = delegate
             {
                 try
                 {
-                    var enumerable = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
+                    var enumerable = MonsterWorkerDelegate.GetUniqueNPCEntities();
                     foreach (var actor in actorEntities)
                     {
                         var exists = enumerable.FirstOrDefault(n => n.ID == actor.ID);
@@ -99,7 +99,7 @@ namespace FFXIVAPP.Client.Helpers
                         }
                         if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(actor)))
                         {
-                            MonsterWorkerDelegate.UniqueNPCEntries.Add(actor);
+                            MonsterWorkerDelegate.AddUniqueNPCEntity(actor);
                         }
                         XIVDBViewModel.Instance.MonsterSeen++;
                     }
@@ -113,7 +113,8 @@ namespace FFXIVAPP.Client.Helpers
             {
                 var chunkSize = MonsterWorkerDelegate.UploadHelper.ChunkSize;
                 var chunksProcessed = MonsterWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (MonsterWorkerDelegate.UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (MonsterWorkerDelegate.GetUniqueNPCEntities()
+                                         .Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -129,12 +130,12 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            NPCWorkerDelegate.NPCEntries = actorEntities;
+            NPCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
             Func<bool> saveToDictionary = delegate
             {
                 try
                 {
-                    var enumerable = NPCWorkerDelegate.UniqueNPCEntries.ToList();
+                    var enumerable = NPCWorkerDelegate.GetUniqueNPCEntities();
                     foreach (var actor in actorEntities)
                     {
                         var exists = enumerable.FirstOrDefault(n => n.NPCID2 == actor.NPCID2);
@@ -144,7 +145,7 @@ namespace FFXIVAPP.Client.Helpers
                         }
                         if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(actor)))
                         {
-                            NPCWorkerDelegate.UniqueNPCEntries.Add(actor);
+                            NPCWorkerDelegate.AddUniqueNPCEntity(actor);
                         }
                         XIVDBViewModel.Instance.NPCSeen++;
                     }
@@ -158,7 +159,8 @@ namespace FFXIVAPP.Client.Helpers
             {
                 var chunkSize = NPCWorkerDelegate.UploadHelper.ChunkSize;
                 var chunksProcessed = NPCWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (NPCWorkerDelegate.UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (NPCWorkerDelegate.GetUniqueNPCEntities()
+                                     .Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -174,13 +176,13 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            PCWorkerDelegate.NPCEntries = actorEntities;
+            PCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
             CurrentUser = actorEntities.First();
             Func<bool> saveToDictionary = delegate
             {
                 try
                 {
-                    var enumerable = PCWorkerDelegate.UniqueNPCEntries.ToList();
+                    var enumerable = PCWorkerDelegate.GetUniqueNPCEntities();
                     foreach (var actor in actorEntities)
                     {
                         var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
@@ -188,7 +190,7 @@ namespace FFXIVAPP.Client.Helpers
                         {
                             continue;
                         }
-                        PCWorkerDelegate.UniqueNPCEntries.Add(actor);
+                        PCWorkerDelegate.AddUniqueNPCEntity(actor);
                         XIVDBViewModel.Instance.PCSeen++;
                     }
                 }
@@ -201,7 +203,8 @@ namespace FFXIVAPP.Client.Helpers
             {
                 var chunkSize = PCWorkerDelegate.UploadHelper.ChunkSize;
                 var chunksProcessed = PCWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (PCWorkerDelegate.UniqueNPCEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (PCWorkerDelegate.GetUniqueNPCEntities()
+                                    .Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }

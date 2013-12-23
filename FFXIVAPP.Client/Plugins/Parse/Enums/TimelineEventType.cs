@@ -14,6 +14,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
         PartyLeave,
         PartyDisband,
         PartyMonsterFighting,
-        PartyMonsterKilled
+        PartyMonsterKilled,
+        AllianceMonsterFighting,
+        AllianceMonsterKilled
     };
 }

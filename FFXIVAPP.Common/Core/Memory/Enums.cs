@@ -36,6 +36,7 @@ namespace FFXIVAPP.Common.Core.Memory
                 ProcessingGrey,
                 Cutscene,
                 Chocobo,
+                Away,
                 Sitting,
                 WrenchYellow,
                 Wrench,
@@ -43,11 +44,49 @@ namespace FFXIVAPP.Common.Core.Memory
                 ProcessingGreen,
                 Sword,
                 DutyFinder,
+                Recruiting,
                 AllianceLeader,
                 AllianceBlueLeader,
                 AllianceBlue,
+                PartyLeader,
+                PartyMember,
                 Sprout,
                 Gil
+            }
+
+            public enum Job : byte
+            {
+                Unknown,
+                GLD,
+                PGL,
+                MRD,
+                LNC,
+                ARC,
+                CNJ,
+                THM,
+                CPT,
+                BSM,
+                ARM,
+                GSM,
+                LTW,
+                WVR,
+                ALC,
+                CUL,
+                MIN,
+                BOT,
+                FSH,
+                PLD,
+                MNK,
+                WAR,
+                DRG,
+                BRD,
+                WHM,
+                BLM,
+                ACN,
+                SMN,
+                SCH,
+                Chocobo,
+                Pet
             }
 
             public enum Sex : byte
@@ -87,41 +126,6 @@ namespace FFXIVAPP.Common.Core.Memory
                 Aetheryte,
                 Gathering,
                 Minion
-            }
-
-            public enum Job : byte
-            {
-                Unknown,
-                GLD,
-                PGL,
-                MRD,
-                LNC,
-                ARC,
-                CNJ,
-                THM,
-                CPT,
-                BSM,
-                ARM,
-                GSM,
-                LTW,
-                WVR,
-                ALC,
-                CUL,
-                MIN,
-                BOT,
-                FSH,
-                PLD,
-                MNK,
-                WAR,
-                DRG,
-                BRD,
-                WHM,
-                BLM,
-                ACN,
-                SMN,
-                SCH,
-                Chocobo,
-                Pet
             }
         }
     }

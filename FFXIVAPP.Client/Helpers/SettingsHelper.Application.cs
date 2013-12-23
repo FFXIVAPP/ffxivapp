@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// SettingsHelper.Applicatoin.cs
+// SettingsHelper.Application.cs
 // 
 // © 2013 Ryan Wilson
 

@@ -129,7 +129,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterKilled, monsterName);
             try
             {
-                var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
+                var monsters = MonsterWorkerDelegate.GetUniqueNPCEntities();
                 var killEntry = new KillEntry();
                 if (AppContextHelper.Instance.CurrentUser != null)
                 {
@@ -226,7 +226,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             }
             try
             {
-                var monsters = MonsterWorkerDelegate.UniqueNPCEntries.ToList();
+                var monsters = MonsterWorkerDelegate.GetUniqueNPCEntities();
                 var lootEntry = new LootEntry(thing);
                 if (AppContextHelper.Instance.CurrentUser != null)
                 {

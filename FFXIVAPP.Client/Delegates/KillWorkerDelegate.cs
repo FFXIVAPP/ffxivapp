@@ -16,11 +16,39 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Delegates
 {
     [DoNotObfuscate]
-    internal static class KillWorkerDelegate
+    public static class KillWorkerDelegate
     {
+        #region Collection Access & Modification
+
+        public static void AddKillEntry(KillEntry entry)
+        {
+            lock (_killEntries)
+            {
+                _killEntries.Add(entry);
+            }
+        }
+
+        public static void ReplaceKillEntries(IEnumerable<KillEntry> entries)
+        {
+            lock (_killEntries)
+            {
+                _killEntries = new List<KillEntry>(entries);
+            }
+        }
+
+        public static IList<KillEntry> GetKillEntries()
+        {
+            lock (_killEntries)
+            {
+                return new List<KillEntry>(_killEntries);
+            }
+        }
+
+        #endregion
+
         #region Declarations
 
-        public static readonly IList<KillEntry> KillEntries = new List<KillEntry>();
+        private static IList<KillEntry> _killEntries = new List<KillEntry>();
 
         private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
@@ -38,7 +66,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(killEntry)))
                 {
-                    KillEntries.Add(killEntry);
+                    AddKillEntry(killEntry);
                 }
                 XIVDBViewModel.Instance.KillSeen++;
                 return true;
@@ -47,7 +75,8 @@ namespace FFXIVAPP.Client.Delegates
             {
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (KillEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (GetKillEntries()
+                    .Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -68,8 +97,8 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("kill", new List<KillEntry>(KillEntries.ToList()
-                                                                               .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.PostUpload("kill", new List<KillEntry>(GetKillEntries()
+                    .Skip(chunksProcessed * chunkSize)));
                 XIVDBViewModel.Instance.KillProcessed++;
             }
             catch (Exception ex)

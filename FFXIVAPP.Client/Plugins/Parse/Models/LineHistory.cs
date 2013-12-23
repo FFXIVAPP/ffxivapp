@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Core.Memory;
 using SmartAssembly.Attributes;
@@ -24,8 +23,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             uint PlayerID = 0;
             try
             {
-                var monsterEntries = MonsterWorkerDelegate.NPCEntries.ToList();
-                var pcEntries = PCWorkerDelegate.NPCEntries.ToList();
+                var monsterEntries = MonsterWorkerDelegate.GetNPCEntities();
+                var pcEntries = PCWorkerDelegate.GetNPCEntities();
                 // process you => monster
                 foreach (var actorEntity in pcEntries)
                 {

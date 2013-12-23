@@ -67,35 +67,35 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 return;
             }
             StatusUpdateTimerProcessing = true;
-            var isYou = Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer);
-            var isPet = false;
-            var pcEntries = PCWorkerDelegate.NPCEntries.ToList();
-            var monsterEntries = MonsterWorkerDelegate.NPCEntries.ToList();
-            var cleanedName = Regex.Replace(Name, @" \[[\w]+\]", "");
-            try
-            {
-                NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : null;
-                if (!isYou)
-                {
-                    try
-                    {
-                        NPCEntry = pcEntries.First(p => String.Equals(p.Name, cleanedName, Constants.InvariantComparer));
-                    }
-                    catch (Exception ex)
-                    {
-                        isPet = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
+            var monsterEntries = MonsterWorkerDelegate.GetNPCEntities();
+            var pcEntries = PCWorkerDelegate.GetNPCEntities();
             StatusEntriesSelf.Clear();
             StatusEntriesMonster.Clear();
             if (pcEntries.Any())
             {
                 try
                 {
+                    var isYou = Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer);
+                    var isPet = false;
+                    var cleanedName = Regex.Replace(Name, @" \[[\w]+\]", "");
+                    try
+                    {
+                        NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : null;
+                        if (!isYou)
+                        {
+                            try
+                            {
+                                NPCEntry = pcEntries.First(p => String.Equals(p.Name, cleanedName, Constants.InvariantComparer));
+                            }
+                            catch (Exception ex)
+                            {
+                                isPet = true;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     if (NPCEntry != null)
                     {
                         ID = NPCEntry.ID;

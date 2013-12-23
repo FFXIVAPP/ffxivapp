@@ -121,7 +121,7 @@ namespace FFXIVAPP.Common.Core.Memory
                     case 0x10:
                         return Enums.Actor.Icon.Cutscene;
                     case 0x12:
-                        return Enums.Actor.Icon.Chocobo;
+                        return Enums.Actor.Icon.Away;
                     case 0x13:
                         return Enums.Actor.Icon.Sitting;
                     case 0x14:
@@ -133,15 +133,19 @@ namespace FFXIVAPP.Common.Core.Memory
                     case 0x17:
                         return Enums.Actor.Icon.ProcessingGreen;
                     case 0x18:
-                        return Enums.Actor.Icon.Sword;
-                    case 0x19:
                         return Enums.Actor.Icon.DutyFinder;
+                    case 0x19:
+                        return Enums.Actor.Icon.Recruiting;
                     case 0x1A:
                         return Enums.Actor.Icon.AllianceLeader;
                     case 0x1B:
                         return Enums.Actor.Icon.AllianceBlueLeader;
                     case 0x1C:
                         return Enums.Actor.Icon.AllianceBlue;
+                    case 0x1D:
+                        return Enums.Actor.Icon.PartyLeader;
+                    case 0x1E:
+                        return Enums.Actor.Icon.PartyMember;
                     case 0x1F:
                         return Enums.Actor.Icon.Sprout;
                     case 0x20:
@@ -226,15 +230,15 @@ namespace FFXIVAPP.Common.Core.Memory
                         return Enums.Actor.Job.WHM;
                     case 0x19:
                         return Enums.Actor.Job.BLM;
-                    case 0x2A:
+                    case 0x1A:
                         return Enums.Actor.Job.ACN;
-                    case 0x2B:
+                    case 0x1B:
                         return Enums.Actor.Job.SMN;
-                    case 0x2C:
+                    case 0x1C:
                         return Enums.Actor.Job.SCH;
-                    case 0x2D:
+                    case 0x1D:
                         return Enums.Actor.Job.Chocobo;
-                    case 0x2E:
+                    case 0x1E:
                         return Enums.Actor.Job.Pet;
                     default:
                         return Enums.Actor.Job.Unknown;

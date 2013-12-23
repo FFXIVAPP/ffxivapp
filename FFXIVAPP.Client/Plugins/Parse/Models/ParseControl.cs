@@ -6,12 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
-using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Common.Core.Parse;
@@ -90,12 +88,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     }
                     parseEntity.Players.Add(playerEntity);
                 }
-                parseEntity.DPS = (decimal)Timeline.Overall.GetStatValue("DPS");
-                parseEntity.HPS = (decimal)Timeline.Overall.GetStatValue("HPS");
-                parseEntity.DTPS = (decimal)Timeline.Overall.GetStatValue("DTPS");
-                parseEntity.TotalOverallDamage = (decimal)Timeline.Overall.GetStatValue("TotalOverallDamage");
-                parseEntity.TotalOverallHealing = (decimal)Timeline.Overall.GetStatValue("TotalOverallHealing");
-                parseEntity.TotalOverallDamageTaken = (decimal)Timeline.Overall.GetStatValue("TotalOverallDamageTaken");
+                parseEntity.DPS = (decimal) Timeline.Overall.GetStatValue("DPS");
+                parseEntity.HPS = (decimal) Timeline.Overall.GetStatValue("HPS");
+                parseEntity.DTPS = (decimal) Timeline.Overall.GetStatValue("DTPS");
+                parseEntity.TotalOverallDamage = (decimal) Timeline.Overall.GetStatValue("TotalOverallDamage");
+                parseEntity.TotalOverallHealing = (decimal) Timeline.Overall.GetStatValue("TotalOverallHealing");
+                parseEntity.TotalOverallDamageTaken = (decimal) Timeline.Overall.GetStatValue("TotalOverallDamageTaken");
                 var notify = false;
                 if (LastParseEntity == null)
                 {

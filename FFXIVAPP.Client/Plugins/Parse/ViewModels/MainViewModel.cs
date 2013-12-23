@@ -106,7 +106,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
             }
             var openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = Path.Combine(Common.Constants.CachePath,"Logs"),
+                InitialDirectory = Path.Combine(Common.Constants.CachePath, "Logs"),
                 Multiselect = false,
                 Filter = "XML Files (*.xml)|*.xml"
             };

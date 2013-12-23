@@ -448,24 +448,26 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             continue;
                                         }
-                                        if (PCWorkerDelegate.UniqueNPCEntries.Any())
+                                        if (PCWorkerDelegate.GetUniqueNPCEntities()
+                                                            .Any())
                                         {
-                                            if (PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                            if (PCWorkerDelegate.GetUniqueNPCEntities()
                                                                 .Any(a => a.ID == enmityEntry.ID))
                                             {
-                                                enmityEntry.Name = PCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                enmityEntry.Name = PCWorkerDelegate.GetUniqueNPCEntities()
                                                                                    .First(a => a.ID == enmityEntry.ID)
                                                                                    .Name;
                                             }
                                         }
                                         if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                         {
-                                            if (NPCWorkerDelegate.UniqueNPCEntries.Any())
+                                            if (NPCWorkerDelegate.GetUniqueNPCEntities()
+                                                                 .Any())
                                             {
-                                                if (NPCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                if (NPCWorkerDelegate.GetUniqueNPCEntities()
                                                                      .Any(a => a.ID == enmityEntry.ID))
                                                 {
-                                                    enmityEntry.Name = NPCWorkerDelegate.UniqueNPCEntries.ToList()
+                                                    enmityEntry.Name = NPCWorkerDelegate.GetUniqueNPCEntities()
                                                                                         .First(a => a.NPCID2 == enmityEntry.ID)
                                                                                         .Name;
                                                 }
@@ -473,12 +475,13 @@ namespace FFXIVAPP.Client.Memory
                                         }
                                         if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                         {
-                                            if (MonsterWorkerDelegate.UniqueNPCEntries.Any())
+                                            if (MonsterWorkerDelegate.GetUniqueNPCEntities()
+                                                                     .Any())
                                             {
-                                                if (MonsterWorkerDelegate.UniqueNPCEntries.ToList()
+                                                if (MonsterWorkerDelegate.GetUniqueNPCEntities()
                                                                          .Any(a => a.ID == enmityEntry.ID))
                                                 {
-                                                    enmityEntry.Name = MonsterWorkerDelegate.UniqueNPCEntries.ToList()
+                                                    enmityEntry.Name = MonsterWorkerDelegate.GetUniqueNPCEntities()
                                                                                             .First(a => a.ID == enmityEntry.ID)
                                                                                             .Name;
                                                 }

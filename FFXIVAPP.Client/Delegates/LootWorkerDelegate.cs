@@ -16,11 +16,39 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Delegates
 {
     [DoNotObfuscate]
-    internal static class LootWorkerDelegate
+    public static class LootWorkerDelegate
     {
+        #region Collection Access & Modification
+
+        public static void AddLootEntry(LootEntry entry)
+        {
+            lock (_lootEntries)
+            {
+                _lootEntries.Add(entry);
+            }
+        }
+
+        public static void ReplaceLootEntries(IEnumerable<LootEntry> entries)
+        {
+            lock (_lootEntries)
+            {
+                _lootEntries = new List<LootEntry>(entries);
+            }
+        }
+
+        public static IList<LootEntry> GetLootEntries()
+        {
+            lock (_lootEntries)
+            {
+                return new List<LootEntry>(_lootEntries);
+            }
+        }
+
+        #endregion
+
         #region Declarations
 
-        public static readonly IList<LootEntry> LootEntries = new List<LootEntry>();
+        private static IList<LootEntry> _lootEntries = new List<LootEntry>();
 
         private static readonly UploadHelper UploadHelper = new UploadHelper(5);
 
@@ -38,7 +66,7 @@ namespace FFXIVAPP.Client.Delegates
                 }
                 if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(lootEntry)))
                 {
-                    LootEntries.Add(lootEntry);
+                    AddLootEntry(lootEntry);
                 }
                 XIVDBViewModel.Instance.LootSeen++;
                 return true;
@@ -47,7 +75,8 @@ namespace FFXIVAPP.Client.Delegates
             {
                 var chunkSize = UploadHelper.ChunkSize;
                 var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (LootEntries.Count <= (chunkSize * (chunksProcessed + 1)))
+                if (GetLootEntries()
+                    .Count <= (chunkSize * (chunksProcessed + 1)))
                 {
                     return;
                 }
@@ -68,8 +97,8 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("loot", new List<LootEntry>(LootEntries.ToList()
-                                                                               .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.PostUpload("loot", new List<LootEntry>(GetLootEntries()
+                    .Skip(chunksProcessed * chunkSize)));
                 XIVDBViewModel.Instance.LootProcessed++;
             }
             catch (Exception ex)

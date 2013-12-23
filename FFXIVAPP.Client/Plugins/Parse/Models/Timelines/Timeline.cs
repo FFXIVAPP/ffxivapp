@@ -227,6 +227,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                     ((Monster) statGroup).Type = type;
                     Monster.AddGroup(statGroup);
                     break;
+                case TimelineType.Alliance:
+                    break;
             }
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
             return (Monster) statGroup;
@@ -252,6 +254,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                     ((Player) statGroup).Type = type;
                     Party.AddGroup(statGroup);
                     break;
+                case TimelineType.Alliance:
+                    break;
             }
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
             return (Player) statGroup;
@@ -271,17 +275,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 switch (eventType)
                 {
                     case TimelineEventType.PartyJoin:
-                        if ((string) eventArgs[0] == "You")
-                        {
-                            eventArgs[0] = Constants.CharacterName;
-                        }
-                        break;
                     case TimelineEventType.PartyDisband:
-                        break;
                     case TimelineEventType.PartyLeave:
-                        var whoLeft = eventArgs.Any() ? eventArgs.First() as string : String.Empty;
                         break;
                     case TimelineEventType.PartyMonsterFighting:
+                    case TimelineEventType.AllianceMonsterFighting:
                         DeathFound = false;
                         if (monsterName != null && (monsterName.ToLower()
                                                                .Contains("target") || monsterName == ""))
@@ -297,6 +295,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         Controller.Timeline.LastEngaged = monsterName;
                         break;
                     case TimelineEventType.PartyMonsterKilled:
+                    case TimelineEventType.AllianceMonsterKilled:
                         DeathFound = true;
                         if (monsterName != null && (monsterName.ToLower()
                                                                .Contains("target") || monsterName == ""))
@@ -309,8 +308,17 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                             killed = new Fight(monsterName);
                             Fights.Add(killed);
                         }
-                        GetSetMonster(monsterName, TimelineType.Party)
-                            .SetKill(killed);
+                        switch (eventType)
+                        {
+                            case TimelineEventType.PartyMonsterKilled:
+                                GetSetMonster(monsterName, TimelineType.Party)
+                                    .SetKill(killed);
+                                break;
+                            case TimelineEventType.AllianceMonsterKilled:
+                                GetSetMonster(monsterName, TimelineType.Alliance)
+                                    .SetKill(killed);
+                                break;
+                        }
                         Controller.Timeline.LastKilled = monsterName;
                         break;
                 }

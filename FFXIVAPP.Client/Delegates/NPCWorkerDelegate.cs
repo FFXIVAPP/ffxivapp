@@ -15,13 +15,65 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Delegates
 {
     [DoNotObfuscate]
-    internal static class NPCWorkerDelegate
+    public static class NPCWorkerDelegate
     {
+        #region Collection Access & Modification
+
+        public static void AddNPCEntity(ActorEntity entity)
+        {
+            lock (_npcEntities)
+            {
+                _npcEntities.Add(entity);
+            }
+        }
+
+        public static void ReplaceNPCEntities(IEnumerable<ActorEntity> entities)
+        {
+            lock (_npcEntities)
+            {
+                _npcEntities = new List<ActorEntity>(entities);
+            }
+        }
+
+        public static IList<ActorEntity> GetNPCEntities()
+        {
+            lock (_npcEntities)
+            {
+                return new List<ActorEntity>(_npcEntities);
+            }
+        }
+
+        public static void AddUniqueNPCEntity(ActorEntity entity)
+        {
+            lock (_uniqueNPCEntities)
+            {
+                _uniqueNPCEntities.Add(entity);
+            }
+        }
+
+        public static void ReplaceUniqueNPCEntities(IEnumerable<ActorEntity> entities)
+        {
+            lock (_uniqueNPCEntities)
+            {
+                _uniqueNPCEntities = new List<ActorEntity>(entities);
+            }
+        }
+
+        public static IList<ActorEntity> GetUniqueNPCEntities()
+        {
+            lock (_uniqueNPCEntities)
+            {
+                return new List<ActorEntity>(_uniqueNPCEntities);
+            }
+        }
+
+        #endregion
+
         #region Declarations
 
-        public static IList<ActorEntity> NPCEntries = new List<ActorEntity>();
+        private static IList<ActorEntity> _npcEntities = new List<ActorEntity>();
 
-        public static readonly IList<ActorEntity> UniqueNPCEntries = new List<ActorEntity>();
+        private static IList<ActorEntity> _uniqueNPCEntities = new List<ActorEntity>();
 
         public static readonly UploadHelper UploadHelper = new UploadHelper(50);
 
@@ -40,8 +92,8 @@ namespace FFXIVAPP.Client.Delegates
             try
             {
                 UploadHelper.Processing = true;
-                UploadHelper.PostUpload("npc", new List<ActorEntity>(UniqueNPCEntries.ToList()
-                                                                                     .Skip(chunksProcessed * chunkSize)));
+                UploadHelper.PostUpload("npc", new List<ActorEntity>(GetUniqueNPCEntities()
+                    .Skip(chunksProcessed * chunkSize)));
                 XIVDBViewModel.Instance.NPCProcessed++;
             }
             catch (Exception ex)

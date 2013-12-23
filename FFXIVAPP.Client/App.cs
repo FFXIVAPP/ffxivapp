@@ -122,17 +122,20 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            e.Handled = true;
             var ex = e.Exception;
             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-            MessageBoxHelper.ShowMessage("CRITICAL! [CRASHING]", ex.Message);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnUnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e)
         {
-            e.RequestCatch = false;
+            e.RequestCatch = true;
             var ex = e.Exception;
             Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-            MessageBoxHelper.ShowMessage("CRITICAL! [CRASHING]", ex.Message);
         }
 
         /// <summary>
