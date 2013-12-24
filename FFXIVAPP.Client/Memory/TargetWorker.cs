@@ -95,54 +95,8 @@ namespace FFXIVAPP.Client.Memory
                                         try
                                         {
                                             var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.CurrentTarget);
-                                            var entry = new ActorEntity
-                                            {
-                                                Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48),
-                                                ID = actor.ID,
-                                                NPCID1 = actor.NPCID1,
-                                                NPCID2 = actor.NPCID2,
-                                                Type = actor.Type,
-                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                                GatheringStatus = actor.GatheringStatus,
-                                                X = actor.X,
-                                                Z = actor.Z,
-                                                Y = actor.Y,
-                                                Heading = actor.Heading,
-                                                GatheringInvisible = actor.GatheringInvisible,
-                                                Fate = actor.Fate,
-                                                ModelID = actor.ModelID,
-                                                Icon = actor.Icon,
-                                                Claimed = actor.Claimed,
-                                                TargetID = actor.TargetID,
-                                                Level = actor.Level,
-                                                HPCurrent = actor.HPCurrent,
-                                                HPMax = actor.HPMax,
-                                                MPCurrent = actor.MPCurrent,
-                                                MPMax = actor.MPMax,
-                                                TPCurrent = actor.TPCurrent,
-                                                TPMax = 1000,
-                                                GPCurrent = actor.GPCurrent,
-                                                GPMax = actor.GPMax,
-                                                CPCurrent = actor.CPCurrent,
-                                                CPMax = actor.CPMax,
-                                                GrandCompany = actor.GrandCompany,
-                                                GrandCompanyRank = actor.GrandCompanyRank,
-                                                IsGM = actor.IsGM,
-                                                Job = actor.Job,
-                                                Race = actor.Race,
-                                                Sex = actor.Sex,
-                                                Status = actor.CurrentStatus,
-                                                Title = actor.Title,
-                                                TargetType = actor.Type
-                                            };
-                                            if (entry.HPMax == 0)
-                                            {
-                                                entry.HPMax = 1;
-                                            }
-                                            if (entry.TargetID == -536870912)
-                                            {
-                                                entry.TargetID = -1;
-                                            }
+                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
+                                            entry.Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48);
                                             entry.MapIndex = 0;
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -153,18 +107,6 @@ namespace FFXIVAPP.Client.Memory
                                                 catch (Exception ex)
                                                 {
                                                 }
-                                            }
-                                            // setup DoT: +12104
-                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
-                                            {
-                                                TargetName = entry.Name,
-                                                StatusID = status.StatusID,
-                                                Duration = status.Duration,
-                                                CasterID = status.CasterID
-                                            })
-                                                                             .Where(statusEntry => statusEntry.IsValid()))
-                                            {
-                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {
@@ -181,54 +123,8 @@ namespace FFXIVAPP.Client.Memory
                                         try
                                         {
                                             var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.MouseOverTarget);
-                                            var entry = new ActorEntity
-                                            {
-                                                Name = MemoryHandler.Instance.GetString(targetInfo.MouseOverTarget, 48),
-                                                ID = actor.ID,
-                                                NPCID1 = actor.NPCID1,
-                                                NPCID2 = actor.NPCID2,
-                                                Type = actor.Type,
-                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                                GatheringStatus = actor.GatheringStatus,
-                                                X = actor.X,
-                                                Z = actor.Z,
-                                                Y = actor.Y,
-                                                Heading = actor.Heading,
-                                                GatheringInvisible = actor.GatheringInvisible,
-                                                Fate = actor.Fate,
-                                                ModelID = actor.ModelID,
-                                                Icon = actor.Icon,
-                                                Claimed = actor.Claimed,
-                                                TargetID = actor.TargetID,
-                                                Level = actor.Level,
-                                                HPCurrent = actor.HPCurrent,
-                                                HPMax = actor.HPMax,
-                                                MPCurrent = actor.MPCurrent,
-                                                MPMax = actor.MPMax,
-                                                TPCurrent = actor.TPCurrent,
-                                                TPMax = 1000,
-                                                GPCurrent = actor.GPCurrent,
-                                                GPMax = actor.GPMax,
-                                                CPCurrent = actor.CPCurrent,
-                                                CPMax = actor.CPMax,
-                                                GrandCompany = actor.GrandCompany,
-                                                GrandCompanyRank = actor.GrandCompanyRank,
-                                                IsGM = actor.IsGM,
-                                                Job = actor.Job,
-                                                Race = actor.Race,
-                                                Sex = actor.Sex,
-                                                Status = actor.CurrentStatus,
-                                                Title = actor.Title,
-                                                TargetType = actor.Type
-                                            };
-                                            if (entry.HPMax == 0)
-                                            {
-                                                entry.HPMax = 1;
-                                            }
-                                            if (entry.TargetID == -536870912)
-                                            {
-                                                entry.TargetID = -1;
-                                            }
+                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
+                                            entry.Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48);
                                             entry.MapIndex = 0;
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -239,18 +135,6 @@ namespace FFXIVAPP.Client.Memory
                                                 catch (Exception ex)
                                                 {
                                                 }
-                                            }
-                                            // setup DoT: +12104
-                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
-                                            {
-                                                TargetName = entry.Name,
-                                                StatusID = status.StatusID,
-                                                Duration = status.Duration,
-                                                CasterID = status.CasterID
-                                            })
-                                                                             .Where(statusEntry => statusEntry.IsValid()))
-                                            {
-                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {
@@ -266,54 +150,8 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         somethingFound = true;
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.FocusTarget);
-                                        var entry = new ActorEntity
-                                        {
-                                            Name = MemoryHandler.Instance.GetString(targetInfo.FocusTarget, 48),
-                                            ID = actor.ID,
-                                            NPCID1 = actor.NPCID1,
-                                            NPCID2 = actor.NPCID2,
-                                            Type = actor.Type,
-                                            Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                            GatheringStatus = actor.GatheringStatus,
-                                            X = actor.X,
-                                            Z = actor.Z,
-                                            Y = actor.Y,
-                                            Heading = actor.Heading,
-                                            GatheringInvisible = actor.GatheringInvisible,
-                                            Fate = actor.Fate,
-                                            ModelID = actor.ModelID,
-                                            Icon = actor.Icon,
-                                            Claimed = actor.Claimed,
-                                            TargetID = actor.TargetID,
-                                            Level = actor.Level,
-                                            HPCurrent = actor.HPCurrent,
-                                            HPMax = actor.HPMax,
-                                            MPCurrent = actor.MPCurrent,
-                                            MPMax = actor.MPMax,
-                                            TPCurrent = actor.TPCurrent,
-                                            TPMax = 1000,
-                                            GPCurrent = actor.GPCurrent,
-                                            GPMax = actor.GPMax,
-                                            CPCurrent = actor.CPCurrent,
-                                            CPMax = actor.CPMax,
-                                            GrandCompany = actor.GrandCompany,
-                                            GrandCompanyRank = actor.GrandCompanyRank,
-                                            IsGM = actor.IsGM,
-                                            Job = actor.Job,
-                                            Race = actor.Race,
-                                            Sex = actor.Sex,
-                                            Status = actor.CurrentStatus,
-                                            Title = actor.Title,
-                                            TargetType = actor.Type
-                                        };
-                                        if (entry.HPMax == 0)
-                                        {
-                                            entry.HPMax = 1;
-                                        }
-                                        if (entry.TargetID == -536870912)
-                                        {
-                                            entry.TargetID = -1;
-                                        }
+                                        var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
+                                        entry.Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48);
                                         entry.MapIndex = 0;
                                         if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                         {
@@ -325,18 +163,6 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                             }
                                         }
-                                        // setup DoT: +12104
-                                        foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
-                                        {
-                                            TargetName = entry.Name,
-                                            StatusID = status.StatusID,
-                                            Duration = status.Duration,
-                                            CasterID = status.CasterID
-                                        })
-                                                                         .Where(statusEntry => statusEntry.IsValid()))
-                                        {
-                                            entry.StatusEntries.Add(statusEntry);
-                                        }
                                         if (entry.IsValid)
                                         {
                                             targetEntity.FocusTarget = entry;
@@ -347,54 +173,8 @@ namespace FFXIVAPP.Client.Memory
                                         try
                                         {
                                             var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.PreviousTarget);
-                                            var entry = new ActorEntity
-                                            {
-                                                Name = MemoryHandler.Instance.GetString(targetInfo.PreviousTarget, 48),
-                                                ID = actor.ID,
-                                                NPCID1 = actor.NPCID1,
-                                                NPCID2 = actor.NPCID2,
-                                                Type = actor.Type,
-                                                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                                GatheringStatus = actor.GatheringStatus,
-                                                X = actor.X,
-                                                Z = actor.Z,
-                                                Y = actor.Y,
-                                                Heading = actor.Heading,
-                                                GatheringInvisible = actor.GatheringInvisible,
-                                                Fate = actor.Fate,
-                                                ModelID = actor.ModelID,
-                                                Icon = actor.Icon,
-                                                Claimed = actor.Claimed,
-                                                TargetID = actor.TargetID,
-                                                Level = actor.Level,
-                                                HPCurrent = actor.HPCurrent,
-                                                HPMax = actor.HPMax,
-                                                MPCurrent = actor.MPCurrent,
-                                                MPMax = actor.MPMax,
-                                                TPCurrent = actor.TPCurrent,
-                                                TPMax = 1000,
-                                                GPCurrent = actor.GPCurrent,
-                                                GPMax = actor.GPMax,
-                                                CPCurrent = actor.CPCurrent,
-                                                CPMax = actor.CPMax,
-                                                GrandCompany = actor.GrandCompany,
-                                                GrandCompanyRank = actor.GrandCompanyRank,
-                                                IsGM = actor.IsGM,
-                                                Job = actor.Job,
-                                                Race = actor.Race,
-                                                Sex = actor.Sex,
-                                                Status = actor.CurrentStatus,
-                                                Title = actor.Title,
-                                                TargetType = actor.Type
-                                            };
-                                            if (entry.HPMax == 0)
-                                            {
-                                                entry.HPMax = 1;
-                                            }
-                                            if (entry.TargetID == -536870912)
-                                            {
-                                                entry.TargetID = -1;
-                                            }
+                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
+                                            entry.Name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48);
                                             entry.MapIndex = 0;
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -405,18 +185,6 @@ namespace FFXIVAPP.Client.Memory
                                                 catch (Exception ex)
                                                 {
                                                 }
-                                            }
-                                            // setup DoT: +12104
-                                            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
-                                            {
-                                                TargetName = entry.Name,
-                                                StatusID = status.StatusID,
-                                                Duration = status.Duration,
-                                                CasterID = status.CasterID
-                                            })
-                                                                             .Where(statusEntry => statusEntry.IsValid()))
-                                            {
-                                                entry.StatusEntries.Add(statusEntry);
                                             }
                                             if (entry.IsValid)
                                             {

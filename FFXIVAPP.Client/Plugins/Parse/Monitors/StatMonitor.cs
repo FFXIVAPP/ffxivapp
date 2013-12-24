@@ -30,11 +30,36 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            if (!parseControl.IsHistoryBased)
+            if (parseControl.IsHistoryBased)
             {
-                Filter = (EventParser.TypeMask | (UInt64) EventDirection.Self | EventParser.You | EventParser.Party | EventParser.Pet | EventParser.PetParty | EventParser.Alliance | EventParser.PetAlliance | EventParser.Engaged | EventParser.UnEngaged);
-                //Filter = (EventParser.AllEvents);
+                return;
             }
+            Filter = (EventParser.TypeMask | EventParser.Self | EventParser.Engaged | EventParser.UnEngaged);
+            if (Constants.Parse.PluginSettings.ParseYou)
+            {
+                Filter = FilterHelper.Enable(Filter, EventParser.You);
+                Filter = FilterHelper.Enable(Filter, EventParser.Pet);
+            }
+            if (Constants.Parse.PluginSettings.ParseParty)
+            {
+                Filter = FilterHelper.Enable(Filter, EventParser.Party);
+                Filter = FilterHelper.Enable(Filter, EventParser.PetParty);
+            }
+            if (Constants.Parse.PluginSettings.ParseAlliance)
+            {
+                Filter = FilterHelper.Enable(Filter, EventParser.Alliance);
+                Filter = FilterHelper.Enable(Filter, EventParser.PetAlliance);
+            }
+            if (Constants.Parse.PluginSettings.ParseOther)
+            {
+                Filter = FilterHelper.Enable(Filter, EventParser.Other);
+                Filter = FilterHelper.Enable(Filter, EventParser.PetOther);
+            }
+        }
+
+        public void ToggleFilter(UInt64 filter)
+        {
+            Filter = FilterHelper.Toggle(Filter, filter);
         }
 
         /// <summary>
@@ -44,19 +69,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
             foreach (var player in ParseControl.Timeline.Party)
             {
-                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name, TimelineType.Party);
+                var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);
                 playerInstance.LineHistory.Clear();
                 playerInstance.StatusUpdateTimer.Stop();
                 playerInstance.StatusEntriesSelf.Clear();
-                playerInstance.StatusEntriesMonster.Clear();
+                playerInstance.StatusEntriesPlayers.Clear();
+                playerInstance.StatusEntriesMonsters.Clear();
             }
             foreach (var monster in ParseControl.Timeline.Monster)
             {
-                var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name, TimelineType.Party);
+                var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name);
                 monsterInstance.LineHistory.Clear();
                 monsterInstance.StatusUpdateTimer.Stop();
                 monsterInstance.StatusEntriesSelf.Clear();
-                monsterInstance.StatusEntriesPlayer.Clear();
+                monsterInstance.StatusEntriesPlayers.Clear();
+                monsterInstance.StatusEntriesMonsters.Clear();
             }
             InitializeHistory();
             base.Clear();
@@ -78,7 +105,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var playerList = ParseControl.Timeline.Party.ToArray();
             foreach (var player in playerList)
             {
-                var playerInstance = controller.Timeline.GetSetPlayer(player.Name, TimelineType.Party);
+                var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
                 foreach (var stat in player.Stats)
                 {
                     playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -88,7 +115,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var monsterList = ParseControl.Timeline.Monster.ToArray();
             foreach (var monster in monsterList)
             {
-                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name, TimelineType.Party);
+                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name);
                 foreach (var stat in monster.Stats)
                 {
                     monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);

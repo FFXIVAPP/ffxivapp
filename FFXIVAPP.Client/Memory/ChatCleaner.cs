@@ -64,22 +64,18 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="bytes"></param>
-        /// <param name="jp"></param>
-        public ChatCleaner(byte[] bytes, out bool jp)
+        public ChatCleaner(byte[] bytes)
         {
-            Result = ProcessFullLine(bytes, out jp)
+            Result = ProcessFullLine(bytes)
                 .Trim();
         }
 
         /// <summary>
         /// </summary>
         /// <param name="bytes"> </param>
-        /// <param name="ci"> </param>
-        /// <param name="jp"> </param>
         /// <returns> </returns>
-        private string ProcessFullLine(byte[] bytes, out bool jp)
+        private string ProcessFullLine(byte[] bytes)
         {
-            jp = false;
             var line = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(bytes.ToArray()))
                                   .Replace("  ", " ");
             try
@@ -137,10 +133,6 @@ namespace FFXIVAPP.Client.Memory
                             }
                             break;
                         default:
-                            if (bytes[x] > 127)
-                            {
-                                jp = true;
-                            }
                             newList.Add(bytes[x]);
                             break;
                     }
@@ -151,9 +143,9 @@ namespace FFXIVAPP.Client.Memory
                 newList.Clear();
                 cleaned = Regex.Replace(cleaned, @"", "⇒");
                 cleaned = Regex.Replace(cleaned, @"", "[HQ]");
-                cleaned = Regex.Replace(cleaned, @"\[01010101([\w]+)?\]", "");
-                cleaned = Regex.Replace(cleaned, @"\[CF010101([\w]+)?\]", "");
-                cleaned = Regex.Replace(cleaned, @"\[..FF\w{6}\]|\[EC\]", "");
+                cleaned = Regex.Replace(cleaned, @"\[+0([12])010101([\w]+)?\]+", "");
+                cleaned = Regex.Replace(cleaned, @"\[+CF010101([\w]+)?\]+", "");
+                cleaned = Regex.Replace(cleaned, @"\[+..FF\w{6}\]+|\[+EC\]+", "");
                 line = cleaned;
             }
             catch (Exception ex)

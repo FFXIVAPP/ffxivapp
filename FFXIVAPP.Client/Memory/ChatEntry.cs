@@ -25,11 +25,11 @@ namespace FFXIVAPP.Client.Memory
                 chatLogEntry.Bytes = raw;
                 chatLogEntry.Raw = Encoding.UTF8.GetString(raw.ToArray());
                 var cut = (chatLogEntry.Raw.Substring(13, 1) == ":") ? 14 : 13;
-                bool jp;
-                var cleaned = new ChatCleaner(raw, out jp).Result;
-                chatLogEntry.JP = jp;
+                var cleaned = new ChatCleaner(raw).Result;
                 chatLogEntry.Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
                 chatLogEntry.Line = new ChatCleaner(chatLogEntry.Line).Result;
+                chatLogEntry.JP = Encoding.UTF8.GetBytes(chatLogEntry.Line)
+                                          .Any(b => b > 128);
                 chatLogEntry.Code = chatLogEntry.Raw.Substring(8, 4);
                 chatLogEntry.Combined = String.Format("{0}:{1}", chatLogEntry.Code, chatLogEntry.Line);
                 chatLogEntry.TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(chatLogEntry.Raw.Substring(0, 8), NumberStyles.HexNumber));

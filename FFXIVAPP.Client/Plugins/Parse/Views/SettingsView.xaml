@@ -27,6 +27,37 @@
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource SettingsViewModel}">
         <TabControl x:Name="SettingsViewTC">
+            <TabItem Header="Parseable">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Label>* All options include parsing pets.</Label>
+                        <GroupBox Header="You">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ParseYou,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Party">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ParseParty,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Alliance">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ParseAlliance,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Other">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ParseOther,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
             <TabItem x:Name="SettingsTabsTI"
                      Header="{Binding Locale[app_TabSettingsTabHeader],
                                       Source={StaticResource AppProperties}}">

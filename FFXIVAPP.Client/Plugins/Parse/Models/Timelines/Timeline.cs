@@ -210,26 +210,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         /// <summary>
         /// </summary>
         /// <param name="monsterName"> </param>
-        /// <param name="type"></param>
         /// <returns> </returns>
-        public Monster GetSetMonster(string monsterName, TimelineType type)
+        public Monster GetSetMonster(string monsterName)
         {
             StatGroup statGroup = null;
-            switch (type)
+            if (Monster.TryGetGroup(monsterName, out statGroup))
             {
-                case TimelineType.You:
-                case TimelineType.Party:
-                    if (Monster.TryGetGroup(monsterName, out statGroup))
-                    {
-                        return (Monster) statGroup;
-                    }
-                    statGroup = new Monster(monsterName, Controller);
-                    ((Monster) statGroup).Type = type;
-                    Monster.AddGroup(statGroup);
-                    break;
-                case TimelineType.Alliance:
-                    break;
+                return (Monster) statGroup;
             }
+            statGroup = new Monster(monsterName, Controller);
+            Monster.AddGroup(statGroup);
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
             return (Monster) statGroup;
         }
@@ -237,26 +227,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         /// <summary>
         /// </summary>
         /// <param name="playerName"> </param>
-        /// <param name="type"></param>
         /// <returns> </returns>
-        public Player GetSetPlayer(string playerName, TimelineType type)
+        public Player GetSetPlayer(string playerName)
         {
             StatGroup statGroup = null;
-            switch (type)
+            if (Party.TryGetGroup(playerName, out statGroup))
             {
-                case TimelineType.You:
-                case TimelineType.Party:
-                    if (Party.TryGetGroup(playerName, out statGroup))
-                    {
-                        return (Player) statGroup;
-                    }
-                    statGroup = new Player(playerName, Controller);
-                    ((Player) statGroup).Type = type;
-                    Party.AddGroup(statGroup);
-                    break;
-                case TimelineType.Alliance:
-                    break;
+                return (Player) statGroup;
             }
+            statGroup = new Player(playerName, Controller);
+            Party.AddGroup(statGroup);
             Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
             return (Player) statGroup;
         }
@@ -280,6 +260,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         break;
                     case TimelineEventType.PartyMonsterFighting:
                     case TimelineEventType.AllianceMonsterFighting:
+                    case TimelineEventType.OtherMonsterFighting:
                         DeathFound = false;
                         if (monsterName != null && (monsterName.ToLower()
                                                                .Contains("target") || monsterName == ""))
@@ -296,6 +277,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         break;
                     case TimelineEventType.PartyMonsterKilled:
                     case TimelineEventType.AllianceMonsterKilled:
+                    case TimelineEventType.OtherMonsterKilled:
                         DeathFound = true;
                         if (monsterName != null && (monsterName.ToLower()
                                                                .Contains("target") || monsterName == ""))
@@ -311,11 +293,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                         switch (eventType)
                         {
                             case TimelineEventType.PartyMonsterKilled:
-                                GetSetMonster(monsterName, TimelineType.Party)
+                                GetSetMonster(monsterName)
                                     .SetKill(killed);
                                 break;
                             case TimelineEventType.AllianceMonsterKilled:
-                                GetSetMonster(monsterName, TimelineType.Alliance)
+                                GetSetMonster(monsterName)
+                                    .SetKill(killed);
+                                break;
+                            case TimelineEventType.OtherMonsterKilled:
+                                GetSetMonster(monsterName)
                                     .SetKill(killed);
                                 break;
                         }

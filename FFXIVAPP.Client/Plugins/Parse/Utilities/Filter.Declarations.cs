@@ -56,6 +56,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         private static string _lastNamePetAllianceTo = "";
         private static bool _lastActionPetAllianceIsAttack;
 
+        // setup other info
+        private static Event _lastEventOther;
+        private static string _lastNameOtherFrom = "";
+        private static string _lastActionOtherFrom = "";
+        private static string _lastNameOtherHealingFrom = "";
+        private static string _lastActionOtherHealingFrom = "";
+        private static string _lastNameOtherTo = "";
+        private static bool _lastActionOtherIsAttack;
+
+        // setup otherpet  info
+        private static Event _lastEventPetOther;
+        private static string _lastNamePetOtherFrom = "";
+        private static string _lastActionPetOtherFrom = "";
+        private static string _lastNamePetOtherHealingFrom = "";
+        private static string _lastActionPetOtherHealingFrom = "";
+        private static string _lastNamePetOtherTo = "";
+        private static bool _lastActionPetOtherIsAttack;
+
         // setup monster info
         private static string _lastNameMonster = "";
         private static string _lastActionMonster = "";

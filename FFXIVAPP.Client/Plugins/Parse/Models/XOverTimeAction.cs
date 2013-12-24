@@ -8,11 +8,11 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Plugins.Parse.Models
 {
     [DoNotObfuscate]
-    public class DamageOverTimeAction
+    public class XOverTimeAction
     {
         public int ActionPotency { get; set; }
-        public int DamageOverTimePotency { get; set; }
+        public int ActionOverTimePotency { get; set; }
         public int Duration { get; set; }
-        public bool ZeroBaseDamageDOT { get; set; }
+        public bool HasNoInitialResult { get; set; }
     }
 }

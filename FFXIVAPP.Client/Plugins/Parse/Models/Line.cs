@@ -4,7 +4,11 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
+using FFXIVAPP.Client.Plugins.Parse.Helpers;
+using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
@@ -28,6 +32,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public EventDirection EventDirection { get; set; }
         public EventSubject EventSubject { get; set; }
         public EventType EventType { get; set; }
+
+        #endregion
+
+        #region Type Information
+
+        public TimelineType SourceTimelineType { get; set; }
+        public TimelineType TargetTimelineType { get; set; }
 
         #endregion
 
@@ -55,13 +66,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public string Source
         {
             get { return _source ?? ""; }
-            set { _source = StringHelper.TitleCase(value); }
+            set
+            {
+                var name = StringHelper.TitleCase(value);
+                _source = ParseHelper.GetTaggedName(name, new Expressions(new Event()), SourceTimelineType);
+            }
         }
 
         public string Target
         {
             get { return _target ?? ""; }
-            set { _target = StringHelper.TitleCase(value); }
+            set
+            {
+                var name = StringHelper.TitleCase(value);
+                _target = ParseHelper.GetTaggedName(name, new Expressions(new Event()), TargetTimelineType);
+            }
         }
 
         public string Action
@@ -87,6 +106,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public bool IsEmpty()
         {
             return String.IsNullOrWhiteSpace(Source) || String.IsNullOrWhiteSpace(Target) || String.IsNullOrWhiteSpace(Action);
+        }
+
+        private bool IsYou(string name)
+        {
+            return Regex.IsMatch(name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(name, Settings.Default.CharacterName, Constants.InvariantComparer);
         }
     }
 }

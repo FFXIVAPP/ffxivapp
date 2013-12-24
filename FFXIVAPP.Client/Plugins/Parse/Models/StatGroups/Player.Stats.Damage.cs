@@ -62,7 +62,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             if (line.Hit)
             {
-                var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalDamage(line.Amount, (decimal) .5) : 0 : line.Amount;
+                var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
                 ParseHelper.LastDamageByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
@@ -80,7 +80,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamage", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                         var modStat = "DamageCritMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -100,7 +100,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("RegularDamage", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                         var modStat = "DamageRegMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -128,7 +128,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                 var modStat = String.Format("Damage{0}Mod", stat.Name);
                 Stats.IncrementStat(modStat, mod);
                 subAbilityGroup.Stats.IncrementStat(modStat, mod);

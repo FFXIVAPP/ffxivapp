@@ -23,6 +23,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 EventSubject = e.Subject,
                 EventType = e.Type
             };
+            LineHelper.SetTimelineTypes(ref line);
+            if (LineHelper.IsIgnored(line))
+            {
+                return;
+            }
             var damage = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {
@@ -36,7 +41,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = You;
-                                    UpdateDamageParty(damage, line, exp, FilterType.You);
+                                    UpdateDamage(damage, line, exp, FilterType.You);
                                     break;
                                 case false:
                                     damage = exp.pDamageAuto;
@@ -44,7 +49,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     {
                                         _lastActionYouIsAttack = true;
                                         line.Source = You;
-                                        UpdateDamageParty(damage, line, exp, FilterType.You);
+                                        UpdateDamage(damage, line, exp, FilterType.You);
                                     }
                                     break;
                             }
@@ -61,8 +66,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNamePet;
-                                    line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
-                                    UpdateDamageParty(damage, line, exp, FilterType.Pet);
+                                    UpdateDamage(damage, line, exp, FilterType.Pet);
                                     break;
                                 case false:
                                     damage = exp.pDamageAuto;
@@ -70,8 +74,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     {
                                         _lastActionPetIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
-                                        UpdateDamageParty(damage, line, exp, FilterType.Pet);
+                                        UpdateDamage(damage, line, exp, FilterType.Pet);
                                     }
                                     break;
                             }
@@ -88,7 +91,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNamePartyFrom;
-                                    UpdateDamageParty(damage, line, exp, FilterType.Party);
+                                    UpdateDamage(damage, line, exp, FilterType.Party);
                                     break;
                                 case false:
                                     damage = exp.pDamageAuto;
@@ -96,7 +99,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     {
                                         _lastActionPartyIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        UpdateDamageParty(damage, line, exp, FilterType.Party);
+                                        UpdateDamage(damage, line, exp, FilterType.Party);
                                     }
                                     break;
                             }
@@ -113,8 +116,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 case true:
                                     line.Source = _lastNamePetPartyFrom;
-                                    line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
-                                    UpdateDamageParty(damage, line, exp, FilterType.PetParty);
+                                    UpdateDamage(damage, line, exp, FilterType.PetParty);
                                     break;
                                 case false:
                                     damage = exp.pDamageAuto;
@@ -122,8 +124,107 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     {
                                         _lastActionPetPartyIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
-                                        UpdateDamageParty(damage, line, exp, FilterType.PetParty);
+                                        UpdateDamage(damage, line, exp, FilterType.PetParty);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Alliance:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            damage = exp.pDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameAllianceFrom;
+                                    UpdateDamage(damage, line, exp, FilterType.Alliance);
+                                    break;
+                                case false:
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionAllianceIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        UpdateDamage(damage, line, exp, FilterType.Alliance);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetAlliance:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            damage = exp.pDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNamePetAllianceFrom;
+                                    UpdateDamage(damage, line, exp, FilterType.PetAlliance);
+                                    break;
+                                case false:
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionPetAllianceIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        UpdateDamage(damage, line, exp, FilterType.PetAlliance);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Other:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            damage = exp.pDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameOtherFrom;
+                                    UpdateDamage(damage, line, exp, FilterType.Other);
+                                    break;
+                                case false:
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionOtherIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        UpdateDamage(damage, line, exp, FilterType.Other);
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetOther:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Engaged:
+                        case EventDirection.UnEngaged:
+                            damage = exp.pDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNamePetOtherFrom;
+                                    UpdateDamage(damage, line, exp, FilterType.PetOther);
+                                    break;
+                                case false:
+                                    damage = exp.pDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionPetOtherIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        UpdateDamage(damage, line, exp, FilterType.PetOther);
                                     }
                                     break;
                             }
@@ -141,7 +242,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 case true:
                                     line.Source = _lastNameMonster;
                                     line.Target = You;
-                                    UpdateDamagePartyMonster(damage, line, exp, FilterType.You);
+                                    UpdateDamageMonster(damage, line, exp, FilterType.You);
                                     break;
                                 case false:
                                     damage = exp.mDamageAuto;
@@ -150,7 +251,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                         _lastActionYouIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = You;
-                                        UpdateDamagePartyMonster(damage, line, exp, FilterType.You);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.You);
                                     }
                                     break;
                             }
@@ -162,8 +263,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 case true:
                                     line.Source = _lastNameMonster;
                                     line.Target = _lastNamePet;
-                                    line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.You);
-                                    UpdateDamagePartyMonster(damage, line, exp, FilterType.Pet);
+                                    UpdateDamageMonster(damage, line, exp, FilterType.Pet);
                                     break;
                                 case false:
                                     damage = exp.mDamageAuto;
@@ -172,8 +272,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                         _lastActionPetIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.You);
-                                        UpdateDamagePartyMonster(damage, line, exp, FilterType.Pet);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.Pet);
                                     }
                                     break;
                             }
@@ -185,7 +284,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 case true:
                                     line.Source = _lastNameMonster;
                                     line.Target = _lastNamePartyTo;
-                                    UpdateDamagePartyMonster(damage, line, exp, FilterType.Party);
+                                    UpdateDamageMonster(damage, line, exp, FilterType.Party);
                                     break;
                                 case false:
                                     damage = exp.mDamageAuto;
@@ -194,7 +293,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                         _lastActionPartyIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        UpdateDamagePartyMonster(damage, line, exp, FilterType.Party);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.Party);
                                     }
                                     break;
                             }
@@ -206,8 +305,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 case true:
                                     line.Source = _lastNameMonster;
                                     line.Target = _lastNamePetPartyTo;
-                                    line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.Party);
-                                    UpdateDamagePartyMonster(damage, line, exp, FilterType.PetParty);
+                                    UpdateDamageMonster(damage, line, exp, FilterType.PetParty);
                                     break;
                                 case false:
                                     damage = exp.mDamageAuto;
@@ -216,8 +314,91 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                         _lastActionPetPartyIsAttack = true;
                                         line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = Convert.ToString(damage.Groups["target"].Value);
-                                        line.Target = ParseHelper.GetPetFromPlayer(line.Target, exp, TimelineType.Party);
-                                        UpdateDamagePartyMonster(damage, line, exp, FilterType.PetParty);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.PetParty);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case EventDirection.Alliance:
+                            damage = exp.mDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameMonster;
+                                    line.Target = _lastNameAllianceTo;
+                                    UpdateDamageMonster(damage, line, exp, FilterType.Alliance);
+                                    break;
+                                case false:
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionAllianceIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.Alliance);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case EventDirection.PetAlliance:
+                            damage = exp.mDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameMonster;
+                                    line.Target = _lastNamePetAllianceTo;
+                                    UpdateDamageMonster(damage, line, exp, FilterType.PetAlliance);
+                                    break;
+                                case false:
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionPetAllianceIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.PetAlliance);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case EventDirection.Other:
+                            damage = exp.mDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameMonster;
+                                    line.Target = _lastNameOtherTo;
+                                    UpdateDamageMonster(damage, line, exp, FilterType.Other);
+                                    break;
+                                case false:
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionOtherIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.Other);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case EventDirection.PetOther:
+                            damage = exp.mDamage;
+                            switch (damage.Success)
+                            {
+                                case true:
+                                    line.Source = _lastNameMonster;
+                                    line.Target = _lastNamePetOtherTo;
+                                    UpdateDamageMonster(damage, line, exp, FilterType.PetOther);
+                                    break;
+                                case false:
+                                    damage = exp.mDamageAuto;
+                                    if (damage.Success)
+                                    {
+                                        _lastActionPetOtherIsAttack = true;
+                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
+                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
+                                        UpdateDamageMonster(damage, line, exp, FilterType.PetOther);
                                     }
                                     break;
                             }
@@ -232,7 +413,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Damage", e, exp);
         }
 
-        private static void UpdateDamageParty(Match damage, Line line, Expressions exp, FilterType type)
+        private static void UpdateDamage(Match damage, Line line, Expressions exp, FilterType type)
         {
             _type = type;
             try
@@ -263,6 +444,22 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 lastActionIsAttack = _lastActionPetPartyIsAttack;
                                 line.Action = _lastActionPetPartyFrom;
                                 break;
+                            case FilterType.Alliance:
+                                lastActionIsAttack = _lastActionAllianceIsAttack;
+                                line.Action = _lastActionAllianceFrom;
+                                break;
+                            case FilterType.PetAlliance:
+                                lastActionIsAttack = _lastActionPetAllianceIsAttack;
+                                line.Action = _lastActionPetAllianceFrom;
+                                break;
+                            case FilterType.Other:
+                                lastActionIsAttack = _lastActionOtherIsAttack;
+                                line.Action = _lastActionOtherFrom;
+                                break;
+                            case FilterType.PetOther:
+                                lastActionIsAttack = _lastActionPetOtherIsAttack;
+                                line.Action = _lastActionPetOtherFrom;
+                                break;
                         }
                         line.Action = lastActionIsAttack ? String.Format("{0} [+]", exp.Attack) : line.Action;
                         break;
@@ -277,10 +474,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 {
                     return;
                 }
-                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterFighting, line.Target);
-                ParseControl.Instance.Timeline.GetSetMonster(line.Target, TimelineType.Party)
+                switch (type)
+                {
+                    default:
+                        ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterFighting, line.Target);
+                        break;
+                }
+                ParseControl.Instance.Timeline.GetSetMonster(line.Target)
                             .SetDamageTaken(line);
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source, TimelineType.Party)
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                             .SetDamage(line);
             }
             catch (Exception ex)
@@ -289,7 +491,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
         }
 
-        private static void UpdateDamagePartyMonster(Match damage, Line line, Expressions exp, FilterType type)
+        private static void UpdateDamageMonster(Match damage, Line line, Expressions exp, FilterType type)
         {
             _type = type;
             try
@@ -312,6 +514,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                 break;
                             case FilterType.PetParty:
                                 lastActionIsAttack = _lastActionPetPartyIsAttack;
+                                break;
+                            case FilterType.Alliance:
+                                lastActionIsAttack = _lastActionAllianceIsAttack;
+                                break;
+                            case FilterType.PetAlliance:
+                                lastActionIsAttack = _lastActionPetAllianceIsAttack;
+                                break;
+                            case FilterType.Other:
+                                lastActionIsAttack = _lastActionOtherIsAttack;
+                                break;
+                            case FilterType.PetOther:
+                                lastActionIsAttack = _lastActionPetOtherIsAttack;
                                 break;
                         }
                         line.Action = lastActionIsAttack ? String.Format("{0} [+]", exp.Attack) : exp.Attack;
@@ -336,15 +550,32 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     case FilterType.PetParty:
                         _lastNamePetPartyTo = line.Target;
                         break;
+                    case FilterType.Alliance:
+                        _lastNameAllianceTo = line.Target;
+                        break;
+                    case FilterType.PetAlliance:
+                        _lastNamePetAllianceTo = line.Target;
+                        break;
+                    case FilterType.Other:
+                        _lastNameOtherTo = line.Target;
+                        break;
+                    case FilterType.PetOther:
+                        _lastNamePetOtherTo = line.Target;
+                        break;
                 }
                 if (line.IsEmpty())
                 {
                     return;
                 }
-                ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterFighting, line.Source);
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Target, TimelineType.Party)
+                switch (type)
+                {
+                    default:
+                        ParseControl.Instance.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterFighting, line.Source);
+                        break;
+                }
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Target)
                             .SetDamageTaken(line);
-                ParseControl.Instance.Timeline.GetSetMonster(line.Source, TimelineType.Party)
+                ParseControl.Instance.Timeline.GetSetMonster(line.Source)
                             .SetDamage(line);
             }
             catch (Exception ex)

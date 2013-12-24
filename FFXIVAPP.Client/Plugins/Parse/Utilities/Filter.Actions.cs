@@ -25,6 +25,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 EventSubject = e.Subject,
                 EventType = e.Type
             };
+            LineHelper.SetTimelineTypes(ref line);
+            if (LineHelper.IsIgnored(line))
+            {
+                return;
+            }
             var actions = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {
@@ -37,7 +42,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (actions.Success)
                             {
                                 line.Source = You;
-                                UpdateActionsParty(actions, line, exp, FilterType.You);
+                                UpdateActions(actions, line, exp, FilterType.You);
                             }
                             break;
                     }
@@ -52,8 +57,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 _lastNamePet = line.Source;
-                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
-                                UpdateActionsParty(actions, line, exp, FilterType.Pet);
+                                UpdateActions(actions, line, exp, FilterType.Pet);
                             }
                             break;
                     }
@@ -68,7 +72,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 _lastNamePartyFrom = line.Source;
-                                UpdateActionsParty(actions, line, exp, FilterType.Party);
+                                UpdateActions(actions, line, exp, FilterType.Party);
                             }
                             break;
                     }
@@ -82,8 +86,65 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (actions.Success)
                             {
                                 line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
-                                UpdateActionsParty(actions, line, exp, FilterType.PetParty);
+                                UpdateActions(actions, line, exp, FilterType.PetParty);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Alliance:
+                    switch (e.Direction)
+                    {
+                            // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                _lastNameAllianceFrom = line.Source;
+                                UpdateActions(actions, line, exp, FilterType.Alliance);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetAlliance:
+                    switch (e.Direction)
+                    {
+                            // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                UpdateActions(actions, line, exp, FilterType.PetAlliance);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Other:
+                    switch (e.Direction)
+                    {
+                            // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                _lastNameOtherFrom = line.Source;
+                                UpdateActions(actions, line, exp, FilterType.Other);
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetOther:
+                    switch (e.Direction)
+                    {
+                            // casts/uses
+                        case EventDirection.Self:
+                            actions = exp.pActions;
+                            if (actions.Success)
+                            {
+                                line.Source = Convert.ToString(actions.Groups["source"].Value);
+                                UpdateActions(actions, line, exp, FilterType.PetOther);
                             }
                             break;
                     }
@@ -98,7 +159,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             {
                                 _lastNameMonster = StringHelper.TitleCase(Convert.ToString(actions.Groups["source"].Value));
                                 _lastActionMonster = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
-                                UpdateActionsPartyMonster(actions, line, exp, FilterType.MonsterParty);
+                                UpdateActionsMonster(actions, line, exp, FilterType.MonsterParty);
                             }
                             break;
                     }
@@ -111,7 +172,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
         }
 
-        private static void UpdateActionsParty(Match actions, Line line, Expressions exp, FilterType type)
+        private static void UpdateActions(Match actions, Line line, Expressions exp, FilterType type)
         {
             _type = type;
             _lastActionYouIsAttack = false;
@@ -123,7 +184,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             try
             {
                 var isHealingSkill = false;
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source, TimelineType.Party);
+                ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
                 var action = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                 foreach (var healingAction in ParseHelper.HealingActions.Where(healingAction => String.Equals(healingAction, action, Constants.InvariantComparer)))
                 {
@@ -161,6 +222,54 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             _lastNamePetPartyFrom = line.Source;
                         }
                         break;
+                    case FilterType.Alliance:
+                        if (isHealingSkill)
+                        {
+                            _lastActionAllianceHealingFrom = action;
+                            _lastNameAllianceHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionAllianceFrom = action;
+                            _lastNameAllianceFrom = line.Source;
+                        }
+                        break;
+                    case FilterType.PetAlliance:
+                        if (isHealingSkill)
+                        {
+                            _lastActionPetAllianceHealingFrom = action;
+                            _lastNamePetAllianceHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionPetAllianceFrom = action;
+                            _lastNamePetAllianceFrom = line.Source;
+                        }
+                        break;
+                    case FilterType.Other:
+                        if (isHealingSkill)
+                        {
+                            _lastActionOtherHealingFrom = action;
+                            _lastNameOtherHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionOtherFrom = action;
+                            _lastNameOtherFrom = line.Source;
+                        }
+                        break;
+                    case FilterType.PetOther:
+                        if (isHealingSkill)
+                        {
+                            _lastActionPetOtherHealingFrom = action;
+                            _lastNamePetOtherHealingFrom = line.Source;
+                        }
+                        else
+                        {
+                            _lastActionPetOtherFrom = action;
+                            _lastNamePetOtherFrom = line.Source;
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
@@ -169,7 +278,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
         }
 
-        private static void UpdateActionsPartyMonster(Match actions, Line line, Expressions exp, FilterType type)
+        private static void UpdateActionsMonster(Match actions, Line line, Expressions exp, FilterType type)
         {
             _type = type;
             _lastActionYouIsAttack = false;

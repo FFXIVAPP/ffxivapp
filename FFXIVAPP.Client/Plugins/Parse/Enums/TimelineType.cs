@@ -13,6 +13,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
         Unknown,
         You,
         Party,
-        Alliance
+        Alliance,
+        Other
     }
 }

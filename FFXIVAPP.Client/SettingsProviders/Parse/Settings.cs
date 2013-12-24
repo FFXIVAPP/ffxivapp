@@ -90,6 +90,10 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("MonsterDamageTakenByPlayers");
             Constants.Parse.Settings.Add("MonsterDamageTakenByPlayersByAction");
             Constants.Parse.Settings.Add("MonsterDrops");
+            Constants.Parse.Settings.Add("ParseYou");
+            Constants.Parse.Settings.Add("ParseParty");
+            Constants.Parse.Settings.Add("ParseAlliance");
+            Constants.Parse.Settings.Add("ParseOther");
 
             #region Basic Settings
 
@@ -3556,6 +3560,58 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowColumnPercentOfCriticalDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ParseYou
+        {
+            get { return ((bool) (this["ParseYou"])); }
+            set
+            {
+                this["ParseYou"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ParseParty
+        {
+            get { return ((bool) (this["ParseParty"])); }
+            set
+            {
+                this["ParseParty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ParseAlliance
+        {
+            get { return ((bool) (this["ParseAlliance"])); }
+            set
+            {
+                this["ParseAlliance"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ParseOther
+        {
+            get { return ((bool) (this["ParseOther"])); }
+            set
+            {
+                this["ParseOther"] = value;
                 RaisePropertyChanged();
             }
         }

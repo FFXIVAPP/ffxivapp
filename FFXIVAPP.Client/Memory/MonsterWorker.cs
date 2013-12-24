@@ -88,49 +88,18 @@ namespace FFXIVAPP.Client.Memory
                                     continue;
                                 }
                                 var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
-                                var entry = new ActorEntity
+                                var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
+                                entry.Name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                entry.MapIndex = 0;
+                                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                 {
-                                    Name = MemoryHandler.Instance.GetString(characterAddress, 48),
-                                    ID = actor.ID,
-                                    NPCID1 = actor.NPCID1,
-                                    NPCID2 = actor.NPCID2,
-                                    Type = actor.Type,
-                                    Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                    GatheringStatus = actor.GatheringStatus,
-                                    X = actor.X,
-                                    Z = actor.Z,
-                                    Y = actor.Y,
-                                    Heading = actor.Heading,
-                                    GatheringInvisible = actor.GatheringInvisible,
-                                    Fate = actor.Fate,
-                                    ModelID = actor.ModelID,
-                                    Icon = actor.Icon,
-                                    Claimed = actor.Claimed,
-                                    TargetID = actor.TargetID,
-                                    Level = actor.Level,
-                                    HPCurrent = actor.HPCurrent,
-                                    HPMax = actor.HPMax,
-                                    MPCurrent = actor.MPCurrent,
-                                    MPMax = actor.MPMax,
-                                    TPCurrent = actor.TPCurrent,
-                                    TPMax = 1000,
-                                    GPCurrent = actor.GPCurrent,
-                                    GPMax = actor.GPMax,
-                                    CPCurrent = actor.CPCurrent,
-                                    CPMax = actor.CPMax,
-                                    GrandCompany = actor.GrandCompany,
-                                    GrandCompanyRank = actor.GrandCompanyRank,
-                                    IsGM = actor.IsGM,
-                                    Job = actor.Job,
-                                    Race = actor.Race,
-                                    Sex = actor.Sex,
-                                    Status = actor.CurrentStatus,
-                                    Title = actor.Title,
-                                    TargetType = actor.Type
-                                };
-                                if (entry.HPMax == 0)
-                                {
-                                    entry.HPMax = 1;
+                                    try
+                                    {
+                                        entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                    }
                                 }
                                 if (i == 0)
                                 {
@@ -144,11 +113,6 @@ namespace FFXIVAPP.Client.Memory
                                         }
                                     }
                                 }
-                                if (entry.TargetID == -536870912)
-                                {
-                                    entry.TargetID = -1;
-                                }
-                                entry.MapIndex = 0;
                                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                 {
                                     try
@@ -158,18 +122,6 @@ namespace FFXIVAPP.Client.Memory
                                     catch (Exception ex)
                                     {
                                     }
-                                }
-                                // setup DoT: +12104
-                                foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
-                                {
-                                    TargetName = entry.Name,
-                                    StatusID = status.StatusID,
-                                    Duration = status.Duration,
-                                    CasterID = status.CasterID
-                                })
-                                                                 .Where(statusEntry => statusEntry.IsValid()))
-                                {
-                                    entry.StatusEntries.Add(statusEntry);
                                 }
                                 if (!entry.IsValid)
                                 {

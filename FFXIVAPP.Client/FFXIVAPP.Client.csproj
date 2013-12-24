@@ -135,6 +135,7 @@
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
+    <Compile Include="Helpers\ActorEntityHelper.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Application.cs" />
@@ -181,12 +182,14 @@
     <Compile Include="Plugins\Parse\Enums\FilterType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineEventType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineType.cs" />
-    <Compile Include="Plugins\Parse\Helpers\ArmoryHelper.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
+    <Compile Include="Plugins\Parse\Helpers\HealingOverTimeHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\DamageOverTimeHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\HttpPostHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Plugins\Parse\Helpers\FilterHelper.cs" />
+    <Compile Include="Plugins\Parse\Helpers\LineHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\ParseHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\ParsingLogHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Client.cs" />
@@ -221,7 +224,7 @@
     <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
-    <Compile Include="Plugins\Parse\Models\DamageOverTimeAction.cs" />
+    <Compile Include="Plugins\Parse\Models\XOverTimeAction.cs" />
     <Compile Include="Plugins\Parse\Models\Events\Event.cs" />
     <Compile Include="Plugins\Parse\Models\Events\EventCode.cs" />
     <Compile Include="Plugins\Parse\Models\Events\EventCodeComparer.cs" />

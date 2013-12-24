@@ -210,7 +210,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                     Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("DropEvent : {0} Dropped {1}", fight.MonsterName, thing));
                     if (monsterName.Replace(" ", "") != "")
                     {
-                        var monsterGroup = ParseControl.Timeline.GetSetMonster(monsterName, TimelineType.Party);
+                        var monsterGroup = ParseControl.Timeline.GetSetMonster(monsterName);
                         monsterGroup.SetDrop(thing);
                     }
                 }

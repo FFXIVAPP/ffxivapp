@@ -24,6 +24,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 EventSubject = e.Subject,
                 EventType = e.Type
             };
+            LineHelper.SetTimelineTypes(ref line);
+            if (LineHelper.IsIgnored(line))
+            {
+                return;
+            }
             var items = Regex.Match("ph", @"^\.$");
             switch (e.Subject)
             {
@@ -48,7 +53,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (items.Success)
                             {
                                 line.Source = Convert.ToString(items.Groups["source"].Value);
-                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.You);
                                 _lastNamePet = line.Source;
                                 _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
@@ -77,8 +81,63 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             if (items.Success)
                             {
                                 line.Source = Convert.ToString(items.Groups["source"].Value);
-                                line.Source = ParseHelper.GetPetFromPlayer(line.Source, exp, TimelineType.Party);
                                 _lastNamePetPartyFrom = line.Source;
+                                _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Alliance:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                _lastNameAllianceFrom = line.Source;
+                                _lastActionAllianceFrom = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetAlliance:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                _lastNamePetAllianceFrom = line.Source;
+                                _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.Other:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                _lastNameOtherFrom = line.Source;
+                                _lastActionOtherFrom = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
+                            }
+                            break;
+                    }
+                    break;
+                case EventSubject.PetOther:
+                    switch (e.Direction)
+                    {
+                        case EventDirection.Self:
+                            items = exp.pItems;
+                            if (items.Success)
+                            {
+                                line.Source = Convert.ToString(items.Groups["source"].Value);
+                                _lastNamePetOtherFrom = line.Source;
                                 _lastActionPet = StringHelper.TitleCase(Convert.ToString(items.Groups["item"].Value));
                             }
                             break;

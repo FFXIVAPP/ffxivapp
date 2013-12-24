@@ -18,6 +18,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
         MonsterParty,
         Alliance,
         PetAlliance,
-        MonsterAlliance
+        MonsterAlliance,
+        Other,
+        PetOther,
+        MonsterOther
     }
 }

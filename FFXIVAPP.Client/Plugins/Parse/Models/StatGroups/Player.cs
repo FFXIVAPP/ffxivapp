@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;
@@ -31,14 +30,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public readonly Timer StatusUpdateTimer = new Timer(1000);
 
-        public List<StatusEntry> StatusEntriesMonster = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesPlayers = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
 
         public Player(string name, ParseControl parseControl) : base(name)
         {
             Controller = parseControl;
             ID = 0;
-            Type = TimelineType.Unknown;
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
@@ -47,8 +46,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimer.Start();
             }
         }
-
-        public TimelineType Type { get; set; }
 
         public bool StatusUpdateTimerProcessing { get; set; }
 
@@ -70,14 +67,16 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             var monsterEntries = MonsterWorkerDelegate.GetNPCEntities();
             var pcEntries = PCWorkerDelegate.GetNPCEntities();
             StatusEntriesSelf.Clear();
-            StatusEntriesMonster.Clear();
+            StatusEntriesPlayers.Clear();
+            StatusEntriesMonsters.Clear();
             if (pcEntries.Any())
             {
                 try
                 {
-                    var isYou = Regex.IsMatch(Name, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(Name, Settings.Default.CharacterName, Constants.InvariantComparer);
+                    var cleanedName = Regex.Replace(Name, @"\[[\w]+\]", "")
+                                           .Trim();
+                    var isYou = Regex.IsMatch(cleanedName, @"^(([Dd](ich|ie|u))|You|Vous)$") || String.Equals(cleanedName, Settings.Default.CharacterName, Constants.InvariantComparer);
                     var isPet = false;
-                    var cleanedName = Regex.Replace(Name, @" \[[\w]+\]", "");
                     try
                     {
                         NPCEntry = isYou ? AppContextHelper.Instance.CurrentUser : null;
@@ -108,7 +107,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                                     monsterEntries.SelectMany(monster => monster.StatusEntries)
                                                   .Where(statusEntry => statusEntry.CasterID == ID))
                                 {
-                                    StatusEntriesMonster.Add(statusEntry);
+                                    StatusEntriesMonsters.Add(statusEntry);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            try
+                            {
+                                foreach (var statusEntry in
+                                    pcEntries.SelectMany(pc => pc.StatusEntries)
+                                                  .Where(statusEntry => statusEntry.CasterID == ID))
+                                {
+                                    StatusEntriesPlayers.Add(statusEntry);
                                 }
                             }
                             catch (Exception ex)
@@ -122,12 +133,20 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
-            if (!StatusEntriesMonster.Any())
+            if (!StatusEntriesMonsters.Any() && !StatusEntriesPlayers.Any())
             {
                 StatusUpdateTimerProcessing = false;
                 return;
             }
-            ProcessDamageOverTime(StatusEntriesMonster, Type);
+            if (StatusEntriesMonsters.Any())
+            {
+                ProcessDamageOverTime(StatusEntriesMonsters);
+            }
+            if (StatusEntriesPlayers.Any())
+            {
+                ProcessHealingOverTime(StatusEntriesPlayers);
+            }
+            StatusUpdateTimerProcessing = false;
         }
 
         private void InitStats()

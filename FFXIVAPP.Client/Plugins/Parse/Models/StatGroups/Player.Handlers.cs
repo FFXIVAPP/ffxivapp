@@ -20,13 +20,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
     public partial class Player
     {
+        #region Damage Over Time
+
         /// <summary>
         /// </summary>
-        /// <param name="statusEntriesMonster"></param>
-        /// <param name="type"></param>
-        private void ProcessDamageOverTime(IEnumerable<StatusEntry> statusEntriesMonster, TimelineType type)
+        /// <param name="statusEntriesMonsters"></param>
+        private void ProcessDamageOverTime(IEnumerable<StatusEntry> statusEntriesMonsters)
         {
-            foreach (var statusEntry in statusEntriesMonster)
+            foreach (var statusEntry in statusEntriesMonsters)
             {
                 try
                 {
@@ -53,7 +54,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     }
                     var amount = NPCEntry.Level / ((60 - NPCEntry.Level) * .025m);
                     var key = statusKey;
-                    DamageOverTimeAction actionData = null;
+                    XOverTimeAction actionData = null;
                     foreach (var damageOverTimeAction in DamageOverTimeHelper.PlayerActions.ToList()
                                                                              .Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
                     {
@@ -125,8 +126,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         amount = 75;
                     }
-                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
-                    if (actionData.ZeroBaseDamageDOT && !zeroFoundInList)
+                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.ActionOverTimePotency) / 3);
+                    if (actionData.HasNoInitialResult && !zeroFoundInList)
                     {
                         var nonZeroActions = lastDamageOverTimeActionsList.Where(d => !d.Key.Contains("•"));
                         var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
@@ -134,7 +135,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         switch (bio)
                         {
                             case true:
-                                damage = Math.Ceiling(((amount / 80) * actionData.DamageOverTimePotency) / 3);
+                                damage = Math.Ceiling(((amount / 80) * actionData.ActionOverTimePotency) / 3);
                                 break;
                             case false:
                                 if (keyValuePairs.Any())
@@ -142,7 +143,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                                     amount = keyValuePairs.Sum(action => action.Value);
                                     amount = amount / keyValuePairs.Count();
                                 }
-                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.DamageOverTimePotency) / 3);
+                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.ActionOverTimePotency) / 3);
                                 break;
                         }
                         tickDamage = damage > 0 ? damage : tickDamage;
@@ -154,30 +155,19 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     var line = new Line
                     {
                         Action = statusKey,
-                        Source = Name,
-                        Target = statusEntry.TargetName,
                         Amount = tickDamage,
-                        EventDirection = EventDirection.Engaged,
-                        EventType = EventType.Damage
+                        EventDirection = EventDirection.Unknown,
+                        EventType = EventType.Damage,
+                        EventSubject = EventSubject.Unknown
                     };
-                    switch (type)
-                    {
-                        case TimelineType.You:
-                            line.EventSubject = EventSubject.You;
-                            break;
-                        case TimelineType.Party:
-                            line.EventSubject = EventSubject.Party;
-                            break;
-                        case TimelineType.Alliance:
-                            line.EventSubject = EventSubject.Alliance;
-                            break;
-                    }
+                    line.Source = Name;
+                    line.Target = statusEntry.TargetName;
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source, type)
+                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetDamage(line, true);
-                        ParseControl.Instance.Timeline.GetSetMonster(line.Target, type)
+                        ParseControl.Instance.Timeline.GetSetMonster(line.Target)
                                     .SetDamageTaken(line, true);
                     });
                 }
@@ -186,7 +176,176 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
-            StatusUpdateTimerProcessing = false;
         }
+
+        #endregion
+
+        #region Damage Over Time
+
+        /// <summary>
+        /// </summary>
+        /// <param name="statusEntriesPlayers"></param>
+        private void ProcessHealingOverTime(IEnumerable<StatusEntry> statusEntriesPlayers)
+        {
+            foreach (var statusEntry in statusEntriesPlayers)
+            {
+                try
+                {
+                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                    var statusKey = "";
+                    switch (Settings.Default.GameLanguage)
+                    {
+                        case "English":
+                            statusKey = statusInfo.Name.English;
+                            break;
+                        case "French":
+                            statusKey = statusInfo.Name.French;
+                            break;
+                        case "German":
+                            statusKey = statusInfo.Name.German;
+                            break;
+                        case "Japanese":
+                            statusKey = statusInfo.Name.Japanese;
+                            break;
+                    }
+                    if (String.IsNullOrWhiteSpace(statusKey))
+                    {
+                        continue;
+                    }
+                    var amount = NPCEntry.Level / ((60 - NPCEntry.Level) * .025m);
+                    var key = statusKey;
+                    XOverTimeAction actionData = null;
+                    foreach (var healingOverTimeAction in HealingOverTimeHelper.PlayerActions.ToList()
+                                                                               .Where(d => String.Equals(d.Key, key, Constants.InvariantComparer)))
+                    {
+                        actionData = healingOverTimeAction.Value;
+                    }
+                    if (actionData == null)
+                    {
+                        continue;
+                    }
+                    var zeroFoundInList = false;
+                    var regen = Regex.IsMatch(key, @"(リジェネ|récup|regen|whispering|murmure|erhebendes|光の囁き)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+                    var healingHistoryList = ParseHelper.LastHealingByAction.GetPlayer(Name)
+                                                        .ToList();
+                    var resolvedPotency = 350;
+                    foreach (var healingAction in healingHistoryList)
+                    {
+                        if (regen)
+                        {
+                            var found = false;
+                            var cureActions = HealingOverTimeHelper.CureActions;
+                            var medicaActions = HealingOverTimeHelper.MedicaActions;
+                            var action = healingAction;
+                            if (cureActions["III"].Any(cureAction => String.Equals(action.Key, cureAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                resolvedPotency = 550;
+                                amount = action.Value;
+                            }
+                            if (cureActions["II"].Any(cureAction => String.Equals(action.Key, cureAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                resolvedPotency = 650;
+                                amount = action.Value;
+                            }
+                            if (cureActions["I"].Any(cureAction => String.Equals(action.Key, cureAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                resolvedPotency = 400;
+                                amount = action.Value;
+                            }
+                            if (medicaActions["II"].Any(medicaAction => String.Equals(action.Key, medicaAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                resolvedPotency = 200;
+                                amount = action.Value;
+                            }
+                            if (medicaActions["I"].Any(medicaAction => String.Equals(action.Key, medicaAction, Constants.InvariantComparer)))
+                            {
+                                found = zeroFoundInList = true;
+                                resolvedPotency = 300;
+                                amount = action.Value;
+                            }
+                            if (found)
+                            {
+                                break;
+                            }
+                        }
+                        if (String.Equals(healingAction.Key, key, Constants.InvariantComparer))
+                        {
+                            amount = healingAction.Value;
+                            break;
+                        }
+                    }
+                    statusKey = String.Format("{0} [•]", statusKey);
+                    if (amount == 0)
+                    {
+                        amount = 75;
+                    }
+                    resolvedPotency = zeroFoundInList ? resolvedPotency : actionData.ActionPotency;
+                    var tickHealing = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
+                    if (actionData.HasNoInitialResult && !zeroFoundInList)
+                    {
+                        var nonZeroActions = healingHistoryList.Where(d => !d.Key.Contains("•"));
+                        var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
+                        var healing = 0m;
+                        switch (regen)
+                        {
+                            case true:
+                                healing = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
+                                break;
+                            case false:
+                                if (keyValuePairs.Any())
+                                {
+                                    amount = keyValuePairs.Sum(action => action.Value);
+                                    amount = amount / keyValuePairs.Count();
+                                }
+                                healing = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
+                                break;
+                        }
+                        tickHealing = healing > 0 ? healing : tickHealing;
+                    }
+                    var line = new Line
+                    {
+                        Action = statusKey,
+                        Amount = tickHealing,
+                        EventDirection = EventDirection.Unknown,
+                        EventType = EventType.Damage,
+                        EventSubject = EventSubject.Unknown
+                    };
+                    line.Source = Name;
+                    try
+                    {
+                        var players = ParseControl.Instance.Timeline.Party.ToList();
+                        var entry = statusEntry;
+                        foreach (var player in players.Where(player => player.Name.Contains(entry.TargetName)))
+                        {
+                            line.Target = player.Name;
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    if (String.IsNullOrWhiteSpace(line.Target))
+                    {
+                        line.Target = String.Format("[???] {0}", statusEntry.TargetName);
+                    }
+                    DispatcherHelper.Invoke(delegate
+                    {
+                        line.Hit = true;
+                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                    .SetHealing(line, true);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                }
+            }
+        }
+
+        #endregion
     }
 }

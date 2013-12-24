@@ -487,6 +487,272 @@
             Initializes a new instance of the MahApps.Metro.Controls.MetroAnimatedTabControl class.
             </summary>
         </member>
+        <member name="T:MahApps.Metro.Controls.MetroNavigationWindow">
+            <summary>
+            A reimplementation of NavigationWindow based on MetroWindow.
+            </summary>
+            <see cref="T:System.Windows.Navigation.NavigationWindow"/>
+            <summary>
+            MetroNavigationWindow
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.Controls.MetroWindow">
+            <summary>
+            An extended, metrofied Window class.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroWindow.ShowOverlayAsync">
+            <summary>
+            Begins to show the MetroWindow's overlay effect.
+            </summary>
+            <returns>A task representing the process.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroWindow.HideOverlayAsync">
+            <summary>
+            Begins to hide the MetroWindow's overlay effect.
+            </summary>
+            <returns>A task representing the process.</returns>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroWindow.#ctor">
+            <summary>
+            Initializes a new instance of the MahApps.Metro.Controls.MetroWindow class.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowWindowCommandsOnTop">
+            <summary>
+            Gets/sets whether the Window Commands will show on top of a Flyout with it's position set to Top or Right.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.WindowTransitionsEnabled">
+            <summary>
+            Gets/sets whether the window's entrance transition animation is enabled.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.Flyouts">
+            <summary>
+            Gets/sets the FlyoutsControl that hosts the window's flyouts.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.IgnoreTaskbarOnMaximize">
+            <summary>
+            Gets/sets whether the window will ignore (and overlap) the taskbar when maximized.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.TitleForeground">
+            <summary>
+            Gets/sets the brush used for the titlebar's foreground.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.SaveWindowPosition">
+            <summary>
+            Gets/sets whether the window will save it's position between loads.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowIconOnTitleBar">
+            <summary>
+            Get/sets whether the titlebar icon is visible or not.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowTitleBar">
+            <summary>
+            Gets/sets whether the TitleBar is visible or not.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.UseNoneWindowStyle">
+            <summary>
+            Gets/sets whether the WindowStyle is None or not.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowMinButton">
+            <summary>
+            Gets/sets if the minimize button is visible.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowCloseButton">
+            <summary>
+            Gets/sets if the close button is visible.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.TitlebarHeight">
+            <summary>
+            Gets/sets the TitleBar's height.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowMaxRestoreButton">
+            <summary>
+            Gets/sets if the Maximize/Restore button is visible.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.TitleCaps">
+            <summary>
+            Gets/sets if the TitleBar's text is automatically capitalized.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.GlowBrush">
+            <summary>
+            Gets/sets the brush used for the Window's glow.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.WindowTitle">
+            <summary>
+            Gets/sets the TitleBar/Window's Text.
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.AddBackEntry(System.Windows.Navigation.CustomContentState)">
+            <summary>
+            Adds an entry to back navigation history that contains a CustomContentState object.
+            </summary>
+            <param name="state">A CustomContentState object that represents application-defined state that is associated with a specific piece of content.</param>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.AddBackEntry(System.Windows.Navigation.CustomContentState)"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.RemoveBackEntry">
+            <summary>
+            Removes the most recent journal entry from back history.
+            </summary>
+            <returns>The most recent JournalEntry in back navigation history, if there is one.</returns>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.RemoveBackEntry"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.GoBack">
+            <summary>
+            Navigates to the most recent item in back navigation history.
+            </summary>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.GoBack"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.GoForward">
+            <summary>
+            Navigates to the most recent item in forward navigation history.
+            </summary>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.GoForward"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.Navigate(System.Object)">
+            <summary>
+            Navigates asynchronously to content that is contained by an object.
+            </summary>
+            <param name="content">An Object that contains the content to navigate to.</param>
+            <returns>true if a navigation is not canceled; otherwise, false.</returns>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.Navigate(System.Object)"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.Navigate(System.Uri)">
+            <summary>
+            Navigates asynchronously to content that is specified by a uniform resource identifier (URI).
+            </summary>
+            <param name="source">A Uri object initialized with the URI for the desired content.</param>
+            <returns>true if a navigation is not canceled; otherwise, false.</returns>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.Navigate(System.Uri)"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.Navigate(System.Object,System.Object)">
+            <summary>
+            Navigates asynchronously to content that is contained by an object, and passes an object that contains data to be used for processing during navigation.
+            </summary>
+            <param name="content">An Object that contains the content to navigate to.</param>
+            <param name="extraData">A Object that contains data to be used for processing during navigation.</param>
+            <returns>true if a navigation is not canceled; otherwise, false.</returns>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.Navigate(System.Object,System.Object)"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.Navigate(System.Uri,System.Object)">
+            <summary>
+            Navigates asynchronously to source content located at a uniform resource identifier (URI), and pass an object that contains data to be used for processing during navigation.
+            </summary>
+            <param name="source">A Uri object initialized with the URI for the desired content.</param>
+            <param name="extraData">A Object that contains data to be used for processing during navigation.</param>
+            <returns>true if a navigation is not canceled; otherwise, false.</returns>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.Navigate(System.Uri,System.Object)"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.StopLoading">
+            <summary>
+            Stops further downloading of content for the current navigation request.
+            </summary>
+            <see cref="M:System.Windows.Navigation.NavigationWindow.StopLoading"/>
+        </member>
+        <member name="M:MahApps.Metro.Controls.MetroNavigationWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.ForwardStack">
+            <summary>
+            Gets an IEnumerable that you use to enumerate the entries in back navigation history for a NavigationWindow.
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.ForwardStack"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.BackStack">
+            <summary>
+            Gets an IEnumerable that you use to enumerate the entries in back navigation history for a NavigationWindow.
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.BackStack"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.NavigationService">
+            <summary>
+            Gets the NavigationService that is used by this MetroNavigationWindow to provide navigation services to its content.
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.NavigationService"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.CanGoBack">
+            <summary>
+            Gets a value that indicates whether there is at least one entry in back navigation history.
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.CanGoBack"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.CanGoForward">
+            <summary>
+            Gets a value that indicates whether there is at least one entry in forward navigation history.
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.CanGoForward"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.System#Windows#Markup#IUriContext#BaseUri">
+            <summary>
+            Gets or sets the base uniform resource identifier (URI) of the current context.
+            </summary>
+            <see cref="!:System.Windows.Navigation.NavigationWindow.IUriContext.BaseUri"/>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroNavigationWindow.Source">
+            <summary>
+            Gets or sets the uniform resource identifier (URI) of the current content, or the URI of new content that is currently being navigated to.  
+            </summary>
+            <see cref="P:System.Windows.Navigation.NavigationWindow.Source"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.FragmentNavigation">
+            <summary>
+            Occurs when navigation to a content fragment begins, which occurs immediately, if the desired fragment is in the current content, or after the source XAML content has been loaded, if the desired fragment is in different content.
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.FragmentNavigation"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.Navigating">
+            <summary>
+            Occurs when a new navigation is requested.
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.Navigating"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.NavigationFailed">
+            <summary>
+            Occurs when an error is raised while navigating to the requested content.
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.NavigationFailed"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.NavigationProgress">
+            <summary>
+            Occurs periodically during a download to provide navigation progress information.
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.NavigationProgress"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.NavigationStopped">
+            <summary>
+            Occurs when the StopLoading method is called, or when a new navigation is requested while a current navigation is in progre
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.NavigationStopped"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.Navigated">
+            <summary>
+            Occurs when the content that is being navigated to has been found, and is available from the PageContent property, although it may not have completed loading
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.Navigated"/>
+        </member>
+        <member name="E:MahApps.Metro.Controls.MetroNavigationWindow.LoadCompleted">
+            <summary>
+            Occurs when content that was navigated to has been loaded, parsed, and has begun rendering.
+            </summary>
+            <see cref="E:System.Windows.Navigation.NavigationWindow.LoadCompleted"/>
+        </member>
         <member name="T:MahApps.Metro.Controls.MetroProgressBar">
             <summary>
             A metrofied ProgressBar.
@@ -2217,108 +2483,6 @@
         <member name="T:MahApps.Metro.Controls.MetroImage">
             <summary>
             An obsolete control. Do not use.
-            </summary>
-        </member>
-        <member name="T:MahApps.Metro.Controls.MetroWindow">
-            <summary>
-            An extended, metrofied Window class.
-            </summary>
-        </member>
-        <member name="M:MahApps.Metro.Controls.MetroWindow.ShowOverlayAsync">
-            <summary>
-            Begins to show the MetroWindow's overlay effect.
-            </summary>
-            <returns>A task representing the process.</returns>
-        </member>
-        <member name="M:MahApps.Metro.Controls.MetroWindow.HideOverlayAsync">
-            <summary>
-            Begins to hide the MetroWindow's overlay effect.
-            </summary>
-            <returns>A task representing the process.</returns>
-        </member>
-        <member name="M:MahApps.Metro.Controls.MetroWindow.#ctor">
-            <summary>
-            Initializes a new instance of the MahApps.Metro.Controls.MetroWindow class.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowWindowCommandsOnTop">
-            <summary>
-            Gets/sets whether the Window Commands will show on top of a Flyout with it's position set to Top or Right.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.WindowTransitionsEnabled">
-            <summary>
-            Gets/sets whether the window's entrance transition animation is enabled.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.Flyouts">
-            <summary>
-            Gets/sets the FlyoutsControl that hosts the window's flyouts.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.IgnoreTaskbarOnMaximize">
-            <summary>
-            Gets/sets whether the window will ignore (and overlap) the taskbar when maximized.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.TitleForeground">
-            <summary>
-            Gets/sets the brush used for the titlebar's foreground.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.SaveWindowPosition">
-            <summary>
-            Gets/sets whether the window will save it's position between loads.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowIconOnTitleBar">
-            <summary>
-            Get/sets whether the titlebar icon is visible or not.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowTitleBar">
-            <summary>
-            Gets/sets whether the TitleBar is visible or not.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.UseNoneWindowStyle">
-            <summary>
-            Gets/sets whether the WindowStyle is None or not.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowMinButton">
-            <summary>
-            Gets/sets if the minimize button is visible.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowCloseButton">
-            <summary>
-            Gets/sets if the close button is visible.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.TitlebarHeight">
-            <summary>
-            Gets/sets the TitleBar's height.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.ShowMaxRestoreButton">
-            <summary>
-            Gets/sets if the Maximize/Restore button is visible.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.TitleCaps">
-            <summary>
-            Gets/sets if the TitleBar's text is automatically capitalized.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.GlowBrush">
-            <summary>
-            Gets/sets the brush used for the Window's glow.
-            </summary>
-        </member>
-        <member name="P:MahApps.Metro.Controls.MetroWindow.WindowTitle">
-            <summary>
-            Gets/sets the TitleBar/Window's Text.
             </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.ProgressIndicator">

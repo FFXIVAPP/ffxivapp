@@ -30,9 +30,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
             }
         }
 
-        protected UInt64 Filter
+        protected internal UInt64 Filter
         {
-            private get { return _filter; }
+            get { return _filter; }
             set
             {
                 _filter = value;

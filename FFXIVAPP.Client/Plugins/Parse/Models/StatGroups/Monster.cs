@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.Core.Memory;
@@ -24,7 +23,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         public readonly Timer StatusUpdateTimer = new Timer(1000);
 
-        public List<StatusEntry> StatusEntriesPlayer = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
+        public List<StatusEntry> StatusEntriesPlayers = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesSelf = new List<StatusEntry>();
 
         /// <summary>
@@ -34,7 +34,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             Controller = parseControl;
             ID = 0;
-            Type = TimelineType.Unknown;
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
@@ -43,8 +42,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 StatusUpdateTimer.Start();
             }
         }
-
-        public TimelineType Type { get; set; }
 
         private ParseControl Controller { get; set; }
 
@@ -61,7 +58,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         private void StatusUpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             StatusEntriesSelf.Clear();
-            StatusEntriesPlayer.Clear();
+            StatusEntriesPlayers.Clear();
+            StatusEntriesMonsters.Clear();
         }
 
         /// <summary>

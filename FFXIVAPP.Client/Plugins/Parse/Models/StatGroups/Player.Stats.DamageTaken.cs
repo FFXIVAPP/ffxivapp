@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("CriticalDamageTaken", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                         var modStat = "DamageTakenCritMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -94,7 +94,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     subMonsterAbilityGroup.Stats.IncrementStat("RegularDamageTaken", line.Amount);
                     if (line.Modifier != 0)
                     {
-                        var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                        var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                         var modStat = "DamageTakenRegMod";
                         Stats.IncrementStat(modStat, mod);
                         subAbilityGroup.Stats.IncrementStat(modStat, mod);
@@ -122,7 +122,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                     continue;
                 }
-                var mod = ParseHelper.GetBonusDamage(line.Amount, line.Modifier);
+                var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
                 var modStat = String.Format("DamageTaken{0}Mod", stat.Name);
                 Stats.IncrementStat(modStat, mod);
                 subAbilityGroup.Stats.IncrementStat(modStat, mod);

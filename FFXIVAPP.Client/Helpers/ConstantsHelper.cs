@@ -13,7 +13,7 @@ namespace FFXIVAPP.Client.Helpers
     {
         public static void UpdatePluginConstants()
         {
-            PluginHost.Instance.RaiseNewConstantsEntity(new ConstantsEntity
+            AppContextHelper.Instance.RaiseNewConstants(new ConstantsEntity
             {
                 AutoTranslate = Constants.AutoTranslate,
                 CharacterName = Constants.CharacterName,

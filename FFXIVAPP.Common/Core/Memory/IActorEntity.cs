@@ -47,5 +47,9 @@ namespace FFXIVAPP.Common.Core.Memory
         byte Race { get; set; }
         byte Sex { get; set; }
         List<StatusEntry> StatusEntries { get; set; }
+        bool IsCasting { get; set; }
+        short CastingID { get; set; }
+        float CastingProgress { get; set; }
+        float CastingTime { get; set; }
     }
 }

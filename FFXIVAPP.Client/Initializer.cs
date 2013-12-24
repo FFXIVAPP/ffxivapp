@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -165,6 +166,7 @@ namespace FFXIVAPP.Client
         public static void LoadPlugins()
         {
             App.Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
+            var removed = new List<PluginInstance>();
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
                 var pluginName = pluginInstance.Instance.FriendlyName;
@@ -201,6 +203,7 @@ namespace FFXIVAPP.Client
                     AppViewModel.Instance.PluginInfo.Add(pluginInfo);
                     if (!pluginInfo.IsEnabled)
                     {
+                        removed.Add(pluginInstance);
                         continue;
                     }
                     var tabItem = pluginInstance.Instance.CreateTab();
@@ -213,6 +216,16 @@ namespace FFXIVAPP.Client
                 catch (AppException ex)
                 {
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                }
+            }
+            foreach (var pluginInstance in removed)
+            {
+                try
+                {
+                    App.Plugins.Loaded.Remove(pluginInstance);
+                }
+                catch (Exception ex)
+                {
                 }
             }
             AppViewModel.Instance.HasPlugins = App.Plugins.Loaded.Count > 0;

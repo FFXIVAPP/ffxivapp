@@ -334,7 +334,7 @@ namespace FFXIVAPP.Common.Core.Memory
             {
                 try
                 {
-                    return Convert.ToByte(Math.Ceiling((Convert.ToDouble(CPCurrent) / Convert.ToDouble(CPMax))));
+                    return (decimal) Math.Ceiling((Convert.ToDouble(CPCurrent) / Convert.ToDouble(CPMax)));
                 }
                 catch
                 {
@@ -444,6 +444,37 @@ namespace FFXIVAPP.Common.Core.Memory
                 }
                 _statusEntries = value;
             }
+        }
+
+        public bool IsCasting { get; set; }
+        public short CastingID { get; set; }
+        public float CastingProgress { get; set; }
+        public float CastingTime { get; set; }
+
+        public decimal CastingPercentage
+        {
+            get
+            {
+                try
+                {
+                    if (IsCasting && CastingTime > 0)
+                    {
+                        return (decimal) (CastingProgress / CastingTime);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                return 0;
+            }
+        }
+
+        public float GetDistanceTo(ActorEntity compare)
+        {
+            var distanceX = (float) Math.Abs(X - compare.X);
+            var distanceY = (float) Math.Abs(Y - compare.Y);
+            var distanceZ = (float) Math.Abs(Z - compare.Z);
+            return (float)Math.Sqrt((distanceX * distanceX) + (distanceY * distanceY) + (distanceZ * distanceZ));
         }
     }
 }
