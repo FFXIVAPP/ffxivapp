@@ -68,6 +68,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var lastDamageOverTimeActionsList = ParseHelper.LastDamageByAction.GetPlayer(Name)
                                                                    .ToList();
+                    var resolvedPotency = 80;
                     foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)
                     {
                         if (Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
@@ -126,7 +127,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         amount = 75;
                     }
-                    var tickDamage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.ActionOverTimePotency) / 3);
+                    resolvedPotency = zeroFoundInList ? resolvedPotency : bio ? resolvedPotency : actionData.ActionPotency;
+                    var tickDamage = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
                     if (actionData.HasNoInitialResult && !zeroFoundInList)
                     {
                         var nonZeroActions = lastDamageOverTimeActionsList.Where(d => !d.Key.Contains("•"));
@@ -135,7 +137,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         switch (bio)
                         {
                             case true:
-                                damage = Math.Ceiling(((amount / 80) * actionData.ActionOverTimePotency) / 3);
+                                damage = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
                                 break;
                             case false:
                                 if (keyValuePairs.Any())
@@ -143,7 +145,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                                     amount = keyValuePairs.Sum(action => action.Value);
                                     amount = amount / keyValuePairs.Count();
                                 }
-                                damage = Math.Ceiling(((amount / actionData.ActionPotency) * actionData.ActionOverTimePotency) / 3);
+                                damage = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
                                 break;
                         }
                         tickDamage = damage > 0 ? damage : tickDamage;
@@ -283,7 +285,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         amount = 75;
                     }
-                    resolvedPotency = zeroFoundInList ? resolvedPotency : actionData.ActionPotency;
+                    resolvedPotency = zeroFoundInList ? resolvedPotency : regen ? resolvedPotency : actionData.ActionPotency;
                     var tickHealing = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
                     if (actionData.HasNoInitialResult && !zeroFoundInList)
                     {

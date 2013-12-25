@@ -213,8 +213,55 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(0x31A8)]
             public float CastingTime;
-
         }
+
+        [StructLayout(LayoutKind.Explicit, Pack = 1)]
+        public struct PartyMember
+        {
+            //[MarshalAs(UnmanagedType.R4)]
+            //[FieldOffset(0x0)]
+            //public float X;
+
+            //[MarshalAs(UnmanagedType.R4)]
+            //[FieldOffset(0x4)]
+            //public float Z;
+
+            //[MarshalAs(UnmanagedType.R4)]
+            //[FieldOffset(0x8)]
+            //public float Y;
+
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x18)]
+            public int ID;
+
+            //[MarshalAs(UnmanagedType.I1)]
+            //[FieldOffset(0x61)]
+            //public byte Job;
+
+            //[MarshalAs(UnmanagedType.I1)]
+            //[FieldOffset(0x63)]
+            //public byte Level;
+
+            //[MarshalAs(UnmanagedType.I4)]
+            //[FieldOffset(0x68)]
+            //public int CurrentHP;
+
+            //[MarshalAs(UnmanagedType.I4)]
+            //[FieldOffset(0x6C)]
+            //public int MaxHP;
+
+            //[MarshalAs(UnmanagedType.I2)]
+            //[FieldOffset(0x70)]
+            //public short CurrentMP;
+
+            //[MarshalAs(UnmanagedType.I2)]
+            //[FieldOffset(0x72)]
+            //public short MaxMP;
+
+            //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
+            //[FieldOffset(0x80)]
+            //public Status[] Statuses;
+        };
 
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct PlayerInfo

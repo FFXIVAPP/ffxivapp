@@ -119,10 +119,7 @@ namespace FFXIVAPP.Client.Memory
                 Locations = new Dictionary<string, uint>();
                 if (signatures.Any())
                 {
-                    foreach (var signature in signatures)
-                    {
-                        Locations.Add(signature.Key, (uint) FindSignature(signature.Value, signature.Offset, ScanResultType.AddressStartOfSig));
-                    }
+                    FindSignatures(signatures, ScanResultType.AddressStartOfSig);
                 }
                 _memDump = null;
                 sw.Stop();
@@ -161,6 +158,55 @@ namespace FFXIVAPP.Client.Memory
         }
 
         /// <summary>
+        /// Search the loaded regions for all signatures at once and remove from list once found
+        /// </summary>
+        /// <param name="signatures"></param>
+        /// <param name="searchType"></param>
+        private void FindSignatures(IEnumerable<Signature> signatures, ScanResultType searchType)
+        {
+            try
+            {
+                var notFound = new List<Signature>(signatures);
+                var temp = new List<Signature>();
+                foreach (var region in _regions)
+                {
+                    try
+                    {
+                        var buffer = new byte[region.RegionSize];
+                        int lpNumberOfByteRead;
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        {
+                            var errorCode = Marshal.GetLastWin32Error();
+                            throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
+                        }
+                        foreach (var signature in notFound)
+                        {
+                            var searchResult = FindSignature(buffer, signature.Value, signature.Offset, searchType);
+                            if (IntPtr.Zero == searchResult)
+                            {
+                                temp.Add(signature);
+                                continue;
+                            }
+                            if (ScanResultType.AddressStartOfSig == searchType)
+                            {
+                                searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                            }
+                            Locations.Add(signature.Key, (uint)searchResult);
+                        }
+                        notFound = new List<Signature>(temp);
+                        temp.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        /// <summary>
         ///     Searches the loaded process for the given byte signature
         /// </summary>
         /// <param name="signature">The hex pattern to search for</param>
@@ -193,7 +239,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");

@@ -483,6 +483,12 @@ namespace FFXIVAPP.Client
             });
             signatures.Add(new Signature
             {
+                Key = "PARTYMAP",
+                Value = "??FFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
+                Offset = 28
+            });
+            signatures.Add(new Signature
+            {
                 Key = "MAP",
                 Value = "F783843E????????????????DB0FC93FDB0F49416F1283??",
                 Offset = 820
