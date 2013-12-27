@@ -12,6 +12,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Timelines;
 using FFXIVAPP.Client.Plugins.Parse.Monitors;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Core.Parse;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
@@ -71,7 +72,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     var playerEntity = new PlayerEntity
                     {
                         Name = player.Name,
-                        Job = Common.Core.Memory.Enums.Actor.Job.Unknown,
+                        Job = Actor.Job.Unknown,
                         DPS = (decimal) player.GetStatValue("DPS"),
                         HPS = (decimal) player.GetStatValue("HPS"),
                         DTPS = (decimal) player.GetStatValue("DTPS"),

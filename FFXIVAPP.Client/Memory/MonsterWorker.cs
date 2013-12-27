@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -129,13 +130,13 @@ namespace FFXIVAPP.Client.Memory
                                 }
                                 switch (entry.Type)
                                 {
-                                    case Common.Core.Memory.Enums.Actor.Type.Monster:
+                                    case Actor.Type.Monster:
                                         monsterEntries.Add(entry);
                                         break;
-                                    case Common.Core.Memory.Enums.Actor.Type.NPC:
+                                    case Actor.Type.NPC:
                                         npcEntries.Add(entry);
                                         break;
-                                    case Common.Core.Memory.Enums.Actor.Type.PC:
+                                    case Actor.Type.PC:
                                         pcEntries.Add(entry);
                                         break;
                                     default:
