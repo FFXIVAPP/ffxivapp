@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace FFXIVAPP.Common.Core.Constant
+namespace FFXIVAPP.Common.Core.Constant.Interfaces
 {
     public interface IConstantsEntity
     {

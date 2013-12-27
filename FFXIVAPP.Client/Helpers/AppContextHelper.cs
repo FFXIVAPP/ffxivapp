@@ -232,5 +232,11 @@ namespace FFXIVAPP.Client.Helpers
             // THIRD PARTY
             PluginHost.Instance.RaiseNewParseEntity(parseEntity);
         }
+
+        public void RaiseNewPartyEntries(List<PartyEntity> partyEntries)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
+        }
     }
 }

@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;

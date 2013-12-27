@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace FFXIVAPP.Common.Core.Parse
+namespace FFXIVAPP.Common.Core.Parse.Interfaces
 {
     public interface IParseEntity
     {

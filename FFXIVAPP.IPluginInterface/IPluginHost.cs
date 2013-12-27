@@ -20,5 +20,6 @@ namespace FFXIVAPP.IPluginInterface
         event EventHandler<PlayerEntityEvent> NewPlayerEntity;
         event EventHandler<TargetEntityEvent> NewTargetEntity;
         event EventHandler<ParseEntityEvent> NewParseEntity;
+        event EventHandler<PartyEntitiesEvent> NewPartyEntries;
     }
 }

@@ -105,7 +105,7 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     continue;
                                 }
-                                switch (entry.ActorType)
+                                switch (entry.Type)
                                 {
                                     case Common.Core.Memory.Enums.Actor.Type.Monster:
                                         monsterEntries.Add(entry);

@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\PartyEntityEvent.cs" />
     <Compile Include="Events\ConstantsEntityEvent.cs" />
     <Compile Include="Events\ChatLogEntryEvent.cs" />
     <Compile Include="Events\ParseEntityEvent.cs" />

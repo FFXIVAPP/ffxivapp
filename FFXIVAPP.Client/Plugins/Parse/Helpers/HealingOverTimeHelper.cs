@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// DamageOverTimeHelper.cs
+// HealingOverTimeHelper.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -26,7 +26,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
                     return _cureActions;
                 }
                 _cureActions = new Dictionary<string, List<string>>();
-         
+
                 _cureActions.Add("I", new List<string>
                 {
                     "cure",

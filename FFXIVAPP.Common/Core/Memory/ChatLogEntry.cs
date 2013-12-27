@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using FFXIVAPP.Common.Core.Memory.Interfaces;
 
 namespace FFXIVAPP.Common.Core.Memory
 {

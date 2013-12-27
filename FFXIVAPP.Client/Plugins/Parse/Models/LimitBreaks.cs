@@ -43,7 +43,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                         "メテオ",
                         "癒しの風",
                         "大地の息吹",
-                        "生命の鼓動"
+                        "生命の鼓動",
+                        "ブレイバー",
+                        "ブレードダンス",
+                        "ファイナルヘヴン"
                     };
                 case "de":
                     return new List<string>
@@ -57,7 +60,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                         //"meteor",
                         "heilender wind",
                         "atem der erde",
-                        "lebenspuls"
+                        "lebenspuls",
+                        "mutangriff",
+                        "schwertertanz",
+                        "endgültiger himmel"
                     };
                 case "fr":
                     return new List<string>
@@ -71,7 +77,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                         "météore",
                         "vent curateur",
                         "souffle de la terre",
-                        "pulsation vitale"
+                        "pulsation vitale",
+                        "ardeur courageuse",
+                        "danse de la lame",
+                        "paradis final"
                     };
             }
             return new List<string>
@@ -85,7 +94,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                 "meteor",
                 "healing wind",
                 "breath of earth",
-                "pulse of life"
+                "pulse of life",
+                "braver",
+                "bladedance",
+                "final heaven"
             };
         }
     }

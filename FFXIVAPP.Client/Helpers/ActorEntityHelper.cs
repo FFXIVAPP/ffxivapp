@@ -31,7 +31,7 @@ namespace FFXIVAPP.Client.Helpers
                 Fate = actor.Fate,
                 ModelID = actor.ModelID,
                 Icon = actor.Icon,
-                Claimed = actor.Claimed,
+                Status = actor.Status,
                 TargetID = actor.TargetID,
                 Level = actor.Level,
                 HPCurrent = actor.HPCurrent,
@@ -50,9 +50,9 @@ namespace FFXIVAPP.Client.Helpers
                 Job = actor.Job,
                 Race = actor.Race,
                 Sex = actor.Sex,
-                Status = actor.CurrentStatus,
+                ActionStatus = actor.ActionStatus,
                 Title = actor.Title,
-                TargetType = actor.Type
+                TargetType = actor.TargetType
             };
             if (entry.HPMax == 0)
             {

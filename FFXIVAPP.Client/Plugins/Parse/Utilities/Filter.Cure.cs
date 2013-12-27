@@ -114,6 +114,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _type = type;
             try
             {
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(cure.Groups["source"].Value);
+                }
+                if (String.IsNullOrWhiteSpace(line.Target))
+                {
+                    line.Target = Convert.ToString(cure.Groups["target"].Value);
+                }
                 switch (type)
                 {
                     case FilterType.You:
@@ -148,12 +156,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 {
                     case EventDirection.You:
                         line.Target = You;
-                        break;
-                    default:
-                        if (String.IsNullOrWhiteSpace(line.Target))
-                        {
-                            Convert.ToString(cure.Groups["target"].Value);
-                        }
                         break;
                 }
                 line.RecLossType = Convert.ToString(cure.Groups["type"].Value.ToUpperInvariant());

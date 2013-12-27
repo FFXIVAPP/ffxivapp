@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System.Collections.Generic;
+using FFXIVAPP.Common.Core.Memory.Interfaces;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Common.Core.Memory

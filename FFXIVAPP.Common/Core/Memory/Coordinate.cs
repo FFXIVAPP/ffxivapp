@@ -3,6 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
+using FFXIVAPP.Common.Core.Memory.Interfaces;
+
 namespace FFXIVAPP.Common.Core.Memory
 {
     public class Coordinate : ICoordinate

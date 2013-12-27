@@ -158,7 +158,7 @@ namespace FFXIVAPP.Client.Memory
         }
 
         /// <summary>
-        /// Search the loaded regions for all signatures at once and remove from list once found
+        ///     Search the loaded regions for all signatures at once and remove from list once found
         /// </summary>
         /// <param name="signatures"></param>
         /// <param name="searchType"></param>
@@ -174,7 +174,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -191,7 +191,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
                             }
-                            Locations.Add(signature.Key, (uint)searchResult);
+                            Locations.Add(signature.Key, (uint) searchResult);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();
@@ -239,7 +239,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");

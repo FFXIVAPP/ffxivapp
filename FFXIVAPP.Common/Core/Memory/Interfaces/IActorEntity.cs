@@ -4,8 +4,9 @@
 // © 2013 Ryan Wilson
 
 using System.Collections.Generic;
+using FFXIVAPP.Common.Core.Memory.Enums;
 
-namespace FFXIVAPP.Common.Core.Memory
+namespace FFXIVAPP.Common.Core.Memory.Interfaces
 {
     public interface IActorEntity
     {
@@ -14,8 +15,8 @@ namespace FFXIVAPP.Common.Core.Memory
         uint ID { get; set; }
         uint NPCID1 { get; set; }
         uint NPCID2 { get; set; }
-        byte Type { get; set; }
-        byte TargetType { get; set; }
+        Actor.Type Type { get; set; }
+        Actor.TargetType TargetType { get; set; }
         byte Distance { get; set; }
         byte GatheringStatus { get; set; }
         double X { get; set; }
@@ -25,12 +26,12 @@ namespace FFXIVAPP.Common.Core.Memory
         byte GatheringInvisible { get; set; }
         uint Fate { get; set; }
         uint ModelID { get; set; }
-        byte Status { get; set; }
+        Actor.ActionStatus ActionStatus { get; set; }
         bool IsGM { get; set; }
-        byte Icon { get; set; }
-        byte Claimed { get; set; }
+        Actor.Icon Icon { get; set; }
+        Actor.Status Status { get; set; }
         int TargetID { get; set; }
-        byte Job { get; set; }
+        Actor.Job Job { get; set; }
         byte Level { get; set; }
         byte GrandCompany { get; set; }
         byte GrandCompanyRank { get; set; }
@@ -45,7 +46,7 @@ namespace FFXIVAPP.Common.Core.Memory
         short CPCurrent { get; set; }
         short CPMax { get; set; }
         byte Race { get; set; }
-        byte Sex { get; set; }
+        Actor.Sex Sex { get; set; }
         List<StatusEntry> StatusEntries { get; set; }
         bool IsCasting { get; set; }
         short CastingID { get; set; }

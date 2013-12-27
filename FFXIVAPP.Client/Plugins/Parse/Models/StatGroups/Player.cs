@@ -117,7 +117,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                             {
                                 foreach (var statusEntry in
                                     pcEntries.SelectMany(pc => pc.StatusEntries)
-                                                  .Where(statusEntry => statusEntry.CasterID == ID))
+                                             .Where(statusEntry => statusEntry.CasterID == ID))
                                 {
                                     StatusEntriesPlayers.Add(statusEntry);
                                 }

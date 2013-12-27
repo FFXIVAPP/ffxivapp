@@ -73,7 +73,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.Pet);
                                     }
                                     break;
@@ -98,7 +97,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPartyIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.Party);
                                     }
                                     break;
@@ -123,7 +121,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetPartyIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.PetParty);
                                     }
                                     break;
@@ -148,7 +145,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionAllianceIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.Alliance);
                                     }
                                     break;
@@ -173,7 +169,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetAllianceIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.PetAlliance);
                                     }
                                     break;
@@ -198,7 +193,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionOtherIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.Other);
                                     }
                                     break;
@@ -223,7 +217,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetOtherIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         UpdateDamage(damage, line, exp, FilterType.PetOther);
                                     }
                                     break;
@@ -249,7 +242,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionYouIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
                                         line.Target = You;
                                         UpdateDamageMonster(damage, line, exp, FilterType.You);
                                     }
@@ -270,8 +262,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.Pet);
                                     }
                                     break;
@@ -291,8 +281,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPartyIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.Party);
                                     }
                                     break;
@@ -312,8 +300,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetPartyIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.PetParty);
                                     }
                                     break;
@@ -333,8 +319,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionAllianceIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.Alliance);
                                     }
                                     break;
@@ -354,8 +338,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetAllianceIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.PetAlliance);
                                     }
                                     break;
@@ -375,8 +357,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionOtherIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.Other);
                                     }
                                     break;
@@ -396,8 +376,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     if (damage.Success)
                                     {
                                         _lastActionPetOtherIsAttack = true;
-                                        line.Source = Convert.ToString(damage.Groups["source"].Value);
-                                        line.Target = Convert.ToString(damage.Groups["target"].Value);
                                         UpdateDamageMonster(damage, line, exp, FilterType.PetOther);
                                     }
                                     break;
@@ -419,6 +397,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             try
             {
                 line.Hit = true;
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(damage.Groups["source"].Value);
+                }
+                if (String.IsNullOrWhiteSpace(line.Target))
+                {
+                    line.Target = Convert.ToString(damage.Groups["target"].Value);
+                }
                 switch (damage.Groups["source"].Success)
                 {
                     case true:
@@ -469,7 +455,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 line.Crit = damage.Groups["crit"].Success;
                 line.Modifier = damage.Groups["modifier"].Success ? Convert.ToDecimal(damage.Groups["modifier"].Value) / 100 : 0m;
                 line.Parry = damage.Groups["parry"].Success;
-                line.Target = Convert.ToString(damage.Groups["target"].Value);
                 if (line.IsEmpty())
                 {
                     return;
@@ -497,6 +482,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             try
             {
                 line.Hit = true;
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(damage.Groups["source"].Value);
+                }
+                if (String.IsNullOrWhiteSpace(line.Target))
+                {
+                    line.Target = Convert.ToString(damage.Groups["target"].Value);
+                }
                 switch (damage.Groups["source"].Success)
                 {
                     case true:

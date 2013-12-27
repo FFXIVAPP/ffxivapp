@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// DamageOverTimeAction.cs
+// XOverTimeAction.cs
 // 
 // © 2013 Ryan Wilson
 

@@ -52,7 +52,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
                 subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
             }
-            var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal).5) : 0 : line.Amount;
+            var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
             ParseHelper.LastHealingByAction.EnsurePlayerAction(line.Source, line.Action, currentHealing);
             Stats.IncrementStat("TotalOverallHealing", line.Amount);
             subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);

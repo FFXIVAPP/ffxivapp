@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System.Collections.Generic;
+using FFXIVAPP.Common.Core.Parse.Interfaces;
 
 namespace FFXIVAPP.Common.Core.Parse
 {

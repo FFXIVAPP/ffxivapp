@@ -3,7 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
+using FFXIVAPP.Common.Core.Parse.Interfaces;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Common.Core.Parse
@@ -18,7 +19,7 @@ namespace FFXIVAPP.Common.Core.Parse
             set { _name = StringHelper.TitleCase(value); }
         }
 
-        public Enums.Actor.Job Job { get; set; }
+        public Actor.Job Job { get; set; }
         public decimal DPS { get; set; }
         public decimal HPS { get; set; }
         public decimal DTPS { get; set; }

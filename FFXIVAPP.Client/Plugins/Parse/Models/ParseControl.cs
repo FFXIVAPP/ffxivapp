@@ -84,7 +84,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     };
                     if (player.NPCEntry != null)
                     {
-                        playerEntity.Job = player.NPCEntry.ActorJob;
+                        playerEntity.Job = player.NPCEntry.Job;
                     }
                     parseEntity.Players.Add(playerEntity);
                 }

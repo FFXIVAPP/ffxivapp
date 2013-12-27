@@ -55,8 +55,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNamePet = line.Source;
                                 UpdateActions(actions, line, exp, FilterType.Pet);
                             }
                             break;
@@ -70,8 +68,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNamePartyFrom = line.Source;
                                 UpdateActions(actions, line, exp, FilterType.Party);
                             }
                             break;
@@ -85,7 +81,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 UpdateActions(actions, line, exp, FilterType.PetParty);
                             }
                             break;
@@ -99,8 +94,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNameAllianceFrom = line.Source;
                                 UpdateActions(actions, line, exp, FilterType.Alliance);
                             }
                             break;
@@ -114,7 +107,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 UpdateActions(actions, line, exp, FilterType.PetAlliance);
                             }
                             break;
@@ -128,8 +120,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
-                                _lastNameOtherFrom = line.Source;
                                 UpdateActions(actions, line, exp, FilterType.Other);
                             }
                             break;
@@ -143,7 +133,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                             actions = exp.pActions;
                             if (actions.Success)
                             {
-                                line.Source = Convert.ToString(actions.Groups["source"].Value);
                                 UpdateActions(actions, line, exp, FilterType.PetOther);
                             }
                             break;
@@ -183,6 +172,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             _lastActionPetAllianceIsAttack = false;
             try
             {
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(actions.Groups["source"].Value);
+                }
                 var isHealingSkill = false;
                 ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
                 var action = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
@@ -197,6 +190,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         break;
                     case FilterType.Pet:
                         _lastActionPet = action;
+                        _lastNamePet = line.Source;
                         break;
                     case FilterType.Party:
                         if (isHealingSkill)

@@ -38,6 +38,7 @@ namespace FFXIVAPP.Client
         private static NPCWorker _npcWorker;
         private static PlayerInfoWorker _playerInfoWorker;
         private static TargetWorker _targetWorker;
+        private static PartyInfoWorker _partyInfoWorker;
 
         #endregion
 
@@ -485,7 +486,13 @@ namespace FFXIVAPP.Client
             {
                 Key = "PARTYMAP",
                 Value = "??FFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
-                Offset = 28
+                Offset = 44
+            });
+            signatures.Add(new Signature
+            {
+                Key = "PARTYCOUNT",
+                Value = "5F50617274794C69737400",
+                Offset = 512
             });
             signatures.Add(new Signature
             {
@@ -590,6 +597,8 @@ namespace FFXIVAPP.Client
             _playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
             _targetWorker.StartScanning();
+            _partyInfoWorker = new PartyInfoWorker();
+            _partyInfoWorker.StartScanning();
         }
 
         /// <summary>
@@ -640,6 +649,11 @@ namespace FFXIVAPP.Client
             {
                 _targetWorker.StopScanning();
                 _targetWorker.Dispose();
+            }
+            if (_partyInfoWorker != null)
+            {
+                _partyInfoWorker.StopScanning();
+                _partyInfoWorker.Dispose();
             }
         }
     }

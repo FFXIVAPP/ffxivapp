@@ -187,6 +187,8 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<ParseEntityEvent> NewParseEntity = delegate { };
 
+        public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
+
         public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
         {
             var constantsEntityEvent = new ConstantsEntityEvent(this, e);
@@ -264,6 +266,16 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, parseEntityEvent);
+            }
+        }
+
+        public virtual void RaiseNewPartyEntries(List<PartyEntity> e)
+        {
+            var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
+            var handler = NewPartyEntries;
+            if (handler != null)
+            {
+                handler(this, partyEntitiesEvent);
             }
         }
 

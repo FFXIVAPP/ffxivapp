@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace FFXIVAPP.Common.Core.Memory
+namespace FFXIVAPP.Common.Core.Memory.Interfaces
 {
     public interface IPlayerEntity
     {

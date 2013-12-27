@@ -3,7 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-namespace FFXIVAPP.Common.Core.Memory
+namespace FFXIVAPP.Common.Core.Memory.Interfaces
 {
     public interface ICoordinate
     {

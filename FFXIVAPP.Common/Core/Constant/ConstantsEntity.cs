@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Globalization;
+using FFXIVAPP.Common.Core.Constant.Interfaces;
 
 namespace FFXIVAPP.Common.Core.Constant
 {

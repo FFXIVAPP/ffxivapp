@@ -71,7 +71,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.Pet);
                                     }
                                     break;
@@ -95,7 +94,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.Party);
                                     }
                                     break;
@@ -119,7 +117,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.PetParty);
                                     }
                                     break;
@@ -143,7 +140,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.Alliance);
                                     }
                                     break;
@@ -167,7 +163,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.PetAlliance);
                                     }
                                     break;
@@ -191,7 +186,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.Other);
                                     }
                                     break;
@@ -215,7 +209,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.pFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         UpdateFailed(failed, line, exp, FilterType.PetOther);
                                     }
                                     break;
@@ -240,7 +233,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
                                         line.Target = You;
                                         UpdateFailedMonster(failed, line, exp, FilterType.You);
                                     }
@@ -260,8 +252,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.Pet);
                                     }
                                     break;
@@ -280,8 +270,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.Party);
                                     }
                                     break;
@@ -300,8 +288,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.PetParty);
                                     }
                                     break;
@@ -320,8 +306,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.Alliance);
                                     }
                                     break;
@@ -340,8 +324,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.PetAlliance);
                                     }
                                     break;
@@ -360,8 +342,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.Other);
                                     }
                                     break;
@@ -380,8 +360,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                                     failed = exp.mFailedAuto;
                                     if (failed.Success)
                                     {
-                                        line.Source = Convert.ToString(failed.Groups["source"].Value);
-                                        line.Target = Convert.ToString(failed.Groups["target"].Value);
                                         UpdateFailedMonster(failed, line, exp, FilterType.PetOther);
                                     }
                                     break;
@@ -403,6 +381,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             try
             {
                 line.Miss = true;
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(failed.Groups["source"].Value);
+                }
+                if (String.IsNullOrWhiteSpace(line.Target))
+                {
+                    line.Target = Convert.ToString(failed.Groups["target"].Value);
+                }
                 switch (failed.Groups["source"].Success)
                 {
                     case true:
@@ -489,6 +475,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             try
             {
                 line.Miss = true;
+                if (String.IsNullOrWhiteSpace(line.Source))
+                {
+                    line.Source = Convert.ToString(failed.Groups["source"].Value);
+                }
+                if (String.IsNullOrWhiteSpace(line.Target))
+                {
+                    line.Target = Convert.ToString(failed.Groups["target"].Value);
+                }
                 switch (failed.Groups["source"].Success)
                 {
                     case true:

@@ -68,6 +68,12 @@ namespace FFXIVAPP.Client.Converters
             {
                 return source;
             }
+            if (Regex.IsMatch(name, @"\[[(A|\?\?\?)]\]"))
+            {
+                return source;
+            }
+            name = Regex.Replace(name, @"\[[\w]+\]", "")
+                        .Trim();
             var fileName = String.Format("{0}.{1}.{2}", Constants.ServerName, name.Replace(" ", ""), "png");
             var cachePath = Path.Combine(AvatarCache, fileName);
             if (_cachingEnabled && File.Exists(cachePath))

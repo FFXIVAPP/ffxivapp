@@ -3,10 +3,8 @@
 // 
 // © 2013 Ryan Wilson
 
-using System;
 using System.ComponentModel;
 using System.Windows;
-using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 

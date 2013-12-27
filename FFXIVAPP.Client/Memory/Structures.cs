@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System.Runtime.InteropServices;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
@@ -64,11 +65,11 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x8A)] //138
-            public byte Type;
+            public Actor.Type Type;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x8C)] //140
-            public byte CurrentTarget;
+            public Actor.TargetType TargetType;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x8D)] //141
@@ -108,7 +109,7 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x188)] //392
-            public byte CurrentStatus;
+            public Actor.ActionStatus ActionStatus;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x189)] //393
@@ -116,11 +117,11 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x18A)] //394
-            public byte Icon;
+            public Actor.Icon Icon;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x195)] //405
-            public byte Claimed;
+            public Actor.Status Status;
 
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0x1A0)] //416
@@ -128,7 +129,7 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x1698)] //5784
-            public byte Job;
+            public Actor.Job Job;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x1699)] //5785
@@ -188,7 +189,7 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x2E59)] //11865
-            public byte Sex;
+            public Actor.Sex Sex;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x2E72)] //11890
@@ -218,49 +219,49 @@ namespace FFXIVAPP.Client.Memory
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct PartyMember
         {
-            //[MarshalAs(UnmanagedType.R4)]
-            //[FieldOffset(0x0)]
-            //public float X;
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0x0)]
+            public float X;
 
-            //[MarshalAs(UnmanagedType.R4)]
-            //[FieldOffset(0x4)]
-            //public float Z;
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0x4)]
+            public float Z;
 
-            //[MarshalAs(UnmanagedType.R4)]
-            //[FieldOffset(0x8)]
-            //public float Y;
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0x8)]
+            public float Y;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x18)]
-            public int ID;
+            [FieldOffset(0x10)]
+            public uint ID;
 
-            //[MarshalAs(UnmanagedType.I1)]
-            //[FieldOffset(0x61)]
-            //public byte Job;
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(0x61)]
+            public Actor.Job Job;
 
-            //[MarshalAs(UnmanagedType.I1)]
-            //[FieldOffset(0x63)]
-            //public byte Level;
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(0x63)]
+            public byte Level;
 
-            //[MarshalAs(UnmanagedType.I4)]
-            //[FieldOffset(0x68)]
-            //public int CurrentHP;
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x68)]
+            public int HPCurrent;
 
-            //[MarshalAs(UnmanagedType.I4)]
-            //[FieldOffset(0x6C)]
-            //public int MaxHP;
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x6C)]
+            public int HPMax;
 
-            //[MarshalAs(UnmanagedType.I2)]
-            //[FieldOffset(0x70)]
-            //public short CurrentMP;
+            [MarshalAs(UnmanagedType.I2)]
+            [FieldOffset(0x70)]
+            public short MPCurrent;
 
-            //[MarshalAs(UnmanagedType.I2)]
-            //[FieldOffset(0x72)]
-            //public short MaxMP;
+            [MarshalAs(UnmanagedType.I2)]
+            [FieldOffset(0x72)]
+            public short MPMax;
 
-            //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
-            //[FieldOffset(0x80)]
-            //public Status[] Statuses;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 15)]
+            [FieldOffset(0x80)]
+            public Status[] Statuses;
         };
 
         [StructLayout(LayoutKind.Explicit, Pack = 1)]

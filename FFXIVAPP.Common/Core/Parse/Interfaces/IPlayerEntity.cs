@@ -3,14 +3,14 @@
 // 
 // © 2013 Ryan Wilson
 
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
 
-namespace FFXIVAPP.Common.Core.Parse
+namespace FFXIVAPP.Common.Core.Parse.Interfaces
 {
     public interface IPlayerEntity
     {
         string Name { get; set; }
-        Enums.Actor.Job Job { get; set; }
+        Actor.Job Job { get; set; }
         decimal DPS { get; set; }
         decimal HPS { get; set; }
         decimal DTPS { get; set; }
