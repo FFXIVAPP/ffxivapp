@@ -2638,6 +2638,11 @@
             <param name="newAccent">The accent to apply to the ResourceDictionary.</param>
             <param name="newTheme">The theme to apply to the ResourceDictionary.</param>
         </member>
+        <member name="M:MahApps.Metro.ThemeManager.DetectTheme">
+            <summary>
+            Scans the window resources and returns it's accent and theme.
+            </summary>
+        </member>
         <member name="M:MahApps.Metro.ThemeManager.DetectTheme(System.Windows.Window)">
             <summary>
             Scans the window resources and returns it's accent and theme.

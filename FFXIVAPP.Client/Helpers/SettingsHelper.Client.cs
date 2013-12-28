@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Xml.Linq;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
@@ -25,26 +27,7 @@ namespace FFXIVAPP.Client.Helpers
             /// </summary>
             public static void Save()
             {
-                XmlHelper.DeleteXmlNode(Constants.XColors, "Color");
-                foreach (var color in Constants.Colors)
-                {
-                    var xKey = color.Key;
-                    var xValue = color.Value[0];
-                    var xDescription = color.Value[1];
-                    var keyPairList = new List<XValuePair>();
-                    keyPairList.Add(new XValuePair
-                    {
-                        Key = "Value",
-                        Value = xValue
-                    });
-                    keyPairList.Add(new XValuePair
-                    {
-                        Key = "Description",
-                        Value = xDescription
-                    });
-                    XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);
-                }
-                Constants.XColors.Save(AppViewModel.Instance.ConfigurationsPath + "Colors.xml");
+                SaveColorsNode();
                 Settings.Default.Save();
             }
 
@@ -73,6 +56,58 @@ namespace FFXIVAPP.Client.Helpers
                     Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
+
+            #region Iterative Settings Saving
+
+            private static void SaveColorsNode()
+            {
+                if (Constants.XColors == null)
+                {
+                    return;
+                }
+                var xElements = Constants.XColors.Descendants()
+                                         .Elements("Color");
+                var enumerable = xElements as XElement[] ?? xElements.ToArray();
+                foreach (var color in Constants.Colors)
+                {
+                    var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
+                                                                  .Value == color.Key);
+                    var xKey = color.Key;
+                    var xValue = color.Value[0];
+                    var xDescription = color.Value[1];
+                    var keyPairList = new List<XValuePair>();
+                    keyPairList.Add(new XValuePair
+                    {
+                        Key = "Value",
+                        Value = xValue
+                    });
+                    keyPairList.Add(new XValuePair
+                    {
+                        Key = "Description",
+                        Value = xDescription
+                    });
+                    if (element == null)
+                    {
+                        XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);
+                    }
+                    else
+                    {
+                        var xValueElement = element.Element("Value");
+                        if (xValueElement != null)
+                        {
+                            xValueElement.Value = xValue;
+                        }
+                        var xDescriptionElement = element.Element("Description");
+                        if (xDescriptionElement != null)
+                        {
+                            xDescriptionElement.Value = xDescription;
+                        }
+                    }
+                }
+                Constants.XColors.Save(AppViewModel.Instance.ConfigurationsPath + "Colors.xml");
+            }
+
+            #endregion
         }
     }
 }

@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
@@ -30,45 +32,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
 
         public override void Save()
         {
-            // ensure main settings
-            XmlHelper.DeleteXmlNode(Constants.Application.XSettings, "Setting");
             DefaultSettings();
-            foreach (var item in Constants.Application.Settings)
-            {
-                try
-                {
-                    var xKey = item;
-                    var xValue = Default[xKey].ToString();
-                    var keyPairList = new List<XValuePair>
-                    {
-                        new XValuePair
-                        {
-                            Key = "Value",
-                            Value = xValue
-                        }
-                    };
-                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
-            }
-            // ensure enabled plugin settings
-            foreach (var enabledPlugin in Constants.Application.EnabledPlugins)
-            {
-                var xKey = enabledPlugin.Key;
-                var xValue = enabledPlugin.Value.ToString();
-                var keyPairList = new List<XValuePair>
-                {
-                    new XValuePair
-                    {
-                        Key = "Enabled",
-                        Value = xValue
-                    }
-                };
-                XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
-            }
+            SaveSettingsNode();
+            SaveEnabledPluginsNode();
             Constants.Application.XSettings.Save(AppViewModel.Instance.SettingsPath + "ApplicationSettings.xml");
         }
 
@@ -145,6 +111,87 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
+
+        #endregion
+
+        #region Iterative Settings Saving
+
+        private void SaveSettingsNode()
+        {
+            if (Constants.Application.XSettings == null)
+            {
+                return;
+            }
+            var xElements = Constants.Application.XSettings.Descendants()
+                                     .Elements("Setting");
+            var enumerable = xElements as XElement[] ?? xElements.ToArray();
+            foreach (var setting in Constants.Application.Settings)
+            {
+                var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
+                                                              .Value == setting);
+                if (element == null)
+                {
+                    var xKey = setting;
+                    var xValue = Default[xKey].ToString();
+                    var keyPairList = new List<XValuePair>
+                    {
+                        new XValuePair
+                        {
+                            Key = "Value",
+                            Value = xValue
+                        }
+                    };
+                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
+                }
+                else
+                {
+                    var xElement = element.Element("Value");
+                    if (xElement != null)
+                    {
+                        xElement.Value = Default[setting].ToString();
+                    }
+                }
+            }
+        }
+
+        public void SaveEnabledPluginsNode()
+        {
+            if (Constants.Application.XSettings == null)
+            {
+                return;
+            }
+            var xElements = Constants.Application.XSettings.Descendants()
+                                     .Elements("Setting");
+            var enumerable = xElements as XElement[] ?? xElements.ToArray();
+            // ensure enabled plugin settings
+            foreach (var enabledPlugin in Constants.Application.EnabledPlugins)
+            {
+                var xKey = enabledPlugin.Key;
+                var xEnabled = enabledPlugin.Value.ToString();
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
+                        Key = "Enabled",
+                        Value = xEnabled
+                    }
+                };
+                var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
+                                                              .Value == xKey);
+                if (element == null)
+                {
+                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
+                }
+                else
+                {
+                    var xEnabledElement = element.Element("Enabled");
+                    if (xEnabledElement != null)
+                    {
+                        xEnabledElement.Value = xEnabled;
+                    }
+                }
+            }
         }
 
         #endregion

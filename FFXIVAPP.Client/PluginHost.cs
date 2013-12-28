@@ -156,7 +156,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            var pluginInstance = Loaded.Find(popupContent.PluginName);
+            var pluginInstance = App.Plugins.Loaded.Find(popupContent.PluginName);
             if (pluginInstance == null)
             {
                 return;

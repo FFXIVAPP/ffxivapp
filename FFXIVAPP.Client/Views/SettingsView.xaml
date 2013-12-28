@@ -122,31 +122,6 @@
             <TabItem Header="Performance &amp; Logging">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="RenderMode">
-                            <StackPanel>
-                                <TextBlock Foreground="{DynamicResource BlackColorBrush}"
-                                           TextWrapping="WrapWithOverflow"
-                                           Visibility="{Binding EnableHelpLabels,
-                                                                Source={x:Static Properties:Settings.Default},
-                                                                Converter={StaticResource VisibilityConverter}}">
-                                    * Software: Uses the CPU and while has less impact on framerates means it will use more CPU (nearly double) to render animations.
-                                </TextBlock>
-                                <TextBlock Foreground="{DynamicResource BlackColorBrush}"
-                                           TextWrapping="WrapWithOverflow"
-                                           Visibility="{Binding EnableHelpLabels,
-                                                                Source={x:Static Properties:Settings.Default},
-                                                                Converter={StaticResource VisibilityConverter}}">
-                                    * Hardware (If Available): Uses the GPU to render and on low-end systems, laptops or systems utilizing more than one monitor for the game can cause framerate issues when using transparency. If it can't use the GPU it will default to Software.
-                                </TextBlock>
-                                <ComboBox x:Name="RenderModeSelect"
-                                          Margin="5"
-                                          IsReadOnly="False"
-                                          ItemsSource="{Binding PerformanceModeList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding PerformanceMode,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
-                            </StackPanel>
-                        </GroupBox>
                         <GroupBox Header="{Binding Locale[app_EnableNLogHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
