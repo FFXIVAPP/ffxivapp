@@ -27,8 +27,8 @@ Formatting can be achieved via example from the follow URL: [Markdown](http://da
 Directions on how-to install for FFXIVAPP are found on each repo. Thanks!
 
 ## Short Tutorial (Plugin Installation)
-<a href="http://youtu.be/QEHYKjp4DjY" target="_blank">
-    <img src="http://i1.ytimg.com/vi/QEHYKjp4DjY/mqdefault.jpg" />
+<a href="http://youtu.be/o2WQSQk-a6E" target="_blank">
+    <img src="http://i1.ytimg.com/vi/o2WQSQk-a6E/mqdefault.jpg" />
 </a>
 
 ## Directory Structure If Using Plugins
