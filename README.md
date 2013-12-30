@@ -1,5 +1,10 @@
 # FFXIVAPP
-Issue tracking and feature request repository.
+Issue tracking, feature request and release repository.
+
+## Main Application Installation
+<a href="http://youtu.be/jXhwvqe45MI" target="_blank">
+    <img src="http://i1.ytimg.com/vi/jXhwvqe45MI/mqdefault.jpg" />
+</a>
 
 ## Recommended Format (Issues)
 **Title**:
