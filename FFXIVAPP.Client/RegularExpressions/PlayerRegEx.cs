@@ -104,7 +104,7 @@ namespace FFXIVAPP.Client.RegularExpressions
 
         public static Regex DamageAutoDe = new Regex(@"^(?! ⇒)(?<block>Geblockt! ?)?(?<parry>Pariert! ?)?(?<crit>Kritischer Treffer! ?)?(?<source>Du|.+) triffs?t (d(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+) und verursachs?t (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?Punkte? (Schaden|reduziert)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ResistDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ResistDe = new Regex(@"^(?! ⇒)(?<resist>(Vollkommen widerstanden|Teilweise widerstanden|Halb widerstanden!)! )(D(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+) erleides?t (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?Punkte? Schaden\.$", SharedRegEx.DefaultOptions);
 
         public static Regex FailedDe = new Regex(@"^ ⇒ Die Attacke verfehlt?( (d(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+))?\.$", SharedRegEx.DefaultOptions);
 
@@ -112,9 +112,9 @@ namespace FFXIVAPP.Client.RegularExpressions
 
         public static Regex ActionsDe = new Regex(@"^(?<source>Du|.+) (setzt (?<action>.+) ein|wirks?t (?<action>.+))\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ItemsDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ItemsDe = new Regex(@"^(?<source>Du|.+) verwendes?t (?<item>.+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex CureDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex CureDe = new Regex(@"^( ⇒ )?(?<crit>Kritischer Treffer ?! )?(D(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+) regeneriers?t (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex BeneficialGainDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
@@ -124,7 +124,7 @@ namespace FFXIVAPP.Client.RegularExpressions
 
         public static Regex DetrimentalLoseDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex ObtainsDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex ObtainsDe = new Regex(@"^(D(u|einer|(i|e)r|ich|as|ie|en) )?(?<source>.+) has?t (?<item>.+) erhalten\.$", SharedRegEx.DefaultOptions);
 
         public static Regex DefeatsDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
     }

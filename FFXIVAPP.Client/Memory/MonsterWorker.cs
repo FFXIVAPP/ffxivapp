@@ -89,9 +89,8 @@ namespace FFXIVAPP.Client.Memory
                                     continue;
                                 }
                                 var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
-                                var entry = ActorEntityHelper.ResolveActorFromMemory(actor);
-                                entry.Name = MemoryHandler.Instance.GetString(characterAddress, 48);
-                                entry.MapIndex = 0;
+                                var name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
                                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                 {
                                     try

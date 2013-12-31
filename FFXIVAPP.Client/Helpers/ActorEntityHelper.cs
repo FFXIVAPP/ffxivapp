@@ -13,10 +13,11 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     public static class ActorEntityHelper
     {
-        public static ActorEntity ResolveActorFromMemory(Structures.NPCEntry actor)
+        public static ActorEntity ResolveActorFromMemory(Structures.NPCEntry actor, string name)
         {
             var entry = new ActorEntity
             {
+                Name = name,
                 ID = actor.ID,
                 NPCID1 = actor.NPCID1,
                 NPCID2 = actor.NPCID2,

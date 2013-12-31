@@ -374,7 +374,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     mDetrimentalLose = MonsterRegEx.DetrimentalLoseDe.Match(Cleaned);
                     Counter = "Counter";
                     Added = "Zusatzefeckt";
-                    HealingType = "HP";
+                    HealingType = "LP";
                     RAttack = "Ranged Attack";
                     Attack = "Attack";
                     You = @"^[Dd](ich|ie|u)$";

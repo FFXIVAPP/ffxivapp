@@ -66,12 +66,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     }
                     var zeroFoundInList = false;
                     var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+                    var thunder = Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var lastDamageOverTimeActionsList = ParseHelper.LastDamageByAction.GetPlayer(Name)
                                                                    .ToList();
                     var resolvedPotency = 80;
                     foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)
                     {
-                        if (Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
+                        if (thunder)
                         {
                             var found = false;
                             var thunderActions = DamageOverTimeHelper.ThunderActions;
@@ -150,7 +151,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         }
                         tickDamage = damage > 0 ? damage : tickDamage;
                     }
-                    if (amount > 300)
+                    if (amount > 300 && thunder)
                     {
                         tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
                     }
@@ -160,10 +161,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         Amount = tickDamage,
                         EventDirection = EventDirection.Unknown,
                         EventType = EventType.Damage,
-                        EventSubject = EventSubject.Unknown
+                        EventSubject = EventSubject.Unknown,
+                        Source = Name,
+                        Target = statusEntry.TargetName
                     };
-                    line.Source = Name;
-                    line.Target = statusEntry.TargetName;
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
