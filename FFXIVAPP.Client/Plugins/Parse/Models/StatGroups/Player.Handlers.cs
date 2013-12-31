@@ -175,7 +175,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
         }
@@ -343,7 +342,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
         }

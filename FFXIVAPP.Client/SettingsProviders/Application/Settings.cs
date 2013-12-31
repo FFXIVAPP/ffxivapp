@@ -92,11 +92,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
             }
             catch (SettingsPropertyNotFoundException ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             catch (SettingsPropertyWrongTypeException ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
 

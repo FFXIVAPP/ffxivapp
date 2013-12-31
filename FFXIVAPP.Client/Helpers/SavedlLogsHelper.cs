@@ -235,7 +235,6 @@ namespace FFXIVAPP.Client.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             if (!isTemporary)

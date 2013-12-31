@@ -171,13 +171,11 @@ namespace FFXIVAPP.Client.ViewModels
                         }
                         catch (Exception ex)
                         {
-                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
                 return cicuid;
             };

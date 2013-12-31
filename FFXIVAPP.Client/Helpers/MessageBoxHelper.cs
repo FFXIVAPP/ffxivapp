@@ -51,6 +51,8 @@ namespace FFXIVAPP.Client.Helpers
                                     .FirstOrDefault();
                 if (mw != null)
                 {
+                    mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
+                    mw.MetroDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
                     mw.MetroDialogOptions.CanChangeSizeToContent = false;
                     if (okAction == null && cancelAction == null)
                     {
@@ -58,8 +60,6 @@ namespace FFXIVAPP.Client.Helpers
                     }
                     else
                     {
-                        mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
-                        mw.MetroDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
                         if (cancelAction != null)
                         {
                             mw.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative)

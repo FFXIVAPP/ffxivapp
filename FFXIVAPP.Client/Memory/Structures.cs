@@ -112,19 +112,19 @@ namespace FFXIVAPP.Client.Memory
             public Actor.ActionStatus ActionStatus;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x189)] //393
+            [FieldOffset(0x193)] //393
             public bool IsGM;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x18A)] //394
+            [FieldOffset(0x194)] //394
             public Actor.Icon Icon;
 
             [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x195)] //405
+            [FieldOffset(0x196)] //405
             public Actor.Status Status;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x1A0)] //416
+            [FieldOffset(0xA78)] //416
             public int TargetID;
 
             [MarshalAs(UnmanagedType.I1)]

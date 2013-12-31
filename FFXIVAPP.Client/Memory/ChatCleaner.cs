@@ -150,7 +150,6 @@ namespace FFXIVAPP.Client.Memory
             }
             catch (Exception ex)
             {
-                //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             return line;
         }
@@ -194,7 +193,6 @@ namespace FFXIVAPP.Client.Memory
             }
             catch (Exception ex)
             {
-                //Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
             return line;
         }

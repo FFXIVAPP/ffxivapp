@@ -6,12 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -29,12 +27,16 @@ namespace FFXIVAPP.Client.Memory
         #region Declarations
 
         private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
+        private readonly List<int> _indexes = new List<int>();
         private readonly Timer _scanTimer;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
-        private readonly List<uint> _spots = new List<uint>();
+        private int _chatLimit = 1000;
+
+        private Structures.ChatLog _chatLogPointers;
+        private int _currentOffset;
         private bool _isScanning;
-        private uint _lastChatNum;
-        private int _lastCount;
+        private int _previousArrayIndex;
+        private int _previousOffset;
 
         #endregion
 
@@ -86,61 +88,42 @@ namespace FFXIVAPP.Client.Memory
                         {
                             return false;
                         }
-                        var chatLogPointers = new Structures.ChatLog();
-                        var chatPointersSet = false;
+                        var buffered = new List<List<byte>>();
                         try
                         {
-                            chatLogPointers = MemoryHandler.Instance.GetStructure<Structures.ChatLog>(ChatPointerMap);
-                            chatPointersSet = true;
-                            if (_lastCount == 0)
+                            _indexes.Clear();
+                            _chatLogPointers = MemoryHandler.Instance.GetStructure<Structures.ChatLog>(ChatPointerMap);
+                            EnsureArrayIndexes();
+                            var currentArrayIndex = (_chatLogPointers.OffsetArrayPos - _chatLogPointers.OffsetArrayStart) / 4;
+                            if (currentArrayIndex < _previousArrayIndex)
                             {
-                                _lastCount = (int) chatLogPointers.LineCount;
+                                buffered.AddRange(ResolveEntries(_previousArrayIndex, _chatLimit));
+                                _previousOffset = 0;
+                                _previousArrayIndex = 0;
                             }
-                            if (_lastCount != chatLogPointers.LineCount)
+                            if (_previousArrayIndex < currentArrayIndex)
                             {
-                                _spots.Clear();
-                                var index = (int) (chatLogPointers.OffsetArrayPos - chatLogPointers.OffsetArrayStart) / 4;
-                                var offset = (int) (chatLogPointers.OffsetArrayEnd - chatLogPointers.OffsetArrayStart) / 4;
-                                var lengths = new List<int>();
-                                for (var i = chatLogPointers.LineCount - _lastCount; i > 0; i--)
-                                {
-                                    var getline = ((index - i) < 0) ? (index - i) + offset : index - i;
-                                    int lineLen;
-                                    if (getline == 0)
-                                    {
-                                        lineLen = MemoryHandler.Instance.GetInt32(chatLogPointers.OffsetArrayStart);
-                                    }
-                                    else
-                                    {
-                                        var previousAddress = chatLogPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                                        var previous = MemoryHandler.Instance.GetInt32(previousAddress);
-                                        var currentAddress = chatLogPointers.OffsetArrayStart + (uint) (getline * 4);
-                                        var current = MemoryHandler.Instance.GetInt32(currentAddress);
-                                        lineLen = current - previous;
-                                    }
-                                    lengths.Add(lineLen);
-                                    var spotAddress = chatLogPointers.OffsetArrayStart + (uint) ((getline - 1) * 4);
-                                    _spots.Add(chatLogPointers.LogStart + (uint) MemoryHandler.Instance.GetInt32(spotAddress));
-                                }
-                                var limit = _spots.Count;
-                                for (var i = 0; i < limit; i++)
-                                {
-                                    _spots[i] = (_spots[i] > _lastChatNum) ? _spots[i] : chatLogPointers.LogStart;
-                                    var text = MemoryHandler.Instance.GetByteArray(_spots[i], lengths[i]);
-                                    var chatLogEntry = ChatEntry.Process(text.ToArray());
-                                    if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
-                                    {
-                                        AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
-                                    }
-                                    _lastChatNum = _spots[i];
-                                }
+                                buffered.AddRange(ResolveEntries(_previousArrayIndex, (int) currentArrayIndex));
                             }
+                            _previousArrayIndex = (int) currentArrayIndex;
                         }
                         catch (Exception ex)
                         {
-                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
-                        _lastCount = chatPointersSet ? (int) chatLogPointers.LineCount : _lastCount;
+                        foreach (var bytes in buffered)
+                        {
+                            try
+                            {
+                                var chatLogEntry = ChatEntry.Process(bytes.ToArray());
+                                if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
+                                {
+                                    AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
                     }
                     else
                     {
@@ -151,7 +134,6 @@ namespace FFXIVAPP.Client.Memory
                         }
                         catch (Exception ex)
                         {
-                            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                         }
                     }
                 }
@@ -159,6 +141,33 @@ namespace FFXIVAPP.Client.Memory
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
+        }
+
+        private void EnsureArrayIndexes()
+        {
+            _indexes.Clear();
+            for (var i = 0; i < _chatLimit; i++)
+            {
+                _indexes.Add((int) MemoryHandler.Instance.GetUInt32((uint) (_chatLogPointers.OffsetArrayStart + (i * 4))));
+            }
+        }
+
+        private IEnumerable<List<byte>> ResolveEntries(int offset, int length)
+        {
+            var entries = new List<List<byte>>();
+            for (var i = offset; i < length; i++)
+            {
+                EnsureArrayIndexes();
+                _currentOffset = _indexes[i];
+                entries.Add(ResolveEntry(_previousOffset, _currentOffset));
+                _previousOffset = _currentOffset;
+            }
+            return entries;
+        }
+
+        private List<byte> ResolveEntry(int offset, int length)
+        {
+            return new List<byte>(MemoryHandler.Instance.GetByteArray((uint) (_chatLogPointers.LogStart + offset), length - offset));
         }
 
         #endregion

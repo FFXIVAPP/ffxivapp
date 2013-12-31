@@ -140,7 +140,6 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
 

@@ -6,8 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Timers;
+using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -38,6 +41,8 @@ namespace FFXIVAPP.Client
          *  configuring collections
          *  setting up dependencies
          */
+
+        public Timer ProcessDetachCheckTimer = new Timer(30000);
 
         private AppBootstrapper()
         {
@@ -80,6 +85,36 @@ namespace FFXIVAPP.Client
             Initializer.LoadColors();
             Initializer.LoadApplicationSettings();
             Initializer.LoadPlugins();
+            ProcessDetachCheckTimer.Elapsed += ProcessDetachCheckTimerOnElapsed;
+        }
+
+        private void ProcessDetachCheckTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            try
+            {
+                switch (Constants.IsOpen)
+                {
+                    case true:
+                        try
+                        {
+                            var CurrentFFXIV = Process.GetProcessById(Constants.ProcessID);
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Constants.IsOpen = false;
+                        }
+                        break;
+                    case false:
+                        SettingsView.View.PIDSelect.Items.Clear();
+                        Initializer.StopMemoryWorkers();
+                        Initializer.ResetProcessID();
+                        Initializer.StartMemoryWorkers();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         #region Loading Functions

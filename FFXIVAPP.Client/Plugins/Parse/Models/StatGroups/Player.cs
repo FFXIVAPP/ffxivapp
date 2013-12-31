@@ -130,7 +130,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             if (!StatusEntriesMonsters.Any() && !StatusEntriesPlayers.Any())

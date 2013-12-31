@@ -216,7 +216,6 @@ namespace FFXIVAPP.Client
                 }
                 catch (AppException ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             foreach (var pluginInstance in removed)
@@ -407,7 +406,6 @@ namespace FFXIVAPP.Client
                             catch (Exception ex)
                             {
                                 AppViewModel.Instance.HasNewVersion = false;
-                                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                             }
                             if (latestMajor <= currentMajor)
                             {
@@ -462,45 +460,44 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void SetSignatures()
         {
-            var signatures = AppViewModel.Instance.Signatures;
-            signatures.Clear();
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Clear();
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "GAMEMAIN",
                 Value = "47616D654D61696E000000",
                 Offset = 1176
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "CHARMAP",
                 Value = "??FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
                 Offset = 792
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
                 Offset = 2524
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYMAP",
                 Value = "??FFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
                 Offset = 44
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYCOUNT",
                 Value = "5F50617274794C69737400",
                 Offset = 512
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "MAP",
                 Value = "F783843E????????????????DB0FC93FDB0F49416F1283??",
                 Offset = 820
             });
-            signatures.Add(new Signature
+            AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "TARGET",
                 Value = "DB0F49416F1283??????????????????DB0FC940920A063F",
@@ -523,7 +520,6 @@ namespace FFXIVAPP.Client
                 catch (ArgumentException ex)
                 {
                     Constants.IsOpen = false;
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 }
             }
             Constants.ProcessIDs = Process.GetProcessesByName("ffxiv");
