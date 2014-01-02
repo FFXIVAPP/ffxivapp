@@ -243,34 +243,33 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                             {
                                 found = zeroFoundInList = true;
                                 resolvedPotency = 550;
-                                amount = action.Value;
                             }
                             if (cureActions["II"].Any(cureAction => String.Equals(action.Key, cureAction, Constants.InvariantComparer)))
                             {
                                 found = zeroFoundInList = true;
                                 resolvedPotency = 650;
-                                amount = action.Value;
                             }
                             if (cureActions["I"].Any(cureAction => String.Equals(action.Key, cureAction, Constants.InvariantComparer)))
                             {
                                 found = zeroFoundInList = true;
                                 resolvedPotency = 400;
-                                amount = action.Value;
                             }
                             if (medicaActions["II"].Any(medicaAction => String.Equals(action.Key, medicaAction, Constants.InvariantComparer)))
                             {
                                 found = zeroFoundInList = true;
                                 resolvedPotency = 200;
-                                amount = action.Value;
                             }
                             if (medicaActions["I"].Any(medicaAction => String.Equals(action.Key, medicaAction, Constants.InvariantComparer)))
                             {
                                 found = zeroFoundInList = true;
                                 resolvedPotency = 300;
-                                amount = action.Value;
                             }
                             if (found)
                             {
+                                if (action.Value > 0)
+                                {
+                                    amount = action.Value;
+                                }
                                 break;
                             }
                         }

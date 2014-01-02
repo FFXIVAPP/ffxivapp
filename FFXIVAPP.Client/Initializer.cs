@@ -31,6 +31,12 @@ namespace FFXIVAPP.Client
     [DoNotObfuscate]
     internal static class Initializer
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Declarations
 
         private static ChatLogWorker _chatLogWorker;
@@ -69,7 +75,7 @@ namespace FFXIVAPP.Client
                     }
                     Constants.ChatCodes.Add(xKey, xDescription);
                 }
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedChatCodes : {0} KeyValuePairs", Constants.ChatCodes.Count));
+                Logging.Log(Logger, String.Format("LoadedChatCodes : {0} KeyValuePairs", Constants.ChatCodes.Count));
             }
         }
 
@@ -90,7 +96,7 @@ namespace FFXIVAPP.Client
                     }
                     Constants.AutoTranslate.Add(xKey, xValue);
                 }
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedAutoTranslate : {0} KeyValuePairs", Constants.AutoTranslate.Count));
+                Logging.Log(Logger, String.Format("LoadedAutoTranslate : {0} KeyValuePairs", Constants.AutoTranslate.Count));
             }
         }
 
@@ -130,7 +136,7 @@ namespace FFXIVAPP.Client
                         "FFFFFF", chatCode.Value
                     });
                 }
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedColors : {0} KeyValuePairs", Constants.Colors.Count));
+                Logging.Log(Logger, String.Format("LoadedColors : {0} KeyValuePairs", Constants.Colors.Count));
             }
         }
 
@@ -158,7 +164,7 @@ namespace FFXIVAPP.Client
                     {
                     }
                 }
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("LoadedApplicationSettings : {0} KeyValuePairs", Constants.Application.Settings.Count));
+                Logging.Log(Logger, String.Format("LoadedApplicationSettings : {0} KeyValuePairs", Constants.Application.Settings.Count));
             }
         }
 

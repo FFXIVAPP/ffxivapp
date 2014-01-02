@@ -9,7 +9,6 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
@@ -372,7 +371,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Failed", e, exp);
+            ParsingLogHelper.Log(Logger, "Failed", e, exp);
         }
 
         private static void UpdateFailed(Match failed, Line line, Expressions exp, FilterType type)
@@ -465,7 +464,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Failed", exp.Event, ex);
             }
         }
 
@@ -533,7 +532,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Failed", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Failed", exp.Event, ex);
             }
         }
     }

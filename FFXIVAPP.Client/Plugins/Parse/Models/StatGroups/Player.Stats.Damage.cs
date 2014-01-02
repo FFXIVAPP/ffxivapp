@@ -29,6 +29,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             var fields = line.GetType()
                              .GetProperties();
+
+            var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal).5) : 0 : line.Amount;
+            if (currentDamage > 0)
+            {
+                ParseHelper.LastDamageByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
+            }
+
             var abilityGroup = GetGroup("DamageByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
@@ -62,8 +69,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             if (line.Hit)
             {
-                var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
-                ParseHelper.LastDamageByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
                 Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subAbilityGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);
                 subMonsterGroup.Stats.IncrementStat("TotalOverallDamage", line.Amount);

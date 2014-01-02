@@ -54,6 +54,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         public string Attack { get; private set; }
         public string You { get; private set; }
         public string YouString { get; private set; }
+        public string Mitigated { get; private set; }
 
         #region Monster
 
@@ -317,6 +318,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     Attack = "Attaque";
                     You = @"^[Vv]ous$";
                     YouString = "Vous";
+                    Mitigated = "Dommages Atténué (Bouclier Magique)";
                     break;
                 case "Japanese":
                     pDamage = PlayerRegEx.DamageJa.Match(Cleaned);
@@ -348,6 +350,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     Attack = "Attack";
                     You = @"^\.$";
                     YouString = "君";
+                    Mitigated = "軽減ダメージ（魔法の盾）";
                     break;
                 case "German":
                     pDamage = PlayerRegEx.DamageDe.Match(Cleaned);
@@ -379,6 +382,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     Attack = "Attack";
                     You = @"^[Dd](ich|ie|u)$";
                     YouString = "Du";
+                    Mitigated = "Schäden Gemildert (Zauberschild)";
                     break;
                 default:
                     pDamage = PlayerRegEx.DamageEn.Match(Cleaned);
@@ -410,6 +414,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
                     Attack = "Attack";
                     You = @"^[Yy]ou?$";
                     YouString = "You";
+                    Mitigated = "Mitigated Damage (Magic Shield)";
                     break;
             }
         }

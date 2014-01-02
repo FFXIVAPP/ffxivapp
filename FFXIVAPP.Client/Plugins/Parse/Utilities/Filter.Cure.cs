@@ -9,7 +9,6 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
@@ -97,7 +96,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     cure = exp.pCure;
                     if (cure.Success)
                     {
-                        line.Source = _lastNamePetAllianceHealingFrom;
+                        line.Source = _lastNamePetOtherHealingFrom;
                         UpdateHealing(cure, line, exp, FilterType.PetOther);
                     }
                     break;
@@ -106,7 +105,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Cure", e, exp);
+            ParsingLogHelper.Log(Logger, "Cure", e, exp);
         }
 
         private static void UpdateHealing(Match cure, Line line, Expressions exp, FilterType type)
@@ -171,7 +170,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Cure", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Cure", exp.Event, ex);
             }
         }
     }

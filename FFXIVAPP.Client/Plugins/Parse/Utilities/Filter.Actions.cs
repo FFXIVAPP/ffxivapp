@@ -6,12 +6,12 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Common.Helpers;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
@@ -158,7 +158,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Action", e, exp);
+            ParsingLogHelper.Log(Logger, "Action", e, exp);
         }
 
         private static void UpdateActions(Match actions, Line line, Expressions exp, FilterType type)
@@ -265,10 +265,34 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                         }
                         break;
                 }
+                if (ParseControl.Instance.IsHistoryBased)
+                {
+                    return;
+                }
+                try
+                {
+                    var players = PCWorkerDelegate.GetNPCEntities();
+                    if (!players.Any())
+                    {
+                        return;
+                    }
+                    foreach (var actorEntity in players)
+                    {
+                        var playerName = actorEntity.Name;
+                        if (!ParseControl.Instance.Timeline.PlayerCurables.ContainsKey(playerName))
+                        {
+                            ParseControl.Instance.Timeline.PlayerCurables.Add(playerName, 0);
+                        }
+                        ParseControl.Instance.Timeline.PlayerCurables[playerName] = actorEntity.HPMax - actorEntity.HPCurrent;
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Action", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Action", exp.Event, ex);
             }
         }
 
@@ -286,7 +310,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Action", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Action", exp.Event, ex);
             }
         }
     }

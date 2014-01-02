@@ -9,7 +9,6 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
@@ -388,7 +387,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Damage", e, exp);
+            ParsingLogHelper.Log(Logger, "Damage", e, exp);
         }
 
         private static void UpdateDamage(Match damage, Line line, Expressions exp, FilterType type)
@@ -472,7 +471,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Damage", exp.Event, ex);
             }
         }
 
@@ -573,7 +572,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             }
             catch (Exception ex)
             {
-                ParsingLogHelper.Error(LogManager.GetCurrentClassLogger(), "Damage", exp.Event, ex);
+                ParsingLogHelper.Error(Logger, "Damage", exp.Event, ex);
             }
         }
     }

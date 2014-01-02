@@ -342,7 +342,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
 
             #endregion
 
-            Clipboard.SetText(JsonConvert.SerializeObject(results));
+            //Clipboard.SetText(JsonConvert.SerializeObject(results));
         }
 
         #endregion

@@ -8,13 +8,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.SettingsProviders.Parse;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -24,6 +27,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
     [DoNotObfuscate]
     public sealed class Timeline : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private ParseControl _controller;
@@ -93,11 +102,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
-        #region Party
-
         private StatGroup _monster;
         private StatGroup _overall;
         private StatGroup _party;
+        private Dictionary<string, int> _playerCurables;
 
         public StatGroup Overall
         {
@@ -129,7 +137,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
-        #endregion
+        public Dictionary<string, int> PlayerCurables
+        {
+            get { return _playerCurables; }
+            set
+            {
+                _playerCurables = value;
+                RaisePropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -169,6 +185,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             {
                 IncludeSelf = false
             };
+            PlayerCurables = new Dictionary<string, int>();
             SetStoreHistoryInterval();
             StoreHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
             FightingTimer.Elapsed += FightingTimerOnElapsed;
@@ -220,7 +237,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
             statGroup = new Monster(monsterName, Controller);
             Monster.AddGroup(statGroup);
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
+            Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
             return (Monster) statGroup;
         }
 
@@ -237,7 +254,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
             statGroup = new Player(playerName, Controller);
             Party.AddGroup(statGroup);
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
+            Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
             return (Player) statGroup;
         }
 
@@ -248,7 +265,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         public void PublishTimelineEvent(TimelineEventType eventType, params object[] eventArgs)
         {
             var args = (eventArgs != null && eventArgs.Any()) ? eventArgs[0] : "(no args)";
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("TimelineEvent : {0} {1}", eventType, args));
+            Logging.Log(Logger, String.Format("TimelineEvent : {0} {1}", eventType, args));
             if (eventArgs != null)
             {
                 var monsterName = eventArgs.First() as String;

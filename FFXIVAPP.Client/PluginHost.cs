@@ -28,6 +28,12 @@ namespace FFXIVAPP.Client
     [DoNotObfuscate]
     internal class PluginHost : MarshalByRefObject, IPluginHost
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private static PluginHost _instance;
@@ -126,7 +132,7 @@ namespace FFXIVAPP.Client
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "*IPlugin Not Implemented*");
+                    Logging.Log(Logger, "*IPlugin Not Implemented*");
                     return;
                 }
                 var plugin = new PluginInstance
@@ -135,7 +141,7 @@ namespace FFXIVAPP.Client
                     AssemblyPath = assemblyPath
                 };
                 plugin.Instance.Initialize(Instance);
-                Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("Added:{0}", plugin.Instance.Name));
+                Logging.Log(Logger, String.Format("Added:{0}", plugin.Instance.Name));
                 Loaded.Add(plugin);
             }
             catch (Exception ex)

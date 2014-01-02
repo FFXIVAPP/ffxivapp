@@ -21,6 +21,12 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscate]
     internal class TargetWorker : INotifyPropertyChanged, IDisposable
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private TargetEntity LastTargetEntity { get; set; }
@@ -29,7 +35,6 @@ namespace FFXIVAPP.Client.Memory
 
         #region Declarations
 
-        private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
         private readonly Timer _scanTimer;
         private bool _isScanning;
 

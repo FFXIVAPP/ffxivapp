@@ -115,6 +115,7 @@
     <Compile Include="Helpers\SoundPlayerHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Models\GoogleTranslateResult.cs" />
+    <Compile Include="Models\LogItem.cs" />
     <Compile Include="Models\PopupContent.cs" />
     <Compile Include="Models\XValuePair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

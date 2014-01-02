@@ -23,6 +23,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
     [DoNotObfuscate]
     public class StatMonitor : EventMonitor
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         /// <param name="parseControl"> </param>
@@ -65,7 +71,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// </summary>
         public override void Clear()
         {
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
+            Logging.Log(Logger, String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
             foreach (var player in ParseControl.Timeline.Party)
             {
                 var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);
@@ -220,7 +226,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// <param name="e"> </param>
         protected override void HandleUnknownEvent(Event e)
         {
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "UnknownEvent", e);
+            ParsingLogHelper.Log(Logger, "UnknownEvent", e);
         }
     }
 }

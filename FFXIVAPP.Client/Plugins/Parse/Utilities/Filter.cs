@@ -8,6 +8,7 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
 using FFXIVAPP.Client.Properties;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
@@ -15,6 +16,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
     [DoNotObfuscate]
     public static partial class Filter
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private static FilterType _type;
 
         private static string You

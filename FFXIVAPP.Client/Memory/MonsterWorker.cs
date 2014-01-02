@@ -21,13 +21,18 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscate]
     internal class MonsterWorker : INotifyPropertyChanged, IDisposable
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         #endregion
 
         #region Declarations
 
-        private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
         private readonly Timer _scanTimer;
         private bool _isScanning;
 

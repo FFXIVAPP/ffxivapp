@@ -116,7 +116,7 @@ namespace FFXIVAPP.Client.RegularExpressions
 
         public static Regex CureDe = new Regex(@"^( ⇒ )?(?<crit>Kritischer Treffer ?! )?(D(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+) regeneriers?t (?<amount>\d+) ?(\((?<modifier>.\d+)%\) )?(?<type>\w+)\.$", SharedRegEx.DefaultOptions);
 
-        public static Regex BeneficialGainDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
+        public static Regex BeneficialGainDe = new Regex(@"^( ⇒ )?(D(u|einer|(i|e)r|ich|as|ie|en) )?(?<target>.+) erh lt(st| den) Effekt von (?<status>.+)\.$", SharedRegEx.DefaultOptions);
 
         public static Regex BeneficialLoseDe = new Regex(@"^\.$", SharedRegEx.DefaultOptions);
 

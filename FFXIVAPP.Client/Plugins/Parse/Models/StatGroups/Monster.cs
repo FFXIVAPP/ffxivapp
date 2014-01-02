@@ -9,6 +9,7 @@ using System.Timers;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Common.Core.Memory;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
@@ -16,6 +17,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     [DoNotObfuscate]
     public partial class Monster : StatGroup
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"

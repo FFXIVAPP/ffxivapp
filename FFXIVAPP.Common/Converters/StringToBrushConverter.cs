@@ -7,6 +7,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -14,6 +15,12 @@ namespace FFXIVAPP.Common.Converters
 {
     public class StringToBrushConverter : IValueConverter
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         /// <param name="value"> </param>
@@ -33,7 +40,7 @@ namespace FFXIVAPP.Common.Converters
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }
@@ -66,7 +73,7 @@ namespace FFXIVAPP.Common.Converters
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }

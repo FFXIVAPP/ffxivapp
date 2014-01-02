@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
 {
@@ -26,7 +25,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
             {
                 return;
             }
-            ParsingLogHelper.Log(LogManager.GetCurrentClassLogger(), "Detrimental", e, exp);
+            ParsingLogHelper.Log(Logger, "Detrimental", e, exp);
         }
     }
 }

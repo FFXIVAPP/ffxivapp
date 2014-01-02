@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client
                     {
                         continue;
                     }
-                    if (!Common.Constants.IsValidRegex(xValue))
+                    if (!SharedRegEx.IsValidRegex(xValue))
                     {
                         continue;
                     }
@@ -269,7 +269,7 @@ namespace FFXIVAPP.Client
                     {
                         continue;
                     }
-                    if (!Common.Constants.IsValidRegex(xValue))
+                    if (!SharedRegEx.IsValidRegex(xValue))
                     {
                         continue;
                     }

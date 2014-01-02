@@ -7,6 +7,9 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Common
 {
@@ -32,23 +35,6 @@ namespace FFXIVAPP.Common
                     return "./";
                 }
             }
-        }
-
-        public static bool IsValidRegex(string pattern)
-        {
-            if (String.IsNullOrWhiteSpace(pattern))
-            {
-                return false;
-            }
-            try
-            {
-                var regex = new Regex(pattern);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
         }
 
         #region Auto-Properties

@@ -23,6 +23,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
     [DoNotObfuscate]
     public partial class Player : StatGroup
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private static readonly IList<string> LD = new[]
         {
             "Counter", "Block", "Parry", "Resist", "Evade"

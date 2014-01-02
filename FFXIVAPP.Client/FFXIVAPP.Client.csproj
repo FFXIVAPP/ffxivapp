@@ -184,6 +184,7 @@
     <Compile Include="Plugins\Parse\Enums\TimelineEventType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineType.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
+    <Compile Include="Plugins\Parse\Helpers\MagicBarrierHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\HealingOverTimeHelper.cs" />
     <Compile Include="Plugins\Parse\Helpers\DamageOverTimeHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />

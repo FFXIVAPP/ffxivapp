@@ -27,6 +27,12 @@ namespace FFXIVAPP.Client
     [DoNotObfuscate]
     public partial class App
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         internal static readonly PluginHost Plugins = new PluginHost();
@@ -121,7 +127,7 @@ namespace FFXIVAPP.Client
         {
             e.Handled = true;
             var ex = e.Exception;
-            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+            Logging.Log(Logger, "", ex);
         }
 
         /// <summary>
@@ -132,7 +138,7 @@ namespace FFXIVAPP.Client
         {
             e.RequestCatch = true;
             var ex = e.Exception;
-            Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+            Logging.Log(Logger, "", ex);
         }
 
         /// <summary>
@@ -141,7 +147,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private static void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("PropertyChanged : {0}", e.PropertyName));
+            Logging.Log(Logger, String.Format("PropertyChanged : {0}", e.PropertyName));
             switch (e.PropertyName)
             {
                 case "CharacterName":
@@ -196,7 +202,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private static void SettingsSettingChanging(object sender, SettingChangingEventArgs e)
         {
-            Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("SettingChanging : [{0},{1}]", e.SettingKey, e.NewValue));
+            Logging.Log(Logger, String.Format("SettingChanging : [{0},{1}]", e.SettingKey, e.NewValue));
         }
     }
 }

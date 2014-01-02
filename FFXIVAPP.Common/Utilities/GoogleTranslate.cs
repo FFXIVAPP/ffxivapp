@@ -9,11 +9,18 @@ using System.Net;
 using System.Web;
 using FFXIVAPP.Common.Models;
 using HtmlAgilityPack;
+using NLog;
 
 namespace FFXIVAPP.Common.Utilities
 {
     public static class GoogleTranslate
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Backings
 
         private static Hashtable _offsets;
@@ -80,6 +87,7 @@ namespace FFXIVAPP.Common.Utilities
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }

@@ -20,6 +20,12 @@ namespace FFXIVAPP.Client
     [DoNotObfuscate]
     internal class AppBootstrapper : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private static AppBootstrapper _instance;
@@ -50,7 +56,7 @@ namespace FFXIVAPP.Client
             {
                 foreach (var s in App.MArgs)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), String.Format("ArgumentProvided : {0}", s));
+                    Logging.Log(Logger, String.Format("ArgumentProvided : {0}", s));
                 }
             }
             Constants.IsOpen = false;

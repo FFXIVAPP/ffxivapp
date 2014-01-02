@@ -5,6 +5,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -12,6 +13,12 @@ namespace FFXIVAPP.Common.RegularExpressions
 {
     public static class SharedRegEx
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         public const RegexOptions DefaultOptions = RegexOptions.Compiled | RegexOptions.ExplicitCapture;
 
         public static readonly Regex Romans = new Regex(@"(?<roman>\b[IVXLCDM]+\b)", DefaultOptions);
@@ -31,9 +38,9 @@ namespace FFXIVAPP.Common.RegularExpressions
             {
                 result = Regex.IsMatch("", pattern);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem("", ex));
                 return result;
             }
             return true;

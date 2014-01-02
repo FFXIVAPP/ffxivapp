@@ -3,6 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;
@@ -15,12 +18,41 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// </summary>
         /// <param name="line"> </param>
         /// <param name="isHealingOverTime"></param>
-        public void SetHealing(Line line, bool isHealingOverTime = false)
+        /// <param name="skipExtraHandling"></param>
+        public void SetHealing(Line line, bool isHealingOverTime = false, bool skipExtraHandling = false)
         {
             if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
             {
                 //LineHistory.Add(new LineHistory(line));
             }
+
+            var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal).5) : 0 : line.Amount;
+            if (currentHealing > 0)
+            {
+                ParseHelper.LastHealingByAction.EnsurePlayerAction(line.Source, line.Action, currentHealing);
+            }
+
+            var unusedAmount = 0m;
+            var originalAmount = line.Amount;
+            if (!skipExtraHandling)
+            {
+                // get curable of target
+                try
+                {
+                    var cleanedName = Regex.Replace(line.Target, @"\[[\w]+\]", "")
+                                           .Trim();
+                    var curable = ParseControl.Instance.Timeline.PlayerCurables[cleanedName];
+                    if (line.Amount > curable)
+                    {
+                        unusedAmount = line.Amount - curable;
+                        line.Amount = curable;
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
             var abilityGroup = GetGroup("HealingByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
@@ -52,12 +84,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
                 subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
             }
-            var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
-            ParseHelper.LastHealingByAction.EnsurePlayerAction(line.Source, line.Action, currentHealing);
-            Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+            if (!skipExtraHandling)
+            {
+                Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+            }
             if (line.Crit)
             {
                 Stats.IncrementStat("HealingCritHit");
@@ -98,6 +131,53 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
                 }
             }
+            if (!skipExtraHandling)
+            {
+                if (MagicBarrierHelper.Adloquium.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
+                {
+                    line.Amount = originalAmount;
+                    SetHealingMitigated(line, "adloquium");
+                }
+                if (MagicBarrierHelper.Succor.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
+                {
+                    line.Amount = originalAmount;
+                    SetHealingMitigated(line, "succor");
+                } 
+            }
+            if (unusedAmount > 0m)
+            {
+                line.Amount = isHealingOverTime ? originalAmount : unusedAmount;
+                SetHealingOver(line, isHealingOverTime || unusedAmount > 0m);
+            }
+        }
+
+        public void SetHealingMitigated(Line line, string type = "")
+        {
+            var cleanedAction = Regex.Replace(line.Action, @" \[.+\]", "");
+            line.Action = String.Format("{0} [☯]", cleanedAction);
+
+            switch (type)
+            {
+                case "adloquium":
+                    if (line.Crit)
+                    {
+                        line.Amount = line.Amount * 2;
+                    }
+                    break;
+                case "succor":
+                    break;
+                default:
+                    break;
+            }
+
+            SetHealing(line, false, true);
+        }
+
+        private void SetHealingOver(Line line, bool isHealingOverTime)
+        {
+            var cleanedAction = Regex.Replace(line.Action, @" \[.+\]", "");
+            line.Action = String.Format("{0} [∞]", cleanedAction);
+            SetHealing(line, isHealingOverTime, true);
         }
     }
 }

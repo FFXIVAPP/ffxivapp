@@ -5,6 +5,7 @@
 
 using System;
 using System.Media;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -12,6 +13,12 @@ namespace FFXIVAPP.Common.Helpers
 {
     public static class SoundPlayerHelper
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         /// <param name="path"> </param>
@@ -26,7 +33,7 @@ namespace FFXIVAPP.Common.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                    Logging.Log(Logger, new LogItem("", ex));
                 }
             }
         }

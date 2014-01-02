@@ -27,6 +27,14 @@ namespace FFXIVAPP.Client.Delegates
             }
         }
 
+        public static ActorEntity GetNPCEntityByName(string name)
+        {
+            lock (_npcEntities)
+            {
+                return _npcEntities.FirstOrDefault(e => String.Equals(name, e.Name, Constants.InvariantComparer));
+            }
+        }
+
         public static void ReplaceNPCEntities(IEnumerable<ActorEntity> entities)
         {
             lock (_npcEntities)

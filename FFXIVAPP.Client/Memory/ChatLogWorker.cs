@@ -18,6 +18,12 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscate]
     internal class ChatLogWorker : INotifyPropertyChanged, IDisposable
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private uint ChatPointerMap { get; set; }
@@ -26,17 +32,18 @@ namespace FFXIVAPP.Client.Memory
 
         #region Declarations
 
-        private static readonly Logger Tracer = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Tracer = Logger;
         private readonly List<int> _indexes = new List<int>();
         private readonly Timer _scanTimer;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
         private int _chatLimit = 1000;
 
         private Structures.ChatLog _chatLogPointers;
-        private int _currentOffset;
         private bool _isScanning;
         private int _previousArrayIndex;
         private int _previousOffset;
+
+        public bool FirstRun = true;
 
         #endregion
 
@@ -95,17 +102,26 @@ namespace FFXIVAPP.Client.Memory
                             _chatLogPointers = MemoryHandler.Instance.GetStructure<Structures.ChatLog>(ChatPointerMap);
                             EnsureArrayIndexes();
                             var currentArrayIndex = (_chatLogPointers.OffsetArrayPos - _chatLogPointers.OffsetArrayStart) / 4;
-                            if (currentArrayIndex < _previousArrayIndex)
+                            if (FirstRun)
                             {
-                                buffered.AddRange(ResolveEntries(_previousArrayIndex, _chatLimit));
-                                _previousOffset = 0;
-                                _previousArrayIndex = 0;
+                                FirstRun = false;
+                                _previousOffset = _indexes[(int) currentArrayIndex - 1];
+                                _previousArrayIndex = (int) currentArrayIndex - 1;
                             }
-                            if (_previousArrayIndex < currentArrayIndex)
+                            else
                             {
-                                buffered.AddRange(ResolveEntries(_previousArrayIndex, (int) currentArrayIndex));
+                                if (currentArrayIndex < _previousArrayIndex)
+                                {
+                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, _chatLimit));
+                                    _previousOffset = 0;
+                                    _previousArrayIndex = 0;
+                                }
+                                if (_previousArrayIndex < currentArrayIndex)
+                                {
+                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, (int)currentArrayIndex));
+                                }
+                                _previousArrayIndex = (int)currentArrayIndex;
                             }
-                            _previousArrayIndex = (int) currentArrayIndex;
                         }
                         catch (Exception ex)
                         {
@@ -158,9 +174,9 @@ namespace FFXIVAPP.Client.Memory
             for (var i = offset; i < length; i++)
             {
                 EnsureArrayIndexes();
-                _currentOffset = _indexes[i];
-                entries.Add(ResolveEntry(_previousOffset, _currentOffset));
-                _previousOffset = _currentOffset;
+                var currentOffset = _indexes[i];
+                entries.Add(ResolveEntry(_previousOffset, currentOffset));
+                _previousOffset = currentOffset;
             }
             return entries;
         }
