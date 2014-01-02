@@ -221,6 +221,7 @@ namespace FFXIVAPP.Common.Core.Memory
 
         public bool IsCasting { get; set; }
         public short CastingID { get; set; }
+        public uint CastingTargetID { get; set; }
         public float CastingProgress { get; set; }
         public float CastingTime { get; set; }
 

@@ -165,7 +165,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 if (line.RecLossType == exp.HealingType)
                 {
                     ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                .SetHealing(line);
+                                .SetHealing(line, HealingType.Normal);
                 }
             }
             catch (Exception ex)

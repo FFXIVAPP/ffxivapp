@@ -12,19 +12,22 @@ namespace FFXIVAPP.Common.Core.Memory
     {
         private string _targetName;
 
+        public bool IsCompanyAction { get; set; }
+
         public string TargetName
         {
             get { return _targetName; }
             set { _targetName = StringHelper.TitleCase(value); }
         }
 
-        public byte StatusID { get; set; }
+        public string StatusName { get; set; }
+        public short StatusID { get; set; }
         public float Duration { get; set; }
         public uint CasterID { get; set; }
 
         public bool IsValid()
         {
-            return StatusID > 0 && CasterID > 0;
+            return StatusID > 0 && Duration <= 86400 && CasterID > 0;
         }
     }
 }

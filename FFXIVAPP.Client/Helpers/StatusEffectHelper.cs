@@ -12,42 +12,45 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     public static class StatusEffectHelper
     {
-        private static Dictionary<uint, StatusItem> _statusEffects;
+        private static Dictionary<short, StatusItem> _statusEffects;
 
-        private static Dictionary<uint, StatusItem> StatusEffects
+        private static Dictionary<short, StatusItem> StatusEffects
         {
-            get { return _statusEffects ?? (_statusEffects = new Dictionary<uint, StatusItem>()); }
+            get { return _statusEffects ?? (_statusEffects = new Dictionary<short, StatusItem>()); }
             set
             {
                 if (_statusEffects == null)
                 {
-                    _statusEffects = new Dictionary<uint, StatusItem>();
+                    _statusEffects = new Dictionary<short, StatusItem>();
                 }
                 _statusEffects = value;
             }
         }
 
-        public static StatusItem StatusInfo(uint id)
+        public static StatusItem StatusInfo(short id)
         {
-            if (!StatusEffects.Any())
+            lock (StatusEffects)
             {
-                Generate();
-            }
-            if (StatusEffects.ContainsKey(id))
-            {
-                return StatusEffects[id];
-            }
-            return new StatusItem
-            {
-                Name = new StatusLocalization
+                if (!StatusEffects.Any())
                 {
-                    English = "???",
-                    French = "???",
-                    German = "???",
-                    Japanese = "???"
-                },
-                CompanyAction = false
-            };
+                    Generate();
+                }
+                if (StatusEffects.ContainsKey(id))
+                {
+                    return StatusEffects[id];
+                }
+                return new StatusItem
+                {
+                    Name = new StatusLocalization
+                    {
+                        English = "???",
+                        French = "???",
+                        German = "???",
+                        Japanese = "???"
+                    },
+                    CompanyAction = false
+                };
+            }
         }
 
         private static void Generate()

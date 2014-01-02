@@ -15,6 +15,7 @@ using FFXIVAPP.Client.Plugins.Parse.Monitors;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Core.Parse;
 using Newtonsoft.Json;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
@@ -22,6 +23,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     [DoNotObfuscate]
     public class ParseControl : IParsingControl, INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Auto Properties
 
         public DateTime StartTime { get; set; }

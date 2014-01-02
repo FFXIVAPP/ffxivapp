@@ -17,7 +17,6 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
 using MahApps.Metro.Controls;
@@ -30,6 +29,12 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof (SettingsViewModel))]
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private static SettingsViewModel _instance;

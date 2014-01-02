@@ -12,8 +12,6 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers

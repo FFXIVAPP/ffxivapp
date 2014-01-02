@@ -5,6 +5,7 @@
 
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Common.Core.Memory;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
@@ -12,6 +13,12 @@ namespace FFXIVAPP.Client.Utilities
     [DoNotObfuscate]
     public static partial class LogPublisher
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         public static void Process()
         {
         }

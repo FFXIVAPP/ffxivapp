@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Core.Memory;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models
@@ -14,6 +15,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
     [DoNotObfuscate]
     public class LineHistory
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         public LineHistory(Line line)
         {
             TimeStamp = DateTime.Now;

@@ -5,11 +5,7 @@
 
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 
 namespace FFXIVAPP.Common
 {

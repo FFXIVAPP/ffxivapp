@@ -13,6 +13,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using NLog;
 
 namespace FFXIVAPP.Client
 {
@@ -21,6 +22,12 @@ namespace FFXIVAPP.Client
     /// </summary>
     public partial class ShellView
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         #endregion

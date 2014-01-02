@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
@@ -16,6 +17,12 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscateType]
     public class MemoryHandler : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private static MemoryHandler _instance;

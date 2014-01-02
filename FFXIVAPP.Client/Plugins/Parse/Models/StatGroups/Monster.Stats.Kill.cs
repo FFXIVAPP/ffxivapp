@@ -5,8 +5,8 @@
 
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {

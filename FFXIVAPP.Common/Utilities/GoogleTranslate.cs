@@ -87,7 +87,6 @@ namespace FFXIVAPP.Common.Utilities
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }

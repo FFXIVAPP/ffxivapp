@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
@@ -20,6 +21,12 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscate]
     internal class ChatCleaner : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private static bool _colorFound;

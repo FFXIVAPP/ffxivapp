@@ -50,6 +50,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
         List<StatusEntry> StatusEntries { get; set; }
         bool IsCasting { get; set; }
         short CastingID { get; set; }
+        uint CastingTargetID { get; set; }
         float CastingProgress { get; set; }
         float CastingTime { get; set; }
     }

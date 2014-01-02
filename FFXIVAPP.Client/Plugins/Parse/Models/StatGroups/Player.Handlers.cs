@@ -7,14 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
-using NLog;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 {
@@ -336,8 +335,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
+                        // resolve player hp each tick to ensure they are not at max
+                        try
+                        {
+                            var players = PCWorkerDelegate.GetNPCEntities();
+                            if (!players.Any())
+                            {
+                                return;
+                            }
+                            foreach (var actorEntity in players)
+                            {
+                                var playerName = actorEntity.Name;
+                                ParseControl.Instance.Timeline.TrySetPlayerCurable(playerName, actorEntity.HPMax - actorEntity.HPCurrent);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetHealing(line, true);
+                                    .SetHealing(line, HealingType.HealingOverTime);
                     });
                 }
                 catch (Exception ex)

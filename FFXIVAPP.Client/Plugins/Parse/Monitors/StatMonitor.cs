@@ -14,6 +14,7 @@ using FFXIVAPP.Client.Plugins.Parse.ViewModels;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -71,7 +72,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         /// </summary>
         public override void Clear()
         {
-            Logging.Log(Logger, String.Format("ClearEvent : Clearing ${0} Party Member Totals.", Count));
+            Logging.Log(Logger, String.Format("ClearEvent : Clearing {0} Party Member Totals.", Count));
             foreach (var player in ParseControl.Timeline.Party)
             {
                 var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);

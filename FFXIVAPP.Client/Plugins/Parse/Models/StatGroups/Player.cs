@@ -14,7 +14,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 

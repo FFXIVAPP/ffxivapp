@@ -17,6 +17,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using NLog.Config;
@@ -127,7 +128,7 @@ namespace FFXIVAPP.Client
         {
             e.Handled = true;
             var ex = e.Exception;
-            Logging.Log(Logger, "", ex);
+            Logging.Log(Logger, new LogItem("", ex, LogLevel.Error));
         }
 
         /// <summary>
@@ -138,7 +139,7 @@ namespace FFXIVAPP.Client
         {
             e.RequestCatch = true;
             var ex = e.Exception;
-            Logging.Log(Logger, "", ex);
+            Logging.Log(Logger, new LogItem("", ex, LogLevel.Error));
         }
 
         /// <summary>

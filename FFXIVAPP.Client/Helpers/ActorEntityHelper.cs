@@ -3,9 +3,12 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
 using System.Linq;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
@@ -28,6 +31,7 @@ namespace FFXIVAPP.Client.Helpers
                 Z = actor.Z,
                 Y = actor.Y,
                 Heading = actor.Heading,
+                Distance = actor.Distance,
                 GatheringInvisible = actor.GatheringInvisible,
                 Fate = actor.Fate,
                 ModelID = actor.ModelID,
@@ -53,7 +57,12 @@ namespace FFXIVAPP.Client.Helpers
                 Sex = actor.Sex,
                 ActionStatus = actor.ActionStatus,
                 Title = actor.Title,
-                TargetType = actor.TargetType
+                TargetType = actor.TargetType,
+                IsCasting = actor.IsCasting,
+                CastingID = actor.CastingID,
+                CastingTargetID = actor.CastingTargetID,
+                CastingProgress = actor.CastingProgress,
+                CastingTime = actor.CastingTime
             };
             if (entry.HPMax == 0)
             {
@@ -61,19 +70,59 @@ namespace FFXIVAPP.Client.Helpers
             }
             if (entry.TargetID == -536870912)
             {
-                entry.TargetID = -1;
+                entry.TargetID = 0;
+            }
+            if (entry.CastingTargetID == 3758096384)
+            {
+                entry.CastingTargetID = 0;
             }
             entry.MapIndex = 0;
-            foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
+            var limit = 60;
+            switch (actor.Type)
             {
-                TargetName = entry.Name,
-                StatusID = status.StatusID,
-                Duration = status.Duration,
-                CasterID = status.CasterID
-            })
-                                             .Where(statusEntry => statusEntry.IsValid()))
+                case Actor.Type.PC:
+                    limit = 30;
+                    break;
+            }
+            for (var i = 0; i < limit; i++)
             {
-                entry.StatusEntries.Add(statusEntry);
+                var statusEntry = new StatusEntry
+                {
+                    TargetName = entry.Name,
+                    StatusID = actor.Statuses[i].StatusID,
+                    Duration = actor.Statuses[i].Duration,
+                    CasterID = actor.Statuses[i].CasterID
+                };
+                try
+                {
+                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                    statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                    var statusKey = "";
+                    switch (Settings.Default.GameLanguage)
+                    {
+                        case "English":
+                            statusKey = statusInfo.Name.English;
+                            break;
+                        case "French":
+                            statusKey = statusInfo.Name.French;
+                            break;
+                        case "German":
+                            statusKey = statusInfo.Name.German;
+                            break;
+                        case "Japanese":
+                            statusKey = statusInfo.Name.Japanese;
+                            break;
+                    }
+                    statusEntry.StatusName = statusKey;
+                }
+                catch (Exception ex)
+                {
+                    statusEntry.StatusName = "UNKNOWN";
+                }
+                if (statusEntry.IsValid())
+                {
+                    entry.StatusEntries.Add(statusEntry);
+                }
             }
             return entry;
         }

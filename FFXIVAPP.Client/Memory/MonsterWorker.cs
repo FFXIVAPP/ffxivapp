@@ -12,7 +12,6 @@ using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 

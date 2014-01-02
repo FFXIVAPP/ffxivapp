@@ -6,6 +6,7 @@
 using System;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -28,7 +29,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
         public static void Error(Logger logger, string type, Event e, Exception ex)
         {
-            var data = String.Format("{0} Error: [{1}] Line -> {3} StackTrace: \n{3}", type, ex.Message, e.ChatLogEntry.Line, ex.StackTrace);
+            var data = String.Format("{0} Error: [{1}] Line -> {2} StackTrace: \n{3}", type, ex.Message, e.ChatLogEntry.Line, ex.StackTrace);
             Logging.Log(logger, data, ex);
         }
     }

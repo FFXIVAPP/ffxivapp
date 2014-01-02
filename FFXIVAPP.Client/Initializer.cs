@@ -21,6 +21,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -75,7 +76,6 @@ namespace FFXIVAPP.Client
                     }
                     Constants.ChatCodes.Add(xKey, xDescription);
                 }
-                Logging.Log(Logger, String.Format("LoadedChatCodes : {0} KeyValuePairs", Constants.ChatCodes.Count));
             }
         }
 
@@ -96,7 +96,6 @@ namespace FFXIVAPP.Client
                     }
                     Constants.AutoTranslate.Add(xKey, xValue);
                 }
-                Logging.Log(Logger, String.Format("LoadedAutoTranslate : {0} KeyValuePairs", Constants.AutoTranslate.Count));
             }
         }
 
@@ -136,7 +135,6 @@ namespace FFXIVAPP.Client
                         "FFFFFF", chatCode.Value
                     });
                 }
-                Logging.Log(Logger, String.Format("LoadedColors : {0} KeyValuePairs", Constants.Colors.Count));
             }
         }
 
@@ -164,7 +162,6 @@ namespace FFXIVAPP.Client
                     {
                     }
                 }
-                Logging.Log(Logger, String.Format("LoadedApplicationSettings : {0} KeyValuePairs", Constants.Application.Settings.Count));
             }
         }
 

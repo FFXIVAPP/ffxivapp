@@ -10,7 +10,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -19,6 +18,12 @@ namespace FFXIVAPP.Client.Memory
     [DoNotObfuscate]
     public class SigScanner : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         private Dictionary<string, uint> _locations;

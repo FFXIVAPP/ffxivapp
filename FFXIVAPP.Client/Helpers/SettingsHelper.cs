@@ -3,6 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
@@ -10,6 +11,12 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     internal static partial class SettingsHelper
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         public static void Save(bool isUpdating)

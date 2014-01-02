@@ -33,7 +33,6 @@ namespace FFXIVAPP.Common.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(Logger, new LogItem("", ex));
                 }
             }
         }

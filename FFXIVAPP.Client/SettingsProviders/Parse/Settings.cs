@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
@@ -24,6 +23,12 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 {
     public class Settings : ApplicationSettingsBase, INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private static Settings _default;
 
         public static Settings Default

@@ -36,14 +36,13 @@ namespace FFXIVAPP.Client.Memory
         private readonly List<int> _indexes = new List<int>();
         private readonly Timer _scanTimer;
         private readonly BackgroundWorker _scanner = new BackgroundWorker();
+        public bool FirstRun = true;
         private int _chatLimit = 1000;
 
         private Structures.ChatLog _chatLogPointers;
         private bool _isScanning;
         private int _previousArrayIndex;
         private int _previousOffset;
-
-        public bool FirstRun = true;
 
         #endregion
 
@@ -118,9 +117,9 @@ namespace FFXIVAPP.Client.Memory
                                 }
                                 if (_previousArrayIndex < currentArrayIndex)
                                 {
-                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, (int)currentArrayIndex));
+                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, (int) currentArrayIndex));
                                 }
-                                _previousArrayIndex = (int)currentArrayIndex;
+                                _previousArrayIndex = (int) currentArrayIndex;
                             }
                         }
                         catch (Exception ex)

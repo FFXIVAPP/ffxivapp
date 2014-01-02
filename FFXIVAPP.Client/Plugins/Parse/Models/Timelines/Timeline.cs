@@ -8,16 +8,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Timers;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models.Fights;
 using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.SettingsProviders.Parse;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -41,6 +39,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         private FightList _fights;
         private string _lastEngaged;
         private string _lastKilled;
+        private StatGroup _monster;
+        private StatGroup _overall;
+        private StatGroup _party;
 
         public bool FightingRightNow
         {
@@ -102,11 +103,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
-        private StatGroup _monster;
-        private StatGroup _overall;
-        private StatGroup _party;
-        private Dictionary<string, int> _playerCurables;
-
         public StatGroup Overall
         {
             get { return _overall; }
@@ -137,7 +133,50 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             }
         }
 
-        public Dictionary<string, int> PlayerCurables
+        #region Player Curables Accessors and Setters
+
+        public void TrySetPlayerCurable(string key, int value)
+        {
+            lock (PlayerCurables)
+            {
+                if (PlayerCurables.ContainsKey(key))
+                {
+                    PlayerCurables[key] = value;
+                }
+                else
+                {
+                    PlayerCurables.Add(key, value);
+                }
+            }
+        }
+
+        public int TryGetPlayerCurable(string key)
+        {
+            lock (PlayerCurables)
+            {
+                return PlayerCurables.ContainsKey(key) ? PlayerCurables[key] : 0;
+            }
+        }
+
+        public void ClearPlayerCurables()
+        {
+            lock (PlayerCurables)
+            {
+                PlayerCurables.Clear();
+            }
+        }
+
+        public Dictionary<string, int> GetPlayerCurables()
+        {
+            lock (PlayerCurables)
+            {
+                return PlayerCurables.ToDictionary(playerCurable => playerCurable.Key, playerCurable => playerCurable.Value);
+            }
+        }
+
+        private Dictionary<string, int> _playerCurables;
+
+        private Dictionary<string, int> PlayerCurables
         {
             get { return _playerCurables; }
             set
@@ -146,6 +185,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
                 RaisePropertyChanged();
             }
         }
+
+        #endregion
 
         #endregion
 

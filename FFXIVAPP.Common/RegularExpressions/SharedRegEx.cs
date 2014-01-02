@@ -40,7 +40,6 @@ namespace FFXIVAPP.Common.RegularExpressions
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, new LogItem("", ex));
                 return result;
             }
             return true;

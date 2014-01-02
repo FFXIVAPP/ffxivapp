@@ -279,11 +279,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     foreach (var actorEntity in players)
                     {
                         var playerName = actorEntity.Name;
-                        if (!ParseControl.Instance.Timeline.PlayerCurables.ContainsKey(playerName))
-                        {
-                            ParseControl.Instance.Timeline.PlayerCurables.Add(playerName, 0);
-                        }
-                        ParseControl.Instance.Timeline.PlayerCurables[playerName] = actorEntity.HPMax - actorEntity.HPCurrent;
+                        ParseControl.Instance.Timeline.TrySetPlayerCurable(playerName, actorEntity.HPMax - actorEntity.HPCurrent);
                     }
                 }
                 catch (Exception ex)

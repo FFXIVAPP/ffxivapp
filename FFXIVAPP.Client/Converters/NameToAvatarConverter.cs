@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using HtmlAgilityPack;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Converters
@@ -22,6 +23,12 @@ namespace FFXIVAPP.Client.Converters
     [DoNotObfuscate]
     public class NameToAvatarConverter : IMultiValueConverter
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private const string DefaultAvatar = Common.Constants.DefaultAvatar;
         private bool _cachingEnabled = true;
 

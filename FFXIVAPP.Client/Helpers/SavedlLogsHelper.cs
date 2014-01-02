@@ -12,15 +12,20 @@ using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Helpers
 {
+    [DoNotObfuscate]
     public static class SavedlLogsHelper
     {
-        [DoNotObfuscate]
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
             ChatLogWorkerDelegate.IsPaused = true;

@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -22,7 +21,6 @@ using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Plugins.Parse.ViewModels

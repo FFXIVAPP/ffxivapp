@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
+using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Reflection
@@ -16,6 +17,12 @@ namespace FFXIVAPP.Client.Reflection
     [DoNotObfuscate]
     public class AssemblyReflectionManager : IDisposable
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private Dictionary<string, AppDomain> _loadedAssemblies = new Dictionary<string, AppDomain>();
         private Dictionary<string, AppDomain> _mapDomains = new Dictionary<string, AppDomain>();
         private Dictionary<string, AssemblyReflectionProxy> _proxies = new Dictionary<string, AssemblyReflectionProxy>();

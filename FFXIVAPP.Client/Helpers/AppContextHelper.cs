@@ -13,6 +13,7 @@ using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Parse;
 using Newtonsoft.Json;
+using NLog;
 using SmartAssembly.Attributes;
 using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
@@ -21,6 +22,12 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     public class AppContextHelper
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Backings
 
         private static AppContextHelper _instance;

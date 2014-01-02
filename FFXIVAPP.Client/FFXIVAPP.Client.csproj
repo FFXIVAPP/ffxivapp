@@ -181,6 +181,7 @@
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
     <Compile Include="Plugins\Parse\Enums\FilterType.cs" />
+    <Compile Include="Plugins\Parse\Enums\HealingType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineEventType.cs" />
     <Compile Include="Plugins\Parse\Enums\TimelineType.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />

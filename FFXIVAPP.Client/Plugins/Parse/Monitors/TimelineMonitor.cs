@@ -18,6 +18,7 @@ using FFXIVAPP.Client.RegularExpressions;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -108,12 +109,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             var source = matches.Groups["source"];
             if (!target.Success)
             {
-                Logging.Log(Logger, String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <target> Capture Group. Line: {0}", e.ChatLogEntry.Line));
                 return;
-            }
-            if (!source.Success)
-            {
-                Logging.Log(Logger, String.Format("KillEvent : Got RegEx Match For Monster Defeat; No <source> Capture Group. Line: {0}", e.ChatLogEntry.Line));
             }
             if (ParseControl.Timeline.Party.HasGroup(target.Value) || Regex.IsMatch(target.Value, Expressions.You) || target.Value == you)
             {
@@ -131,7 +127,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         private void AddKillToPartyMonster(string target, string source)
         {
             var monsterName = target.Trim();
-            Logging.Log(Logger, String.Format("KillEvent : {0} By : {1}", target, source));
             ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyMonsterKilled, monsterName);
             try
             {
@@ -213,7 +208,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 if (ParseControl.Timeline.Fights.TryGet(ParseControl.Timeline.LastEngaged, out fight))
                 {
                     monsterName = fight.MonsterName;
-                    Logging.Log(Logger, String.Format("DropEvent : {0} Dropped {1}", fight.MonsterName, thing));
                     if (monsterName.Replace(" ", "") != "")
                     {
                         var monsterGroup = ParseControl.Timeline.GetSetMonster(monsterName);
@@ -303,13 +297,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             //if (join.Success)
             //{
             //    who = @join.Groups["who"].Value;
-            //    Logging.Log(_logger, String.Format("PartyEvent : Joined {0}", who));
             //    ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyJoin, who);
             //    return;
             //}
             //if (disband.Success)
             //{
-            //    Logging.Log(_logger, "PartyEvent : Disbanned");
             //    ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyDisband, String.Empty);
             //    return;
             //}
@@ -318,7 +310,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             //    return;
             //}
             //who = left.Groups["who"].Value;
-            //Logging.Log(_logger, String.Format("PartyEvent : Left {0}", who));
             //ParseControl.Timeline.PublishTimelineEvent(TimelineEventType.PartyLeave, who);
         }
     }

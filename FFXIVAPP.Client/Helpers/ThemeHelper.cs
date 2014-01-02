@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using NLog;
 using SmartAssembly.Attributes;
 using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 
@@ -17,6 +18,12 @@ namespace FFXIVAPP.Client.Helpers
     [DoNotObfuscate]
     internal static class ThemeHelper
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         /// <param name="t"> </param>

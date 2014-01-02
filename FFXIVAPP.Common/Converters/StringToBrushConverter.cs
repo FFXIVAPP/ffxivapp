@@ -40,7 +40,6 @@ namespace FFXIVAPP.Common.Converters
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }
@@ -73,7 +72,6 @@ namespace FFXIVAPP.Common.Converters
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, new LogItem("", ex));
             }
             return result;
         }

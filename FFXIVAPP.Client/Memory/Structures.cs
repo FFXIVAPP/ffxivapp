@@ -207,6 +207,10 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(0x3174)]
             public short CastingID;
 
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x3180)] //116
+            public uint CastingTargetID;
+
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(0x31A4)]
             public float CastingProgress;
@@ -623,9 +627,9 @@ namespace FFXIVAPP.Client.Memory
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct Status
         {
-            [MarshalAs(UnmanagedType.I1)]
+            [MarshalAs(UnmanagedType.I2)]
             [FieldOffset(0x0)] //0
-            public byte StatusID;
+            public short StatusID;
 
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(0x4)] //4
