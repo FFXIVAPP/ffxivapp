@@ -98,7 +98,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
         private void InitializeHistory()
         {
             var hasDamage = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
-            if (!hasDamage)
+            var hasHealing = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallHealing") > 0;
+            var hasDamageTaken = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallDamageTaken") > 0;
+            if (!hasDamage && !hasHealing && !hasDamageTaken)
             {
                 return;
             }
