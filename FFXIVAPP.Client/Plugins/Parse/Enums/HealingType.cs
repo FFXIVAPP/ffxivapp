@@ -12,6 +12,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Enums
     {
         Normal,
         HealingOverTime,
-        OverHealing
+        OverHealing,
+        HealingOverTimeOverHealing,
+        Mitigated
     }
 }

@@ -19,8 +19,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         /// </summary>
         /// <param name="line"> </param>
         /// <param name="healingType"></param>
-        /// <param name="skipExtraHandling"></param>
-        public void SetHealing(Line line, HealingType healingType, bool skipExtraHandling = false)
+        /// <param name="preProcessed"></param>
+        public void SetHealing(Line line, HealingType healingType, bool preProcessed = false)
         {
             if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
             {
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
             var unusedAmount = 0m;
             var originalAmount = line.Amount;
-            if (!skipExtraHandling)
+            if (!preProcessed)
             {
                 // get curable of target
                 try
@@ -78,95 +78,210 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 subPlayerAbilityGroup.Stats.AddStats(HealingStatList(subPlayerGroup, true));
                 abilities.AddGroup(subPlayerAbilityGroup);
             }
-            if (healingType == HealingType.Normal)
+
+            switch (preProcessed)
             {
-                Stats.IncrementStat("TotalHealingActionsUsed");
-                subAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-                subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-                subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-            }
-            if (!skipExtraHandling)
-            {
-                Stats.IncrementStat("TotalOverallHealing", line.Amount);
-                subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-                subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            }
-            if (line.Crit)
-            {
-                if (!skipExtraHandling)
-                {
-                    Stats.IncrementStat("HealingCritHit");
-                    Stats.IncrementStat("CriticalHealing", line.Amount);
-                }
-                subAbilityGroup.Stats.IncrementStat("HealingCritHit");
-                subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                subPlayerGroup.Stats.IncrementStat("HealingCritHit");
-                subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("HealingCritHit");
-                subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                if (line.Modifier != 0)
-                {
-                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
-                    var modStat = "HealingCritMod";
-                    if (!skipExtraHandling)
+                case true:
+
+                    #region Was Pre-Processed
+
+                    switch (healingType)
                     {
-                        Stats.IncrementStat(modStat, mod);
+                        case HealingType.Normal:
+                            break;
+                        case HealingType.OverHealing:
+                        case HealingType.HealingOverTime:
+                        case HealingType.HealingOverTimeOverHealing:
+                            if (line.Crit)
+                            {
+                                subAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                                subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                subPlayerGroup.Stats.IncrementStat("HealingCritHit");
+                                subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                subPlayerAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                                subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                if (line.Modifier != 0)
+                                {
+                                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                                    var modStat = "HealingCritMod";
+                                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                }
+                            }
+                            else
+                            {
+                                subAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                                subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                subPlayerGroup.Stats.IncrementStat("HealingRegHit");
+                                subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                subPlayerAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                if (line.Modifier != 0)
+                                {
+                                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                                    var modStat = "HealingRegMod";
+                                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                }
+                            }
+                            break;
+                        case HealingType.Mitigated:
+                            Stats.IncrementStat("TotalHealingActionsUsed");
+                            subAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
+                            subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
+                            subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
+
+                            Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                            subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                            subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                            subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+
+                            Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                            subAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                            subPlayerGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                            subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+
+                            if (line.Crit)
+                            {
+                                Stats.IncrementStat("HealingCritHit");
+                                Stats.IncrementStat("CriticalHealing", line.Amount);
+                                subAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                                subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                subPlayerGroup.Stats.IncrementStat("HealingCritHit");
+                                subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                subPlayerAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                                subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                                if (line.Modifier != 0)
+                                {
+                                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                                    var modStat = "HealingCritMod";
+                                    Stats.IncrementStat(modStat, mod);
+                                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                }
+                            }
+                            else
+                            {
+                                Stats.IncrementStat("HealingRegHit");
+                                Stats.IncrementStat("RegularHealing", line.Amount);
+                                subAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                                subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                subPlayerGroup.Stats.IncrementStat("HealingRegHit");
+                                subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                subPlayerAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                                if (line.Modifier != 0)
+                                {
+                                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                                    var modStat = "HealingRegMod";
+                                    Stats.IncrementStat(modStat, mod);
+                                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                                }
+                            }
+                            break;
                     }
-                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
-                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
-                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
-                }
-            }
-            else
-            {
-                if (!skipExtraHandling)
-                {
-                    Stats.IncrementStat("HealingRegHit");
-                    Stats.IncrementStat("RegularHealing", line.Amount);
-                }
-                subAbilityGroup.Stats.IncrementStat("HealingRegHit");
-                subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                subPlayerGroup.Stats.IncrementStat("HealingRegHit");
-                subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("HealingRegHit");
-                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                if (line.Modifier != 0)
-                {
-                    var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
-                    var modStat = "HealingRegMod";
-                    if (!skipExtraHandling)
+
+                    #endregion
+
+                    break;
+                case false:
+
+                    #region Not Pre-Processed
+
+                    if (healingType == HealingType.Normal)
                     {
-                        Stats.IncrementStat(modStat, mod);
+                        Stats.IncrementStat("TotalHealingActionsUsed");
+                        subAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
+                        subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
+                        subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
                     }
-                    subAbilityGroup.Stats.IncrementStat(modStat, mod);
-                    subPlayerGroup.Stats.IncrementStat(modStat, mod);
-                    subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
-                }
+
+                    Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                    subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                    subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+                    if (line.Crit)
+                    {
+                        Stats.IncrementStat("HealingCritHit");
+                        Stats.IncrementStat("CriticalHealing", line.Amount);
+                        subAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                        subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                        subPlayerGroup.Stats.IncrementStat("HealingCritHit");
+                        subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                        subPlayerAbilityGroup.Stats.IncrementStat("HealingCritHit");
+                        subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                        if (line.Modifier != 0)
+                        {
+                            var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                            var modStat = "HealingCritMod";
+                            Stats.IncrementStat(modStat, mod);
+                            subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                            subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                            subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                        }
+                    }
+                    else
+                    {
+                        Stats.IncrementStat("HealingRegHit");
+                        Stats.IncrementStat("RegularHealing", line.Amount);
+                        subAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                        subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                        subPlayerGroup.Stats.IncrementStat("HealingRegHit");
+                        subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                        subPlayerAbilityGroup.Stats.IncrementStat("HealingRegHit");
+                        subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                        if (line.Modifier != 0)
+                        {
+                            var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
+                            var modStat = "HealingRegMod";
+                            Stats.IncrementStat(modStat, mod);
+                            subAbilityGroup.Stats.IncrementStat(modStat, mod);
+                            subPlayerGroup.Stats.IncrementStat(modStat, mod);
+                            subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
+                        }
+                    }
+
+                    #endregion
+
+                    #region Handle Mitigaged (With Initial Healing)
+
+                    var mitigated = false;
+                    var mitigagedSkill = "";
+                    if (MagicBarrierHelper.Adloquium.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
+                    {
+                        mitigated = true;
+                        line.Amount = originalAmount;
+                        mitigagedSkill = "adloquium";
+                    }
+                    if (MagicBarrierHelper.Succor.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
+                    {
+                        mitigated = true;
+                        line.Amount = originalAmount;
+                        mitigagedSkill = "succor";
+                    }
+                    if (mitigated)
+                    {
+                        SetHealingMitigated(line, mitigagedSkill);
+                    }
+
+                    #endregion
+
+                    break;
             }
-            if (!skipExtraHandling)
-            {
-                var mitigated = false;
-                if (MagicBarrierHelper.Adloquium.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
-                {
-                    mitigated = true;
-                    line.Amount = originalAmount;
-                    SetHealingMitigated(line, "adloquium");
-                }
-                if (MagicBarrierHelper.Succor.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
-                {
-                    mitigated = true;
-                    line.Amount = originalAmount;
-                    SetHealingMitigated(line, "succor");
-                }
-                if (mitigated)
-                {
-                    Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
-                    subAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
-                    subPlayerGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
-                    subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
-                }
-            }
+
+            #region Full Handling
+
+
+
+            #endregion
+
+            #region OverHealing Handler
+
             if (unusedAmount > 0m)
             {
                 line.Amount = healingType == HealingType.HealingOverTime ? originalAmount : unusedAmount;
@@ -186,6 +301,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 }
                 SetHealingOver(line, healingType);
             }
+
+            #endregion
         }
 
         public void SetHealingMitigated(Line line, string type = "")
@@ -205,7 +322,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 default:
                     break;
             }
-            SetHealing(line, HealingType.Normal, true);
+            SetHealing(line, HealingType.Mitigated, true);
         }
 
         private void SetHealingOver(Line line, HealingType healingType)
@@ -215,12 +332,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 case HealingType.Normal:
                     line.Action = String.Format("{0} [∞]", cleanedAction);
+                    SetHealing(line, HealingType.OverHealing, true);
                     break;
                 case HealingType.HealingOverTime:
                     line.Action = String.Format("{0} [•][∞]", cleanedAction);
+                    SetHealing(line, HealingType.HealingOverTimeOverHealing, true);
                     break;
             }
-            SetHealing(line, healingType == HealingType.HealingOverTime ? HealingType.HealingOverTime : HealingType.OverHealing, true);
         }
     }
 }

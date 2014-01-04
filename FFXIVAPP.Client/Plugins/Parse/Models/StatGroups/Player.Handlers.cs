@@ -181,7 +181,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
         #endregion
 
-        #region Damage Over Time
+        #region Healing Over Time
 
         /// <summary>
         /// </summary>

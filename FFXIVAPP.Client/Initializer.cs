@@ -591,13 +591,13 @@ namespace FFXIVAPP.Client
             _monsterWorker = new MonsterWorker();
             _monsterWorker.StartScanning();
             _npcWorker = new NPCWorker();
-            _npcWorker.StartScanning();
+            //_npcWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
-            _playerInfoWorker.StartScanning();
+            //_playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
-            _targetWorker.StartScanning();
+            //_targetWorker.StartScanning();
             _partyInfoWorker = new PartyInfoWorker();
-            _partyInfoWorker.StartScanning();
+            //_partyInfoWorker.StartScanning();
         }
 
         /// <summary>
