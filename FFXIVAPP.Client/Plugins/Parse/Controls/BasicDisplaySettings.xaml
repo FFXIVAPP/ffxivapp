@@ -35,6 +35,27 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallMitigatedHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallMitigatedHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingOverTimeOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealingOverTimeOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </Expander>
 

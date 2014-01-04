@@ -63,8 +63,8 @@ namespace FFXIVAPP.Client
             Constants.IsOpen = false;
             Constants.ProcessID = -1;
             //initialize application data
-            AppViewModel.Instance.ConfigurationsPath = Path.Combine(Common.Constants.CachePath, "./Configurations/");
-            AppViewModel.Instance.LogsPath = Path.Combine(Common.Constants.CachePath, "./Logs/");
+            AppViewModel.Instance.ConfigurationsPath = Common.Constants.ConfigurationsPath;
+            AppViewModel.Instance.LogsPath = Common.Constants.LogsPath;
             AppViewModel.Instance.SavedLogsDirectoryList = new List<string>
             {
                 "Say",
@@ -82,10 +82,10 @@ namespace FFXIVAPP.Client
                 "FC",
                 "Yell"
             };
-            AppViewModel.Instance.ScreenShotsPath = Path.Combine(Common.Constants.CachePath, "./ScreenShots/");
-            AppViewModel.Instance.SoundsPath = Path.Combine(Common.Constants.CachePath, "./Sounds/");
-            AppViewModel.Instance.SettingsPath = Path.Combine(Common.Constants.CachePath, "./Settings/");
-            AppViewModel.Instance.PluginsSettingsPath = Path.Combine(Common.Constants.CachePath, "./Settings/Plugins/");
+            AppViewModel.Instance.ScreenShotsPath = Common.Constants.ScreenShotsPath;
+            AppViewModel.Instance.SoundsPath = Common.Constants.SoundsPath;
+            AppViewModel.Instance.SettingsPath = Common.Constants.SettingsPath;
+            AppViewModel.Instance.PluginsSettingsPath = Common.Constants.PluginsSettingsPath;
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();

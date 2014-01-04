@@ -400,6 +400,12 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_ResetDamageOnlyOption", "Damage Only");
             Dictionary.Add("parse_ResetAnyOption", "Any");
             Dictionary.Add("parse_ScoreCardHeader", "Score Card (Party)");
+            Dictionary.Add("parse_ShowTotalOverallOverHealingInfoHeader", "Show Total Overall Over Healing Information");
+            Dictionary.Add("parse_ShowTotalOverallMitigatedHealingInfoHeader", "Show Total Overall Mitigated Healing Information");
+            Dictionary.Add("parse_ShowTotalOverallHealingOverTimeOverHealingInfoHeader", "Show Total Healing Over Time Over Healing Information");
+            Dictionary.Add("parse_TotalOverallOverHealingLabel", "Total Overall Over Healing:");
+            Dictionary.Add("parse_TotalOverallMitigatedHealingLabel", "Total Overall Mitigated Healing:");
+            Dictionary.Add("parse_TotalOverallHealingOverTimeOverHealingLabel", "Total Overall Healing Over Time Over Healing:");
         }
     }
 }

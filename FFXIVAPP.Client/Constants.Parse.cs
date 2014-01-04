@@ -3,6 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
@@ -65,15 +66,27 @@ namespace FFXIVAPP.Client
                 get
                 {
                     var file = AppViewModel.Instance.PluginsSettingsPath + "FFXIVAPP.Plugin.Parse.xml";
-                    if (_xSettings == null)
+                    var legacyFile = "./Settings/Settings.Parse.xml";
+                    if (_xSettings != null)
+                    {
+                        return _xSettings;
+                    }
+                    try
                     {
                         var found = File.Exists(file);
-                        if (!found)
+                        if (found)
                         {
-                            file = "./Settings/Settings.Parse.xml";
-                            found = File.Exists(file);
+                            _xSettings = XDocument.Load(file);
                         }
-                        _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                        else
+                        {
+                            found = File.Exists(legacyFile);
+                            _xSettings = found ? XDocument.Load(legacyFile) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _xSettings = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                     }
                     return _xSettings;
                 }
@@ -85,10 +98,18 @@ namespace FFXIVAPP.Client
                 get
                 {
                     var file = AppViewModel.Instance.ConfigurationsPath + "RegularExpressions.xml";
-                    if (_xRegEx == null)
+                    if (_xRegEx != null)
+                    {
+                        return _xRegEx;
+                    }
+                    try
                     {
                         var found = File.Exists(file);
                         _xRegEx = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/RegularExpressions.xml");
+                    }
+                    catch (Exception ex)
+                    {
+                        _xRegEx = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/RegularExpressions.xml");
                     }
                     return _xRegEx;
                 }

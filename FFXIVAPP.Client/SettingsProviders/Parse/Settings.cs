@@ -127,6 +127,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicPercentOfRegularDamage");
             Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalDamage");
             Constants.Parse.Settings.Add("ShowBasicTotalOverallHealing");
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallMitigatedHealing");
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallHealingOverTimeOverHealing");
             Constants.Parse.Settings.Add("ShowBasicRegularHealing");
             Constants.Parse.Settings.Add("ShowBasicCriticalHealing");
             Constants.Parse.Settings.Add("ShowBasicTotalHealingActionsUsed");
@@ -1330,10 +1333,49 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallHealing
         {
-            get { return ((bool) (this["ShowBasicTotalOverallHealing"])); }
+            get { return ((bool)(this["ShowBasicTotalOverallHealing"])); }
             set
             {
                 this["ShowBasicTotalOverallHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallOverHealing
+        {
+            get { return ((bool)(this["ShowBasicTotalOverallOverHealing"])); }
+            set
+            {
+                this["ShowBasicTotalOverallOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallMitigatedHealing
+        {
+            get { return ((bool)(this["ShowBasicTotalOverallMitigatedHealing"])); }
+            set
+            {
+                this["ShowBasicTotalOverallMitigatedHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingOverTimeOverHealing
+        {
+            get { return ((bool)(this["ShowBasicTotalOverallHealingOverTimeOverHealing"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingOverTimeOverHealing"] = value;
                 RaisePropertyChanged();
             }
         }

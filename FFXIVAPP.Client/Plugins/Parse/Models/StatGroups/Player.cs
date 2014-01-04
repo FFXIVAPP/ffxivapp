@@ -192,6 +192,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             ((TotalStat) oStats["RegularDamage"]).AddDependency(stats["RegularDamage"]);
             ((TotalStat) oStats["CriticalDamage"]).AddDependency(stats["CriticalDamage"]);
             ((TotalStat) oStats["TotalOverallHealing"]).AddDependency(stats["TotalOverallHealing"]);
+            ((TotalStat) oStats["TotalOverallOverHealing"]).AddDependency(stats["TotalOverallOverHealing"]);
+            ((TotalStat) oStats["TotalOverallMitigatedHealing"]).AddDependency(stats["TotalOverallMitigatedHealing"]);
+            ((TotalStat) oStats["TotalOverallHealingOverTimeOverHealing"]).AddDependency(stats["TotalOverallHealingOverTimeOverHealing"]);
             ((TotalStat) oStats["RegularHealing"]).AddDependency(stats["RegularHealing"]);
             ((TotalStat) oStats["CriticalHealing"]).AddDependency(stats["CriticalHealing"]);
             ((TotalStat) oStats["TotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTaken"]);
@@ -353,6 +356,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             var stats = new Dictionary<string, Stat<decimal>>();
 
             stats.Add("TotalOverallHealing", new TotalStat("TotalOverallHealing"));
+            stats.Add("TotalOverallOverHealing", new TotalStat("TotalOverallOverHealing"));
+            stats.Add("TotalOverallMitigatedHealing", new TotalStat("TotalOverallMitigatedHealing"));
+            stats.Add("TotalOverallHealingOverTimeOverHealing", new TotalStat("TotalOverallHealingOverTimeOverHealing"));
             stats.Add("RegularHealing", new TotalStat("RegularHealing"));
             stats.Add("CriticalHealing", new TotalStat("CriticalHealing"));
             stats.Add("TotalHealingActionsUsed", new CounterStat("TotalHealingActionsUsed"));

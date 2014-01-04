@@ -3,6 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
@@ -36,16 +37,19 @@ namespace FFXIVAPP.Client
             {
                 get
                 {
-                    var file = AppViewModel.Instance.SettingsPath + "ApplicationSettings.xml";
-                    if (_xSettings == null)
+                    var settingsFile = AppViewModel.Instance.SettingsPath + "ApplicationSettings.xml";
+                    if (_xSettings != null)
                     {
-                        var found = File.Exists(file);
-                        _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
-                        foreach (var element in _xSettings.Elements("Plugin"))
-                        {
-                            var s = element;
-                            var t = s;
-                        }
+                        return _xSettings;
+                    }
+                    try
+                    {
+                        var found = File.Exists(settingsFile);
+                        _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                    }
+                    catch (Exception ex)
+                    {
+                        _xSettings = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                     }
                     return _xSettings;
                 }

@@ -146,20 +146,44 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             }
             if (!skipExtraHandling)
             {
+                var mitigated = false;
                 if (MagicBarrierHelper.Adloquium.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
                 {
+                    mitigated = true;
                     line.Amount = originalAmount;
                     SetHealingMitigated(line, "adloquium");
                 }
                 if (MagicBarrierHelper.Succor.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
                 {
+                    mitigated = true;
                     line.Amount = originalAmount;
                     SetHealingMitigated(line, "succor");
+                }
+                if (mitigated)
+                {
+                    Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                    subPlayerGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
+                    subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallMitigatedHealing", line.Amount);
                 }
             }
             if (unusedAmount > 0m)
             {
                 line.Amount = healingType == HealingType.HealingOverTime ? originalAmount : unusedAmount;
+                if (healingType == HealingType.HealingOverTime)
+                {
+                    Stats.IncrementStat("TotalOverallHealingOverTimeOverHealing", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("TotalOverallHealingOverTimeOverHealing", line.Amount);
+                    subPlayerGroup.Stats.IncrementStat("TotalOverallHealingOverTimeOverHealing", line.Amount);
+                    subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealingOverTimeOverHealing", line.Amount);
+                }
+                else
+                {
+                    Stats.IncrementStat("TotalOverallOverHealing", line.Amount);
+                    subAbilityGroup.Stats.IncrementStat("TotalOverallOverHealing", line.Amount);
+                    subPlayerGroup.Stats.IncrementStat("TotalOverallOverHealing", line.Amount);
+                    subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallOverHealing", line.Amount);
+                }
                 SetHealingOver(line, healingType);
             }
         }
@@ -168,7 +192,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             var cleanedAction = Regex.Replace(line.Action, @" \[.+\]", "");
             line.Action = String.Format("{0} [☯]", cleanedAction);
-
             switch (type)
             {
                 case "adloquium":
@@ -182,7 +205,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 default:
                     break;
             }
-
             SetHealing(line, HealingType.Normal, true);
         }
 

@@ -387,6 +387,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
             stats.Add("StaticPlayerDPS", new TotalStat("StaticPlayerDPS"));
             stats.Add("TotalOverallHealing", new TotalStat("TotalOverallHealing"));
+            stats.Add("TotalOverallOverHealing", new TotalStat("TotalOverallOverHealing"));
+            stats.Add("TotalOverallMitigatedHealing", new TotalStat("TotalOverallMitigatedHealing"));
+            stats.Add("TotalOverallHealingOverTimeOverHealing", new TotalStat("TotalOverallHealingOverTimeOverHealing"));
             stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"]));
             stats.Add("StaticPlayerHPS", new TotalStat("StaticPlayerHPS"));
             stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
