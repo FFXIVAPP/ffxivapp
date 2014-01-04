@@ -223,22 +223,22 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Events
                         thisGroup.Direction = EventDirection.NPC;
                         break;
                     case "Alliance":
-                        thisGroup.Subject = EventSubject.Alliance;
+                        thisGroup.Direction = EventDirection.Alliance;
                         break;
                     case "FriendlyNPC":
-                        thisGroup.Subject = EventSubject.FriendlyNPC;
+                        thisGroup.Direction = EventDirection.FriendlyNPC;
                         break;
                     case "Pet":
-                        thisGroup.Subject = EventSubject.Pet;
+                        thisGroup.Direction = EventDirection.Pet;
                         break;
                     case "PetParty":
-                        thisGroup.Subject = EventSubject.PetParty;
+                        thisGroup.Direction = EventDirection.PetParty;
                         break;
                     case "PetAlliance":
-                        thisGroup.Subject = EventSubject.PetAlliance;
+                        thisGroup.Direction = EventDirection.PetAlliance;
                         break;
                     case "PetOther":
-                        thisGroup.Subject = EventSubject.PetOther;
+                        thisGroup.Direction = EventDirection.PetOther;
                         break;
                     case "Engaged":
                         thisGroup.Direction = EventDirection.Engaged;
