@@ -63,6 +63,10 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(0x80)] //128
             public uint NPCID2;
 
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x84)] //132
+            public uint OwnerID;
+
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x8A)] //138
             public Actor.Type Type;
@@ -124,8 +128,16 @@ namespace FFXIVAPP.Client.Memory
             public Actor.Status Status;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0xA78)] //416
+            [FieldOffset(0x198)] //0
+            public uint ClaimedByID;
+
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x1A0)] //416
             public int TargetID;
+
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0xA78)] //416
+            public int PCTargetID;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x1698)] //5784

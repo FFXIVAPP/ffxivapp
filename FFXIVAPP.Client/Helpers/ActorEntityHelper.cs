@@ -24,6 +24,7 @@ namespace FFXIVAPP.Client.Helpers
                 ID = actor.ID,
                 NPCID1 = actor.NPCID1,
                 NPCID2 = actor.NPCID2,
+                OwnerID = actor.OwnerID,
                 Type = actor.Type,
                 Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
                 GatheringStatus = actor.GatheringStatus,
@@ -62,15 +63,24 @@ namespace FFXIVAPP.Client.Helpers
                 CastingID = actor.CastingID,
                 CastingTargetID = actor.CastingTargetID,
                 CastingProgress = actor.CastingProgress,
-                CastingTime = actor.CastingTime
+                CastingTime = actor.CastingTime,
+                ClaimedByID = actor.ClaimedByID
             };
             if (entry.HPMax == 0)
             {
                 entry.HPMax = 1;
             }
-            if (entry.TargetID == -536870912)
+            entry.TargetID = 0;
+            if (actor.TargetID > 0)
             {
-                entry.TargetID = 0;
+                entry.TargetID = actor.TargetID;
+            }
+            else
+            {
+                if (actor.PCTargetID > 0)
+                {
+                    entry.TargetID = actor.PCTargetID;
+                }
             }
             if (entry.CastingTargetID == 3758096384)
             {

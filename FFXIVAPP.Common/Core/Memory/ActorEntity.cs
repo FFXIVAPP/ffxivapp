@@ -174,6 +174,7 @@ namespace FFXIVAPP.Common.Core.Memory
         public uint ID { get; set; }
         public uint NPCID1 { get; set; }
         public uint NPCID2 { get; set; }
+        public uint OwnerID { get; set; }
         public Actor.Type Type { get; set; }
         public Actor.TargetType TargetType { get; set; }
         public byte Distance { get; set; }
@@ -188,6 +189,7 @@ namespace FFXIVAPP.Common.Core.Memory
         public bool IsGM { get; set; }
         public Actor.Icon Icon { get; set; }
         public Actor.Status Status { get; set; }
+        public uint ClaimedByID { get; set; }
         public int TargetID { get; set; }
         public Actor.Job Job { get; set; }
         public byte Level { get; set; }

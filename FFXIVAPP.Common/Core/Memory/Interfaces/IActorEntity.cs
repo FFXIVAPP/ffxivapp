@@ -15,6 +15,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
         uint ID { get; set; }
         uint NPCID1 { get; set; }
         uint NPCID2 { get; set; }
+        uint OwnerID { get; set; }
         Actor.Type Type { get; set; }
         Actor.TargetType TargetType { get; set; }
         byte Distance { get; set; }
@@ -30,6 +31,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
         bool IsGM { get; set; }
         Actor.Icon Icon { get; set; }
         Actor.Status Status { get; set; }
+        uint ClaimedByID { get; set; }
         int TargetID { get; set; }
         Actor.Job Job { get; set; }
         byte Level { get; set; }
