@@ -21,8 +21,6 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
@@ -163,6 +161,13 @@ namespace FFXIVAPP.Client
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void LoadSoundsIntoCache()
+        {
+            SoundPlayerHelper.CacheSoundFiles();
         }
 
         /// <summary>
@@ -591,13 +596,13 @@ namespace FFXIVAPP.Client
             _monsterWorker = new MonsterWorker();
             _monsterWorker.StartScanning();
             _npcWorker = new NPCWorker();
-            //_npcWorker.StartScanning();
+            _npcWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
-            //_playerInfoWorker.StartScanning();
+            _playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
-            //_targetWorker.StartScanning();
+            _targetWorker.StartScanning();
             _partyInfoWorker = new PartyInfoWorker();
-            //_partyInfoWorker.StartScanning();
+            _partyInfoWorker.StartScanning();
         }
 
         /// <summary>

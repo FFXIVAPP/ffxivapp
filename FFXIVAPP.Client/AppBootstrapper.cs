@@ -7,11 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -86,12 +84,6 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.SoundsPath = Common.Constants.SoundsPath;
             AppViewModel.Instance.SettingsPath = Common.Constants.SettingsPath;
             AppViewModel.Instance.PluginsSettingsPath = Common.Constants.PluginsSettingsPath;
-            Initializer.SetupCurrentUICulture();
-            Initializer.LoadChatCodes();
-            Initializer.LoadAutoTranslate();
-            Initializer.LoadColors();
-            Initializer.LoadApplicationSettings();
-            Initializer.LoadPlugins();
             ProcessDetachCheckTimer.Elapsed += ProcessDetachCheckTimerOnElapsed;
         }
 

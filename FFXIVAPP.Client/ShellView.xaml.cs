@@ -52,8 +52,24 @@ namespace FFXIVAPP.Client
         private void MetroWindowLoaded(object sender, RoutedEventArgs e)
         {
             View.Topmost = Settings.Default.TopMost;
+
+            #region Initial BootStrapping
+
+            Initializer.SetupCurrentUICulture();
+            Initializer.LoadChatCodes();
+            Initializer.LoadAutoTranslate();
+            Initializer.LoadColors();
+            Initializer.LoadApplicationSettings();
+            Initializer.LoadSoundsIntoCache();
+            Initializer.LoadPlugins();
+
+            #endregion
+
             LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
+
+            #region GUI Finalization
+
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
             Initializer.GetHomePlugin();
@@ -61,6 +77,9 @@ namespace FFXIVAPP.Client
             Initializer.StartMemoryWorkers();
             Initializer.SetupPlugins();
             Initializer.UpdatePluginConstants();
+
+            #endregion
+
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
             AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;

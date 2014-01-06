@@ -9,6 +9,7 @@ del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Ionic.Zip.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip NAudio.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip NLog.dll
 #"C:\Program Files\7-Zip\7z.exe" a Debug.zip SocketIOClient.dll
@@ -40,6 +41,7 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Ionic.Zip.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip NAudio.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip NLog.dll
 #"C:\Program Files\7-Zip\7z.exe" a Release.zip SocketIOClient.dll
@@ -71,6 +73,7 @@ del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip HtmlAgilityPack.dll
 #"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Ionic.Zip.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip MahApps.Metro.dll
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip NAudio.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Newtonsoft.Json.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip NLog.dll
 #"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip SocketIOClient.dll
