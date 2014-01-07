@@ -134,6 +134,20 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="{Binding Locale[parse_TrackXPSFromParseStartEventHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <TextBlock Foreground="{DynamicResource BlackColorBrush}"
+                                           Text="{Binding Locale[parse_TrackXPSFromParseStartEventHelpText],
+                                                          Source={StaticResource AppProperties}}"
+                                           TextWrapping="WrapWithOverflow"
+                                           Visibility="{Binding EnableHelpLabels,
+                                                                Source={x:Static Properties:Settings.Default},
+                                                                Converter={StaticResource VisibilityConverter}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding TrackXPSFromParseStartEvent,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_IgnoreLimitBreaksHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
@@ -173,6 +187,7 @@
                                 <TextBlock Foreground="{DynamicResource BlackColorBrush}"
                                            Text="{Binding Locale[parse_StoreHistoryEventHelperText],
                                                           Source={StaticResource AppProperties}}"
+                                           TextWrapping="WrapWithOverflow"
                                            Visibility="{Binding EnableHelpLabels,
                                                                 Source={x:Static Properties:Settings.Default},
                                                                 Converter={StaticResource VisibilityConverter}}" />

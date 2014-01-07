@@ -82,7 +82,6 @@
                            Grid.Column="3"
                            LastChildFill="True">
                     <DockPanel>
-
                         <TextBlock Margin="4"
                                    VerticalAlignment="Bottom"
                                    Padding="0"

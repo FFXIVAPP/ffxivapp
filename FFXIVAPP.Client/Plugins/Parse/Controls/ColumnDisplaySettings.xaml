@@ -550,7 +550,8 @@
     <Expander Header="Stats:Healing:Extended">
         <StackPanel>
             <TextBlock Text="{Binding Locale[app_ComingSoonText],
-                                      Source={StaticResource AppProperties}}" />
+                                      Source={StaticResource AppProperties}}"
+                       TextWrapping="WrapWithOverflow" />
         </StackPanel>
     </Expander>
 

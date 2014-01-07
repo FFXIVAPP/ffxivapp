@@ -171,9 +171,6 @@
     <Setting Name="LicenseFont" Type="System.Windows.Media.FontFamily" Scope="Application">
       <Value Profile="(Default)">Segoe UI</Value>
     </Setting>
-    <Setting Name="AllowPluginCommands" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="SaveLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

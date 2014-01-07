@@ -98,7 +98,7 @@
                            Foreground="{DynamicResource BlackColorBrush}"
                            Text="{Binding Locale[parse_BasicGlobalWarningLabel],
                                           Source={StaticResource AppProperties}}"
-                           TextWrapping="Wrap"
+                            TextWrapping="WrapWithOverflow"
                            Visibility="{Binding EnableHelpLabels,
                                                 Source={x:Static Properties:Settings.Default},
                                                 Converter={StaticResource VisibilityConverter}}" />

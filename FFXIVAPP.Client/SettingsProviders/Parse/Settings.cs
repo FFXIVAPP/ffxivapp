@@ -50,6 +50,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("EnableStoreHistoryReset");
             Constants.Parse.Settings.Add("AutoLoadLastParseFromHistory");
             Constants.Parse.Settings.Add("IgnoreLimitBreaks");
+            Constants.Parse.Settings.Add("TrackXPSFromParseStartEvent");
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
             Constants.Parse.Settings.Add("ShowPartyHealingTab");
@@ -407,7 +408,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("false")]
+        [DefaultSettingValue("False")]
         public bool AutoLoadLastParseFromHistory
         {
             get { return ((bool) (this["AutoLoadLastParseFromHistory"])); }
@@ -417,7 +418,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
-
+        
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
@@ -427,6 +428,19 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["IgnoreLimitBreaks"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool TrackXPSFromParseStartEvent
+        {
+            get { return ((bool) (this["TrackXPSFromParseStartEvent"])); }
+            set
+            {
+                this["TrackXPSFromParseStartEvent"] = value;
                 RaisePropertyChanged();
             }
         }

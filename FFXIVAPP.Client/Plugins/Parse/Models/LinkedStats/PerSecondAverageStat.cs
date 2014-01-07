@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
             var nValue = (decimal) newValue;
             if (FirstEventReceived == default(DateTime) || FirstEventReceived == null)
             {
-                FirstEventReceived = DateTime.Now;
+                FirstEventReceived = Constants.Parse.PluginSettings.TrackXPSFromParseStartEvent ? ParseControl.Instance.StartTime : DateTime.Now;
             }
             LastEventReceived = DateTime.Now;
             var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract((DateTime) FirstEventReceived)
