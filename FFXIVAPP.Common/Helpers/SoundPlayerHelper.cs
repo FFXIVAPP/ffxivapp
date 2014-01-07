@@ -26,6 +26,8 @@ namespace FFXIVAPP.Common.Helpers
 
         #region SoundFiles Storage - Getters & Setters
 
+        private static readonly Dictionary<string, Tuple<IWavePlayer, WaveChannel32>> SoundFiles = new Dictionary<string, Tuple<IWavePlayer, WaveChannel32>>();
+
         public static List<string> GetSoundFiles()
         {
             lock (SoundFiles)
@@ -59,12 +61,10 @@ namespace FFXIVAPP.Common.Helpers
                     player.Init(stream);
                     SoundFiles.Add(soundFile, Tuple.Create(player, stream));
                 }
-                stream.Volume = (float)volume / 100;
+                stream.Volume = (float) volume / 100;
                 return new Tuple<IWavePlayer, WaveChannel32>(player, stream);
             }
         }
-
-        private static readonly Dictionary<string, Tuple<IWavePlayer, WaveChannel32>> SoundFiles = new Dictionary<string, Tuple<IWavePlayer, WaveChannel32>>();
 
         #endregion
 
@@ -124,7 +124,8 @@ namespace FFXIVAPP.Common.Helpers
                 var files = Directory.GetFiles(Constants.SoundsPath)
                                      .Where(file => Regex.IsMatch(file, @"^.+\.(wav|mp3)$"))
                                      .Select(file => new FileInfo(file));
-                foreach (var soundFile in files.Where(soundFile => !GetSoundFiles().Contains(soundFile.Name)))
+                foreach (var soundFile in files.Where(soundFile => !GetSoundFiles()
+                    .Contains(soundFile.Name)))
                 {
                     TryGetSetSoundFile(soundFile.Name);
                 }

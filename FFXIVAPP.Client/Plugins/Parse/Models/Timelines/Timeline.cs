@@ -15,7 +15,6 @@ using FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats;
 using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using FFXIVAPP.Client.SettingsProviders.Parse;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
@@ -135,6 +134,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
 
         #region Player Curables Accessors and Setters
 
+        private Dictionary<string, int> _playerCurables;
+
+        private Dictionary<string, int> PlayerCurables
+        {
+            get { return _playerCurables; }
+            set
+            {
+                _playerCurables = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public void TrySetPlayerCurable(string key, int value)
         {
             lock (PlayerCurables)
@@ -171,18 +182,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
             lock (PlayerCurables)
             {
                 return PlayerCurables.ToDictionary(playerCurable => playerCurable.Key, playerCurable => playerCurable.Value);
-            }
-        }
-
-        private Dictionary<string, int> _playerCurables;
-
-        private Dictionary<string, int> PlayerCurables
-        {
-            get { return _playerCurables; }
-            set
-            {
-                _playerCurables = value;
-                RaisePropertyChanged();
             }
         }
 

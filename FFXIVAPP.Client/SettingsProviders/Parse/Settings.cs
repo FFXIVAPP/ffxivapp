@@ -1333,7 +1333,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallHealing
         {
-            get { return ((bool)(this["ShowBasicTotalOverallHealing"])); }
+            get { return ((bool) (this["ShowBasicTotalOverallHealing"])); }
             set
             {
                 this["ShowBasicTotalOverallHealing"] = value;
@@ -1346,7 +1346,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallOverHealing
         {
-            get { return ((bool)(this["ShowBasicTotalOverallOverHealing"])); }
+            get { return ((bool) (this["ShowBasicTotalOverallOverHealing"])); }
             set
             {
                 this["ShowBasicTotalOverallOverHealing"] = value;
@@ -1359,7 +1359,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallMitigatedHealing
         {
-            get { return ((bool)(this["ShowBasicTotalOverallMitigatedHealing"])); }
+            get { return ((bool) (this["ShowBasicTotalOverallMitigatedHealing"])); }
             set
             {
                 this["ShowBasicTotalOverallMitigatedHealing"] = value;
@@ -1372,7 +1372,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallHealingOverTimeOverHealing
         {
-            get { return ((bool)(this["ShowBasicTotalOverallHealingOverTimeOverHealing"])); }
+            get { return ((bool) (this["ShowBasicTotalOverallHealingOverTimeOverHealing"])); }
             set
             {
                 this["ShowBasicTotalOverallHealingOverTimeOverHealing"] = value;

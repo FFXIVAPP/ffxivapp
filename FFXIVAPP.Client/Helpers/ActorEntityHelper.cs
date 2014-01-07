@@ -4,7 +4,6 @@
 // © 2013 Ryan Wilson
 
 using System;
-using System.Linq;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;

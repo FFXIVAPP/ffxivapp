@@ -28,7 +28,6 @@ namespace FFXIVAPP.Common.Utilities
             }
             switch (String.IsNullOrWhiteSpace(logItem.Message))
             {
-                
                 case true:
                     if (logItem.Exception == null)
                     {

@@ -18,8 +18,6 @@ using FFXIVAPP.Client.RegularExpressions;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 

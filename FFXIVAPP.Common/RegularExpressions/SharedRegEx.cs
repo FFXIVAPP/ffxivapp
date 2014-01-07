@@ -5,8 +5,6 @@
 
 using System;
 using System.Text.RegularExpressions;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Common.RegularExpressions

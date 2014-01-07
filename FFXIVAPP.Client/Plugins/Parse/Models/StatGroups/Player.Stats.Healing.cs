@@ -276,8 +276,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
 
             #region Full Handling
 
-
-
             #endregion
 
             #region OverHealing Handler

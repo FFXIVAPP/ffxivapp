@@ -7,8 +7,6 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Common.Converters

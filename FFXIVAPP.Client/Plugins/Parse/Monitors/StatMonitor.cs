@@ -14,7 +14,6 @@ using FFXIVAPP.Client.Plugins.Parse.ViewModels;
 using FFXIVAPP.Client.Plugins.Parse.Views;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;

@@ -548,6 +548,9 @@
     <Resource Include="Defaults\ChatHistory.xml" />
     <Resource Include="Defaults\RegularExpressions.xml" />
     <Resource Include="Defaults\Settings.xml" />
+    <Content Include="Licenses\License.NAudio.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Licenses\License.DotNetZip.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
