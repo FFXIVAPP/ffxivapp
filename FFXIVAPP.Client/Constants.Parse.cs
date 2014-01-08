@@ -65,7 +65,7 @@ namespace FFXIVAPP.Client
             {
                 get
                 {
-                    var file = AppViewModel.Instance.PluginsSettingsPath + "FFXIVAPP.Plugin.Parse.xml";
+                    var file = Path.Combine(AppViewModel.Instance.PluginsSettingsPath, "FFXIVAPP.Plugin.Parse.xml");
                     var legacyFile = "./Settings/Settings.Parse.xml";
                     if (_xSettings != null)
                     {
@@ -97,7 +97,7 @@ namespace FFXIVAPP.Client
             {
                 get
                 {
-                    var file = AppViewModel.Instance.ConfigurationsPath + "RegularExpressions.xml";
+                    var file = Path.Combine(AppViewModel.Instance.ConfigurationsPath, "RegularExpressions.xml");
                     if (_xRegEx != null)
                     {
                         return _xRegEx;

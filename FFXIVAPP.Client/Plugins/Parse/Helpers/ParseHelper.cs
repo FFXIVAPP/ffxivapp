@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
@@ -18,110 +19,115 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     {
         #region LastDamage Helper Dictionaries
 
-        public static class LastDamageByAction
+        public static class LastAmountByAction
         {
-            private static Dictionary<string, Dictionary<string, decimal>> Monster = new Dictionary<string, Dictionary<string, decimal>>();
+            private static Dictionary<string, List<Tuple<string, decimal>>> Monster = new Dictionary<string, List<Tuple<string, decimal>>>();
 
-            private static Dictionary<string, Dictionary<string, decimal>> Player = new Dictionary<string, Dictionary<string, decimal>>();
+            private static Dictionary<string, List<Tuple<string, decimal>>> Player = new Dictionary<string, List<Tuple<string, decimal>>>();
 
             public static Dictionary<string, decimal> GetMonster(string name)
             {
-                if (!Monster.ContainsKey(name))
+                var results = new Dictionary<string, decimal>();
+                EnsureMonster(name);
+                lock (Monster)
                 {
-                    Monster.Add(name, new Dictionary<string, decimal>());
+                    var actionList = new List<string>();
+                    var actionUpdateCount = new Dictionary<string, int>();
+                    foreach (var actionTuple in Monster[name])
+                    {
+                        if (!results.ContainsKey(actionTuple.Item1))
+                        {
+                            results.Add(actionTuple.Item1, 0);
+                        }
+                        results[actionTuple.Item1] += actionTuple.Item2;
+                        if (!actionList.Contains(actionTuple.Item1))
+                        {
+                            actionList.Add(actionTuple.Item1);
+                        }
+                        if (!actionUpdateCount.ContainsKey(actionTuple.Item1))
+                        {
+                            actionUpdateCount.Add(actionTuple.Item1, 0);
+                        }
+                        actionUpdateCount[actionTuple.Item1]++;
+                    }
+                    foreach (var action in actionList)
+                    {
+                        results[action] = results[action] / actionUpdateCount[action];
+                    }
                 }
-                return Monster[name];
+                return results;
+            }
+
+            private static void EnsureMonster(string name)
+            {
+                lock (Monster)
+                {
+                    if (!Monster.ContainsKey(name))
+                    {
+                        Monster.Add(name, new List<Tuple<string, decimal>>());
+                    }
+                }
             }
 
             public static void EnsureMonsterAction(string name, string action, decimal amount)
             {
-                GetMonster(name);
-                if (Monster[name].ContainsKey(action))
+                EnsureMonster(name);
+                lock (Monster)
                 {
-                    Monster[name][action] = amount;
-                }
-                else
-                {
-                    Monster[name].Add(action, amount);
+                    Monster[name].Add(new Tuple<string, decimal>(action, amount));
                 }
             }
 
             public static Dictionary<string, decimal> GetPlayer(string name)
             {
-                if (!Player.ContainsKey(name))
+                var results = new Dictionary<string, decimal>();
+                EnsurePlayer(name);
+                lock (Player)
                 {
-                    Player.Add(name, new Dictionary<string, decimal>());
+                    var actionList = new List<string>();
+                    var actionUpdateCount = new Dictionary<string, int>();
+                    foreach (var actionTuple in Player[name])
+                    {
+                        if (!results.ContainsKey(actionTuple.Item1))
+                        {
+                            results.Add(actionTuple.Item1, 0);
+                        }
+                        results[actionTuple.Item1] += actionTuple.Item2;
+                        if (!actionList.Contains(actionTuple.Item1))
+                        {
+                            actionList.Add(actionTuple.Item1);
+                        }
+                        if (!actionUpdateCount.ContainsKey(actionTuple.Item1))
+                        {
+                            actionUpdateCount.Add(actionTuple.Item1, 0);
+                        }
+                        actionUpdateCount[actionTuple.Item1]++;
+                    }
+                    foreach (var action in actionList)
+                    {
+                        results[action] = results[action] / actionUpdateCount[action];
+                    }
                 }
-                return Player[name];
+                return results;
+            }
+
+            private static void EnsurePlayer(string name)
+            {
+                lock (Player)
+                {
+                    if (!Player.ContainsKey(name))
+                    {
+                        Player.Add(name, new List<Tuple<string, decimal>>());
+                    }
+                }
             }
 
             public static void EnsurePlayerAction(string name, string action, decimal amount)
             {
-                GetPlayer(name);
-                if (Player[name].ContainsKey(action))
+                EnsureMonster(name);
+                lock (Player)
                 {
-                    var original = Player[name][action];
-                    Player[name][action] = (original + amount) / 2;
-                }
-                else
-                {
-                    Player[name].Add(action, amount);
-                }
-            }
-        }
-
-        #endregion
-
-        #region LastHealing Helper Dictionaries
-
-        public static class LastHealingByAction
-        {
-            private static Dictionary<string, Dictionary<string, decimal>> Monster = new Dictionary<string, Dictionary<string, decimal>>();
-
-            private static Dictionary<string, Dictionary<string, decimal>> Player = new Dictionary<string, Dictionary<string, decimal>>();
-
-            public static Dictionary<string, decimal> GetMonster(string name)
-            {
-                if (!Monster.ContainsKey(name))
-                {
-                    Monster.Add(name, new Dictionary<string, decimal>());
-                }
-                return Monster[name];
-            }
-
-            public static void EnsureMonsterAction(string name, string action, decimal amount)
-            {
-                GetMonster(name);
-                if (Monster[name].ContainsKey(action))
-                {
-                    Monster[name][action] = amount;
-                }
-                else
-                {
-                    Monster[name].Add(action, amount);
-                }
-            }
-
-            public static Dictionary<string, decimal> GetPlayer(string name)
-            {
-                if (!Player.ContainsKey(name))
-                {
-                    Player.Add(name, new Dictionary<string, decimal>());
-                }
-                return Player[name];
-            }
-
-            public static void EnsurePlayerAction(string name, string action, decimal amount)
-            {
-                GetPlayer(name);
-                if (Player[name].ContainsKey(action))
-                {
-                    var original = Player[name][action];
-                    Player[name][action] = (original + amount) / 2;
-                }
-                else
-                {
-                    Player[name].Add(action, amount);
+                    Player[name].Add(new Tuple<string, decimal>(action, amount));
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             var currentDamage = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
             if (currentDamage > 0)
             {
-                ParseHelper.LastDamageByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
+                ParseHelper.LastAmountByAction.EnsurePlayerAction(line.Source, line.Action, currentDamage);
             }
 
             var abilityGroup = GetGroup("DamageByAction");

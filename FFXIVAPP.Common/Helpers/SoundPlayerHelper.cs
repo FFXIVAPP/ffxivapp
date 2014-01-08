@@ -28,13 +28,22 @@ namespace FFXIVAPP.Common.Helpers
 
         private static readonly Dictionary<string, Tuple<IWavePlayer, WaveChannel32>> SoundFiles = new Dictionary<string, Tuple<IWavePlayer, WaveChannel32>>();
 
-        public static List<string> GetSoundFiles()
+        /// <summary>
+        /// </summary>
+        /// <param name="refreshCache"></param>
+        /// <returns></returns>
+        public static List<string> SoundFileKeys(bool refreshCache = true)
         {
+            if (refreshCache)
+            {
+                CacheSoundFiles();
+            }
             lock (SoundFiles)
             {
                 if (SoundFiles.Any())
                 {
                     return SoundFiles.Select(soundFile => soundFile.Key)
+                                     .OrderBy(key => key)
                                      .ToList();
                 }
                 return new List<string>();
@@ -121,13 +130,32 @@ namespace FFXIVAPP.Common.Helpers
                 {
                     Directory.CreateDirectory(Constants.SoundsPath);
                 }
-                var files = Directory.GetFiles(Constants.SoundsPath)
-                                     .Where(file => Regex.IsMatch(file, @"^.+\.(wav|mp3)$"))
-                                     .Select(file => new FileInfo(file));
-                foreach (var soundFile in files.Where(soundFile => !GetSoundFiles()
-                    .Contains(soundFile.Name)))
+                var soundFiles = new List<FileInfo>();
+                var filters = new List<string>
                 {
-                    TryGetSetSoundFile(soundFile.Name);
+                    "*.wav",
+                    "*.mp3"
+                };
+                foreach (var filter in filters)
+                {
+                    var files = Directory.GetFiles(Constants.SoundsPath, filter, SearchOption.AllDirectories)
+                                         .Select(file => new FileInfo(file));
+                    soundFiles.AddRange(files);
+                }
+                foreach (var soundFile in soundFiles)
+                {
+                    if (soundFile.DirectoryName == null)
+                    {
+                        continue;
+                    }
+                    var baseKey = soundFile.DirectoryName.Replace(Constants.SoundsPath, "");
+                    var key = String.IsNullOrWhiteSpace(baseKey) ? soundFile.Name : String.Format("{0}\\{1}", baseKey.Substring(1), soundFile.Name);
+                    if (SoundFileKeys(false)
+                        .Contains(key))
+                    {
+                        continue;
+                    }
+                    TryGetSetSoundFile(key);
                 }
             }
             catch (Exception ex)

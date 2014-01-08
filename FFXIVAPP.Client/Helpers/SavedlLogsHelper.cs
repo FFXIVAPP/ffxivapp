@@ -232,7 +232,7 @@ namespace FFXIVAPP.Client.Helpers
                     // save xml log
                     try
                     {
-                        savedLog.Save(AppViewModel.Instance.LogsPath + savedLogName);
+                        savedLog.Save(Path.Combine(AppViewModel.Instance.LogsPath, savedLogName));
                     }
                     catch (Exception ex)
                     {

@@ -101,7 +101,7 @@ namespace FFXIVAPP.Client.Helpers
                         }
                     }
                 }
-                Constants.XColors.Save(AppViewModel.Instance.ConfigurationsPath + "Colors.xml");
+                Constants.XColors.Save(Path.Combine(AppViewModel.Instance.ConfigurationsPath, "Colors.xml"));
             }
 
             #endregion

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -40,7 +41,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         {
             DefaultSettings();
             SaveSettingsNode();
-            Constants.Parse.XSettings.Save(AppViewModel.Instance.PluginsSettingsPath + "FFXIVAPP.Plugin.Parse.xml");
+            Constants.Parse.XSettings.Save(Path.Combine(AppViewModel.Instance.PluginsSettingsPath, "FFXIVAPP.Plugin.Parse.xml"));
         }
 
         private void DefaultSettings()

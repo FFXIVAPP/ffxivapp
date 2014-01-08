@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -40,7 +41,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
             DefaultSettings();
             SaveSettingsNode();
             SaveEnabledPluginsNode();
-            Constants.Application.XSettings.Save(AppViewModel.Instance.SettingsPath + "ApplicationSettings.xml");
+            Constants.Application.XSettings.Save(Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml"));
         }
 
         private void DefaultSettings()

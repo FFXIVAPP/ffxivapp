@@ -52,7 +52,7 @@ namespace FFXIVAPP.Client.Converters
 
         public string AvatarCache
         {
-            get { return Path.Combine(Common.Constants.CachePath, "./Avatars/"); }
+            get { return Path.Combine(Common.Constants.CachePath, "Avatars"); }
         }
 
         /// <summary>

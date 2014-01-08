@@ -37,32 +37,32 @@ namespace FFXIVAPP.Common
 
         public static string ConfigurationsPath
         {
-            get { return Path.Combine(CachePath, "./Configurations/"); }
+            get { return Path.Combine(CachePath, "Configurations"); }
         }
 
         public static string LogsPath
         {
-            get { return Path.Combine(CachePath, "./Logs/"); }
+            get { return Path.Combine(CachePath, "Logs"); }
         }
 
         public static string ScreenShotsPath
         {
-            get { return Path.Combine(CachePath, "./ScreenShots/"); }
+            get { return Path.Combine(CachePath, "ScreenShots"); }
         }
 
         public static string SoundsPath
         {
-            get { return Path.Combine(CachePath, "./Sounds/"); }
+            get { return Path.Combine(CachePath, "Sounds"); }
         }
 
         public static string SettingsPath
         {
-            get { return Path.Combine(CachePath, "./Settings/"); }
+            get { return Path.Combine(CachePath, "Settings"); }
         }
 
         public static string PluginsSettingsPath
         {
-            get { return Path.Combine(CachePath, "./Settings/Plugins/"); }
+            get { return Path.Combine(CachePath, "Settings", "Plugins"); }
         }
 
         #endregion

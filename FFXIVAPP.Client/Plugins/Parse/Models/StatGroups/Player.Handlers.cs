@@ -66,7 +66,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     var zeroFoundInList = false;
                     var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var thunder = Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-                    var lastDamageOverTimeActionsList = ParseHelper.LastDamageByAction.GetPlayer(Name)
+                    var lastDamageOverTimeActionsList = ParseHelper.LastAmountByAction.GetPlayer(Name)
                                                                    .ToList();
                     var resolvedPotency = 80;
                     foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)
@@ -227,7 +227,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     }
                     var zeroFoundInList = false;
                     var regen = Regex.IsMatch(key, @"(リジェネ|récup|regen|whispering|murmure|erhebendes|光の囁き)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-                    var healingHistoryList = ParseHelper.LastHealingByAction.GetPlayer(Name)
+                    var healingHistoryList = ParseHelper.LastAmountByAction.GetPlayer(Name)
                                                         .ToList();
                     var resolvedPotency = 350;
                     foreach (var healingAction in healingHistoryList)

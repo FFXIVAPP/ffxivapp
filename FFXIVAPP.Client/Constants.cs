@@ -40,11 +40,19 @@ namespace FFXIVAPP.Client
         {
             get
             {
-                if (_xAutoTranslate == null)
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "AutoTranslate.xml");
+                if (_xAutoTranslate != null)
                 {
-                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/AutoTranslate.xml");
+                    return _xAutoTranslate;
+                }
+                try
+                {
                     var found = File.Exists(file);
                     _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xAutoTranslate = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
                 return _xAutoTranslate;
             }
@@ -55,11 +63,19 @@ namespace FFXIVAPP.Client
         {
             get
             {
-                if (_xChatCodes == null)
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "ChatCodes.xml");
+                if (_xChatCodes != null)
                 {
-                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/ChatCodes.xml");
+                    return _xChatCodes;
+                }
+                try
+                {
                     var found = File.Exists(file);
                     _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xChatCodes = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
                 }
                 return _xChatCodes;
             }
@@ -70,11 +86,19 @@ namespace FFXIVAPP.Client
         {
             get
             {
-                if (_xColors == null)
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Colors.xml");
+                if (_xColors != null)
                 {
-                    var file = Path.Combine(Common.Constants.CachePath, "./Configurations/Colors.xml");
+                    return _xColors;
+                }
+                try
+                {
                     var found = File.Exists(file);
                     _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xColors = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
                 }
                 return _xColors;
             }

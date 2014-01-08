@@ -209,7 +209,7 @@ namespace FFXIVAPP.Client
             {
                 foreach (var directoryPath in value)
                 {
-                    var path = String.Format("{0}{1}\\", LogsPath, directoryPath);
+                    var path = Path.Combine(LogsPath, directoryPath);
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
