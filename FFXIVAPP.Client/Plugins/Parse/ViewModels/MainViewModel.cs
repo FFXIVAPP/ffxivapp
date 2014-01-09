@@ -6,9 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -117,6 +119,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                                                   .Elements("Entry"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
+                    var xBytes = (string) xElement.Element("Bytes");
                     var xLine = (string) xElement.Element("Line");
                     var xTimeStamp = (string) xElement.Element("TimeStamp");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xLine))
@@ -125,7 +128,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                     }
                     items.Add(count, new[]
                     {
-                        xKey, xLine, xTimeStamp
+                        xKey, xLine, xTimeStamp, xBytes
                     });
                     ++count;
                 }
@@ -141,6 +144,21 @@ namespace FFXIVAPP.Client.Plugins.Parse.ViewModels
                         var timeStampColor = Settings.Default.TimeStampColor.ToString();
                         var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
                         timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
+                        if (!String.IsNullOrWhiteSpace(item.Value[3]))
+                        {
+                            try
+                            {
+                                var bytesString = item.Value[3].Split(' ');
+                                var bytes = bytesString.Select(Byte.Parse)
+                                                       .Take(8)
+                                                       .ToList();
+                                var byteString = Encoding.ASCII.GetString(bytes.ToArray());
+                                var timeOffset = Int64.Parse(byteString, NumberStyles.HexNumber);
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        }
                         var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
                         if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(chatLogEntry.Line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
                         {

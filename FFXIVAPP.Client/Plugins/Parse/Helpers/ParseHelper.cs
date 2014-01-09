@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Models;
@@ -17,7 +16,109 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
     [DoNotObfuscate]
     public static class ParseHelper
     {
-        #region LastDamage Helper Dictionaries
+        // setup pet info that comes through as "YOU"
+        private static List<string> _pets = new List<string>
+        {
+            "eos",
+            "selene",
+            "topaz carbuncle",
+            "emerald carbuncle",
+            "ifrit-egi",
+            "titan-egi",
+            "garuda-egi",
+            "amber carbuncle",
+            "carbuncle topaze",
+            "carbuncle émeraude",
+            "carbuncle ambre",
+            "topas-karfunkel",
+            "smaragd-karfunkel",
+            "bernstein-karfunkel",
+            "フェアリー・エオス",
+            "フェアリー・セレネ",
+            "カーバンクル・トパーズ",
+            "カーバンクル・エメラルド",
+            "イフリート・エギ",
+            "タイタン・エギ",
+            "ガルーダ・エギ",
+            "カーバンクル・アンバー"
+        };
+        
+        private static List<string> _healingActions;
+        
+        public static List<string> HealingActions
+        {
+            get
+            {
+                if (_healingActions == null)
+                {
+                    _healingActions = new List<string>();
+                    _healingActions.Add("内丹");
+                    _healingActions.Add("Second Wind");
+                    _healingActions.Add("Second souffle");
+                    _healingActions.Add("Chakra");
+                    _healingActions.Add("ケアル");
+                    _healingActions.Add("Cure");
+                    _healingActions.Add("Soin");
+                    _healingActions.Add("Vita");
+                    _healingActions.Add("メディカ");
+                    _healingActions.Add("Medica");
+                    _healingActions.Add("Médica");
+                    _healingActions.Add("Reseda");
+                    _healingActions.Add("ケアルガ");
+                    _healingActions.Add("Cure III");
+                    _healingActions.Add("Méga Soin");
+                    _healingActions.Add("Vitaga");
+                    _healingActions.Add("メディカラ");
+                    _healingActions.Add("Medica II");
+                    _healingActions.Add("Extra Médica");
+                    _healingActions.Add("Resedra");
+                    _healingActions.Add("ケアルラ");
+                    _healingActions.Add("Cure II");
+                    _healingActions.Add("Extra Soin");
+                    _healingActions.Add("Vitra");
+                    _healingActions.Add("鼓舞激励の策");
+                    _healingActions.Add("Adloquium");
+                    _healingActions.Add("Traité du réconfort");
+                    _healingActions.Add("Adloquium");
+                    _healingActions.Add("士気高揚の策");
+                    _healingActions.Add("Succor");
+                    _healingActions.Add("Traité du soulagement");
+                    _healingActions.Add("Kurieren");
+                    _healingActions.Add("フィジク");
+                    _healingActions.Add("Physick");
+                    _healingActions.Add("Médecine");
+                    _healingActions.Add("Physick");
+                    _healingActions.Add("光の癒し");
+                    _healingActions.Add("Embrace");
+                    _healingActions.Add("Embrassement");
+                    _healingActions.Add("Sanfte Umarmung");
+                    _healingActions.Add("光の囁き");
+                    _healingActions.Add("Whispering Dawn");
+                    _healingActions.Add("Murmure de l'aurore");
+                    _healingActions.Add("Erhebendes Flüstern");
+                    _healingActions.Add("光の癒し");
+                    _healingActions.Add("Embrace");
+                    _healingActions.Add("Embrassement");
+                    _healingActions.Add("Sanfte Umarmung");
+                    _healingActions.Add("生命活性法");
+                    _healingActions.Add("Lustrate");
+                    _healingActions.Add("Loi de revivification");
+                    _healingActions.Add("Revitalisierung");
+                    _healingActions.Add("チョコメディカ");
+                    _healingActions.Add("Choco Medica");
+                    _healingActions.Add("Choco-médica");
+                    _healingActions.Add("Chocobo-Reseda");
+                    _healingActions.Add("チョコケアル");
+                    _healingActions.Add("Choco Cure");
+                    _healingActions.Add("Choco-soin");
+                    _healingActions.Add("Chocobo-Vita");
+                }
+                return _healingActions;
+            }
+            set { _healingActions = value; }
+        }
+
+        #region LastAction Helper Dictionaries
 
         public static class LastAmountByAction
         {
@@ -124,7 +225,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
 
             public static void EnsurePlayerAction(string name, string action, decimal amount)
             {
-                EnsureMonster(name);
+                EnsurePlayer(name);
                 lock (Player)
                 {
                     Player[name].Add(new Tuple<string, decimal>(action, amount));
@@ -133,108 +234,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
         }
 
         #endregion
-
-        // setup pet info that comes through as "YOU"
-        private static List<string> _pets = new List<string>
-        {
-            "eos",
-            "selene",
-            "topaz carbuncle",
-            "emerald carbuncle",
-            "ifrit-egi",
-            "titan-egi",
-            "garuda-egi",
-            "amber carbuncle",
-            "carbuncle topaze",
-            "carbuncle émeraude",
-            "carbuncle ambre",
-            "topas-karfunkel",
-            "smaragd-karfunkel",
-            "bernstein-karfunkel",
-            "フェアリー・エオス",
-            "フェアリー・セレネ",
-            "カーバンクル・トパーズ",
-            "カーバンクル・エメラルド",
-            "イフリート・エギ",
-            "タイタン・エギ",
-            "ガルーダ・エギ",
-            "カーバンクル・アンバー"
-        };
-
-        private static List<string> _healingActions;
-
-        public static List<string> HealingActions
-        {
-            get
-            {
-                if (_healingActions == null)
-                {
-                    _healingActions = new List<string>();
-                    _healingActions.Add("内丹");
-                    _healingActions.Add("Second Wind");
-                    _healingActions.Add("Second souffle");
-                    _healingActions.Add("Chakra");
-                    _healingActions.Add("ケアル");
-                    _healingActions.Add("Cure");
-                    _healingActions.Add("Soin");
-                    _healingActions.Add("Vita");
-                    _healingActions.Add("メディカ");
-                    _healingActions.Add("Medica");
-                    _healingActions.Add("Médica");
-                    _healingActions.Add("Reseda");
-                    _healingActions.Add("ケアルガ");
-                    _healingActions.Add("Cure III");
-                    _healingActions.Add("Méga Soin");
-                    _healingActions.Add("Vitaga");
-                    _healingActions.Add("メディカラ");
-                    _healingActions.Add("Medica II");
-                    _healingActions.Add("Extra Médica");
-                    _healingActions.Add("Resedra");
-                    _healingActions.Add("ケアルラ");
-                    _healingActions.Add("Cure II");
-                    _healingActions.Add("Extra Soin");
-                    _healingActions.Add("Vitra");
-                    _healingActions.Add("鼓舞激励の策");
-                    _healingActions.Add("Adloquium");
-                    _healingActions.Add("Traité du réconfort");
-                    _healingActions.Add("Adloquium");
-                    _healingActions.Add("士気高揚の策");
-                    _healingActions.Add("Succor");
-                    _healingActions.Add("Traité du soulagement");
-                    _healingActions.Add("Kurieren");
-                    _healingActions.Add("フィジク");
-                    _healingActions.Add("Physick");
-                    _healingActions.Add("Médecine");
-                    _healingActions.Add("Physick");
-                    _healingActions.Add("光の癒し");
-                    _healingActions.Add("Embrace");
-                    _healingActions.Add("Embrassement");
-                    _healingActions.Add("Sanfte Umarmung");
-                    _healingActions.Add("光の囁き");
-                    _healingActions.Add("Whispering Dawn");
-                    _healingActions.Add("Murmure de l'aurore");
-                    _healingActions.Add("Erhebendes Flüstern");
-                    _healingActions.Add("光の癒し");
-                    _healingActions.Add("Embrace");
-                    _healingActions.Add("Embrassement");
-                    _healingActions.Add("Sanfte Umarmung");
-                    _healingActions.Add("生命活性法");
-                    _healingActions.Add("Lustrate");
-                    _healingActions.Add("Loi de revivification");
-                    _healingActions.Add("Revitalisierung");
-                    _healingActions.Add("チョコメディカ");
-                    _healingActions.Add("Choco Medica");
-                    _healingActions.Add("Choco-médica");
-                    _healingActions.Add("Chocobo-Reseda");
-                    _healingActions.Add("チョコケアル");
-                    _healingActions.Add("Choco Cure");
-                    _healingActions.Add("Choco-soin");
-                    _healingActions.Add("Chocobo-Vita");
-                }
-                return _healingActions;
-            }
-            set { _healingActions = value; }
-        }
 
         /// <summary>
         /// </summary>

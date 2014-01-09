@@ -191,6 +191,10 @@ namespace FFXIVAPP.Updater
                 DragMove();
             }
         }
+        private void CloseUpdater_OnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(0);
+        }
 
         #region Implementation of INotifyPropertyChanged
 

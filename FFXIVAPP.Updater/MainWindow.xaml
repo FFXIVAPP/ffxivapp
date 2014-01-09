@@ -194,11 +194,13 @@
                         BorderThickness="1"
                         CornerRadius="2">
                     <DockPanel LastChildFill="True">
-                        <Button Width="15"
+                        <Button x:Name="CloseUpdater"
+                                Width="15"
                                 Height="15"
                                 Margin="2"
+                                Click="CloseUpdater_OnClick"
                                 DockPanel.Dock="Right"
-                                IsEnabled="False"
+                                IsEnabled="True"
                                 Padding="0"
                                 ToolTip="Close">
                             <Path Data="M0,0 L5,5 M0,5 L5,0"

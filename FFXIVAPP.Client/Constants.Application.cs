@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client
             {
                 get
                 {
-                    var settingsFile = AppViewModel.Instance.SettingsPath + "ApplicationSettings.xml";
+                    var settingsFile = Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml");
                     if (_xSettings != null)
                     {
                         return _xSettings;

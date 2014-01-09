@@ -164,6 +164,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         Source = Name,
                         Target = statusEntry.TargetName
                     };
+                    ParseControl.Instance.Timeline.FightingRightNow = true;
+                    ParseControl.Instance.Timeline.FightingTimer.Stop();
+                    ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
@@ -177,6 +180,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                 }
             }
+            ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+            ParseControl.Instance.Timeline.FightingTimer.Start();
+            ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
         }
 
         #endregion
@@ -332,6 +338,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         line.Target = String.Format("[???] {0}", statusEntry.TargetName);
                     }
+                    switch (Settings.Default.StoreHistoryEvent)
+                    {
+                        case "Any":
+                            ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                            break;
+                    }
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
@@ -359,6 +371,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 catch (Exception ex)
                 {
                 }
+            }
+            switch (Settings.Default.StoreHistoryEvent)
+            {
+                case "Any":
+                    ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+                    break;
             }
         }
 

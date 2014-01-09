@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private NotifyIcon _notifyIcon;
-        private List<PluginInformation> _pluginInfo;
+        private ObservableCollection<PluginInformation> _pluginInfo;
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _pluginsSettingsPath;
         private List<string> _savedLogsDirectoryList;
@@ -119,9 +119,9 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public List<PluginInformation> PluginInfo
+        public ObservableCollection<PluginInformation> PluginInfo
         {
-            get { return _pluginInfo ?? (_pluginInfo = new List<PluginInformation>()); }
+            get { return _pluginInfo ?? (_pluginInfo = new ObservableCollection<PluginInformation>()); }
             set
             {
                 _pluginInfo = value;
