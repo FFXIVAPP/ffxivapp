@@ -33,8 +33,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
-        public readonly Timer StatusUpdateTimer = new Timer(1000);
         public readonly Timer IsActiveTimer = new Timer(5000);
+        public readonly Timer StatusUpdateTimer = new Timer(1000);
 
         public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesPlayers = new List<StatusEntry>();
@@ -160,7 +160,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             try
             {
-                Stats.SetOrAddStat("ParserTime", (decimal)ParseControl.Instance.EndTime.Subtract(ParseControl.Instance.StartTime)
+                Stats.SetOrAddStat("ParserTime", (decimal) ParseControl.Instance.EndTime.Subtract(ParseControl.Instance.StartTime)
                                                                        .TotalSeconds);
                 var currentActiveTime = Stats.GetStatValue("ActiveTime");
                 var currentParserTime = Stats.GetStatValue("ParserTime");

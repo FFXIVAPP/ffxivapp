@@ -419,7 +419,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
-        
+
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]

@@ -6,8 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFXIVAPP.Client.Memory;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Utilities;
+using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -24,7 +24,7 @@ namespace FFXIVAPP.Client.Utilities
 
         #region History Setters & Getters
 
-        private static List<int> SequenceHistory = new List<int>();
+        private static readonly List<int> SequenceHistory = new List<int>();
 
         public static List<DamageContainer> GetHistoryItems()
         {
@@ -34,29 +34,20 @@ namespace FFXIVAPP.Client.Utilities
             }
         }
 
-        public static void EnsureHistoryItem(ActorEntity actorEntity, IEnumerable<Structures.DamageTaken> damageTaken)
+        public static void EnsureHistoryItem(IEnumerable<DamageEntry> damageTaken)
         {
             lock (History)
             {
                 try
                 {
-                    var damageContainer = History.FirstOrDefault(h => h.NPCEntry.ID == actorEntity.ID) ?? new DamageContainer(actorEntity);
-                    foreach (var d in damageTaken)
+                    foreach (var damageEntry in damageTaken)
                     {
-                        var damageEntry = new DamageEntry
-                        {
-                            Code = d.Code,
-                            Damage = d.Damage,
-                            IsCritical = d.IsCritical == 5,
-                            SequenceID = d.SequenceID,
-                            SkillID = d.SkillID,
-                            SourceID = d.SourceID,
-                            TargetID = actorEntity.ID
-                        };
+                        var damageContainer = History.FirstOrDefault(h => h.NPCEntry.ID == damageEntry.NPCEntry.ID) ?? new DamageContainer(damageEntry.NPCEntry);
                         if (!SequenceHistory.Contains(damageEntry.SequenceID))
                         {
                             SequenceHistory.Add(damageEntry.SequenceID);
                             damageContainer.DamageEntries.Add(damageEntry);
+                            Logging.Log(Logger, JsonConvert.SerializeObject(damageEntry));
                         }
                         if (SequenceHistory.Count > 30)
                         {
@@ -90,7 +81,7 @@ namespace FFXIVAPP.Client.Utilities
                 var list = new List<DamageEntry>();
                 foreach (var damageContainer in History)
                 {
-                    list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.TargetID == id));
+                    list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.NPCEntry.ID == id));
                 }
                 return list;
             }
@@ -98,6 +89,6 @@ namespace FFXIVAPP.Client.Utilities
 
         #endregion
 
-        private static IList<DamageContainer> History = new List<DamageContainer>();
+        private static readonly IList<DamageContainer> History = new List<DamageContainer>();
     }
 }

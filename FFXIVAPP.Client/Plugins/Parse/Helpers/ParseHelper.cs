@@ -42,9 +42,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             "ガルーダ・エギ",
             "カーバンクル・アンバー"
         };
-        
+
         private static List<string> _healingActions;
-        
+
         public static List<string> HealingActions
         {
             get

@@ -4,7 +4,6 @@
 // © 2013 Ryan Wilson
 
 using System;
-using System.Runtime.Remoting;
 using System.Timers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using SmartAssembly.Attributes;
@@ -70,7 +69,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
                 FirstEventReceived = Constants.Parse.PluginSettings.TrackXPSFromParseStartEvent ? ParseControl.Instance.StartTime : DateTime.Now;
             }
             LastEventReceived = DateTime.Now;
-            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract((DateTime)FirstEventReceived)
+            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract((DateTime) FirstEventReceived)
                                                                     .TotalSeconds);
             if (value == 0 || timeDifference == 0)
             {

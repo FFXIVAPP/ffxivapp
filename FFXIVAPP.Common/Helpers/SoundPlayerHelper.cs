@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using NAudio.Wave;
 using NLog;

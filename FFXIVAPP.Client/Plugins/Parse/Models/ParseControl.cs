@@ -31,10 +31,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         #region Auto Properties
 
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public bool IsHistoryBased { get; set; }
         public bool FirstActionFound { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         #endregion
 
