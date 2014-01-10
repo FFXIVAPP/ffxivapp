@@ -23,8 +23,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 //LineHistory.Add(new LineHistory(line));
             }
+
             var fields = line.GetType()
                              .GetProperties();
+
             var abilityGroup = GetGroup("DamageTakenByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))

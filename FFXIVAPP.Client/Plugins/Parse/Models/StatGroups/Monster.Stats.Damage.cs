@@ -22,6 +22,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 //LineHistory.Add(new LineHistory(line));
             }
+
             var fields = line.GetType()
                              .GetProperties();
 

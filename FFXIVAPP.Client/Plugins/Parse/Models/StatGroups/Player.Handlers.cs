@@ -180,7 +180,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                 }
             }
-            ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
             ParseControl.Instance.Timeline.FightingTimer.Start();
             ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
         }
@@ -338,6 +337,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         line.Target = String.Format("[???] {0}", statusEntry.TargetName);
                     }
+                    ParseControl.Instance.Timeline.FightingRightNow = true;
+                    ParseControl.Instance.Timeline.FightingTimer.Stop();
                     switch (Settings.Default.StoreHistoryEvent)
                     {
                         case "Any":
@@ -372,6 +373,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                 }
             }
+            ParseControl.Instance.Timeline.FightingTimer.Start();
             switch (Settings.Default.StoreHistoryEvent)
             {
                 case "Any":

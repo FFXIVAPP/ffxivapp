@@ -34,6 +34,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         };
 
         public readonly Timer StatusUpdateTimer = new Timer(1000);
+        public readonly Timer IsActiveTimer = new Timer(5000);
 
         public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
         public List<StatusEntry> StatusEntriesPlayers = new List<StatusEntry>();
@@ -46,10 +47,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             InitStats();
             LineHistory = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
-            if (!Controller.IsHistoryBased)
+            IsActiveTimer.Elapsed += IsActiveTimerOnElapsed;
+            if (Controller.IsHistoryBased)
             {
-                StatusUpdateTimer.Start();
+                return;
             }
+            StatusUpdateTimer.Start();
         }
 
         public bool StatusUpdateTimerProcessing { get; set; }
@@ -153,6 +156,29 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             StatusUpdateTimerProcessing = false;
         }
 
+        private void IsActiveTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            try
+            {
+                Stats.SetOrAddStat("ParserTime", (decimal)ParseControl.Instance.EndTime.Subtract(ParseControl.Instance.StartTime)
+                                                                       .TotalSeconds);
+                var currentActiveTime = Stats.GetStatValue("ActiveTime");
+                var currentParserTime = Stats.GetStatValue("ParserTime");
+                if (currentActiveTime + 5 > currentParserTime)
+                {
+                    Stats.SetOrAddStat("ActiveTime", currentParserTime);
+                }
+                else
+                {
+                    Stats.IncrementStat("ActiveTime", 5);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            IsActiveTimer.Stop();
+        }
+
         private void InitStats()
         {
             Stats.AddStats(TotalStatList());
@@ -211,6 +237,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], ((TotalStat) oStats["TotalOverallDamageTaken"])));
             stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], ((TotalStat) oStats["RegularDamageTaken"])));
             stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], ((TotalStat) oStats["CriticalDamageTaken"])));
+
+            stats.Add("ActiveTime", new TotalStat("ActiveTime"));
+            stats.Add("ParserTime", new TotalStat("ParserTime"));
+            stats.Add("ActivePercent", new PercentStat("ActivePercent", stats["ActiveTime"], stats["ParserTime"]));
 
             return stats.Select(s => s.Value)
                         .ToList();

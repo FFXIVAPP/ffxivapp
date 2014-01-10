@@ -33,7 +33,25 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
         {
             if (!ParseControl.Instance.FirstActionFound)
             {
-                ParseControl.Instance.Reset();
+                if (Constants.Parse.PluginSettings.TrackXPSFromParseStartEvent)
+                {
+                    switch (Settings.Default.StoreHistoryEvent)
+                    {
+                        case "Any":
+                            ParseControl.Instance.Reset();
+                            break;
+                        case "Damage Only":
+                            if (e.Type == EventType.Damage)
+                            {
+                                ParseControl.Instance.Reset();
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    ParseControl.Instance.Reset();
+                }
             }
 
             _lastEventYou = _lastEventYou ?? new Event();
@@ -60,10 +78,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     break;
             }
 
-            if (e.Type == EventType.Damage)
+            switch (e.Type)
             {
-                ParseControl.Instance.Timeline.FightingRightNow = true;
-                ParseControl.Instance.Timeline.FightingTimer.Stop();
+                case EventType.Damage:
+                case EventType.Cure:
+                    ParseControl.Instance.Timeline.FightingRightNow = true;
+                    ParseControl.Instance.Timeline.FightingTimer.Stop();
+                    break;
             }
 
             switch (e.Type)
@@ -126,9 +147,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     break;
             }
 
-            if (e.Type == EventType.Damage)
+            switch (e.Type)
             {
-                ParseControl.Instance.Timeline.FightingTimer.Start();
+                case EventType.Damage:
+                case EventType.Cure:
+                    ParseControl.Instance.Timeline.FightingTimer.Start();
+                    break;
             }
         }
     }

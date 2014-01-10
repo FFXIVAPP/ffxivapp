@@ -27,6 +27,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 //LineHistory.Add(new LineHistory(line));
             }
 
+            IsActiveTimer.Start();
+
             var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
             if (currentHealing > 0)
             {

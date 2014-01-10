@@ -32,6 +32,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
         #region Auto Properties
 
         public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public bool IsHistoryBased { get; set; }
         public bool FirstActionFound { get; set; }
 
@@ -39,7 +40,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         #region Declarations
 
-        private Timer ParseEntityTimer = new Timer(100);
+        private readonly Timer _parseEntityTimer = new Timer(100);
         private ParseEntity LastParseEntity { get; set; }
 
         #endregion
@@ -55,14 +56,15 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             {
                 return;
             }
-            ParseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
-            ParseEntityTimer.Start();
+            _parseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
+            _parseEntityTimer.Start();
         }
 
         private bool ParseEntityTimerProcessing { get; set; }
 
         private void ParseEntityTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
+            EndTime = DateTime.Now;
             try
             {
                 if (ParseEntityTimerProcessing)
@@ -185,12 +187,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
 
         public void Reset()
         {
-            ParseEntityTimer.Stop();
-            ParseEntityTimer.Elapsed -= ParseEntityTimerOnElapsed;
+            _parseEntityTimer.Stop();
+            _parseEntityTimer.Elapsed -= ParseEntityTimerOnElapsed;
             if (!FirstActionFound)
             {
-                FirstActionFound = true;
                 StartTime = DateTime.Now;
+                FirstActionFound = true;
             }
             else
             {
@@ -208,8 +210,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models
             {
                 return;
             }
-            ParseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
-            ParseEntityTimer.Start();
+            _parseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
+            _parseEntityTimer.Start();
         }
 
         #endregion

@@ -270,15 +270,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         /// <returns> </returns>
         public Monster GetSetMonster(string monsterName)
         {
-            StatGroup statGroup = null;
-            if (Monster.TryGetGroup(monsterName, out statGroup))
+            if (!Monster.HasGroup(monsterName))
             {
-                return (Monster) statGroup;
+                Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
+                Monster.AddGroup(new Monster(monsterName, Controller));
             }
-            statGroup = new Monster(monsterName, Controller);
-            Monster.AddGroup(statGroup);
-            Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for monster : {0}", monsterName));
-            return (Monster) statGroup;
+            var monster = (Monster) Monster.GetGroup(monsterName);
+            return monster;
         }
 
         /// <summary>
@@ -287,15 +285,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         /// <returns> </returns>
         public Player GetSetPlayer(string playerName)
         {
-            StatGroup statGroup = null;
-            if (Party.TryGetGroup(playerName, out statGroup))
+            if (!Party.HasGroup(playerName))
             {
-                return (Player) statGroup;
+                Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
+                Party.AddGroup(new Player(playerName, Controller));
             }
-            statGroup = new Player(playerName, Controller);
-            Party.AddGroup(statGroup);
-            Logging.Log(Logger, String.Format("StatEvent : Adding new stat group for player : {0}", playerName));
-            return (Player) statGroup;
+            var player = (Player) Party.GetGroup(playerName);
+            return player;
         }
 
         /// <summary>
@@ -382,6 +378,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.Timelines
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
+            stats.Add("TotalOverallActiveTime", new TotalStat("TotalOverallActiveTime"));
             stats.Add("TotalOverallDamage", new TotalStat("TotalOverallDamage"));
             stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
             stats.Add("StaticPlayerDPS", new TotalStat("StaticPlayerDPS"));

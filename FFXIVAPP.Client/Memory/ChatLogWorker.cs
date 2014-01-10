@@ -48,7 +48,7 @@ namespace FFXIVAPP.Client.Memory
 
         public ChatLogWorker()
         {
-            _scanTimer = new Timer(10);
+            _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 

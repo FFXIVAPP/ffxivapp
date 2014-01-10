@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using NLog;
@@ -39,7 +40,7 @@ namespace FFXIVAPP.Client.Memory
 
         public MonsterWorker()
         {
-            _scanTimer = new Timer(100);
+            _scanTimer = new Timer(25);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -127,6 +128,34 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                     }
                                 }
+                                //var damageEntries = new List<Structures.DamageTaken>();
+                                //try
+                                //{
+                                //    var source = MemoryHandler.Instance.GetByteArray(characterAddress + 0x32C0, 0xBB8);
+                                //    for (uint d = 0; d < 30; d++)
+                                //    {
+                                //        var data = new byte[100];
+                                //        var index = d * 100;
+                                //        Array.Copy(source, index, data, 0, 100);
+                                //        var damageEntry = new Structures.DamageTaken
+                                //        {
+                                //            Code = BitConverter.ToInt32(data, 0),
+                                //            SequenceID = BitConverter.ToInt32(data, 4),
+                                //            SkillID = BitConverter.ToInt32(data, 12),
+                                //            SourceID = BitConverter.ToUInt32(data, 20),
+                                //            IsCritical = data[66],
+                                //            Damage = BitConverter.ToInt16(data, 70)
+                                //        };
+                                //        if (damageEntry.SequenceID == 0 || damageEntry.SkillID <= 7 || damageEntry.SourceID == 0)
+                                //        {
+                                //            continue;
+                                //        }
+                                //        damageEntries.Add(damageEntry);
+                                //    }
+                                //}
+                                //catch (Exception ex)
+                                //{
+                                //}
                                 if (!entry.IsValid)
                                 {
                                     continue;
@@ -144,6 +173,13 @@ namespace FFXIVAPP.Client.Memory
                                         break;
                                     default:
                                         npcEntries.Add(entry);
+                                        break;
+                                }
+                                switch (entry.Type)
+                                {
+                                    case Actor.Type.Monster:
+                                    case Actor.Type.PC:
+                                        //DamageTracker.EnsureHistoryItem(entry, damageEntries);
                                         break;
                                 }
                             }

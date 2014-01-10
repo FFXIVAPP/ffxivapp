@@ -42,7 +42,7 @@ namespace FFXIVAPP.Client.Memory
 
         public PlayerInfoWorker()
         {
-            _scanTimer = new Timer(100);
+            _scanTimer = new Timer(500);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 

@@ -4,6 +4,8 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Runtime.Remoting;
+using System.Timers;
 using FFXIVAPP.Client.Plugins.Parse.Models.Stats;
 using SmartAssembly.Attributes;
 
@@ -25,8 +27,11 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
         {
         }
 
+        public Timer UpdateTimer { get; set; }
+
         private DateTime? FirstEventReceived { get; set; }
         private DateTime LastEventReceived { get; set; }
+        private decimal LastTimeDifference { get; set; }
 
         /// <summary>
         /// </summary>
@@ -34,6 +39,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
         private void SetupDepends(Stat<decimal> dependency)
         {
             AddDependency(dependency);
+            UpdateTimer = new Timer(1000);
+            UpdateTimer.Elapsed += UpdateTimerOnElapsed;
+            UpdateTimer.Start();
+        }
+
+        private void UpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            if (ParseControl.Instance.Timeline.FightingRightNow)
+            {
+                var originalValue = Value * LastTimeDifference;
+                UpdateDPSTick(originalValue);
+            }
         }
 
         /// <summary>
@@ -43,19 +60,24 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.LinkedStats
         /// <param name="newValue"> </param>
         public override void DoDependencyValueChanged(object sender, object previousValue, object newValue)
         {
-            var oValue = (decimal) previousValue;
-            var nValue = (decimal) newValue;
+            UpdateDPSTick((decimal) newValue);
+        }
+
+        private void UpdateDPSTick(decimal value)
+        {
             if (FirstEventReceived == default(DateTime) || FirstEventReceived == null)
             {
                 FirstEventReceived = Constants.Parse.PluginSettings.TrackXPSFromParseStartEvent ? ParseControl.Instance.StartTime : DateTime.Now;
             }
             LastEventReceived = DateTime.Now;
-            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract((DateTime) FirstEventReceived)
+            var timeDifference = Convert.ToDecimal(LastEventReceived.Subtract((DateTime)FirstEventReceived)
                                                                     .TotalSeconds);
-            if (timeDifference >= 1)
+            if (value == 0 || timeDifference == 0)
             {
-                Value = nValue / timeDifference;
+                return;
             }
+            LastTimeDifference = timeDifference;
+            Value = value / timeDifference;
         }
     }
 }

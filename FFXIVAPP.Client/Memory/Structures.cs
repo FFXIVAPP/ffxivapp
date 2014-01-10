@@ -233,6 +233,29 @@ namespace FFXIVAPP.Client.Memory
         }
 
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
+        public struct DamageTaken
+        {
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x0)]
+            public int Code;
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x4)]
+            public int SequenceID;
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0xC)]
+            public int SkillID;
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x14)]
+            public uint SourceID;
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(0x42)]
+            public byte IsCritical;
+            [MarshalAs(UnmanagedType.I2)]
+            [FieldOffset(0x46)]
+            public int Damage;
+        }
+
+        [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct PartyMember
         {
             [MarshalAs(UnmanagedType.R4)]

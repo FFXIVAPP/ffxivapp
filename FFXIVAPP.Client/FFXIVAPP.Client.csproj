@@ -329,6 +329,9 @@
     <Compile Include="Plugins\Parse\Utilities\Filter.Detrimental.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Failed.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Items.cs" />
+    <Compile Include="Utilities\DamageContainer.cs" />
+    <Compile Include="Utilities\DamageEntry.cs" />
+    <Compile Include="Utilities\DamageTracker.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="Utilities\LogPublisher.Parse.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />

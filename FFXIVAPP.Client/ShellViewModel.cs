@@ -75,7 +75,7 @@ namespace FFXIVAPP.Client
             try
             {
                 var date = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_");
-                var fileName = String.Format("{0}{1}.jpg", AppViewModel.Instance.ScreenShotsPath, date);
+                var fileName = Path.Combine(AppViewModel.Instance.ScreenShotsPath, String.Format("{0}.jpg", date));
                 var screenShot = ScreenCapture.GetJpgImage(ShellView.View, 1, 100);
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 using (var stream = new BinaryWriter(fileStream))
