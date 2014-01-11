@@ -413,14 +413,14 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
-                    ParseControl.Instance.Timeline.FightingRightNow = true;
-                    ParseControl.Instance.Timeline.FightingTimer.Stop();
-                    switch (Settings.Default.StoreHistoryEvent)
-                    {
-                        case "Any":
-                            ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
-                            break;
-                    }
+                    //ParseControl.Instance.Timeline.FightingRightNow = true;
+                    //ParseControl.Instance.Timeline.FightingTimer.Stop();
+                    //switch (Settings.Default.StoreHistoryEvent)
+                    //{
+                    //    case "Any":
+                    //        ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                    //        break;
+                    //}
                     var line = new Line
                     {
                         Action = statusKey,
@@ -454,13 +454,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                 }
             }
-            ParseControl.Instance.Timeline.FightingTimer.Start();
-            switch (Settings.Default.StoreHistoryEvent)
-            {
-                case "Any":
-                    ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
-                    break;
-            }
+            //ParseControl.Instance.Timeline.FightingTimer.Start();
+            //switch (Settings.Default.StoreHistoryEvent)
+            //{
+            //    case "Any":
+            //        ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+            //        break;
+            //}
         }
 
         #endregion

@@ -7,11 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client
@@ -48,10 +45,7 @@ namespace FFXIVAPP.Client
         public static Dictionary<string, ActionInfo> Actions
         {
             get { return _actions ?? (_actions = new Dictionary<string, ActionInfo>()); }
-            set
-            {
-                _actions = value;
-            }  
+            set { _actions = value; }
         }
 
         public static Dictionary<string, string> AutoTranslate

@@ -34,7 +34,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         };
 
         public readonly Timer IsActiveTimer = new Timer(5000);
-        public bool HadAction { get; set; }
         public readonly Timer StatusUpdateTimer = new Timer(1000);
 
         public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
@@ -56,6 +55,8 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             StatusUpdateTimer.Start();
             IsActiveTimer.Start();
         }
+
+        public bool HadAction { get; set; }
 
         public bool StatusUpdateTimerProcessing { get; set; }
 

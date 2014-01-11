@@ -14,7 +14,6 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
-using FFXIVAPP.Common.Utilities;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -126,8 +125,6 @@ namespace FFXIVAPP.Client.Memory
                                 sourceData.Add(MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40));
                             }
 
-                            //HandleIncomingActions(sourceData);
-
                             #region ActorEntity Handlers
 
                             var monsterEntries = new List<ActorEntity>();
@@ -148,7 +145,7 @@ namespace FFXIVAPP.Client.Memory
                                     if (targetAddress > 0)
                                     {
                                         var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                        entry.TargetID = (int)targetInfo.CurrentTargetID;
+                                        entry.TargetID = (int) targetInfo.CurrentTargetID;
                                     }
                                 }
                                 if (!entry.IsValid)
@@ -195,61 +192,6 @@ namespace FFXIVAPP.Client.Memory
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
-        }
-
-        #endregion
-
-        #region Incoming Action Processing
-
-        private void HandleIncomingActions(IEnumerable<byte[]> sourceData)
-        {
-            foreach (var source in sourceData)
-            {
-                var targetID = BitConverter.ToUInt32(source, 0x74);
-                var type = (Actor.Type)source[0x8A];
-                // process only damage entries
-                switch (type)
-                {
-                    case Actor.Type.Monster:
-                    case Actor.Type.PC:
-                        var damageEntries = new List<DamageEntry>();
-                        try
-                        {
-                            var damageSource = new byte[0xBB8];
-                            Buffer.BlockCopy(source, 0x32C0, damageSource, 0, 0xBB8);
-                            //var damageSource = actor.IncomingActions;
-                            for (uint d = 0; d < 30; d++)
-                            {
-                                var damageItem = new byte[100];
-                                var index = d * 100;
-                                Array.Copy(damageSource, index, damageItem, 0, 100);
-                                var damageEntry = new DamageEntry
-                                {
-                                    Code = BitConverter.ToInt32(damageItem, 0),
-                                    SequenceID = BitConverter.ToInt32(damageItem, 4),
-                                    SkillID = BitConverter.ToInt32(damageItem, 12),
-                                    SourceID = BitConverter.ToUInt32(damageItem, 20),
-                                    Type = damageItem[66],
-                                    Amount = BitConverter.ToInt16(damageItem, 70),
-                                    TargetID = targetID
-                                };
-                                if (damageEntry.SequenceID == 0 || damageEntry.SourceID == 0)
-                                {
-                                    continue;
-                                }
-                                damageEntries.Add(damageEntry);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                        if (damageEntries.Any())
-                        {
-                            DamageTracker.EnsureHistoryItem(damageEntries);
-                        }
-                        break;
-                }
-            }
         }
 
         #endregion

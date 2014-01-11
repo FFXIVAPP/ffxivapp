@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using NLog;
 using SmartAssembly.Attributes;
@@ -115,16 +116,45 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             entry.HPMax = 1;
                                         }
-                                        foreach (var statusEntry in actor.Statuses.Select(status => new StatusEntry
+                                        foreach (var status in actor.Statuses)
                                         {
-                                            TargetName = entry.Name,
-                                            StatusID = status.StatusID,
-                                            Duration = status.Duration,
-                                            CasterID = status.CasterID
-                                        })
-                                                                         .Where(statusEntry => statusEntry.IsValid()))
-                                        {
-                                            entry.StatusEntries.Add(statusEntry);
+                                            var statusEntry = new StatusEntry
+                                            {
+                                                TargetName = entry.Name,
+                                                StatusID = status.StatusID,
+                                                Duration = status.Duration,
+                                                CasterID = status.CasterID
+                                            };
+                                            try
+                                            {
+                                                var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                                                statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                                                var statusKey = "";
+                                                switch (Settings.Default.GameLanguage)
+                                                {
+                                                    case "English":
+                                                        statusKey = statusInfo.Name.English;
+                                                        break;
+                                                    case "French":
+                                                        statusKey = statusInfo.Name.French;
+                                                        break;
+                                                    case "German":
+                                                        statusKey = statusInfo.Name.German;
+                                                        break;
+                                                    case "Japanese":
+                                                        statusKey = statusInfo.Name.Japanese;
+                                                        break;
+                                                }
+                                                statusEntry.StatusName = statusKey;
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                statusEntry.StatusName = "UNKNOWN";
+                                            }
+                                            if (statusEntry.IsValid())
+                                            {
+                                                entry.StatusEntries.Add(statusEntry);
+                                            }
                                         }
                                         if (entry.IsValid)
                                         {

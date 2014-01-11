@@ -1,17 +1,18 @@
 ﻿// FFXIVAPP.Client
-// DamageEntry.cs
+// IncomingActionEntry.cs
 // 
 // © 2013 Ryan Wilson
 
 using System;
 using System.Globalization;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
 {
     [DoNotObfuscate]
-    public class DamageEntry
+    public class IncomingActionEntry
     {
         #region Memory Array Items
 
@@ -54,10 +55,7 @@ namespace FFXIVAPP.Client.Utilities
         }
 
         public uint TargetID { get; set; }
-
-        public bool IsCritical
-        {
-            get { return Type == 5; }
-        }
+        public string TargetName { get; set; }
+        public Actor.Type TargetType { get; set; }
     }
 }

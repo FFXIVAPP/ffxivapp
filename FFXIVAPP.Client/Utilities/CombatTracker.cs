@@ -6,15 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFXIVAPP.Common.Utilities;
-using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
 {
     [DoNotObfuscate]
-    public static class DamageTracker
+    public static class CombatTracker
     {
         #region Logger
 
@@ -34,7 +32,7 @@ namespace FFXIVAPP.Client.Utilities
             }
         }
 
-        public static void EnsureHistoryItem(IEnumerable<DamageEntry> damageTaken)
+        public static void EnsureHistoryItem(IEnumerable<IncomingActionEntry> damageTaken)
         {
             lock (History)
             {
@@ -47,7 +45,6 @@ namespace FFXIVAPP.Client.Utilities
                         {
                             SequenceHistory.Add(damageEntry.SequenceID);
                             damageContainer.DamageEntries.Add(damageEntry);
-                            Logging.Log(Logger, JsonConvert.SerializeObject(damageEntry));
                         }
                         if (SequenceHistory.Count > 30)
                         {
@@ -61,11 +58,11 @@ namespace FFXIVAPP.Client.Utilities
             }
         }
 
-        public static List<DamageEntry> GetHistoryItemsBySourceID(uint id)
+        public static List<IncomingActionEntry> GetHistoryItemsBySourceID(uint id)
         {
             lock (History)
             {
-                var list = new List<DamageEntry>();
+                var list = new List<IncomingActionEntry>();
                 foreach (var damageContainer in History)
                 {
                     list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.SourceID == id));
@@ -74,11 +71,11 @@ namespace FFXIVAPP.Client.Utilities
             }
         }
 
-        public static List<DamageEntry> GetHistoryItemsByTargetID(uint id)
+        public static List<IncomingActionEntry> GetHistoryItemsByTargetID(uint id)
         {
             lock (History)
             {
-                var list = new List<DamageEntry>();
+                var list = new List<IncomingActionEntry>();
                 foreach (var damageContainer in History)
                 {
                     list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.TargetID == id));

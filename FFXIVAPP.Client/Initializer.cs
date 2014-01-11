@@ -38,6 +38,7 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
+        private static ActionWorker _actionWorker;
         private static ChatLogWorker _chatLogWorker;
         private static MonsterWorker _monsterWorker;
         private static NPCWorker _npcWorker;
@@ -630,6 +631,8 @@ namespace FFXIVAPP.Client
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
+            //_actionWorker = new ActionWorker();
+            //_actionWorker.StartScanning();
             _monsterWorker = new MonsterWorker();
             _monsterWorker.StartScanning();
             _npcWorker = new NPCWorker();
@@ -671,6 +674,11 @@ namespace FFXIVAPP.Client
                 _chatLogWorker.StopScanning();
                 _chatLogWorker.Dispose();
             }
+            //if (_actionWorker != null)
+            //{
+            //    _actionWorker.StopScanning();
+            //    _actionWorker.Dispose();
+            //}
             if (_monsterWorker != null)
             {
                 _monsterWorker.StopScanning();

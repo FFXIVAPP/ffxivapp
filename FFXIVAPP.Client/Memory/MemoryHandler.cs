@@ -295,6 +295,20 @@ namespace FFXIVAPP.Client.Memory
             return BitConverter.ToUInt32(value, 0);
         }
 
+        public int ReadInt32(IntPtr address, int offset = 0)
+        {
+            var value = new byte[4];
+            Peek((uint)(address + offset), value);
+            return BitConverter.ToInt32(value, 0);
+        }
+
+        public IntPtr ReadPointer(IntPtr address, int offset = 0)
+        {
+            var value = new byte[4];
+            Peek((uint) (address + offset), value);
+            return IntPtr.Add(IntPtr.Zero, BitConverter.ToInt32(value, 0));
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="address"></param>
@@ -334,7 +348,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 fixed (byte* p = &source[0])
                 {
-                    return (T)Marshal.PtrToStructure(new IntPtr(p), typeof(T));
+                    return (T) Marshal.PtrToStructure(new IntPtr(p), typeof (T));
                 }
             }
         }

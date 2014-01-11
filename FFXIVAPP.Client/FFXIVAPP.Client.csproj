@@ -146,6 +146,7 @@
     <Compile Include="Helpers\StatusLocalization.cs" />
     <Compile Include="Helpers\ZoneHelper.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Memory\ActionWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
@@ -331,6 +332,7 @@
     <Compile Include="SettingsProviders\Application\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
+    <Compile Include="Utilities\CombatEntry.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Actions.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Beneficial.cs" />
@@ -340,11 +342,15 @@
     <Compile Include="Plugins\Parse\Utilities\Filter.Detrimental.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Failed.cs" />
     <Compile Include="Plugins\Parse\Utilities\Filter.Items.cs" />
-    <Compile Include="Utilities\DamageContainer.cs" />
-    <Compile Include="Utilities\DamageEntry.cs" />
-    <Compile Include="Utilities\DamageTracker.cs" />
+    <Compile Include="Utilities\CombatContainer.cs" />
+    <Compile Include="Utilities\IncomingEntry.cs" />
+    <Compile Include="Utilities\IncomingActionEntry.cs" />
+    <Compile Include="Utilities\CombatTracker.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="Utilities\LogPublisher.Parse.cs" />
+    <Compile Include="Utilities\MicroStopwatch.cs" />
+    <Compile Include="Utilities\MicroTimer.cs" />
+    <Compile Include="Utilities\MicroTimerEventArgs.cs" />
     <Compile Include="Utilities\ThemeManager.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Plugins\Parse\ViewModels\AboutViewModel.cs" />
