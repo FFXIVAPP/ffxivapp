@@ -3,7 +3,9 @@
 // 
 // © 2013 Ryan Wilson
 
-using FFXIVAPP.Common.Core.Memory;
+using System;
+using System.Globalization;
+using FFXIVAPP.Client.Properties;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities
@@ -22,7 +24,36 @@ namespace FFXIVAPP.Client.Utilities
 
         #endregion
 
-        public ActorEntity NPCEntry { get; set; }
+        public string SkillName
+        {
+            get
+            {
+                var key = SkillID.ToString(CultureInfo.InvariantCulture);
+                try
+                {
+                    if (Constants.Actions.ContainsKey(key))
+                    {
+                        switch (Settings.Default.GameLanguage)
+                        {
+                            case "English":
+                                return Constants.Actions[key].EN;
+                            case "French":
+                                return Constants.Actions[key].FR;
+                            case "Japanese":
+                                return Constants.Actions[key].JA;
+                            case "German":
+                                return Constants.Actions[key].DE;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                return "UNKNOWN";
+            }
+        }
+
+        public uint TargetID { get; set; }
 
         public bool IsCritical
         {

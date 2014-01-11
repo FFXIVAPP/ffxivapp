@@ -61,9 +61,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadChatCodes()
         {
-            if (Constants.XChatCodes != null)
+            if (Constants.Client.XChatCodes != null)
             {
-                foreach (var xElement in Constants.XChatCodes.Descendants()
+                foreach (var xElement in Constants.Client.XChatCodes.Descendants()
                                                   .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -79,11 +79,48 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
+        public static void LoadActions()
+        {
+            if (Constants.Client.XActions != null)
+            {
+                foreach (var xElement in Constants.Client.XActions.Descendants()
+                                                  .Elements("Action"))
+                {
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xJA = (string) xElement.Element("JA");
+                    var xEN = (string) xElement.Element("EN");
+                    var xFR = (string) xElement.Element("FR");
+                    var xDE = (string) xElement.Element("DE");
+                    var xJA_HelpLabel = (string) xElement.Element("JA_HelpLabel");
+                    var xEN_HelpLabel = (string) xElement.Element("EN_HelpLabel");
+                    var xFR_HelpLabel = (string) xElement.Element("FR_HelpLabel");
+                    var xDE_HelpLabel = (string) xElement.Element("DE_HelpLabel");
+                    if (String.IsNullOrWhiteSpace(xKey) || Constants.Actions.ContainsKey(xKey))
+                    {
+                        continue;
+                    }
+                    Constants.Actions.Add(xKey, new ActionInfo
+                    {
+                        JA = xJA,
+                        EN = xEN,
+                        FR = xFR,
+                        DE = xDE,
+                        JA_HelpLabel = xJA_HelpLabel,
+                        EN_HelpLabel = xEN_HelpLabel,
+                        FR_HelpLabel = xFR_HelpLabel,
+                        DE_HelpLabel = xDE_HelpLabel,
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// </summary>
         public static void LoadAutoTranslate()
         {
-            if (Constants.XAutoTranslate != null)
+            if (Constants.Client.XAutoTranslate != null)
             {
-                foreach (var xElement in Constants.XAutoTranslate.Descendants()
+                foreach (var xElement in Constants.Client.XAutoTranslate.Descendants()
                                                   .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -101,9 +138,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadColors()
         {
-            if (Constants.XColors != null)
+            if (Constants.Client.XColors != null)
             {
-                foreach (var xElement in Constants.XColors.Descendants()
+                foreach (var xElement in Constants.Client.XColors.Descendants()
                                                   .Elements("Color"))
                 {
                     var xKey = (string) xElement.Attribute("Key");

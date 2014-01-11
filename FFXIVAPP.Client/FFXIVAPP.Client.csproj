@@ -52,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SmartAssembly|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -62,6 +63,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>FFXIVAPP.Client.App</StartupObject>
@@ -147,9 +149,13 @@
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
+    <Compile Include="Models\ActionInfo.cs" />
     <Compile Include="Models\PluginInfo.cs" />
     <Compile Include="Plugins\Parse\Controls\BasicDisplaySettings.xaml.cs">
       <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Controls\BuffDataGrid.xaml.cs">
+      <DependentUpon>BuffDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Parse\Controls\ColumnDisplaySettings.xaml.cs">
       <DependentUpon>ColumnDisplaySettings.xaml</DependentUpon>
@@ -227,6 +233,7 @@
     <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
+    <Compile Include="Plugins\Parse\Models\StatGroups\Player.Stats.Buffs.cs" />
     <Compile Include="Plugins\Parse\Models\XOverTimeAction.cs" />
     <Compile Include="Plugins\Parse\Models\Events\Event.cs" />
     <Compile Include="Plugins\Parse\Models\Events\EventCode.cs" />
@@ -291,6 +298,7 @@
     <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyDamageTakenViewModel.cs" />
     <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyDamageViewModel.cs" />
     <Compile Include="Plugins\Parse\ViewModels\History\ParsePartyHealingViewModel.cs" />
+    <Compile Include="Plugins\Parse\ViewModels\ParsePartyBuffViewModel.cs" />
     <Compile Include="Plugins\Parse\Views\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
@@ -311,6 +319,9 @@
     </Compile>
     <Compile Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml.cs">
       <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Parse\Views\ParsePartyBuffView.xaml.cs">
+      <DependentUpon>ParsePartyBuffView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
@@ -411,6 +422,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Plugins\Parse\Controls\BuffDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Plugins\Parse\Controls\ColumnDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -460,6 +475,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugins\Parse\Views\History\ParsePartyHealingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Plugins\Parse\Views\ParsePartyBuffView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -541,6 +560,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Actions.xml" />
     <Resource Include="Resources\Media\Icons\Parse.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />
     <Resource Include="Resources\Media\Images\Save.png" />

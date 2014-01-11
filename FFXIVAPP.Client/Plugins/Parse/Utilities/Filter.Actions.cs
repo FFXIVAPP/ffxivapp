@@ -177,7 +177,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                     line.Source = Convert.ToString(actions.Groups["source"].Value);
                 }
                 var isHealingSkill = false;
-                ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
+                var player = ParseControl.Instance.Timeline.GetSetPlayer(line.Source);
                 var action = StringHelper.TitleCase(Convert.ToString(actions.Groups["action"].Value));
                 foreach (var healingAction in ParseHelper.HealingActions.Where(healingAction => String.Equals(healingAction, action, Constants.InvariantComparer)))
                 {
@@ -269,6 +269,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 {
                     return;
                 }
+                player.HadAction = true;
                 try
                 {
                     var players = PCWorkerDelegate.GetNPCEntities();

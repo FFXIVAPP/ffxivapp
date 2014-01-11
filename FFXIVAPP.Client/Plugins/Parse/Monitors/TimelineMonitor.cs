@@ -268,7 +268,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
             //var join = Regex.Match("ph", @"^\.$");
             //var disband = Regex.Match("ph", @"^\.$");
             //var left = Regex.Match("ph", @"^\.$");
-            //switch (Common.Constants.GameLanguage)
+            //switch (Common.Constants.Client.GameLanguage)
             //{
             //    case "French":
             //        join = PlayerRegEx.JoinFr.Match(line);

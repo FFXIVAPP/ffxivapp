@@ -34,6 +34,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         };
 
         public readonly Timer IsActiveTimer = new Timer(5000);
+        public bool HadAction { get; set; }
         public readonly Timer StatusUpdateTimer = new Timer(1000);
 
         public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
@@ -53,6 +54,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 return;
             }
             StatusUpdateTimer.Start();
+            IsActiveTimer.Start();
         }
 
         public bool StatusUpdateTimerProcessing { get; set; }
@@ -152,6 +154,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             if (StatusEntriesPlayers.Any())
             {
                 ProcessHealingOverTime(StatusEntriesPlayers);
+                ProcessBuffs(StatusEntriesPlayers);
             }
             StatusUpdateTimerProcessing = false;
         }
@@ -160,23 +163,31 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             try
             {
-                Stats.SetOrAddStat("ParserTime", (decimal) ParseControl.Instance.EndTime.Subtract(ParseControl.Instance.StartTime)
-                                                                       .TotalSeconds);
-                var currentActiveTime = Stats.GetStatValue("ActiveTime");
-                var currentParserTime = Stats.GetStatValue("ParserTime");
-                if (currentActiveTime + 5 > currentParserTime)
+                if (Controller.Timeline.FightingRightNow)
                 {
-                    Stats.SetOrAddStat("ActiveTime", currentParserTime);
+                    Stats.GetStat("TotalParserTime")
+                         .Value = Convert.ToDecimal(Controller.EndTime.Subtract(Controller.StartTime)
+                                                              .TotalSeconds);
+                    if (!HadAction)
+                    {
+                        return;
+                    }
+                    var activeTime = Stats.GetStat("TotalActiveTime");
+                    var parserTime = Stats.GetStat("TotalParserTime");
+                    if (activeTime.Value + 5 > parserTime.Value)
+                    {
+                        activeTime.Value = parserTime.Value;
+                    }
+                    else
+                    {
+                        activeTime.Value += 5;
+                    }
                 }
-                else
-                {
-                    Stats.IncrementStat("ActiveTime", 5);
-                }
+                HadAction = false;
             }
             catch (Exception ex)
             {
             }
-            IsActiveTimer.Stop();
         }
 
         private void InitStats()
@@ -190,6 +201,9 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         private static IEnumerable<Stat<decimal>> TotalStatList()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
+
+            stats.Add("TotalActiveTime", new TotalStat("TotalActiveTime"));
+            stats.Add("TotalParserTime", new TotalStat("TotalParserTime"));
 
             //setup player ability stats
             var damageStats = DamageStats();
@@ -210,6 +224,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             foreach (var damageTakenStat in damageTakenStats)
             {
                 stats.Add(damageTakenStat.Key, damageTakenStat.Value);
+            }
+
+            //setup player buff stats
+            var buffStats = BuffStats();
+            foreach (var buffStat in buffStats)
+            {
+                stats.Add(buffStat.Key, buffStat.Value);
             }
 
             //link to main party stats
@@ -238,9 +259,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], ((TotalStat) oStats["RegularDamageTaken"])));
             stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], ((TotalStat) oStats["CriticalDamageTaken"])));
 
-            stats.Add("ActiveTime", new TotalStat("ActiveTime"));
-            stats.Add("ParserTime", new TotalStat("ParserTime"));
-            stats.Add("ActivePercent", new PercentStat("ActivePercent", stats["ActiveTime"], stats["ParserTime"]));
+            stats.Add("ActivePercent", new PercentStat("ActivePercent", stats["TotalActiveTime"], stats["TotalParserTime"]));
 
             return stats.Select(s => s.Value)
                         .ToList();
@@ -323,6 +342,28 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     stats.Add("PercentOfTotalOverallDamageTaken", new PercentStat("PercentOfTotalOverallDamageTaken", stats["TotalOverallDamageTaken"], Stats.GetStat("TotalOverallDamageTaken")));
                     stats.Add("PercentOfRegularDamageTaken", new PercentStat("PercentOfRegularDamageTaken", stats["RegularDamageTaken"], Stats.GetStat("RegularDamageTaken")));
                     stats.Add("PercentOfCriticalDamageTaken", new PercentStat("PercentOfCriticalDamageTaken", stats["CriticalDamageTaken"], Stats.GetStat("CriticalDamageTaken")));
+                    break;
+            }
+
+            return stats.Select(s => s.Value)
+                        .ToList();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sub"></param>
+        /// <param name="useSub"></param>
+        /// <returns></returns>
+        private IEnumerable<Stat<decimal>> BuffStatList(StatGroup sub, bool useSub = false)
+        {
+            var stats = BuffStats();
+
+            //setup per damage taken "percent of" stats
+            switch (useSub)
+            {
+                case true:
+                    break;
+                case false:
                     break;
             }
 
@@ -455,6 +496,18 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             stats.Add("DamageTakenEvadePercent", new PercentStat("DamageTakenEvadePercent", stats["DamageTakenEvade"], stats["TotalDamageTakenActionsUsed"]));
             stats.Add("DamageTakenEvadeMod", new TotalStat("DamageTakenEvadeMod"));
             stats.Add("DamageTakenEvadeModAverage", new AverageStat("DamageTakenEvadeModAverage", stats["DamageTakenEvadeMod"]));
+
+            return stats;
+        }
+
+        private static Dictionary<string, Stat<decimal>> BuffStats()
+        {
+            var stats = new Dictionary<string, Stat<decimal>>();
+
+            stats.Add("TotalBuffTime", new TotalStat("TotalBuffTime"));
+            stats.Add("TotalBuffHours", new TotalStat("TotalBuffHours"));
+            stats.Add("TotalBuffMinutes", new TotalStat("TotalBuffMinutes"));
+            stats.Add("TotalBuffSeconds", new TotalStat("TotalBuffSeconds"));
 
             return stats;
         }

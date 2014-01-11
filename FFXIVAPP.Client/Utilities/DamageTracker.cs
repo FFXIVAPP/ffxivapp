@@ -42,7 +42,7 @@ namespace FFXIVAPP.Client.Utilities
                 {
                     foreach (var damageEntry in damageTaken)
                     {
-                        var damageContainer = History.FirstOrDefault(h => h.NPCEntry.ID == damageEntry.NPCEntry.ID) ?? new DamageContainer(damageEntry.NPCEntry);
+                        var damageContainer = History.FirstOrDefault(h => h.TargetID == damageEntry.TargetID) ?? new DamageContainer(damageEntry.TargetID);
                         if (!SequenceHistory.Contains(damageEntry.SequenceID))
                         {
                             SequenceHistory.Add(damageEntry.SequenceID);
@@ -81,7 +81,7 @@ namespace FFXIVAPP.Client.Utilities
                 var list = new List<DamageEntry>();
                 foreach (var damageContainer in History)
                 {
-                    list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.NPCEntry.ID == id));
+                    list.AddRange(damageContainer.DamageEntries.Where(damageEntry => damageEntry.TargetID == id));
                 }
                 return list;
             }

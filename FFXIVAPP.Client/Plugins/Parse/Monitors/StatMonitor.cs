@@ -77,6 +77,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Monitors
                 var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);
                 playerInstance.LineHistory.Clear();
                 playerInstance.StatusUpdateTimer.Stop();
+                playerInstance.IsActiveTimer.Stop();
                 playerInstance.StatusEntriesSelf.Clear();
                 playerInstance.StatusEntriesPlayers.Clear();
                 playerInstance.StatusEntriesMonsters.Clear();

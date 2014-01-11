@@ -84,6 +84,13 @@
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{Binding Locale[parse_ShowPartyBuffHeader],
+                                                   Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyBuffTab,
+                                                                                Source={StaticResource PluginSettings}}" />
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[parse_ShowPartyDamageTakenHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

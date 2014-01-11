@@ -12,13 +12,13 @@ namespace FFXIVAPP.Client.Utilities
     [DoNotObfuscate]
     public class DamageContainer
     {
-        public DamageContainer(ActorEntity actorEntity)
+        public DamageContainer(uint targetID)
         {
-            NPCEntry = actorEntity;
+            TargetID = targetID;
             DamageEntries = new List<DamageEntry>();
         }
 
-        public ActorEntity NPCEntry { get; set; }
+        public uint TargetID { get; set; }
         public List<DamageEntry> DamageEntries { get; set; }
     }
 }

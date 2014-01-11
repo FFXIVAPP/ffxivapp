@@ -253,6 +253,24 @@ namespace FFXIVAPP.Client.Memory
             return Encoding.UTF8.GetString(bytes);
         }
 
+        public string GetStringFromBytes(byte[] source, int offset = 0, int size = 256)
+        {
+            var bytes = new byte[size];
+            Array.Copy(source, offset, bytes, 0, size);
+            var realSize = 0;
+            for (var i = 0; i < size; i++)
+            {
+                if (bytes[i] != 0)
+                {
+                    continue;
+                }
+                realSize = i;
+                break;
+            }
+            Array.Resize(ref bytes, realSize);
+            return Encoding.UTF8.GetString(bytes);
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="address"></param>
@@ -303,6 +321,22 @@ namespace FFXIVAPP.Client.Memory
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public T GetStructureFromBytes<T>(byte[] source) where T : struct
+        {
+            unsafe
+            {
+                fixed (byte* p = &source[0])
+                {
+                    return (T)Marshal.PtrToStructure(new IntPtr(p), typeof(T));
+                }
+            }
         }
 
         /// <summary>
@@ -421,22 +455,6 @@ namespace FFXIVAPP.Client.Memory
         {
             var data = BitConverter.GetBytes(val);
             return Poke(address + offset, data);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="bytes"> </param>
-        /// <returns> </returns>
-        public static string GetStringFromByteArray(byte[] bytes)
-        {
-            var u8 = new UTF8Encoding();
-            var text = u8.GetString(bytes);
-            var startIndex = text.IndexOf(Convert.ToChar(0));
-            if ((startIndex != -1))
-            {
-                text = text.Remove(startIndex, (text.Length - startIndex));
-            }
-            return text;
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace FFXIVAPP.Client.Memory
             public uint LogEnd;
         }
 
-        [StructLayout(LayoutKind.Explicit)]
+        [StructLayout(LayoutKind.Explicit, Size = 16192)]
         public struct NPCEntry
         {
             [MarshalAs(UnmanagedType.I4)]
@@ -234,6 +234,34 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3000)]
             [FieldOffset(0x32C0)] //12280
             public byte[] IncomingActions;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
+        public struct IncomingAction
+        {
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0x0)] //176
+            public int Code;
+
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0x4)] //176
+            public int SequenceID;
+
+            [MarshalAs(UnmanagedType.R4)]
+            [FieldOffset(0xC)] //176
+            public int SkillID;
+
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x14)] //228
+            public uint SourceID;
+
+            [MarshalAs(UnmanagedType.I1)]
+            [FieldOffset(0x42)] //284
+            public byte Type;
+
+            [MarshalAs(UnmanagedType.I2)]
+            [FieldOffset(0x46)] //388
+            public int Amount;
         }
 
         [StructLayout(LayoutKind.Explicit, Pack = 1)]

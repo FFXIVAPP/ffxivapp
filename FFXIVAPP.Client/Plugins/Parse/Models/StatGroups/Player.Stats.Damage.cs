@@ -24,8 +24,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 //LineHistory.Add(new LineHistory(line));
             }
 
-            IsActiveTimer.Start();
-
             if ((LimitBreaks.IsLimit(line.Action)) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {
                 return;

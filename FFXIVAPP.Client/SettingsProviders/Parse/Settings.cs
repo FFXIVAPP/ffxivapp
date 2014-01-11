@@ -55,6 +55,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowActionLogTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTab");
             Constants.Parse.Settings.Add("ShowPartyHealingTab");
+            Constants.Parse.Settings.Add("ShowPartyBuffTab");
             Constants.Parse.Settings.Add("ShowPartyDamageTakenTab");
             Constants.Parse.Settings.Add("ShowMonsterDamageTab");
             Constants.Parse.Settings.Add("ShowMonsterHealingTab");
@@ -65,6 +66,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("PlayerHealingByAction");
             Constants.Parse.Settings.Add("PlayerHealingToPlayers");
             Constants.Parse.Settings.Add("PlayerHealingToPlayersByAction");
+            Constants.Parse.Settings.Add("PlayerBuffByAction");
+            Constants.Parse.Settings.Add("PlayerBuffToPlayers");
+            Constants.Parse.Settings.Add("PlayerBuffToPlayersByAction");
             Constants.Parse.Settings.Add("PlayerDamageTakenByAction");
             Constants.Parse.Settings.Add("PlayerDamageTakenByMonsters");
             Constants.Parse.Settings.Add("PlayerDamageTakenByMonstersByAction");
@@ -488,6 +492,19 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
+        public bool ShowPartyBuffTab
+        {
+            get { return ((bool) (this["ShowPartyBuffTab"])); }
+            set
+            {
+                this["ShowPartyBuffTab"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
         public bool ShowPartyDamageTakenTab
         {
             get { return ((bool) (this["ShowPartyDamageTakenTab"])); }
@@ -611,6 +628,45 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["PlayerHealingToPlayersByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool PlayerBuffByAction
+        {
+            get { return ((bool) (this["PlayerBuffByAction"])); }
+            set
+            {
+                this["PlayerBuffByAction"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool PlayerBuffToPlayers
+        {
+            get { return ((bool) (this["PlayerBuffToPlayers"])); }
+            set
+            {
+                this["PlayerBuffToPlayers"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool PlayerBuffToPlayersByAction
+        {
+            get { return ((bool) (this["PlayerBuffToPlayersByAction"])); }
+            set
+            {
+                this["PlayerBuffToPlayersByAction"] = value;
                 RaisePropertyChanged();
             }
         }

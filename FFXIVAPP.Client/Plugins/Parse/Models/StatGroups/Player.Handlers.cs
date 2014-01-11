@@ -316,10 +316,10 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         Action = statusKey,
                         Amount = tickHealing,
                         EventDirection = EventDirection.Unknown,
-                        EventType = EventType.Damage,
-                        EventSubject = EventSubject.Unknown
+                        EventType = EventType.Cure,
+                        EventSubject = EventSubject.Unknown,
+                        Source = Name
                     };
-                    line.Source = Name;
                     try
                     {
                         var players = ParseControl.Instance.Timeline.Party.ToList();
@@ -368,6 +368,87 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetHealing(line, HealingType.HealingOverTime);
                     });
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            ParseControl.Instance.Timeline.FightingTimer.Start();
+            switch (Settings.Default.StoreHistoryEvent)
+            {
+                case "Any":
+                    ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region Buff Tracker
+
+        private void ProcessBuffs(IEnumerable<StatusEntry> statusEntriesPlayers)
+        {
+            foreach (var statusEntry in statusEntriesPlayers)
+            {
+                try
+                {
+                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                    var statusKey = "";
+                    switch (Settings.Default.GameLanguage)
+                    {
+                        case "English":
+                            statusKey = statusInfo.Name.English;
+                            break;
+                        case "French":
+                            statusKey = statusInfo.Name.French;
+                            break;
+                        case "German":
+                            statusKey = statusInfo.Name.German;
+                            break;
+                        case "Japanese":
+                            statusKey = statusInfo.Name.Japanese;
+                            break;
+                    }
+                    if (String.IsNullOrWhiteSpace(statusKey))
+                    {
+                        continue;
+                    }
+                    ParseControl.Instance.Timeline.FightingRightNow = true;
+                    ParseControl.Instance.Timeline.FightingTimer.Stop();
+                    switch (Settings.Default.StoreHistoryEvent)
+                    {
+                        case "Any":
+                            ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                            break;
+                    }
+                    var line = new Line
+                    {
+                        Action = statusKey,
+                        Amount = 0,
+                        EventDirection = EventDirection.Unknown,
+                        EventType = EventType.Unknown,
+                        EventSubject = EventSubject.Unknown,
+                        Source = Name,
+                    };
+                    try
+                    {
+                        var players = ParseControl.Instance.Timeline.Party.ToList();
+                        var entry = statusEntry;
+                        foreach (var player in players.Where(player => player.Name.Contains(entry.TargetName)))
+                        {
+                            line.Target = player.Name;
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    if (String.IsNullOrWhiteSpace(line.Target))
+                    {
+                        line.Target = String.Format("[???] {0}", statusEntry.TargetName);
+                    }
+                    DispatcherHelper.Invoke(() => ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
+                                                              .SetBuff(line));
                 }
                 catch (Exception ex)
                 {

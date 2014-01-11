@@ -1,0 +1,40 @@
+﻿<DataGrid x:Class="FFXIVAPP.Client.Plugins.Parse.Controls.BuffDataGrid"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:Models="clr-namespace:FFXIVAPP.Client.Plugins.Parse.Models"
+          xmlns:Parse="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
+          xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
+          xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+          xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+          MaxHeight="300"
+          AutoGenerateColumns="False"
+          BorderBrush="{DynamicResource AccentColorBrush}"
+          BorderThickness="1">
+
+    <DataGrid.Resources>
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="PluginSettings"
+                  Member="PluginProperties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:ParseControl.Instance" />
+    </DataGrid.Resources>
+    <DataGrid.Columns>
+        <!--  <DataGridTextColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
+        <DataGridTextColumn Binding="{Binding Name}"
+                            Header="{Binding Locale[parse_NameHeader],
+                                             Source={StaticResource AppProperties}}"
+                            Utilities:GridViewSort.PropertyName="Name" />
+        <DataGridTextColumn Binding="{Binding TotalBuffHours}"
+                            Header="H"
+                            Utilities:GridViewSort.PropertyName="TotalBuffHours" />
+        <DataGridTextColumn Binding="{Binding TotalBuffMinutes,
+                                              StringFormat=\{0:00\}}"
+                            Header="M"
+                            Utilities:GridViewSort.PropertyName="TotalBuffMinutes" />
+        <DataGridTextColumn Binding="{Binding TotalBuffSeconds,
+                                              StringFormat=\{0:00\}}"
+                            Header="S"
+                            Utilities:GridViewSort.PropertyName="TotalBuffSeconds" />
+    </DataGrid.Columns>
+</DataGrid>

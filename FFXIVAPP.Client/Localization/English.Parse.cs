@@ -408,6 +408,11 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("parse_TotalOverallHealingOverTimeOverHealingLabel", "Total Overall HOT Over Healing:");
             Dictionary.Add("parse_TrackXPSFromParseStartEventHeader", "Track (D|DT|H)PS From Parse Start (ALL)");
             Dictionary.Add("parse_TrackXPSFromParseStartEventHelpText", "*With this enabled all PerSecond tracking will be done globablly from the start of the parse. This means if someone doesn't do anything for a minute their DPS on their second attack will be much lower than if it was tracking from Action StartTime");
+            Dictionary.Add("parse_PartyBuffTabHeader", "Party Buff");
+            Dictionary.Add("parse_ShowPartyBuffHeader", "Show Party Buff");
+            Dictionary.Add("parse_PlayerBuffByActionText", "Buff By Action By Selected Player");
+            Dictionary.Add("parse_PlayerBuffToPlayersText", "Buff To Players By Selected Player");
+            Dictionary.Add("parse_PlayerBuffToPlayersByActionText", "Buff To Players By Action By Selected Player");
         }
     }
 }

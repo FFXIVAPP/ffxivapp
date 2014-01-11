@@ -58,6 +58,7 @@ namespace FFXIVAPP.Client
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();
+            Initializer.LoadActions();
             Initializer.LoadColors();
             Initializer.LoadApplicationSettings();
             Initializer.LoadSoundsIntoCache();

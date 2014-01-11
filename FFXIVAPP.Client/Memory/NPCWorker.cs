@@ -82,29 +82,60 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var monsterEntries = new List<ActorEntity>();
-                            var npcEntries = new List<ActorEntity>();
-                            var pcEntries = new List<ActorEntity>();
-                            for (uint i = 0; i <= 256; i += 4)
+                            #region Ensure Target & Map
+
+                            uint targetAddress = 0;
+                            uint mapIndex = 0;
+                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
                             {
-                                var characterAddress = (uint) MemoryHandler.Instance.GetInt32(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"] + i);
+                                try
+                                {
+                                    targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                            }
+                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
+                            {
+                                try
+                                {
+                                    mapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                            }
+
+                            #endregion
+
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["NPCMAP"], 1024);
+                            var sourceData = new List<byte[]>();
+                            for (var i = 0; i <= 256; i += 4)
+                            {
+                                var characterAddress = BitConverter.ToUInt32(characterAddressMap, i);
                                 if (characterAddress == 0)
                                 {
                                     continue;
                                 }
-                                var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
-                                var name = MemoryHandler.Instance.GetString(characterAddress, 48);
-                                var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
-                                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                                {
-                                    try
-                                    {
-                                        entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                    }
-                                }
+                                sourceData.Add(MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40));
+                            }
+
+                            #region ActorEntity Handlers
+
+                            var monsterEntries = new List<ActorEntity>();
+                            var npcEntries = new List<ActorEntity>();
+                            var pcEntries = new List<ActorEntity>();
+                            for (var i = 0; i < sourceData.Count; i++)
+                            {
+                                var source = sourceData[i];
+                                //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
+                                var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
+                                //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
+                                //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                entry.MapIndex = mapIndex;
                                 if (!entry.IsValid)
                                 {
                                     continue;
@@ -137,6 +168,8 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
                             }
+
+                            #endregion
                         }
                         catch (Exception ex)
                         {
