@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// CombatEntry.cs
+// IncomingActionContainer.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -9,15 +9,15 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Utilities
 {
     [DoNotObfuscate]
-    public class CombatEntry
+    public class IncomingActionContainer
     {
-        public CombatEntry()
+        public IncomingActionContainer(uint targetID)
         {
-            IncomingEntries = new List<IncomingEntry>();
+            TargetID = targetID;
             IncomingActionEntries = new List<IncomingActionEntry>();
         }
 
-        public List<IncomingEntry> IncomingEntries { get; set; }
+        public uint TargetID { get; set; }
         public List<IncomingActionEntry> IncomingActionEntries { get; set; }
     }
 }

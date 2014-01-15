@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// DamageContainer.cs
+// IncomingContainer.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -9,15 +9,15 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Utilities
 {
     [DoNotObfuscate]
-    public class DamageContainer
+    public class IncomingContainer
     {
-        public DamageContainer(uint targetID)
+        public IncomingContainer(uint targetID)
         {
             TargetID = targetID;
-            DamageEntries = new List<IncomingActionEntry>();
+            IncomingEntries = new List<IncomingEntry>();
         }
 
         public uint TargetID { get; set; }
-        public List<IncomingActionEntry> DamageEntries { get; set; }
+        public List<IncomingEntry> IncomingEntries { get; set; }
     }
 }

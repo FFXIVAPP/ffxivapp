@@ -271,7 +271,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Helpers
             name = name.Trim();
             if (String.IsNullOrWhiteSpace(name))
             {
-                name = "UNKNOWN";
+                return "";
             }
             name = Regex.Replace(name, @"\[[\w]+\]", "")
                         .Trim();

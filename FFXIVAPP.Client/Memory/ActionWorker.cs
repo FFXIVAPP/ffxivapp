@@ -85,36 +85,35 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            Stopwatch.Reset();
-                            Stopwatch.Start();
+                            //Stopwatch.Reset();
+                            //Stopwatch.Start();
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], 4000);
-                            for (var i = 0; i <= 1000; i += 4)
+                            var characterAddressMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
+                            var characterAddresses = MemoryHandler.Instance.GetStructure<Structures.CHARMAP>(characterAddressMap);
+                            var sources = characterAddresses.Locations.Where(c => c.BaseAddress > 0)
+                                                            .ToList()
+                                                            .Select(c => MemoryHandler.Instance.GetByteArray(c.BaseAddress, 0x3F40))
+                                                            .ToList();
+                            foreach (var source in sources.AsParallel()
+                                                          .Where(s => s.Count() > 0))
                             {
-                                var characterAddress = BitConverter.ToUInt32(characterAddressMap, i);
-                                if (characterAddress == 0)
-                                {
-                                    continue;
-                                }
-                                var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-
                                 var combatEntry = new CombatEntry();
 
-                                var targetID = BitConverter.ToUInt32(source, 0x74);
-                                var targetType = (Actor.Type) source[0x8A];
-                                var targetName = MemoryHandler.Instance.GetStringFromBytes(source, 48);
+                                var entryID = BitConverter.ToUInt32(source, 0x74);
+                                var entryType = (Actor.Type) source[0x8A];
+                                var entryName = MemoryHandler.Instance.GetStringFromBytes(source, 48);
 
                                 #region Incoming Handler
 
                                 IntPtr incomingAddress;
-                                if ((incomingAddress = MemoryHandler.Instance.ReadPointer(IntPtr.Add((IntPtr) characterAddress, 0x2FD4))) == IntPtr.Zero)
+                                if ((incomingAddress = MemoryHandler.Instance.ReadPointer((IntPtr) BitConverter.ToUInt32(source, 0x2FD4))) == IntPtr.Zero)
                                 {
                                     continue;
                                 }
-                                var limit = MemoryHandler.Instance.GetInt32((uint) IntPtr.Add((IntPtr) characterAddress, 0x2FD8));
-                                MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FDC);
-                                MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FE0);
-                                MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FF0);
+                                var limit = MemoryHandler.Instance.GetInt32(BitConverter.ToUInt32(source, 0x2FD8));
+                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FDC);
+                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FE0);
+                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FF0);
                                 if (limit >= 0x100)
                                 {
                                     continue;
@@ -142,51 +141,37 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         continue;
                                     }
-                                    var type1 = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 4));
-                                    var type2 = MemoryHandler.Instance.ReadInt32(ptr3);
-                                    var skillID = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 12));
-                                    var amount = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 0x10));
-                                    var comboAmount = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 20));
-                                    var unk1 = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6));
-                                    var unk2 = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 8));
-                                    var unk3 = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 0x18));
-                                    var unk4 = MemoryHandler.Instance.ReadInt32((IntPtr) MemoryHandler.Instance.ReadInt32(ptr6, 0x1C));
-                                    //if (((type1 == 0) || (type2 == 0)) && (((type1 == 5) || (type2 == 12)) || (skillID == 0)))
-                                    //{
-                                    //    continue;
-                                    //}
-                                    if (skillID == 0)
-                                    {
-                                        continue;
-                                    }
                                     var incomingEntry = new IncomingEntry
                                     {
-                                        ID = (uint) ptr3.ToInt32(),
-                                        Amount = amount,
-                                        ComboAmount = comboAmount,
-                                        Type1 = type1,
-                                        Type2 = type2,
-                                        SkillID = skillID,
-                                        UNK1 = unk1,
-                                        UNK2 = unk2,
-                                        UNK3 = unk3,
-                                        UNK4 = unk4,
-                                        TargetID = targetID,
-                                        TargetName = targetName,
-                                        TargetType = targetType
+                                        ID = (uint) ptr3.ToInt64(),
+                                        Amount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x10)),
+                                        ComboAmount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 20)),
+                                        Type1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 4)),
+                                        Type2 = MemoryHandler.Instance.ReadInt32(ptr3),
+                                        SkillID = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 12)),
+                                        UNK1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6)),
+                                        UNK2 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 8)),
+                                        UNK3 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x18)),
+                                        UNK4 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x1C)),
+                                        TargetID = entryID,
+                                        TargetName = entryName,
+                                        TargetType = entryType
                                     };
-                                    incomingEntries.Add(incomingEntry);
+                                    if (incomingEntry.SkillID > 0)
+                                    {
+                                        incomingEntries.Add(incomingEntry);
+                                    }
                                 }
 
-                                #endregion
-
                                 combatEntry.IncomingEntries = incomingEntries;
+
+                                #endregion
 
                                 #region IncomingAction Handler
 
                                 var incomingActionEntries = new List<IncomingActionEntry>();
 
-                                switch (targetType)
+                                switch (entryType)
                                 {
                                     case Actor.Type.Monster:
                                     case Actor.Type.PC:
@@ -207,30 +192,65 @@ namespace FFXIVAPP.Client.Memory
                                                     SourceID = BitConverter.ToUInt32(destinationArray, 20),
                                                     Type = destinationArray[66],
                                                     Amount = BitConverter.ToInt16(destinationArray, 70),
-                                                    TargetID = targetID,
-                                                    TargetName = targetName,
-                                                    TargetType = targetType
+                                                    TargetID = entryID,
+                                                    TargetName = entryName,
+                                                    TargetType = entryType
                                                 };
-                                                incomingActionEntries.Add(incomingActionEntry);
+                                                if (incomingActionEntry.SequenceID > 0 && incomingActionEntry.SkillID > 0 && incomingActionEntry.SourceID > 0)
+                                                {
+                                                    incomingActionEntries.Add(incomingActionEntry);
+                                                }
                                             }
                                         }
                                         catch (Exception ex)
                                         {
                                         }
-                                        if (incomingActionEntries.Any())
-                                        {
-                                            CombatTracker.EnsureHistoryItem(incomingActionEntries);
-                                        }
                                         break;
+                                }
+
+                                combatEntry.IncomingActionEntries = incomingActionEntries;
+
+                                #endregion
+
+                                #region OutGoing Handler
+
+                                var outGoingCount = source[0x32B8];
+                                if (outGoingCount > 0)
+                                {
+                                    var outGoingEntry = new OutGoingEntry
+                                    {
+                                        Counter = outGoingCount,
+                                        SkillID = source[0x31B0],
+                                        SequenceID = BitConverter.ToInt32(source, 0x31BC),
+                                        SourceID = entryID,
+                                        SourceName = entryName,
+                                        SourceType = entryType
+                                    };
+                                    for (var j = 0; j < outGoingCount; j++)
+                                    {
+                                        outGoingEntry.TargetIDs.Add(BitConverter.ToUInt32(source, 0x31C8 + j * 8));
+                                    }
+                                    if (outGoingEntry.SkillID > 0)
+                                    {
+                                        CombatTracker.EnsureOutGoingEntries(outGoingEntry);
+                                    }
                                 }
 
                                 #endregion
 
-                                combatEntry.IncomingActionEntries = incomingActionEntries;
+                                if (incomingEntries.Any())
+                                {
+                                    CombatTracker.EnsureIncomingEntries(incomingEntries);
+                                }
+
+                                if (incomingActionEntries.Any())
+                                {
+                                    CombatTracker.EnsureIncomingActionEntries(incomingActionEntries);
+                                }
                             }
 
-                            Stopwatch.Stop();
-                            Logging.Log(Logger, Stopwatch.ElapsedMilliseconds.ToString());
+                            //Stopwatch.Stop();
+                            //Logging.Log(Logger, Stopwatch.ElapsedMilliseconds.ToString());
                         }
                         catch (Exception ex)
                         {

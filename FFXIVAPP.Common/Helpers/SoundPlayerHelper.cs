@@ -53,24 +53,31 @@ namespace FFXIVAPP.Common.Helpers
         {
             lock (SoundFiles)
             {
-                IWavePlayer player;
-                WaveChannel32 stream;
-                Tuple<IWavePlayer, WaveChannel32> value;
-                if (SoundFiles.TryGetValue(soundFile, out value))
+                try
                 {
-                    player = value.Item1;
-                    stream = value.Item2;
-                    stream.Position = 0;
+                    IWavePlayer player;
+                    WaveChannel32 stream;
+                    Tuple<IWavePlayer, WaveChannel32> value;
+                    if (SoundFiles.TryGetValue(soundFile, out value))
+                    {
+                        player = value.Item1;
+                        stream = value.Item2;
+                        stream.Position = 0;
+                    }
+                    else
+                    {
+                        player = new WaveOut();
+                        stream = LoadStream(Path.Combine(Constants.SoundsPath, soundFile));
+                        player.Init(stream);
+                        SoundFiles.Add(soundFile, Tuple.Create(player, stream));
+                    }
+                    stream.Volume = (float)volume / 100;
+                    return new Tuple<IWavePlayer, WaveChannel32>(player, stream);
                 }
-                else
+                catch (Exception ex)
                 {
-                    player = new WaveOut();
-                    stream = LoadStream(Path.Combine(Constants.SoundsPath, soundFile));
-                    player.Init(stream);
-                    SoundFiles.Add(soundFile, Tuple.Create(player, stream));
+                    return null;
                 }
-                stream.Volume = (float) volume / 100;
-                return new Tuple<IWavePlayer, WaveChannel32>(player, stream);
             }
         }
 

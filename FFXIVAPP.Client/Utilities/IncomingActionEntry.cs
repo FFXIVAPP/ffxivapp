@@ -3,9 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-using System;
-using System.Globalization;
-using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using SmartAssembly.Attributes;
 
@@ -27,31 +25,7 @@ namespace FFXIVAPP.Client.Utilities
 
         public string SkillName
         {
-            get
-            {
-                var key = SkillID.ToString(CultureInfo.InvariantCulture);
-                try
-                {
-                    if (Constants.Actions.ContainsKey(key))
-                    {
-                        switch (Settings.Default.GameLanguage)
-                        {
-                            case "English":
-                                return Constants.Actions[key].EN;
-                            case "French":
-                                return Constants.Actions[key].FR;
-                            case "Japanese":
-                                return Constants.Actions[key].JA;
-                            case "German":
-                                return Constants.Actions[key].DE;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return "UNKNOWN";
-            }
+            get { return ConstantsHelper.GetActionNameByID(SkillID); }
         }
 
         public uint TargetID { get; set; }

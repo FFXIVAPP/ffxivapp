@@ -13,6 +13,14 @@ namespace FFXIVAPP.Client.Memory
     public static class Structures
     {
         [StructLayout(LayoutKind.Explicit)]
+        internal struct CHARMAP
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1000)]
+            [FieldOffset(0x0)] //0
+            public Location[] Locations;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
         internal struct ChatLog
         {
             [MarshalAs(UnmanagedType.I4)]
@@ -72,7 +80,15 @@ namespace FFXIVAPP.Client.Memory
             public int Amount;
         }
 
-        [StructLayout(LayoutKind.Explicit, Size = 16192)]
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct Location
+        {
+            [MarshalAs(UnmanagedType.I4)]
+            [FieldOffset(0x0)] //0
+            public uint BaseAddress;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
         public struct NPCEntry
         {
             [MarshalAs(UnmanagedType.I4)]
@@ -258,10 +274,14 @@ namespace FFXIVAPP.Client.Memory
             [MarshalAs(UnmanagedType.R4)]
             [FieldOffset(0x31A8)]
             public float CastingTime;
+        }
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3000)]
-            [FieldOffset(0x32C0)] //12280
-            public byte[] IncomingActions;
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct NPCMAP
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+            [FieldOffset(0x0)] //0
+            public Location[] Locations;
         }
 
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
@@ -299,11 +319,11 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(0x6C)]
             public int HPMax;
 
-            [MarshalAs(UnmanagedType.I2)]
+            [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0x70)]
             public short MPCurrent;
 
-            [MarshalAs(UnmanagedType.I2)]
+            [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0x72)]
             public short MPMax;
 

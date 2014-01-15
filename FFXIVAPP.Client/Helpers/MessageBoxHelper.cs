@@ -53,7 +53,6 @@ namespace FFXIVAPP.Client.Helpers
                 {
                     mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
                     mw.MetroDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
-                    mw.MetroDialogOptions.CanChangeSizeToContent = false;
                     if (okAction == null && cancelAction == null)
                     {
                         mw.ShowMessageAsync(title, message);

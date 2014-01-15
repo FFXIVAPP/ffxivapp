@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Properties;
@@ -170,6 +171,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
+                        var currentCritPercent = (double) Stats.GetStatValue("DamageCritPercent");
+                        if (new Random().NextDouble() < currentCritPercent)
+                        {
+                            line.Crit = true;
+                            line.Amount = line.Amount * 1.5m;
+                        }
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetDamage(line, true);
                         ParseControl.Instance.Timeline.GetSetMonster(line.Target)
@@ -365,6 +372,12 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                         catch (Exception ex)
                         {
                         }
+                        var currentCritPercent = (double) Stats.GetStatValue("HealingCritPercent");
+                        if (new Random().NextDouble() < currentCritPercent)
+                        {
+                            line.Crit = true;
+                            line.Amount = line.Amount * 1.5m;
+                        }
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetHealing(line, HealingType.HealingOverTime);
                     });
@@ -413,14 +426,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                     {
                         continue;
                     }
-                    //ParseControl.Instance.Timeline.FightingRightNow = true;
-                    //ParseControl.Instance.Timeline.FightingTimer.Stop();
-                    //switch (Settings.Default.StoreHistoryEvent)
-                    //{
-                    //    case "Any":
-                    //        ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
-                    //        break;
-                    //}
                     var line = new Line
                     {
                         Action = statusKey,
@@ -454,13 +459,6 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
                 {
                 }
             }
-            //ParseControl.Instance.Timeline.FightingTimer.Start();
-            //switch (Settings.Default.StoreHistoryEvent)
-            //{
-            //    case "Any":
-            //        ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
-            //        break;
-            //}
         }
 
         #endregion

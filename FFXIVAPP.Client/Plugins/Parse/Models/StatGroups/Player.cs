@@ -33,7 +33,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             "Counter", "Block", "Parry", "Resist", "Evade"
         };
 
-        public readonly Timer IsActiveTimer = new Timer(5000);
+        public readonly Timer IsActiveTimer = new Timer(1000);
         public readonly Timer StatusUpdateTimer = new Timer(1000);
 
         public List<StatusEntry> StatusEntriesMonsters = new List<StatusEntry>();
@@ -52,11 +52,13 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
             {
                 return;
             }
+            LastActionTime = DateTime.Now;
             StatusUpdateTimer.Start();
             IsActiveTimer.Start();
         }
 
-        public bool HadAction { get; set; }
+        public DateTime LastActionTime { get; set; }
+        public double TotalInActiveTime { get; set; }
 
         public bool StatusUpdateTimerProcessing { get; set; }
 
@@ -164,27 +166,22 @@ namespace FFXIVAPP.Client.Plugins.Parse.Models.StatGroups
         {
             try
             {
-                if (Controller.Timeline.FightingRightNow)
+                if (!Controller.Timeline.FightingRightNow)
                 {
-                    Stats.GetStat("TotalParserTime")
-                         .Value = Convert.ToDecimal(Controller.EndTime.Subtract(Controller.StartTime)
-                                                              .TotalSeconds);
-                    if (!HadAction)
-                    {
-                        return;
-                    }
-                    var activeTime = Stats.GetStat("TotalActiveTime");
-                    var parserTime = Stats.GetStat("TotalParserTime");
-                    if (activeTime.Value + 5 > parserTime.Value)
-                    {
-                        activeTime.Value = parserTime.Value;
-                    }
-                    else
-                    {
-                        activeTime.Value += 5;
-                    }
+                    return;
                 }
-                HadAction = false;
+                Stats.GetStat("TotalParserTime").Value = Convert.ToDecimal(Controller.EndTime.Subtract(Controller.StartTime)
+                                                               .TotalSeconds);
+                var parserTime = Stats.GetStat("TotalParserTime");
+                var activeTime = Stats.GetStat("TotalActiveTime");
+                var inactiveTime = DateTime.Now.Subtract(LastActionTime)
+                                               .TotalSeconds;
+                if (inactiveTime > 5)
+                {
+                    TotalInActiveTime++;
+                }
+                TotalInActiveTime = TotalInActiveTime > (double) parserTime.Value ? (double) parserTime.Value : TotalInActiveTime;
+                activeTime.Value = parserTime.Value - (decimal) TotalInActiveTime;
             }
             catch (Exception ex)
             {

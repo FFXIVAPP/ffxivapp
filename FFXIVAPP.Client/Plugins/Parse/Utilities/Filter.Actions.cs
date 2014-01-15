@@ -11,6 +11,7 @@ using FFXIVAPP.Client.Plugins.Parse.Enums;
 using FFXIVAPP.Client.Plugins.Parse.Helpers;
 using FFXIVAPP.Client.Plugins.Parse.Models;
 using FFXIVAPP.Client.Plugins.Parse.Models.Events;
+using FFXIVAPP.Client.Plugins.Parse.Models.StatGroups;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client.Plugins.Parse.Utilities
@@ -269,7 +270,7 @@ namespace FFXIVAPP.Client.Plugins.Parse.Utilities
                 {
                     return;
                 }
-                player.HadAction = true;
+                player.LastActionTime = DateTime.Now;
                 try
                 {
                     var players = PCWorkerDelegate.GetNPCEntities();

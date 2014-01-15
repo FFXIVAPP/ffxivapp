@@ -674,11 +674,11 @@ namespace FFXIVAPP.Client
                 _chatLogWorker.StopScanning();
                 _chatLogWorker.Dispose();
             }
-            //if (_actionWorker != null)
-            //{
-            //    _actionWorker.StopScanning();
-            //    _actionWorker.Dispose();
-            //}
+            if (_actionWorker != null)
+            {
+                _actionWorker.StopScanning();
+                _actionWorker.Dispose();
+            }
             if (_monsterWorker != null)
             {
                 _monsterWorker.StopScanning();

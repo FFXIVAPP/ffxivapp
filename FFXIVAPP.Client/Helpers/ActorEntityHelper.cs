@@ -162,8 +162,8 @@ namespace FFXIVAPP.Client.Helpers
                 entry.GatheringStatus = source[0x8E];
                 entry.GrandCompany = source[0x169A];
                 entry.GrandCompanyRank = source[0x169B];
-                entry.HPCurrent = BitConverter.ToInt16(source, 0x16A0);
-                entry.HPMax = BitConverter.ToInt16(source, 0x16A4);
+                entry.HPCurrent = BitConverter.ToInt32(source, 0x16A0);
+                entry.HPMax = BitConverter.ToInt32(source, 0x16A4);
                 entry.Heading = BitConverter.ToSingle(source, 0xB0);
                 entry.ID = BitConverter.ToUInt32(source, 0x74);
                 entry.Icon = (Actor.Icon) source[0x194];
@@ -171,8 +171,8 @@ namespace FFXIVAPP.Client.Helpers
                 entry.IsGM = BitConverter.ToBoolean(source, 0x193);
                 entry.Job = (Actor.Job) source[0x1698];
                 entry.Level = source[0x1699];
-                entry.MPCurrent = BitConverter.ToInt16(source, 0x16A8);
-                entry.MPMax = BitConverter.ToInt16(source, 0x16AC);
+                entry.MPCurrent = BitConverter.ToInt32(source, 0x16A8);
+                entry.MPMax = BitConverter.ToInt32(source, 0x16AC);
                 entry.MapIndex = 0;
                 entry.ModelID = BitConverter.ToUInt32(source, 0x184);
                 entry.NPCID1 = BitConverter.ToUInt32(source, 0x78);
