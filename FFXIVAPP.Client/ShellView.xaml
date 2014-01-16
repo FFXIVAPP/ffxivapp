@@ -3,13 +3,13 @@
                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                            xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
                            xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                           xmlns:ParsePlugin="clr-namespace:FFXIVAPP.Client.Plugins.Parse"
                            xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
                            xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
                            xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:parse="clr-namespace:FFXIVAPP.Client.Views.Parse"
                            Title="{Binding AppTitle,
                                            Source={StaticResource AppProperties}}"
                            Width="{Binding Width,
@@ -167,7 +167,7 @@
                         </TabControl.BorderBrush>
                         <TabItem x:Name="ParsePlugin"
                                  Header="FFXIVAPP.Plugin.Parse">
-                            <ParsePlugin:ShellView />
+                            <parse:ShellView />
                         </TabItem>
                     </TabControl>
                 </TabItem>

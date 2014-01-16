@@ -3,7 +3,7 @@
 // 
 // © 2013 Ryan Wilson
 
-using FFXIVAPP.Client.Plugins.Parse.Models;
+using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Common.Core.Memory;
 using NLog;
 using SmartAssembly.Attributes;

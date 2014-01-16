@@ -71,7 +71,7 @@ namespace FFXIVAPP.Common.Helpers
                         player.Init(stream);
                         SoundFiles.Add(soundFile, Tuple.Create(player, stream));
                     }
-                    stream.Volume = (float)volume / 100;
+                    stream.Volume = (float) volume / 100;
                     return new Tuple<IWavePlayer, WaveChannel32>(player, stream);
                 }
                 catch (Exception ex)

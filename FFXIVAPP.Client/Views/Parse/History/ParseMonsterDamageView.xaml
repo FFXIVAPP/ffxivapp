@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="FFXIVAPP.Client.Views.Parse.History.ParseMonsterDamageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
+             xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
+             xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+             xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse.History"
+             xmlns:Parse="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
+             xmlns:Models="clr-namespace:FFXIVAPP.Client.Models.Parse"
+             xmlns:parse="clr-namespace:FFXIVAPP.Client.Controls.Parse"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <x:Static x:Key="ParseMonsterDamageViewModel"
+                  Member="ViewModels:ParseMonsterDamageViewModel.Instance" />
+        <x:Static x:Key="PluginViewModel"
+                  Member="Parse:PluginViewModel.Instance" />
+        <x:Static x:Key="PluginSettings"
+                  Member="PluginProperties:Settings.Default" />
+        <x:Static x:Key="Parser"
+                  Member="Models:HistoryControl.Instance" />
+        <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{StaticResource ParseMonsterDamageViewModel}">
+        <ScrollViewer>
+            <StackPanel>
+                <parse:DamageDataGrid x:Name="MonsterOverallDamage"
+                                         DataContext="{Binding Timeline.Monster,
+                                                               Source={StaticResource Parser}}"
+                                         ItemsSource="{Binding}"
+                                         Style="{DynamicResource MetroDataGrid}" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5"
+                              IsChecked="{Binding MonsterDamageByAction,
+                                                  Source={StaticResource PluginSettings}}" />
+                    <TextBlock Margin="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text="{Binding Locale[parse_MonsterDamageByActionText],
+                                              Source={StaticResource AppProperties}}" />
+                </StackPanel>
+                <parse:DamageDataGrid x:Name="DamageByAction"
+                                         DataContext="{Binding SelectedItem,
+                                                               ElementName=MonsterOverallDamage,
+                                                               NotifyOnTargetUpdated=True,
+                                                               NotifyOnSourceUpdated=True}"
+                                         ItemsSource="{Binding DamageByAction}"
+                                         Style="{DynamicResource MetroDataGrid}"
+                                         Visibility="{Binding MonsterDamageByAction,
+                                                              Source={StaticResource PluginSettings},
+                                                              Converter={StaticResource VisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5"
+                              IsChecked="{Binding MonsterDamageToPlayers,
+                                                  Source={StaticResource PluginSettings}}" />
+                    <TextBlock Margin="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text="{Binding Locale[parse_MonsterDamageToPlayersText],
+                                              Source={StaticResource AppProperties}}" />
+                </StackPanel>
+                <parse:DamageDataGrid x:Name="MonsterDamageToPlayers"
+                                         DataContext="{Binding SelectedItem,
+                                                               ElementName=MonsterOverallDamage,
+                                                               NotifyOnTargetUpdated=True,
+                                                               NotifyOnSourceUpdated=True}"
+                                         ItemsSource="{Binding DamageToPlayers}"
+                                         Style="{DynamicResource MetroDataGrid}"
+                                         Visibility="{Binding MonsterDamageToPlayers,
+                                                              Source={StaticResource PluginSettings},
+                                                              Converter={StaticResource VisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="5"
+                              IsChecked="{Binding MonsterDamageToPlayersByAction,
+                                                  Source={StaticResource PluginSettings}}" />
+                    <TextBlock Margin="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text="{Binding Locale[parse_MonsterDamageToPlayersByActionText],
+                                              Source={StaticResource AppProperties}}" />
+                </StackPanel>
+                <parse:DamageDataGrid x:Name="MonsterDamageToPlayersByAction"
+                                         DataContext="{Binding SelectedItem,
+                                                               ElementName=MonsterDamageToPlayers,
+                                                               NotifyOnTargetUpdated=True,
+                                                               NotifyOnSourceUpdated=True}"
+                                         ItemsSource="{Binding DamageToPlayersByAction}"
+                                         Style="{DynamicResource MetroDataGrid}"
+                                         Visibility="{Binding MonsterDamageToPlayersByAction,
+                                                              Source={StaticResource PluginSettings},
+                                                              Converter={StaticResource VisibilityConverter}}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

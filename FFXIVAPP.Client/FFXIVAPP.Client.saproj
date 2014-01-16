@@ -33,17 +33,17 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Controls</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Views</Namespace>
+                                <Namespace>FFXIVAPP.Client.Controls.Parse</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Properties</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.SettingsProviders.Application</Namespace>
                             </Token>
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
@@ -58,22 +58,17 @@
                             <Token Table="Namespace">
                                 <Assembly>FFXIVAPP.Client</Assembly>
                                 <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Views.Parse</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
+                                <Namespace>FFXIVAPP.Client.Views.Parse.History</Namespace>
+                            </Token>
+                            <Token Table="Namespace">
+                                <Assembly>FFXIVAPP.Client</Assembly>
+                                <Module>FFXIVAPP.Client.exe</Module>
                                 <Namespace>FFXIVAPP.Client.Windows</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Plugins.Parse.Controls.History</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.Plugins.Parse.WidgetWindows</Namespace>
-                            </Token>
-                            <Token Table="Namespace">
-                                <Assembly>FFXIVAPP.Client</Assembly>
-                                <Module>FFXIVAPP.Client.exe</Module>
-                                <Namespace>FFXIVAPP.Client.SettingsProviders.Application</Namespace>
                             </Token>
                         </Exclusion>
                     </Obfuscation>
@@ -409,6 +404,10 @@
                         <Exclusion />
                     </Obfuscation>
                 </Merging>
+            </Assembly>
+            <Assembly AssemblyName="NAudio, Culture=neutral, PublicKeyToken=null">
+                <Merging />
+                <Embedding />
             </Assembly>
         </Assemblies>
     </Configuration>

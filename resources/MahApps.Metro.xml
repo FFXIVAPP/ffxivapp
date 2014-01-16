@@ -394,6 +394,12 @@
             An event that is raised when IsOpen changes.
             </summary>
         </member>
+        <member name="P:MahApps.Metro.Controls.Flyout.ActualTheme">
+            <summary>
+            Gets the actual theme (dark/light) of this flyout.
+            Used to handle the WindowCommands overlay in the MetroWindow.
+            </summary>
+        </member>
         <member name="P:MahApps.Metro.Controls.Flyout.CloseCommand">
             <summary>
             An ICommand that executes when the flyout's close button is clicked.
@@ -429,10 +435,35 @@
             Gets/sets the flyout's header.
             </summary>
         </member>
+        <member name="P:MahApps.Metro.Controls.Flyout.Theme">
+            <summary>
+            Gets or sets the theme of this flyout.
+            </summary>
+        </member>
         <member name="T:MahApps.Metro.Controls.FlyoutsControl">
             <summary>
             A FlyoutsControl is for displaying flyouts in a MetroWindow.
             <see cref="T:MahApps.Metro.Controls.MetroWindow"/>
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.FlyoutTheme.Adapt">
+            <summary>
+            Adapts the Flyout's theme to the theme of its host window.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.FlyoutTheme.Inverse">
+            <summary>
+            Adapts the Flyout's theme to the theme of its host window, but inverted.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.FlyoutTheme.Dark">
+            <summary>
+            The dark theme. This is the default theme.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.Controls.FlyoutTheme.Accent">
+            <summary>
+            The flyouts theme will match the host window's accent color.
             </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.GlowWindow">
@@ -444,17 +475,6 @@
             <summary>
             InitializeComponent
             </summary>
-        </member>
-        <member name="T:MahApps.Metro.Controls.IPanoramaTile">
-            <summary>
-            The minimum specification that a tile needs to support  
-            </summary>
-        </member>
-        <member name="M:MahApps.Metro.Controls.PanoramaTile.RaisePropertyChanged(System.String)">
-            <summary>
-            Raises the PropertyChanged event if needed.
-            </summary>
-            <param name="propertyName">The name of the property that changed.</param>
         </member>
         <member name="T:MahApps.Metro.Controls.MetroAnimatedSingleRowTabControl">
             <summary>
@@ -813,6 +833,11 @@
             Gets the owning MetroTabControl of this MetroTabItem.
             </summary>
         </member>
+        <member name="T:MahApps.Metro.Controls.MetroWindowHelpers">
+            <summary>
+            This class eats little children.
+            </summary>
+        </member>
         <member name="T:MahApps.Metro.Controls.NumericUpDown">
             <summary>
                 Represents a Windows spin box (also known as an up-down control) that displays numeric values.
@@ -894,11 +919,6 @@
             </summary>
             <param name = "bg">The bg.</param>
             <returns></returns>
-        </member>
-        <member name="T:MahApps.Metro.Controls.PanoramaGroup">
-            <summary>
-            Represents a grouping of tiles
-            </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.Planerator">
             <summary>
@@ -2464,21 +2484,6 @@
         <member name="T:MahApps.Metro.Controls.MetroContentControl">
             <summary>
             Originally from http://xamlcoder.com/blog/2010/11/04/creating-a-metro-ui-style-control/
-            </summary>
-        </member>
-        <member name="T:MahApps.Metro.Controls.MetroImage">
-            <summary>
-            An obsolete control. Do not use.
-            </summary>
-        </member>
-        <member name="T:MahApps.Metro.Controls.ProgressIndicator">
-            <summary>
-            ProgressIndicator
-            </summary>
-        </member>
-        <member name="M:MahApps.Metro.Controls.ProgressIndicator.InitializeComponent">
-            <summary>
-            InitializeComponent
             </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.RevealImage">

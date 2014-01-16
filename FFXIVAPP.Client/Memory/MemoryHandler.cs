@@ -298,7 +298,7 @@ namespace FFXIVAPP.Client.Memory
         public int ReadInt32(IntPtr address, int offset = 0)
         {
             var value = new byte[4];
-            Peek((uint)(address + offset), value);
+            Peek((uint) (address + offset), value);
             return BitConverter.ToInt32(value, 0);
         }
 
