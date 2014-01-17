@@ -33,24 +33,17 @@ namespace FFXIVAPP.Client.Utilities.Parse
         {
             if (!ParseControl.Instance.FirstActionFound)
             {
-                if (Constants.Parse.PluginSettings.TrackXPSFromParseStartEvent)
+                switch (Settings.Default.StoreHistoryEvent)
                 {
-                    switch (Settings.Default.StoreHistoryEvent)
-                    {
-                        case "Any":
+                    case "Any":
+                        ParseControl.Instance.Reset();
+                        break;
+                    case "Damage Only":
+                        if (e.Type == EventType.Damage)
+                        {
                             ParseControl.Instance.Reset();
-                            break;
-                        case "Damage Only":
-                            if (e.Type == EventType.Damage)
-                            {
-                                ParseControl.Instance.Reset();
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    ParseControl.Instance.Reset();
+                        }
+                        break;
                 }
             }
 

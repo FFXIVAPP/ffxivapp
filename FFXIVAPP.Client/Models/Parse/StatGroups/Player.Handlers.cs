@@ -170,12 +170,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
-                        var currentCritPercent = (double) Stats.GetStatValue("DamageCritPercent");
-                        if (new Random().NextDouble() * 3 < currentCritPercent)
-                        {
-                            line.Crit = true;
-                            line.Amount = line.Amount * 1.5m;
-                        }
+                        //var currentCritPercent = (double) Stats.GetStatValue("DamageCritPercent");
+                        //if (new Random().NextDouble() * 3 < currentCritPercent)
+                        //{
+                        //    line.Crit = true;
+                        //    line.Amount = line.Amount * 1.5m;
+                        //}
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetDamage(line, true);
                         ParseControl.Instance.Timeline.GetSetMonster(line.Target)
@@ -371,12 +371,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                         catch (Exception ex)
                         {
                         }
-                        var currentCritPercent = (double) Stats.GetStatValue("HealingCritPercent");
-                        if (new Random().NextDouble() * 3 < currentCritPercent)
-                        {
-                            line.Crit = true;
-                            line.Amount = line.Amount * 1.5m;
-                        }
+                        //var currentCritPercent = (double) Stats.GetStatValue("HealingCritPercent");
+                        //if (new Random().NextDouble() * 3 < currentCritPercent)
+                        //{
+                        //    line.Crit = true;
+                        //    line.Amount = line.Amount * 1.5m;
+                        //}
                         ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
                                     .SetHealing(line, HealingType.HealingOverTime);
                     });
