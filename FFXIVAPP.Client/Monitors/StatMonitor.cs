@@ -108,8 +108,13 @@ namespace FFXIVAPP.Client.Monitors
             var controller = historyItem.HistoryControl.Controller;
             var oStats = ParseControl.Timeline.Overall.Stats;
             controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDPS", oStats.GetStatValue("DPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDOTPS", oStats.GetStatValue("DOTPS"));
             controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHPS", oStats.GetStatValue("HPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOHPS", oStats.GetStatValue("HOHPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOTPS", oStats.GetStatValue("HOTPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHMPS", oStats.GetStatValue("HMPS"));
             controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTPS", oStats.GetStatValue("DTPS"));
+            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTOTPS", oStats.GetStatValue("DTOTPS"));
             var playerList = ParseControl.Timeline.Party.ToArray();
             foreach (var player in playerList)
             {
@@ -183,14 +188,7 @@ namespace FFXIVAPP.Client.Monitors
             {
             }
             historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
-            DispatcherHelper.Invoke(delegate
-            {
-                HistoryViewModel.Instance.ParseHistory.Insert(0, historyItem);
-                if (Constants.Parse.PluginSettings.AutoLoadLastParseFromHistory)
-                {
-                    HistoryView.View.HistoryList.SelectedIndex = 0;
-                }
-            });
+            DispatcherHelper.Invoke(() => MainViewModel.Instance.ParseHistory.Insert(1, historyItem));
         }
 
         private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup)

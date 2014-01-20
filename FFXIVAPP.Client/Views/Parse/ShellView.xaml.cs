@@ -36,7 +36,6 @@ namespace FFXIVAPP.Client.Views.Parse
                 return;
             }
             IsRendered = true;
-            PluginInitializer.Parse.ApplyTheming();
             Constants.Parse.PluginSettings.PropertyChanged += PluginSettingsOnPropertyChanged;
         }
 

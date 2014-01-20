@@ -77,13 +77,30 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         /// <summary>
         /// </summary>
-        /// <param name="dependency"> </param>
-        public void RemoveDependency(Stat<decimal> dependency)
+        public void ClearDependencies()
         {
-            if (dependency != null)
+            if (_dependencyList == null)
+            {
+                return;
+            }
+            foreach (var dependency in _dependencyList)
             {
                 dependency.OnValueChanged -= DependencyValueChanged;
             }
+            _dependencyList.Clear();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dependency"> </param>
+        public void RemoveDependency(Stat<decimal> dependency)
+        {
+            if (dependency == null)
+            {
+                return;
+            }
+            dependency.OnValueChanged -= DependencyValueChanged;
+            _dependencyList.Remove(dependency);
         }
 
         /// <summary>

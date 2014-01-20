@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
@@ -28,6 +29,7 @@ namespace FFXIVAPP.Client
             {
                 if (Constants.Parse.XSettings != null)
                 {
+                    Settings.Default.Reset();
                     foreach (var xElement in Constants.Parse.XSettings.Descendants()
                                                       .Elements("Setting"))
                     {
@@ -37,7 +39,7 @@ namespace FFXIVAPP.Client
                         {
                             continue;
                         }
-                        Settings.SetValue(xKey, xValue);
+                        Settings.SetValue(xKey, xValue, CultureInfo.InvariantCulture);
                         if (!Constants.Parse.Settings.Contains(xKey))
                         {
                             Constants.Parse.Settings.Add(xKey);
@@ -454,28 +456,6 @@ namespace FFXIVAPP.Client
                             break;
                     }
                 }
-            }
-
-            /// <summary>
-            /// </summary>
-            public static void ApplyTheming()
-            {
-                SetupFont(ref MainView.View.AbilityChatFD);
-                SetupColor(ref MainView.View.AbilityChatFD);
-            }
-
-            private static void SetupFont(ref xFlowDocument flowDoc)
-            {
-                var font = Properties.Settings.Default.ChatFont;
-                flowDoc._FD.FontFamily = new FontFamily(font.Name);
-                flowDoc._FD.FontWeight = font.Bold ? FontWeights.Bold : FontWeights.Regular;
-                flowDoc._FD.FontStyle = font.Italic ? FontStyles.Italic : FontStyles.Normal;
-                flowDoc._FD.FontSize = font.Size;
-            }
-
-            private static void SetupColor(ref xFlowDocument flowDoc)
-            {
-                flowDoc._FD.Background = new SolidColorBrush(Properties.Settings.Default.ChatBackgroundColor);
             }
         }
     }

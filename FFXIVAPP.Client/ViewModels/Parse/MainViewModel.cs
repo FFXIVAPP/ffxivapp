@@ -5,22 +5,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views.Parse;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
 using Microsoft.Win32;
 using SmartAssembly.Attributes;
@@ -33,30 +31,82 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         #region Property Bindings
 
         private static MainViewModel _instance;
-        private bool _isAdvancedView;
-        private bool _isBasicView;
+        private ObservableCollection<ParseHistoryItem> _parseHistory;
+        private dynamic _playerInfoListViewSource;
+        private dynamic _monsterInfoListViewSource;
+        private dynamic _overallInfoScoreCardSource;
+        private dynamic _playerInfoScoreCardSource;
 
         public static MainViewModel Instance
         {
             get { return _instance ?? (_instance = new MainViewModel()); }
         }
 
-        public bool IsBasicView
+        public ObservableCollection<ParseHistoryItem> ParseHistory
         {
-            get { return _isBasicView; }
+            get
+            {
+                return _parseHistory ?? (_parseHistory = new ObservableCollection<ParseHistoryItem>
+                {
+                    new ParseHistoryItem
+                    {
+                        Name = "Current"
+                    }
+                });
+            }
             set
             {
-                _isBasicView = value;
+                if (_parseHistory == null)
+                {
+                    _parseHistory = new ObservableCollection<ParseHistoryItem>
+                    {
+                        new ParseHistoryItem
+                        {
+                            Name = "Current"
+                        }
+                    };
+                }
+                _parseHistory = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool IsAdvancedView
+        public dynamic PlayerInfoListViewSource
         {
-            get { return _isAdvancedView; }
+            get { return _playerInfoListViewSource ?? (ParseControl.Instance.Timeline.Party); }
             set
             {
-                _isAdvancedView = value;
+                _playerInfoListViewSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public dynamic MonsterInfoListViewSource
+        {
+            get { return _monsterInfoListViewSource ?? (ParseControl.Instance.Timeline.Monster); }
+            set
+            {
+                _monsterInfoListViewSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public dynamic OverallInfoScoreCardSource
+        {
+            get { return _overallInfoScoreCardSource ?? (ParseControl.Instance.Timeline.Overall); }
+            set
+            {
+                _overallInfoScoreCardSource = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public dynamic PlayerInfoScoreCardSource
+        {
+            get { return _playerInfoScoreCardSource ?? (ParseControl.Instance.Timeline.Party); }
+            set
+            {
+                _playerInfoScoreCardSource = value;
                 RaisePropertyChanged();
             }
         }
@@ -65,10 +115,10 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         #region Declarations
 
+        public ICommand RefreshSelectedCommand { get; private set; }
         public ICommand ProcessSampleCommand { get; private set; }
-        public ICommand SwitchToLogViewCommand { get; private set; }
-        public ICommand SwitchToAdvancedViewCommand { get; private set; }
-        public ICommand SwitchToBasicViewCommand { get; private set; }
+        public ICommand SwitchInfoViewSourceCommand { get; private set; }
+        public ICommand SwitchInfoViewTypeCommand { get; private set; }
         public ICommand ResetStatsCommand { get; private set; }
         public ICommand Convert2JsonCommand { get; private set; }
 
@@ -76,11 +126,10 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         public MainViewModel()
         {
-            IsBasicView = true;
+            RefreshSelectedCommand = new DelegateCommand(RefreshSelected);
             ProcessSampleCommand = new DelegateCommand(ProcessSample);
-            SwitchToLogViewCommand = new DelegateCommand(SwitchToLogView);
-            SwitchToAdvancedViewCommand = new DelegateCommand(SwitchToAdvancedView);
-            SwitchToBasicViewCommand = new DelegateCommand(SwitchToBasicView);
+            SwitchInfoViewSourceCommand = new DelegateCommand(SwitchInfoViewSource);
+            SwitchInfoViewTypeCommand = new DelegateCommand(SwitchInfoViewType);
             ResetStatsCommand = new DelegateCommand(ResetStats);
             Convert2JsonCommand = new DelegateCommand(Convert2Json);
         }
@@ -94,6 +143,31 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         #endregion
 
         #region Command Bindings
+
+        private void RefreshSelected()
+        {
+            DispatcherHelper.Invoke(delegate
+            {
+                try
+                {
+                    var index = MainView.View.PlayerInfoListView.SelectedIndex;
+                    MainView.View.PlayerInfoListView.SelectedIndex = -1;
+                    MainView.View.PlayerInfoListView.SelectedIndex = index;
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    var index = MainView.View.MonsterInfoListView.SelectedIndex;
+                    MainView.View.MonsterInfoListView.SelectedIndex = -1;
+                    MainView.View.MonsterInfoListView.SelectedIndex = index;
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
 
         private static void ProcessSample()
         {
@@ -141,32 +215,6 @@ namespace FFXIVAPP.Client.ViewModels.Parse
                             Code = item.Value[0],
                             Line = item.Value[1].Replace("  ", " ")
                         };
-                        var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                        var timeStamp = DateTime.Now.ToString("[HH:mm:ss] ");
-                        timeStamp = String.IsNullOrWhiteSpace(item.Value[2]) ? timeStamp : item.Value[2].Trim() + " ";
-                        if (!String.IsNullOrWhiteSpace(item.Value[3]))
-                        {
-                            try
-                            {
-                                var bytesString = item.Value[3].Split(' ');
-                                var bytes = bytesString.Select(Byte.Parse)
-                                                       .Take(8)
-                                                       .ToList();
-                                var byteString = Encoding.ASCII.GetString(bytes.ToArray());
-                                var timeOffset = Int64.Parse(byteString, NumberStyles.HexNumber);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        }
-                        var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
-                        if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(chatLogEntry.Line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
-                        {
-                            Common.Constants.FD.AppendFlow(timeStamp, "", chatLogEntry.Line, new[]
-                            {
-                                timeStampColor, "#" + color
-                            }, MainView.View.AbilityChatFD._FDR);
-                        }
                         EventParser.Instance.ParseAndPublish(chatLogEntry);
                     }
                     return true;
@@ -176,39 +224,70 @@ namespace FFXIVAPP.Client.ViewModels.Parse
             openFileDialog.ShowDialog();
         }
 
-        private static void SwitchToLogView()
+        private void SwitchInfoViewSource()
         {
-            if (MainView.View.MainViewTC.SelectedIndex == 2)
+            try
             {
-                return;
+                var index = MainView.View.InfoViewSource.SelectedIndex;
+                switch (index)
+                {
+                    case 0:
+                        PlayerInfoListViewSource = null;
+                        MonsterInfoListViewSource = null;
+                        OverallInfoScoreCardSource = null;
+                        PlayerInfoScoreCardSource = null;
+                        break;
+                    default:
+                        PlayerInfoListViewSource = ParseHistory[index].HistoryControl.Timeline.Party;
+                        MonsterInfoListViewSource = ParseHistory[index].HistoryControl.Timeline.Monster;
+                        OverallInfoScoreCardSource = ParseHistory[index].HistoryControl.Timeline.Overall;
+                        PlayerInfoScoreCardSource = ParseHistory[index].HistoryControl.Timeline.Party;
+                        break;
+                }
             }
-            MainView.View.MainViewTC.SelectedIndex = 2;
-            if (Instance.IsBasicView)
+            catch (Exception ex)
             {
-                Instance.IsBasicView = false;
-                Instance.IsAdvancedView = true;
-                return;
             }
-            if (!Instance.IsAdvancedView)
-            {
-                return;
-            }
-            Instance.IsBasicView = true;
-            Instance.IsAdvancedView = false;
         }
 
-        private static void SwitchToAdvancedView()
+        private static void SwitchInfoViewType()
         {
-            MainView.View.MainViewTC.SelectedIndex = 1;
-            Instance.IsBasicView = false;
-            Instance.IsAdvancedView = true;
-        }
-
-        private static void SwitchToBasicView()
-        {
-            MainView.View.MainViewTC.SelectedIndex = 0;
-            Instance.IsBasicView = true;
-            Instance.IsAdvancedView = false;
+            try
+            {
+                var index = MainView.View.InfoViewType.SelectedIndex;
+                switch (MainView.View.InfoViewType.SelectedIndex)
+                {
+                    case 0:
+                        MainView.View.PlayerInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.MonsterInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.RefreshSelectedButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case 1:
+                        MainView.View.PlayerInfoListView.Visibility = Visibility.Visible;
+                        MainView.View.MonsterInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.RefreshSelectedButton.Visibility = Visibility.Visible;
+                        break;
+                    case 2:
+                        MainView.View.PlayerInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.MonsterInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.RefreshSelectedButton.Visibility = Visibility.Collapsed;
+                        break;
+                    case 3:
+                        MainView.View.PlayerInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.MonsterInfoListView.Visibility = Visibility.Visible;
+                        MainView.View.RefreshSelectedButton.Visibility = Visibility.Visible;
+                        break;
+                    case 4:
+                        MainView.View.PlayerInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.MonsterInfoListView.Visibility = Visibility.Collapsed;
+                        MainView.View.RefreshSelectedButton.Visibility = Visibility.Collapsed;
+                        break;
+                }
+                MainView.View.InfoViewResults.SelectedIndex = index;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -217,11 +296,7 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         {
             var title = AppViewModel.Instance.Locale["app_WarningMessage"];
             var message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
-            MessageBoxHelper.ShowMessageAsync(title, message, delegate
-            {
-                MainView.View.AbilityChatFD._FD.Blocks.Clear();
-                ParseControl.Instance.Reset();
-            }, delegate { });
+            MessageBoxHelper.ShowMessageAsync(title, message, delegate { ParseControl.Instance.Reset(); }, delegate { });
         }
 
         private static void Convert2Json()

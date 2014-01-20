@@ -133,6 +133,18 @@
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Constants.Application.cs" />
     <Compile Include="Constants.Parse.cs" />
+    <Compile Include="Controls\Parse\DamageOverTimeDataGrid.xaml.cs">
+      <DependentUpon>DamageOverTimeDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml.cs">
+      <DependentUpon>DamageTakenOverTimeDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\HealingOverHealingDataGrid.xaml.cs">
+      <DependentUpon>HealingOverHealingDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\HealingOverTimeDataGrid.xaml.cs">
+      <DependentUpon>HealingOverTimeDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PluginInfoBox.xaml.cs">
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
@@ -151,6 +163,14 @@
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
+    <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageOverTime.cs" />
+    <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageTakenOverTime.cs" />
+    <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageOverTime.cs" />
+    <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageTakenOverTime.cs" />
+    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingMitigated.cs" />
+    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverTime.cs" />
+    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverHealing.cs" />
+    <Compile Include="Models\Parse\StatGroups\StatGeneration.cs" />
     <Compile Include="Models\PluginInfo.cs" />
     <Compile Include="Controls\Parse\BasicDisplaySettings.xaml.cs">
       <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
@@ -292,38 +312,6 @@
     <Compile Include="PluginInitializer.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
     <Compile Include="Utilities\Parse\Filter.Declarations.cs" />
-    <Compile Include="ViewModels\Parse\HistoryViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParseBasicViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParseMonsterDamageTakenViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParseMonsterDamageViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParsePartyDamageTakenViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParsePartyDamageViewModel.cs" />
-    <Compile Include="ViewModels\Parse\History\ParsePartyHealingViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParsePartyBuffViewModel.cs" />
-    <Compile Include="Views\Parse\HistoryView.xaml.cs">
-      <DependentUpon>HistoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParseBasicView.xaml.cs">
-      <DependentUpon>ParseBasicView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParseMonsterDamageTakenView.xaml.cs">
-      <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParseMonsterDamageView.xaml.cs">
-      <DependentUpon>ParseMonsterDamageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParsePartyDamageTakenView.xaml.cs">
-      <DependentUpon>ParsePartyDamageTakenView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParsePartyDamageView.xaml.cs">
-      <DependentUpon>ParsePartyDamageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\History\ParsePartyHealingView.xaml.cs">
-      <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParsePartyBuffView.xaml.cs">
-      <DependentUpon>ParsePartyBuffView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
     <Compile Include="RegularExpressions\MonsterRegEx.cs" />
@@ -358,12 +346,6 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\Parse\AboutViewModel.cs" />
     <Compile Include="ViewModels\Parse\MainViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParseBasicViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParseMonsterDamageTakenViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParseMonsterDamageViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParsePartyDamageTakenViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParsePartyDamageViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ParsePartyHealingViewModel.cs" />
     <Compile Include="ViewModels\Parse\PluginViewModel.cs" />
     <Compile Include="ViewModels\Parse\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Parse\ShellViewModel.cs" />
@@ -382,24 +364,6 @@
     </Compile>
     <Compile Include="Views\Parse\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParseBasicView.xaml.cs">
-      <DependentUpon>ParseBasicView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParseMonsterDamageTakenView.xaml.cs">
-      <DependentUpon>ParseMonsterDamageTakenView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParseMonsterDamageView.xaml.cs">
-      <DependentUpon>ParseMonsterDamageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParsePartyDamageTakenView.xaml.cs">
-      <DependentUpon>ParsePartyDamageTakenView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParsePartyDamageView.xaml.cs">
-      <DependentUpon>ParsePartyDamageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ParsePartyHealingView.xaml.cs">
-      <DependentUpon>ParsePartyHealingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parse\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -420,6 +384,22 @@
       <DependentUpon>xMetroWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\DamageOverTimeDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\HealingOverHealingDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\HealingOverTimeDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -459,38 +439,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Parse\HistoryView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParseBasicView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParseMonsterDamageTakenView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParseMonsterDamageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParsePartyDamageTakenView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParsePartyDamageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\History\ParsePartyHealingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParsePartyBuffView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Styles\TabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -508,30 +456,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Parse\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParseBasicView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParseMonsterDamageTakenView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParseMonsterDamageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParsePartyDamageTakenView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParsePartyDamageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ParsePartyHealingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

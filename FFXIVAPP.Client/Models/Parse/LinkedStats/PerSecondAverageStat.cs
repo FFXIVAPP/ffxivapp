@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.Collections.Generic;
 using System.Timers;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using SmartAssembly.Attributes;
@@ -13,6 +14,30 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
     [DoNotObfuscate]
     public class PerSecondAverageStat : LinkedStat
     {
+        public bool IsHistoryBased { get; set; }
+
+        public PerSecondAverageStat(string name, IList<Stat<decimal>> dependencies, bool isHistoryBased = false)
+            : base(name, 0m)
+        {
+            IsHistoryBased = isHistoryBased;
+            if (IsHistoryBased)
+            {
+                return;
+            }
+            SetupDepends(dependencies[0]);
+        }
+
+        public PerSecondAverageStat(string name, Stat<decimal> dependency, bool isHistoryBased = false)
+            : base(name, 0m)
+        {
+            IsHistoryBased = isHistoryBased;
+            if (IsHistoryBased)
+            {
+                return;
+            }
+            SetupDepends(dependency);
+        }
+
         public PerSecondAverageStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
             SetupDepends(dependencies[0]);

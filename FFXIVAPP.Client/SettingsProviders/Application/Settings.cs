@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
@@ -60,11 +62,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                     continue;
                 }
                 var value = settingsProperty.DefaultValue.ToString();
-                SetValue(key, value);
+                SetValue(key, value, CultureInfo.InvariantCulture);
             }
         }
 
-        public static void SetValue(string key, string value)
+        public static void SetValue(string key, string value, CultureInfo cultureInfo)
         {
             try
             {
@@ -73,7 +75,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                 switch (type)
                 {
                     case "Boolean":
-                        Default[key] = Convert.ToBoolean(value);
+                        Default[key] = Boolean.Parse(value);
                         break;
                     case "Color":
                         var cc = new ColorConverter();
@@ -81,7 +83,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                         Default[key] = color ?? Colors.Black;
                         break;
                     case "Double":
-                        Default[key] = Convert.ToDouble(value);
+                        Default[key] = Double.Parse(value, cultureInfo);
                         break;
                     case "Font":
                         var fc = new FontConverter();
@@ -89,18 +91,16 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                         Default[key] = font ?? new Font(new FontFamily("Microsoft Sans Serif"), 12);
                         break;
                     case "Int32":
-                        Default[key] = Convert.ToInt32(value);
+                        Default[key] = Int32.Parse(value, cultureInfo);
                         break;
                     default:
                         Default[key] = value;
                         break;
                 }
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (Exception ex)
             {
-            }
-            catch (SettingsPropertyWrongTypeException ex)
-            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
 

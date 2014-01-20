@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              xmlns:parse="clr-namespace:FFXIVAPP.Client.Views.Parse"
              Loaded="ShellView_OnLoaded"
              d:DesignHeight="300"
@@ -40,25 +40,6 @@
                     </StackPanel>
                 </TabItem.Header>
                 <parse:MainView />
-            </TabItem>
-            <TabItem x:Name="HistoryTI">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="20"
-                               Height="20"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="/FFXIVAPP.Client;component/Resources/Media/Images/History.png"
-                               ToolTip="{Binding Locale[parse_HistoryToolTip],
-                                                 Source={StaticResource AppProperties}}" />
-                        <Label Content="{Binding Locale[parse_HistoryToolTip],
-                                                 Source={StaticResource AppProperties}}"
-                               Padding="5"
-                               Visibility="{Binding EnableHelpLabels,
-                                                    Source={x:Static Properties:Settings.Default},
-                                                    Converter={StaticResource VisibilityConverter}}" />
-                    </StackPanel>
-                </TabItem.Header>
-                <parse:HistoryView />
             </TabItem>
             <TabItem x:Name="SettingsTI">
                 <TabItem.Header>

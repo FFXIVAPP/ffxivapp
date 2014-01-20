@@ -17,15 +17,17 @@
                             Margin="2"
                             BorderThickness="1"
                             CornerRadius="2">
-                        <Label x:Name="root"
-                               FontSize="14">
-                            <ContentPresenter ContentSource="Header"
-                                              RecognizesAccessKey="True" />
-                        </Label>
+                        <ContentPresenter x:Name="root"
+                                          Margin="5"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          ContentSource="Header"
+                                          RecognizesAccessKey="True"
+                                          TextElement.FontSize="14" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter TargetName="root" Property="Foreground" Value="Black" />
+                            <Setter TargetName="root" Property="TextElement.Foreground" Value="Black" />
                             <Setter TargetName="border" Property="Background" Value="#FFE2E2E2" />
                             <Setter TargetName="border" Property="Style">
                                 <Setter.Value>
@@ -36,14 +38,14 @@
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="false">
-                            <Setter TargetName="root" Property="Foreground">
+                            <Setter TargetName="root" Property="TextElement.Foreground">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource GrayNormal}" />
+                                    <SolidColorBrush Color="{DynamicResource BlackColor}" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
                         <Trigger SourceName="root" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="root" Property="Foreground" Value="White" />
+                            <Setter TargetName="root" Property="TextElement.Foreground" Value="White" />
                             <Setter TargetName="border" Property="Background">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{DynamicResource AccentColor}" />

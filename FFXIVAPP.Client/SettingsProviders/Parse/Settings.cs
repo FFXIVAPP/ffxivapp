@@ -5,10 +5,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
@@ -49,43 +52,13 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Clear();
             Constants.Parse.Settings.Add("StoreHistoryInterval");
             Constants.Parse.Settings.Add("EnableStoreHistoryReset");
-            Constants.Parse.Settings.Add("AutoLoadLastParseFromHistory");
             Constants.Parse.Settings.Add("IgnoreLimitBreaks");
             Constants.Parse.Settings.Add("TrackXPSFromParseStartEvent");
-            Constants.Parse.Settings.Add("ShowActionLogTab");
-            Constants.Parse.Settings.Add("ShowPartyDamageTab");
-            Constants.Parse.Settings.Add("ShowPartyHealingTab");
-            Constants.Parse.Settings.Add("ShowPartyBuffTab");
-            Constants.Parse.Settings.Add("ShowPartyDamageTakenTab");
-            Constants.Parse.Settings.Add("ShowMonsterDamageTab");
-            Constants.Parse.Settings.Add("ShowMonsterHealingTab");
-            Constants.Parse.Settings.Add("ShowMonsterDamageTakenTab");
-            Constants.Parse.Settings.Add("PlayerDamageByAction");
-            Constants.Parse.Settings.Add("PlayerDamageToMonsters");
-            Constants.Parse.Settings.Add("PlayerDamageToMonstersByAction");
-            Constants.Parse.Settings.Add("PlayerHealingByAction");
-            Constants.Parse.Settings.Add("PlayerHealingToPlayers");
-            Constants.Parse.Settings.Add("PlayerHealingToPlayersByAction");
-            Constants.Parse.Settings.Add("PlayerBuffByAction");
-            Constants.Parse.Settings.Add("PlayerBuffToPlayers");
-            Constants.Parse.Settings.Add("PlayerBuffToPlayersByAction");
-            Constants.Parse.Settings.Add("PlayerDamageTakenByAction");
-            Constants.Parse.Settings.Add("PlayerDamageTakenByMonsters");
-            Constants.Parse.Settings.Add("PlayerDamageTakenByMonstersByAction");
-            Constants.Parse.Settings.Add("MonsterDamageByAction");
-            Constants.Parse.Settings.Add("MonsterDamageToPlayers");
-            Constants.Parse.Settings.Add("MonsterDamageToPlayersByAction");
-            Constants.Parse.Settings.Add("MonsterHealingByAction");
-            Constants.Parse.Settings.Add("MonsterHealingToMonsters");
-            Constants.Parse.Settings.Add("MonsterHealingToMonstersByAction");
-            Constants.Parse.Settings.Add("MonsterDamageTakenByAction");
-            Constants.Parse.Settings.Add("MonsterDamageTakenByPlayers");
-            Constants.Parse.Settings.Add("MonsterDamageTakenByPlayersByAction");
-            Constants.Parse.Settings.Add("MonsterDrops");
             Constants.Parse.Settings.Add("ParseYou");
             Constants.Parse.Settings.Add("ParseParty");
             Constants.Parse.Settings.Add("ParseAlliance");
             Constants.Parse.Settings.Add("ParseOther");
+            Constants.Parse.Settings.Add("ParseAdvanced");
 
             #region Basic Settings
 
@@ -326,11 +299,11 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                     continue;
                 }
                 var value = settingsProperty.DefaultValue.ToString();
-                SetValue(key, value);
+                SetValue(key, value, CultureInfo.InvariantCulture);
             }
         }
 
-        public static void SetValue(string key, string value)
+        public static void SetValue(string key, string value, CultureInfo cultureInfo)
         {
             try
             {
@@ -339,7 +312,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 switch (type)
                 {
                     case "Boolean":
-                        Default[key] = Convert.ToBoolean(value);
+                        Default[key] = Boolean.Parse(value);
                         break;
                     case "Color":
                         var cc = new ColorConverter();
@@ -347,7 +320,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                         Default[key] = color ?? Colors.Black;
                         break;
                     case "Double":
-                        Default[key] = Convert.ToDouble(value);
+                        Default[key] = Double.Parse(value, cultureInfo);
                         break;
                     case "Font":
                         var fc = new FontConverter();
@@ -355,18 +328,16 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                         Default[key] = font ?? new Font(new FontFamily("Microsoft Sans Serif"), 12);
                         break;
                     case "Int32":
-                        Default[key] = Convert.ToInt32(value);
+                        Default[key] = Int32.Parse(value, cultureInfo);
                         break;
                     default:
                         Default[key] = value;
                         break;
                 }
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (Exception ex)
             {
-            }
-            catch (SettingsPropertyWrongTypeException ex)
-            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
             }
         }
 
@@ -413,13 +384,13 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool AutoLoadLastParseFromHistory
+        [DefaultSettingValue("True")]
+        public bool ParseAdvanced
         {
-            get { return ((bool) (this["AutoLoadLastParseFromHistory"])); }
+            get { return ((bool) (this["ParseAdvanced"])); }
             set
             {
-                this["AutoLoadLastParseFromHistory"] = value;
+                this["ParseAdvanced"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -446,396 +417,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["TrackXPSFromParseStartEvent"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowActionLogTab
-        {
-            get { return ((bool) (this["ShowActionLogTab"])); }
-            set
-            {
-                this["ShowActionLogTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowPartyDamageTab
-        {
-            get { return ((bool) (this["ShowPartyDamageTab"])); }
-            set
-            {
-                this["ShowPartyDamageTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowPartyHealingTab
-        {
-            get { return ((bool) (this["ShowPartyHealingTab"])); }
-            set
-            {
-                this["ShowPartyHealingTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowPartyBuffTab
-        {
-            get { return ((bool) (this["ShowPartyBuffTab"])); }
-            set
-            {
-                this["ShowPartyBuffTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowPartyDamageTakenTab
-        {
-            get { return ((bool) (this["ShowPartyDamageTakenTab"])); }
-            set
-            {
-                this["ShowPartyDamageTakenTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowMonsterDamageTab
-        {
-            get { return ((bool) (this["ShowMonsterDamageTab"])); }
-            set
-            {
-                this["ShowMonsterDamageTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowMonsterHealingTab
-        {
-            get { return ((bool) (this["ShowMonsterHealingTab"])); }
-            set
-            {
-                this["ShowMonsterHealingTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowMonsterDamageTakenTab
-        {
-            get { return ((bool) (this["ShowMonsterDamageTakenTab"])); }
-            set
-            {
-                this["ShowMonsterDamageTakenTab"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageByAction
-        {
-            get { return ((bool) (this["PlayerDamageByAction"])); }
-            set
-            {
-                this["PlayerDamageByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageToMonsters
-        {
-            get { return ((bool) (this["PlayerDamageToMonsters"])); }
-            set
-            {
-                this["PlayerDamageToMonsters"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageToMonstersByAction
-        {
-            get { return ((bool) (this["PlayerDamageToMonstersByAction"])); }
-            set
-            {
-                this["PlayerDamageToMonstersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerHealingByAction
-        {
-            get { return ((bool) (this["PlayerHealingByAction"])); }
-            set
-            {
-                this["PlayerHealingByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerHealingToPlayers
-        {
-            get { return ((bool) (this["PlayerHealingToPlayers"])); }
-            set
-            {
-                this["PlayerHealingToPlayers"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerHealingToPlayersByAction
-        {
-            get { return ((bool) (this["PlayerHealingToPlayersByAction"])); }
-            set
-            {
-                this["PlayerHealingToPlayersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerBuffByAction
-        {
-            get { return ((bool) (this["PlayerBuffByAction"])); }
-            set
-            {
-                this["PlayerBuffByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerBuffToPlayers
-        {
-            get { return ((bool) (this["PlayerBuffToPlayers"])); }
-            set
-            {
-                this["PlayerBuffToPlayers"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerBuffToPlayersByAction
-        {
-            get { return ((bool) (this["PlayerBuffToPlayersByAction"])); }
-            set
-            {
-                this["PlayerBuffToPlayersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByAction
-        {
-            get { return ((bool) (this["PlayerDamageTakenByAction"])); }
-            set
-            {
-                this["PlayerDamageTakenByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByMonsters
-        {
-            get { return ((bool) (this["PlayerDamageTakenByMonsters"])); }
-            set
-            {
-                this["PlayerDamageTakenByMonsters"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool PlayerDamageTakenByMonstersByAction
-        {
-            get { return ((bool) (this["PlayerDamageTakenByMonstersByAction"])); }
-            set
-            {
-                this["PlayerDamageTakenByMonstersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageByAction
-        {
-            get { return ((bool) (this["MonsterDamageByAction"])); }
-            set
-            {
-                this["MonsterDamageByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageToPlayers
-        {
-            get { return ((bool) (this["MonsterDamageToPlayers"])); }
-            set
-            {
-                this["MonsterDamageToPlayers"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageToPlayersByAction
-        {
-            get { return ((bool) (this["MonsterDamageToPlayersByAction"])); }
-            set
-            {
-                this["MonsterDamageToPlayersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterHealingByAction
-        {
-            get { return ((bool) (this["MonsterHealingByAction"])); }
-            set
-            {
-                this["MonsterHealingByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterHealingToMonsters
-        {
-            get { return ((bool) (this["MonsterHealingToMonsters"])); }
-            set
-            {
-                this["MonsterHealingToMonsters"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterHealingToMonstersByAction
-        {
-            get { return ((bool) (this["MonsterHealingToMonstersByAction"])); }
-            set
-            {
-                this["MonsterHealingToMonstersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByAction
-        {
-            get { return ((bool) (this["MonsterDamageTakenByAction"])); }
-            set
-            {
-                this["MonsterDamageTakenByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByPlayers
-        {
-            get { return ((bool) (this["MonsterDamageTakenByPlayers"])); }
-            set
-            {
-                this["MonsterDamageTakenByPlayers"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDamageTakenByPlayersByAction
-        {
-            get { return ((bool) (this["MonsterDamageTakenByPlayersByAction"])); }
-            set
-            {
-                this["MonsterDamageTakenByPlayersByAction"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool MonsterDrops
-        {
-            get { return ((bool) (this["MonsterDrops"])); }
-            set
-            {
-                this["MonsterDrops"] = value;
                 RaisePropertyChanged();
             }
         }

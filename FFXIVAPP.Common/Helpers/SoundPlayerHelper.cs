@@ -148,21 +148,26 @@ namespace FFXIVAPP.Common.Helpers
                                          .Select(file => new FileInfo(file));
                     soundFiles.AddRange(files);
                 }
-                foreach (var soundFile in soundFiles)
+                Func<bool> cacheSoundsFunc = delegate
                 {
-                    if (soundFile.DirectoryName == null)
+                    foreach (var soundFile in soundFiles)
                     {
-                        continue;
+                        if (soundFile.DirectoryName == null)
+                        {
+                            continue;
+                        }
+                        var baseKey = soundFile.DirectoryName.Replace(Constants.SoundsPath, "");
+                        var key = String.IsNullOrWhiteSpace(baseKey) ? soundFile.Name : String.Format("{0}\\{1}", baseKey.Substring(1), soundFile.Name);
+                        if (SoundFileKeys(false)
+                            .Contains(key))
+                        {
+                            continue;
+                        }
+                        TryGetSetSoundFile(key);
                     }
-                    var baseKey = soundFile.DirectoryName.Replace(Constants.SoundsPath, "");
-                    var key = String.IsNullOrWhiteSpace(baseKey) ? soundFile.Name : String.Format("{0}\\{1}", baseKey.Substring(1), soundFile.Name);
-                    if (SoundFileKeys(false)
-                        .Contains(key))
-                    {
-                        continue;
-                    }
-                    TryGetSetSoundFile(key);
-                }
+                    return true;
+                };
+                cacheSoundsFunc.BeginInvoke(null, null);
             }
             catch (Exception ex)
             {

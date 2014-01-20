@@ -164,9 +164,8 @@ namespace FFXIVAPP.Client.Utilities.Parse
                         if (target != null)
                         {
                             line.Amount = target.HPMax * multiplier;
-                            line.Action = String.Format("{0} [•]", line.Action);
                             ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                        .SetHealingMitigated(line, "stoneskin");
+                                        .SetupHealingMitigated(line, "stoneskin");
                         }
                     }
                     catch (Exception ex)

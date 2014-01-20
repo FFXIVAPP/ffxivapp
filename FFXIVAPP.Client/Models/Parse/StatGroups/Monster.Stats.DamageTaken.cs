@@ -15,8 +15,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"></param>
-        /// <param name="isDamageOverTime"></param>
-        public void SetDamageTaken(Line line, bool isDamageOverTime = false)
+        public void SetDamageTaken(Line line)
         {
             if ((LimitBreaks.IsLimit(line.Action)) && Constants.Parse.PluginSettings.IgnoreLimitBreaks)
             {
@@ -55,13 +54,10 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 subPlayerAbilityGroup.Stats.AddStats(DamageTakenStatList(subPlayerGroup, true));
                 abilities.AddGroup(subPlayerAbilityGroup);
             }
-            if (!isDamageOverTime)
-            {
-                Stats.IncrementStat("TotalDamageTakenActionsUsed");
-                subAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
-                subPlayerGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
-                subPlayerAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
-            }
+            Stats.IncrementStat("TotalDamageTakenActionsUsed");
+            subAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+            subPlayerGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
+            subPlayerAbilityGroup.Stats.IncrementStat("TotalDamageTakenActionsUsed");
             if (line.Hit)
             {
                 Stats.IncrementStat("TotalOverallDamageTaken", line.Amount);

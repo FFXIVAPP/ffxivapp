@@ -5,9 +5,9 @@
              xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              xmlns:parse="clr-namespace:FFXIVAPP.Client.Controls.Parse"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -51,70 +51,6 @@
                         <GroupBox Header="Other">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ParseOther,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
-            <TabItem x:Name="SettingsTabsTI"
-                     Header="{Binding Locale[app_TabSettingsTabHeader],
-                                      Source={StaticResource AppProperties}}">
-                <ScrollViewer>
-                    <StackPanel>
-                        <GroupBox Header="{Binding Locale[parse_ShowActionLogHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowActionLogTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowPartyHealingHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyHealingTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowPartyBuffHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyBuffTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowPartyDamageTakenHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowPartyDamageTakenTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowMonsterHealingHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterHealingTab,
-                                                                                Source={StaticResource PluginSettings}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{Binding Locale[parse_ShowMonsterDamageTakenHeader],
-                                                   Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding ShowMonsterDamageTakenTab,
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>

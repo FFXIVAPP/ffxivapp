@@ -11,9 +11,6 @@ namespace FFXIVAPP.Client.Enums.Parse
     public enum HealingType
     {
         Normal,
-        HealingOverTime,
-        OverHealing,
-        HealingOverTimeOverHealing,
-        Mitigated
+        HealingOverTime
     }
 }

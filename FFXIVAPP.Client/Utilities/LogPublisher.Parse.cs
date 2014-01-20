@@ -58,17 +58,7 @@ namespace FFXIVAPP.Client.Utilities
                 Processing = true;
                 try
                 {
-                    var timeStampColor = Settings.Default.TimeStampColor.ToString();
-                    var timeStamp = chatLogEntry.TimeStamp.ToString("[HH:mm:ss] ");
                     chatLogEntry.Line = chatLogEntry.Line.Replace("  ", " ");
-                    var color = (Constants.Colors.ContainsKey(chatLogEntry.Code)) ? Constants.Colors[chatLogEntry.Code][0] : "FFFFFF";
-                    if (Constants.Parse.Abilities.Contains(chatLogEntry.Code) && Regex.IsMatch(chatLogEntry.Line, @".+(((cast|use)s?|(lance|utilise)z?)\s|の「)", SharedRegEx.DefaultOptions))
-                    {
-                        Common.Constants.FD.AppendFlow(timeStamp, "", chatLogEntry.Line, new[]
-                        {
-                            timeStampColor, "#" + color
-                        }, MainView.View.AbilityChatFD._FDR);
-                    }
                     if (Constants.Parse.NeedGreed.Any(chatLogEntry.Line.Contains))
                     {
                         NeedGreedHistory.Add(chatLogEntry.Line);

@@ -18,7 +18,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <summary>
         /// </summary>
         /// <param name="line"> </param>
-        public void SetHealing(Line line)
+        public void SetHealingOverTime(Line line)
         {
             if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
             {
@@ -49,52 +49,52 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             {
             }
 
-            var abilityGroup = GetGroup("HealingByAction");
+            var abilityGroup = GetGroup("HealingOverTimeByAction");
             StatGroup subAbilityGroup;
             if (!abilityGroup.TryGetGroup(line.Action, out subAbilityGroup))
             {
                 subAbilityGroup = new StatGroup(line.Action);
-                subAbilityGroup.Stats.AddStats(HealingStatList(null));
+                subAbilityGroup.Stats.AddStats(HealingOverTimeStatList(null));
                 abilityGroup.AddGroup(subAbilityGroup);
             }
-            var playerGroup = GetGroup("HealingToPlayers");
+            var playerGroup = GetGroup("HealingOverTimeToPlayers");
             StatGroup subPlayerGroup;
             if (!playerGroup.TryGetGroup(line.Target, out subPlayerGroup))
             {
                 subPlayerGroup = new StatGroup(line.Target);
-                subPlayerGroup.Stats.AddStats(HealingStatList(null));
+                subPlayerGroup.Stats.AddStats(HealingOverTimeStatList(null));
                 playerGroup.AddGroup(subPlayerGroup);
             }
-            var abilities = subPlayerGroup.GetGroup("HealingToPlayersByAction");
+            var abilities = subPlayerGroup.GetGroup("HealingOverTimeToPlayersByAction");
             StatGroup subPlayerAbilityGroup;
             if (!abilities.TryGetGroup(line.Action, out subPlayerAbilityGroup))
             {
                 subPlayerAbilityGroup = new StatGroup(line.Action);
-                subPlayerAbilityGroup.Stats.AddStats(HealingStatList(subPlayerGroup, true));
+                subPlayerAbilityGroup.Stats.AddStats(HealingOverTimeStatList(subPlayerGroup, true));
                 abilities.AddGroup(subPlayerAbilityGroup);
             }
-            Stats.IncrementStat("TotalHealingActionsUsed");
-            subAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-            subPlayerGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-            subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingActionsUsed");
-            Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subPlayerGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
-            subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealing", line.Amount);
+            Stats.IncrementStat("TotalHealingOverTimeActionsUsed");
+            subAbilityGroup.Stats.IncrementStat("TotalHealingOverTimeActionsUsed");
+            subPlayerGroup.Stats.IncrementStat("TotalHealingOverTimeActionsUsed");
+            subPlayerAbilityGroup.Stats.IncrementStat("TotalHealingOverTimeActionsUsed");
+            Stats.IncrementStat("TotalOverallHealingOverTime", line.Amount);
+            subAbilityGroup.Stats.IncrementStat("TotalOverallHealingOverTime", line.Amount);
+            subPlayerGroup.Stats.IncrementStat("TotalOverallHealingOverTime", line.Amount);
+            subPlayerAbilityGroup.Stats.IncrementStat("TotalOverallHealingOverTime", line.Amount);
             if (line.Crit)
             {
-                Stats.IncrementStat("HealingCritHit");
-                Stats.IncrementStat("CriticalHealing", line.Amount);
-                subAbilityGroup.Stats.IncrementStat("HealingCritHit");
-                subAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                subPlayerGroup.Stats.IncrementStat("HealingCritHit");
-                subPlayerGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("HealingCritHit");
-                subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealing", line.Amount);
+                Stats.IncrementStat("HealingOverTimeCritHit");
+                Stats.IncrementStat("CriticalHealingOverTime", line.Amount);
+                subAbilityGroup.Stats.IncrementStat("HealingOverTimeCritHit");
+                subAbilityGroup.Stats.IncrementStat("CriticalHealingOverTime", line.Amount);
+                subPlayerGroup.Stats.IncrementStat("HealingOverTimeCritHit");
+                subPlayerGroup.Stats.IncrementStat("CriticalHealingOverTime", line.Amount);
+                subPlayerAbilityGroup.Stats.IncrementStat("HealingOverTimeCritHit");
+                subPlayerAbilityGroup.Stats.IncrementStat("CriticalHealingOverTime", line.Amount);
                 if (line.Modifier != 0)
                 {
                     var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
-                    var modStat = "HealingCritMod";
+                    var modStat = "HealingOverTimeCritMod";
                     Stats.IncrementStat(modStat, mod);
                     subAbilityGroup.Stats.IncrementStat(modStat, mod);
                     subPlayerGroup.Stats.IncrementStat(modStat, mod);
@@ -103,39 +103,24 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             }
             else
             {
-                Stats.IncrementStat("HealingRegHit");
-                Stats.IncrementStat("RegularHealing", line.Amount);
-                subAbilityGroup.Stats.IncrementStat("HealingRegHit");
-                subAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                subPlayerGroup.Stats.IncrementStat("HealingRegHit");
-                subPlayerGroup.Stats.IncrementStat("RegularHealing", line.Amount);
-                subPlayerAbilityGroup.Stats.IncrementStat("HealingRegHit");
-                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealing", line.Amount);
+                Stats.IncrementStat("HealingOverTimeRegHit");
+                Stats.IncrementStat("RegularHealingOverTime", line.Amount);
+                subAbilityGroup.Stats.IncrementStat("HealingOverTimeRegHit");
+                subAbilityGroup.Stats.IncrementStat("RegularHealingOverTime", line.Amount);
+                subPlayerGroup.Stats.IncrementStat("HealingOverTimeRegHit");
+                subPlayerGroup.Stats.IncrementStat("RegularHealingOverTime", line.Amount);
+                subPlayerAbilityGroup.Stats.IncrementStat("HealingOverTimeRegHit");
+                subPlayerAbilityGroup.Stats.IncrementStat("RegularHealingOverTime", line.Amount);
                 if (line.Modifier != 0)
                 {
                     var mod = ParseHelper.GetBonusAmount(line.Amount, line.Modifier);
-                    var modStat = "HealingRegMod";
+                    var modStat = "HealingOverTimeRegMod";
                     Stats.IncrementStat(modStat, mod);
                     subAbilityGroup.Stats.IncrementStat(modStat, mod);
                     subPlayerGroup.Stats.IncrementStat(modStat, mod);
                     subPlayerAbilityGroup.Stats.IncrementStat(modStat, mod);
                 }
             }
-
-            #region Handle Mitigaged (With Initial Healing)
-
-            if (MagicBarrierHelper.Adloquium.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
-            {
-                line.Amount = originalAmount;
-                SetupHealingMitigated(line, "adloquium");
-            }
-            if (MagicBarrierHelper.Succor.Any(action => String.Equals(line.Action, action, Constants.InvariantComparer)))
-            {
-                line.Amount = originalAmount;
-                SetupHealingMitigated(line, "succor");
-            }
-
-            #endregion
 
             #region OverHealing Handler
 
@@ -144,8 +129,8 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 return;
             }
 
-            line.Amount = unusedAmount;
-            SetupHealingOverHealing(line, HealingType.Normal);
+            line.Amount = originalAmount;
+            SetupHealingOverHealing(line, HealingType.HealingOverTime);
 
             #endregion
         }

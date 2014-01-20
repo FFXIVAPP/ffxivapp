@@ -131,6 +131,7 @@
     <Compile Include="ViewModelBase\CommandManagerHelper.cs" />
     <Compile Include="ViewModelBase\DelegateCommand.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
+    <Compile Include="WPF\ColumnDefinitionExtended.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\xFlowDocument.xaml">
