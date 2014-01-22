@@ -14,10 +14,7 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
     [DoNotObfuscate]
     public class PerSecondAverageStat : LinkedStat
     {
-        public bool IsHistoryBased { get; set; }
-
-        public PerSecondAverageStat(string name, IList<Stat<decimal>> dependencies, bool isHistoryBased = false)
-            : base(name, 0m)
+        public PerSecondAverageStat(string name, IList<Stat<decimal>> dependencies, bool isHistoryBased = false) : base(name, 0m)
         {
             IsHistoryBased = isHistoryBased;
             if (IsHistoryBased)
@@ -27,8 +24,7 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
             SetupDepends(dependencies[0]);
         }
 
-        public PerSecondAverageStat(string name, Stat<decimal> dependency, bool isHistoryBased = false)
-            : base(name, 0m)
+        public PerSecondAverageStat(string name, Stat<decimal> dependency, bool isHistoryBased = false) : base(name, 0m)
         {
             IsHistoryBased = isHistoryBased;
             if (IsHistoryBased)
@@ -50,6 +46,8 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
         public PerSecondAverageStat(string name) : base(name, 0m)
         {
         }
+
+        public bool IsHistoryBased { get; set; }
 
         public Timer UpdateTimer { get; set; }
 

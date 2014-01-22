@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="Controls\Parse\HealingOverHealingDataGrid.xaml.cs">
       <DependentUpon>HealingOverHealingDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\HealingMitigatedDataGrid.xaml.cs">
+      <DependentUpon>HealingMitigatedDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Parse\HealingOverTimeDataGrid.xaml.cs">
       <DependentUpon>HealingOverTimeDataGrid.xaml</DependentUpon>
@@ -396,6 +400,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Parse\HealingOverHealingDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\HealingMitigatedDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

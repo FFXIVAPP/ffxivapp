@@ -72,9 +72,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_IntegrationSettingsTabHeader", "連動設定");
             Dictionary.Add("app_NoPluginsLineOneTextBlock", "すべてのプラグインをオン・オフしてあるか、プラグインがロードされていません");
             Dictionary.Add("app_NoPluginsLineTwoTextBlock", "設定確認後にタブメニューから読み込まれたプラグインアイコンを選んで下さい。");
-            Dictionary.Add("app_AlwaysReadUpdatesMessage", "常にすべての変更のための更新履歴を参照してください。");
+            Dictionary.Add("app_AttachProcessHelptextLabel", "*ゲーム本体を再起動あるいは二重起動している場合のみ選択");
             Dictionary.Add("app_UpdateNotesHeader", "Update Notes");
-            Dictionary.Add("app_ChangesOnRestartMessage", "*Changes will take place after restarting the application.");
+            Dictionary.Add("app_ChangesOnRestartMessage", "*変更はアプリケーション再起動後に有効になります");
         }
     }
 }

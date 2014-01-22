@@ -6,13 +6,9 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Media;
 using System.Xml.Linq;
 using FFXIVAPP.Client.RegularExpressions;
 using FFXIVAPP.Client.SettingsProviders.Parse;
-using FFXIVAPP.Client.Views.Parse;
-using FFXIVAPP.Common.Controls;
 using FFXIVAPP.Common.RegularExpressions;
 using SmartAssembly.Attributes;
 

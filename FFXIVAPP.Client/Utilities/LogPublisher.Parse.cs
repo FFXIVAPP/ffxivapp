@@ -6,13 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Models.Parse.Events;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Client.Views.Parse;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.RegularExpressions;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Utilities

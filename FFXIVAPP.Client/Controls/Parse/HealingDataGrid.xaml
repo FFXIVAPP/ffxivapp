@@ -6,6 +6,8 @@
           xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
           xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
           xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
+          xmlns:behaviors="clr-namespace:FFXIVAPP.Common.Behaviors;assembly=FFXIVAPP.Common"
+          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
           AutoGenerateColumns="False"
           BorderBrush="{DynamicResource AccentColorBrush}"
           BorderThickness="1">
@@ -16,6 +18,9 @@
         <x:Static x:Key="PluginSettings"
                   Member="PluginProperties:Settings.Default" />
     </DataGrid.Resources>
+    <i:Interaction.Behaviors>
+        <behaviors:IgnoreMouseWheelBehavior />
+    </i:Interaction.Behaviors>
     <DataGrid.Columns>
         <!--  <DataGridTextColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
         <DataGridTextColumn Binding="{Binding Name}"

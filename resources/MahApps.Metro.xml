@@ -31,6 +31,11 @@
             Gets/sets the name of the Accent.
             </summary>
         </member>
+        <member name="F:MahApps.Metro.Behaviours.BorderlessWindowBehavior.BackgroundSetPropertyKey">
+            <summary>
+            NO TOUCHY! This is a workaround for issue #897
+            </summary>
+        </member>
         <member name="M:MahApps.Metro.Behaviours.BorderlessWindowBehavior.AdjustWorkingAreaForAutoHide(System.IntPtr,MahApps.Metro.Native.MINMAXINFO)">
             <summary>
             This method handles the window size if the taskbar is set to auto-hide.
@@ -838,6 +843,7 @@
             This class eats little children.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:MahApps.Metro.Controls.MetroWindowHelpers.HandleWindowCommandsForFlyouts(MahApps.Metro.Controls.MetroWindow,System.Collections.Generic.IEnumerable{MahApps.Metro.Controls.Flyout},System.Windows.Media.Brush)" -->
         <member name="T:MahApps.Metro.Controls.NumericUpDown">
             <summary>
                 Represents a Windows spin box (also known as an up-down control) that displays numeric values.
@@ -851,13 +857,13 @@
         </member>
         <member name="M:MahApps.Metro.Controls.NumericUpDown.OnValueChanged(System.Nullable{System.Double},System.Nullable{System.Double})">
             <summary>
-                Raises the <see cref="E:System.Windows.Controls.Primitives.RangeBase.ValueChanged" /> routed event.
+                Raises the <see cref="E:MahApps.Metro.Controls.NumericUpDown.ValueChanged"/> routed event.
             </summary>
             <param name="oldValue">
-                Old value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value" /> property
+                Old value of the <see cref="P:MahApps.Metro.Controls.NumericUpDown.Value"/> property
             </param>
             <param name="newValue">
-                New value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value" /> property
+                New value of the <see cref="P:MahApps.Metro.Controls.NumericUpDown.Value"/> property
             </param>
         </member>
         <member name="E:MahApps.Metro.Controls.NumericUpDown.MaximumReached">
@@ -874,7 +880,7 @@
             <summary>
                 Gets or sets the amount of time, in milliseconds, the NumericUpDown waits while the up/down button is pressed
                 before it starts increasing/decreasing the
-                <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value"/> for the specified <see cref="P:System.Windows.Controls.Primitives.RangeBase.SmallChange"/> . The value must be
+                <see cref="P:MahApps.Metro.Controls.NumericUpDown.Value"/> for the specified <see cref="P:MahApps.Metro.Controls.NumericUpDown.Interval"/> . The value must be
                 non-negative.
             </summary>
         </member>
@@ -890,13 +896,14 @@
         </member>
         <member name="P:MahApps.Metro.Controls.NumericUpDown.Speedup">
             <summary>
-                Gets or sets a value indicating whether the value to be added to or subtracted from remains always
-                <see cref="P:System.Windows.Controls.Primitives.RangeBase.SmallChange"/> or it will change to <see cref="P:System.Windows.Controls.Primitives.RangeBase.LargeChange"/> and increase this.
+                Gets or sets a value indicating whether the value to be added to or subtracted from <see cref="P:MahApps.Metro.Controls.NumericUpDown.Value"/> remains
+                always
+                <see cref="P:MahApps.Metro.Controls.NumericUpDown.Interval"/> or if it will increase faster after pressing the up/down button/arrow some time.
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.NumericUpDown.StringFormat">
             <summary>
-                Gets or sets the formatting for the displaying <see cref="P:System.Windows.Controls.Primitives.RangeBase.Value"/>
+                Gets or sets the formatting for the displaying <see cref="P:MahApps.Metro.Controls.NumericUpDown.Value"/>
             </summary>
             <remarks>
                 <see href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx"></see>

@@ -9,12 +9,13 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
+using FFXIVAPP.Client.Models.Parse.LinkedStats;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels.Parse;
-using FFXIVAPP.Client.Views.Parse;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
+using MahApps.Metro.Controls.Dialogs;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -100,95 +101,98 @@ namespace FFXIVAPP.Client.Monitors
             var hasDamage = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallDamage") > 0;
             var hasHealing = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallHealing") > 0;
             var hasDamageTaken = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallDamageTaken") > 0;
-            if (!hasDamage && !hasHealing && !hasDamageTaken)
+            if (hasDamage || hasHealing || hasDamageTaken)
             {
-                return;
-            }
-            var historyItem = new ParseHistoryItem();
-            var controller = historyItem.HistoryControl.Controller;
-            var oStats = ParseControl.Timeline.Overall.Stats;
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDPS", oStats.GetStatValue("DPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDOTPS", oStats.GetStatValue("DOTPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHPS", oStats.GetStatValue("HPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOHPS", oStats.GetStatValue("HOHPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOTPS", oStats.GetStatValue("HOTPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHMPS", oStats.GetStatValue("HMPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTPS", oStats.GetStatValue("DTPS"));
-            controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTOTPS", oStats.GetStatValue("DTOTPS"));
-            var playerList = ParseControl.Timeline.Party.ToArray();
-            foreach (var player in playerList)
-            {
-                var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
-                foreach (var stat in player.Stats)
+                var historyItem = new ParseHistoryItem();
+                var controller = historyItem.HistoryControl.Controller;
+                var oStats = ParseControl.Timeline.Overall.Stats;
+                foreach (var oStat in oStats.Where(oStat => oStat.GetType() == typeof(PerSecondAverageStat)))
                 {
-                    playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                    controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
                 }
-                RabbitHoleCopy(playerInstance, player);
-            }
-            var monsterList = ParseControl.Timeline.Monster.ToArray();
-            foreach (var monster in monsterList)
-            {
-                var monsterInstance = controller.Timeline.GetSetMonster(monster.Name);
-                foreach (var stat in monster.Stats)
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDPS", oStats.GetStatValue("DPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDOTPS", oStats.GetStatValue("DOTPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHPS", oStats.GetStatValue("HPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOHPS", oStats.GetStatValue("HOHPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOTPS", oStats.GetStatValue("HOTPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHMPS", oStats.GetStatValue("HMPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTPS", oStats.GetStatValue("DTPS"));
+                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTOTPS", oStats.GetStatValue("DTOTPS"));
+                var playerList = ParseControl.Timeline.Party.ToArray();
+                foreach (var player in playerList)
                 {
-                    monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
-                }
-                RabbitHoleCopy(monsterInstance, monster);
-            }
-            historyItem.Start = ParseControl.StartTime;
-            historyItem.End = DateTime.Now;
-            historyItem.ParseLength = historyItem.End - historyItem.Start;
-            var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
-            var zone = "Unknown";
-            if (AppContextHelper.Instance.CurrentUser != null)
-            {
-                var mapIndex = AppContextHelper.Instance.CurrentUser.MapIndex;
-                zone = ZoneHelper.GetMapInfo(mapIndex)
-                                 .English;
-                switch (Settings.Default.GameLanguage)
-                {
-                    case "French":
-                        zone = ZoneHelper.GetMapInfo(mapIndex)
-                                         .French;
-                        break;
-                    case "German":
-                        zone = ZoneHelper.GetMapInfo(mapIndex)
-                                         .German;
-                        break;
-                    case "Japanese":
-                        zone = ZoneHelper.GetMapInfo(mapIndex)
-                                         .Japanese;
-                        break;
-                }
-            }
-            var monsterName = "NULL";
-            try
-            {
-                StatGroup biggestMonster = null;
-                foreach (var monster in ParseControl.Timeline.Monster)
-                {
-                    if (biggestMonster == null)
+                    var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
+                    foreach (var stat in player.Stats)
                     {
-                        biggestMonster = monster;
+                        playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
                     }
-                    else
+                    RabbitHoleCopy(playerInstance, player);
+                }
+                var monsterList = ParseControl.Timeline.Monster.ToArray();
+                foreach (var monster in monsterList)
+                {
+                    var monsterInstance = controller.Timeline.GetSetMonster(monster.Name);
+                    foreach (var stat in monster.Stats)
                     {
-                        if (monster.Stats.GetStatValue("TotalOverallDamage") > biggestMonster.Stats.GetStatValue("TotalOverallDamage"))
+                        monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                    }
+                    RabbitHoleCopy(monsterInstance, monster);
+                }
+                historyItem.Start = ParseControl.StartTime;
+                historyItem.End = DateTime.Now;
+                historyItem.ParseLength = historyItem.End - historyItem.Start;
+                var parseTimeDetails = String.Format("{0} -> {1} [{2}]", historyItem.Start, historyItem.End, historyItem.ParseLength);
+                var zone = "Unknown";
+                if (AppContextHelper.Instance.CurrentUser != null)
+                {
+                    var mapIndex = AppContextHelper.Instance.CurrentUser.MapIndex;
+                    zone = ZoneHelper.GetMapInfo(mapIndex)
+                                     .English;
+                    switch (Settings.Default.GameLanguage)
+                    {
+                        case "French":
+                            zone = ZoneHelper.GetMapInfo(mapIndex)
+                                             .French;
+                            break;
+                        case "German":
+                            zone = ZoneHelper.GetMapInfo(mapIndex)
+                                             .German;
+                            break;
+                        case "Japanese":
+                            zone = ZoneHelper.GetMapInfo(mapIndex)
+                                             .Japanese;
+                            break;
+                    }
+                }
+                var monsterName = "NULL";
+                try
+                {
+                    StatGroup biggestMonster = null;
+                    foreach (var monster in ParseControl.Timeline.Monster)
+                    {
+                        if (biggestMonster == null)
                         {
                             biggestMonster = monster;
                         }
+                        else
+                        {
+                            if (monster.Stats.GetStatValue("TotalOverallDamage") > biggestMonster.Stats.GetStatValue("TotalOverallDamage"))
+                            {
+                                biggestMonster = monster;
+                            }
+                        }
+                    }
+                    if (biggestMonster != null)
+                    {
+                        monsterName = biggestMonster.Name;
                     }
                 }
-                if (biggestMonster != null)
+                catch (Exception ex)
                 {
-                    monsterName = biggestMonster.Name;
                 }
+                historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
+                DispatcherHelper.Invoke(() => MainViewModel.Instance.ParseHistory.Insert(1, historyItem));
             }
-            catch (Exception ex)
-            {
-            }
-            historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
-            DispatcherHelper.Invoke(() => MainViewModel.Instance.ParseHistory.Insert(1, historyItem));
         }
 
         private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup)

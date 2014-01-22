@@ -26,29 +26,34 @@
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource SettingsViewModel}">
         <TabControl x:Name="SettingsViewTC">
-            <TabItem Header="Parseable">
+            <TabItem Header="{Binding Locale[parse_ParseableTabHeader],
+                                      Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
                         <Label>* All options include parsing pets.</Label>
-                        <GroupBox Header="You">
+                        <GroupBox Header="{Binding Locale[parse_YouHeader],
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ParseYou,
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Party">
+                        <GroupBox Header="{Binding Locale[parse_PartyHeader],
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ParseParty,
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Alliance">
+                        <GroupBox Header="{Binding Locale[parse_AllianceHeader],
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ParseAlliance,
                                                                                 Source={StaticResource PluginSettings}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Other">
+                        <GroupBox Header="{Binding Locale[parse_OtherHeader],
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding ParseOther,
                                                                                 Source={StaticResource PluginSettings}}" />

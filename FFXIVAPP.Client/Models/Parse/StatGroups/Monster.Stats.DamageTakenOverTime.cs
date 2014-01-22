@@ -1,11 +1,8 @@
 ﻿// FFXIVAPP.Client
-// Monster.Stats.DamageTaken.cs
+// Monster.Stats.DamageTakenOverTime.cs
 // 
 // © 2013 Ryan Wilson
 
-using System;
-using System.Linq;
-using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Models.Parse.Stats;
 
 namespace FFXIVAPP.Client.Models.Parse.StatGroups

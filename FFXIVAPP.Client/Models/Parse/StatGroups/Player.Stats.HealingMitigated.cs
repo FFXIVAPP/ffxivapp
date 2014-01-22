@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// Player.Stats.HealingOverHealing.cs
+// Player.Stats.HealingMitigated.cs
 // 
 // © 2013 Ryan Wilson
 

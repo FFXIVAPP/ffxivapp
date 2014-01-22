@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -371,7 +370,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool EnableStoreHistoryReset
         {
             get { return ((bool) (this["EnableStoreHistoryReset"])); }
@@ -384,7 +383,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ParseAdvanced
         {
             get { return ((bool) (this["ParseAdvanced"])); }

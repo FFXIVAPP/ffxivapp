@@ -31,10 +31,10 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         #region Property Bindings
 
         private static MainViewModel _instance;
-        private ObservableCollection<ParseHistoryItem> _parseHistory;
-        private dynamic _playerInfoListViewSource;
         private dynamic _monsterInfoListViewSource;
         private dynamic _overallInfoScoreCardSource;
+        private ObservableCollection<ParseHistoryItem> _parseHistory;
+        private dynamic _playerInfoListViewSource;
         private dynamic _playerInfoScoreCardSource;
 
         public static MainViewModel Instance

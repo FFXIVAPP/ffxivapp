@@ -1,10 +1,9 @@
 ﻿// FFXIVAPP.Client
-// Player.Stats.Healing.cs
+// Player.Stats.HealingOverTime.cs
 // 
 // © 2013 Ryan Wilson
 
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using FFXIVAPP.Client.Enums.Parse;
 using FFXIVAPP.Client.Helpers.Parse;

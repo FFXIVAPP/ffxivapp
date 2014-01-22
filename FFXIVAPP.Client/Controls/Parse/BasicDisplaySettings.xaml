@@ -2,8 +2,8 @@
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-            xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
-            xmlns:Parse="clr-namespace:FFXIVAPP.Client.ViewModels.Parse">
+            xmlns:Parse="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
+            xmlns:PluginProperties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse">
 
     <StackPanel.Resources>
         <x:Static x:Key="PluginSettings"
@@ -582,20 +582,6 @@
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularDamageTaken,
-                                                                    Source={StaticResource PluginSettings}}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenDOTInfoHeader],
-                                       Source={StaticResource AppProperties}}">
-                <StackPanel>
-                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenDOT,
-                                                                    Source={StaticResource PluginSettings}}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenDOTAverageInfoHeader],
-                                       Source={StaticResource AppProperties}}">
-                <StackPanel>
-                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenDOTAverage,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
