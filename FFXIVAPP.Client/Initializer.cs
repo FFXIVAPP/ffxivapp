@@ -361,142 +361,145 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var request = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
-                request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                request.Headers.Add("Accept-Language", "en;q=0.8");
-                request.ContentType = "application/json; charset=utf-8";
-                var response = (HttpWebResponse) request.GetResponse();
-                var responseText = "";
-                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
+                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                 {
-                    try
+                    using (var response = httpResponse.GetResponseStream())
                     {
-                        responseText = streamReader.ReadToEnd();
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-                int latestMajor = 0, latestMinor = 0, latestBuild = 0, latestRevision = 0;
-                int currentMajor = 0, currentMinor = 0, currentBuild = 0, currentRevision = 0;
-                if (response.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
-                {
-                    AppViewModel.Instance.HasNewVersion = false;
-                    AppViewModel.Instance.LatestVersion = "Unknown";
-                }
-                else
-                {
-                    var jsonResult = JObject.Parse(responseText);
-                    var latest = jsonResult["Version"].ToString();
-                    var updateNotes = jsonResult["Notes"].ToList();
-                    var enabledFeatures = jsonResult["Features"];
-                    try
-                    {
-                        foreach (var feature in enabledFeatures)
+                        var responseText = "";
+                        if (response != null)
                         {
-                            var key = feature["Hash"].ToString();
-                            var enabled = (bool) feature["Enabled"];
-                            switch (key)
+                            using (var streamReader = new StreamReader(response))
                             {
-                                case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
-                                    XIVDBViewModel.Instance.MonsterUploadEnabled = enabled;
-                                    break;
-                                case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
-                                    XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
-                                    break;
-                                case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
-                                    XIVDBViewModel.Instance.KillUploadEnabled = enabled;
-                                    break;
-                                case "6A50A13B-BA83-45D7-862F-F110049E7E78":
-                                    XIVDBViewModel.Instance.LootUploadEnabled = enabled;
-                                    break;
+                                responseText = streamReader.ReadToEnd();
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                    try
-                    {
-                        foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
+                        int latestMajor = 0, latestMinor = 0, latestBuild = 0, latestRevision = 0;
+                        int currentMajor = 0, currentMinor = 0, currentBuild = 0, currentRevision = 0;
+                        if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
                         {
-                            AppViewModel.Instance.UpdateNotes.Add(note);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBoxHelper.ShowMessage("Error", ex.Message);
-                    }
-                    AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
-                    latest = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
-                    AppViewModel.Instance.LatestVersion = latest;
-                    switch (latest)
-                    {
-                        case "Unknown":
                             AppViewModel.Instance.HasNewVersion = false;
-                            break;
-                        default:
-                            var latestVersionSplit = latest.Split('.');
-                            var currentVersionSplit = current.Split('.');
+                            AppViewModel.Instance.LatestVersion = "Unknown";
+                        }
+                        else
+                        {
+                            var jsonResult = JObject.Parse(responseText);
+                            var latest = jsonResult["Version"].ToString();
+                            var updateNotes = jsonResult["Notes"].ToList();
+                            var enabledFeatures = jsonResult["Features"];
                             try
                             {
-                                latestMajor = Int32.Parse(latestVersionSplit[0]);
-                                latestMinor = Int32.Parse(latestVersionSplit[1]);
-                                latestBuild = Int32.Parse(latestVersionSplit[2]);
-                                latestRevision = Int32.Parse(latestVersionSplit[3]);
-                                currentMajor = Int32.Parse(currentVersionSplit[0]);
-                                currentMinor = Int32.Parse(currentVersionSplit[1]);
-                                currentBuild = Int32.Parse(currentVersionSplit[2]);
-                                currentRevision = Int32.Parse(currentVersionSplit[3]);
+                                foreach (var feature in enabledFeatures)
+                                {
+                                    var key = feature["Hash"].ToString();
+                                    var enabled = (bool) feature["Enabled"];
+                                    switch (key)
+                                    {
+                                        case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
+                                            XIVDBViewModel.Instance.MonsterUploadEnabled = enabled;
+                                            break;
+                                        case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
+                                            XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
+                                            break;
+                                        case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
+                                            XIVDBViewModel.Instance.KillUploadEnabled = enabled;
+                                            break;
+                                        case "6A50A13B-BA83-45D7-862F-F110049E7E78":
+                                            XIVDBViewModel.Instance.LootUploadEnabled = enabled;
+                                            break;
+                                    }
+                                }
                             }
                             catch (Exception ex)
                             {
-                                AppViewModel.Instance.HasNewVersion = false;
                             }
-                            if (latestMajor <= currentMajor)
+                            try
                             {
-                                if (latestMinor <= currentMinor)
+                                foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
                                 {
-                                    if (latestBuild == currentBuild)
+                                    AppViewModel.Instance.UpdateNotes.Add(note);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBoxHelper.ShowMessage("Error", ex.Message);
+                            }
+                            AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
+                            latest = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
+                            AppViewModel.Instance.LatestVersion = latest;
+                            switch (latest)
+                            {
+                                case "Unknown":
+                                    AppViewModel.Instance.HasNewVersion = false;
+                                    break;
+                                default:
+                                    var latestVersionSplit = latest.Split('.');
+                                    var currentVersionSplit = current.Split('.');
+                                    try
                                     {
-                                        AppViewModel.Instance.HasNewVersion = latestRevision > currentRevision;
+                                        latestMajor = Int32.Parse(latestVersionSplit[0]);
+                                        latestMinor = Int32.Parse(latestVersionSplit[1]);
+                                        latestBuild = Int32.Parse(latestVersionSplit[2]);
+                                        latestRevision = Int32.Parse(latestVersionSplit[3]);
+                                        currentMajor = Int32.Parse(currentVersionSplit[0]);
+                                        currentMinor = Int32.Parse(currentVersionSplit[1]);
+                                        currentBuild = Int32.Parse(currentVersionSplit[2]);
+                                        currentRevision = Int32.Parse(currentVersionSplit[3]);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        AppViewModel.Instance.HasNewVersion = false;
+                                    }
+                                    if (latestMajor <= currentMajor)
+                                    {
+                                        if (latestMinor <= currentMinor)
+                                        {
+                                            if (latestBuild == currentBuild)
+                                            {
+                                                AppViewModel.Instance.HasNewVersion = latestRevision > currentRevision;
+                                                break;
+                                            }
+                                            AppViewModel.Instance.HasNewVersion = latestBuild > currentBuild;
+                                            break;
+                                        }
+                                        AppViewModel.Instance.HasNewVersion = true;
                                         break;
                                     }
-                                    AppViewModel.Instance.HasNewVersion = latestBuild > currentBuild;
+                                    AppViewModel.Instance.HasNewVersion = true;
                                     break;
-                                }
-                                AppViewModel.Instance.HasNewVersion = true;
-                                break;
                             }
-                            AppViewModel.Instance.HasNewVersion = true;
-                            break;
-                    }
-                }
-                if (AppViewModel.Instance.HasNewVersion)
-                {
-                    var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
-                    var message = new StringBuilder();
-                    try
-                    {
-                        var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild + TimeSpan.TicksPerSecond * 2 * latestRevision));
-                        var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild + TimeSpan.TicksPerSecond * 2 * currentRevision));
-                        var timeSpan = latestBuildDateTime - currentBuildDateTime;
-                        if (timeSpan.TotalSeconds > 0)
-                        {
-                            message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+
+                            if (AppViewModel.Instance.HasNewVersion)
+                            {
+                                var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
+                                var message = new StringBuilder();
+                                try
+                                {
+                                    var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild + TimeSpan.TicksPerSecond * 2 * latestRevision));
+                                    var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild + TimeSpan.TicksPerSecond * 2 * currentRevision));
+                                    var timeSpan = latestBuildDateTime - currentBuildDateTime;
+                                    if (timeSpan.TotalSeconds > 0)
+                                    {
+                                        message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                                finally
+                                {
+                                    message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
+                                }
+                                MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
+                            }
+                            var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                            DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                         }
                     }
-                    catch (Exception ex)
-                    {
-                    }
-                    finally
-                    {
-                        message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
-                    }
-                    MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                 }
-                var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
-                DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                 return true;
             };
             updateCheck.BeginInvoke(null, null);

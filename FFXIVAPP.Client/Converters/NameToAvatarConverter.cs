@@ -98,30 +98,32 @@ namespace FFXIVAPP.Client.Converters
                         var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                         var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
                         request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                        var response = (HttpWebResponse) request.GetResponse();
-                        var stream = response.GetResponseStream();
-                        if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                        using (var response = (HttpWebResponse) request.GetResponse())
                         {
-                            return;
-                        }
-                        var doc = new HtmlDocument();
-                        doc.Load(stream);
-                        var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
-                                            .OuterHtml;
-                        var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                        var imageUrl = src.Match(htmlSource)
-                                          .Groups["image"].Value;
-                        imageUrl = imageUrl.Substring(0, imageUrl.IndexOf("?", Constants.InvariantComparer))
-                                           .Replace("50x50", "96x96");
-                        image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
-                        {
-                            var imageUri = imageUrl;
-                            if (imageUri != DefaultAvatar)
+                            var stream = response.GetResponseStream();
+                            if (response.StatusCode != HttpStatusCode.OK || stream == null)
                             {
-                                imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
+                                return;
                             }
-                            image.Source = new BitmapImage(new Uri(imageUri));
-                        });
+                            var doc = new HtmlDocument();
+                            doc.Load(stream);
+                            var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
+                                                .OuterHtml;
+                            var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                            var imageUrl = src.Match(htmlSource)
+                                              .Groups["image"].Value;
+                            imageUrl = imageUrl.Substring(0, imageUrl.IndexOf("?", Constants.InvariantComparer))
+                                               .Replace("50x50", "96x96");
+                            image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
+                            {
+                                var imageUri = imageUrl;
+                                if (imageUri != DefaultAvatar)
+                                {
+                                    imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
+                                }
+                                image.Source = new BitmapImage(new Uri(imageUri));
+                            });
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -157,18 +159,22 @@ namespace FFXIVAPP.Client.Converters
         {
             try
             {
-                var request = (HttpWebRequest) WebRequest.Create(imageUri);
-                var response = (HttpWebResponse) request.GetResponse();
-                var stream = response.GetResponseStream();
-                if (stream != null)
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create(imageUri);
+                using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
                 {
-                    if (response.ContentType == "image/jpeg" || response.ContentType == "image/png")
+                    using (var response = httpResponse.GetResponseStream())
                     {
-                        var imagePath = Path.Combine(AvatarCache, fileName);
-                        var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
-                        stream.CopyTo(fileStream);
-                        fileStream.Close();
-                        return imagePath;
+                        if (response != null)
+                        {
+                            if (httpResponse.ContentType == "image/jpeg" || httpResponse.ContentType == "image/png")
+                            {
+                                var imagePath = Path.Combine(AvatarCache, fileName);
+                                var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
+                                response.CopyTo(fileStream);
+                                fileStream.Close();
+                                return imagePath;
+                            }
+                        }
                     }
                 }
             }

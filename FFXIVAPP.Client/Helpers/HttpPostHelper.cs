@@ -59,22 +59,33 @@ namespace FFXIVAPP.Client.Helpers
                 }
                 httpWebRequest.ContentLength = Encoding.UTF8.GetByteCount(postData);
                 httpWebRequest.Method = "POST";
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                using (var request = httpWebRequest.GetRequestStream())
                 {
-                    streamWriter.Write(postData);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                    var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
-                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    using (var streamWriter = new StreamWriter(request))
                     {
-                        return streamReader.ReadToEnd();
+                        streamWriter.Write(postData);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                        using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                        {
+                            using (var response = httpResponse.GetResponseStream())
+                            {
+                                if (response != null)
+                                {
+                                    using (var streamReader = new StreamReader(response))
+                                    {
+                                        return streamReader.ReadToEnd();
+                                    }
+                                }
+                            } 
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                return "{\"result\":\"error\"}";
             }
+            return "{\"result\":\"error\"}";
         }
     }
 }

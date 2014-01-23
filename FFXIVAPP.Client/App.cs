@@ -116,8 +116,10 @@ namespace FFXIVAPP.Client
             }
             var stringReader = new StringReader(XElement.Load(resource.Stream)
                                                         .ToString());
-            var xmlReader = XmlReader.Create(stringReader);
-            LogManager.Configuration = new XmlLoggingConfiguration(xmlReader, null);
+            using (var xmlReader = XmlReader.Create(stringReader))
+            {
+                LogManager.Configuration = new XmlLoggingConfiguration(xmlReader, null);
+            }
         }
 
         /// <summary>

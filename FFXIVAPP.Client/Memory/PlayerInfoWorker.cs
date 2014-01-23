@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
@@ -193,6 +194,7 @@ namespace FFXIVAPP.Client.Memory
                                 WaterResistance = playerInfo.WaterResistance,
                                 WindResistance = playerInfo.WindResistance
                             };
+                            playerEntity.Job = (Actor.Job) playerEntity.JobID;
                             var notify = false;
                             if (LastPlayerEntity == null)
                             {

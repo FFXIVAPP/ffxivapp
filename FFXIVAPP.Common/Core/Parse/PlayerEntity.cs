@@ -14,9 +14,59 @@ namespace FFXIVAPP.Common.Core.Parse
 {
     public class PlayerEntity : IPlayerEntity
     {
-        public PlayerType Type { get; set; }
-
         private string _name;
+
+        public string FirstName
+        {
+            get
+            {
+                try
+                {
+                    return Name.Split(' ')[0];
+                }
+                catch (Exception ex)
+                {
+                    return Name;
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                try
+                {
+                    return Name.Split(' ')[1];
+                }
+                catch (Exception ex)
+                {
+                    return "";
+                }
+            }
+        }
+
+        public string NameInitialsOnly
+        {
+            get
+            {
+                var missingLastName = String.IsNullOrWhiteSpace(LastName);
+                try
+                {
+                    if (missingLastName)
+                    {
+                        return String.Format("{0}.", FirstName.Substring(0, 1));
+                    }
+                    return String.Format("{0}.{1}.", FirstName.Substring(0, 1), LastName.Substring(0, 1));
+                }
+                catch (Exception ex)
+                {
+                    return Name;
+                }
+            }
+        }
+
+        public PlayerType Type { get; set; }
 
         public string Name
         {
@@ -25,30 +75,6 @@ namespace FFXIVAPP.Common.Core.Parse
             {
                 _name = StringHelper.TitleCase(Regex.Replace(value, @"\[[\w]+\]", "")
                                                     .Trim());
-            }
-        }
-
-        public string FirstName
-        {
-            get
-            {
-                return Name.Split(' ')[0];
-            }
-        }
-
-        public string LastName
-        {
-            get
-            {
-                return Name.Split(' ')[1];
-            }
-        }
-
-        public string NameInitialsOnly
-        {
-            get
-            {
-                return String.Format("{0}.{1}.", FirstName.Substring(0, 1), LastName.Substring(0, 1));
             }
         }
 
