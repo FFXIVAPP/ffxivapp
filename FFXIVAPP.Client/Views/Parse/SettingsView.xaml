@@ -76,6 +76,13 @@
                     <parse:BasicDisplaySettings />
                 </ScrollViewer>
             </TabItem>
+            <TabItem x:Name="SettingsBasicCombinedDisplayTI"
+                     Header="{Binding Locale[parse_BasicCombinedDisplaySettingsTabHeader],
+                                      Source={StaticResource AppProperties}}">
+                <ScrollViewer>
+                    <parse:BasicCombinedDisplaySettings />
+                </ScrollViewer>
+            </TabItem>
             <TabItem x:Name="SettingsOtherTI"
                      Header="{Binding Locale[app_OtherOptionsTabHeader],
                                       Source={StaticResource AppProperties}}">

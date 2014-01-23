@@ -5,6 +5,7 @@ del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Client.exe.nlog
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Common.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.IPluginInterface.dll
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Localization.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip FFXIVAPP.Updater.exe
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Ionic.Zip.dll
@@ -37,6 +38,7 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Client.exe.nlog
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Common.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.IPluginInterface.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Localization.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Updater.exe
 "C:\Program Files\7-Zip\7z.exe" a Release.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Ionic.Zip.dll
@@ -69,6 +71,7 @@ del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Client.exe.nlog
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Common.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.IPluginInterface.dll
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Localization.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip FFXIVAPP.Updater.exe
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip HtmlAgilityPack.dll
 #"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Ionic.Zip.dll

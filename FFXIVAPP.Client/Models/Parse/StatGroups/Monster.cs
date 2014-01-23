@@ -43,6 +43,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             ID = 0;
             InitStats();
             LineHistory = new List<LineHistory>();
+            Last20DamageActions = new List<LineHistory>();
+            Last20DamageTakenActions = new List<LineHistory>();
+            Last20HealingActions = new List<LineHistory>();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
             if (!Controller.IsHistoryBased)
             {
@@ -57,6 +60,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         public ActorEntity NPCEntry { get; set; }
 
         public List<LineHistory> LineHistory { get; set; }
+        public List<LineHistory> Last20DamageActions { get; set; }
+        public List<LineHistory> Last20DamageTakenActions { get; set; }
+        public List<LineHistory> Last20HealingActions { get; set; }
 
         private TotalStat TotalOverallDrops { get; set; }
 

@@ -23,6 +23,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 //LineHistory.Add(new LineHistory(line));
             }
 
+            Last20DamageActions.Add(new LineHistory(line));
+            if (Last20DamageActions.Count > 20)
+            {
+                Last20DamageActions.RemoveAt(0);
+            }
+
             var fields = line.GetType()
                              .GetProperties();
 

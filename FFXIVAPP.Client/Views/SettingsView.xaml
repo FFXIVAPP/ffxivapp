@@ -182,19 +182,6 @@
                                                                 Source={x:Static Properties:Settings.Default}}"
                                           SelectedValue="{Binding ServerName,
                                                                   Source={x:Static Properties:Settings.Default}}" />
-                                <Label Content="{Binding Locale[app_GameLanguageLabel],
-                                                         Source={StaticResource AppProperties}}" />
-                                <ComboBox x:Name="LanguageList"
-                                          Margin="5"
-                                          IsReadOnly="False"
-                                          ItemsSource="{Binding GameLanguageList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding GameLanguage,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
-                                <Button Margin="5"
-                                        Command="{Binding SaveCharacterCommand}"
-                                        Content="{Binding Locale[app_SaveCharacterButtonText],
-                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>

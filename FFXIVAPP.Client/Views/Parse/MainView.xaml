@@ -124,12 +124,21 @@
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
+                            <Label x:Name="SelectedPlayerName"
+                                   Grid.Row="1"
+                                   Content="{Binding Path=Name}"
+                                   DataContext="{Binding SelectedItem,
+                                                         ElementName=PlayerInfoListView,
+                                                         NotifyOnTargetUpdated=True,
+                                                         NotifyOnSourceUpdated=True}"
+                                   Visibility="Collapsed" />
                             <ListView x:Name="PlayerInfoListView"
                                       Grid.Row="1"
                                       BorderThickness="0"
-                                      ItemsSource="{Binding PlayerInfoListViewSource,
+                                      ItemsSource="{Binding PlayerInfoSource,
                                                             Source={StaticResource MainViewModel}}"
                                       SelectionMode="Single"
+                                      VirtualizingStackPanel.VirtualizationMode="Recycling"
                                       Visibility="Collapsed">
                                 <ListView.Resources>
                                     <DataTemplate DataType="{x:Type stats:StatGroup}">
@@ -140,12 +149,21 @@
                                     </DataTemplate>
                                 </ListView.Resources>
                             </ListView>
+                            <Label x:Name="SelectedMonsterName"
+                                   Grid.Row="1"
+                                   Content="{Binding Path=Name}"
+                                   DataContext="{Binding SelectedItem,
+                                                         ElementName=MonsterInfoListView,
+                                                         NotifyOnTargetUpdated=True,
+                                                         NotifyOnSourceUpdated=True}"
+                                   Visibility="Collapsed" />
                             <ListView x:Name="MonsterInfoListView"
                                       Grid.Row="1"
                                       BorderThickness="0"
-                                      ItemsSource="{Binding MonsterInfoListViewSource,
+                                      ItemsSource="{Binding MonsterInfoSource,
                                                             Source={StaticResource MainViewModel}}"
                                       SelectionMode="Single"
+                                      VirtualizingStackPanel.VirtualizationMode="Recycling"
                                       Visibility="Collapsed">
                                 <ListView.Resources>
                                     <DataTemplate DataType="{x:Type stats:StatGroup}">
@@ -169,7 +187,7 @@
                             <ScrollViewer>
                                 <StackPanel>
                                     <GroupBox x:Name="OverallInfoScoreCard"
-                                              DataContext="{Binding OverallInfoScoreCardSource,
+                                              DataContext="{Binding OverallInfoSource,
                                                                     Source={StaticResource MainViewModel}}"
                                               Header="{Binding Locale[parse_ScoreCardHeader],
                                                                Source={StaticResource AppProperties}}">
@@ -185,38 +203,38 @@
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="0">
-                                                <TextBlock Text="{Binding Locale[parse_TotalOverallDamageLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedTotalOverallDamageLabel],
                                                                           Source={StaticResource AppProperties}}" />
-                                                <TextBlock Text="{Binding Locale[parse_TotalOverallHealingLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedTotalOverallHealingLabel],
                                                                           Source={StaticResource AppProperties}}" />
-                                                <TextBlock Text="{Binding Locale[parse_TotalOverallDamageTakenLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedTotalOverallDamageTakenLabel],
                                                                           Source={StaticResource AppProperties}}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="1">
-                                                <Label Content="{Binding TotalOverallDamage}"
+                                                <Label Content="{Binding CombinedTotalOverallDamage}"
                                                        Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding TotalOverallHealing}"
+                                                <Label Content="{Binding CombinedTotalOverallHealing}"
                                                        Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding TotalOverallDamageTaken}"
+                                                <Label Content="{Binding CombinedTotalOverallDamageTaken}"
                                                        Style="{StaticResource CommaNumberStyle}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="2">
-                                                <TextBlock Text="{Binding Locale[parse_DPSLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedDPSLabel],
                                                                           Source={StaticResource AppProperties}}" />
-                                                <TextBlock Text="{Binding Locale[parse_HPSLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedHPSLabel],
                                                                           Source={StaticResource AppProperties}}" />
-                                                <TextBlock Text="{Binding Locale[parse_DTPSLabel],
+                                                <TextBlock Text="{Binding Locale[parse_CombinedDTPSLabel],
                                                                           Source={StaticResource AppProperties}}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="3">
-                                                <Label Content="{Binding DPS}"
+                                                <Label Content="{Binding CombinedDPS}"
                                                        Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding HPS}"
+                                                <Label Content="{Binding CombinedHPS}"
                                                        Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding DTPS}"
+                                                <Label Content="{Binding CombinedDTPS}"
                                                        Style="{StaticResource CommaNumberStyle}" />
                                             </StackPanel>
                                         </Grid>
@@ -230,7 +248,7 @@
                                                                     Source={x:Static Properties:Settings.Default},
                                                                     Converter={StaticResource VisibilityConverter}}" />
                                     <ItemsControl x:Name="PlayerInfoScoreCard"
-                                                  ItemsSource="{Binding PlayerInfoScoreCardSource,
+                                                  ItemsSource="{Binding PlayerInfoSource,
                                                                         Source={StaticResource MainViewModel}}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -253,6 +271,11 @@
                                                           Source={StaticResource AppProperties}}">
                                     <ScrollViewer>
                                         <StackPanel>
+                                            <Button Margin="3"
+                                                    Command="{Binding ShowLast20PlayerActionsCommand,
+                                                                      Source={StaticResource MainViewModel}}"
+                                                    CommandParameter="Damage"
+                                                    Content="Show Last 20 Damage Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
                                                     <Label Content="TOTALS (NORMAL)"
@@ -369,6 +392,11 @@
                                                           Source={StaticResource AppProperties}}">
                                     <ScrollViewer>
                                         <StackPanel>
+                                            <Button Margin="3"
+                                                    Command="{Binding ShowLast20PlayerActionsCommand,
+                                                                      Source={StaticResource MainViewModel}}"
+                                                    CommandParameter="Healing"
+                                                    Content="Show Last 20 Healing Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
                                                     <Label Content="{Binding Locale[parse_TotalsNormalHeader],
@@ -654,6 +682,11 @@
                                                           Source={StaticResource AppProperties}}">
                                     <ScrollViewer>
                                         <StackPanel>
+                                            <Button Margin="3"
+                                                    Command="{Binding ShowLast20PlayerActionsCommand,
+                                                                      Source={StaticResource MainViewModel}}"
+                                                    CommandParameter="DamageTaken"
+                                                    Content="Show Last 20 Damage Taken Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
                                                     <Label Content="{Binding Locale[parse_TotalsNormalHeader],
@@ -774,7 +807,8 @@
                         </TabItem>
                         <TabItem x:Name="PartyTotalInfo">
                             <ScrollViewer>
-                                <StackPanel>
+                                <StackPanel DataContext="{Binding PlayerInfoSource,
+                                                                  Source={StaticResource MainViewModel}}">
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
@@ -784,8 +818,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageDataGrid BorderThickness="0"
-                                                              DataContext="{Binding Timeline.Party,
-                                                                                    Source={StaticResource Parser}}"
                                                               ItemsSource="{Binding}"
                                                               SelectionMode="Single"
                                                               Style="{DynamicResource MetroDataGrid}" />
@@ -798,8 +830,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageOverTimeDataGrid BorderThickness="0"
-                                                                      DataContext="{Binding Timeline.Party,
-                                                                                            Source={StaticResource Parser}}"
                                                                       ItemsSource="{Binding}"
                                                                       SelectionMode="Single"
                                                                       Style="{DynamicResource MetroDataGrid}" />
@@ -813,8 +843,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingDataGrid BorderThickness="0"
-                                                               DataContext="{Binding Timeline.Party,
-                                                                                     Source={StaticResource Parser}}"
                                                                ItemsSource="{Binding}"
                                                                SelectionMode="Single"
                                                                Style="{DynamicResource MetroDataGrid}" />
@@ -827,8 +855,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingOverHealingDataGrid BorderThickness="0"
-                                                                          DataContext="{Binding Timeline.Party,
-                                                                                                Source={StaticResource Parser}}"
                                                                           ItemsSource="{Binding}"
                                                                           SelectionMode="Single"
                                                                           Style="{DynamicResource MetroDataGrid}" />
@@ -841,8 +867,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingOverTimeDataGrid BorderThickness="0"
-                                                                       DataContext="{Binding Timeline.Party,
-                                                                                             Source={StaticResource Parser}}"
                                                                        ItemsSource="{Binding}"
                                                                        SelectionMode="Single"
                                                                        Style="{DynamicResource MetroDataGrid}" />
@@ -855,8 +879,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingMitigatedDataGrid BorderThickness="0"
-                                                                        DataContext="{Binding Timeline.Party,
-                                                                                              Source={StaticResource Parser}}"
                                                                         ItemsSource="{Binding}"
                                                                         SelectionMode="Single"
                                                                         Style="{DynamicResource MetroDataGrid}" />
@@ -870,8 +892,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:BuffDataGrid BorderThickness="0"
-                                                            DataContext="{Binding Timeline.Party,
-                                                                                  Source={StaticResource Parser}}"
                                                             ItemsSource="{Binding}"
                                                             SelectionMode="Single"
                                                             Style="{DynamicResource MetroDataGrid}" />
@@ -885,8 +905,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageTakenDataGrid BorderThickness="0"
-                                                                   DataContext="{Binding Timeline.Party,
-                                                                                         Source={StaticResource Parser}}"
                                                                    ItemsSource="{Binding}"
                                                                    SelectionMode="Single"
                                                                    Style="{DynamicResource MetroDataGrid}" />
@@ -899,8 +917,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageTakenOverTimeDataGrid BorderThickness="0"
-                                                                           DataContext="{Binding Timeline.Party,
-                                                                                                 Source={StaticResource Parser}}"
                                                                            ItemsSource="{Binding}"
                                                                            SelectionMode="Single"
                                                                            Style="{DynamicResource MetroDataGrid}" />
@@ -914,6 +930,11 @@
                                                           Source={StaticResource AppProperties}}">
                                     <ScrollViewer>
                                         <StackPanel>
+                                            <Button Margin="3"
+                                                    Command="{Binding ShowLast20MonsterActionsCommand,
+                                                                      Source={StaticResource MainViewModel}}"
+                                                    CommandParameter="Damage"
+                                                    Content="Show Last 20 Damage Actions (Selected Monster)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
                                                     <Label Content="{Binding Locale[parse_TotalsNormalHeader],
@@ -1034,6 +1055,11 @@
                                                           Source={StaticResource AppProperties}}">
                                     <ScrollViewer>
                                         <StackPanel>
+                                            <Button Margin="3"
+                                                    Command="{Binding ShowLast20MonsterActionsCommand,
+                                                                      Source={StaticResource MainViewModel}}"
+                                                    CommandParameter="DamageTaken"
+                                                    Content="Show Last 20 Damage Taken Actions (Selected Monster)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
                                                     <Label Content="{Binding Locale[parse_TotalsNormalHeader],
@@ -1154,7 +1180,8 @@
                         </TabItem>
                         <TabItem x:Name="MonsterTotalInfo">
                             <ScrollViewer>
-                                <StackPanel>
+                                <StackPanel DataContext="{Binding MonsterInfoSource,
+                                                                  Source={StaticResource MainViewModel}}">
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
@@ -1164,8 +1191,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageDataGrid BorderThickness="0"
-                                                              DataContext="{Binding Timeline.Monster,
-                                                                                    Source={StaticResource Parser}}"
                                                               ItemsSource="{Binding}"
                                                               SelectionMode="Single"
                                                               Style="{DynamicResource MetroDataGrid}" />
@@ -1178,8 +1203,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageOverTimeDataGrid BorderThickness="0"
-                                                                      DataContext="{Binding Timeline.Monster,
-                                                                                            Source={StaticResource Parser}}"
                                                                       ItemsSource="{Binding}"
                                                                       SelectionMode="Single"
                                                                       Style="{DynamicResource MetroDataGrid}" />
@@ -1193,8 +1216,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingDataGrid BorderThickness="0"
-                                                               DataContext="{Binding Timeline.Monster,
-                                                                                     Source={StaticResource Parser}}"
                                                                ItemsSource="{Binding}"
                                                                SelectionMode="Single"
                                                                Style="{DynamicResource MetroDataGrid}" />
@@ -1207,8 +1228,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingOverHealingDataGrid BorderThickness="0"
-                                                                          DataContext="{Binding Timeline.Monster,
-                                                                                                Source={StaticResource Parser}}"
                                                                           ItemsSource="{Binding}"
                                                                           SelectionMode="Single"
                                                                           Style="{DynamicResource MetroDataGrid}" />
@@ -1221,8 +1240,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingOverTimeDataGrid BorderThickness="0"
-                                                                       DataContext="{Binding Timeline.Monster,
-                                                                                             Source={StaticResource Parser}}"
                                                                        ItemsSource="{Binding}"
                                                                        SelectionMode="Single"
                                                                        Style="{DynamicResource MetroDataGrid}" />
@@ -1235,8 +1252,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:HealingMitigatedDataGrid BorderThickness="0"
-                                                                        DataContext="{Binding Timeline.Monster,
-                                                                                              Source={StaticResource Parser}}"
                                                                         ItemsSource="{Binding}"
                                                                         SelectionMode="Single"
                                                                         Style="{DynamicResource MetroDataGrid}" />
@@ -1250,8 +1265,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageTakenDataGrid BorderThickness="0"
-                                                                   DataContext="{Binding Timeline.Monster,
-                                                                                         Source={StaticResource Parser}}"
                                                                    ItemsSource="{Binding}"
                                                                    SelectionMode="Single"
                                                                    Style="{DynamicResource MetroDataGrid}" />
@@ -1264,8 +1277,6 @@
                                                    Foreground="White" />
                                         </Expander.Header>
                                         <grids:DamageTakenOverTimeDataGrid BorderThickness="0"
-                                                                           DataContext="{Binding Timeline.Monster,
-                                                                                                 Source={StaticResource Parser}}"
                                                                            ItemsSource="{Binding}"
                                                                            SelectionMode="Single"
                                                                            Style="{DynamicResource MetroDataGrid}" />

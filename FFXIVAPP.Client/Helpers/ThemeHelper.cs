@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.Helpers
                     Apply(t, ShellView.View);
                     return;
                 }
-                foreach (var metroWindow in window)
+                foreach (var metroWindow in window.Where(metroWindow => metroWindow != null))
                 {
                     Apply(t, metroWindow);
                 }

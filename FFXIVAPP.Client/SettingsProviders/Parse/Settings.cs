@@ -104,10 +104,32 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallDamage");
             Constants.Parse.Settings.Add("ShowBasicPercentOfRegularDamage");
             Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalDamage");
+
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallDamageOverTime");
+            Constants.Parse.Settings.Add("ShowBasicRegularDamageOverTime");
+            Constants.Parse.Settings.Add("ShowBasicCriticalDamageOverTime");
+            Constants.Parse.Settings.Add("ShowBasicTotalDamageOverTimeActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicDOTPS");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegHit");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegMiss");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegAccuracy");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegLow");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegMod");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritHit");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritLow");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritMod");
+            Constants.Parse.Settings.Add("ShowBasicDamageOverTimeCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallDamageOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfRegularDamageOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalDamageOverTime");
+
             Constants.Parse.Settings.Add("ShowBasicTotalOverallHealing");
-            Constants.Parse.Settings.Add("ShowBasicTotalOverallOverHealing");
-            Constants.Parse.Settings.Add("ShowBasicTotalOverallMitigatedHealing");
-            Constants.Parse.Settings.Add("ShowBasicTotalOverallHealingOverTimeOverHealing");
             Constants.Parse.Settings.Add("ShowBasicRegularHealing");
             Constants.Parse.Settings.Add("ShowBasicCriticalHealing");
             Constants.Parse.Settings.Add("ShowBasicTotalHealingActionsUsed");
@@ -128,6 +150,73 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallHealing");
             Constants.Parse.Settings.Add("ShowBasicPercentOfRegularHealing");
             Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalHealing");
+
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallHealingOverTime");
+            Constants.Parse.Settings.Add("ShowBasicRegularHealingOverTime");
+            Constants.Parse.Settings.Add("ShowBasicCriticalHealingOverTime");
+            Constants.Parse.Settings.Add("ShowBasicTotalHealingOverTimeActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicHOTPS");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverTimeCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallHealingOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfRegularHealingOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalHealingOverTime");
+
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallHealingOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicRegularHealingOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicCriticalHealingOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicTotalHealingOverHealingActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicHOHPS");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingOverHealingCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallHealingOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfRegularHealingOverHealing");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalHealingOverHealing");
+
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallHealingMitigated");
+            Constants.Parse.Settings.Add("ShowBasicRegularHealingMitigated");
+            Constants.Parse.Settings.Add("ShowBasicCriticalHealingMitigated");
+            Constants.Parse.Settings.Add("ShowBasicTotalHealingMitigatedActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicHMPS");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritHit");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritLow");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritMod");
+            Constants.Parse.Settings.Add("ShowBasicHealingMitigatedCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallHealingMitigated");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfRegularHealingMitigated");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalHealingMitigated");
+
             Constants.Parse.Settings.Add("ShowBasicTotalOverallDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicRegularDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicCriticalDamageTaken");
@@ -171,6 +260,142 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicPercentOfRegularDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalDamageTaken");
+
+            Constants.Parse.Settings.Add("ShowBasicTotalOverallDamageTakenOverTime");
+            Constants.Parse.Settings.Add("ShowBasicRegularDamageTakenOverTime");
+            Constants.Parse.Settings.Add("ShowBasicCriticalDamageTakenOverTime");
+            Constants.Parse.Settings.Add("ShowBasicTotalDamageTakenOverTimeActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicDTOTPS");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegHit");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegMiss");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegAccuracy");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegLow");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegMod");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritHit");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritLow");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritMod");
+            Constants.Parse.Settings.Add("ShowBasicDamageTakenOverTimeCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfTotalOverallDamageTakenOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfRegularDamageTakenOverTime");
+            Constants.Parse.Settings.Add("ShowBasicPercentOfCriticalDamageTakenOverTime");
+
+            #endregion
+
+            #region Basic Combined Settings
+
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalOverallDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedRegularDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedCriticalDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalDamageActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDPS");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegMiss");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegAccuracy");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCounter");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCounterPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCounterMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageCounterModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageBlock");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageBlockPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageBlockMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageBlockModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageParry");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageParryPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageParryMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageParryModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageResist");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageResistPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageResistMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageResistModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvade");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadePercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadeMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadeModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalDamage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalOverallHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedRegularHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedCriticalHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalHealingActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHPS");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalHealing");
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalOverallDamageTaken");
+            Constants.Parse.Settings.Add("ShowBasicCombinedRegularDamageTaken");
+            Constants.Parse.Settings.Add("ShowBasicCombinedCriticalDamageTaken");
+            Constants.Parse.Settings.Add("ShowBasicCombinedTotalDamageTakenActionsUsed");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDTPS");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegMiss");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegAccuracy");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenRegModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritHit");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritLow");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritHigh");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCritModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCounter");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCounterPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCounterMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenCounterModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenBlock");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenBlockPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenBlockMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenBlockModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenParry");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenParryPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenParryMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenParryModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenResist");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenResistPercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenResistMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenResistModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvade");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadePercent");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadeMod");
+            Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadeModAverage");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallDamageTaken");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularDamageTaken");
+            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalDamageTaken");
 
             #endregion
 
@@ -419,6 +644,8 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
+
+        #region Basic Settings
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
@@ -979,6 +1206,309 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             }
         }
 
+        #region Damage Over Time
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicTotalOverallDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicRegularDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicRegularDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicCriticalDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicCriticalDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalDamageOverTimeActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalDamageOverTimeActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalDamageOverTimeActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDOTPS
+        {
+            get { return ((bool) (this["ShowBasicDOTPS"])); }
+            set
+            {
+                this["ShowBasicDOTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegHit
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegHit"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegMiss
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegMiss"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegMiss"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegAccuracy
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegAccuracy"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegAccuracy"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegLow
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegLow"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegHigh"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegMod
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegMod"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritHit
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritHit"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritPercent
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritPercent"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritLow
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritLow"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritHigh"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritMod
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritMod"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
@@ -988,45 +1518,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowBasicTotalOverallHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallOverHealing
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallOverHealing"])); }
-            set
-            {
-                this["ShowBasicTotalOverallOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallMitigatedHealing
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallMitigatedHealing"])); }
-            set
-            {
-                this["ShowBasicTotalOverallMitigatedHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallHealingOverTimeOverHealing
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallHealingOverTimeOverHealing"])); }
-            set
-            {
-                this["ShowBasicTotalOverallHealingOverTimeOverHealing"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -1303,6 +1794,837 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
+
+        #region Healing Over Time
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicRegularHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingOverTimeActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingOverTimeActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingOverTimeActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHOTPS
+        {
+            get { return ((bool) (this["ShowBasicHOTPS"])); }
+            set
+            {
+                this["ShowBasicHOTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Healing Over Healing
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicRegularHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingOverHealingActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingOverHealingActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingOverHealingActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHOHPS
+        {
+            get { return ((bool) (this["ShowBasicHOHPS"])); }
+            set
+            {
+                this["ShowBasicHOHPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Healing Over Healing
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicRegularHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingMitigatedActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingMitigatedActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingMitigatedActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHMPS
+        {
+            get { return ((bool) (this["ShowBasicHMPS"])); }
+            set
+            {
+                this["ShowBasicHMPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
@@ -1849,6 +3171,1708 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
+
+        #region DamageTaken Over Time
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicTotalOverallDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicRegularDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicRegularDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicCriticalDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicCriticalDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalDamageTakenOverTimeActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalDamageTakenOverTimeActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalDamageTakenOverTimeActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDTOTPS
+        {
+            get { return ((bool) (this["ShowBasicDTOTPS"])); }
+            set
+            {
+                this["ShowBasicDTOTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegHit
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegHit"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegMiss
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegMiss"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegMiss"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegAccuracy
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegAccuracy"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegAccuracy"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegLow
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegLow"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegHigh"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegAverage"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegMod
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegMod"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeRegModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritHit
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritHit"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritPercent
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritPercent"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritLow
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritLow"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritHigh"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritAverage"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritMod
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritMod"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageTakenOverTimeCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageTakenOverTimeCritModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageTakenOverTimeCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalDamageTakenOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalDamageTakenOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Basic Combined Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalOverallDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalOverallDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalOverallDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedRegularDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedRegularDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedRegularDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedCriticalDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedCriticalDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedCriticalDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalDamageActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalDamageActionsUsed"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalDamageActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDPS
+        {
+            get { return ((bool) (this["ShowBasicCombinedDPS"])); }
+            set
+            {
+                this["ShowBasicCombinedDPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegHit"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegMiss
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegMiss"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegMiss"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegAccuracy
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegAccuracy"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegAccuracy"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegLow"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageRegModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritHit"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritLow"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCritModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCounter
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCounter"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCounter"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCounterPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCounterPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCounterPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCounterMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCounterMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCounterMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageCounterModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageCounterModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageCounterModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageBlock
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageBlock"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageBlock"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageBlockPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageBlockPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageBlockPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageBlockMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageBlockMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageBlockMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageBlockModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageBlockModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageBlockModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageParry
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageParry"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageParry"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageParryPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageParryPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageParryPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageParryMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageParryMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageParryMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageParryModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageParryModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageParryModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageResist
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageResist"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageResist"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageResistPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageResistPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageResistPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageResistMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageResistMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageResistMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageResistModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageResistModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageResistModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageEvade
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageEvade"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageEvade"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageEvadePercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageEvadePercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageEvadePercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageEvadeMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageEvadeMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageEvadeMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageEvadeModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageEvadeModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageEvadeModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfTotalOverallDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfTotalOverallDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfRegularDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfRegularDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfCriticalDamage
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalDamage"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfCriticalDamage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalOverallHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalOverallHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalOverallHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedRegularHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedRegularHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedRegularHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedCriticalHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedCriticalHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedCriticalHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalHealingActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalHealingActionsUsed"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalHealingActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHPS
+        {
+            get { return ((bool) (this["ShowBasicCombinedHPS"])); }
+            set
+            {
+                this["ShowBasicCombinedHPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegHit"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegLow"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegMod"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingRegModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritHit"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritLow"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritMod"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedHealingCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedHealingCritModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedHealingCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfTotalOverallHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfTotalOverallHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfRegularHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfRegularHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfCriticalHealing
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalHealing"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfCriticalHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalOverallDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalOverallDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalOverallDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedRegularDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedRegularDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedRegularDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedCriticalDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedCriticalDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedCriticalDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedTotalDamageTakenActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicCombinedTotalDamageTakenActionsUsed"])); }
+            set
+            {
+                this["ShowBasicCombinedTotalDamageTakenActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDTPS
+        {
+            get { return ((bool) (this["ShowBasicCombinedDTPS"])); }
+            set
+            {
+                this["ShowBasicCombinedDTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegHit"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegMiss
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegMiss"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegMiss"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegAccuracy
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegAccuracy"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegAccuracy"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegLow"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenRegModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritHit
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritHit"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritLow
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritLow"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritHigh
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritHigh"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCritModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCounter
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCounter"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCounter"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCounterPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCounterPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCounterPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCounterMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCounterMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCounterMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenCounterModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenCounterModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenCounterModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenBlock
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenBlock"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenBlock"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenBlockPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenBlockPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenBlockPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenBlockMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenBlockMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenBlockMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenBlockModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenBlockModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenBlockModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenParry
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenParry"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenParry"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenParryPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenParryPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenParryPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenParryMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenParryMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenParryMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenParryModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenParryModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenParryModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenResist
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenResist"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenResist"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenResistPercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenResistPercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenResistPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenResistMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenResistMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenResistMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenResistModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenResistModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenResistModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenEvade
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenEvade"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenEvade"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenEvadePercent
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenEvadePercent"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenEvadePercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenEvadeMod
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenEvadeMod"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenEvadeMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedDamageTakenEvadeModAverage
+        {
+            get { return ((bool) (this["ShowBasicCombinedDamageTakenEvadeModAverage"])); }
+            set
+            {
+                this["ShowBasicCombinedDamageTakenEvadeModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfTotalOverallDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfTotalOverallDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfRegularDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfRegularDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCombinedPercentOfCriticalDamageTaken
+        {
+            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalDamageTaken"])); }
+            set
+            {
+                this["ShowBasicCombinedPercentOfCriticalDamageTaken"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Column Settings
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
@@ -3240,6 +6264,8 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
+
+        #endregion
 
         [UserScopedSetting]
         [DebuggerNonUserCode]

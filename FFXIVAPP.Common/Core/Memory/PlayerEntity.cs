@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System.Collections.Generic;
+using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Core.Memory.Interfaces;
 using FFXIVAPP.Common.Helpers;
 
@@ -34,6 +35,7 @@ namespace FFXIVAPP.Common.Core.Memory
         }
 
         public byte JobID { get; set; }
+        public Actor.Job Job { get; set; }
         public byte PGL { get; set; }
         public byte GLD { get; set; }
         public byte MRD { get; set; }

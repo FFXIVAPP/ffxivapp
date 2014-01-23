@@ -16,7 +16,10 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
+using FFXIVAPP.Client.Models.Parse.StatGroups;
+using FFXIVAPP.Client.Models.Parse.Stats;
 using FFXIVAPP.Client.Views.Parse;
+using FFXIVAPP.Client.Windows;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
@@ -31,11 +34,12 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         #region Property Bindings
 
         private static MainViewModel _instance;
-        private dynamic _monsterInfoListViewSource;
-        private dynamic _overallInfoScoreCardSource;
+        private bool _isCurrent;
+        private bool _isHistory;
+        private dynamic _monsterInfoSource;
+        private dynamic _overallInfoSource;
         private ObservableCollection<ParseHistoryItem> _parseHistory;
-        private dynamic _playerInfoListViewSource;
-        private dynamic _playerInfoScoreCardSource;
+        private dynamic _playerInfoSource;
 
         public static MainViewModel Instance
         {
@@ -71,42 +75,52 @@ namespace FFXIVAPP.Client.ViewModels.Parse
             }
         }
 
-        public dynamic PlayerInfoListViewSource
+        public dynamic PlayerInfoSource
         {
-            get { return _playerInfoListViewSource ?? (ParseControl.Instance.Timeline.Party); }
+            get { return _playerInfoSource ?? (ParseControl.Instance.Timeline.Party); }
             set
             {
-                _playerInfoListViewSource = value;
+                _playerInfoSource = value;
                 RaisePropertyChanged();
             }
         }
 
-        public dynamic MonsterInfoListViewSource
+        public dynamic MonsterInfoSource
         {
-            get { return _monsterInfoListViewSource ?? (ParseControl.Instance.Timeline.Monster); }
+            get { return _monsterInfoSource ?? (ParseControl.Instance.Timeline.Monster); }
             set
             {
-                _monsterInfoListViewSource = value;
+                _monsterInfoSource = value;
                 RaisePropertyChanged();
             }
         }
 
-        public dynamic OverallInfoScoreCardSource
+        public dynamic OverallInfoSource
         {
-            get { return _overallInfoScoreCardSource ?? (ParseControl.Instance.Timeline.Overall); }
+            get { return _overallInfoSource ?? (ParseControl.Instance.Timeline.Overall); }
             set
             {
-                _overallInfoScoreCardSource = value;
+                _overallInfoSource = value;
                 RaisePropertyChanged();
             }
         }
 
-        public dynamic PlayerInfoScoreCardSource
+        public bool IsCurrent
         {
-            get { return _playerInfoScoreCardSource ?? (ParseControl.Instance.Timeline.Party); }
+            get { return _isCurrent; }
             set
             {
-                _playerInfoScoreCardSource = value;
+                _isCurrent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool IsHistory
+        {
+            get { return _isHistory; }
+            set
+            {
+                _isHistory = value;
                 RaisePropertyChanged();
             }
         }
@@ -115,6 +129,8 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         #region Declarations
 
+        public ICommand ShowLast20PlayerActionsCommand { get; private set; }
+        public ICommand ShowLast20MonsterActionsCommand { get; private set; }
         public ICommand RefreshSelectedCommand { get; private set; }
         public ICommand ProcessSampleCommand { get; private set; }
         public ICommand SwitchInfoViewSourceCommand { get; private set; }
@@ -126,6 +142,9 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         public MainViewModel()
         {
+            IsCurrent = true;
+            ShowLast20PlayerActionsCommand = new DelegateCommand<string>(ShowLast20PlayerActions);
+            ShowLast20MonsterActionsCommand = new DelegateCommand<string>(ShowLast20MonsterActions);
             RefreshSelectedCommand = new DelegateCommand(RefreshSelected);
             ProcessSampleCommand = new DelegateCommand(ProcessSample);
             SwitchInfoViewSourceCommand = new DelegateCommand(SwitchInfoViewSource);
@@ -143,6 +162,132 @@ namespace FFXIVAPP.Client.ViewModels.Parse
         #endregion
 
         #region Command Bindings
+
+        private void ShowLast20PlayerActions(string actionType)
+        {
+            var players = ((StatGroup) Instance.PlayerInfoSource).Children;
+            var player = players.Where(p => p != null)
+                                .Where(p => String.Equals(p.Name, MainView.View.SelectedPlayerName.Content.ToString(), Constants.InvariantComparer))
+                                .Cast<Player>()
+                                .FirstOrDefault();
+            if (player == null)
+            {
+                return;
+            }
+            var source = new List<ActionHistoryItem>();
+            switch (actionType)
+            {
+                case "Damage":
+                    source.AddRange(player.Last20DamageActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+                case "DamageTaken":
+                    source.AddRange(player.Last20DamageTakenActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+                case "Healing":
+                    source.AddRange(player.Last20HealingActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+            }
+            if (!source.Any())
+            {
+                return;
+            }
+            var x = new xMetroWindowDataGrid
+            {
+                Title = player.Name,
+                xMetroWindowDG =
+                {
+                    ItemsSource = source
+                }
+            };
+            x.Show();
+        }
+
+        private void ShowLast20MonsterActions(string actionType)
+        {
+            var monsters = ((StatGroup) Instance.MonsterInfoSource).Children;
+            var monster = monsters.Where(p => p != null)
+                                  .Where(p => String.Equals(p.Name, MainView.View.SelectedMonsterName.Content.ToString(), Constants.InvariantComparer))
+                                  .Cast<Monster>()
+                                  .FirstOrDefault();
+            if (monster == null)
+            {
+                return;
+            }
+            var source = new List<ActionHistoryItem>();
+            switch (actionType)
+            {
+                case "Damage":
+                    source.AddRange(monster.Last20DamageActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+                case "DamageTaken":
+                    source.AddRange(monster.Last20DamageTakenActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+                case "Healing":
+                    source.AddRange(monster.Last20HealingActions.Select(damageAction => new ActionHistoryItem
+                    {
+                        Action = damageAction.Line.Action,
+                        Amount = damageAction.Line.Amount,
+                        Critical = damageAction.Line.Crit.ToString(),
+                        Source = damageAction.Line.Source,
+                        Target = damageAction.Line.Target,
+                        TimeStamp = damageAction.TimeStamp
+                    }));
+                    break;
+            }
+            if (!source.Any())
+            {
+                return;
+            }
+            var x = new xMetroWindowDataGrid
+            {
+                Title = monster.Name,
+                xMetroWindowDG =
+                {
+                    ItemsSource = source
+                }
+            };
+            x.Show();
+        }
 
         private void RefreshSelected()
         {
@@ -232,16 +377,18 @@ namespace FFXIVAPP.Client.ViewModels.Parse
                 switch (index)
                 {
                     case 0:
-                        PlayerInfoListViewSource = null;
-                        MonsterInfoListViewSource = null;
-                        OverallInfoScoreCardSource = null;
-                        PlayerInfoScoreCardSource = null;
+                        PlayerInfoSource = null;
+                        MonsterInfoSource = null;
+                        OverallInfoSource = null;
+                        IsCurrent = true;
+                        IsHistory = false;
                         break;
                     default:
-                        PlayerInfoListViewSource = ParseHistory[index].HistoryControl.Timeline.Party;
-                        MonsterInfoListViewSource = ParseHistory[index].HistoryControl.Timeline.Monster;
-                        OverallInfoScoreCardSource = ParseHistory[index].HistoryControl.Timeline.Overall;
-                        PlayerInfoScoreCardSource = ParseHistory[index].HistoryControl.Timeline.Party;
+                        PlayerInfoSource = ParseHistory[index].HistoryControl.Timeline.Party;
+                        MonsterInfoSource = ParseHistory[index].HistoryControl.Timeline.Monster;
+                        OverallInfoSource = ParseHistory[index].HistoryControl.Timeline.Overall;
+                        IsCurrent = false;
+                        IsHistory = true;
                         break;
                 }
             }

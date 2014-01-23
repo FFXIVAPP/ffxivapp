@@ -84,6 +84,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\resources\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
+    <Reference Include="FFXIVAPP.Localization">
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Localization.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -134,6 +137,9 @@
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Constants.Application.cs" />
     <Compile Include="Constants.Parse.cs" />
+    <Compile Include="Controls\Parse\BasicCombinedDisplaySettings.xaml.cs">
+      <DependentUpon>BasicCombinedDisplaySettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Parse\DamageOverTimeDataGrid.xaml.cs">
       <DependentUpon>DamageOverTimeDataGrid.xaml</DependentUpon>
     </Compile>
@@ -167,6 +173,7 @@
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
+    <Compile Include="Models\Parse\ActionHistoryItem.cs" />
     <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageOverTime.cs" />
     <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageTakenOverTime.cs" />
     <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageOverTime.cs" />
@@ -235,18 +242,6 @@
     <Compile Include="Helpers\TabItemHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="Localization\English.Client.cs" />
-    <Compile Include="Localization\English.cs" />
-    <Compile Include="Localization\English.Parse.cs" />
-    <Compile Include="Localization\French.Client.cs" />
-    <Compile Include="Localization\French.cs" />
-    <Compile Include="Localization\French.Parse.cs" />
-    <Compile Include="Localization\German.Client.cs" />
-    <Compile Include="Localization\German.cs" />
-    <Compile Include="Localization\German.Parse.cs" />
-    <Compile Include="Localization\Japanese.Client.cs" />
-    <Compile Include="Localization\Japanese.cs" />
-    <Compile Include="Localization\Japanese.Parse.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\Structures.cs" />
     <Compile Include="Memory\MonsterWorker.cs" />
@@ -384,10 +379,17 @@
     <Compile Include="Views\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\xMetroWindowDataGrid.xaml.cs">
+      <DependentUpon>xMetroWindowDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\xMetroWindow.xaml.cs">
       <DependentUpon>xMetroWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\BasicCombinedDisplaySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -487,6 +489,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\xMetroWindowDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\xMetroWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -501,6 +507,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Media\Icons\fr.png" />
+    <Resource Include="Resources\Media\Icons\ja.png" />
+    <Resource Include="Resources\Media\Icons\de.png" />
+    <Resource Include="Resources\Media\Icons\en.png" />
     <Resource Include="Resources\Actions.xml" />
     <Resource Include="Resources\Media\Icons\Parse.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />

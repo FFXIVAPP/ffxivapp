@@ -11,7 +11,8 @@
           MaxHeight="300"
           AutoGenerateColumns="False"
           BorderBrush="{DynamicResource AccentColorBrush}"
-          BorderThickness="1">
+          BorderThickness="1"
+          VirtualizingStackPanel.VirtualizationMode="Recycling">
 
     <DataGrid.Resources>
         <x:Static x:Key="PluginViewModel"
@@ -21,6 +22,9 @@
         <x:Static x:Key="Parser"
                   Member="Models:ParseControl.Instance" />
     </DataGrid.Resources>
+    <DataGrid.ContextMenu>
+        <ContextMenu />
+    </DataGrid.ContextMenu>
     <i:Interaction.Behaviors>
         <behaviors:IgnoreMouseWheelBehavior />
     </i:Interaction.Behaviors>

@@ -25,6 +25,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 //LineHistory.Add(new LineHistory(line));
             }
 
+            Last20HealingActions.Add(new LineHistory(line));
+            if (Last20HealingActions.Count > 20)
+            {
+                Last20HealingActions.RemoveAt(0);
+            }
+
             var currentHealing = line.Crit ? line.Amount > 0 ? ParseHelper.GetOriginalAmount(line.Amount, (decimal) .5) : 0 : line.Amount;
             if (currentHealing > 0)
             {

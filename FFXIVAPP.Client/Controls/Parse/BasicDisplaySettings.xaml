@@ -28,6 +28,28 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowTotalOverallDamageTakenInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
@@ -35,24 +57,10 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallOverHealingInfoHeader],
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallDamageTakenOverTimeInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
-                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallOverHealing,
-                                                                    Source={StaticResource PluginSettings}}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallMitigatedHealingInfoHeader],
-                                       Source={StaticResource AppProperties}}">
-                <StackPanel>
-                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallMitigatedHealing,
-                                                                    Source={StaticResource PluginSettings}}" />
-                </StackPanel>
-            </GroupBox>
-            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingOverTimeOverHealingInfoHeader],
-                                       Source={StaticResource AppProperties}}">
-                <StackPanel>
-                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallHealingOverTimeOverHealing,
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallDamageTakenOverTime,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
@@ -68,6 +76,13 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalDamageOverTimeActionsUsedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalDamageOverTimeActionsUsed,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowTotalHealingActionsUsedInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
@@ -75,10 +90,38 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalHealingOverTimeActionsUsedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalHealingOverTimeActionsUsed,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalHealingOverHealingActionsUsedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalHealingOverHealingActionsUsed,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalHealingMitigatedActionsUsedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalHealingMitigatedActionsUsed,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowTotalDamageTakenActionsUsedInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalDamageTakenActionsUsed,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalDamageTakenOverTimeActionsUsedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalDamageTakenOverTimeActionsUsed,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
@@ -94,6 +137,13 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDOTPSInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDOTPS,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowHPSInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
@@ -101,10 +151,38 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHOTPSInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHOTPS,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHOHPSInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHOHPS,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHMPSInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHMPS,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowDTPSInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDTPS,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDTOTPSInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDTOTPS,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
@@ -134,6 +212,27 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallHealingInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
@@ -155,6 +254,69 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallDamageTakenInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
@@ -173,6 +335,27 @@
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalDamageTaken,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfTotalOverallDamageTakenOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfTotalOverallDamageTakenOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfRegularDamageTakenOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfRegularDamageTakenOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowPercentOfCriticalDamageTakenOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicPercentOfCriticalDamageTakenOverTime,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
@@ -453,6 +636,135 @@
         </StackPanel>
     </Expander>
 
+    <Expander Header="Stats:Damage:OverTime:Regular">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowRegularDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegMissInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegMiss,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegAccuracyInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegAccuracy,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeRegModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeRegModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Damage:OverTime:Critical">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowCriticalDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritPercentInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritPercent,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageOverTimeCritModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageOverTimeCritModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
     <Expander Header="Stats:Healing:Regular">
         <StackPanel>
             <GroupBox Header="{Binding Locale[parse_ShowRegularHealingInfoHeader],
@@ -568,11 +880,348 @@
         </StackPanel>
     </Expander>
 
-    <Expander Header="Stats:Healing:Extended">
+    <Expander Header="Stats:Healing:OverTime:Regular">
         <StackPanel>
-            <TextBlock Text="{Binding Locale[app_ComingSoonText],
-                                      Source={StaticResource AppProperties}}"
-                       TextWrapping="WrapWithOverflow" />
+            <GroupBox Header="{Binding Locale[parse_ShowRegularHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeRegModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeRegModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Healing:OverTime:Critical">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowCriticalHealingOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalHealingOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritPercentInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritPercent,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverTimeCritModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverTimeCritModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Healing:OverHealing:Regular">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowRegularHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingRegModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingRegModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Healing:OverHealing:Critical">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowCriticalHealingOverHealingInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalHealingOverHealing,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritPercentInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritPercent,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingOverHealingCritModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingOverHealingCritModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Healing:Mitigated:Regular">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowRegularHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedRegModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedRegModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:Healing:Mitigated:Critical">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowCriticalHealingMitigatedInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalHealingMitigated,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritPercentInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritPercent,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowHealingMitigatedCritModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicHealingMitigatedCritModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
     </Expander>
 
@@ -844,6 +1493,135 @@
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenEvadeModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:DamageTaken:OverTime:Regular">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowRegularDamageTakenOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicRegularDamageTakenOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegMissInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegMiss,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegAccuracyInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegAccuracy,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeRegModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeRegModAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Expander>
+
+    <Expander Header="Stats:DamageTaken:OverTime:Critical">
+        <StackPanel>
+            <GroupBox Header="{Binding Locale[parse_ShowCriticalDamageTakenOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCriticalDamageTakenOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritHitInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritHit,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritPercentInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritPercent,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritLowInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritLow,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritHighInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritHigh,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritAverage,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritModInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritMod,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowDamageTakenOverTimeCritModAverageInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicDamageTakenOverTimeCritModAverage,
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>

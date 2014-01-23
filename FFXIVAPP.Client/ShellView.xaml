@@ -63,6 +63,38 @@
 
     <MetroControls:MetroWindow.WindowCommands>
         <MetroControls:WindowCommands>
+            <Button Command="{Binding SetLocaleCommand}"
+                    CommandParameter="English">
+                <Image Width="20"
+                       Height="20"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/en.png"
+                       ToolTip="English" />
+            </Button>
+            <Button Command="{Binding SetLocaleCommand}"
+                    CommandParameter="Japanese">
+                <Image Width="20"
+                       Height="20"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/ja.png"
+                       ToolTip="日本語" />
+            </Button>
+            <Button Command="{Binding SetLocaleCommand}"
+                    CommandParameter="French">
+                <Image Width="20"
+                       Height="20"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/fr.png"
+                       ToolTip="Français" />
+            </Button>
+            <Button Command="{Binding SetLocaleCommand}"
+                    CommandParameter="German">
+                <Image Width="20"
+                       Height="20"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/de.png"
+                       ToolTip="Deutsch" />
+            </Button>
             <Button x:Name="save"
                     Command="{Binding SaveAndClearHistoryCommand}">
                 <StackPanel Orientation="Horizontal">

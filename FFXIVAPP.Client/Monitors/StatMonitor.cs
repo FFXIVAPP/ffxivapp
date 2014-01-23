@@ -10,6 +10,7 @@ using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
 using FFXIVAPP.Client.Models.Parse.LinkedStats;
+using FFXIVAPP.Client.Models.Parse.StatGroups;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels.Parse;
@@ -76,21 +77,14 @@ namespace FFXIVAPP.Client.Monitors
             foreach (var player in ParseControl.Timeline.Party)
             {
                 var playerInstance = ParseControl.Timeline.GetSetPlayer(player.Name);
-                playerInstance.LineHistory.Clear();
                 playerInstance.StatusUpdateTimer.Stop();
                 playerInstance.IsActiveTimer.Stop();
-                playerInstance.StatusEntriesSelf.Clear();
-                playerInstance.StatusEntriesPlayers.Clear();
-                playerInstance.StatusEntriesMonsters.Clear();
             }
             foreach (var monster in ParseControl.Timeline.Monster)
             {
                 var monsterInstance = ParseControl.Timeline.GetSetMonster(monster.Name);
-                monsterInstance.LineHistory.Clear();
                 monsterInstance.StatusUpdateTimer.Stop();
-                monsterInstance.StatusEntriesSelf.Clear();
-                monsterInstance.StatusEntriesPlayers.Clear();
-                monsterInstance.StatusEntriesMonsters.Clear();
+                //monsterInstance.IsActiveTimer.Stop();
             }
             InitializeHistory();
             base.Clear();
@@ -122,6 +116,9 @@ namespace FFXIVAPP.Client.Monitors
                 foreach (var player in playerList)
                 {
                     var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
+                    playerInstance.Last20DamageActions = ((Player) player).Last20DamageActions.ToList();
+                    playerInstance.Last20DamageTakenActions = ((Player) player).Last20DamageTakenActions.ToList();
+                    playerInstance.Last20HealingActions = ((Player) player).Last20HealingActions.ToList();
                     foreach (var stat in player.Stats)
                     {
                         playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -132,6 +129,9 @@ namespace FFXIVAPP.Client.Monitors
                 foreach (var monster in monsterList)
                 {
                     var monsterInstance = controller.Timeline.GetSetMonster(monster.Name);
+                    monsterInstance.Last20DamageActions = ((Monster) monster).Last20DamageActions.ToList();
+                    monsterInstance.Last20DamageTakenActions = ((Monster) monster).Last20DamageTakenActions.ToList();
+                    monsterInstance.Last20HealingActions = ((Monster) monster).Last20HealingActions.ToList();
                     foreach (var stat in monster.Stats)
                     {
                         monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
@@ -189,6 +189,10 @@ namespace FFXIVAPP.Client.Monitors
                 }
                 catch (Exception ex)
                 {
+                }
+                foreach (var oStat in oStats)
+                {
+                    controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
                 }
                 historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
                 DispatcherHelper.Invoke(() => MainViewModel.Instance.ParseHistory.Insert(1, historyItem));

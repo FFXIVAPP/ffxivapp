@@ -3,11 +3,11 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
-using FFXIVAPP.Client.Localization;
 using FFXIVAPP.Client.Models;
 using SmartAssembly.Attributes;
 
@@ -21,36 +21,37 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="cultureInfo"> </param>
         public static void Update(CultureInfo cultureInfo)
         {
-            var culture = cultureInfo.TwoLetterISOLanguageName;
-            ResourceDictionary dictionary;
-            if (Constants.Supported.Contains(culture))
+            var results = new Dictionary<string, string>();
+            var client = Localization.LocaleHelper.ResolveOne(cultureInfo, "client")
+                                     .Cast<DictionaryEntry>()
+                                     .ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            var parse = Localization.LocaleHelper.ResolveOne(cultureInfo, "parse")
+                                    .Cast<DictionaryEntry>()
+                                    .ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            foreach (var resource in client)
             {
-                switch (culture)
+                try
                 {
-                    case "ja":
-                        dictionary = Japanese.Context();
-                        break;
-                    case "de":
-                        dictionary = German.Context();
-                        break;
-                    case "fr":
-                        dictionary = French.Context();
-                        break;
-                    default:
-                        dictionary = English.Context();
-                        break;
+                    results.Add(resource.Key, resource.Value);
+                }
+                catch (Exception ex)
+                {
                 }
             }
-            else
+            foreach (var resource in parse)
             {
-                dictionary = English.Context();
+                try
+                {
+                    results.Add(resource.Key, resource.Value);
+                }
+                catch (Exception ex)
+                {
+                }
             }
-            var result = dictionary.Cast<DictionaryEntry>()
-                                   .ToDictionary(item => (string) item.Key, item => (string) item.Value);
-            AppViewModel.Instance.Locale = result;
+            AppViewModel.Instance.Locale = results;
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
-                pluginInstance.Instance.Locale = result;
+                pluginInstance.Instance.Locale = results;
             }
         }
     }

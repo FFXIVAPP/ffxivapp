@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Parse;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;
@@ -35,6 +36,7 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
+        public ICommand SetLocaleCommand { get; set; }
         public ICommand SaveAndClearHistoryCommand { get; private set; }
         public ICommand ScreenShotCommand { get; private set; }
         public ICommand UpdateSelectedPluginCommand { get; private set; }
@@ -44,6 +46,7 @@ namespace FFXIVAPP.Client
 
         public ShellViewModel()
         {
+            SetLocaleCommand = new DelegateCommand<string>(SetLocale);
             SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
@@ -59,6 +62,11 @@ namespace FFXIVAPP.Client
         #endregion
 
         #region Command Bindings
+
+        private static void SetLocale(string language)
+        {
+            Settings.Default.GameLanguage = language;
+        }
 
         /// <summary>
         /// </summary>

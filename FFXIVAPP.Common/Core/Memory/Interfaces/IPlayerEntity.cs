@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System.Collections.Generic;
+using FFXIVAPP.Common.Core.Memory.Enums;
 
 namespace FFXIVAPP.Common.Core.Memory.Interfaces
 {
@@ -16,6 +17,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
         List<EnmityEntry> EnmityEntries { get; set; }
 
         byte JobID { get; set; }
+        Actor.Job Job { get; set; }
 
         #region Job Levels
 
