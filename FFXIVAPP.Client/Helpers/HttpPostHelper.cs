@@ -77,7 +77,7 @@ namespace FFXIVAPP.Client.Helpers
                                         return streamReader.ReadToEnd();
                                     }
                                 }
-                            } 
+                            }
                         }
                     }
                 }

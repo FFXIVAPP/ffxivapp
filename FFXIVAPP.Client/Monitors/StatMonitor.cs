@@ -16,7 +16,6 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels.Parse;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
-using MahApps.Metro.Controls.Dialogs;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -100,7 +99,7 @@ namespace FFXIVAPP.Client.Monitors
                 var historyItem = new ParseHistoryItem();
                 var controller = historyItem.HistoryControl.Controller;
                 var oStats = ParseControl.Timeline.Overall.Stats;
-                foreach (var oStat in oStats.Where(oStat => oStat.GetType() == typeof(PerSecondAverageStat)))
+                foreach (var oStat in oStats.Where(oStat => oStat.GetType() == typeof (PerSecondAverageStat)))
                 {
                     controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
                 }

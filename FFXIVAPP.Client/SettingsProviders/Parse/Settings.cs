@@ -645,6 +645,58 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             }
         }
 
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ParseYou
+        {
+            get { return ((bool) (this["ParseYou"])); }
+            set
+            {
+                this["ParseYou"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ParseParty
+        {
+            get { return ((bool) (this["ParseParty"])); }
+            set
+            {
+                this["ParseParty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ParseAlliance
+        {
+            get { return ((bool) (this["ParseAlliance"])); }
+            set
+            {
+                this["ParseAlliance"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ParseOther
+        {
+            get { return ((bool) (this["ParseOther"])); }
+            set
+            {
+                this["ParseOther"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #region Basic Settings
 
         [UserScopedSetting]
@@ -1206,309 +1258,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             }
         }
 
-        #region Damage Over Time
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicTotalOverallDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicRegularDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicRegularDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicRegularDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicCriticalDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicCriticalDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalDamageOverTimeActionsUsed
-        {
-            get { return ((bool) (this["ShowBasicTotalDamageOverTimeActionsUsed"])); }
-            set
-            {
-                this["ShowBasicTotalDamageOverTimeActionsUsed"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDOTPS
-        {
-            get { return ((bool) (this["ShowBasicDOTPS"])); }
-            set
-            {
-                this["ShowBasicDOTPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegHit
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegHit"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegMiss
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegMiss"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegMiss"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegAccuracy
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegAccuracy"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegAccuracy"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegLow
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegLow"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegHigh
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegHigh"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegAverage"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegMod
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegMod"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeRegModAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeRegModAverage"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeRegModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritHit
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritHit"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritPercent
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritPercent"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritPercent"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritLow
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritLow"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritHigh
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritHigh"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritAverage"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritMod
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritMod"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicDamageOverTimeCritModAverage
-        {
-            get { return ((bool) (this["ShowBasicDamageOverTimeCritModAverage"])); }
-            set
-            {
-                this["ShowBasicDamageOverTimeCritModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfTotalOverallDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfRegularDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfRegularDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalDamageOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfCriticalDamageOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfCriticalDamageOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
@@ -1794,837 +1543,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
                 RaisePropertyChanged();
             }
         }
-
-        #region Healing Over Time
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicTotalOverallHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicRegularHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicRegularHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicRegularHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicCriticalHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicCriticalHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalHealingOverTimeActionsUsed
-        {
-            get { return ((bool) (this["ShowBasicTotalHealingOverTimeActionsUsed"])); }
-            set
-            {
-                this["ShowBasicTotalHealingOverTimeActionsUsed"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHOTPS
-        {
-            get { return ((bool) (this["ShowBasicHOTPS"])); }
-            set
-            {
-                this["ShowBasicHOTPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegHit
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegHit"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegLow
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegLow"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegHigh"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegMod
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegMod"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeRegModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeRegModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeRegModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritHit
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritHit"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritPercent
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritPercent"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritPercent"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritLow
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritLow"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritHigh"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritMod
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritMod"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverTimeCritModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverTimeCritModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverTimeCritModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfTotalOverallHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfRegularHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalHealingOverTime
-        {
-            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverTime"])); }
-            set
-            {
-                this["ShowBasicPercentOfCriticalHealingOverTime"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Healing Over Healing
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicTotalOverallHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicRegularHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicRegularHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicRegularHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicCriticalHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicCriticalHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalHealingOverHealingActionsUsed
-        {
-            get { return ((bool) (this["ShowBasicTotalHealingOverHealingActionsUsed"])); }
-            set
-            {
-                this["ShowBasicTotalHealingOverHealingActionsUsed"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHOHPS
-        {
-            get { return ((bool) (this["ShowBasicHOHPS"])); }
-            set
-            {
-                this["ShowBasicHOHPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegHit
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegHit"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegLow
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegLow"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegHigh"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegMod
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegMod"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingRegModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingRegModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingRegModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritHit
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritHit"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritPercent
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritPercent"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritPercent"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritLow
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritLow"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritHigh"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritMod
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritMod"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingOverHealingCritModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingOverHealingCritModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingOverHealingCritModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicPercentOfTotalOverallHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicPercentOfRegularHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalHealingOverHealing
-        {
-            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverHealing"])); }
-            set
-            {
-                this["ShowBasicPercentOfCriticalHealingOverHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Healing Over Healing
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalOverallHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicTotalOverallHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicTotalOverallHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicRegularHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicRegularHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicRegularHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCriticalHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicCriticalHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicCriticalHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicTotalHealingMitigatedActionsUsed
-        {
-            get { return ((bool) (this["ShowBasicTotalHealingMitigatedActionsUsed"])); }
-            set
-            {
-                this["ShowBasicTotalHealingMitigatedActionsUsed"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHMPS
-        {
-            get { return ((bool) (this["ShowBasicHMPS"])); }
-            set
-            {
-                this["ShowBasicHMPS"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegHit
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegHit"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegLow
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegLow"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegHigh"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegAverage"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegMod
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegMod"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedRegModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedRegModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedRegModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritHit
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritHit"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritHit"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritPercent
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritPercent"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritPercent"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritLow
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritLow"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritLow"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritHigh
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritHigh"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritHigh"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritAverage"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritMod
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritMod"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritMod"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicHealingMitigatedCritModAverage
-        {
-            get { return ((bool) (this["ShowBasicHealingMitigatedCritModAverage"])); }
-            set
-            {
-                this["ShowBasicHealingMitigatedCritModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfTotalOverallHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicPercentOfTotalOverallHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfRegularHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicPercentOfRegularHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicPercentOfRegularHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicPercentOfCriticalHealingMitigated
-        {
-            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingMitigated"])); }
-            set
-            {
-                this["ShowBasicPercentOfCriticalHealingMitigated"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
@@ -3469,6 +2387,1140 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowBasicPercentOfCriticalDamageTakenOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Healing Over Time
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicRegularHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingOverTimeActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingOverTimeActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingOverTimeActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHOTPS
+        {
+            get { return ((bool) (this["ShowBasicHOTPS"])); }
+            set
+            {
+                this["ShowBasicHOTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverTimeCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverTimeCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverTimeCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Healing Over Healing
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicRegularHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingOverHealingActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingOverHealingActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingOverHealingActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHOHPS
+        {
+            get { return ((bool) (this["ShowBasicHOHPS"])); }
+            set
+            {
+                this["ShowBasicHOHPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingOverHealingCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingOverHealingCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingOverHealingCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingOverHealing
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingOverHealing"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingOverHealing"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Healing Over Healing
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicTotalOverallHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicRegularHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicRegularHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicCriticalHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicCriticalHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalHealingMitigatedActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalHealingMitigatedActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalHealingMitigatedActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHMPS
+        {
+            get { return ((bool) (this["ShowBasicHMPS"])); }
+            set
+            {
+                this["ShowBasicHMPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegHit
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegHit"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegLow
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegLow"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegHigh"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegMod
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegMod"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedRegModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritHit
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritHit"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritPercent
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritPercent"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritLow
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritLow"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritHigh
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritHigh"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritMod
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritMod"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicHealingMitigatedCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicHealingMitigatedCritModAverage"])); }
+            set
+            {
+                this["ShowBasicHealingMitigatedCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalHealingMitigated
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalHealingMitigated"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalHealingMitigated"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Damage Over Time
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalOverallDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicTotalOverallDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicTotalOverallDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicRegularDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicRegularDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicRegularDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicCriticalDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicCriticalDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicCriticalDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicTotalDamageOverTimeActionsUsed
+        {
+            get { return ((bool) (this["ShowBasicTotalDamageOverTimeActionsUsed"])); }
+            set
+            {
+                this["ShowBasicTotalDamageOverTimeActionsUsed"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDOTPS
+        {
+            get { return ((bool) (this["ShowBasicDOTPS"])); }
+            set
+            {
+                this["ShowBasicDOTPS"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegHit
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegHit"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegMiss
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegMiss"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegMiss"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegAccuracy
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegAccuracy"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegAccuracy"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegLow
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegLow"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegHigh"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegMod
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegMod"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeRegModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeRegModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeRegModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritHit
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritHit"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritHit"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritPercent
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritPercent"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritLow
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritLow"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritLow"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritHigh
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritHigh"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritHigh"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritMod
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritMod"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritMod"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicDamageOverTimeCritModAverage
+        {
+            get { return ((bool) (this["ShowBasicDamageOverTimeCritModAverage"])); }
+            set
+            {
+                this["ShowBasicDamageOverTimeCritModAverage"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfTotalOverallDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfTotalOverallDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfTotalOverallDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfRegularDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfRegularDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfRegularDamageOverTime"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool ShowBasicPercentOfCriticalDamageOverTime
+        {
+            get { return ((bool) (this["ShowBasicPercentOfCriticalDamageOverTime"])); }
+            set
+            {
+                this["ShowBasicPercentOfCriticalDamageOverTime"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -6266,58 +6318,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         }
 
         #endregion
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ParseYou
-        {
-            get { return ((bool) (this["ParseYou"])); }
-            set
-            {
-                this["ParseYou"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ParseParty
-        {
-            get { return ((bool) (this["ParseParty"])); }
-            set
-            {
-                this["ParseParty"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ParseAlliance
-        {
-            get { return ((bool) (this["ParseAlliance"])); }
-            set
-            {
-                this["ParseAlliance"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ParseOther
-        {
-            get { return ((bool) (this["ParseOther"])); }
-            set
-            {
-                this["ParseOther"] = value;
-                RaisePropertyChanged();
-            }
-        }
 
         #endregion
 

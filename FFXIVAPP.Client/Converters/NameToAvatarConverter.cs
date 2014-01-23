@@ -160,7 +160,7 @@ namespace FFXIVAPP.Client.Converters
             try
             {
                 var httpWebRequest = (HttpWebRequest) WebRequest.Create(imageUri);
-                using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                 {
                     using (var response = httpResponse.GetResponseStream())
                     {
