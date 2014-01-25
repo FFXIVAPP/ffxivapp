@@ -56,14 +56,6 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
             DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
         }
 
-        //public void ClearEvents()
-        //{
-        //    foreach (var s in _statDict.Values)
-        //    {
-        //        s.OnValueChanged -= HandleStatValueChanged;
-        //    }
-        //}
-
         public bool Contains(Stat<decimal> stat)
         {
             return _statDict.ContainsKey(stat.Name);

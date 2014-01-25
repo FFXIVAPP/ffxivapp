@@ -210,21 +210,21 @@
                         <DockPanel PreviewMouseDown="UIElement_OnPreviewMouseDown">
                             <Grid>
                                 <TextBlock Grid.Row="0"
-                                       Margin="5 -1"
-                                       HorizontalAlignment="Right"
-                                       Text="[UPDATER]"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
+                                           Margin="5 -1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="14"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="[UPDATER]" />
                                 <TextBlock Grid.Row="0"
-                                       Margin="5 2"
-                                       HorizontalAlignment="Left"
-                                       Text="FFXIV-APP"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
+                                           Margin="5 2"
+                                           HorizontalAlignment="Left"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="FFXIV-APP" />
                             </Grid>
                         </DockPanel>
                     </DockPanel>
@@ -244,13 +244,14 @@
                     <ProgressBar.Resources />
                 </ProgressBar>
                 <TextBlock Grid.Row="0"
-                       Margin="6"
-                       HorizontalAlignment="Center"
-                       Text="{Binding Value,
-                                         ElementName=ProgressBarSingle}"
-                       Foreground="Black"
-                       Padding="0"
-                       Style="{StaticResource PercentStyle}" />
+                           Margin="6"
+                           HorizontalAlignment="Center"
+                           Foreground="Black"
+                           Padding="0"
+                           Style="{StaticResource PercentStyle}"
+                           Text="{Binding Value,
+                                          ElementName=ProgressBarSingle,
+                                          StringFormat={}{0:P2}}" />
             </Grid>
             <WebBrowser x:Name="GoogleAnalytics"
                         Visibility="Collapsed" />

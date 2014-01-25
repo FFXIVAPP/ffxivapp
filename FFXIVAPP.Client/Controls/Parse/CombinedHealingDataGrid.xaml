@@ -98,7 +98,7 @@
     </i:Interaction.Behaviors>
     <DataGrid.Columns>
         <!--  <DataGridTextColumn Header="Avatar" CellTemplate="{StaticResource avatarTemplate}" />  -->
-        <DataGridTextColumn Binding="{Binding CombinedName}"
+        <DataGridTextColumn Binding="{Binding Name}"
                             Header="{Binding Locale[parse_NameHeader],
                                              Source={StaticResource AppProperties}}"
                             Utilities:GridViewSort.PropertyName="Name" />

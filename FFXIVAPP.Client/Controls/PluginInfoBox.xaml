@@ -50,15 +50,15 @@
                         BorderBrush="{DynamicResource AccentColorBrush}"
                         BorderThickness="1" />
                 <TextBlock x:Name="PluginName"
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Text="{Binding Name}"
-                       Visibility="Collapsed" />
+                           Grid.Row="1"
+                           Grid.Column="2"
+                           Text="{Binding Name}"
+                           Visibility="Collapsed" />
                 <TextBlock x:Name="PluginIcon"
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Text="{Binding Icon}"
-                       Visibility="Collapsed" />
+                           Grid.Row="1"
+                           Grid.Column="2"
+                           Text="{Binding Icon}"
+                           Visibility="Collapsed" />
                 <Image Grid.Row="1"
                        Grid.RowSpan="3"
                        Grid.Column="2"
@@ -70,9 +70,9 @@
                             <MultiBinding.Bindings>
                                 <Binding Source="{StaticResource AppProperties}" />
                                 <Binding ElementName="PluginName"
-                                         Path="Content" />
+                                         Path="Text" />
                                 <Binding ElementName="PluginIcon"
-                                         Path="Content" />
+                                         Path="Text" />
                             </MultiBinding.Bindings>
                         </MultiBinding>
                     </Image.Source>
@@ -111,15 +111,15 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Locale[app_DescriptionLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Locale[app_CopyrightLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Locale[app_VersionLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Locale[app_DescriptionLabel],
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Locale[app_CopyrightLabel],
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Locale[app_VersionLabel],
+                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel DockPanel.Dock="Right">
@@ -132,12 +132,12 @@
                             <StackPanel Grid.Column="1"
                                         Height="Auto"
                                         HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Description}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Copyright}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Version}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Description}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Copyright}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Version}" />
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>

@@ -267,11 +267,17 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         private void DoCollectionChanged(NotifyCollectionChangedAction action, StatGroup statGroup)
         {
-            var dispatcher = CollectionChanged.GetInvocationList()
-                                              .Select(@delegate => @delegate.Target)
-                                              .OfType<DispatcherObject>()
-                                              .Select(dispatcherObject => dispatcherObject.Dispatcher)
-                                              .FirstOrDefault();
+            Dispatcher dispatcher = null;
+            foreach (var @delegate in CollectionChanged.GetInvocationList())
+            {
+                var dispatcherObject = @delegate.Target as DispatcherObject;
+                if (dispatcherObject == null)
+                {
+                    continue;
+                }
+                dispatcher = dispatcherObject.Dispatcher;
+                break;
+            }
             if (dispatcher != null && dispatcher.CheckAccess() == false)
             {
                 dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => DoCollectionChanged(action, statGroup)));
