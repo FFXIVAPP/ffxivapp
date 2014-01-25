@@ -4,7 +4,6 @@
 // © 2013 Ryan Wilson
 
 using System;
-using System.Collections.Generic;
 using System.Timers;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using SmartAssembly.Attributes;
@@ -14,26 +13,6 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
     [DoNotObfuscate]
     public class PerSecondAverageStat : LinkedStat
     {
-        public PerSecondAverageStat(string name, IList<Stat<decimal>> dependencies, bool isHistoryBased = false) : base(name, 0m)
-        {
-            IsHistoryBased = isHistoryBased;
-            if (IsHistoryBased)
-            {
-                return;
-            }
-            SetupDepends(dependencies[0]);
-        }
-
-        public PerSecondAverageStat(string name, Stat<decimal> dependency, bool isHistoryBased = false) : base(name, 0m)
-        {
-            IsHistoryBased = isHistoryBased;
-            if (IsHistoryBased)
-            {
-                return;
-            }
-            SetupDepends(dependency);
-        }
-
         public PerSecondAverageStat(string name, params Stat<decimal>[] dependencies) : base(name, 0m)
         {
             SetupDepends(dependencies[0]);
@@ -47,13 +26,16 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
         {
         }
 
-        public bool IsHistoryBased { get; set; }
 
         public Timer UpdateTimer { get; set; }
+
+        #region Time Tracking
 
         private DateTime? FirstEventReceived { get; set; }
         private DateTime LastEventReceived { get; set; }
         private decimal LastTimeDifference { get; set; }
+
+        #endregion
 
         /// <summary>
         /// </summary>
@@ -68,11 +50,12 @@ namespace FFXIVAPP.Client.Models.Parse.LinkedStats
 
         private void UpdateTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            if (ParseControl.Instance.Timeline.FightingRightNow)
+            if (!ParseControl.Instance.Timeline.FightingRightNow)
             {
-                var originalValue = Value * LastTimeDifference;
-                UpdateDPSTick(originalValue);
+                return;
             }
+            var originalValue = Value * LastTimeDifference;
+            UpdateDPSTick(originalValue);
         }
 
         /// <summary>

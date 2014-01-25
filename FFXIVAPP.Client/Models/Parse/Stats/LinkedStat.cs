@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Models.Parse.Stats
@@ -12,9 +13,15 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
     [DoNotObfuscate]
     public abstract class LinkedStat : Stat<decimal>, ILinkedStat
     {
+        private List<Stat<decimal>> _dependencies;
+
         #region Declarations
 
-        private readonly List<Stat<decimal>> _dependencyList = new List<Stat<decimal>>(50);
+        private List<Stat<decimal>> Dependencies
+        {
+            get { return _dependencies ?? (_dependencies = new List<Stat<decimal>>()); }
+            set { _dependencies = value; }
+        }
 
         #endregion
 
@@ -42,8 +49,8 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
         /// <param name="dependency"> </param>
         public virtual void AddDependency(Stat<decimal> dependency)
         {
-            _dependencyList.Add(dependency);
             dependency.OnValueChanged += DependencyValueChanged;
+            Dependencies.Add(dependency);
         }
 
         /// <summary>
@@ -51,7 +58,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
         /// <returns> </returns>
         public IEnumerable<Stat<decimal>> GetDependencies()
         {
-            return _dependencyList.AsReadOnly();
+            return Dependencies.AsReadOnly();
         }
 
         /// <summary>
@@ -66,28 +73,16 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         /// <summary>
         /// </summary>
-        /// <param name="dependencies"> </param>
-        private void SetupStats(IEnumerable<Stat<decimal>> dependencies)
-        {
-            foreach (var dependency in dependencies)
-            {
-                AddDependency(dependency);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
         public void ClearDependencies()
         {
-            if (_dependencyList == null)
+            if (Dependencies.Any())
             {
-                return;
+                foreach (var dependency in Dependencies)
+                {
+                    dependency.OnValueChanged -= DependencyValueChanged;
+                }
             }
-            foreach (var dependency in _dependencyList)
-            {
-                dependency.OnValueChanged -= DependencyValueChanged;
-            }
-            _dependencyList.Clear();
+            Dependencies.Clear();
         }
 
         /// <summary>
@@ -95,20 +90,31 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
         /// <param name="dependency"> </param>
         public void RemoveDependency(Stat<decimal> dependency)
         {
-            if (dependency == null)
+            if (!Dependencies.Any())
             {
                 return;
             }
             dependency.OnValueChanged -= DependencyValueChanged;
-            _dependencyList.Remove(dependency);
+            Dependencies.Remove(dependency);
         }
 
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        protected IEnumerable<Stat<decimal>> CloneDependentStats()
+        public IEnumerable<Stat<decimal>> CloneDependentStats()
         {
             return GetDependencies();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dependencies"> </param>
+        private void SetupStats(IEnumerable<Stat<decimal>> dependencies)
+        {
+            foreach (var dependency in dependencies)
+            {
+                AddDependency(dependency);
+            }
         }
 
         /// <summary>

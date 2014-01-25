@@ -141,7 +141,7 @@
                             <StackPanel>
                                 <TextBox x:Name="CICUID"
                                          Margin="5"
-                                         VerticalContentAlignment="Center"
+                                         
                                          AutoWordSelection="True"
                                          IsReadOnly="True"
                                          Text="{Binding CICUID,
@@ -155,25 +155,25 @@
                         <GroupBox Header="{Binding Locale[app_CharacterInformationHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <Label Content="{Binding Locale[app_FirstNameLabel],
+                                <TextBlock Text="{Binding Locale[app_FirstNameLabel],
                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="FirstName"
                                          Margin="5"
-                                         VerticalContentAlignment="Center"
+                                         
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding FirstName,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <Label Content="{Binding Locale[app_LastNameLabel],
+                                <TextBlock Text="{Binding Locale[app_LastNameLabel],
                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="LastName"
                                          Margin="5"
-                                         VerticalContentAlignment="Center"
+                                         
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding LastName,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <Label Content="{Binding Locale[app_ServerLabel],
+                                <TextBlock Text="{Binding Locale[app_ServerLabel],
                                                          Source={StaticResource AppProperties}}" />
                                 <ComboBox x:Name="ServerList"
                                           Margin="5"
@@ -198,19 +198,19 @@
                     <DockPanel Grid.Row="0"
                                Margin="3"
                                LastChildFill="True">
-                        <Label VerticalContentAlignment="Center"
-                               Content="{Binding Locale[app_CodeLabel],
+                        <TextBlock 
+                               Text="{Binding Locale[app_CodeLabel],
                                                  Source={StaticResource AppProperties}}" />
                         <TextBox x:Name="TCode"
                                  Width="50"
-                                 VerticalContentAlignment="Center"
+                                 
                                  IsReadOnly="True"
                                  Text="" />
-                        <Label VerticalContentAlignment="Center"
-                               Content="{Binding Locale[app_ColorLabel],
+                        <TextBlock 
+                               Text="{Binding Locale[app_ColorLabel],
                                                  Source={StaticResource AppProperties}}" />
                         <TextBox x:Name="TColor"
-                                 VerticalContentAlignment="Center"
+                                 
                                  Text="" />
                     </DockPanel>
                     <DockPanel Grid.Row="1"
@@ -282,9 +282,9 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="0">
-                                    <Label FontWeight="Bold">
+                                    <TextBlock FontWeight="Bold">
                                         Enabled:
-                                    </Label>
+                                    </TextBlock>
                                     <TextBlock x:Name="MonsterUploadEnabled"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterUploadEnabled,
@@ -307,9 +307,9 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="1">
-                                    <Label FontWeight="Bold">
+                                    <TextBlock FontWeight="Bold">
                                         Seen:
-                                    </Label>
+                                    </TextBlock>
                                     <TextBlock x:Name="MonsterSeen"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterSeen,
@@ -338,9 +338,9 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="2">
-                                    <Label FontWeight="Bold">
+                                    <TextBlock FontWeight="Bold">
                                         Chunks Processed:
-                                    </Label>
+                                    </TextBlock>
                                     <TextBlock x:Name="MonsterProcessed"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterProcessed,

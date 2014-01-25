@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Parse"
+             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels.Parse"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -56,14 +56,14 @@
                         Background="{DynamicResource AccentColorBrush}"
                         BorderBrush="{DynamicResource AccentColorBrush}"
                         BorderThickness="1" />
-                <Label x:Name="PluginName"
-                       Content="{Binding PluginInfo[Name],
-                                         Source={StaticResource PluginViewModel}}"
-                       Visibility="Collapsed" />
-                <Label x:Name="PluginIcon"
-                       Content="{Binding PluginInfo[Icon],
-                                         Source={StaticResource PluginViewModel}}"
-                       Visibility="Collapsed" />
+                <TextBlock x:Name="PluginName"
+                           Text="{Binding PluginInfo[Name],
+                                          Source={StaticResource PluginViewModel}}"
+                           Visibility="Collapsed" />
+                <TextBlock x:Name="PluginIcon"
+                           Text="{Binding PluginInfo[Icon],
+                                          Source={StaticResource PluginViewModel}}"
+                           Visibility="Collapsed" />
                 <Image Grid.Row="1"
                        Grid.RowSpan="3"
                        Grid.Column="2"
@@ -106,24 +106,24 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <Label Content="{Binding Locale[app_DescriptionLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding Locale[app_CopyrightLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Locale[app_DescriptionLabel],
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding Locale[app_CopyrightLabel],
+                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Margin="5 0">
                             <StackPanel Grid.Column="1"
                                         Height="Auto"
                                         HorizontalAlignment="Left">
-                                <Label Content="{Binding PluginInfo[Description],
-                                                         Source={StaticResource PluginViewModel}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <Label Content="{Binding PluginInfo[Copyright],
-                                                         Source={StaticResource PluginViewModel}}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding PluginInfo[Description],
+                                                          Source={StaticResource PluginViewModel}}" />
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{Binding PluginInfo[Copyright],
+                                                          Source={StaticResource PluginViewModel}}" />
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>

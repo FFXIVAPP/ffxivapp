@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
+using FFXIVAPP.Client.Models.Parse.History;
 using FFXIVAPP.Client.Models.Parse.StatGroups;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using FFXIVAPP.Client.Views.Parse;
@@ -165,50 +167,85 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         private void ShowLast20PlayerActions(string actionType)
         {
-            var players = ((StatGroup) Instance.PlayerInfoSource).Children;
-            var player = players.Where(p => p != null)
-                                .Where(p => String.Equals(p.Name, MainView.View.SelectedPlayerName.Content.ToString(), Constants.InvariantComparer))
-                                .Cast<Player>()
-                                .FirstOrDefault();
-            if (player == null)
-            {
-                return;
-            }
+            var title = "UNKNOWN";
             var source = new List<ActionHistoryItem>();
+            dynamic players = null;
+            dynamic player = null;
+            if (IsHistory)
+            {
+                players = ((HistoryGroup) Instance.PlayerInfoSource).Children;
+            }
+            if (IsCurrent)
+            {
+                players = ((StatGroup) Instance.PlayerInfoSource).Children;
+            }
+            if (IsHistory)
+            {
+                player = ((List<HistoryGroup>) players).Where(p => p != null)
+                                                       .Where(p => String.Equals(p.Name, MainView.View.SelectedPlayerName.Text.ToString(CultureInfo.InvariantCulture), Constants.InvariantComparer))
+                                                       .Cast<HistoryGroup>()
+                                                       .FirstOrDefault();
+                if (player == null)
+                {
+                    return;
+                }
+                title = player.Name;
+            }
+            if (IsCurrent)
+            {
+                player = ((List<StatGroup>) players).Where(p => p != null)
+                                                    .Where(p => String.Equals(p.Name, MainView.View.SelectedPlayerName.Text.ToString(CultureInfo.InvariantCulture), Constants.InvariantComparer))
+                                                    .Cast<Player>()
+                                                    .FirstOrDefault();
+                if (player == null)
+                {
+                    return;
+                }
+                title = player.Name;
+            }
             switch (actionType)
             {
                 case "Damage":
-                    source.AddRange(player.Last20DamageActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in player.Last20DamageActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
                 case "DamageTaken":
-                    source.AddRange(player.Last20DamageTakenActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in player.Last20DamageTakenActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
                 case "Healing":
-                    source.AddRange(player.Last20HealingActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in player.Last20HealingActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
             }
             if (!source.Any())
@@ -217,7 +254,7 @@ namespace FFXIVAPP.Client.ViewModels.Parse
             }
             var x = new xMetroWindowDataGrid
             {
-                Title = player.Name,
+                Title = title,
                 xMetroWindowDG =
                 {
                     ItemsSource = source
@@ -228,50 +265,85 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         private void ShowLast20MonsterActions(string actionType)
         {
-            var monsters = ((StatGroup) Instance.MonsterInfoSource).Children;
-            var monster = monsters.Where(p => p != null)
-                                  .Where(p => String.Equals(p.Name, MainView.View.SelectedMonsterName.Content.ToString(), Constants.InvariantComparer))
-                                  .Cast<Monster>()
-                                  .FirstOrDefault();
-            if (monster == null)
-            {
-                return;
-            }
+            var title = "UNKNOWN";
             var source = new List<ActionHistoryItem>();
+            dynamic monsters = null;
+            dynamic monster = null;
+            if (IsHistory)
+            {
+                monsters = ((HistoryGroup) Instance.MonsterInfoSource).Children;
+            }
+            if (IsCurrent)
+            {
+                monsters = ((StatGroup) Instance.MonsterInfoSource).Children;
+            }
+            if (IsHistory)
+            {
+                monster = ((List<HistoryGroup>) monsters).Where(p => p != null)
+                                                         .Where(p => String.Equals(p.Name, MainView.View.SelectedMonsterName.Text.ToString(CultureInfo.InvariantCulture), Constants.InvariantComparer))
+                                                         .Cast<HistoryGroup>()
+                                                         .FirstOrDefault();
+                if (monster == null)
+                {
+                    return;
+                }
+                title = monster.Name;
+            }
+            if (IsCurrent)
+            {
+                monster = ((List<StatGroup>) monsters).Where(p => p != null)
+                                                      .Where(p => String.Equals(p.Name, MainView.View.SelectedMonsterName.Text.ToString(CultureInfo.InvariantCulture), Constants.InvariantComparer))
+                                                      .Cast<Monster>()
+                                                      .FirstOrDefault();
+                if (monster == null)
+                {
+                    return;
+                }
+                title = monster.Name;
+            }
             switch (actionType)
             {
                 case "Damage":
-                    source.AddRange(monster.Last20DamageActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in monster.Last20DamageActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
                 case "DamageTaken":
-                    source.AddRange(monster.Last20DamageTakenActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in monster.Last20DamageTakenActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
                 case "Healing":
-                    source.AddRange(monster.Last20HealingActions.Select(damageAction => new ActionHistoryItem
+                    foreach (var action in monster.Last20HealingActions)
                     {
-                        Action = damageAction.Line.Action,
-                        Amount = damageAction.Line.Amount,
-                        Critical = damageAction.Line.Crit.ToString(),
-                        Source = damageAction.Line.Source,
-                        Target = damageAction.Line.Target,
-                        TimeStamp = damageAction.TimeStamp
-                    }));
+                        source.Add(new ActionHistoryItem
+                        {
+                            Action = action.Line.Action,
+                            Amount = action.Line.Amount,
+                            Critical = action.Line.Crit.ToString(),
+                            Source = action.Line.Source,
+                            Target = action.Line.Target,
+                            TimeStamp = action.TimeStamp
+                        });
+                    }
                     break;
             }
             if (!source.Any())
@@ -280,7 +352,7 @@ namespace FFXIVAPP.Client.ViewModels.Parse
             }
             var x = new xMetroWindowDataGrid
             {
-                Title = monster.Name,
+                Title = title,
                 xMetroWindowDG =
                 {
                     ItemsSource = source
@@ -308,13 +380,13 @@ namespace FFXIVAPP.Client.ViewModels.Parse
                     MainView.View.MonsterInfoListView.SelectedIndex = -1;
                     MainView.View.MonsterInfoListView.SelectedIndex = index;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                 }
             });
         }
 
-        private static void ProcessSample()
+        private void ProcessSample()
         {
             if (Constants.IsOpen)
             {
@@ -353,13 +425,12 @@ namespace FFXIVAPP.Client.ViewModels.Parse
                 }
                 Func<bool> func = delegate
                 {
-                    foreach (var item in items)
+                    foreach (var chatLogEntry in items.Select(item => new ChatLogEntry
                     {
-                        var chatLogEntry = new ChatLogEntry
-                        {
-                            Code = item.Value[0],
-                            Line = item.Value[1].Replace("  ", " ")
-                        };
+                        Code = item.Value[0],
+                        Line = item.Value[1].Replace("  ", " ")
+                    }))
+                    {
                         EventParser.Instance.ParseAndPublish(chatLogEntry);
                     }
                     return true;
@@ -397,7 +468,7 @@ namespace FFXIVAPP.Client.ViewModels.Parse
             }
         }
 
-        private static void SwitchInfoViewType()
+        private void SwitchInfoViewType()
         {
             try
             {
@@ -439,146 +510,171 @@ namespace FFXIVAPP.Client.ViewModels.Parse
 
         /// <summary>
         /// </summary>
-        private static void ResetStats()
+        private void ResetStats()
         {
-            var title = AppViewModel.Instance.Locale["app_WarningMessage"];
-            var message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
-            MessageBoxHelper.ShowMessageAsync(title, message, delegate { ParseControl.Instance.Reset(); }, delegate { });
+            ParseControl.Instance.Reset();
+            //var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+            //var message = AppViewModel.Instance.Locale["parse_ResetStatsMessage"];
+            //MessageBoxHelper.ShowMessageAsync(title, message, () => ParseControl.Instance.Reset(), delegate { });
         }
 
-        private static void Convert2Json()
+        private void Convert2Json()
         {
-            #region Generate Overall-Player-Monster
+            //MainView.View.InfoViewSource.SelectedIndex = 0;
+            //for (var i = 0; i < MainView.View.InfoViewSource.Items.Count - 1; i++)
+            //{
+            //    try
+            //    {
+            //        MainView.View.InfoViewSource.Items.RemoveAt(1);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //    }
+            //    try
+            //    {
+            //        ParseHistory[0].HistoryControl.Timeline.Overall.Clear();
+            //        ParseHistory[0].HistoryControl.Timeline.Party.Clear();
+            //        ParseHistory[0].HistoryControl.Timeline.Monster.Clear();
+            //        ParseHistory[0].HistoryControl = null;
+            //        ParseHistory.RemoveAt(1);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //    }
+            //}
+            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
 
-            dynamic overallStats = new Dictionary<string, object>();
-            dynamic playerStats = new Dictionary<string, object>();
-            dynamic monsterStats = new Dictionary<string, object>();
-            overallStats.Add("Stats", ParseControl.Instance.Timeline.Overall.Stats.ToDictionary(s => s.Name, s => s.Value));
-            var partyTimeline = ParseControl.Instance.Timeline.Party;
-            var playerNames = partyTimeline.Select(p => p.Name)
-                                           .ToList();
-            foreach (var playerName in playerNames)
-            {
-                var player = partyTimeline.GetGroup(playerName);
-                playerStats.Add(playerName, new Dictionary<string, object>
-                {
-                    {
-                        "Stats", new Dictionary<string, object>()
-                    },
-                    {
-                        "Abilities", new Dictionary<string, object>()
-                    },
-                    {
-                        "Monsters", new Dictionary<string, object>()
-                    },
-                    {
-                        "Healing", new Dictionary<string, object>()
-                    },
-                    {
-                        "Players", new Dictionary<string, object>()
-                    },
-                    {
-                        "Damage", new Dictionary<string, object>()
-                    }
-                });
-                playerStats[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
-                var playerAbilities = player.GetGroup("Abilities");
-                foreach (var playerAbility in playerAbilities)
-                {
-                    playerStats[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
-                }
-                var playerMonsters = player.GetGroup("Monsters");
-                foreach (var playerMonster in playerMonsters)
-                {
-                    playerStats[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
-                    {
-                        {
-                            "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        },
-                        {
-                            "Abilities", playerMonster.GetGroup("Abilities")
-                                                      .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
-                        }
-                    });
-                }
-                var playerHealings = player.GetGroup("Healing");
-                foreach (var playerHealing in playerHealings)
-                {
-                    playerStats[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
-                }
-                var playerPlayers = player.GetGroup("Players");
-                foreach (var playerPlayer in playerPlayers)
-                {
-                    playerStats[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
-                    {
-                        {
-                            "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        },
-                        {
-                            "Abilities", playerPlayer.GetGroup("Abilities")
-                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
-                        }
-                    });
-                }
-                var playerDamages = player.GetGroup("Damage");
-                foreach (var playerDamage in playerDamages)
-                {
-                    playerStats[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
-                    {
-                        {
-                            "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
-                        },
-                        {
-                            "Abilities", playerDamage.GetGroup("Abilities")
-                                                     .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
-                        }
-                    });
-                }
-            }
-            var monsterTimeline = ParseControl.Instance.Timeline.Monster;
-            var monsterNames = monsterTimeline.Select(p => p.Name)
-                                              .ToList();
-            foreach (var monsterName in monsterNames)
-            {
-                var monster = monsterTimeline.GetGroup(monsterName);
-                monsterStats.Add(monsterName, new Dictionary<string, object>
-                {
-                    {
-                        "Stats", new Dictionary<string, object>()
-                    },
-                    {
-                        "Abilities", new Dictionary<string, object>()
-                    },
-                    {
-                        "Drops", new Dictionary<string, object>()
-                    }
-                });
-                monsterStats[monsterName]["Stats"] = monster.Stats.ToDictionary(s => s.Name, s => s.Value);
-                var monsterAbilities = monster.GetGroup("Abilities");
-                foreach (var monsterAbility in monsterAbilities)
-                {
-                    monsterStats[monsterName]["Abilities"].Add(monsterAbility.Name, monsterAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
-                }
-                var monsterDrops = monster.GetGroup("Drops");
-                foreach (var monsterDrop in monsterDrops)
-                {
-                    monsterStats[monsterName]["Drops"].Add(monsterDrop.Name, monsterDrop.Stats.ToDictionary(s => s.Name, s => s.Value));
-                }
-            }
-            dynamic results = new Dictionary<string, object>
-            {
-                {
-                    "Overall", overallStats
-                },
-                {
-                    "Player", playerStats
-                },
-                {
-                    "Monster", monsterStats
-                }
-            };
+            //#region Generate Overall-Player-Monster
 
-            #endregion
+            //dynamic overallStats = new Dictionary<string, object>();
+            //dynamic playerStats = new Dictionary<string, object>();
+            //dynamic monsterStats = new Dictionary<string, object>();
+            //overallStats.Add("Stats", ParseControl.Instance.Timeline.Overall.Stats.ToDictionary(s => s.Name, s => s.Value));
+            //var partyTimeline = ParseControl.Instance.Timeline.Party;
+            //var playerNames = partyTimeline.Select(p => p.Name)
+            //                               .ToList();
+            //foreach (var playerName in playerNames)
+            //{
+            //    var player = partyTimeline.GetGroup(playerName);
+            //    playerStats.Add(playerName, new Dictionary<string, object>
+            //    {
+            //        {
+            //            "Stats", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Abilities", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Monsters", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Healing", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Players", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Damage", new Dictionary<string, object>()
+            //        }
+            //    });
+            //    playerStats[playerName]["Stats"] = player.Stats.ToDictionary(s => s.Name, s => s.Value);
+            //    var playerAbilities = player.GetGroup("Abilities");
+            //    foreach (var playerAbility in playerAbilities)
+            //    {
+            //        playerStats[playerName]["Abilities"].Add(playerAbility.Name, playerAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
+            //    }
+            //    var playerMonsters = player.GetGroup("Monsters");
+            //    foreach (var playerMonster in playerMonsters)
+            //    {
+            //        playerStats[playerName]["Monsters"].Add(playerMonster.Name, new Dictionary<string, object>
+            //        {
+            //            {
+            //                "Stats", playerMonster.Stats.ToDictionary(s => s.Name, s => s.Value)
+            //            },
+            //            {
+            //                "Abilities", playerMonster.GetGroup("Abilities")
+            //                                          .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+            //            }
+            //        });
+            //    }
+            //    var playerHealings = player.GetGroup("Healing");
+            //    foreach (var playerHealing in playerHealings)
+            //    {
+            //        playerStats[playerName]["Healing"].Add(playerHealing.Name, playerHealing.Stats.ToDictionary(s => s.Name, s => s.Value));
+            //    }
+            //    var playerPlayers = player.GetGroup("Players");
+            //    foreach (var playerPlayer in playerPlayers)
+            //    {
+            //        playerStats[playerName]["Players"].Add(playerPlayer.Name, new Dictionary<string, object>
+            //        {
+            //            {
+            //                "Stats", playerPlayer.Stats.ToDictionary(s => s.Name, s => s.Value)
+            //            },
+            //            {
+            //                "Abilities", playerPlayer.GetGroup("Abilities")
+            //                                         .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+            //            }
+            //        });
+            //    }
+            //    var playerDamages = player.GetGroup("Damage");
+            //    foreach (var playerDamage in playerDamages)
+            //    {
+            //        playerStats[playerName]["Damage"].Add(playerDamage.Name, new Dictionary<string, object>
+            //        {
+            //            {
+            //                "Stats", playerDamage.Stats.ToDictionary(s => s.Name, s => s.Value)
+            //            },
+            //            {
+            //                "Abilities", playerDamage.GetGroup("Abilities")
+            //                                         .ToDictionary(a => a.Name, a => a.Stats.ToDictionary(s => s.Name, s => s.Value))
+            //            }
+            //        });
+            //    }
+            //}
+            //var monsterTimeline = ParseControl.Instance.Timeline.Monster;
+            //var monsterNames = monsterTimeline.Select(p => p.Name)
+            //                                  .ToList();
+            //foreach (var monsterName in monsterNames)
+            //{
+            //    var monster = monsterTimeline.GetGroup(monsterName);
+            //    monsterStats.Add(monsterName, new Dictionary<string, object>
+            //    {
+            //        {
+            //            "Stats", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Abilities", new Dictionary<string, object>()
+            //        },
+            //        {
+            //            "Drops", new Dictionary<string, object>()
+            //        }
+            //    });
+            //    monsterStats[monsterName]["Stats"] = monster.Stats.ToDictionary(s => s.Name, s => s.Value);
+            //    var monsterAbilities = monster.GetGroup("Abilities");
+            //    foreach (var monsterAbility in monsterAbilities)
+            //    {
+            //        monsterStats[monsterName]["Abilities"].Add(monsterAbility.Name, monsterAbility.Stats.ToDictionary(s => s.Name, s => s.Value));
+            //    }
+            //    var monsterDrops = monster.GetGroup("Drops");
+            //    foreach (var monsterDrop in monsterDrops)
+            //    {
+            //        monsterStats[monsterName]["Drops"].Add(monsterDrop.Name, monsterDrop.Stats.ToDictionary(s => s.Name, s => s.Value));
+            //    }
+            //}
+            //dynamic results = new Dictionary<string, object>
+            //{
+            //    {
+            //        "Overall", overallStats
+            //    },
+            //    {
+            //        "Player", playerStats
+            //    },
+            //    {
+            //        "Monster", monsterStats
+            //    }
+            //};
+
+            //#endregion
 
             //Clipboard.SetText(JsonConvert.SerializeObject(results));
         }

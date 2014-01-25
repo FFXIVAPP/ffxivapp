@@ -11,7 +11,6 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
@@ -73,7 +72,6 @@ namespace FFXIVAPP.Client
         private static void SaveAndClearHistory()
         {
             SavedlLogsHelper.SaveCurrentLog();
-            ParseControl.Instance.Reset();
         }
 
         /// <summary>

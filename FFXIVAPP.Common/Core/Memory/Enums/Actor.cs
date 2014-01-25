@@ -74,7 +74,7 @@ namespace FFXIVAPP.Common.Core.Memory.Enums
             ALC = 0xE,
             CUL = 0xF,
             MIN = 0x10,
-            BOT = 0x11,
+            BTN = 0x11,
             FSH = 0x12,
             PLD = 0x13,
             MNK = 0x14,

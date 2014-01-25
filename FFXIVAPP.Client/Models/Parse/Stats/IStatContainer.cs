@@ -17,7 +17,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
         bool HasStat(string name);
         Stat<decimal> GetStat(string name);
         bool TryGetStat(string name, out object result);
-        decimal SetOrAddStat(string name, decimal value);
+        Stat<decimal> EnsureStatValue(string name, decimal value);
         decimal GetStatValue(string name);
         void IncrementStat(string name, decimal value);
         void AddStats(IEnumerable<Stat<decimal>> stats);

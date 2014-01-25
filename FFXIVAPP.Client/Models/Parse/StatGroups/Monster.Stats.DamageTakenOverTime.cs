@@ -19,10 +19,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 return;
             }
 
-            if (!Controller.IsHistoryBased)
-            {
-                //LineHistory.Add(new LineHistory(line));
-            }
+            //LineHistory.Add(new LineHistory(line));
 
             var abilityGroup = GetGroup("DamageTakenOverTimeByAction");
             StatGroup subAbilityGroup;

@@ -265,10 +265,6 @@ namespace FFXIVAPP.Client.Utilities.Parse
                         }
                         break;
                 }
-                if (ParseControl.Instance.IsHistoryBased)
-                {
-                    return;
-                }
                 player.LastActionTime = DateTime.Now;
                 try
                 {

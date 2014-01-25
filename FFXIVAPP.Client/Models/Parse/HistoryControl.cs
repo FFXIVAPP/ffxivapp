@@ -3,10 +3,10 @@
 // 
 // © 2013 Ryan Wilson
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using FFXIVAPP.Client.Models.Parse.Timelines;
-using FFXIVAPP.Client.Monitors;
+using FFXIVAPP.Client.Models.Parse.History;
 using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Models.Parse
@@ -14,67 +14,13 @@ namespace FFXIVAPP.Client.Models.Parse
     [DoNotObfuscate]
     public class HistoryControl : INotifyPropertyChanged
     {
-        #region Auto Properties
-
-        private ParseControl _controller;
-
-        public ParseControl Controller
-        {
-            get { return _controller ?? (_controller = new ParseControl(true)); }
-            set
-            {
-                if (_controller == null)
-                {
-                    _controller = new ParseControl(true);
-                }
-                _controller = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Implementation of IParsingControl
-
         private static HistoryControl _instance;
+        private HistoryTimeline _timeline;
 
-        public static HistoryControl Instance
+        public HistoryControl()
         {
-            get { return _instance ?? (_instance = new HistoryControl()); }
-            set { _instance = value; }
+            Timeline = new HistoryTimeline();
         }
-
-        public Timeline Timeline
-        {
-            get { return Controller.Timeline; }
-            set
-            {
-                Controller.Timeline = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public StatMonitor StatMonitor
-        {
-            get { return Controller.StatMonitor; }
-            set
-            {
-                Controller.StatMonitor = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public TimelineMonitor TimelineMonitor
-        {
-            get { return Controller.TimelineMonitor; }
-            set
-            {
-                Controller.TimelineMonitor = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
 
         #region Implementation of INotifyPropertyChanged
 
@@ -86,5 +32,21 @@ namespace FFXIVAPP.Client.Models.Parse
         }
 
         #endregion
+
+        public static HistoryControl Instance
+        {
+            get { return _instance ?? (_instance = new HistoryControl()); }
+            set { _instance = value; }
+        }
+
+        public HistoryTimeline Timeline
+        {
+            get { return _timeline ?? (_timeline = new HistoryTimeline()); }
+            set { _timeline = value; }
+        }
+
+        public string Name { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

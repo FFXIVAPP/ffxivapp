@@ -37,11 +37,7 @@ namespace FFXIVAPP.Client.Monitors
         /// <param name="parseControl"> </param>
         public TimelineMonitor(ParseControl parseControl) : base("Timeline", parseControl)
         {
-            if (!parseControl.IsHistoryBased)
-            {
-                Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt64) EventType.Loot | (UInt64) EventType.Defeats);
-                //Filter = (EventParser.AllEvents);
-            }
+            Filter = (EventParser.SubjectMask | EventParser.DirectionMask | (UInt64) EventType.Loot | (UInt64) EventType.Defeats);
         }
 
         private Expressions Expressions { get; set; }

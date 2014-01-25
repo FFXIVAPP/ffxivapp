@@ -407,7 +407,7 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x86)] //134
-            public byte BOT;
+            public byte BTN;
 
             [MarshalAs(UnmanagedType.I1)]
             [FieldOffset(0x88)] //136
@@ -487,7 +487,7 @@ namespace FFXIVAPP.Client.Memory
 
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0xCC)] //204
-            public int BOT_CurrentEXP;
+            public int BTN_CurrentEXP;
 
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0xD0)] //208

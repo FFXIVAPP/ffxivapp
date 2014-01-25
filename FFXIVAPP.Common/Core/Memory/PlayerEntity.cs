@@ -53,7 +53,7 @@ namespace FFXIVAPP.Common.Core.Memory
         public byte ALC { get; set; }
         public byte CUL { get; set; }
         public byte MIN { get; set; }
-        public byte BOT { get; set; }
+        public byte BTN { get; set; }
         public byte FSH { get; set; }
         public int PGL_CurrentEXP { get; set; }
         public int GLD_CurrentEXP { get; set; }
@@ -71,7 +71,7 @@ namespace FFXIVAPP.Common.Core.Memory
         public int LTW_CurrentEXP { get; set; }
         public int CUL_CurrentEXP { get; set; }
         public int MIN_CurrentEXP { get; set; }
-        public int BOT_CurrentEXP { get; set; }
+        public int BTN_CurrentEXP { get; set; }
         public int FSH_CurrentEXP { get; set; }
         public short BaseStrength { get; set; }
         public short BaseDexterity { get; set; }

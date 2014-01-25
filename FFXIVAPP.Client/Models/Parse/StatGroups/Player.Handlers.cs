@@ -164,9 +164,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                         Source = Name,
                         Target = statusEntry.TargetName
                     };
-                    ParseControl.Instance.Timeline.FightingRightNow = true;
-                    ParseControl.Instance.Timeline.FightingTimer.Stop();
-                    ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                    Controller.Timeline.FightingRightNow = true;
+                    Controller.Timeline.FightingTimer.Stop();
+                    Controller.Timeline.StoreHistoryTimer.Stop();
                     DispatcherHelper.Invoke(delegate
                     {
                         line.Hit = true;
@@ -176,18 +176,18 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             line.Crit = true;
                             line.Amount = line.Amount * 1.5m;
                         }
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetDamageOverTime(line);
-                        ParseControl.Instance.Timeline.GetSetMonster(line.Target)
-                                    .SetDamageTakenOverTime(line);
+                        Controller.Timeline.GetSetPlayer(line.Source)
+                                  .SetDamageOverTime(line);
+                        Controller.Timeline.GetSetMonster(line.Target)
+                                  .SetDamageTakenOverTime(line);
                     });
                 }
                 catch (Exception ex)
                 {
                 }
             }
-            ParseControl.Instance.Timeline.FightingTimer.Start();
-            ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+            Controller.Timeline.FightingTimer.Start();
+            Controller.Timeline.StoreHistoryTimer.Start();
         }
 
         #endregion
@@ -328,7 +328,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     };
                     try
                     {
-                        var players = ParseControl.Instance.Timeline.Party.ToList();
+                        var players = Controller.Timeline.Party.ToList();
                         var entry = statusEntry;
                         foreach (var player in players.Where(player => player.Name.Contains(entry.TargetName)))
                         {
@@ -343,12 +343,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     {
                         line.Target = String.Format("[???] {0}", statusEntry.TargetName);
                     }
-                    ParseControl.Instance.Timeline.FightingRightNow = true;
-                    ParseControl.Instance.Timeline.FightingTimer.Stop();
+                    Controller.Timeline.FightingRightNow = true;
+                    Controller.Timeline.FightingTimer.Stop();
                     switch (Settings.Default.StoreHistoryEvent)
                     {
                         case "Any":
-                            ParseControl.Instance.Timeline.StoreHistoryTimer.Stop();
+                            Controller.Timeline.StoreHistoryTimer.Stop();
                             break;
                     }
                     DispatcherHelper.Invoke(delegate
@@ -365,7 +365,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             foreach (var actorEntity in players)
                             {
                                 var playerName = actorEntity.Name;
-                                ParseControl.Instance.Timeline.TrySetPlayerCurable(playerName, actorEntity.HPMax - actorEntity.HPCurrent);
+                                Controller.Timeline.TrySetPlayerCurable(playerName, actorEntity.HPMax - actorEntity.HPCurrent);
                             }
                         }
                         catch (Exception ex)
@@ -377,19 +377,19 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             line.Crit = true;
                             line.Amount = line.Amount * 1.5m;
                         }
-                        ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                    .SetHealingOverTime(line);
+                        Controller.Timeline.GetSetPlayer(line.Source)
+                                  .SetHealingOverTime(line);
                     });
                 }
                 catch (Exception ex)
                 {
                 }
             }
-            ParseControl.Instance.Timeline.FightingTimer.Start();
+            Controller.Timeline.FightingTimer.Start();
             switch (Settings.Default.StoreHistoryEvent)
             {
                 case "Any":
-                    ParseControl.Instance.Timeline.StoreHistoryTimer.Start();
+                    Controller.Timeline.StoreHistoryTimer.Start();
                     break;
             }
         }
@@ -436,7 +436,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     };
                     try
                     {
-                        var players = ParseControl.Instance.Timeline.Party.ToList();
+                        var players = Controller.Timeline.Party.ToList();
                         var entry = statusEntry;
                         foreach (var player in players.Where(player => player.Name.Contains(entry.TargetName)))
                         {
@@ -451,8 +451,8 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     {
                         line.Target = String.Format("[???] {0}", statusEntry.TargetName);
                     }
-                    DispatcherHelper.Invoke(() => ParseControl.Instance.Timeline.GetSetPlayer(line.Source)
-                                                              .SetBuff(line));
+                    DispatcherHelper.Invoke(() => Controller.Timeline.GetSetPlayer(line.Source)
+                                                            .SetBuff(line));
                 }
                 catch (Exception ex)
                 {

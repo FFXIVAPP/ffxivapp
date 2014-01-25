@@ -31,7 +31,7 @@
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
                                ToolTip="{Binding Locale[app_MainToolTip],
                                                  Source={StaticResource AppProperties}}" />
-                        <Label Content="{Binding Locale[app_MainToolTip],
+                        <TextBlock Text="{Binding Locale[app_MainToolTip],
                                                  Source={StaticResource AppProperties}}"
                                Padding="5"
                                Visibility="{Binding EnableHelpLabels,
@@ -50,7 +50,7 @@
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
                                ToolTip="{Binding Locale[app_SettingsToolTip],
                                                  Source={StaticResource AppProperties}}" />
-                        <Label Content="{Binding Locale[app_SettingsToolTip],
+                        <TextBlock Text="{Binding Locale[app_SettingsToolTip],
                                                  Source={StaticResource AppProperties}}"
                                Padding="5"
                                Visibility="{Binding EnableHelpLabels,
@@ -69,7 +69,7 @@
                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
                                ToolTip="{Binding Locale[app_AboutToolTip],
                                                  Source={StaticResource AppProperties}}" />
-                        <Label Content="{Binding Locale[app_AboutToolTip],
+                        <TextBlock Text="{Binding Locale[app_AboutToolTip],
                                                  Source={StaticResource AppProperties}}"
                                Padding="5"
                                Visibility="{Binding EnableHelpLabels,

@@ -56,6 +56,14 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
             DoCollectionChanged(NotifyCollectionChangedAction.Reset, null);
         }
 
+        //public void ClearEvents()
+        //{
+        //    foreach (var s in _statDict.Values)
+        //    {
+        //        s.OnValueChanged -= HandleStatValueChanged;
+        //    }
+        //}
+
         public bool Contains(Stat<decimal> stat)
         {
             return _statDict.ContainsKey(stat.Name);
@@ -155,7 +163,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
             return false;
         }
 
-        public decimal SetOrAddStat(string name, decimal value)
+        public Stat<decimal> EnsureStatValue(string name, decimal value)
         {
             Stat<decimal> stat;
             if (HasStat(name))
@@ -168,7 +176,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
                 stat = new NumericStat(name, value);
                 Add(stat);
             }
-            return stat.Value;
+            return stat;
         }
 
         public decimal GetStatValue(string name)

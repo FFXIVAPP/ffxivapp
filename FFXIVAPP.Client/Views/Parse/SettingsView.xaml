@@ -30,7 +30,7 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <Label>* All options include parsing pets.</Label>
+                        <TextBlock>* All options include parsing pets.</TextBlock>
                         <GroupBox Header="{Binding Locale[parse_YouHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

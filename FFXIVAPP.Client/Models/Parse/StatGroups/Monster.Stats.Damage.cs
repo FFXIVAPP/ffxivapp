@@ -18,10 +18,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <param name="isDamageOverTime"></param>
         public void SetDamage(Line line, bool isDamageOverTime = false)
         {
-            if (!Controller.IsHistoryBased)
-            {
-                //LineHistory.Add(new LineHistory(line));
-            }
+            //LineHistory.Add(new LineHistory(line));
 
             Last20DamageActions.Add(new LineHistory(line));
             if (Last20DamageActions.Count > 20)

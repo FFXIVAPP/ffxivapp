@@ -19,7 +19,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <param name="line"> </param>
         public void SetHealingOverTime(Line line)
         {
-            if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
+            if (Name == Settings.Default.CharacterName)
             {
                 //LineHistory.Add(new LineHistory(line));
             }
@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             {
                 var cleanedName = Regex.Replace(line.Target, @"\[[\w]+\]", "")
                                        .Trim();
-                var curable = ParseControl.Instance.Timeline.TryGetPlayerCurable(cleanedName);
+                var curable = Controller.Timeline.TryGetPlayerCurable(cleanedName);
                 if (line.Amount > curable)
                 {
                     unusedAmount = line.Amount - curable;

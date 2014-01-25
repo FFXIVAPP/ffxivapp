@@ -28,7 +28,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             }
             Stats.IncrementStat("TotalKilled");
             var avghp = Stats.GetStatValue("TotalOverallDamageTaken") / Stats.GetStatValue("TotalKilled");
-            Stats.SetOrAddStat("AverageHP", avghp);
+            Stats.EnsureStatValue("AverageHP", avghp);
         }
     }
 }

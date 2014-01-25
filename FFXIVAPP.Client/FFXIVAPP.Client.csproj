@@ -140,11 +140,20 @@
     <Compile Include="Controls\Parse\BasicCombinedDisplaySettings.xaml.cs">
       <DependentUpon>BasicCombinedDisplaySettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Parse\CombinedDamageTakenDataGrid.xaml.cs">
+      <DependentUpon>CombinedDamageTakenDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\CombinedDamageDataGrid.xaml.cs">
+      <DependentUpon>CombinedDamageDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Parse\DamageOverTimeDataGrid.xaml.cs">
       <DependentUpon>DamageOverTimeDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml.cs">
       <DependentUpon>DamageTakenOverTimeDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Parse\CombinedHealingDataGrid.xaml.cs">
+      <DependentUpon>CombinedHealingDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Parse\HealingOverHealingDataGrid.xaml.cs">
       <DependentUpon>HealingOverHealingDataGrid.xaml</DependentUpon>
@@ -174,6 +183,15 @@
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
     <Compile Include="Models\Parse\ActionHistoryItem.cs" />
+    <Compile Include="Models\Parse\History\HistoryContainer.cs" />
+    <Compile Include="Models\Parse\History\HistoryGroup.cs" />
+    <Compile Include="Models\Parse\History\HistoryGroupPropertyDescriptor.cs" />
+    <Compile Include="Models\Parse\History\HistoryGroupTypeDescriptor.cs" />
+    <Compile Include="Models\Parse\History\HistoryStat.cs" />
+    <Compile Include="Models\Parse\History\HistoryStatPropertyDescriptor.cs" />
+    <Compile Include="Models\Parse\History\HistoryTimeline.cs" />
+    <Compile Include="Models\Parse\History\IHistoryContainer.cs" />
+    <Compile Include="Models\Parse\History\NumericHistoryStat.cs" />
     <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageOverTime.cs" />
     <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageTakenOverTime.cs" />
     <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageOverTime.cs" />
@@ -393,11 +411,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Parse\CombinedDamageTakenDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\CombinedDamageDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Parse\DamageOverTimeDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Parse\CombinedHealingDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -26,6 +26,7 @@ namespace FFXIVAPP.Client.Models.Parse
         /// <param name="name"></param>
         public ParseHistoryItem(string name = "UnknownEvent")
         {
+            Name = name;
             HistoryControl = new HistoryControl();
         }
     }

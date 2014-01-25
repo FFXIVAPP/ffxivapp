@@ -28,10 +28,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                 Last20DamageTakenActions.RemoveAt(0);
             }
 
-            if (!Controller.IsHistoryBased)
-            {
-                //LineHistory.Add(new LineHistory(line));
-            }
+            //LineHistory.Add(new LineHistory(line));
 
             var fields = line.GetType()
                              .GetProperties();

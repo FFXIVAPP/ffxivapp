@@ -11,7 +11,7 @@
     <Grid x:Name="LayoutRoot">
         <ScrollViewer>
             <StackPanel>
-                <Label Content="DefaultView" />
+                <TextBlock Text="DefaultView" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

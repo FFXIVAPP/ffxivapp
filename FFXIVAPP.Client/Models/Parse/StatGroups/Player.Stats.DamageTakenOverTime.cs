@@ -14,7 +14,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <param name="line"></param>
         public void SetDamageTakenOverTime(Line line)
         {
-            if (Name == Settings.Default.CharacterName && !Controller.IsHistoryBased)
+            if (Name == Settings.Default.CharacterName)
             {
                 //LineHistory.Add(new LineHistory(line));
             }

@@ -34,8 +34,8 @@ namespace FFXIVAPP.Client.Models.Parse
 
         #region Auto Properties
 
-        public bool IsHistoryBased { get; set; }
         public bool FirstActionFound { get; set; }
+        public string Name { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
@@ -48,17 +48,12 @@ namespace FFXIVAPP.Client.Models.Parse
 
         #endregion
 
-        public ParseControl(bool isHistoryBased = false)
+        public ParseControl()
         {
-            IsHistoryBased = isHistoryBased;
             Timeline = new Timeline(this);
             TimelineMonitor = new TimelineMonitor(this);
             StatMonitor = new StatMonitor(this);
             StartTime = DateTime.Now;
-            if (isHistoryBased)
-            {
-                return;
-            }
             _parseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
             _parseEntityTimer.Start();
         }
@@ -278,10 +273,6 @@ namespace FFXIVAPP.Client.Models.Parse
                 Players = new List<PlayerEntity>()
             };
             AppContextHelper.Instance.RaiseNewParseEntity(parseEntity);
-            if (IsHistoryBased)
-            {
-                return;
-            }
             _parseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
             _parseEntityTimer.Start();
         }

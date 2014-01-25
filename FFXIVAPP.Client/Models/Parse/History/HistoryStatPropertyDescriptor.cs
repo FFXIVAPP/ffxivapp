@@ -1,24 +1,24 @@
-// FFXIVAPP.Client
-// StatPropertyDescriptor.cs
+﻿// FFXIVAPP.Client
+// HistoryStatPropertyDescriptor.cs
 // 
-// � 2013 Ryan Wilson
+// © 2013 Ryan Wilson
 
 using System;
 using System.ComponentModel;
 using SmartAssembly.Attributes;
 
-namespace FFXIVAPP.Client.Models.Parse.Stats
+namespace FFXIVAPP.Client.Models.Parse.History
 {
     [DoNotObfuscate]
-    public class StatPropertyDescriptor : PropertyDescriptor
+    public class HistoryStatPropertyDescriptor : PropertyDescriptor
     {
-        public StatPropertyDescriptor(string name) : base(name, null)
+        public HistoryStatPropertyDescriptor(string name) : base(name, null)
         {
         }
 
         public override Type ComponentType
         {
-            get { return typeof (StatGroup); }
+            get { return typeof (HistoryGroup); }
         }
 
         public override bool IsReadOnly
@@ -38,24 +38,24 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         public override object GetValue(object component)
         {
-            var statGroup = (StatGroup) component;
-            return Name.ToLower() == "name" ? statGroup.Name : statGroup.GetStatValue(Name);
+            var historyGroup = (HistoryGroup) component;
+            return Name.ToLower() == "name" ? historyGroup.Name : historyGroup.GetStatValue(Name);
         }
 
         public override void ResetValue(object component)
         {
-            var statGroup = (StatGroup) component;
-            if (statGroup.Stats.HasStat(Name))
+            var historyGroup = (HistoryGroup) component;
+            if (historyGroup.Stats.HasStat(Name))
             {
-                statGroup.Stats.GetStat(Name)
-                         .Value = 0;
+                historyGroup.Stats.GetStat(Name)
+                            .Value = 0;
             }
         }
 
         public override void SetValue(object component, object value)
         {
-            var statGroup = (StatGroup) component;
-            statGroup.Stats.EnsureStatValue(Name, (decimal) value);
+            var historyGroup = (HistoryGroup) component;
+            historyGroup.Stats.EnsureStatValue(Name, (decimal) value);
         }
 
         public override bool ShouldSerializeValue(object component)

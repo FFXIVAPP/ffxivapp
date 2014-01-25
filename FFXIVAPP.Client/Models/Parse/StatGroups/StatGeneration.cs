@@ -17,7 +17,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         #region Damage
 
-        public static Dictionary<string, Stat<decimal>> DamageStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> DamageStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -25,7 +25,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularDamage", new TotalStat("RegularDamage"));
             stats.Add("CriticalDamage", new TotalStat("CriticalDamage"));
             stats.Add("TotalDamageActionsUsed", new CounterStat("TotalDamageActionsUsed"));
-            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"], isHistoryBased));
+            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
             stats.Add("DamageRegHit", new TotalStat("DamageRegHit"));
             stats.Add("DamageRegMiss", new TotalStat("DamageRegMiss"));
             stats.Add("DamageRegAccuracy", new AccuracyStat("DamageRegAccuracy", stats["TotalDamageActionsUsed"], stats["DamageRegMiss"]));
@@ -66,7 +66,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             return stats;
         }
 
-        public static Dictionary<string, Stat<decimal>> DamageOverTimeStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> DamageOverTimeStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularDamageOverTime", new TotalStat("RegularDamageOverTime"));
             stats.Add("CriticalDamageOverTime", new TotalStat("CriticalDamageOverTime"));
             stats.Add("TotalDamageOverTimeActionsUsed", new CounterStat("TotalDamageOverTimeActionsUsed"));
-            stats.Add("DOTPS", new PerSecondAverageStat("DOTPS", stats["TotalOverallDamageOverTime"], isHistoryBased));
+            stats.Add("DOTPS", new PerSecondAverageStat("DOTPS", stats["TotalOverallDamageOverTime"]));
             stats.Add("DamageOverTimeRegHit", new TotalStat("DamageOverTimeRegHit"));
             stats.Add("DamageOverTimeRegMiss", new TotalStat("DamageOverTimeRegMiss"));
             stats.Add("DamageOverTimeRegAccuracy", new AccuracyStat("DamageOverTimeRegAccuracy", stats["TotalDamageOverTimeActionsUsed"], stats["DamageOverTimeRegMiss"]));
@@ -98,7 +98,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         #region Healing
 
-        public static Dictionary<string, Stat<decimal>> HealingStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> HealingStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -106,7 +106,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularHealing", new TotalStat("RegularHealing"));
             stats.Add("CriticalHealing", new TotalStat("CriticalHealing"));
             stats.Add("TotalHealingActionsUsed", new CounterStat("TotalHealingActionsUsed"));
-            stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"], isHistoryBased));
+            stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"]));
             stats.Add("HealingRegHit", new TotalStat("HealingRegHit"));
             stats.Add("HealingRegLow", new MinStat("HealingRegLow", stats["RegularHealing"]));
             stats.Add("HealingRegHigh", new MaxStat("HealingRegHigh", stats["RegularHealing"]));
@@ -124,7 +124,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             return stats;
         }
 
-        public static Dictionary<string, Stat<decimal>> HealingOverHealingStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> HealingOverHealingStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -132,7 +132,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularHealingOverHealing", new TotalStat("RegularHealingOverHealing"));
             stats.Add("CriticalHealingOverHealing", new TotalStat("CriticalHealingOverHealing"));
             stats.Add("TotalHealingOverHealingActionsUsed", new CounterStat("TotalHealingOverHealingActionsUsed"));
-            stats.Add("HOHPS", new PerSecondAverageStat("HOHPS", stats["TotalOverallHealingOverHealing"], isHistoryBased));
+            stats.Add("HOHPS", new PerSecondAverageStat("HOHPS", stats["TotalOverallHealingOverHealing"]));
             stats.Add("HealingOverHealingRegHit", new TotalStat("HealingOverHealingRegHit"));
             stats.Add("HealingOverHealingRegLow", new MinStat("HealingOverHealingRegLow", stats["RegularHealingOverHealing"]));
             stats.Add("HealingOverHealingRegHigh", new MaxStat("HealingOverHealingRegHigh", stats["RegularHealingOverHealing"]));
@@ -150,7 +150,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             return stats;
         }
 
-        public static Dictionary<string, Stat<decimal>> HealingOverTimeStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> HealingOverTimeStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -158,7 +158,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularHealingOverTime", new TotalStat("RegularHealingOverTime"));
             stats.Add("CriticalHealingOverTime", new TotalStat("CriticalHealingOverTime"));
             stats.Add("TotalHealingOverTimeActionsUsed", new CounterStat("TotalHealingOverTimeActionsUsed"));
-            stats.Add("HOTPS", new PerSecondAverageStat("HOTPS", stats["TotalOverallHealingOverTime"], isHistoryBased));
+            stats.Add("HOTPS", new PerSecondAverageStat("HOTPS", stats["TotalOverallHealingOverTime"]));
             stats.Add("HealingOverTimeRegHit", new TotalStat("HealingOverTimeRegHit"));
             stats.Add("HealingOverTimeRegLow", new MinStat("HealingOverTimeRegLow", stats["RegularHealingOverTime"]));
             stats.Add("HealingOverTimeRegHigh", new MaxStat("HealingOverTimeRegHigh", stats["RegularHealingOverTime"]));
@@ -176,7 +176,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             return stats;
         }
 
-        public static Dictionary<string, Stat<decimal>> HealingMitigatedStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> HealingMitigatedStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -184,7 +184,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularHealingMitigated", new TotalStat("RegularHealingMitigated"));
             stats.Add("CriticalHealingMitigated", new TotalStat("CriticalHealingMitigated"));
             stats.Add("TotalHealingMitigatedActionsUsed", new CounterStat("TotalHealingMitigatedActionsUsed"));
-            stats.Add("HMPS", new PerSecondAverageStat("HMPS", stats["TotalOverallHealingMitigated"], isHistoryBased));
+            stats.Add("HMPS", new PerSecondAverageStat("HMPS", stats["TotalOverallHealingMitigated"]));
             stats.Add("HealingMitigatedRegHit", new TotalStat("HealingMitigatedRegHit"));
             stats.Add("HealingMitigatedRegLow", new MinStat("HealingMitigatedRegLow", stats["RegularHealingMitigated"]));
             stats.Add("HealingMitigatedRegHigh", new MaxStat("HealingMitigatedRegHigh", stats["RegularHealingMitigated"]));
@@ -206,7 +206,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         #region Damage Taken
 
-        public static Dictionary<string, Stat<decimal>> DamageTakenStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> DamageTakenStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -214,7 +214,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
             stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
             stats.Add("TotalDamageTakenActionsUsed", new CounterStat("TotalDamageTakenActionsUsed"));
-            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"], isHistoryBased));
+            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
             stats.Add("DamageTakenRegHit", new TotalStat("DamageTakenRegHit"));
             stats.Add("DamageTakenRegMiss", new TotalStat("DamageTakenRegMiss"));
             stats.Add("DamageTakenRegAccuracy", new AccuracyStat("DamageTakenRegAccuracy", stats["TotalDamageTakenActionsUsed"], stats["DamageTakenRegMiss"]));
@@ -255,7 +255,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             return stats;
         }
 
-        public static Dictionary<string, Stat<decimal>> DamageTakenOverTimeStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> DamageTakenOverTimeStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -263,7 +263,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("RegularDamageTakenOverTime", new TotalStat("RegularDamageTakenOverTime"));
             stats.Add("CriticalDamageTakenOverTime", new TotalStat("CriticalDamageTakenOverTime"));
             stats.Add("TotalDamageTakenOverTimeActionsUsed", new CounterStat("TotalDamageTakenOverTimeActionsUsed"));
-            stats.Add("DTOTPS", new PerSecondAverageStat("DTOTPS", stats["TotalOverallDamageTakenOverTime"], isHistoryBased));
+            stats.Add("DTOTPS", new PerSecondAverageStat("DTOTPS", stats["TotalOverallDamageTakenOverTime"]));
             stats.Add("DamageTakenOverTimeRegHit", new TotalStat("DamageTakenOverTimeRegHit"));
             stats.Add("DamageTakenOverTimeRegMiss", new TotalStat("DamageTakenOverTimeRegMiss"));
             stats.Add("DamageTakenOverTimeRegAccuracy", new AccuracyStat("DamageTakenOverTimeRegAccuracy", stats["TotalDamageTakenOverTimeActionsUsed"], stats["DamageTakenOverTimeRegMiss"]));
@@ -287,7 +287,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         #region Buff
 
-        public static Dictionary<string, Stat<decimal>> BuffStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> BuffStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -303,7 +303,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         #region Combined
 
-        public static Dictionary<string, Stat<decimal>> CombinedStats(bool isHistoryBased = false)
+        public static Dictionary<string, Stat<decimal>> CombinedStats()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -311,7 +311,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("CombinedRegularDamage", new TotalStat("CombinedRegularDamage"));
             stats.Add("CombinedCriticalDamage", new TotalStat("CombinedCriticalDamage"));
             stats.Add("CombinedTotalDamageActionsUsed", new CounterStat("CombinedTotalDamageActionsUsed"));
-            stats.Add("CombinedDPS", new PerSecondAverageStat("CombinedDPS", stats["CombinedTotalOverallDamage"], isHistoryBased));
+            stats.Add("CombinedDPS", new PerSecondAverageStat("CombinedDPS", stats["CombinedTotalOverallDamage"]));
             stats.Add("CombinedDamageRegHit", new TotalStat("CombinedDamageRegHit"));
             stats.Add("CombinedDamageRegMiss", new TotalStat("CombinedDamageRegMiss"));
             stats.Add("CombinedDamageRegAccuracy", new AccuracyStat("CombinedDamageRegAccuracy", stats["CombinedTotalDamageActionsUsed"], stats["CombinedDamageRegMiss"]));
@@ -353,7 +353,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("CombinedRegularHealing", new TotalStat("CombinedRegularHealing"));
             stats.Add("CombinedCriticalHealing", new TotalStat("CombinedCriticalHealing"));
             stats.Add("CombinedTotalHealingActionsUsed", new CounterStat("CombinedTotalHealingActionsUsed"));
-            stats.Add("CombinedHPS", new PerSecondAverageStat("CombinedHPS", stats["CombinedTotalOverallHealing"], isHistoryBased));
+            stats.Add("CombinedHPS", new PerSecondAverageStat("CombinedHPS", stats["CombinedTotalOverallHealing"]));
             stats.Add("CombinedHealingRegHit", new TotalStat("CombinedHealingRegHit"));
             stats.Add("CombinedHealingRegLow", new MinStat("CombinedHealingRegLow", stats["CombinedRegularHealing"]));
             stats.Add("CombinedHealingRegHigh", new MaxStat("CombinedHealingRegHigh", stats["CombinedRegularHealing"]));
@@ -372,7 +372,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("CombinedRegularDamageTaken", new TotalStat("CombinedRegularDamageTaken"));
             stats.Add("CombinedCriticalDamageTaken", new TotalStat("CombinedCriticalDamageTaken"));
             stats.Add("CombinedTotalDamageTakenActionsUsed", new CounterStat("CombinedTotalDamageTakenActionsUsed"));
-            stats.Add("CombinedDTPS", new PerSecondAverageStat("CombinedDTPS", stats["CombinedTotalOverallDamageTaken"], isHistoryBased));
+            stats.Add("CombinedDTPS", new PerSecondAverageStat("CombinedDTPS", stats["CombinedTotalOverallDamageTaken"]));
             stats.Add("CombinedDamageTakenRegHit", new TotalStat("CombinedDamageTakenRegHit"));
             stats.Add("CombinedDamageTakenRegMiss", new TotalStat("CombinedDamageTakenRegMiss"));
             stats.Add("CombinedDamageTakenRegAccuracy", new AccuracyStat("CombinedDamageTakenRegAccuracy", stats["CombinedTotalDamageTakenActionsUsed"], stats["CombinedDamageTakenRegMiss"]));

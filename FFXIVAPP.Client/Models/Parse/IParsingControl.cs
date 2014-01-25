@@ -11,6 +11,7 @@ namespace FFXIVAPP.Client.Models.Parse
 {
     public interface IParsingControl
     {
+        string Name { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }
         IParsingControl Instance { get; }

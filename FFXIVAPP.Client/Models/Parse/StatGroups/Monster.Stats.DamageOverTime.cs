@@ -12,10 +12,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <param name="line"></param>
         public void SetDamageOverTime(Line line)
         {
-            if (!Controller.IsHistoryBased)
-            {
-                //LineHistory.Add(new LineHistory(line));
-            }
+            //LineHistory.Add(new LineHistory(line));
 
             // stubbed
         }

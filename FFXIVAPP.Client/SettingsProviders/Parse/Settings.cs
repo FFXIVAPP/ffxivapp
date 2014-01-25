@@ -329,9 +329,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadePercent");
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadeMod");
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageEvadeModAverage");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallDamage");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularDamage");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalDamage");
             Constants.Parse.Settings.Add("ShowBasicCombinedTotalOverallHealing");
             Constants.Parse.Settings.Add("ShowBasicCombinedRegularHealing");
             Constants.Parse.Settings.Add("ShowBasicCombinedCriticalHealing");
@@ -350,9 +347,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritAverage");
             Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritMod");
             Constants.Parse.Settings.Add("ShowBasicCombinedHealingCritModAverage");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallHealing");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularHealing");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalHealing");
             Constants.Parse.Settings.Add("ShowBasicCombinedTotalOverallDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicCombinedRegularDamageTaken");
             Constants.Parse.Settings.Add("ShowBasicCombinedCriticalDamageTaken");
@@ -393,9 +387,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadePercent");
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadeMod");
             Constants.Parse.Settings.Add("ShowBasicCombinedDamageTakenEvadeModAverage");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfTotalOverallDamageTaken");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfRegularDamageTaken");
-            Constants.Parse.Settings.Add("ShowBasicCombinedPercentOfCriticalDamageTaken");
 
             #endregion
 
@@ -4054,45 +4045,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfTotalOverallDamage
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallDamage"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfTotalOverallDamage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfRegularDamage
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularDamage"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfRegularDamage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfCriticalDamage
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalDamage"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfCriticalDamage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
         public bool ShowBasicCombinedTotalOverallHealing
         {
             get { return ((bool) (this["ShowBasicCombinedTotalOverallHealing"])); }
@@ -4320,45 +4272,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowBasicCombinedHealingCritModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfTotalOverallHealing
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallHealing"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfTotalOverallHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfRegularHealing
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularHealing"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfRegularHealing"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfCriticalHealing
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalHealing"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfCriticalHealing"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -4879,45 +4792,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
             set
             {
                 this["ShowBasicCombinedDamageTakenEvadeModAverage"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfTotalOverallDamageTaken
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfTotalOverallDamageTaken"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfTotalOverallDamageTaken"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfRegularDamageTaken
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfRegularDamageTaken"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfRegularDamageTaken"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool ShowBasicCombinedPercentOfCriticalDamageTaken
-        {
-            get { return ((bool) (this["ShowBasicCombinedPercentOfCriticalDamageTaken"])); }
-            set
-            {
-                this["ShowBasicCombinedPercentOfCriticalDamageTaken"] = value;
                 RaisePropertyChanged();
             }
         }

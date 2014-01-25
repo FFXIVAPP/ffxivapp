@@ -227,9 +227,9 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
             };
             PlayerCurables = new Dictionary<string, int>();
             SetStoreHistoryInterval();
+            InitStats();
             StoreHistoryTimer.Elapsed += StoreHistoryTimerOnElapsed;
             FightingTimer.Elapsed += FightingTimerOnElapsed;
-            InitStats();
         }
 
         private void FightingTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -256,7 +256,7 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
             SetStoreHistoryInterval();
             if (Settings.Default.EnableStoreHistoryReset)
             {
-                if (!FightingRightNow && !Controller.IsHistoryBased)
+                if (!FightingRightNow)
                 {
                     Controller.Reset();
                 }
@@ -383,19 +383,19 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
             #region Combined
 
             stats.Add("CombinedTotalOverallDamage", new TotalStat("CombinedTotalOverallDamage"));
-            stats.Add("CombinedDPS", new PerSecondAverageStat("CombinedDPS", stats["CombinedTotalOverallDamage"], Controller.IsHistoryBased));
+            stats.Add("CombinedDPS", new PerSecondAverageStat("CombinedDPS", stats["CombinedTotalOverallDamage"]));
             stats.Add("CombinedStaticPlayerDPS", new TotalStat("CombinedStaticPlayerDPS"));
             stats.Add("CombinedRegularDamage", new TotalStat("CombinedRegularDamage"));
             stats.Add("CombinedCriticalDamage", new TotalStat("CombinedCriticalDamage"));
 
             stats.Add("CombinedTotalOverallHealing", new TotalStat("CombinedTotalOverallHealing"));
-            stats.Add("CombinedHPS", new PerSecondAverageStat("CombinedHPS", stats["CombinedTotalOverallHealing"], Controller.IsHistoryBased));
+            stats.Add("CombinedHPS", new PerSecondAverageStat("CombinedHPS", stats["CombinedTotalOverallHealing"]));
             stats.Add("CombinedStaticPlayerHPS", new TotalStat("CombinedStaticPlayerHPS"));
             stats.Add("CombinedRegularHealing", new TotalStat("CombinedRegularHealing"));
             stats.Add("CombinedCriticalHealing", new TotalStat("CombinedCriticalHealing"));
 
             stats.Add("CombinedTotalOverallDamageTaken", new TotalStat("CombinedTotalOverallDamageTaken"));
-            stats.Add("CombinedDTPS", new PerSecondAverageStat("CombinedDTPS", stats["CombinedTotalOverallDamageTaken"], Controller.IsHistoryBased));
+            stats.Add("CombinedDTPS", new PerSecondAverageStat("CombinedDTPS", stats["CombinedTotalOverallDamageTaken"]));
             stats.Add("CombinedStaticPlayerDTPS", new TotalStat("CombinedStaticPlayerDTPS"));
             stats.Add("CombinedRegularDamageTaken", new TotalStat("CombinedRegularDamageTaken"));
             stats.Add("CombinedCriticalDamageTaken", new TotalStat("CombinedCriticalDamageTaken"));
@@ -404,51 +404,51 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
 
             // damage
             stats.Add("TotalOverallDamage", new TotalStat("TotalOverallDamage"));
-            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"], Controller.IsHistoryBased));
+            stats.Add("DPS", new PerSecondAverageStat("DPS", stats["TotalOverallDamage"]));
             stats.Add("StaticPlayerDPS", new TotalStat("StaticPlayerDPS"));
             stats.Add("RegularDamage", new TotalStat("RegularDamage"));
             stats.Add("CriticalDamage", new TotalStat("CriticalDamage"));
 
             stats.Add("TotalOverallDamageOverTime", new TotalStat("TotalOverallDamageOverTime"));
-            stats.Add("DOTPS", new PerSecondAverageStat("DOTPS", stats["TotalOverallDamageOverTime"], Controller.IsHistoryBased));
+            stats.Add("DOTPS", new PerSecondAverageStat("DOTPS", stats["TotalOverallDamageOverTime"]));
             stats.Add("StaticPlayerDOTPS", new TotalStat("StaticPlayerDOTPS"));
             stats.Add("RegularDamageOverTime", new TotalStat("RegularDamageOverTime"));
             stats.Add("CriticalDamageOverTime", new TotalStat("CriticalDamageOverTime"));
 
             // healing
             stats.Add("TotalOverallHealing", new TotalStat("TotalOverallHealing"));
-            stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"], Controller.IsHistoryBased));
+            stats.Add("HPS", new PerSecondAverageStat("HPS", stats["TotalOverallHealing"]));
             stats.Add("StaticPlayerHPS", new TotalStat("StaticPlayerHPS"));
             stats.Add("RegularHealing", new TotalStat("RegularHealing"));
             stats.Add("CriticalHealing", new TotalStat("CriticalHealing"));
 
             stats.Add("TotalOverallHealingOverHealing", new TotalStat("TotalOverallHealingOverHealing"));
-            stats.Add("HOHPS", new PerSecondAverageStat("HOHPS", stats["TotalOverallHealingOverHealing"], Controller.IsHistoryBased));
+            stats.Add("HOHPS", new PerSecondAverageStat("HOHPS", stats["TotalOverallHealingOverHealing"]));
             stats.Add("StaticPlayerHOHPS", new TotalStat("StaticPlayerHOHPS"));
             stats.Add("RegularHealingOverHealing", new TotalStat("RegularHealingOverHealing"));
             stats.Add("CriticalHealingOverHealing", new TotalStat("CriticalHealingOverHealing"));
 
             stats.Add("TotalOverallHealingOverTime", new TotalStat("TotalOverallHealingOverTime"));
-            stats.Add("HOTPS", new PerSecondAverageStat("HOTPS", stats["TotalOverallHealingOverTime"], Controller.IsHistoryBased));
+            stats.Add("HOTPS", new PerSecondAverageStat("HOTPS", stats["TotalOverallHealingOverTime"]));
             stats.Add("StaticPlayerHOTPS", new TotalStat("StaticPlayerHOTPS"));
             stats.Add("RegularHealingOverTime", new TotalStat("RegularHealingOverTime"));
             stats.Add("CriticalHealingOverTime", new TotalStat("CriticalHealingOverTime"));
 
             stats.Add("TotalOverallHealingMitigated", new TotalStat("TotalOverallHealingMitigated"));
-            stats.Add("HMPS", new PerSecondAverageStat("HMPS", stats["TotalOverallHealingMitigated"], Controller.IsHistoryBased));
+            stats.Add("HMPS", new PerSecondAverageStat("HMPS", stats["TotalOverallHealingMitigated"]));
             stats.Add("StaticPlayerHMPS", new TotalStat("StaticPlayerHMPS"));
             stats.Add("RegularHealingMitigated", new TotalStat("RegularHealingMitigated"));
             stats.Add("CriticalHealingMitigated", new TotalStat("CriticalHealingMitigated"));
 
             // damage taken
             stats.Add("TotalOverallDamageTaken", new TotalStat("TotalOverallDamageTaken"));
-            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"], Controller.IsHistoryBased));
+            stats.Add("DTPS", new PerSecondAverageStat("DTPS", stats["TotalOverallDamageTaken"]));
             stats.Add("StaticPlayerDTPS", new TotalStat("StaticPlayerDTPS"));
             stats.Add("RegularDamageTaken", new TotalStat("RegularDamageTaken"));
             stats.Add("CriticalDamageTaken", new TotalStat("CriticalDamageTaken"));
 
             stats.Add("TotalOverallDamageTakenOverTime", new TotalStat("TotalOverallDamageTakenOverTime"));
-            stats.Add("DTOTPS", new PerSecondAverageStat("DTOTPS", stats["TotalOverallDamageTakenOverTime"], Controller.IsHistoryBased));
+            stats.Add("DTOTPS", new PerSecondAverageStat("DTOTPS", stats["TotalOverallDamageTakenOverTime"]));
             stats.Add("StaticPlayerDTOTPS", new TotalStat("StaticPlayerDTOTPS"));
             stats.Add("RegularDamageTakenOverTime", new TotalStat("RegularDamageTakenOverTime"));
             stats.Add("CriticalDamageTakenOverTime", new TotalStat("CriticalDamageTakenOverTime"));
@@ -465,19 +465,19 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
             #region Combined
 
             stats.Add("CombinedTotalOverallDamageMonster", new TotalStat("CombinedTotalOverallDamageMonster"));
-            stats.Add("CombinedDPSMonster", new PerSecondAverageStat("CombinedDPSMonster", stats["CombinedTotalOverallDamageMonster"], Controller.IsHistoryBased));
+            stats.Add("CombinedDPSMonster", new PerSecondAverageStat("CombinedDPSMonster", stats["CombinedTotalOverallDamageMonster"]));
             stats.Add("CombinedStaticMonsterDPSMonster", new TotalStat("CombinedStaticMonsterDPSMonster"));
             stats.Add("CombinedRegularDamageMonster", new TotalStat("CombinedRegularDamageMonster"));
             stats.Add("CombinedCriticalDamageMonster", new TotalStat("CombinedCriticalDamageMonster"));
 
             stats.Add("CombinedTotalOverallHealingMonster", new TotalStat("CombinedTotalOverallHealingMonster"));
-            stats.Add("CombinedHPSMonster", new PerSecondAverageStat("CombinedHPSMonster", stats["CombinedTotalOverallHealingMonster"], Controller.IsHistoryBased));
+            stats.Add("CombinedHPSMonster", new PerSecondAverageStat("CombinedHPSMonster", stats["CombinedTotalOverallHealingMonster"]));
             stats.Add("CombinedStaticMonsterHPSMonster", new TotalStat("CombinedStaticMonsterHPSMonster"));
             stats.Add("CombinedRegularHealingMonster", new TotalStat("CombinedRegularHealingMonster"));
             stats.Add("CombinedCriticalHealingMonster", new TotalStat("CombinedCriticalHealingMonster"));
 
             stats.Add("CombinedTotalOverallDamageTakenMonster", new TotalStat("CombinedTotalOverallDamageTakenMonster"));
-            stats.Add("CombinedDTPSMonster", new PerSecondAverageStat("CombinedDTPSMonster", stats["CombinedTotalOverallDamageTakenMonster"], Controller.IsHistoryBased));
+            stats.Add("CombinedDTPSMonster", new PerSecondAverageStat("CombinedDTPSMonster", stats["CombinedTotalOverallDamageTakenMonster"]));
             stats.Add("CombinedStaticMonsterDTPSMonster", new TotalStat("CombinedStaticMonsterDTPSMonster"));
             stats.Add("CombinedRegularDamageTakenMonster", new TotalStat("CombinedRegularDamageTakenMonster"));
             stats.Add("CombinedCriticalDamageTakenMonster", new TotalStat("CombinedCriticalDamageTakenMonster"));
@@ -486,51 +486,51 @@ namespace FFXIVAPP.Client.Models.Parse.Timelines
 
             // damage
             stats.Add("TotalOverallDamageMonster", new TotalStat("TotalOverallDamageMonster"));
-            stats.Add("DPSMonster", new PerSecondAverageStat("DPSMonster", stats["TotalOverallDamageMonster"], Controller.IsHistoryBased));
+            stats.Add("DPSMonster", new PerSecondAverageStat("DPSMonster", stats["TotalOverallDamageMonster"]));
             stats.Add("StaticMonsterDPSMonster", new TotalStat("StaticMonsterDPSMonster"));
             stats.Add("RegularDamageMonster", new TotalStat("RegularDamageMonster"));
             stats.Add("CriticalDamageMonster", new TotalStat("CriticalDamageMonster"));
 
             stats.Add("TotalOverallDamageOverTimeMonster", new TotalStat("TotalOverallDamageOverTimeMonster"));
-            stats.Add("DOTPSMonster", new PerSecondAverageStat("DOTPSMonster", stats["TotalOverallDamageOverTimeMonster"], Controller.IsHistoryBased));
+            stats.Add("DOTPSMonster", new PerSecondAverageStat("DOTPSMonster", stats["TotalOverallDamageOverTimeMonster"]));
             stats.Add("StaticMonsterDOTPSMonster", new TotalStat("StaticMonsterDOTPSMonster"));
             stats.Add("RegularDamageOverTimeMonster", new TotalStat("RegularDamageOverTimeMonster"));
             stats.Add("CriticalDamageOverTimeMonster", new TotalStat("CriticalDamageOverTimeMonster"));
 
             // healing
             stats.Add("TotalOverallHealingMonster", new TotalStat("TotalOverallHealingMonster"));
-            stats.Add("HPSMonster", new PerSecondAverageStat("HPSMonster", stats["TotalOverallHealingMonster"], Controller.IsHistoryBased));
+            stats.Add("HPSMonster", new PerSecondAverageStat("HPSMonster", stats["TotalOverallHealingMonster"]));
             stats.Add("StaticMonsterHPSMonster", new TotalStat("StaticMonsterHPSMonster"));
             stats.Add("RegularHealingMonster", new TotalStat("RegularHealingMonster"));
             stats.Add("CriticalHealingMonster", new TotalStat("CriticalHealingMonster"));
 
             stats.Add("TotalOverallHealingOverHealingMonster", new TotalStat("TotalOverallHealingOverHealingMonster"));
-            stats.Add("HOHPSMonster", new PerSecondAverageStat("HOHPSMonster", stats["TotalOverallHealingOverHealingMonster"], Controller.IsHistoryBased));
+            stats.Add("HOHPSMonster", new PerSecondAverageStat("HOHPSMonster", stats["TotalOverallHealingOverHealingMonster"]));
             stats.Add("StaticMonsterHOHPSMonster", new TotalStat("StaticMonsterHOHPSMonster"));
             stats.Add("RegularHealingOverHealingMonster", new TotalStat("RegularHealingOverHealingMonster"));
             stats.Add("CriticalHealingOverHealingMonster", new TotalStat("CriticalHealingOverHealingMonster"));
 
             stats.Add("TotalOverallHealingOverTimeMonster", new TotalStat("TotalOverallHealingOverTimeMonster"));
-            stats.Add("HOTPSMonster", new PerSecondAverageStat("HOTPSMonster", stats["TotalOverallHealingOverTimeMonster"], Controller.IsHistoryBased));
+            stats.Add("HOTPSMonster", new PerSecondAverageStat("HOTPSMonster", stats["TotalOverallHealingOverTimeMonster"]));
             stats.Add("StaticMonsterHOTPSMonster", new TotalStat("StaticMonsterHOTPSMonster"));
             stats.Add("RegularHealingOverTimeMonster", new TotalStat("RegularHealingOverTimeMonster"));
             stats.Add("CriticalHealingOverTimeMonster", new TotalStat("CriticalHealingOverTimeMonster"));
 
             stats.Add("TotalOverallHealingMitigatedMonster", new TotalStat("TotalOverallHealingMitigatedMonster"));
-            stats.Add("HMPSMonster", new PerSecondAverageStat("HMPSMonster", stats["TotalOverallHealingMitigatedMonster"], Controller.IsHistoryBased));
+            stats.Add("HMPSMonster", new PerSecondAverageStat("HMPSMonster", stats["TotalOverallHealingMitigatedMonster"]));
             stats.Add("StaticMonsterHMPSMonster", new TotalStat("StaticMonsterHMPSMonster"));
             stats.Add("RegularHealingMitigatedMonster", new TotalStat("RegularHealingMitigatedMonster"));
             stats.Add("CriticalHealingMitigatedMonster", new TotalStat("CriticalHealingMitigatedMonster"));
 
             // damage taken
             stats.Add("TotalOverallDamageTakenMonster", new TotalStat("TotalOverallDamageTakenMonster"));
-            stats.Add("DTPSMonster", new PerSecondAverageStat("DTPSMonster", stats["TotalOverallDamageTakenMonster"], Controller.IsHistoryBased));
+            stats.Add("DTPSMonster", new PerSecondAverageStat("DTPSMonster", stats["TotalOverallDamageTakenMonster"]));
             stats.Add("StaticMonsterDTPSMonster", new TotalStat("StaticMonsterDTPSMonster"));
             stats.Add("RegularDamageTakenMonster", new TotalStat("RegularDamageTakenMonster"));
             stats.Add("CriticalDamageTakenMonster", new TotalStat("CriticalDamageTakenMonster"));
 
             stats.Add("TotalOverallDamageTakenOverTimeMonster", new TotalStat("TotalOverallDamageTakenOverTimeMonster"));
-            stats.Add("DTOTPSMonster", new PerSecondAverageStat("DTOTPSMonster", stats["TotalOverallDamageTakenOverTimeMonster"], Controller.IsHistoryBased));
+            stats.Add("DTOTPSMonster", new PerSecondAverageStat("DTOTPSMonster", stats["TotalOverallDamageTakenOverTimeMonster"]));
             stats.Add("StaticMonsterDTOTPSMonster", new TotalStat("StaticMonsterDTOTPSMonster"));
             stats.Add("RegularDamageTakenOverTimeMonster", new TotalStat("RegularDamageTakenOverTimeMonster"));
             stats.Add("CriticalDamageTakenOverTimeMonster", new TotalStat("CriticalDamageTakenOverTimeMonster"));

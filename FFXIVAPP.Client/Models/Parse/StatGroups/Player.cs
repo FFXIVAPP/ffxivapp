@@ -44,18 +44,14 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         {
             Controller = parseControl;
             ID = 0;
-            InitStats();
             LineHistory = new List<LineHistory>();
             Last20DamageActions = new List<LineHistory>();
             Last20DamageTakenActions = new List<LineHistory>();
             Last20HealingActions = new List<LineHistory>();
-            if (Controller.IsHistoryBased)
-            {
-                return;
-            }
+            LastActionTime = DateTime.Now;
+            InitStats();
             StatusUpdateTimer.Elapsed += StatusUpdateTimerOnElapsed;
             IsActiveTimer.Elapsed += IsActiveTimerOnElapsed;
-            LastActionTime = DateTime.Now;
             StatusUpdateTimer.Start();
             IsActiveTimer.Start();
         }
@@ -65,7 +61,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         public bool StatusUpdateTimerProcessing { get; set; }
 
-        private static ParseControl Controller { get; set; }
+        private ParseControl Controller { get; set; }
 
         public uint ID { get; set; }
 
@@ -203,7 +199,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        private static IEnumerable<Stat<decimal>> TotalStatList()
+        private IEnumerable<Stat<decimal>> TotalStatList()
         {
             var stats = new Dictionary<string, Stat<decimal>>();
 
@@ -211,56 +207,56 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
             stats.Add("TotalParserTime", new TotalStat("TotalParserTime"));
 
             //setup player ability stats
-            foreach (var damageStat in StatGeneration.DamageStats(Controller.IsHistoryBased))
+            foreach (var damageStat in StatGeneration.DamageStats())
             {
                 stats.Add(damageStat.Key, damageStat.Value);
             }
 
-            foreach (var damageStat in StatGeneration.DamageOverTimeStats(Controller.IsHistoryBased))
+            foreach (var damageStat in StatGeneration.DamageOverTimeStats())
             {
                 stats.Add(damageStat.Key, damageStat.Value);
             }
 
             //setup player healing stats
-            foreach (var healingStat in StatGeneration.HealingStats(Controller.IsHistoryBased))
+            foreach (var healingStat in StatGeneration.HealingStats())
             {
                 stats.Add(healingStat.Key, healingStat.Value);
             }
 
-            foreach (var healingStat in StatGeneration.HealingOverHealingStats(Controller.IsHistoryBased))
+            foreach (var healingStat in StatGeneration.HealingOverHealingStats())
             {
                 stats.Add(healingStat.Key, healingStat.Value);
             }
 
-            foreach (var healingStat in StatGeneration.HealingOverTimeStats(Controller.IsHistoryBased))
+            foreach (var healingStat in StatGeneration.HealingOverTimeStats())
             {
                 stats.Add(healingStat.Key, healingStat.Value);
             }
 
-            foreach (var healingStat in StatGeneration.HealingMitigatedStats(Controller.IsHistoryBased))
+            foreach (var healingStat in StatGeneration.HealingMitigatedStats())
             {
                 stats.Add(healingStat.Key, healingStat.Value);
             }
 
             //setup player damage taken stats
-            foreach (var damageTakenStat in StatGeneration.DamageTakenStats(Controller.IsHistoryBased))
+            foreach (var damageTakenStat in StatGeneration.DamageTakenStats())
             {
                 stats.Add(damageTakenStat.Key, damageTakenStat.Value);
             }
 
-            foreach (var damageTakenStat in StatGeneration.DamageTakenOverTimeStats(Controller.IsHistoryBased))
+            foreach (var damageTakenStat in StatGeneration.DamageTakenOverTimeStats())
             {
                 stats.Add(damageTakenStat.Key, damageTakenStat.Value);
             }
 
             //setup player buff stats
-            foreach (var buffStat in StatGeneration.BuffStats(Controller.IsHistoryBased))
+            foreach (var buffStat in StatGeneration.BuffStats())
             {
                 stats.Add(buffStat.Key, buffStat.Value);
             }
 
             //setup combined stats
-            foreach (var combinedStat in StatGeneration.CombinedStats(Controller.IsHistoryBased))
+            foreach (var combinedStat in StatGeneration.CombinedStats())
             {
                 stats.Add(combinedStat.Key, combinedStat.Value);
             }
@@ -353,21 +349,124 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
             #region Player Combined
 
+            //((TotalStat) stats["CombinedTotalOverallDamage"]).AddDependency(stats["TotalOverallDamage"]);
+            //((TotalStat) stats["CombinedTotalOverallDamage"]).AddDependency(stats["TotalOverallDamageOverTime"]);
+            //((TotalStat) stats["CombinedCriticalDamage"]).AddDependency(stats["CriticalDamage"]);
+            //((TotalStat) stats["CombinedRegularDamage"]).AddDependency(stats["RegularDamage"]);
+
+            //((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealing"]);
+            //((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingOverTime"]);
+            //((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingMitigated"]);
+            //((TotalStat) stats["CombinedCriticalHealing"]).AddDependency(stats["CriticalHealing"]);
+            //((TotalStat) stats["CombinedRegularHealing"]).AddDependency(stats["RegularHealing"]);
+
+            //((TotalStat) stats["CombinedTotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTaken"]);
+            //((TotalStat) stats["CombinedTotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTakenOverTime"]);
+            //((TotalStat) stats["CombinedCriticalDamageTaken"]).AddDependency(stats["CriticalDamageTaken"]);
+            //((TotalStat) stats["CombinedRegularDamageTaken"]).AddDependency(stats["RegularDamageTaken"]);
+
             ((TotalStat) stats["CombinedTotalOverallDamage"]).AddDependency(stats["TotalOverallDamage"]);
-            ((TotalStat) stats["CombinedTotalOverallDamage"]).AddDependency(stats["TotalOverallDamageOverTime"]);
-            ((TotalStat) stats["CombinedCriticalDamage"]).AddDependency(stats["CriticalDamage"]);
             ((TotalStat) stats["CombinedRegularDamage"]).AddDependency(stats["RegularDamage"]);
+            ((TotalStat) stats["CombinedCriticalDamage"]).AddDependency(stats["CriticalDamage"]);
+            ((MinStat) stats["CombinedDamageRegLow"]).AddDependency(stats["DamageRegLow"]);
+            ((MaxStat) stats["CombinedDamageRegHigh"]).AddDependency(stats["DamageRegHigh"]);
+            ((AverageStat) stats["CombinedDamageRegAverage"]).AddDependency(stats["DamageRegAverage"]);
+            ((TotalStat) stats["CombinedDamageRegMod"]).AddDependency(stats["DamageRegMod"]);
+            ((AverageStat) stats["CombinedDamageRegModAverage"]).AddDependency(stats["DamageRegModAverage"]);
+            ((MinStat) stats["CombinedDamageCritLow"]).AddDependency(stats["DamageCritLow"]);
+            ((MaxStat) stats["CombinedDamageCritHigh"]).AddDependency(stats["DamageCritHigh"]);
+            ((AverageStat) stats["CombinedDamageCritAverage"]).AddDependency(stats["DamageCritAverage"]);
+            ((TotalStat) stats["CombinedDamageCritMod"]).AddDependency(stats["DamageCritMod"]);
+            ((AverageStat) stats["CombinedDamageCritModAverage"]).AddDependency(stats["DamageCritModAverage"]);
+
+            ((TotalStat) stats["CombinedTotalOverallDamage"]).AddDependency(stats["TotalOverallDamageOverTime"]);
+            ((TotalStat) stats["CombinedRegularDamage"]).AddDependency(stats["RegularDamageOverTime"]);
+            ((TotalStat) stats["CombinedCriticalDamage"]).AddDependency(stats["CriticalDamageOverTime"]);
+            ((MinStat) stats["CombinedDamageRegLow"]).AddDependency(stats["DamageOverTimeRegLow"]);
+            ((MaxStat) stats["CombinedDamageRegHigh"]).AddDependency(stats["DamageOverTimeRegHigh"]);
+            ((AverageStat) stats["CombinedDamageRegAverage"]).AddDependency(stats["DamageOverTimeRegAverage"]);
+            ((TotalStat) stats["CombinedDamageRegMod"]).AddDependency(stats["DamageOverTimeRegMod"]);
+            ((AverageStat) stats["CombinedDamageRegModAverage"]).AddDependency(stats["DamageOverTimeRegModAverage"]);
+            ((MinStat) stats["CombinedDamageCritLow"]).AddDependency(stats["DamageOverTimeCritLow"]);
+            ((MaxStat) stats["CombinedDamageCritHigh"]).AddDependency(stats["DamageOverTimeCritHigh"]);
+            ((AverageStat) stats["CombinedDamageCritAverage"]).AddDependency(stats["DamageOverTimeCritAverage"]);
+            ((TotalStat) stats["CombinedDamageCritMod"]).AddDependency(stats["DamageOverTimeCritMod"]);
+            ((AverageStat) stats["CombinedDamageCritModAverage"]).AddDependency(stats["DamageOverTimeCritModAverage"]);
 
             ((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealing"]);
-            ((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingOverTime"]);
-            ((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingMitigated"]);
-            ((TotalStat) stats["CombinedCriticalHealing"]).AddDependency(stats["CriticalHealing"]);
             ((TotalStat) stats["CombinedRegularHealing"]).AddDependency(stats["RegularHealing"]);
+            ((TotalStat) stats["CombinedCriticalHealing"]).AddDependency(stats["CriticalHealing"]);
+            ((MinStat) stats["CombinedHealingRegLow"]).AddDependency(stats["HealingRegLow"]);
+            ((MaxStat) stats["CombinedHealingRegHigh"]).AddDependency(stats["HealingRegHigh"]);
+            ((AverageStat) stats["CombinedHealingRegAverage"]).AddDependency(stats["HealingRegAverage"]);
+            ((TotalStat) stats["CombinedHealingRegMod"]).AddDependency(stats["HealingRegMod"]);
+            ((AverageStat) stats["CombinedHealingRegModAverage"]).AddDependency(stats["HealingRegModAverage"]);
+            ((MinStat) stats["CombinedHealingCritLow"]).AddDependency(stats["HealingCritLow"]);
+            ((MaxStat) stats["CombinedHealingCritHigh"]).AddDependency(stats["HealingCritHigh"]);
+            ((AverageStat) stats["CombinedHealingCritAverage"]).AddDependency(stats["HealingCritAverage"]);
+            ((TotalStat) stats["CombinedHealingCritMod"]).AddDependency(stats["HealingCritMod"]);
+            ((AverageStat) stats["CombinedHealingCritModAverage"]).AddDependency(stats["HealingCritModAverage"]);
+
+            ((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingOverTime"]);
+            ((TotalStat) stats["CombinedRegularHealing"]).AddDependency(stats["RegularHealingOverTime"]);
+            ((TotalStat) stats["CombinedCriticalHealing"]).AddDependency(stats["CriticalHealingOverTime"]);
+            ((MinStat) stats["CombinedHealingRegLow"]).AddDependency(stats["HealingOverTimeRegLow"]);
+            ((MaxStat) stats["CombinedHealingRegHigh"]).AddDependency(stats["HealingOverTimeRegHigh"]);
+            ((AverageStat) stats["CombinedHealingRegAverage"]).AddDependency(stats["HealingOverTimeRegAverage"]);
+            ((TotalStat) stats["CombinedHealingRegMod"]).AddDependency(stats["HealingOverTimeRegMod"]);
+            ((AverageStat) stats["CombinedHealingRegModAverage"]).AddDependency(stats["HealingOverTimeRegModAverage"]);
+            ((MinStat) stats["CombinedHealingCritLow"]).AddDependency(stats["HealingOverTimeCritLow"]);
+            ((MaxStat) stats["CombinedHealingCritHigh"]).AddDependency(stats["HealingOverTimeCritHigh"]);
+            ((AverageStat) stats["CombinedHealingCritAverage"]).AddDependency(stats["HealingOverTimeCritAverage"]);
+            ((TotalStat) stats["CombinedHealingCritMod"]).AddDependency(stats["HealingOverTimeCritMod"]);
+            ((AverageStat) stats["CombinedHealingCritModAverage"]).AddDependency(stats["HealingOverTimeCritModAverage"]);
+
+            ((TotalStat) stats["CombinedTotalOverallHealing"]).AddDependency(stats["TotalOverallHealingMitigated"]);
+            ((TotalStat) stats["CombinedRegularHealing"]).AddDependency(stats["RegularHealingMitigated"]);
+            ((TotalStat) stats["CombinedCriticalHealing"]).AddDependency(stats["CriticalHealingMitigated"]);
+            ((MinStat) stats["CombinedHealingRegLow"]).AddDependency(stats["HealingMitigatedRegLow"]);
+            ((MaxStat) stats["CombinedHealingRegHigh"]).AddDependency(stats["HealingMitigatedRegHigh"]);
+            ((AverageStat) stats["CombinedHealingRegAverage"]).AddDependency(stats["HealingMitigatedRegAverage"]);
+            ((TotalStat) stats["CombinedHealingRegMod"]).AddDependency(stats["HealingMitigatedRegMod"]);
+            ((AverageStat) stats["CombinedHealingRegModAverage"]).AddDependency(stats["HealingMitigatedRegModAverage"]);
+            ((MinStat) stats["CombinedHealingCritLow"]).AddDependency(stats["HealingMitigatedCritLow"]);
+            ((MaxStat) stats["CombinedHealingCritHigh"]).AddDependency(stats["HealingMitigatedCritHigh"]);
+            ((AverageStat) stats["CombinedHealingCritAverage"]).AddDependency(stats["HealingMitigatedCritAverage"]);
+            ((TotalStat) stats["CombinedHealingCritMod"]).AddDependency(stats["HealingMitigatedCritMod"]);
+            ((AverageStat) stats["CombinedHealingCritModAverage"]).AddDependency(stats["HealingMitigatedCritModAverage"]);
 
             ((TotalStat) stats["CombinedTotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTaken"]);
-            ((TotalStat) stats["CombinedTotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTakenOverTime"]);
-            ((TotalStat) stats["CombinedCriticalDamageTaken"]).AddDependency(stats["CriticalDamageTaken"]);
             ((TotalStat) stats["CombinedRegularDamageTaken"]).AddDependency(stats["RegularDamageTaken"]);
+            ((TotalStat) stats["CombinedCriticalDamageTaken"]).AddDependency(stats["CriticalDamageTaken"]);
+            ((MinStat) stats["CombinedDamageTakenRegLow"]).AddDependency(stats["DamageTakenRegLow"]);
+            ((MaxStat) stats["CombinedDamageTakenRegHigh"]).AddDependency(stats["DamageTakenRegHigh"]);
+            ((AverageStat) stats["CombinedDamageTakenRegAverage"]).AddDependency(stats["DamageTakenRegAverage"]);
+            ((TotalStat) stats["CombinedDamageTakenRegMod"]).AddDependency(stats["DamageTakenRegMod"]);
+            ((AverageStat) stats["CombinedDamageTakenRegModAverage"]).AddDependency(stats["DamageTakenRegModAverage"]);
+            ((MinStat) stats["CombinedDamageTakenCritLow"]).AddDependency(stats["DamageTakenCritLow"]);
+            ((MaxStat) stats["CombinedDamageTakenCritHigh"]).AddDependency(stats["DamageTakenCritHigh"]);
+            ((AverageStat) stats["CombinedDamageTakenCritAverage"]).AddDependency(stats["DamageTakenCritAverage"]);
+            ((TotalStat) stats["CombinedDamageTakenCritMod"]).AddDependency(stats["DamageTakenCritMod"]);
+            ((AverageStat) stats["CombinedDamageTakenCritModAverage"]).AddDependency(stats["DamageTakenCritModAverage"]);
+
+            ((TotalStat) stats["CombinedTotalOverallDamageTaken"]).AddDependency(stats["TotalOverallDamageTakenOverTime"]);
+            ((TotalStat) stats["CombinedRegularDamageTaken"]).AddDependency(stats["RegularDamageTakenOverTime"]);
+            ((TotalStat) stats["CombinedCriticalDamageTaken"]).AddDependency(stats["CriticalDamageTakenOverTime"]);
+            ((MinStat) stats["CombinedDamageTakenRegLow"]).AddDependency(stats["DamageTakenOverTimeRegLow"]);
+            ((MaxStat) stats["CombinedDamageTakenRegHigh"]).AddDependency(stats["DamageTakenOverTimeRegHigh"]);
+            ((AverageStat) stats["CombinedDamageTakenRegAverage"]).AddDependency(stats["DamageTakenOverTimeRegAverage"]);
+            ((TotalStat) stats["CombinedDamageTakenRegMod"]).AddDependency(stats["DamageTakenOverTimeRegMod"]);
+            ((AverageStat) stats["CombinedDamageTakenRegModAverage"]).AddDependency(stats["DamageTakenOverTimeRegModAverage"]);
+            ((MinStat) stats["CombinedDamageTakenCritLow"]).AddDependency(stats["DamageTakenOverTimeCritLow"]);
+            ((MaxStat) stats["CombinedDamageTakenCritHigh"]).AddDependency(stats["DamageTakenOverTimeCritHigh"]);
+            ((AverageStat) stats["CombinedDamageTakenCritAverage"]).AddDependency(stats["DamageTakenOverTimeCritAverage"]);
+            ((TotalStat) stats["CombinedDamageTakenCritMod"]).AddDependency(stats["DamageTakenOverTimeCritMod"]);
+            ((AverageStat) stats["CombinedDamageTakenCritModAverage"]).AddDependency(stats["DamageTakenOverTimeCritModAverage"]);
+
+            ((PerSecondAverageStat) stats["CombinedDPS"]).AddDependency(stats["CombinedTotalOverallDamage"]);
+            ((PerSecondAverageStat) stats["CombinedHPS"]).AddDependency(stats["CombinedTotalOverallHealing"]);
+            ((PerSecondAverageStat) stats["CombinedHPS"]).AddDependency(stats["CombinedTotalOverallHealing"]);
+            ((PerSecondAverageStat) stats["CombinedDTPS"]).AddDependency(stats["CombinedTotalOverallDamageTaken"]);
 
             #endregion
 
@@ -400,7 +499,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns> </returns>
         private IEnumerable<Stat<decimal>> DamageStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.DamageStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.DamageStats();
 
             //setup per ability "percent of" stats
             switch (useSub)
@@ -428,7 +527,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns> </returns>
         private IEnumerable<Stat<decimal>> DamageOverTimeStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.DamageOverTimeStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.DamageOverTimeStats();
 
             //setup per ability "percent of" stats
             switch (useSub)
@@ -456,7 +555,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> HealingStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.HealingStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.HealingStats();
 
             //setup per healing "percent of" stats
             switch (useSub)
@@ -484,7 +583,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> HealingOverHealingStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.HealingOverHealingStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.HealingOverHealingStats();
 
             //setup per HealingOverHealing "percent of" stats
             switch (useSub)
@@ -512,7 +611,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> HealingOverTimeStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.HealingOverTimeStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.HealingOverTimeStats();
 
             //setup per HealingOverTime "percent of" stats
             switch (useSub)
@@ -540,7 +639,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> HealingMitigatedStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.HealingMitigatedStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.HealingMitigatedStats();
 
             //setup per HealingMitigated "percent of" stats
             switch (useSub)
@@ -568,7 +667,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> DamageTakenStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.DamageTakenStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.DamageTakenStats();
 
             //setup per damage taken "percent of" stats
             switch (useSub)
@@ -596,7 +695,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
         /// <returns></returns>
         private IEnumerable<Stat<decimal>> DamageTakenOverTimeStatList(StatGroup sub, bool useSub = false)
         {
-            var stats = StatGeneration.DamageTakenOverTimeStats(Controller.IsHistoryBased);
+            var stats = StatGeneration.DamageTakenOverTimeStats();
 
             //setup per damage taken "percent of" stats
             switch (useSub)

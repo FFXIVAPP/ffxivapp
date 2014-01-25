@@ -30,7 +30,7 @@ namespace FFXIVAPP.Client.Converters
         #endregion
 
         private const string DefaultAvatar = Common.Constants.DefaultAvatar;
-        private bool _cachingEnabled = true;
+        private readonly bool _cachingEnabled = true;
 
         /// <summary>
         /// </summary>
@@ -50,7 +50,9 @@ namespace FFXIVAPP.Client.Converters
             }
         }
 
-        public string AvatarCache
+        private bool IsProcessing { get; set; }
+
+        private string AvatarCache
         {
             get { return Path.Combine(Common.Constants.CachePath, "Avatars"); }
         }
@@ -71,11 +73,7 @@ namespace FFXIVAPP.Client.Converters
             var source = new BitmapImage(new Uri(DefaultAvatar));
             var image = values[0] as Image;
             var name = values[1] as String;
-            if (image == null || name == null)
-            {
-                return source;
-            }
-            if (Regex.IsMatch(name, @"\[[(A|\?\?\?)]\]"))
+            if (image == null || name == null || Regex.IsMatch(name, @"\[[(A|[\?]+]\]"))
             {
                 return source;
             }
@@ -88,53 +86,54 @@ namespace FFXIVAPP.Client.Converters
                 return new BitmapImage(new Uri(cachePath));
             }
             var useAvatars = !String.IsNullOrWhiteSpace(Constants.ServerName);
-            if (useAvatars)
+            if (!useAvatars || IsProcessing)
             {
-                ThreadPool.QueueUserWorkItem(delegate
+                return source;
+            }
+            IsProcessing = true;
+            Func<bool> downloadFunc = delegate
+            {
+                try
                 {
-                    try
+                    var serverName = Constants.ServerName;
+                    var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
+                    var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
+                    httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                    using (var httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                     {
-                        var serverName = Constants.ServerName;
-                        var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
-                        var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
-                        request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                        using (var response = (HttpWebResponse) request.GetResponse())
+                        using (var stream = httpWebResponse.GetResponseStream())
                         {
-                            var stream = response.GetResponseStream();
-                            if (response.StatusCode != HttpStatusCode.OK || stream == null)
+                            if (httpWebResponse.StatusCode == HttpStatusCode.OK && stream != null)
                             {
-                                return;
-                            }
-                            var doc = new HtmlDocument();
-                            doc.Load(stream);
-                            var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
-                                                .OuterHtml;
-                            var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                            var imageUrl = src.Match(htmlSource)
-                                              .Groups["image"].Value;
-                            imageUrl = imageUrl.Substring(0, imageUrl.IndexOf("?", Constants.InvariantComparer))
-                                               .Replace("50x50", "96x96");
-                            image.Dispatcher.Invoke(DispatcherPriority.Normal, (ThreadStart) delegate
-                            {
-                                var imageUri = imageUrl;
-                                if (imageUri != DefaultAvatar)
+                                var doc = new HtmlDocument();
+                                doc.Load(stream);
+                                var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
+                                                    .OuterHtml;
+                                var src = new Regex(@"<img src=""(?<image>.+)"" width=""50"" height=""50"" alt="""">", RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                                var imageUrl = src.Match(htmlSource)
+                                                  .Groups["image"].Value;
+                                imageUrl = imageUrl.Substring(0, imageUrl.IndexOf("?", Constants.InvariantComparer))
+                                                   .Replace("50x50", "96x96");
+                                image.Dispatcher.Invoke(DispatcherPriority.Background, (ThreadStart) delegate
                                 {
-                                    imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
-                                }
-                                image.Source = new BitmapImage(new Uri(imageUri));
-                            });
+                                    var imageUri = imageUrl;
+                                    if (imageUri != DefaultAvatar)
+                                    {
+                                        imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
+                                    }
+                                    image.Source = new BitmapImage(new Uri(imageUri));
+                                });
+                            }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                    }
-                });
-                //Func<bool> d = delegate
-                //{
-                //    return true;
-                //};
-                //d.BeginInvoke(null, null);
-            }
+                }
+                catch (Exception ex)
+                {
+                }
+                IsProcessing = false;
+                return true;
+            };
+            downloadFunc.BeginInvoke(delegate { }, downloadFunc);
             return source;
         }
 
@@ -169,9 +168,11 @@ namespace FFXIVAPP.Client.Converters
                             if (httpResponse.ContentType == "image/jpeg" || httpResponse.ContentType == "image/png")
                             {
                                 var imagePath = Path.Combine(AvatarCache, fileName);
-                                var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write);
-                                response.CopyTo(fileStream);
-                                fileStream.Close();
+                                using (var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write))
+                                {
+                                    response.CopyTo(fileStream);
+                                    fileStream.Close();
+                                }
                                 return imagePath;
                             }
                         }

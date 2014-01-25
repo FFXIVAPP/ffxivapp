@@ -28,8 +28,6 @@
                   Member="PluginProperties:Settings.Default" />
         <x:Static x:Key="Settings"
                   Member="Properties:Settings.Default" />
-        <x:Static x:Key="Parser"
-                  Member="Models:ParseControl.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
         <Style x:Key="StatLabelStyle">
             <Setter Property="Control.Padding" Value="0" />
@@ -117,21 +115,21 @@
                                                Height="16"
                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png" />
-                                        <Label Content="{Binding Locale[parse_RefreshSelectedButtonText],
-                                                                 Source={StaticResource AppProperties},
-                                                                 Converter={StaticResource ToUpperConverter}}"
-                                               Padding="3 0" />
+                                        <TextBlock Padding="3 0"
+                                                   Text="{Binding Locale[parse_RefreshSelectedButtonText],
+                                                                  Source={StaticResource AppProperties},
+                                                                  Converter={StaticResource ToUpperConverter}}" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
-                            <Label x:Name="SelectedPlayerName"
-                                   Grid.Row="1"
-                                   Content="{Binding Path=Name}"
-                                   DataContext="{Binding SelectedItem,
-                                                         ElementName=PlayerInfoListView,
-                                                         NotifyOnTargetUpdated=True,
-                                                         NotifyOnSourceUpdated=True}"
-                                   Visibility="Collapsed" />
+                            <TextBlock x:Name="SelectedPlayerName"
+                                       Grid.Row="1"
+                                       DataContext="{Binding SelectedItem,
+                                                             ElementName=PlayerInfoListView,
+                                                             NotifyOnTargetUpdated=True,
+                                                             NotifyOnSourceUpdated=True}"
+                                       Text="{Binding Path=Name}"
+                                       Visibility="Collapsed" />
                             <ListView x:Name="PlayerInfoListView"
                                       Grid.Row="1"
                                       BorderThickness="0"
@@ -140,23 +138,24 @@
                                       SelectionMode="Single"
                                       VirtualizingStackPanel.VirtualizationMode="Recycling"
                                       Visibility="Collapsed">
-                                <ListView.Resources>
-                                    <DataTemplate DataType="{x:Type stats:StatGroup}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
                                         <Border BorderBrush="{DynamicResource AccentColorBrush}"
                                                 BorderThickness="1">
-                                            <Label Content="{Binding Name}" />
+                                            <TextBlock Padding="5"
+                                                       Text="{Binding Name}" />
                                         </Border>
                                     </DataTemplate>
-                                </ListView.Resources>
+                                </ListView.ItemTemplate>
                             </ListView>
-                            <Label x:Name="SelectedMonsterName"
-                                   Grid.Row="1"
-                                   Content="{Binding Path=Name}"
-                                   DataContext="{Binding SelectedItem,
-                                                         ElementName=MonsterInfoListView,
-                                                         NotifyOnTargetUpdated=True,
-                                                         NotifyOnSourceUpdated=True}"
-                                   Visibility="Collapsed" />
+                            <TextBlock x:Name="SelectedMonsterName"
+                                       Grid.Row="1"
+                                       DataContext="{Binding SelectedItem,
+                                                             ElementName=MonsterInfoListView,
+                                                             NotifyOnTargetUpdated=True,
+                                                             NotifyOnSourceUpdated=True}"
+                                       Text="{Binding Path=Name}"
+                                       Visibility="Collapsed" />
                             <ListView x:Name="MonsterInfoListView"
                                       Grid.Row="1"
                                       BorderThickness="0"
@@ -165,14 +164,15 @@
                                       SelectionMode="Single"
                                       VirtualizingStackPanel.VirtualizationMode="Recycling"
                                       Visibility="Collapsed">
-                                <ListView.Resources>
-                                    <DataTemplate DataType="{x:Type stats:StatGroup}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
                                         <Border BorderBrush="{DynamicResource AccentColorBrush}"
                                                 BorderThickness="1">
-                                            <Label Content="{Binding Name}" />
+                                            <TextBlock Padding="5"
+                                                       Text="{Binding Name}" />
                                         </Border>
                                     </DataTemplate>
-                                </ListView.Resources>
+                                </ListView.ItemTemplate>
                             </ListView>
                         </Grid>
                     </Border>
@@ -212,12 +212,21 @@
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="1">
-                                                <Label Content="{Binding CombinedTotalOverallDamage}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding CombinedTotalOverallHealing}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding CombinedTotalOverallDamageTaken}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedTotalOverallDamage,
+                                                                          StringFormat={}{0:N0}}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedTotalOverallHealing,
+                                                                          StringFormat={}{0:N0}}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedTotalOverallDamageTaken,
+                                                                          StringFormat={}{0:N0}}" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="2">
@@ -230,12 +239,21 @@
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="3">
-                                                <Label Content="{Binding CombinedDPS}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding CombinedHPS}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
-                                                <Label Content="{Binding CombinedDTPS}"
-                                                       Style="{StaticResource CommaNumberStyle}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedDPS,
+                                                                          StringFormat={}{0:N0}}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedHPS,
+                                                                          StringFormat={}{0:N0}}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Padding="5 0"
+                                                           Style="{StaticResource CommaNumberStyle}"
+                                                           Text="{Binding CombinedDTPS,
+                                                                          StringFormat={}{0:N0}}" />
                                             </StackPanel>
                                         </Grid>
                                     </GroupBox>
@@ -247,6 +265,7 @@
                                                Visibility="{Binding EnableHelpLabels,
                                                                     Source={x:Static Properties:Settings.Default},
                                                                     Converter={StaticResource VisibilityConverter}}" />
+
                                     <ItemsControl x:Name="PlayerInfoScoreCard"
                                                   ItemsSource="{Binding PlayerInfoSource,
                                                                         Source={StaticResource MainViewModel}}">
@@ -278,8 +297,11 @@
                                                     Content="Show Last 20 Damage Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="TOTALS (NORMAL)"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageDataGrid x:Name="PlayerDamageByAction"
                                                                       BorderThickness="0"
@@ -293,8 +315,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="TOTALS (OVER TIME)"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="PlayerDamageOverTimeByAction"
                                                                               BorderThickness="0"
@@ -315,10 +340,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageDataGrid x:Name="PlayerDamageToMonsters"
                                                                       BorderThickness="0"
@@ -332,10 +358,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageDataGrid x:Name="PlayerDamageToMonstersByAction"
                                                                       BorderThickness="0"
@@ -353,10 +380,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="PlayerDamageOverTimeToMonsters"
                                                                               BorderThickness="0"
@@ -370,10 +398,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="PlayerDamageOverTimeToMonstersByAction"
                                                                               BorderThickness="0"
@@ -399,10 +428,11 @@
                                                     Content="Show Last 20 Healing Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingByAction"
                                                                        BorderThickness="0"
@@ -416,10 +446,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverHealingHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverHealingHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingOverHealingDataGrid x:Name="PlayerHealingOverHealingByAction"
                                                                                   BorderThickness="0"
@@ -433,10 +464,11 @@
                                             </Expander>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingOverTimeDataGrid x:Name="PlayerHealingOverTimeByAction"
                                                                                BorderThickness="0"
@@ -450,10 +482,11 @@
                                             </Expander>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsMitigatedHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsMitigatedHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingMitigatedDataGrid x:Name="PlayerHealingMitigatedByAction"
                                                                                 BorderThickness="0"
@@ -474,10 +507,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingToPlayers"
                                                                        BorderThickness="0"
@@ -491,10 +525,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingToPlayersByAction"
                                                                        BorderThickness="0"
@@ -512,10 +547,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverHealingHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverHealingHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingOverHealingToPlayers"
                                                                        BorderThickness="0"
@@ -529,10 +565,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingOverHealingDataGrid x:Name="PlayerHealingOverHealingToPlayersByAction"
                                                                                   BorderThickness="0"
@@ -550,10 +587,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingOverTimeToPlayers"
                                                                        BorderThickness="0"
@@ -567,10 +605,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingOverTimeDataGrid x:Name="PlayerHealingOverTimeToPlayersByAction"
                                                                                BorderThickness="0"
@@ -588,10 +627,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsMitigatedHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsMitigatedHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:HealingDataGrid x:Name="PlayerHealingMitigatedToPlayers"
                                                                        BorderThickness="0"
@@ -605,10 +645,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:HealingMitigatedDataGrid x:Name="PlayerHealingMitigatedToPlayersByAction"
                                                                                 BorderThickness="0"
@@ -629,10 +670,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverallHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverallHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:BuffDataGrid x:Name="PlayerBuffByAction"
                                                                     DataContext="{Binding SelectedItem,
@@ -645,10 +687,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsPlayersHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsPlayersHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:BuffDataGrid x:Name="PlayerBuffToPlayers"
                                                                     DataContext="{Binding SelectedItem,
@@ -661,10 +704,11 @@
                                             </Expander>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsPlayersByActionHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsPlayersByActionHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:BuffDataGrid x:Name="PlayerBuffToPlayersByAction"
                                                                     DataContext="{Binding SelectedItem,
@@ -689,10 +733,11 @@
                                                     Content="Show Last 20 Damage Taken Actions (Selected Player)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenDataGrid x:Name="PlayerDamageTakenByAction"
                                                                            BorderThickness="0"
@@ -706,10 +751,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="PlayerDamageTakenOverTimeByAction"
                                                                                    BorderThickness="0"
@@ -730,10 +776,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonsters"
                                                                            BorderThickness="0"
@@ -747,10 +794,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenDataGrid x:Name="PlayerDamageTakenByMonstersByAction"
                                                                            BorderThickness="0"
@@ -768,10 +816,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="PlayerDamageTakenOverTimeByMonsters"
                                                                                    BorderThickness="0"
@@ -785,10 +834,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="PlayerDamageTakenOverTimeByMonstersByAction"
                                                                                    BorderThickness="0"
@@ -812,10 +862,26 @@
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsCombinedDamageHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedDamageDataGrid x:Name="PlayerCombinedDamageStats"
+                                                                      BorderThickness="0"
+                                                                      ItemsSource="{Binding}"
+                                                                      SelectionMode="Single"
+                                                                      Style="{DynamicResource MetroDataGrid}" />
+                                    </Expander>
+                                    <Expander IsExpanded="False"
+                                              Padding="0">
+                                        <Expander.Header>
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageDataGrid BorderThickness="0"
                                                               ItemsSource="{Binding}"
@@ -824,10 +890,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageOverTimeDataGrid BorderThickness="0"
                                                                       ItemsSource="{Binding}"
@@ -837,10 +904,26 @@
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsCombinedHealingHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedHealingDataGrid x:Name="PlayerCombinedHealingStats"
+                                                                       BorderThickness="0"
+                                                                       ItemsSource="{Binding}"
+                                                                       SelectionMode="Single"
+                                                                       Style="{DynamicResource MetroDataGrid}" />
+                                    </Expander>
+                                    <Expander IsExpanded="False"
+                                              Padding="0">
+                                        <Expander.Header>
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsHealingHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingDataGrid BorderThickness="0"
                                                                ItemsSource="{Binding}"
@@ -849,10 +932,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingOverHealingHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsHealingOverHealingHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingOverHealingDataGrid BorderThickness="0"
                                                                           ItemsSource="{Binding}"
@@ -861,10 +945,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsHealingOverTimeHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingOverTimeDataGrid BorderThickness="0"
                                                                        ItemsSource="{Binding}"
@@ -873,10 +958,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingMitigatedHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsHealingMitigatedHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingMitigatedDataGrid BorderThickness="0"
                                                                         ItemsSource="{Binding}"
@@ -886,10 +972,11 @@
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsBuffsHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsBuffsHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:BuffDataGrid BorderThickness="0"
                                                             ItemsSource="{Binding}"
@@ -899,10 +986,26 @@
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageTakenHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsCombinedDamageTakenHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedDamageTakenDataGrid x:Name="PlayerCombinedDamageTakenStats"
+                                                                           BorderThickness="0"
+                                                                           ItemsSource="{Binding}"
+                                                                           SelectionMode="Single"
+                                                                           Style="{DynamicResource MetroDataGrid}" />
+                                    </Expander>
+                                    <Expander IsExpanded="False"
+                                              Padding="0">
+                                        <Expander.Header>
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageTakenHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageTakenDataGrid BorderThickness="0"
                                                                    ItemsSource="{Binding}"
@@ -911,10 +1014,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageTakenOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageTakenOverTimeHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageTakenOverTimeDataGrid BorderThickness="0"
                                                                            ItemsSource="{Binding}"
@@ -937,10 +1041,11 @@
                                                     Content="Show Last 20 Damage Actions (Selected Monster)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageDataGrid x:Name="MonsterDamageByAction"
                                                                       BorderThickness="0"
@@ -954,10 +1059,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="MonsterDamageOverTimeByAction"
                                                                               BorderThickness="0"
@@ -978,10 +1084,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageDataGrid x:Name="MonsterDamageToPlayers"
                                                                       BorderThickness="0"
@@ -995,10 +1102,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageDataGrid x:Name="MonsterDamageToPlayersByAction"
                                                                       BorderThickness="0"
@@ -1016,10 +1124,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="MonsterDamageOverTimeToPlayers"
                                                                               BorderThickness="0"
@@ -1033,10 +1142,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageOverTimeDataGrid x:Name="MonsterDamageOverTimeToPlayersByAction"
                                                                               BorderThickness="0"
@@ -1062,10 +1172,11 @@
                                                     Content="Show Last 20 Damage Taken Actions (Selected Monster)" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenDataGrid x:Name="MonsterDamageTakenByAction"
                                                                            BorderThickness="0"
@@ -1079,10 +1190,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="MonsterDamageTakenOverTimeByAction"
                                                                                    BorderThickness="0"
@@ -1103,10 +1215,11 @@
                                         <StackPanel>
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsNormalHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsNormalHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayers"
                                                                            BorderThickness="0"
@@ -1120,10 +1233,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenDataGrid x:Name="MonsterDamageTakenByPlayersByAction"
                                                                            BorderThickness="0"
@@ -1141,10 +1255,11 @@
                                                                        IsIndeterminate="True" />
                                             <GroupBox Padding="0">
                                                 <GroupBox.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsOverTimeHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsOverTimeHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="MonsterDamageTakenOverTimeByPlayers"
                                                                                    BorderThickness="0"
@@ -1158,10 +1273,11 @@
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
-                                                    <Label Content="{Binding Locale[parse_TotalsActionsHeader],
-                                                                             Source={StaticResource AppProperties},
-                                                                             Converter={StaticResource ToUpperConverter}}"
-                                                           Foreground="White" />
+                                                    <TextBlock Foreground="White"
+                                                               Padding="5"
+                                                               Text="{Binding Locale[parse_TotalsActionsHeader],
+                                                                              Source={StaticResource AppProperties},
+                                                                              Converter={StaticResource ToUpperConverter}}" />
                                                 </Expander.Header>
                                                 <grids:DamageTakenOverTimeDataGrid x:Name="MonsterDamageTakenOverTimeByPlayersByAction"
                                                                                    BorderThickness="0"
@@ -1182,87 +1298,153 @@
                             <ScrollViewer>
                                 <StackPanel DataContext="{Binding MonsterInfoSource,
                                                                   Source={StaticResource MainViewModel}}">
+                                    <!--
+                                        <Expander IsExpanded="True"
+                                        Padding="0">
+                                        <Expander.Header>
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsCombinedDamageHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedDamageDataGrid x:Name="MonsterCombinedDamageStats"
+                                        BorderThickness="0"
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageDataGrid BorderThickness="0"
                                                               ItemsSource="{Binding}"
                                                               SelectionMode="Single"
                                                               Style="{DynamicResource MetroDataGrid}" />
                                     </Expander>
-                                    <Expander Padding="0">
+                                    <!--
+                                        <Expander IsExpanded="True"
+                                        Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsCombinedHealingHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedHealingDataGrid x:Name="MonsterCombinedHealingStats"
+                                        BorderThickness="0"
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
+                                        <Expander Padding="0">
+                                        <Expander.Header>
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageOverTimeDataGrid BorderThickness="0"
-                                                                      ItemsSource="{Binding}"
-                                                                      SelectionMode="Single"
-                                                                      Style="{DynamicResource MetroDataGrid}" />
-                                    </Expander>
-                                    <Expander IsExpanded="True"
-                                              Padding="0">
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
+                                        <Expander IsExpanded="True"
+                                        Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsHealingHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingDataGrid BorderThickness="0"
-                                                               ItemsSource="{Binding}"
-                                                               SelectionMode="Single"
-                                                               Style="{DynamicResource MetroDataGrid}" />
-                                    </Expander>
-                                    <Expander Padding="0">
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
+                                        <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingOverHealingHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsHealingOverHealingHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingOverHealingDataGrid BorderThickness="0"
-                                                                          ItemsSource="{Binding}"
-                                                                          SelectionMode="Single"
-                                                                          Style="{DynamicResource MetroDataGrid}" />
-                                    </Expander>
-                                    <Expander Padding="0">
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
+                                        <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsHealingOverTimeHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingOverTimeDataGrid BorderThickness="0"
-                                                                       ItemsSource="{Binding}"
-                                                                       SelectionMode="Single"
-                                                                       Style="{DynamicResource MetroDataGrid}" />
-                                    </Expander>
-                                    <Expander Padding="0">
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
+                                        <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsHealingMitigatedHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsHealingMitigatedHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:HealingMitigatedDataGrid BorderThickness="0"
-                                                                        ItemsSource="{Binding}"
-                                                                        SelectionMode="Single"
-                                                                        Style="{DynamicResource MetroDataGrid}" />
-                                    </Expander>
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
                                     <Expander IsExpanded="True"
                                               Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageTakenHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsCombinedDamageTakenHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:CombinedDamageTakenDataGrid x:Name="MonsterCombinedDamageTakenStats"
+                                                                           BorderThickness="0"
+                                                                           ItemsSource="{Binding}"
+                                                                           SelectionMode="Single"
+                                                                           Style="{DynamicResource MetroDataGrid}" />
+                                    </Expander>
+                                    <Expander IsExpanded="False"
+                                              Padding="0">
+                                        <Expander.Header>
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageTakenHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageTakenDataGrid BorderThickness="0"
                                                                    ItemsSource="{Binding}"
@@ -1271,10 +1453,11 @@
                                     </Expander>
                                     <Expander Padding="0">
                                         <Expander.Header>
-                                            <Label Content="{Binding Locale[parse_OverallTotalsDamageTakenOverTimeHeader],
-                                                                     Source={StaticResource AppProperties},
-                                                                     Converter={StaticResource ToUpperConverter}}"
-                                                   Foreground="White" />
+                                            <TextBlock Foreground="White"
+                                                       Padding="5"
+                                                       Text="{Binding Locale[parse_OverallTotalsDamageTakenOverTimeHeader],
+                                                                      Source={StaticResource AppProperties},
+                                                                      Converter={StaticResource ToUpperConverter}}" />
                                         </Expander.Header>
                                         <grids:DamageTakenOverTimeDataGrid BorderThickness="0"
                                                                            ItemsSource="{Binding}"
@@ -1300,13 +1483,13 @@
                            Height="16"
                            RenderOptions.BitmapScalingMode="HighQuality"
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png" />
-                    <Label Content="{Binding Locale[parse_ResetStatsToolTip],
-                                             Converter={StaticResource ToUpperConverter},
-                                             Source={StaticResource AppProperties}}"
-                           Padding="3,0,3,0"
-                           Visibility="{Binding EnableHelpLabels,
-                                                Converter={StaticResource VisibilityConverter},
-                                                Source={StaticResource Settings}}" />
+                    <TextBlock Padding="3,0,3,0"
+                               Text="{Binding Locale[parse_ResetStatsToolTip],
+                                              Converter={StaticResource ToUpperConverter},
+                                              Source={StaticResource AppProperties}}"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Converter={StaticResource VisibilityConverter},
+                                                    Source={StaticResource Settings}}" />
                 </StackPanel>
             </Button>
             <CheckBox Margin="5 0"

@@ -12,7 +12,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
     {
         string Name { get; set; }
 
-        #region Properties
+        #region Property Bindings
 
         List<EnmityEntry> EnmityEntries { get; set; }
 
@@ -55,7 +55,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
 
         byte MIN { get; set; }
 
-        byte BOT { get; set; }
+        byte BTN { get; set; }
 
         byte FSH { get; set; }
 
@@ -95,7 +95,7 @@ namespace FFXIVAPP.Common.Core.Memory.Interfaces
 
         int MIN_CurrentEXP { get; set; }
 
-        int BOT_CurrentEXP { get; set; }
+        int BTN_CurrentEXP { get; set; }
 
         int FSH_CurrentEXP { get; set; }
 

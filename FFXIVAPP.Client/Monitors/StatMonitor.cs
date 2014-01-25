@@ -9,7 +9,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Models.Parse;
 using FFXIVAPP.Client.Models.Parse.Events;
-using FFXIVAPP.Client.Models.Parse.LinkedStats;
+using FFXIVAPP.Client.Models.Parse.History;
 using FFXIVAPP.Client.Models.Parse.StatGroups;
 using FFXIVAPP.Client.Models.Parse.Stats;
 using FFXIVAPP.Client.Properties;
@@ -36,10 +36,6 @@ namespace FFXIVAPP.Client.Monitors
         public StatMonitor(ParseControl parseControl) : base("StatMonitor", parseControl)
         {
             IncludeSelf = false;
-            if (parseControl.IsHistoryBased)
-            {
-                return;
-            }
             Filter = (EventParser.TypeMask | EventParser.Self | EventParser.Engaged | EventParser.UnEngaged);
             if (Constants.Parse.PluginSettings.ParseYou)
             {
@@ -96,46 +92,46 @@ namespace FFXIVAPP.Client.Monitors
             var hasDamageTaken = ParseControl.Timeline.Overall.Stats.GetStatValue("TotalOverallDamageTaken") > 0;
             if (hasDamage || hasHealing || hasDamageTaken)
             {
+                var currentOverallStats = ParseControl.Timeline.Overall.Stats;
                 var historyItem = new ParseHistoryItem();
-                var controller = historyItem.HistoryControl.Controller;
-                var oStats = ParseControl.Timeline.Overall.Stats;
-                foreach (var oStat in oStats.Where(oStat => oStat.GetType() == typeof (PerSecondAverageStat)))
+                var historyController = historyItem.HistoryControl = new HistoryControl();
+                foreach (var stat in currentOverallStats)
                 {
-                    controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
+                    historyController.Timeline.Overall.Stats.EnsureStatValue(stat.Name, stat.Value);
                 }
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDPS", oStats.GetStatValue("DPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDOTPS", oStats.GetStatValue("DOTPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHPS", oStats.GetStatValue("HPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOHPS", oStats.GetStatValue("HOHPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHOTPS", oStats.GetStatValue("HOTPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerHMPS", oStats.GetStatValue("HMPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTPS", oStats.GetStatValue("DTPS"));
-                controller.Timeline.Overall.Stats.SetOrAddStat("StaticPlayerDTOTPS", oStats.GetStatValue("DTOTPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerDPS", currentOverallStats.GetStatValue("DPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerDOTPS", currentOverallStats.GetStatValue("DOTPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerHPS", currentOverallStats.GetStatValue("HPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerHOHPS", currentOverallStats.GetStatValue("HOHPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerHOTPS", currentOverallStats.GetStatValue("HOTPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerHMPS", currentOverallStats.GetStatValue("HMPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerDTPS", currentOverallStats.GetStatValue("DTPS"));
+                historyController.Timeline.Overall.Stats.EnsureStatValue("StaticPlayerDTOTPS", currentOverallStats.GetStatValue("DTOTPS"));
                 var playerList = ParseControl.Timeline.Party.ToArray();
                 foreach (var player in playerList)
                 {
-                    var playerInstance = controller.Timeline.GetSetPlayer(player.Name);
+                    var playerInstance = historyController.Timeline.GetSetPlayer(player.Name);
                     playerInstance.Last20DamageActions = ((Player) player).Last20DamageActions.ToList();
                     playerInstance.Last20DamageTakenActions = ((Player) player).Last20DamageTakenActions.ToList();
                     playerInstance.Last20HealingActions = ((Player) player).Last20HealingActions.ToList();
                     foreach (var stat in player.Stats)
                     {
-                        playerInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                        playerInstance.Stats.EnsureStatValue(stat.Name, stat.Value);
                     }
-                    RabbitHoleCopy(playerInstance, player);
+                    RabbitHoleCopy(ref playerInstance, player);
                 }
                 var monsterList = ParseControl.Timeline.Monster.ToArray();
                 foreach (var monster in monsterList)
                 {
-                    var monsterInstance = controller.Timeline.GetSetMonster(monster.Name);
+                    var monsterInstance = historyController.Timeline.GetSetMonster(monster.Name);
                     monsterInstance.Last20DamageActions = ((Monster) monster).Last20DamageActions.ToList();
                     monsterInstance.Last20DamageTakenActions = ((Monster) monster).Last20DamageTakenActions.ToList();
                     monsterInstance.Last20HealingActions = ((Monster) monster).Last20HealingActions.ToList();
                     foreach (var stat in monster.Stats)
                     {
-                        monsterInstance.Stats.SetOrAddStat(stat.Name, stat.Value);
+                        monsterInstance.Stats.EnsureStatValue(stat.Name, stat.Value);
                     }
-                    RabbitHoleCopy(monsterInstance, monster);
+                    RabbitHoleCopy(ref monsterInstance, monster);
                 }
                 historyItem.Start = ParseControl.StartTime;
                 historyItem.End = DateTime.Now;
@@ -189,22 +185,23 @@ namespace FFXIVAPP.Client.Monitors
                 catch (Exception ex)
                 {
                 }
-                foreach (var oStat in oStats)
+                foreach (var oStat in currentOverallStats)
                 {
-                    controller.Timeline.Overall.Stats.SetOrAddStat(oStat.Name, oStat.Value);
+                    historyController.Timeline.Overall.Stats.EnsureStatValue(oStat.Name, oStat.Value);
                 }
                 historyItem.Name = String.Format("{0} [{1}] {2}", zone, monsterName, parseTimeDetails);
                 DispatcherHelper.Invoke(() => MainViewModel.Instance.ParseHistory.Insert(1, historyItem));
             }
         }
 
-        private void RabbitHoleCopy(StatGroup parent, StatGroup statGroup)
+        private void RabbitHoleCopy(ref HistoryGroup parent, StatGroup statGroup)
         {
             if (statGroup.Stats != null)
             {
-                var newStats = new Stat<decimal>[statGroup.Stats.Count];
-                statGroup.Stats.CopyTo(newStats, 0);
-                parent.Stats.AddStats(newStats);
+                foreach (var stat in statGroup.Stats)
+                {
+                    parent.Stats.EnsureStatValue(stat.Name, stat.Value);
+                }
             }
             if (!statGroup.Children.Any())
             {
@@ -212,8 +209,12 @@ namespace FFXIVAPP.Client.Monitors
             }
             foreach (var group in statGroup.Children)
             {
-                var newParent = parent.GetGroup(@group.Name);
-                RabbitHoleCopy(newParent, @group);
+                var newParent = parent.GetGroup(group.Name);
+                foreach (var stat in group.Stats)
+                {
+                    newParent.Stats.EnsureStatValue(stat.Name, stat.Value);
+                }
+                RabbitHoleCopy(ref newParent, group);
             }
         }
 
