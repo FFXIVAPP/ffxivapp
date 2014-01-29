@@ -41,6 +41,7 @@ namespace FFXIVAPP.Client
         private static string _gameLanguage;
         private static bool _enableNLog;
         private static bool _enableHelpLabels;
+        private static string _theme;
 
         public static Dictionary<string, ActionInfo> Actions
         {
@@ -139,6 +140,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _enableHelpLabels = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static string Theme
+        {
+            get { return _theme; }
+            set
+            {
+                _theme = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }

@@ -263,7 +263,6 @@ namespace FFXIVAPP.Client.Models.Parse
         {
             _parseEntityTimer.Stop();
             _parseEntityTimer.Elapsed -= ParseEntityTimerOnElapsed;
-            StartTime = DateTime.Now;
             FirstActionFound = !FirstActionFound;
             StatMonitor.Clear();
             Timeline.Clear();
@@ -272,6 +271,7 @@ namespace FFXIVAPP.Client.Models.Parse
             {
                 Players = new List<PlayerEntity>()
             };
+            StartTime = DateTime.Now;
             AppContextHelper.Instance.RaiseNewParseEntity(parseEntity);
             _parseEntityTimer.Elapsed += ParseEntityTimerOnElapsed;
             _parseEntityTimer.Start();

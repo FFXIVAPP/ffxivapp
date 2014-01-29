@@ -27,6 +27,9 @@ del Debug.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Radar\FFXIVAPP.Plugin.Radar.dll
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Radar\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Radar\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Debug.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml
@@ -60,6 +63,9 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Radar\FFXIVAPP.Plugin.Radar.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Radar\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Radar\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml
@@ -93,6 +99,9 @@ del SmartAssembly.zip /q
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Log\PluginInfo.xml
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Radar\FFXIVAPP.Plugin.Radar.dll
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Radar\Logo.png
+"C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Radar\PluginInfo.xml
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.dll
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\Logo.png
 "C:\Program Files\7-Zip\7z.exe" a SmartAssembly.zip Plugins\FFXIVAPP.Plugin.Widgets\PluginInfo.xml

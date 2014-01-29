@@ -17,6 +17,7 @@ using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
 using MahApps.Metro.Controls;

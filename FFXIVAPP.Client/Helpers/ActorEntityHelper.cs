@@ -18,122 +18,123 @@ namespace FFXIVAPP.Client.Helpers
     {
         public static ActorEntity ResolveActorFromMemory(Structures.NPCEntry actor, string name)
         {
-            var entry = new ActorEntity
+            var entry = new ActorEntity();
+            try
             {
-                Name = name,
-                ID = actor.ID,
-                NPCID1 = actor.NPCID1,
-                NPCID2 = actor.NPCID2,
-                OwnerID = actor.OwnerID,
-                Type = actor.Type,
-                Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                GatheringStatus = actor.GatheringStatus,
-                X = actor.X,
-                Z = actor.Z,
-                Y = actor.Y,
-                Heading = actor.Heading,
-                Distance = actor.Distance,
-                GatheringInvisible = actor.GatheringInvisible,
-                Fate = actor.Fate,
-                ModelID = actor.ModelID,
-                Icon = actor.Icon,
-                Status = actor.Status,
-                TargetID = actor.TargetID,
-                Level = actor.Level,
-                HPCurrent = actor.HPCurrent,
-                HPMax = actor.HPMax,
-                MPCurrent = actor.MPCurrent,
-                MPMax = actor.MPMax,
-                TPCurrent = actor.TPCurrent,
-                TPMax = 1000,
-                GPCurrent = actor.GPCurrent,
-                GPMax = actor.GPMax,
-                CPCurrent = actor.CPCurrent,
-                CPMax = actor.CPMax,
-                GrandCompany = actor.GrandCompany,
-                GrandCompanyRank = actor.GrandCompanyRank,
-                IsGM = actor.IsGM,
-                Job = actor.Job,
-                Race = actor.Race,
-                Sex = actor.Sex,
-                ActionStatus = actor.ActionStatus,
-                Title = actor.Title,
-                TargetType = actor.TargetType,
-                IsCasting = actor.IsCasting,
-                CastingID = actor.CastingID,
-                CastingTargetID = actor.CastingTargetID,
-                CastingProgress = actor.CastingProgress,
-                CastingTime = actor.CastingTime,
-                ClaimedByID = actor.ClaimedByID
-            };
-            if (entry.HPMax == 0)
-            {
-                entry.HPMax = 1;
-            }
-            entry.TargetID = 0;
-            if (actor.TargetID > 0)
-            {
+                entry.Name = name;
+                entry.ID = actor.ID;
+                entry.NPCID1 = actor.NPCID1;
+                entry.NPCID2 = actor.NPCID2;
+                entry.OwnerID = actor.OwnerID;
+                entry.Type = actor.Type;
+                entry.Coordinate = new Coordinate(actor.X, actor.Z, actor.Y);
+                entry.GatheringStatus = actor.GatheringStatus;
+                entry.X = actor.X;
+                entry.Z = actor.Z;
+                entry.Y = actor.Y;
+                entry.Heading = actor.Heading;
+                entry.Distance = actor.Distance;
+                entry.GatheringInvisible = actor.GatheringInvisible;
+                entry.Fate = actor.Fate;
+                entry.ModelID = actor.ModelID;
+                entry.Icon = actor.Icon;
+                entry.Status = actor.Status;
                 entry.TargetID = actor.TargetID;
-            }
-            else
-            {
-                if (actor.PCTargetID > 0)
+                entry.Level = actor.Level;
+                entry.HPCurrent = actor.HPCurrent;
+                entry.HPMax = actor.HPMax;
+                entry.MPCurrent = actor.MPCurrent;
+                entry.MPMax = actor.MPMax;
+                entry.TPCurrent = actor.TPCurrent;
+                entry.TPMax = 1000;
+                entry.GPCurrent = actor.GPCurrent;
+                entry.GPMax = actor.GPMax;
+                entry.CPCurrent = actor.CPCurrent;
+                entry.CPMax = actor.CPMax;
+                entry.GrandCompany = actor.GrandCompany;
+                entry.GrandCompanyRank = actor.GrandCompanyRank;
+                entry.IsGM = actor.IsGM;
+                entry.Job = actor.Job;
+                entry.Race = actor.Race;
+                entry.Sex = actor.Sex;
+                entry.ActionStatus = actor.ActionStatus;
+                entry.Title = actor.Title;
+                entry.TargetType = actor.TargetType;
+                entry.IsCasting = actor.IsCasting;
+                entry.CastingID = actor.CastingID;
+                entry.CastingTargetID = actor.CastingTargetID;
+                entry.CastingProgress = actor.CastingProgress;
+                entry.CastingTime = actor.CastingTime;
+                entry.ClaimedByID = actor.ClaimedByID;
+                entry.TargetID = 0;
+                if (actor.TargetID > 0)
                 {
-                    entry.TargetID = actor.PCTargetID;
+                    entry.TargetID = actor.TargetID;
                 }
-            }
-            if (entry.CastingTargetID == 3758096384)
-            {
-                entry.CastingTargetID = 0;
-            }
-            entry.MapIndex = 0;
-            var limit = 60;
-            switch (actor.Type)
-            {
-                case Actor.Type.PC:
-                    limit = 30;
-                    break;
-            }
-            for (var i = 0; i < limit; i++)
-            {
-                var statusEntry = new StatusEntry
+                else
                 {
-                    TargetName = entry.Name,
-                    StatusID = actor.Statuses[i].StatusID,
-                    Duration = actor.Statuses[i].Duration,
-                    CasterID = actor.Statuses[i].CasterID
-                };
-                try
-                {
-                    var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                    statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                    var statusKey = "";
-                    switch (Settings.Default.GameLanguage)
+                    if (actor.PCTargetID > 0)
                     {
-                        case "English":
-                            statusKey = statusInfo.Name.English;
-                            break;
-                        case "French":
-                            statusKey = statusInfo.Name.French;
-                            break;
-                        case "German":
-                            statusKey = statusInfo.Name.German;
-                            break;
-                        case "Japanese":
-                            statusKey = statusInfo.Name.Japanese;
-                            break;
+                        entry.TargetID = actor.PCTargetID;
                     }
-                    statusEntry.StatusName = statusKey;
                 }
-                catch (Exception ex)
+                if (entry.CastingTargetID == 3758096384)
                 {
-                    statusEntry.StatusName = "UNKNOWN";
+                    entry.CastingTargetID = 0;
                 }
-                if (statusEntry.IsValid())
+                entry.MapIndex = 0;
+                var limit = 60;
+                switch (actor.Type)
                 {
-                    entry.StatusEntries.Add(statusEntry);
+                    case Actor.Type.PC:
+                        limit = 30;
+                        break;
+                }
+                for (var i = 0; i < limit; i++)
+                {
+                    var statusEntry = new StatusEntry
+                    {
+                        TargetName = entry.Name,
+                        StatusID = actor.Statuses[i].StatusID,
+                        Duration = actor.Statuses[i].Duration,
+                        CasterID = actor.Statuses[i].CasterID
+                    };
+                    try
+                    {
+                        var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                        statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                        var statusKey = "";
+                        switch (Settings.Default.GameLanguage)
+                        {
+                            case "English":
+                                statusKey = statusInfo.Name.English;
+                                break;
+                            case "French":
+                                statusKey = statusInfo.Name.French;
+                                break;
+                            case "German":
+                                statusKey = statusInfo.Name.German;
+                                break;
+                            case "Japanese":
+                                statusKey = statusInfo.Name.Japanese;
+                                break;
+                        }
+                        statusEntry.StatusName = statusKey;
+                    }
+                    catch (Exception ex)
+                    {
+                        statusEntry.StatusName = "UNKNOWN";
+                    }
+                    if (statusEntry.IsValid())
+                    {
+                        entry.StatusEntries.Add(statusEntry);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+            }
+            CleanXPValue(ref entry);
             return entry;
         }
 
@@ -187,10 +188,6 @@ namespace FFXIVAPP.Client.Helpers
                 entry.TargetType = (Actor.TargetType) source[0x8C];
                 entry.Title = source[0x169E];
                 entry.Type = (Actor.Type) source[0x8A];
-                if (entry.HPMax == 0)
-                {
-                    entry.HPMax = 1;
-                }
                 entry.TargetID = 0;
                 var targetID = BitConverter.ToUInt32(source, 0x1A0);
                 var pcTargetID = BitConverter.ToUInt32(source, 0xA78);
@@ -267,7 +264,48 @@ namespace FFXIVAPP.Client.Helpers
             catch (Exception ex)
             {
             }
+            CleanXPValue(ref entry);
             return entry;
+        }
+
+        private static void CleanXPValue(ref ActorEntity entity)
+        {
+            if (entity.HPCurrent < 0 || entity.HPMax < 0)
+            {
+                entity.HPCurrent = 1;
+                entity.HPMax = 1;
+            }
+            if (entity.HPCurrent > entity.HPMax)
+            {
+                entity.HPCurrent = entity.HPMax;
+            }
+            if (entity.MPCurrent < 0 || entity.MPMax < 0)
+            {
+                entity.MPCurrent = 1;
+                entity.MPMax = 1;
+            }
+            if (entity.MPCurrent > entity.MPMax)
+            {
+                entity.MPCurrent = entity.MPMax;
+            }
+            if (entity.GPCurrent < 0 || entity.GPMax < 0)
+            {
+                entity.GPCurrent = 1;
+                entity.GPMax = 1;
+            }
+            if (entity.GPCurrent > entity.GPMax)
+            {
+                entity.GPCurrent = entity.GPMax;
+            }
+            if (entity.CPCurrent < 0 || entity.CPMax < 0)
+            {
+                entity.CPCurrent = 1;
+                entity.CPMax = 1;
+            }
+            if (entity.CPCurrent > entity.CPMax)
+            {
+                entity.CPCurrent = entity.CPMax;
+            }
         }
     }
 }

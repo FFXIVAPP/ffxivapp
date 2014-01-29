@@ -28,26 +28,14 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         #region Declarations
 
-        private ConcurrentDictionary<string, StatGroup> _childContainer;
-        private List<StatGroup> _children;
-        private StatContainer _stats;
-
-        private ConcurrentDictionary<string, StatGroup> ChildContainer
-        {
-            get { return _childContainer ?? (_childContainer = new ConcurrentDictionary<string, StatGroup>()); }
-            set { _childContainer = value; }
-        }
+        private readonly ConcurrentDictionary<string, StatGroup> ChildContainer = new ConcurrentDictionary<string, StatGroup>();
 
         public List<StatGroup> Children
         {
-            get { return _children ?? (_children = new List<StatGroup>(ChildContainer.Values)); }
-            set { _children = value; }
+            get { return new List<StatGroup>(ChildContainer.Values); }
         }
 
-        public StatContainer Stats
-        {
-            get { return _stats ?? (_stats = new StatContainer()); }
-        }
+        public StatContainer Stats = new StatContainer();
 
         #endregion
 
@@ -280,7 +268,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
             }
             if (dispatcher != null && dispatcher.CheckAccess() == false)
             {
-                dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => DoCollectionChanged(action, statGroup)));
+                dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() => DoCollectionChanged(action, statGroup)));
             }
             else
             {

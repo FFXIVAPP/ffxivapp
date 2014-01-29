@@ -178,6 +178,7 @@
     <Compile Include="Helpers\ZoneHelper.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ActionWorker.cs" />
+    <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
@@ -258,7 +259,6 @@
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
     <Compile Include="Helpers\TabItemHelper.cs" />
-    <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\Structures.cs" />
@@ -359,7 +359,6 @@
     <Compile Include="Utilities\MicroTimer.cs" />
     <Compile Include="Utilities\MicroTimerEventArgs.cs" />
     <Compile Include="Utilities\OutGoingEntry.cs" />
-    <Compile Include="Utilities\ThemeManager.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\Parse\AboutViewModel.cs" />
     <Compile Include="ViewModels\Parse\MainViewModel.cs" />

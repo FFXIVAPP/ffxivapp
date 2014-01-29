@@ -10,6 +10,7 @@ namespace FFXIVAPP.Common.Core.Constant.Interfaces
 {
     public interface IConstantsEntity
     {
+        string Theme { get; set; }
         Dictionary<string, string> AutoTranslate { get; set; }
         Dictionary<string, string> ChatCodes { get; set; }
         string ChatCodesXml { get; set; }

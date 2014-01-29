@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{BDF0777F-306F-464C-A30B-3FAE6CDDF527}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FFXIVAPP.Plugin.Radar</RootNamespace>
+    <AssemblyName>FFXIVAPP.Plugin.Radar</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\Debug\Plugins\FFXIVAPP.Plugin.Radar\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\Release\Plugins\FFXIVAPP.Plugin.Radar\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SmartAssembly|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\SmartAssembly\Plugins\FFXIVAPP.Plugin.Radar\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FFXIVAPP.Common, Version=2.0.5114.38136, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="FFXIVAPP.IPluginInterface, Version=2.0.5114.38136, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.IPluginInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="FFXIVAPP.Localization">
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ffxivapp-resources\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SmartAssembly.Attributes, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\resources\SmartAssembly.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ffxivapp-resources\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controls\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Radar.xaml.cs">
+      <DependentUpon>Radar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventSubscriber.cs" />
+    <Compile Include="Helpers\RadarIconHelper.cs" />
+    <Compile Include="Helpers\WidgetTopMostHelper.cs" />
+    <Compile Include="Initializer.cs" />
+    <Compile Include="Interop\WinAPI.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="PluginException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="PluginViewModel.cs" />
+    <Compile Include="ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="Utilities\LogPublisher.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\XIVInfoViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RadarWidgetViewModel.cs" />
+    <Compile Include="Widgets.cs" />
+    <Compile Include="Windows\RadarWidget.xaml.cs">
+      <DependentUpon>RadarWidget.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Defaults\Settings.xml" />
+    <Resource Include="Media\RadarIcons\alchemist.png" />
+    <Resource Include="Media\RadarIcons\arcanist.png" />
+    <Resource Include="Media\RadarIcons\archer.png" />
+    <Resource Include="Media\RadarIcons\armorer.png" />
+    <Resource Include="Media\RadarIcons\bard.png" />
+    <Resource Include="Media\RadarIcons\blackmage.png" />
+    <Resource Include="Media\RadarIcons\blacksmith.png" />
+    <Resource Include="Media\RadarIcons\botanist.png" />
+    <Resource Include="Media\RadarIcons\carpenter.png" />
+    <Resource Include="Media\RadarIcons\conjurer.png" />
+    <Resource Include="Media\RadarIcons\culinarian.png" />
+    <Resource Include="Media\RadarIcons\dragoon.png" />
+    <Resource Include="Media\RadarIcons\fisher.png" />
+    <Resource Include="Media\RadarIcons\gladiator.png" />
+    <Resource Include="Media\RadarIcons\goldsmith.png" />
+    <Resource Include="Media\RadarIcons\lancer.png" />
+    <Resource Include="Media\RadarIcons\leatherworker.png" />
+    <Resource Include="Media\RadarIcons\marauder.png" />
+    <Resource Include="Media\RadarIcons\miner.png" />
+    <Resource Include="Media\RadarIcons\monk.png" />
+    <Resource Include="Media\RadarIcons\paladin.png" />
+    <Resource Include="Media\RadarIcons\player.png" />
+    <Resource Include="Media\RadarIcons\pugilist.png" />
+    <Resource Include="Media\RadarIcons\radar_heading.png" />
+    <Resource Include="Media\RadarIcons\scholar.png" />
+    <Resource Include="Media\RadarIcons\summoner.png" />
+    <Resource Include="Media\RadarIcons\thaumaturge.png" />
+    <Resource Include="Media\RadarIcons\warrior.png" />
+    <Resource Include="Media\RadarIcons\weaver.png" />
+    <Resource Include="Media\RadarIcons\whitemage.png" />
+    <Resource Include="Media\RadarIcons\boat.png" />
+    <Resource Include="Media\RadarIcons\boss.png" />
+    <Resource Include="Media\RadarIcons\bronze_chest.png" />
+    <Resource Include="Media\RadarIcons\chocobo.png" />
+    <Resource Include="Media\RadarIcons\crystal.png" />
+    <Resource Include="Media\RadarIcons\dungeon.png" />
+    <Resource Include="Media\RadarIcons\fate.png" />
+    <Resource Include="Media\RadarIcons\fate2.png" />
+    <Resource Include="Media\RadarIcons\fate3.png" />
+    <Resource Include="Media\RadarIcons\field.png" />
+    <Resource Include="Media\RadarIcons\field2.png" />
+    <Resource Include="Media\RadarIcons\gold_chest.png" />
+    <Resource Include="Media\RadarIcons\mail.png" />
+    <Resource Include="Media\RadarIcons\merchant.png" />
+    <Resource Include="Media\RadarIcons\merchant2.png" />
+    <Resource Include="Media\RadarIcons\mining.png" />
+    <Resource Include="Media\RadarIcons\monster.png" />
+    <Resource Include="Media\RadarIcons\monster_claimed.png" />
+    <Resource Include="Media\RadarIcons\npc.png" />
+    <Resource Include="Media\RadarIcons\sheep.png" />
+    <Resource Include="Media\RadarIcons\silver_chest.png" />
+    <Resource Include="Media\RadarIcons\skull.png" />
+    <Resource Include="Media\RadarIcons\town.png" />
+    <Resource Include="Media\RadarIcons\wood.png" />
+    <Resource Include="Media\RadarIcons\zone.png" />
+    <Content Include="PluginInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Media\Images\License.png" />
+    <Resource Include="Media\Images\Refresh.png" />
+    <Resource Include="Media\Images\About.png" />
+    <Resource Include="Media\Images\Main.png" />
+    <Resource Include="Media\Images\Settings.png" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\Map.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Radar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\RadarWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'SmartAssembly'">
+    <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.Plugin.Radar.saproj" input="$(OutDir)FFXIVAPP.Plugin.Radar.dll" output="$(OutDir)FFXIVAPP.Plugin.Radar.dll" OverwriteAssembly="true" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+</Project>

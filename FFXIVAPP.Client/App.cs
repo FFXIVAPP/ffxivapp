@@ -190,6 +190,9 @@ namespace FFXIVAPP.Client
                 case "EnableHelpLabels":
                     Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                     break;
+                case "Theme":
+                    Constants.Theme = Settings.Default.Theme;
+                    break;
                 case "TopMost":
                     if (ShellView.View != null)
                     {

@@ -216,26 +216,32 @@
                                                            Padding="5 0"
                                                            Style="{StaticResource CommaNumberStyle}"
                                                            Text="{Binding CombinedTotalOverallDamage,
-                                                                          StringFormat={}{0:N0}}" />
+                                                                          StringFormat={}{0:N0}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                                 <TextBlock HorizontalAlignment="Right"
                                                            Padding="5 0"
                                                            Style="{StaticResource CommaNumberStyle}"
                                                            Text="{Binding CombinedTotalOverallHealing,
-                                                                          StringFormat={}{0:N0}}" />
+                                                                          StringFormat={}{0:N0}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                                 <TextBlock HorizontalAlignment="Right"
                                                            Padding="5 0"
                                                            Style="{StaticResource CommaNumberStyle}"
                                                            Text="{Binding CombinedTotalOverallDamageTaken,
-                                                                          StringFormat={}{0:N0}}" />
+                                                                          StringFormat={}{0:N0}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="2">
                                                 <TextBlock Text="{Binding Locale[parse_CombinedDPSLabel],
-                                                                          Source={StaticResource AppProperties}}" />
+                                                                          Source={StaticResource AppProperties}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                                 <TextBlock Text="{Binding Locale[parse_CombinedHPSLabel],
-                                                                          Source={StaticResource AppProperties}}" />
+                                                                          Source={StaticResource AppProperties}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                                 <TextBlock Text="{Binding Locale[parse_CombinedDTPSLabel],
-                                                                          Source={StaticResource AppProperties}}" />
+                                                                          Source={StaticResource AppProperties}}"
+                                                           TextWrapping="WrapWithOverflow" />
                                             </StackPanel>
                                             <StackPanel Grid.Row="0"
                                                         Grid.Column="3">
@@ -553,15 +559,15 @@
                                                                               Source={StaticResource AppProperties},
                                                                               Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
-                                                <grids:HealingDataGrid x:Name="PlayerHealingOverHealingToPlayers"
-                                                                       BorderThickness="0"
-                                                                       DataContext="{Binding SelectedItem,
-                                                                                             ElementName=PlayerInfoListView,
-                                                                                             NotifyOnTargetUpdated=True,
-                                                                                             NotifyOnSourceUpdated=True}"
-                                                                       ItemsSource="{Binding HealingOverHealingToPlayers}"
-                                                                       SelectionMode="Single"
-                                                                       Style="{DynamicResource MetroDataGrid}" />
+                                                <grids:HealingOverHealingDataGrid x:Name="PlayerHealingOverHealingToPlayers"
+                                                                                  BorderThickness="0"
+                                                                                  DataContext="{Binding SelectedItem,
+                                                                                                        ElementName=PlayerInfoListView,
+                                                                                                        NotifyOnTargetUpdated=True,
+                                                                                                        NotifyOnSourceUpdated=True}"
+                                                                                  ItemsSource="{Binding HealingOverHealingToPlayers}"
+                                                                                  SelectionMode="Single"
+                                                                                  Style="{DynamicResource MetroDataGrid}" />
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
@@ -593,15 +599,15 @@
                                                                               Source={StaticResource AppProperties},
                                                                               Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
-                                                <grids:HealingDataGrid x:Name="PlayerHealingOverTimeToPlayers"
-                                                                       BorderThickness="0"
-                                                                       DataContext="{Binding SelectedItem,
-                                                                                             ElementName=PlayerInfoListView,
-                                                                                             NotifyOnTargetUpdated=True,
-                                                                                             NotifyOnSourceUpdated=True}"
-                                                                       ItemsSource="{Binding HealingOverTimeToPlayers}"
-                                                                       SelectionMode="Single"
-                                                                       Style="{DynamicResource MetroDataGrid}" />
+                                                <grids:HealingOverTimeDataGrid x:Name="PlayerHealingOverTimeToPlayers"
+                                                                               BorderThickness="0"
+                                                                               DataContext="{Binding SelectedItem,
+                                                                                                     ElementName=PlayerInfoListView,
+                                                                                                     NotifyOnTargetUpdated=True,
+                                                                                                     NotifyOnSourceUpdated=True}"
+                                                                               ItemsSource="{Binding HealingOverTimeToPlayers}"
+                                                                               SelectionMode="Single"
+                                                                               Style="{DynamicResource MetroDataGrid}" />
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
@@ -633,15 +639,15 @@
                                                                               Source={StaticResource AppProperties},
                                                                               Converter={StaticResource ToUpperConverter}}" />
                                                 </GroupBox.Header>
-                                                <grids:HealingDataGrid x:Name="PlayerHealingMitigatedToPlayers"
-                                                                       BorderThickness="0"
-                                                                       DataContext="{Binding SelectedItem,
-                                                                                             ElementName=PlayerInfoListView,
-                                                                                             NotifyOnTargetUpdated=True,
-                                                                                             NotifyOnSourceUpdated=True}"
-                                                                       ItemsSource="{Binding HealingMitigatedToPlayers}"
-                                                                       SelectionMode="Single"
-                                                                       Style="{DynamicResource MetroDataGrid}" />
+                                                <grids:HealingMitigatedDataGrid x:Name="PlayerHealingMitigatedToPlayers"
+                                                                                BorderThickness="0"
+                                                                                DataContext="{Binding SelectedItem,
+                                                                                                      ElementName=PlayerInfoListView,
+                                                                                                      NotifyOnTargetUpdated=True,
+                                                                                                      NotifyOnSourceUpdated=True}"
+                                                                                ItemsSource="{Binding HealingMitigatedToPlayers}"
+                                                                                SelectionMode="Single"
+                                                                                Style="{DynamicResource MetroDataGrid}" />
                                             </GroupBox>
                                             <Expander Padding="0">
                                                 <Expander.Header>
@@ -1330,6 +1336,21 @@
                                                               Style="{DynamicResource MetroDataGrid}" />
                                     </Expander>
                                     <!--
+                                        <Expander Padding="0">
+                                        <Expander.Header>
+                                        <TextBlock Foreground="White"
+                                        Padding="5"
+                                        Text="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
+                                        Source={StaticResource AppProperties},
+                                        Converter={StaticResource ToUpperConverter}}" />
+                                        </Expander.Header>
+                                        <grids:DamageOverTimeDataGrid BorderThickness="0"
+                                        ItemsSource="{Binding}"
+                                        SelectionMode="Single"
+                                        Style="{DynamicResource MetroDataGrid}" />
+                                        </Expander>
+                                    -->
+                                    <!--
                                         <Expander IsExpanded="True"
                                         Padding="0">
                                         <Expander.Header>
@@ -1341,21 +1362,6 @@
                                         </Expander.Header>
                                         <grids:CombinedHealingDataGrid x:Name="MonsterCombinedHealingStats"
                                         BorderThickness="0"
-                                        ItemsSource="{Binding}"
-                                        SelectionMode="Single"
-                                        Style="{DynamicResource MetroDataGrid}" />
-                                        </Expander>
-                                    -->
-                                    <!--
-                                        <Expander Padding="0">
-                                        <Expander.Header>
-                                        <TextBlock Foreground="White"
-                                        Padding="5"
-                                        Text="{Binding Locale[parse_OverallTotalsDamageOverTimeHeader],
-                                        Source={StaticResource AppProperties},
-                                        Converter={StaticResource ToUpperConverter}}" />
-                                        </Expander.Header>
-                                        <grids:DamageOverTimeDataGrid BorderThickness="0"
                                         ItemsSource="{Binding}"
                                         SelectionMode="Single"
                                         Style="{DynamicResource MetroDataGrid}" />

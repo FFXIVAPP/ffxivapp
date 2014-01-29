@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
 
         public bool StatusUpdateTimerProcessing { get; set; }
 
-        private ParseControl Controller { get; set; }
+        private static ParseControl Controller { get; set; }
 
         public uint ID { get; set; }
 

@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Client
+﻿// FFXIVAPP.Common
 // ThemeHelper.cs
 // 
 // © 2013 Ryan Wilson
@@ -10,13 +10,10 @@ using System.Windows;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using NLog;
-using SmartAssembly.Attributes;
-using ThemeManager = FFXIVAPP.Client.Utilities.ThemeManager;
 
-namespace FFXIVAPP.Client.Helpers
+namespace FFXIVAPP.Common.Helpers
 {
-    [DoNotObfuscate]
-    internal static class ThemeHelper
+    public static class ThemeHelper
     {
         #region Logger
 
@@ -26,20 +23,20 @@ namespace FFXIVAPP.Client.Helpers
 
         /// <summary>
         /// </summary>
-        /// <param name="t"> </param>
+        /// <param name="theme"> </param>
         /// <param name="window"></param>
-        public static void ChangeTheme(string t, List<MetroWindow> window)
+        public static void ChangeTheme(string theme, List<MetroWindow> window)
         {
             try
             {
                 if (window == null || !window.Any())
                 {
-                    Apply(t, ShellView.View);
+                    Apply(theme, Application.Current.MainWindow);
                     return;
                 }
                 foreach (var metroWindow in window.Where(metroWindow => metroWindow != null))
                 {
-                    Apply(t, metroWindow);
+                    Apply(theme, metroWindow);
                 }
             }
             catch (Exception ex)
@@ -51,12 +48,12 @@ namespace FFXIVAPP.Client.Helpers
         /// </summary>
         /// <param name="t"></param>
         /// <param name="window"></param>
-        private static void Apply(string t, Window window)
+        private static void Apply(string theme, Window window)
         {
-            var split = t.Split('|');
+            var split = theme.Split('|');
             var accent = split[0];
-            var theme = split[1];
-            switch (theme)
+            var shade = split[1];
+            switch (shade)
             {
                 case "Dark":
                     ThemeManager.ChangeTheme(window, ThemeManager.DefaultAccents.First(a => a.Name == accent), Theme.Dark);

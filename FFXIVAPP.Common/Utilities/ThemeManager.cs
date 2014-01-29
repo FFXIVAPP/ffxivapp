@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Client
+﻿// FFXIVAPP.Common
 // ThemeManager.cs
 // 
 // © 2013 Ryan Wilson
@@ -9,12 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using MahApps.Metro;
-using SmartAssembly.Attributes;
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Common.Utilities
 {
-    [DoNotObfuscate]
-    internal static class ThemeManager
+    public static class ThemeManager
     {
         private static readonly ResourceDictionary LightResource = new ResourceDictionary
         {

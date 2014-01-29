@@ -5,8 +5,8 @@
 
 using System.Collections.Generic;
 using System.Windows;
-using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Helpers;
 using MahApps.Metro.Controls;
 
 namespace FFXIVAPP.Client.Windows

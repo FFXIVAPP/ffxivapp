@@ -119,6 +119,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\SoundPlayerHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Models\GoogleTranslateResult.cs" />
     <Compile Include="Models\LogItem.cs" />
     <Compile Include="Models\PopupContent.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Utilities\Logging.cs" />
     <Compile Include="Utilities\ScreenCapture.cs" />
     <Compile Include="Utilities\SelectionBehavior.cs" />
+    <Compile Include="Utilities\ThemeManager.cs" />
     <Compile Include="ViewModelBase\CommandManagerHelper.cs" />
     <Compile Include="ViewModelBase\DelegateCommand.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />

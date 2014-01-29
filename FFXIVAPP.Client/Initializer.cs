@@ -39,6 +39,7 @@ namespace FFXIVAPP.Client
         #region Declarations
 
         private static ActionWorker _actionWorker;
+        private static ActorWorker _actorWorker;
         private static ChatLogWorker _chatLogWorker;
         private static MonsterWorker _monsterWorker;
         private static NPCWorker _npcWorker;
@@ -530,6 +531,12 @@ namespace FFXIVAPP.Client
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
+                Key = "ACTORMAP",
+                Value = "3E000000????????4000000001000000000000000001000000",
+                Offset = 1140
+            });
+            AppViewModel.Instance.Signatures.Add(new Signature
+            {
                 Key = "PARTYMAP",
                 Value = "??FFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
                 Offset = 44
@@ -636,10 +643,12 @@ namespace FFXIVAPP.Client
             _chatLogWorker.StartScanning();
             //_actionWorker = new ActionWorker();
             //_actionWorker.StartScanning();
-            _monsterWorker = new MonsterWorker();
-            _monsterWorker.StartScanning();
-            _npcWorker = new NPCWorker();
-            _npcWorker.StartScanning();
+            _actorWorker = new ActorWorker();
+            _actorWorker.StartScanning();
+            //_monsterWorker = new MonsterWorker();
+            //_monsterWorker.StartScanning();
+            //_npcWorker = new NPCWorker();
+            //_npcWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
             _playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
@@ -681,6 +690,11 @@ namespace FFXIVAPP.Client
             {
                 _actionWorker.StopScanning();
                 _actionWorker.Dispose();
+            }
+            if (_actorWorker != null)
+            {
+                _actorWorker.StopScanning();
+                _actorWorker.Dispose();
             }
             if (_monsterWorker != null)
             {
