@@ -5,9 +5,11 @@
 
 using System;
 using System.ComponentModel;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Radar.Interop;
 using FFXIVAPP.Plugin.Radar.Properties;
 
@@ -20,7 +22,7 @@ namespace FFXIVAPP.Plugin.Radar.Windows
     {
         #region Radar Declarations
 
-        private readonly DispatcherTimer RefreshTimer = new DispatcherTimer();
+        private readonly Timer RefreshTimer = new Timer(100);
         public bool IsRendered { get; set; }
 
         #endregion
@@ -41,8 +43,7 @@ namespace FFXIVAPP.Plugin.Radar.Windows
                 return;
             }
             IsRendered = true;
-            RefreshTimer.Tick += RefreshTimerTick;
-            RefreshTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            RefreshTimer.Elapsed += RefreshTimerTick;
             RefreshTimer.Start();
         }
 
@@ -50,7 +51,7 @@ namespace FFXIVAPP.Plugin.Radar.Windows
         {
             if (View.IsVisible)
             {
-                View.RadarControl.Refresh();
+                DispatcherHelper.Invoke(() => View.RadarControl.Refresh());
             }
         }
 

@@ -277,7 +277,15 @@ namespace FFXIVAPP.Client.Helpers
             }
             if (entity.HPCurrent > entity.HPMax)
             {
-                entity.HPCurrent = entity.HPMax;
+                if (entity.HPMax == 0)
+                {
+                    entity.HPCurrent = 1;
+                    entity.HPMax = 1;
+                }
+                else
+                {
+                    entity.HPCurrent = entity.HPMax;
+                }
             }
             if (entity.MPCurrent < 0 || entity.MPMax < 0)
             {
@@ -286,7 +294,15 @@ namespace FFXIVAPP.Client.Helpers
             }
             if (entity.MPCurrent > entity.MPMax)
             {
-                entity.MPCurrent = entity.MPMax;
+                if (entity.MPMax == 0)
+                {
+                    entity.MPCurrent = 1;
+                    entity.MPMax = 1;
+                }
+                else
+                {
+                    entity.MPCurrent = entity.MPMax;
+                }
             }
             if (entity.GPCurrent < 0 || entity.GPMax < 0)
             {
@@ -295,7 +311,15 @@ namespace FFXIVAPP.Client.Helpers
             }
             if (entity.GPCurrent > entity.GPMax)
             {
-                entity.GPCurrent = entity.GPMax;
+                if (entity.GPMax == 0)
+                {
+                    entity.GPCurrent = 1;
+                    entity.GPMax = 1;
+                }
+                else
+                {
+                    entity.GPCurrent = entity.GPMax;
+                }
             }
             if (entity.CPCurrent < 0 || entity.CPMax < 0)
             {
@@ -304,7 +328,15 @@ namespace FFXIVAPP.Client.Helpers
             }
             if (entity.CPCurrent > entity.CPMax)
             {
-                entity.CPCurrent = entity.CPMax;
+                if (entity.CPMax == 0)
+                {
+                    entity.CPCurrent = 1;
+                    entity.CPMax = 1;
+                }
+                else
+                {
+                    entity.CPCurrent = entity.CPMax;
+                }
             }
         }
     }

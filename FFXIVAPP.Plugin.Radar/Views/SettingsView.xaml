@@ -110,6 +110,13 @@
                                                                                    Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
+                                <GroupBox Header="{Binding Locale[radar_PCShowDistanceHeader],
+                                                           Source={StaticResource PluginViewModel}}">
+                                    <StackPanel>
+                                        <controls:ToggleSwitch IsChecked="{Binding PCShowDistance,
+                                                                                   Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
                             </StackPanel>
                         </Expander>
                         <Expander Header="Settings:Radar:NPC">
@@ -132,6 +139,13 @@
                                                            Source={StaticResource PluginViewModel}}">
                                     <StackPanel>
                                         <controls:ToggleSwitch IsChecked="{Binding NPCShowHPPercent,
+                                                                                   Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="{Binding Locale[radar_NPCShowDistanceHeader],
+                                                           Source={StaticResource PluginViewModel}}">
+                                    <StackPanel>
+                                        <controls:ToggleSwitch IsChecked="{Binding NPCShowDistance,
                                                                                    Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
@@ -160,6 +174,13 @@
                                                                                    Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
+                                <GroupBox Header="{Binding Locale[radar_MonsterShowDistanceHeader],
+                                                           Source={StaticResource PluginViewModel}}">
+                                    <StackPanel>
+                                        <controls:ToggleSwitch IsChecked="{Binding MonsterShowDistance,
+                                                                                   Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
                             </StackPanel>
                         </Expander>
                         <Expander Header="Settings:Radar:Gathering">
@@ -185,6 +206,13 @@
                                                                                    Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
+                                <GroupBox Header="{Binding Locale[radar_GatheringShowDistanceHeader],
+                                                           Source={StaticResource PluginViewModel}}">
+                                    <StackPanel>
+                                        <controls:ToggleSwitch IsChecked="{Binding GatheringShowDistance,
+                                                                                   Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
                             </StackPanel>
                         </Expander>
                         <Expander Header="Settings:Radar:Other">
@@ -207,6 +235,13 @@
                                                            Source={StaticResource PluginViewModel}}">
                                     <StackPanel>
                                         <controls:ToggleSwitch IsChecked="{Binding OtherShowHPPercent,
+                                                                                   Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="{Binding Locale[radar_OtherShowDistanceHeader],
+                                                           Source={StaticResource PluginViewModel}}">
+                                    <StackPanel>
+                                        <controls:ToggleSwitch IsChecked="{Binding OtherShowDistance,
                                                                                    Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>

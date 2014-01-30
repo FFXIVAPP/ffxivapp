@@ -63,6 +63,7 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             Constants.Settings.Add("PCShowName");
             Constants.Settings.Add("PCShowHPPercent");
             Constants.Settings.Add("PCShowJob");
+            Constants.Settings.Add("PCShowDistance");
 
             #endregion
 
@@ -71,6 +72,7 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             Constants.Settings.Add("NPCShow");
             Constants.Settings.Add("NPCShowName");
             Constants.Settings.Add("NPCShowHPPercent");
+            Constants.Settings.Add("NPCShowDistance");
 
             #endregion
 
@@ -79,6 +81,7 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             Constants.Settings.Add("MonsterShow");
             Constants.Settings.Add("MonsterShowName");
             Constants.Settings.Add("MonsterShowHPPercent");
+            Constants.Settings.Add("MonsterShowDistance");
 
             #endregion
 
@@ -87,6 +90,7 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             Constants.Settings.Add("GatheringShow");
             Constants.Settings.Add("GatheringShowName");
             Constants.Settings.Add("GatheringShowHPPercent");
+            Constants.Settings.Add("GatheringShowDistance");
 
             #endregion
 
@@ -95,6 +99,7 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             Constants.Settings.Add("OtherShow");
             Constants.Settings.Add("OtherShowName");
             Constants.Settings.Add("OtherShowHPPercent");
+            Constants.Settings.Add("OtherShowDistance");
 
             #endregion
         }
@@ -381,6 +386,19 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             }
         }
 
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool PCShowDistance
+        {
+            get { return ((bool) (this["PCShowDistance"])); }
+            set
+            {
+                this["PCShowDistance"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region NPC Options
@@ -420,6 +438,19 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             set
             {
                 this["NPCShowHPPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool NPCShowDistance
+        {
+            get { return ((bool) (this["NPCShowDistance"])); }
+            set
+            {
+                this["NPCShowDistance"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -467,6 +498,19 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             }
         }
 
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool MonsterShowDistance
+        {
+            get { return ((bool) (this["MonsterShowDistance"])); }
+            set
+            {
+                this["MonsterShowDistance"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Gathering Options
@@ -510,6 +554,19 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             }
         }
 
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool GatheringShowDistance
+        {
+            get { return ((bool) (this["GatheringShowDistance"])); }
+            set
+            {
+                this["GatheringShowDistance"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Other Options
@@ -549,6 +606,19 @@ namespace FFXIVAPP.Plugin.Radar.Properties
             set
             {
                 this["OtherShowHPPercent"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool OtherShowDistance
+        {
+            get { return ((bool) (this["OtherShowDistance"])); }
+            set
+            {
+                this["OtherShowDistance"] = value;
                 RaisePropertyChanged();
             }
         }
