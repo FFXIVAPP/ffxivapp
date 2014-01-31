@@ -141,7 +141,6 @@
                             <StackPanel>
                                 <TextBox x:Name="CICUID"
                                          Margin="5"
-                                         
                                          AutoWordSelection="True"
                                          IsReadOnly="True"
                                          Text="{Binding CICUID,
@@ -156,25 +155,23 @@
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <TextBlock Text="{Binding Locale[app_FirstNameLabel],
-                                                         Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="FirstName"
                                          Margin="5"
-                                         
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding FirstName,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_LastNameLabel],
-                                                         Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="LastName"
                                          Margin="5"
-                                         
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding LastName,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_ServerLabel],
-                                                         Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <ComboBox x:Name="ServerList"
                                           Margin="5"
                                           IsReadOnly="False"
@@ -198,19 +195,17 @@
                     <DockPanel Grid.Row="0"
                                Margin="3"
                                LastChildFill="True">
-                        <TextBlock 
-                               Text="{Binding Locale[app_CodeLabel],
-                                                 Source={StaticResource AppProperties}}" />
+                        <TextBlock Padding="5"
+                                   Text="{Binding Locale[app_CodeLabel],
+                                                  Source={StaticResource AppProperties}}" />
                         <TextBox x:Name="TCode"
                                  Width="50"
-                                 
                                  IsReadOnly="True"
                                  Text="" />
-                        <TextBlock 
-                               Text="{Binding Locale[app_ColorLabel],
-                                                 Source={StaticResource AppProperties}}" />
+                        <TextBlock Padding="5"
+                                   Text="{Binding Locale[app_ColorLabel],
+                                                  Source={StaticResource AppProperties}}" />
                         <TextBox x:Name="TColor"
-                                 
                                  Text="" />
                     </DockPanel>
                     <DockPanel Grid.Row="1"

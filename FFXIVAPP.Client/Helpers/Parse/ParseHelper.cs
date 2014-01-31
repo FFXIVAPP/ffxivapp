@@ -140,7 +140,8 @@ namespace FFXIVAPP.Client.Helpers.Parse
                         {
                             results.Add(actionTuple.Item1, 0);
                         }
-                        results[actionTuple.Item1] += actionTuple.Item2;
+                        //results[actionTuple.Item1] += actionTuple.Item2;
+                        results[actionTuple.Item1] = actionTuple.Item2;
                         if (!actionList.Contains(actionTuple.Item1))
                         {
                             actionList.Add(actionTuple.Item1);
@@ -153,7 +154,7 @@ namespace FFXIVAPP.Client.Helpers.Parse
                     }
                     foreach (var action in actionList)
                     {
-                        results[action] = results[action] / actionUpdateCount[action];
+                        //results[action] = results[action] / actionUpdateCount[action];
                     }
                 }
                 return results;
@@ -193,7 +194,8 @@ namespace FFXIVAPP.Client.Helpers.Parse
                         {
                             results.Add(actionTuple.Item1, 0);
                         }
-                        results[actionTuple.Item1] += actionTuple.Item2;
+                        //results[actionTuple.Item1] += actionTuple.Item2;
+                        results[actionTuple.Item1] = actionTuple.Item2;
                         if (!actionList.Contains(actionTuple.Item1))
                         {
                             actionList.Add(actionTuple.Item1);
@@ -206,7 +208,7 @@ namespace FFXIVAPP.Client.Helpers.Parse
                     }
                     foreach (var action in actionList)
                     {
-                        results[action] = results[action] / actionUpdateCount[action];
+                        //results[action] = results[action] / actionUpdateCount[action];
                     }
                 }
                 return results;

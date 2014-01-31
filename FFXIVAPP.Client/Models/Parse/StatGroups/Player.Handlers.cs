@@ -14,6 +14,7 @@ using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 
 namespace FFXIVAPP.Client.Models.Parse.StatGroups
 {
@@ -66,10 +67,12 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     var zeroFoundInList = false;
                     var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var thunder = Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-                    var lastDamageOverTimeActionsList = ParseHelper.LastAmountByAction.GetPlayer(Name)
+                    var lastDamageAmountByActions = ParseHelper.LastAmountByAction.GetPlayer(Name)
                                                                    .ToList();
                     var resolvedPotency = 80;
-                    foreach (var lastDamageAmountByAction in lastDamageOverTimeActionsList)
+                    var thunderDuration = 24;
+                    var originalThunderDamage = 0m;
+                    foreach (var lastDamageAmountByAction in lastDamageAmountByActions)
                     {
                         if (thunder)
                         {
@@ -79,20 +82,27 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             if (thunderActions["III"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
                                 found = true;
+                                thunderDuration = DamageOverTimeHelper.PlayerActions["thunder iii"].Duration;
+                                originalThunderDamage = action.Value;
                                 amount = (action.Value / DamageOverTimeHelper.PlayerActions["thunder iii"].ActionPotency) * 30;
                             }
                             if (thunderActions["II"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
                                 found = true;
+                                thunderDuration = DamageOverTimeHelper.PlayerActions["thunder ii"].Duration;
+                                originalThunderDamage = action.Value;
                                 amount = (action.Value / DamageOverTimeHelper.PlayerActions["thunder ii"].ActionPotency) * 30;
                             }
                             if (thunderActions["I"].Any(thunderAction => String.Equals(action.Key, thunderAction, Constants.InvariantComparer)))
                             {
                                 found = true;
+                                thunderDuration = DamageOverTimeHelper.PlayerActions["thunder"].Duration;
+                                originalThunderDamage = action.Value;
                                 amount = action.Value;
                             }
                             if (found)
                             {
+                                
                                 break;
                             }
                         }
@@ -131,7 +141,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     var tickDamage = Math.Ceiling(((amount / resolvedPotency) * actionData.ActionOverTimePotency) / 3);
                     if (actionData.HasNoInitialResult && !zeroFoundInList)
                     {
-                        var nonZeroActions = lastDamageOverTimeActionsList.Where(d => !d.Key.Contains("•"));
+                        var nonZeroActions = lastDamageAmountByActions.Where(d => !d.Key.Contains("•"));
                         var keyValuePairs = nonZeroActions as IList<KeyValuePair<string, decimal>> ?? nonZeroActions.ToList();
                         var damage = 0m;
                         switch (bio)
@@ -150,9 +160,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                         }
                         tickDamage = damage > 0 ? damage : tickDamage;
                     }
-                    if (amount > 300 && thunder)
+                    if (originalThunderDamage > 300 && thunder)
                     {
-                        tickDamage = Math.Ceiling(tickDamage / ((decimal) actionData.Duration / 3));
+                        tickDamage = Math.Ceiling(originalThunderDamage / (thunderDuration + 3));
                     }
                     var line = new Line
                     {
