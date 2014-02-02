@@ -63,6 +63,8 @@ namespace FFXIVAPP.Client
             Initializer.LoadApplicationSettings();
             Initializer.LoadSoundsIntoCache();
             Initializer.LoadPlugins();
+            Initializer.LoadAvailableSources();
+            Initializer.LoadAvailablePlugins();
 
             #endregion
 

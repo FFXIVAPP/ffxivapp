@@ -126,7 +126,8 @@ namespace FFXIVAPP.Client
         {
             try
             {
-                var pAssembly = Assembly.LoadFile(assemblyPath);
+                var bytes = File.ReadAllBytes(assemblyPath);
+                var pAssembly = Assembly.Load(bytes);
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);

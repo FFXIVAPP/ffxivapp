@@ -8,7 +8,7 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Models
 {
     [DoNotObfuscate]
-    public class PluginInformation
+    public class PluginInfo
     {
         private bool _isEnabled;
         public string Name { get; set; }

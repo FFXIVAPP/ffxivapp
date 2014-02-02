@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Updater
-// MainWindow.xaml.cs
+// ShellView.xaml.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -21,9 +21,9 @@ using Ionic.Zip;
 namespace FFXIVAPP.Updater
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class MainWindow : INotifyPropertyChanged
+    public partial class ShellView : INotifyPropertyChanged
     {
         #region Auto Properties
 
@@ -35,7 +35,7 @@ namespace FFXIVAPP.Updater
 
         #endregion
 
-        public MainWindow()
+        public ShellView()
         {
             InitializeComponent();
         }
@@ -53,9 +53,9 @@ namespace FFXIVAPP.Updater
             }
             else
             {
-                MainWindowViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
-                MainWindowViewModel.Instance.Version = properties["Version"] as string;
-                MainWindowViewModel.Instance.ZipFileName = String.Format("FFXIVAPP_{0}.zip", MainWindowViewModel.Instance.Version);
+                ShellViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
+                ShellViewModel.Instance.Version = properties["Version"] as string;
+                ShellViewModel.Instance.ZipFileName = String.Format("FFXIVAPP_{0}.zip", ShellViewModel.Instance.Version);
                 var app = Process.GetProcessesByName("FFXIVAPP.Client");
                 foreach (var p in app)
                 {
@@ -87,7 +87,7 @@ namespace FFXIVAPP.Updater
                 {
                     _webClient.DownloadFileCompleted += WebClientOnDownloadFileCompleted;
                     _webClient.DownloadProgressChanged += WebClientOnDownloadProgressChanged;
-                    _webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
+                    _webClient.DownloadFileAsync(new Uri(ShellViewModel.Instance.DownloadURI), ShellViewModel.Instance.ZipFileName);
                 }
                 catch (Exception ex)
                 {
@@ -115,7 +115,7 @@ namespace FFXIVAPP.Updater
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
                                                      .Location);
             CleanupTemporary(path);
-            using (var zip = ZipFile.Read(MainWindowViewModel.Instance.ZipFileName))
+            using (var zip = ZipFile.Read(ShellViewModel.Instance.ZipFileName))
             {
                 foreach (var zipEntry in zip)
                 {

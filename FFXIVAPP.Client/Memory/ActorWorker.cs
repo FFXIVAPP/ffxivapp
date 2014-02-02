@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// NPCWorker.cs
+// ActorWorker.cs
 // 
 // © 2013 Ryan Wilson
 

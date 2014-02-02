@@ -10,17 +10,22 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Cache;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
@@ -227,7 +232,7 @@ namespace FFXIVAPP.Client
                 try
                 {
                     // get basic plugin info for settings panel
-                    var pluginInfo = new PluginInformation
+                    var pluginInfo = new PluginInfo
                     {
                         Copyright = pluginInstance.Instance.Copyright,
                         Description = pluginInstance.Instance.Description,
@@ -254,12 +259,19 @@ namespace FFXIVAPP.Client
                         removed.Add(pluginInstance);
                         continue;
                     }
-                    var tabItem = pluginInstance.Instance.CreateTab();
-                    var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
-                    var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
-                    icon = File.Exists(iconfile) ? new BitmapImage(new Uri(iconfile)) : icon;
-                    tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
-                    AppViewModel.Instance.PluginTabItems.Add(tabItem);
+                    try
+                    {
+                        var tabItem = pluginInstance.Instance.CreateTab();
+                        tabItem.Name = Regex.Replace(pluginInfo.Name, @"[^A-Za-z]", "");
+                        var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
+                        var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
+                        icon = File.Exists(iconfile) ? ImageUtilities.LoadImageFromStream(iconfile) : icon;
+                        tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
+                        AppViewModel.Instance.PluginTabItems.Add(tabItem);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
                 catch (AppException ex)
                 {
@@ -276,6 +288,188 @@ namespace FFXIVAPP.Client
                 }
             }
             AppViewModel.Instance.HasPlugins = App.Plugins.Loaded.Count > 0;
+        }
+
+        public static void LoadAvailableSources()
+        {
+            if (Constants.Application.XSettings != null)
+            {
+                foreach (var xElement in Constants.Application.XSettings.Descendants()
+                                                  .Elements("PluginSource"))
+                {
+                    var xKey = Guid.Empty;
+                    var xSourceURI = (string) xElement.Element("SourceURI");
+                    var xEnabled = true;
+                    try
+                    {
+                        xEnabled = (bool) xElement.Element("Enabled");
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    try
+                    {
+                        xKey = (Guid) xElement.Attribute("Key");
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    if (String.IsNullOrWhiteSpace(xSourceURI))
+                    {
+                        continue;
+                    }
+                    xKey = xKey != Guid.Empty ? xKey : Guid.NewGuid();
+                    var pluginSourceItem = new PluginSourceItem
+                    {
+                        Key = xKey,
+                        SourceURI = xSourceURI,
+                        Enabled = xEnabled,
+                    };
+                    var found = UpdateViewModel.Instance.AvailableSources.Any(source => source.Key == pluginSourceItem.Key);
+                    if (!found)
+                    {
+                        UpdateViewModel.Instance.AvailableSources.Add(pluginSourceItem);
+                    }
+                }
+            }
+        }
+
+        public static void LoadAvailablePlugins()
+        {
+            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
+            UpdateViewModel.Instance.AvailablePlugins.Clear();
+            var pluginSourceList = new List<PluginSourceItem>();
+            try
+            {
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
+                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+                httpWebRequest.ContentType = "application/text; charset=utf-8";
+                httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                {
+                    using (var response = httpResponse.GetResponseStream())
+                    {
+                        var responseText = "";
+                        if (response != null)
+                        {
+                            using (var streamReader = new StreamReader(response))
+                            {
+                                responseText = streamReader.ReadToEnd();
+                            }
+                        }
+                        if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
+                        {
+                            var jsonResult = JArray.Parse(responseText);
+                            foreach (var item in jsonResult)
+                            {
+                                var name = item["Name"].ToString();
+                                var enabled = Boolean.Parse(item["Enabled"].ToString());
+                                var sourceURI = item["SourceURI"].ToString();
+                                if (enabled)
+                                {
+                                    pluginSourceList.Add(new PluginSourceItem
+                                    {
+                                        Enabled = enabled,
+                                        Key = Guid.NewGuid(),
+                                        SourceURI = sourceURI
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            foreach (var pluginSourceItem in UpdateViewModel.Instance.AvailableSources)
+            {
+                if (pluginSourceList.Any(p => String.Equals(p.SourceURI, pluginSourceItem.SourceURI, Constants.InvariantComparer)))
+                {
+                    continue;
+                }
+                pluginSourceList.Add(pluginSourceItem);
+            }
+            foreach (var item in pluginSourceList)
+            {
+                if (item.Enabled)
+                {
+                    var pluginUpdateCheck = (Func<bool>) delegate
+                    {
+                        try
+                        {
+                            var httpWebRequest = (HttpWebRequest) WebRequest.Create(item.SourceURI);
+                            httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                            httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+                            httpWebRequest.ContentType = "application/text; charset=utf-8";
+                            httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                            using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                            {
+                                using (var response = httpResponse.GetResponseStream())
+                                {
+                                    var responseText = "";
+                                    if (response != null)
+                                    {
+                                        using (var streamReader = new StreamReader(response))
+                                        {
+                                            responseText = streamReader.ReadToEnd();
+                                        }
+                                    }
+                                    if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
+                                    {
+                                        var jsonResult = JObject.Parse(responseText);
+                                        var pluginInfo = jsonResult["PluginInfo"];
+                                        var pluginFiles = pluginInfo["Files"].ToArray();
+                                        var pluginDownload = new PluginDownloadItem
+                                        {
+                                            Files = new List<PluginFile>(pluginFiles.Select(pluginFile => new PluginFile
+                                            {
+                                                Location = pluginFile["Location"].ToString(),
+                                                Name = pluginFile["Name"].ToString()
+                                            })),
+                                            Name = pluginInfo["Name"].ToString(),
+                                            SourceURI = pluginInfo["SourceURI"].ToString(),
+                                            LatestVersion = pluginInfo["Version"].ToString()
+                                        };
+                                        var found = App.Plugins.Loaded.Find(pluginDownload.Name);
+                                        if (found != null)
+                                        {
+                                            var latest = pluginDownload.LatestVersion;
+                                            var current = found.Instance.Version;
+                                            pluginDownload.CurrentVersion = current;
+                                            pluginDownload.Status = PluginStatus.Installed;
+                                            var latestBuild = new BuildNumber();
+                                            var currentBuild = new BuildNumber();
+                                            if (BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild))
+                                            {
+                                                pluginDownload.Status = PluginStatus.UpdateAvailable;
+                                                AppViewModel.Instance.HasNewPluginUpdate = true;
+                                            }
+                                        }
+                                        DispatcherHelper.Invoke(() => UpdateViewModel.Instance.AvailablePlugins.Add(pluginDownload));
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                        return true;
+                    };
+                    pluginUpdateCheck.BeginInvoke(delegate
+                    {
+                        DispatcherHelper.Invoke(delegate
+                        {
+                            if (UpdateView.View.AvailableDG.Items.Count == UpdateViewModel.Instance.AvailablePlugins.Count)
+                            {
+                                UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
+                            }
+                            UpdateView.View.AvailableDG.Items.Refresh();
+                        });
+                    }, pluginUpdateCheck);
+                }
+            }
         }
 
         /// <summary>
@@ -366,6 +560,7 @@ namespace FFXIVAPP.Client
                 httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
                 using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                 {
                     using (var response = httpResponse.GetResponseStream())
@@ -378,8 +573,8 @@ namespace FFXIVAPP.Client
                                 responseText = streamReader.ReadToEnd();
                             }
                         }
-                        int latestMajor = 0, latestMinor = 0, latestBuild = 0, latestRevision = 0;
-                        int currentMajor = 0, currentMinor = 0, currentBuild = 0, currentRevision = 0;
+                        var latestBuild = new BuildNumber();
+                        var currentBuild = new BuildNumber();
                         if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
                         {
                             AppViewModel.Instance.HasNewVersion = false;
@@ -437,39 +632,7 @@ namespace FFXIVAPP.Client
                                     AppViewModel.Instance.HasNewVersion = false;
                                     break;
                                 default:
-                                    var latestVersionSplit = latest.Split('.');
-                                    var currentVersionSplit = current.Split('.');
-                                    try
-                                    {
-                                        latestMajor = Int32.Parse(latestVersionSplit[0]);
-                                        latestMinor = Int32.Parse(latestVersionSplit[1]);
-                                        latestBuild = Int32.Parse(latestVersionSplit[2]);
-                                        latestRevision = Int32.Parse(latestVersionSplit[3]);
-                                        currentMajor = Int32.Parse(currentVersionSplit[0]);
-                                        currentMinor = Int32.Parse(currentVersionSplit[1]);
-                                        currentBuild = Int32.Parse(currentVersionSplit[2]);
-                                        currentRevision = Int32.Parse(currentVersionSplit[3]);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        AppViewModel.Instance.HasNewVersion = false;
-                                    }
-                                    if (latestMajor <= currentMajor)
-                                    {
-                                        if (latestMinor <= currentMinor)
-                                        {
-                                            if (latestBuild == currentBuild)
-                                            {
-                                                AppViewModel.Instance.HasNewVersion = latestRevision > currentRevision;
-                                                break;
-                                            }
-                                            AppViewModel.Instance.HasNewVersion = latestBuild > currentBuild;
-                                            break;
-                                        }
-                                        AppViewModel.Instance.HasNewVersion = true;
-                                        break;
-                                    }
-                                    AppViewModel.Instance.HasNewVersion = true;
+                                    AppViewModel.Instance.HasNewVersion = BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild);
                                     break;
                             }
 
@@ -479,8 +642,8 @@ namespace FFXIVAPP.Client
                                 var message = new StringBuilder();
                                 try
                                 {
-                                    var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild + TimeSpan.TicksPerSecond * 2 * latestRevision));
-                                    var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild + TimeSpan.TicksPerSecond * 2 * currentRevision));
+                                    var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild.Build + TimeSpan.TicksPerSecond * 2 * latestBuild.Revision));
+                                    var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
                                     var timeSpan = latestBuildDateTime - currentBuildDateTime;
                                     if (timeSpan.TotalSeconds > 0)
                                     {
@@ -505,6 +668,7 @@ namespace FFXIVAPP.Client
             };
             updateCheck.BeginInvoke(null, null);
         }
+
 
         /// <summary>
         /// </summary>

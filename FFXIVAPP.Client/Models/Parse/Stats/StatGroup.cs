@@ -30,12 +30,12 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
 
         private readonly ConcurrentDictionary<string, StatGroup> ChildContainer = new ConcurrentDictionary<string, StatGroup>();
 
+        public StatContainer Stats = new StatContainer();
+
         public List<StatGroup> Children
         {
             get { return new List<StatGroup>(ChildContainer.Values); }
         }
-
-        public StatContainer Stats = new StatContainer();
 
         #endregion
 
@@ -268,7 +268,7 @@ namespace FFXIVAPP.Client.Models.Parse.Stats
             }
             if (dispatcher != null && dispatcher.CheckAccess() == false)
             {
-                dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() => DoCollectionChanged(action, statGroup)));
+                dispatcher.Invoke(DispatcherPriority.DataBind, (Action) (() => DoCollectionChanged(action, statGroup)));
             }
             else
             {

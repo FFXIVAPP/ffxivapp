@@ -21,17 +21,17 @@ namespace FFXIVAPP.Plugin.Radar
 
         public const string LibraryPack = "pack://application:,,,/FFXIVAPP.Plugin.Radar;component/";
 
-        public static readonly string[] Supported = new[]
+        public static readonly string[] Supported =
         {
-            "en"
+            "ja", "fr", "en", "de"
         };
 
         public static string BaseDirectory
         {
             get
             {
-                return Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-                                                     .Location);
+                return Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly()
+                                                             .CodeBase).LocalPath);
             }
         }
 

@@ -104,13 +104,13 @@
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/Save.png"
                            ToolTip="{Binding Locale[app_SaveAndClearHistoryToolTip],
                                              Source={StaticResource AppProperties}}" />
-                    <TextBlock Text="{Binding Locale[app_SaveAndClearHistoryToolTip],
-                                             Source={StaticResource AppProperties}}"
-                           Foreground="White"
-                           Padding="5"
-                           Visibility="{Binding EnableHelpLabels,
-                                                Source={x:Static Properties:Settings.Default},
-                                                Converter={StaticResource VisibilityConverter}}" />
+                    <TextBlock Foreground="White"
+                               Padding="5"
+                               Text="{Binding Locale[app_SaveAndClearHistoryToolTip],
+                                              Source={StaticResource AppProperties}}"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={x:Static Properties:Settings.Default},
+                                                    Converter={StaticResource VisibilityConverter}}" />
                 </StackPanel>
             </Button>
             <Button x:Name="screenshot"
@@ -122,13 +122,13 @@
                            Source="/FFXIVAPP.Client;component/Resources/Media/Images/ScreenShot.png"
                            ToolTip="{Binding Locale[app_ScreenShotToolTip],
                                              Source={StaticResource AppProperties}}" />
-                    <TextBlock Text="{Binding Locale[app_ScreenShotToolTip],
-                                             Source={StaticResource AppProperties}}"
-                           Foreground="White"
-                           Padding="5"
-                           Visibility="{Binding EnableHelpLabels,
-                                                Source={x:Static Properties:Settings.Default},
-                                                Converter={StaticResource VisibilityConverter}}" />
+                    <TextBlock Foreground="White"
+                               Padding="5"
+                               Text="{Binding Locale[app_ScreenShotToolTip],
+                                              Source={StaticResource AppProperties}}"
+                               Visibility="{Binding EnableHelpLabels,
+                                                    Source={x:Static Properties:Settings.Default},
+                                                    Converter={StaticResource VisibilityConverter}}" />
                 </StackPanel>
             </Button>
         </MetroControls:WindowCommands>
@@ -160,12 +160,12 @@
                                    Source="/FFXIVAPP.Client;component/Resources/Media/Images/Main.png"
                                    ToolTip="{Binding Locale[app_MainToolTip],
                                                      Source={StaticResource AppProperties}}" />
-                            <TextBlock Text="{Binding Locale[app_MainToolTip],
-                                                     Source={StaticResource AppProperties}}"
-                                   Padding="5"
-                                   Visibility="{Binding EnableHelpLabels,
-                                                        Source={x:Static Properties:Settings.Default},
-                                                        Converter={StaticResource VisibilityConverter}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_MainToolTip],
+                                                      Source={StaticResource AppProperties}}"
+                                       Visibility="{Binding EnableHelpLabels,
+                                                            Source={x:Static Properties:Settings.Default},
+                                                            Converter={StaticResource VisibilityConverter}}" />
                         </StackPanel>
                     </TabItem.Header>
                     <Views:MainView x:Name="MainV"
@@ -180,28 +180,53 @@
                                    Source="/FFXIVAPP.Client;component/Resources/Media/Images/Plugins.png"
                                    ToolTip="{Binding Locale[app_PluginsToolTip],
                                                      Source={StaticResource AppProperties}}" />
-                            <TextBlock Text="{Binding Locale[app_PluginsToolTip],
-                                                     Source={StaticResource AppProperties}}"
-                                   Padding="5"
-                                   Visibility="{Binding EnableHelpLabels,
-                                                        Source={x:Static Properties:Settings.Default},
-                                                        Converter={StaticResource VisibilityConverter}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_PluginsToolTip],
+                                                      Source={StaticResource AppProperties}}"
+                                       Visibility="{Binding EnableHelpLabels,
+                                                            Source={x:Static Properties:Settings.Default},
+                                                            Converter={StaticResource VisibilityConverter}}" />
                         </StackPanel>
                     </TabItem.Header>
-                    <TabControl x:Name="PluginsTC"
-                                Margin="10 0 10 10"
-                                BorderThickness="{Binding TabStripPlacement,
-                                                          Converter={StaticResource TabStripBorderConverter},
-                                                          RelativeSource={RelativeSource Self}}"
-                                Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
-                        <TabControl.BorderBrush>
-                            <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                        </TabControl.BorderBrush>
-                        <TabItem x:Name="ParsePlugin"
-                                 Header="FFXIVAPP.Plugin.Parse">
-                            <parse:ShellView />
-                        </TabItem>
-                    </TabControl>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+                                Height="33"
+                                Margin="5"
+                                Background="LightYellow"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="2"
+                                CornerRadius="2"
+                                Visibility="{Binding HasNewPluginUpdate,
+                                                     Source={StaticResource AppProperties},
+                                                     Converter={StaticResource VisibilityConverter}}">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Text="{Binding Locale[app_pluginUpdateMessageText],
+                                                      Source={StaticResource AppProperties}}"
+                                       TextWrapping="WrapWithOverflow" />
+                        </Border>
+                        <TabControl x:Name="PluginsTC"
+                                    Grid.Row="1"
+                                    Margin="10 0 10 10"
+                                    BorderThickness="{Binding TabStripPlacement,
+                                                              Converter={StaticResource TabStripBorderConverter},
+                                                              RelativeSource={RelativeSource Self}}"
+                                    Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
+                            <TabControl.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource AccentColor}" />
+                            </TabControl.BorderBrush>
+                            <TabItem x:Name="ParsePlugin"
+                                     Header="FFXIVAPP.Plugin.Parse">
+                                <parse:ShellView />
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
                 </TabItem>
                 <TabItem x:Name="SettingsTI">
                     <TabItem.Header>
@@ -212,16 +237,36 @@
                                    Source="/FFXIVAPP.Client;component/Resources/Media/Images/Settings.png"
                                    ToolTip="{Binding Locale[app_SettingsToolTip],
                                                      Source={StaticResource AppProperties}}" />
-                            <TextBlock Text="{Binding Locale[app_SettingsToolTip],
-                                                     Source={StaticResource AppProperties}}"
-                                   Padding="5"
-                                   Visibility="{Binding EnableHelpLabels,
-                                                        Source={x:Static Properties:Settings.Default},
-                                                        Converter={StaticResource VisibilityConverter}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_SettingsToolTip],
+                                                      Source={StaticResource AppProperties}}"
+                                       Visibility="{Binding EnableHelpLabels,
+                                                            Source={x:Static Properties:Settings.Default},
+                                                            Converter={StaticResource VisibilityConverter}}" />
                         </StackPanel>
                     </TabItem.Header>
                     <Views:SettingsView x:Name="SettingsV"
                                         Margin="10 0 10 10" />
+                </TabItem>
+                <TabItem x:Name="UpdateTI">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20"
+                                   Height="20"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png"
+                                   ToolTip="{Binding Locale[app_UpdateToolTip],
+                                                     Source={StaticResource AppProperties}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_UpdateToolTip],
+                                                      Source={StaticResource AppProperties}}"
+                                       Visibility="{Binding EnableHelpLabels,
+                                                            Source={x:Static Properties:Settings.Default},
+                                                            Converter={StaticResource VisibilityConverter}}" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Views:UpdateView x:Name="UpdateV"
+                                      Margin="10 0 10 10" />
                 </TabItem>
                 <TabItem x:Name="AboutTI">
                     <TabItem.Header>
@@ -232,12 +277,12 @@
                                    Source="/FFXIVAPP.Client;component/Resources/Media/Images/About.png"
                                    ToolTip="{Binding Locale[app_AboutToolTip],
                                                      Source={StaticResource AppProperties}}" />
-                            <TextBlock Text="{Binding Locale[app_AboutToolTip],
-                                                     Source={StaticResource AppProperties}}"
-                                   Padding="5"
-                                   Visibility="{Binding EnableHelpLabels,
-                                                        Source={x:Static Properties:Settings.Default},
-                                                        Converter={StaticResource VisibilityConverter}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_AboutToolTip],
+                                                      Source={StaticResource AppProperties}}"
+                                       Visibility="{Binding EnableHelpLabels,
+                                                            Source={x:Static Properties:Settings.Default},
+                                                            Converter={StaticResource VisibilityConverter}}" />
                         </StackPanel>
                     </TabItem.Header>
                     <Views:AboutView x:Name="AboutV"

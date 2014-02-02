@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Plugin.Radar.Interop;
 using FFXIVAPP.Plugin.Radar.Properties;

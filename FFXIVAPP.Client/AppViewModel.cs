@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private NotifyIcon _notifyIcon;
-        private ObservableCollection<PluginInformation> _pluginInfo;
+        private ObservableCollection<PluginInfo> _pluginInfo;
         private ObservableCollection<UIElement> _pluginTabItems;
         private string _pluginsSettingsPath;
         private List<string> _savedLogsDirectoryList;
@@ -52,6 +52,7 @@ namespace FFXIVAPP.Client
         private string _soundsPath;
         private Style _tabControlCollapsedHeader;
         private List<string> _updateNotes;
+        private bool _hasNewPluginUpdate;
 
         public static AppViewModel Instance
         {
@@ -119,9 +120,9 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public ObservableCollection<PluginInformation> PluginInfo
+        public ObservableCollection<PluginInfo> PluginInfo
         {
-            get { return _pluginInfo ?? (_pluginInfo = new ObservableCollection<PluginInformation>()); }
+            get { return _pluginInfo ?? (_pluginInfo = new ObservableCollection<PluginInfo>()); }
             set
             {
                 _pluginInfo = value;
@@ -304,6 +305,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _hasNewVersion = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool HasNewPluginUpdate
+        {
+            get { return _hasNewPluginUpdate; }
+            set
+            {
+                _hasNewPluginUpdate = value;
                 RaisePropertyChanged();
             }
         }

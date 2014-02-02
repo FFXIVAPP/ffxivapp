@@ -7,6 +7,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Net.Cache;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
@@ -14,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using FFXIVAPP.Common.Utilities;
 using HtmlAgilityPack;
 using NLog;
 using SmartAssembly.Attributes;
@@ -83,7 +85,7 @@ namespace FFXIVAPP.Client.Converters
             var cachePath = Path.Combine(AvatarCache, fileName);
             if (_cachingEnabled && File.Exists(cachePath))
             {
-                return new BitmapImage(new Uri(cachePath));
+                return ImageUtilities.LoadImageFromStream(cachePath);
             }
             var useAvatars = !String.IsNullOrWhiteSpace(Constants.ServerName);
             if (!useAvatars || IsProcessing)
@@ -99,6 +101,7 @@ namespace FFXIVAPP.Client.Converters
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
                     var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(name), Uri.EscapeUriString(serverName)));
                     httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                    httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
                     using (var httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                     {
                         using (var stream = httpWebResponse.GetResponseStream())
@@ -121,7 +124,7 @@ namespace FFXIVAPP.Client.Converters
                                     {
                                         imageUri = _cachingEnabled ? SaveToCache(fileName, new Uri(imageUri)) : imageUri;
                                     }
-                                    image.Source = new BitmapImage(new Uri(imageUri));
+                                    image.Source = ImageUtilities.LoadImageFromStream(imageUri);
                                 });
                             }
                         }

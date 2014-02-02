@@ -183,6 +183,7 @@
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
+    <Compile Include="Models\BuildNumber.cs" />
     <Compile Include="Models\Parse\ActionHistoryItem.cs" />
     <Compile Include="Models\Parse\History\HistoryContainer.cs" />
     <Compile Include="Models\Parse\History\HistoryGroup.cs" />
@@ -201,6 +202,8 @@
     <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverTime.cs" />
     <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverHealing.cs" />
     <Compile Include="Models\Parse\StatGroups\StatGeneration.cs" />
+    <Compile Include="Models\PluginDownloadItem.cs" />
+    <Compile Include="Models\PluginFile.cs" />
     <Compile Include="Models\PluginInfo.cs" />
     <Compile Include="Controls\Parse\BasicDisplaySettings.xaml.cs">
       <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
@@ -321,6 +324,8 @@
     <Compile Include="Models\Parse\Stats\StatPropertyDescriptor.cs" />
     <Compile Include="Models\Parse\Timelines\Timeline.cs" />
     <Compile Include="Models\Parse\Timelines\TimelineChangedEvent.cs" />
+    <Compile Include="Models\PluginSourceItem.cs" />
+    <Compile Include="Models\PluginStatus.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="Monitors\StatMonitor.cs" />
     <Compile Include="Monitors\TimelineMonitor.cs" />
@@ -328,6 +333,7 @@
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
+    <Compile Include="Utilities\BuildUtilities.cs" />
     <Compile Include="Utilities\Parse\Filter.Declarations.cs" />
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
@@ -360,6 +366,7 @@
     <Compile Include="Utilities\MicroTimerEventArgs.cs" />
     <Compile Include="Utilities\OutGoingEntry.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="ViewModels\Parse\AboutViewModel.cs" />
     <Compile Include="ViewModels\Parse\MainViewModel.cs" />
     <Compile Include="ViewModels\Parse\PluginViewModel.cs" />
@@ -374,6 +381,9 @@
     <Compile Include="ViewModels\XIVDBViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateView.xaml.cs">
+      <DependentUpon>UpdateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Parse\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
@@ -487,6 +497,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UpdateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

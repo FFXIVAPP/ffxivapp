@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using System.Xml.Linq;
+using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
@@ -43,6 +44,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
             DefaultSettings();
             SaveSettingsNode();
             SaveEnabledPluginsNode();
+            SavePluginSourcesNode();
             Constants.Application.XSettings.Save(Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml"));
         }
 
@@ -193,6 +195,65 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                     if (xEnabledElement != null)
                     {
                         xEnabledElement.Value = xEnabled;
+                    }
+                }
+            }
+        }
+
+        public void SavePluginSourcesNode()
+        {
+            if (Constants.Application.XSettings == null)
+            {
+                return;
+            }
+            Constants.Application.XSettings.Descendants("PluginSource")
+                     .Where(node => UpdateViewModel.Instance.AvailableSources.All(source => source.Key.ToString() != node.Attribute("Key")
+                                                                                                                         .Value))
+                     .Remove();
+            var xElements = Constants.Application.XSettings.Descendants()
+                                     .Elements("PluginSource");
+            var enumerable = xElements as XElement[] ?? xElements.ToArray();
+            // ensure enabled plugin settings
+            foreach (var item in UpdateViewModel.Instance.AvailableSources)
+            {
+                var xKey = item.Key != Guid.Empty ? item.Key : Guid.NewGuid();
+                var xSourceURI = item.SourceURI;
+                var xEnabled = item.Enabled;
+                var keyPairList = new List<XValuePair>
+                {
+                    new XValuePair
+                    {
+                        Key = "SourceURI",
+                        Value = xSourceURI
+                    },
+                    new XValuePair
+                    {
+                        Key = "Enabled",
+                        Value = xEnabled.ToString()
+                    },
+                };
+                var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
+                                                              .Value == xKey.ToString());
+                if (element == null)
+                {
+                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "PluginSource", xKey.ToString(), keyPairList);
+                }
+                else
+                {
+                    var xKeyElement = element.Attribute("Key");
+                    if (xKeyElement != null)
+                    {
+                        xKeyElement.Value = xKey.ToString();
+                    }
+                    var xRegExElement = element.Element("SourceURI");
+                    if (xRegExElement != null)
+                    {
+                        xRegExElement.Value = xSourceURI;
+                    }
+                    var xEnabledElement = element.Element("Enabled");
+                    if (xEnabledElement != null)
+                    {
+                        xEnabledElement.Value = xEnabled.ToString();
                     }
                 }
             }

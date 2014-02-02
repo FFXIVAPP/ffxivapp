@@ -106,10 +106,10 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <TextBlock Style="{StaticResource LabelStyle}"
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
                                            Text="{Binding Locale[app_DescriptionLabel],
                                                           Source={StaticResource AppProperties}}" />
-                                <TextBlock Style="{StaticResource LabelStyle}"
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
                                            Text="{Binding Locale[app_CopyrightLabel],
                                                           Source={StaticResource AppProperties}}" />
                             </StackPanel>
@@ -118,10 +118,10 @@
                             <StackPanel Grid.Column="1"
                                         Height="Auto"
                                         HorizontalAlignment="Left">
-                                <TextBlock Style="{StaticResource LabelStyle}"
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
                                            Text="{Binding PluginInfo[Description],
                                                           Source={StaticResource PluginViewModel}}" />
-                                <TextBlock Style="{StaticResource LabelStyle}"
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
                                            Text="{Binding PluginInfo[Copyright],
                                                           Source={StaticResource PluginViewModel}}" />
                             </StackPanel>

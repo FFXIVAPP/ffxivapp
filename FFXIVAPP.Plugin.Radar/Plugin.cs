@@ -65,7 +65,7 @@ namespace FFXIVAPP.Plugin.Radar
                 _locale = value;
                 var locale = LocaleHelper.ResolveOne(Constants.CultureInfo, "radar")
                                          .Cast<DictionaryEntry>()
-                                         .ToDictionary(item => (string)item.Key, item => (string)item.Value);
+                                         .ToDictionary(item => (string) item.Key, item => (string) item.Value);
                 foreach (var resource in locale)
                 {
                     try

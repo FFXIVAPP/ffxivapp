@@ -374,13 +374,20 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="NOTICE">
+                        <Border Height="33"
+                                Margin="5"
+                                Background="LightYellow"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="2"
+                                CornerRadius="2">
                             <TextBlock HorizontalAlignment="Center"
-                                       Foreground="{DynamicResource BlackColorBrush}"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
                                        Text="{Binding Locale[app_ChangesOnRestartMessage],
                                                       Source={StaticResource AppProperties}}"
                                        TextWrapping="WrapWithOverflow" />
-                        </GroupBox>
+                        </Border>
                         <ItemsControl>
                             <ItemsControl.Resources>
                                 <CollectionViewSource x:Key="PluginInfo"

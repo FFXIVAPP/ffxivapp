@@ -74,7 +74,7 @@
                                    VerticalAlignment="Bottom"
                                    Padding="0"
                                    Style="{StaticResource NameHeaderStyle}"
-                                   Text="{Binding Locale[app_VersionHeader],
+                                   Text="{Binding Locale[app_VersionInformationHeader],
                                                   Source={StaticResource AppProperties}}" />
                     </DockPanel>
                     <DockPanel />
@@ -100,30 +100,30 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding Locale[app_LatestLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Locale[app_CurrentLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Locale[app_CopyrightLabel],
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding Locale[app_LatestLabel],
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding Locale[app_CurrentLabel],
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding Locale[app_CopyrightLabel],
+                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Margin="5 0">
                             <StackPanel Grid.Column="1"
                                         Height="Auto"
                                         HorizontalAlignment="Left">
-                                <TextBlock Text="{Binding LatestVersion,
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding CurrentVersion,
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
-                                <TextBlock Text="{Binding Copyright,
-                                                         Source={StaticResource AppProperties}}"
-                                       Style="{StaticResource LabelStyle}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding LatestVersion,
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding CurrentVersion,
+                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                           Text="{Binding Copyright,
+                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>
@@ -145,10 +145,12 @@
                             <DockPanel LastChildFill="True">
                                 <DockPanel Width="15"
                                            DockPanel.Dock="Left">
-                                    <TextBlock Text="•" />
+                                    <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                               Text="•" />
                                 </DockPanel>
                                 <DockPanel>
-                                    <TextBlock Text="{Binding}"
+                                    <TextBlock Foreground="{DynamicResource LabelTextBrush}"
+                                               Text="{Binding}"
                                                TextWrapping="WrapWithOverflow" />
                                 </DockPanel>
                             </DockPanel>

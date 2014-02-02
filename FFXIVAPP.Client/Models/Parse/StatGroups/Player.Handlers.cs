@@ -14,7 +14,6 @@ using FFXIVAPP.Client.Helpers.Parse;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 
 namespace FFXIVAPP.Client.Models.Parse.StatGroups
 {
@@ -68,7 +67,7 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                     var bio = Regex.IsMatch(key, @"(バイオ|bactérie|bio)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var thunder = Regex.IsMatch(key, @"(サンダ|foudre|blitz|thunder)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
                     var lastDamageAmountByActions = ParseHelper.LastAmountByAction.GetPlayer(Name)
-                                                                   .ToList();
+                                                               .ToList();
                     var resolvedPotency = 80;
                     var thunderDuration = 24;
                     var originalThunderDamage = 0m;
@@ -102,7 +101,6 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             }
                             if (found)
                             {
-                                
                                 break;
                             }
                         }

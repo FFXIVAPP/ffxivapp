@@ -6,13 +6,21 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
+using NLog;
 
 namespace FFXIVAPP.Updater
 {
     public partial class App
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Property Bindings
 
         #endregion
@@ -20,10 +28,11 @@ namespace FFXIVAPP.Updater
         private App()
         {
             Startup += ApplicationStartup;
-            StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
-            var resourceLocater = new Uri("/FFXIVAPP.Updater;component/App.xaml", UriKind.Relative);
-            LoadComponent(this, resourceLocater);
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            Dispatcher.UnhandledExceptionFilter += DispatcherOnUnhandledExceptionFilter;
+            var resourceLocater = new Uri("/FFXIVAPP.Updater;component/App.xaml", UriKind.Relative);
+            StartupUri = new Uri("ShellView.xaml", UriKind.Relative);
+            LoadComponent(this, resourceLocater);
         }
 
         /// <summary>
@@ -45,9 +54,9 @@ namespace FFXIVAPP.Updater
         /// <param name="startupEventArgs"> </param>
         private void ApplicationStartup(object sender, StartupEventArgs startupEventArgs)
         {
-            if (startupEventArgs.Args.Length <= 0)
+            if (!startupEventArgs.Args.Any())
             {
-                return;
+                Current.Shutdown();
             }
             Properties["DownloadUri"] = startupEventArgs.Args[0];
             Properties["Version"] = startupEventArgs.Args[1];
@@ -56,10 +65,19 @@ namespace FFXIVAPP.Updater
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
-        /// <param name="dispatcherUnhandledExceptionEventArgs"> </param>
-        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
+        /// <param name="e"> </param>
+        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            dispatcherUnhandledExceptionEventArgs.Handled = true;
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DispatcherOnUnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e)
+        {
+            e.RequestCatch = true;
         }
     }
 }

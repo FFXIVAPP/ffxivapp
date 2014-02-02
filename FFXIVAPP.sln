@@ -46,11 +46,8 @@ Global
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
 		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Debug|x86.ActiveCfg = Debug|x86
-		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Debug|x86.Build.0 = Debug|x86
 		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Release|x86.ActiveCfg = Release|x86
-		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Release|x86.Build.0 = Release|x86
 		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.SmartAssembly|x86.ActiveCfg = SmartAssembly|x86
-		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.SmartAssembly|x86.Build.0 = SmartAssembly|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

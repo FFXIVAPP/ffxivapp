@@ -422,7 +422,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="Ionic.Zip, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning>
                         <Exclusion />
                     </Pruning>
@@ -460,6 +460,16 @@
                     <ResourcesCompression Compress="1" />
                 </Merging>
                 <Embedding Embed="1" />
+            </Assembly>
+            <Assembly AssemblyName="Ionic.Zip, Culture=neutral, PublicKeyToken=null">
+                <Merging Merge="1">
+                    <Pruning />
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
+                <Embedding />
             </Assembly>
         </Assemblies>
     </Configuration>

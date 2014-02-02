@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Net;
+using System.Net.Cache;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -158,6 +159,7 @@ namespace FFXIVAPP.Client.ViewModels
                     var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(Constants.CharacterName), serverName));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     request.Headers.Add("Accept-Language", "en;q=0.8");
+                    request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
                     var response = (HttpWebResponse) request.GetResponse();
                     var stream = response.GetResponseStream();
                     if (response.StatusCode != HttpStatusCode.OK || stream == null)
