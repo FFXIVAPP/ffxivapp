@@ -28,11 +28,11 @@ namespace FFXIVAPP.Updater
         private App()
         {
             Startup += ApplicationStartup;
+            StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
+            var resourceLocater = new Uri("/FFXIVAPP.Updater;component/App.xaml", UriKind.Relative);
+            LoadComponent(this, resourceLocater);
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             Dispatcher.UnhandledExceptionFilter += DispatcherOnUnhandledExceptionFilter;
-            var resourceLocater = new Uri("/FFXIVAPP.Updater;component/App.xaml", UriKind.Relative);
-            StartupUri = new Uri("ShellView.xaml", UriKind.Relative);
-            LoadComponent(this, resourceLocater);
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace FFXIVAPP.Updater
         /// <param name="startupEventArgs"> </param>
         private void ApplicationStartup(object sender, StartupEventArgs startupEventArgs)
         {
-            if (!startupEventArgs.Args.Any())
+            if (startupEventArgs.Args.Length <= 0)
             {
-                Current.Shutdown();
+                return;
             }
             Properties["DownloadUri"] = startupEventArgs.Args[0];
             Properties["Version"] = startupEventArgs.Args[1];
@@ -69,6 +69,7 @@ namespace FFXIVAPP.Updater
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
+            MessageBox.Show(e.Exception.Message);
         }
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace FFXIVAPP.Updater
         private void DispatcherOnUnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e)
         {
             e.RequestCatch = true;
+            MessageBox.Show(e.Exception.Message);
         }
     }
 }

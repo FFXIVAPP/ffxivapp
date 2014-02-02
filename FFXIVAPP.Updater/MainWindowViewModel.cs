@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Updater
-// ShellViewModel.cs
+// MainWindowViewModel.cs
 // 
 // © 2013 Ryan Wilson
 
@@ -11,19 +11,19 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Updater
 {
     [DoNotObfuscate]
-    [Export(typeof (ShellViewModel))]
-    internal sealed class ShellViewModel : INotifyPropertyChanged
+    [Export(typeof(MainWindowViewModel))]
+    internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
 
-        private static ShellViewModel _instance;
+        private static MainWindowViewModel _instance;
         private string _downloadUri;
         private string _version;
         private string _zipFileName;
 
-        public static ShellViewModel Instance
+        public static MainWindowViewModel Instance
         {
-            get { return _instance ?? (_instance = new ShellViewModel()); }
+            get { return _instance ?? (_instance = new MainWindowViewModel()); }
         }
 
         public string DownloadURI
@@ -62,7 +62,7 @@ namespace FFXIVAPP.Updater
 
         #endregion
 
-        public ShellViewModel()
+        public MainWindowViewModel()
         {
         }
 
