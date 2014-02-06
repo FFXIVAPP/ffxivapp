@@ -7,7 +7,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,6 +18,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Models;
@@ -76,6 +76,7 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand AddOrUpdateSourceCommand { get; private set; }
         public ICommand DeleteSourceCommand { get; private set; }
         public ICommand SourceSelectionCommand { get; private set; }
+        public ICommand AvailableDGDoubleClickCommand { get; private set; }
 
         #endregion
 
@@ -87,6 +88,7 @@ namespace FFXIVAPP.Client.ViewModels
             AddOrUpdateSourceCommand = new DelegateCommand(AddOrUpdateSource);
             DeleteSourceCommand = new DelegateCommand(DeleteSource);
             SourceSelectionCommand = new DelegateCommand(SourceSelection);
+            AvailableDGDoubleClickCommand = new DelegateCommand(AvailableDGDoubleClick);
         }
 
         #region Loading Functions
@@ -94,6 +96,16 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Utility Functions
+
+        public void SetupGrouping()
+        {
+            var cvEvents = CollectionViewSource.GetDefaultView(UpdateView.View.AvailableDG.ItemsSource);
+            if (cvEvents != null && cvEvents.CanGroup == true)
+            {
+                cvEvents.GroupDescriptions.Clear();
+                cvEvents.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
+            }
+        }
 
         /// <summary>
         /// </summary>
@@ -123,15 +135,17 @@ namespace FFXIVAPP.Client.ViewModels
         {
             foreach (var selectedItem in UpdateView.View.AvailableDG.SelectedItems)
             {
-                var index = UpdateView.View.AvailableDG.Items.IndexOf(selectedItem)
-                                      .ToString(CultureInfo.InvariantCulture);
-                InstallByIndex(Convert.ToInt32(index));
+                InstallByKey(((PluginDownloadItem) selectedItem).Name);
             }
         }
 
-        private static void InstallByIndex(int index)
+        private static void InstallByKey(string key, Action asyncAction = null)
         {
-            var plugin = Instance.AvailablePlugins[index];
+            var plugin = Instance.AvailablePlugins.FirstOrDefault(p => String.Equals(p.Name, key, Constants.InvariantComparer));
+            if (plugin == null)
+            {
+                return;
+            }
             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
             UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Visible;
             Func<bool> checkAvailable = delegate
@@ -165,7 +179,15 @@ namespace FFXIVAPP.Client.ViewModels
                                     UpdateView.View.AvailableLoadingProgressMessage.Text = "";
                                     if (updateCount >= updateLimit)
                                     {
-                                        plugin.Status = PluginStatus.Installed;
+                                        if (plugin.Status != PluginStatus.Installed)
+                                        {
+                                            plugin.Status = PluginStatus.Installed;
+                                            Instance.SetupGrouping();
+                                            if (asyncAction != null)
+                                            {
+                                                DispatcherHelper.Invoke(asyncAction);
+                                            }
+                                        }
                                         UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
                                         UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
                                     }
@@ -189,15 +211,17 @@ namespace FFXIVAPP.Client.ViewModels
         {
             foreach (var selectedItem in UpdateView.View.AvailableDG.SelectedItems)
             {
-                var index = UpdateView.View.AvailableDG.Items.IndexOf(selectedItem)
-                                      .ToString(CultureInfo.InvariantCulture);
-                UnInstallByIndex(Convert.ToInt32(index));
+                UnInstallByKey(((PluginDownloadItem) selectedItem).Name);
             }
         }
 
-        private static void UnInstallByIndex(int index)
+        private static void UnInstallByKey(string key, Action asyncAction = null)
         {
-            var plugin = Instance.AvailablePlugins[index];
+            var plugin = Instance.AvailablePlugins.FirstOrDefault(p => String.Equals(p.Name, key, Constants.InvariantComparer));
+            if (plugin == null)
+            {
+                return;
+            }
             Func<bool> checkAvailable = delegate
             {
                 try
@@ -219,21 +243,16 @@ namespace FFXIVAPP.Client.ViewModels
                     {
                         pluginDownloadItem.Status = PluginStatus.NotInstalled;
                     }
-                    var found = App.Plugins.Loaded.Find(plugin.Name);
-                    if (found == null)
-                    {
-                        return;
-                    }
-                    found.Instance.Dispose();
-                    App.Plugins.Loaded.Remove(found);
+                    Instance.SetupGrouping();
+                    PluginHost.Instance.UnloadPlugin(plugin.Name);
                     for (var i = ShellView.View.PluginsTC.Items.Count - 1; i > 0; i--)
                     {
-                        if (((TabItem) ShellView.View.PluginsTC.Items[i]).Name == Regex.Replace(found.Instance.Name, @"[^A-Za-z]", ""))
+                        if (((TabItem) ShellView.View.PluginsTC.Items[i]).Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", ""))
                         {
-                            ShellView.View.PluginsTC.Items.RemoveAt(i);
+                            AppViewModel.Instance.PluginTabItems.RemoveAt(i);
                         }
                     }
-                });
+                }, DispatcherPriority.Send);
             }, checkAvailable);
         }
 
@@ -282,17 +301,17 @@ namespace FFXIVAPP.Client.ViewModels
         /// </summary>
         private static void DeleteSource()
         {
-            string selectedKey;
+            string key;
             try
             {
-                selectedKey = GetValueBySelectedItem(UpdateView.View.PluginSourceDG, "Key");
+                key = GetValueBySelectedItem(UpdateView.View.PluginSourceDG, "Key");
             }
             catch (Exception ex)
             {
                 Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                 return;
             }
-            var index = Instance.AvailableSources.TakeWhile(source => source.Key.ToString() != selectedKey)
+            var index = Instance.AvailableSources.TakeWhile(source => source.Key.ToString() != key)
                                 .Count();
             Instance.AvailableSources.RemoveAt(index);
         }
@@ -310,6 +329,35 @@ namespace FFXIVAPP.Client.ViewModels
                 return;
             }
             UpdateView.View.TSource.Text = GetValueBySelectedItem(UpdateView.View.PluginSourceDG, "SourceURI");
+        }
+
+        private static void AvailableDGDoubleClick()
+        {
+            string key;
+            try
+            {
+                key = GetValueBySelectedItem(UpdateView.View.AvailableDG, "Name");
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                return;
+            }
+            var plugin = Instance.AvailablePlugins.FirstOrDefault(p => String.Equals(p.Name, key, Constants.InvariantComparer));
+            if (plugin == null)
+            {
+                return;
+            }
+            switch (plugin.Status)
+            {
+                case PluginStatus.Installed:
+                    UnInstallByKey(plugin.Name);
+                    break;
+                case PluginStatus.NotInstalled:
+                case PluginStatus.UpdateAvailable:
+                    InstallByKey(plugin.Name);
+                    break;
+            }
         }
 
         #endregion

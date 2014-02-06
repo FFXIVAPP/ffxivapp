@@ -13,8 +13,8 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -25,7 +25,6 @@ using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 using Newtonsoft.Json.Linq;
 using NLog;
 using SmartAssembly.Attributes;
@@ -47,7 +46,6 @@ namespace FFXIVAPP.Client
         private static ActorWorker _actorWorker;
         private static ChatLogWorker _chatLogWorker;
         private static MonsterWorker _monsterWorker;
-        private static NPCWorker _npcWorker;
         private static PlayerInfoWorker _playerInfoWorker;
         private static TargetWorker _targetWorker;
         private static PartyInfoWorker _partyInfoWorker;
@@ -186,24 +184,6 @@ namespace FFXIVAPP.Client
         {
             if (Constants.Application.XSettings != null)
             {
-                foreach (var xElement in Constants.Application.XSettings.Descendants()
-                                                  .Elements("Setting"))
-                {
-                    var xKey = (string) xElement.Attribute("Key");
-                    bool xEnabled;
-                    bool.TryParse((string) xElement.Element("Enabled"), out xEnabled);
-                    if (String.IsNullOrWhiteSpace(xKey))
-                    {
-                        continue;
-                    }
-                    try
-                    {
-                        Constants.Application.EnabledPlugins.Add(xKey, xEnabled);
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
             }
         }
 
@@ -218,74 +198,11 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadPlugins()
         {
-            App.Plugins.LoadPlugins(Directory.GetCurrentDirectory() + @"\Plugins");
-            var removed = new List<PluginInstance>();
+            var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+            App.Plugins.LoadPlugins(pluginsDirectory);
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
-                var pluginName = pluginInstance.Instance.FriendlyName;
-                if (SettingsViewModel.Instance.HomePluginList.Any(p => p.ToUpperInvariant()
-                                                                        .StartsWith(pluginName.ToUpperInvariant())))
-                {
-                    pluginName = String.Format("{0}[{1}]", pluginName, new Random().Next(1000, 9999));
-                }
-                SettingsViewModel.Instance.HomePluginList.Add(pluginName);
-                try
-                {
-                    // get basic plugin info for settings panel
-                    var pluginInfo = new PluginInfo
-                    {
-                        Copyright = pluginInstance.Instance.Copyright,
-                        Description = pluginInstance.Instance.Description,
-                        Icon = pluginInstance.Instance.Icon,
-                        Name = pluginInstance.Instance.Name,
-                        Version = pluginInstance.Instance.Version
-                    };
-                    // if enabled setup tabItem
-                    if (Constants.Application.EnabledPlugins.ContainsKey(pluginInstance.Instance.Name))
-                    {
-                        if (Constants.Application.EnabledPlugins[pluginInstance.Instance.Name])
-                        {
-                            pluginInfo.IsEnabled = true;
-                        }
-                    }
-                    else
-                    {
-                        Constants.Application.EnabledPlugins.Add(pluginInstance.Instance.Name, true);
-                        pluginInfo.IsEnabled = true;
-                    }
-                    AppViewModel.Instance.PluginInfo.Add(pluginInfo);
-                    if (!pluginInfo.IsEnabled)
-                    {
-                        removed.Add(pluginInstance);
-                        continue;
-                    }
-                    try
-                    {
-                        var tabItem = pluginInstance.Instance.CreateTab();
-                        tabItem.Name = Regex.Replace(pluginInfo.Name, @"[^A-Za-z]", "");
-                        var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
-                        var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
-                        icon = File.Exists(iconfile) ? ImageUtilities.LoadImageFromStream(iconfile) : icon;
-                        tabItem.HeaderTemplate = TabItemHelper.ImageHeader(icon, pluginInstance.Instance.FriendlyName);
-                        AppViewModel.Instance.PluginTabItems.Add(tabItem);
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-                catch (AppException ex)
-                {
-                }
-            }
-            foreach (var pluginInstance in removed)
-            {
-                try
-                {
-                    App.Plugins.Loaded.Remove(pluginInstance);
-                }
-                catch (Exception ex)
-                {
-                }
+                TabItemHelper.LoadPluginTabItem(pluginInstance);
             }
             AppViewModel.Instance.HasPlugins = App.Plugins.Loaded.Count > 0;
         }
@@ -361,21 +278,17 @@ namespace FFXIVAPP.Client
                         if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
                         {
                             var jsonResult = JArray.Parse(responseText);
-                            foreach (var item in jsonResult)
-                            {
-                                var name = item["Name"].ToString();
-                                var enabled = Boolean.Parse(item["Enabled"].ToString());
-                                var sourceURI = item["SourceURI"].ToString();
-                                if (enabled)
-                                {
-                                    pluginSourceList.Add(new PluginSourceItem
-                                    {
-                                        Enabled = enabled,
-                                        Key = Guid.NewGuid(),
-                                        SourceURI = sourceURI
-                                    });
-                                }
-                            }
+                            pluginSourceList.AddRange(from item in jsonResult
+                                                      let name = item["Name"].ToString()
+                                                      let enabled = Boolean.Parse(item["Enabled"].ToString())
+                                                      let sourceURI = item["SourceURI"].ToString()
+                                                      where enabled
+                                                      select new PluginSourceItem
+                                                      {
+                                                          Enabled = enabled,
+                                                          Key = Guid.NewGuid(),
+                                                          SourceURI = sourceURI
+                                                      });
                         }
                     }
                 }
@@ -466,6 +379,7 @@ namespace FFXIVAPP.Client
                                 UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
                             }
                             UpdateView.View.AvailableDG.Items.Refresh();
+                            UpdateViewModel.Instance.SetupGrouping();
                         });
                     }, pluginUpdateCheck);
                 }
@@ -486,7 +400,6 @@ namespace FFXIVAPP.Client
         public static void GetHomePlugin()
         {
             var homePlugin = Settings.Default.HomePlugin;
-            ;
             switch (homePlugin)
             {
                 case "None":
@@ -809,10 +722,8 @@ namespace FFXIVAPP.Client
             //_actionWorker.StartScanning();
             _actorWorker = new ActorWorker();
             _actorWorker.StartScanning();
-            //_monsterWorker = new MonsterWorker();
-            //_monsterWorker.StartScanning();
-            //_npcWorker = new NPCWorker();
-            //_npcWorker.StartScanning();
+            _monsterWorker = new MonsterWorker();
+            _monsterWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
             _playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
@@ -823,17 +734,16 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        public static void SetupPlugins()
+        public static void SetupParsePlugin()
         {
-            // get official plugin logos
             var parseLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
-            // setup headers for existing plugins
-            ShellView.View.ParsePlugin.HeaderTemplate = TabItemHelper.ImageHeader(parseLogo, "Parse");
-            // append third party plugins
-            foreach (var pluginTabItem in AppViewModel.Instance.PluginTabItems)
+            AppViewModel.Instance.PluginTabItems.Insert(0, new TabItem
             {
-                ShellView.View.PluginsTC.Items.Add(pluginTabItem);
-            }
+                Content = new Views.Parse.ShellView(),
+                Name = "FFXIVAPPPluginParse",
+                Header = "FFXIVAPP.Plugin.Parse",
+                HeaderTemplate = TabItemHelper.ImageHeader(parseLogo, "Parse")
+            });
         }
 
         public static void UpdatePluginConstants()
@@ -864,11 +774,6 @@ namespace FFXIVAPP.Client
             {
                 _monsterWorker.StopScanning();
                 _monsterWorker.Dispose();
-            }
-            if (_npcWorker != null)
-            {
-                _npcWorker.StopScanning();
-                _npcWorker.Dispose();
             }
             if (_playerInfoWorker != null)
             {

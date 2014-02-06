@@ -24,17 +24,5 @@ namespace FFXIVAPP.Client.Controls
         {
             InitializeComponent();
         }
-
-        private void ToggleSwitchOnCheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                var name = ((ToggleSwitch) sender).Tag.ToString();
-                Constants.Application.EnabledPlugins[name] = ((ToggleSwitch) sender).IsChecked ?? true;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
     }
 }

@@ -21,6 +21,13 @@
                                                                     Source={StaticResource PluginSettings}}" />
                 </StackPanel>
             </GroupBox>
+            <GroupBox Header="{Binding Locale[parse_ShowTotalOverallDamageOverTimeInfoHeader],
+                                       Source={StaticResource AppProperties}}">
+                <StackPanel>
+                    <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicTotalOverallDamageOverTime,
+                                                                    Source={StaticResource PluginSettings}}" />
+                </StackPanel>
+            </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowTotalOverallHealingInfoHeader],
                                        Source={StaticResource AppProperties}}">
                 <StackPanel>

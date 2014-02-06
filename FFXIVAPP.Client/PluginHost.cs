@@ -6,8 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
@@ -69,27 +72,51 @@ namespace FFXIVAPP.Client
         /// <summary>
         /// </summary>
         /// <param name="path"></param>
-        public void LoadPlugins(string path = "")
+        public void LoadPlugins(string path)
         {
-            path = (path == "") ? AppDomain.CurrentDomain.BaseDirectory : path;
-            if (!Directory.Exists(path))
+            if (String.IsNullOrWhiteSpace(path))
             {
                 return;
             }
-            var directories = Directory.GetDirectories(path);
-            foreach (var d in directories)
+            try
             {
-                var settings = String.Format(@"{0}\PluginInfo.xml", d);
+                if (Directory.Exists(path))
+                {
+                    var directories = Directory.GetDirectories(path);
+                    foreach (var directory in directories)
+                    {
+                        LoadPlugin(directory);
+                    }    
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="path"></param>
+        public void LoadPlugin(string path)
+        {
+            if (String.IsNullOrWhiteSpace(path))
+            {
+                return;
+            }
+            try
+            {
+                path = Directory.Exists(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+                var settings = String.Format(@"{0}\PluginInfo.xml", path);
                 if (!File.Exists(settings))
                 {
-                    continue;
+                    return;
                 }
                 var xDoc = XDocument.Load(settings);
                 foreach (var xElement in xDoc.Descendants()
                                              .Elements("Main"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xValue = (string) xElement.Element("Value");
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xValue = (string)xElement.Element("Value");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         return;
@@ -97,10 +124,13 @@ namespace FFXIVAPP.Client
                     switch (xKey)
                     {
                         case "FileName":
-                            VerifyPlugin(String.Format(@"{0}\{1}", d, xValue));
+                            VerifyPlugin(String.Format(@"{0}\{1}", path, xValue));
                             break;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
             }
         }
 
@@ -108,15 +138,23 @@ namespace FFXIVAPP.Client
         /// </summary>
         public void UnloadPlugins()
         {
-            foreach (PluginInstance pInstance in Loaded)
+            foreach (var pluginInstance in Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Instance != null))
             {
-                if (pInstance.Instance != null)
-                {
-                    pInstance.Instance.Dispose();
-                }
-                pInstance.Instance = null;
+                pluginInstance.Instance.Dispose();
             }
             Loaded.Clear();
+        }
+
+        /// <summary>
+        /// </summary>
+        public void UnloadPlugin(string name)
+        {
+            var plugin = Loaded.Find(name);
+            if (plugin != null)
+            {
+                plugin.Instance.Dispose();
+                Loaded.Remove(plugin);
+            }
         }
 
         /// <summary>

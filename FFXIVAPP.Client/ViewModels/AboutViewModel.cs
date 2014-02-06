@@ -8,6 +8,8 @@ using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Threading;
+using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.ViewModelBase;
 using SmartAssembly.Attributes;

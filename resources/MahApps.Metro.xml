@@ -420,9 +420,14 @@
             Gets/sets whether this flyout is visible.
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.Flyout.IsPinnable">
+        <member name="P:MahApps.Metro.Controls.Flyout.IsPinned">
             <summary>
-            Gets/sets whether this flyout is pinnable.
+            Gets/sets whether this flyout stays open when the user clicks outside of it.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Flyout.ExternalCloseButton">
+            <summary>
+            Gets/sets the mouse button that closes the flyout on an external mouse click.
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.Flyout.IsModal">
@@ -449,6 +454,16 @@
             <summary>
             A FlyoutsControl is for displaying flyouts in a MetroWindow.
             <see cref="T:MahApps.Metro.Controls.MetroWindow"/>
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.FlyoutsControl.OverrideExternalCloseButton">
+            <summary>
+            Gets/sets whether <see cref="P:MahApps.Metro.Controls.Flyout.ExternalCloseButton"/> is ignored and all flyouts behave as if it was set to the value of this property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.FlyoutsControl.OverrideIsPinned">
+            <summary>
+            Gets/sets whether <see cref="P:MahApps.Metro.Controls.Flyout.IsPinned"/> is ignored and all flyouts behave as if it was set false.
             </summary>
         </member>
         <member name="F:MahApps.Metro.Controls.FlyoutTheme.Adapt">
@@ -555,6 +570,11 @@
         <member name="M:MahApps.Metro.Controls.MetroWindow.#ctor">
             <summary>
             Initializes a new instance of the MahApps.Metro.Controls.MetroWindow class.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.MetroWindow.OverrideDefaultWindowCommandsBrush">
+            <summary>
+            CleanWindow sets this so it has the correct default window commands brush
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.MetroWindow.ShowWindowCommandsOnTop">
@@ -1059,7 +1079,7 @@
         </member>
         <member name="F:MahApps.Metro.Controls.TransitionType.Custom">
             <summary>
-            Use a custom VisualState, the name must be CustomTransition
+            Use a custom VisualState, the name must be set using CustomVisualStatesName property
             </summary>
         </member>
         <member name="T:MahApps.Metro.Controls.TransitioningContentControl">
@@ -1070,6 +1090,11 @@
         <member name="M:MahApps.Metro.Controls.TransitioningContentControl.ReloadTransition">
             <summary>
             Reload the current transition if the content is the same.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.TransitioningContentControl.CustomVisualStatesName">
+            <summary>
+            Gets or sets the name of the custom transition visual state.
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.TransitioningContentControl.IsTransitioning">
@@ -2610,6 +2635,11 @@
         <member name="T:MahApps.Metro.ThemeManager">
             <summary>
             A class that allows for the detection and alteration of a MetroWindow's theme and accent.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.ThemeManager.SystemColors_InvalidateColors">
+            <summary>
+            Cached method info's for use in OnThemeChanged
             </summary>
         </member>
         <member name="M:MahApps.Metro.ThemeManager.ChangeTheme(System.Windows.Application,MahApps.Metro.Accent,MahApps.Metro.Theme)">

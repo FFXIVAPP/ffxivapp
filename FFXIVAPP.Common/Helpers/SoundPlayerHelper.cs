@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using FFXIVAPP.Common.Utilities;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using NLog;
 
@@ -66,7 +67,7 @@ namespace FFXIVAPP.Common.Helpers
                     }
                     else
                     {
-                        player = new WaveOut();
+                        player = new WasapiOut(AudioClientShareMode.Shared, 0);
                         stream = LoadStream(Path.Combine(Constants.SoundsPath, soundFile));
                         player.Init(stream);
                         SoundFiles.Add(soundFile, Tuple.Create(player, stream));

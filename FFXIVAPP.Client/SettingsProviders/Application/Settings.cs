@@ -43,7 +43,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
         {
             DefaultSettings();
             SaveSettingsNode();
-            SaveEnabledPluginsNode();
             SavePluginSourcesNode();
             Constants.Application.XSettings.Save(Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml"));
         }
@@ -156,45 +155,6 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                     if (xElement != null)
                     {
                         xElement.Value = Default[setting].ToString();
-                    }
-                }
-            }
-        }
-
-        public void SaveEnabledPluginsNode()
-        {
-            if (Constants.Application.XSettings == null)
-            {
-                return;
-            }
-            var xElements = Constants.Application.XSettings.Descendants()
-                                     .Elements("Setting");
-            var enumerable = xElements as XElement[] ?? xElements.ToArray();
-            // ensure enabled plugin settings
-            foreach (var enabledPlugin in Constants.Application.EnabledPlugins)
-            {
-                var xKey = enabledPlugin.Key;
-                var xEnabled = enabledPlugin.Value.ToString();
-                var keyPairList = new List<XValuePair>
-                {
-                    new XValuePair
-                    {
-                        Key = "Enabled",
-                        Value = xEnabled
-                    }
-                };
-                var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
-                                                              .Value == xKey);
-                if (element == null)
-                {
-                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
-                }
-                else
-                {
-                    var xEnabledElement = element.Element("Enabled");
-                    if (xEnabledElement != null)
-                    {
-                        xEnabledElement.Value = xEnabled;
                     }
                 }
             }

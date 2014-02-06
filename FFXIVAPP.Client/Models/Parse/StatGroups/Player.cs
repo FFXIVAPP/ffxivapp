@@ -119,7 +119,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             try
                             {
                                 foreach (var statusEntry in
-                                    monsterEntries.SelectMany(monster => monster.StatusEntries)
+                                    monsterEntries.ToList()
+                                                  .Where(p => p.HPCurrent > 0)
+                                                  .SelectMany(monster => monster.StatusEntries)
                                                   .Where(statusEntry => statusEntry.CasterID == ID))
                                 {
                                     StatusEntriesMonsters.Add(statusEntry);
@@ -131,7 +133,9 @@ namespace FFXIVAPP.Client.Models.Parse.StatGroups
                             try
                             {
                                 foreach (var statusEntry in
-                                    pcEntries.SelectMany(pc => pc.StatusEntries)
+                                    pcEntries.ToList()
+                                             .Where(p => p.HPCurrent > 0)
+                                             .SelectMany(pc => pc.StatusEntries)
                                              .Where(statusEntry => statusEntry.CasterID == ID))
                                 {
                                     StatusEntriesPlayers.Add(statusEntry);

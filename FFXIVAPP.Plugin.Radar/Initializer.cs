@@ -37,7 +37,7 @@ namespace FFXIVAPP.Plugin.Radar
                     }
                     if (Constants.Settings.Contains(xKey))
                     {
-                        Settings.SetValue(xKey, xValue, CultureInfo.InvariantCulture);
+                        Settings.Default.SetValue(xKey, xValue, CultureInfo.InvariantCulture);
                     }
                     else
                     {

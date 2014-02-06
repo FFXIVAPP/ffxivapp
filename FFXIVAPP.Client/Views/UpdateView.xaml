@@ -6,6 +6,7 @@
              xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
+             xmlns:converters="clr-namespace:FFXIVAPP.Client.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
@@ -16,7 +17,16 @@
         <x:Static x:Key="UpdateViewModel"
                   Member="ViewModels:UpdateViewModel.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
+        <converters:NameMultiValueConverter x:Key="NameMultiValueConverter" />
         <Custom:ToUpperConverter x:Key="ToUpperConverter" />
+        <DataTemplate x:Key="PluginHeaderTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5 0"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource WhiteColorBrush}"
+                           Text="{Binding}" />
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.DataContext>
@@ -78,6 +88,45 @@
                               SelectionMode="Extended"
                               Style="{DynamicResource MetroDataGrid}"
                               VirtualizingStackPanel.VirtualizationMode="Recycling">
+                        <DataGrid.InputBindings>
+                            <MouseBinding Command="{Binding AvailableDGDoubleClickCommand}"
+                                          MouseAction="LeftDoubleClick" />
+                        </DataGrid.InputBindings>
+                        <DataGrid.GroupStyle>
+                            <!--  Style for groups at top level.  -->
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <Expander Header="{Binding ElementName=StatusInfo,
+                                                                               Path=Text}"
+                                                              HeaderTemplate="{StaticResource PluginHeaderTemplate}"
+                                                              IsExpanded="True">
+                                                        <Expander.Content>
+                                                            <StackPanel>
+                                                                <TextBlock x:Name="StatusInfo"
+                                                                           Padding="5"
+                                                                           Visibility="Collapsed">
+                                                                    <TextBlock.Text>
+                                                                        <MultiBinding Converter="{StaticResource NameMultiValueConverter}">
+                                                                            <Binding Path="Name" />
+                                                                            <Binding Path="ItemCount" />
+                                                                        </MultiBinding>
+                                                                    </TextBlock.Text>
+                                                                </TextBlock>
+                                                                <ItemsPresenter />
+                                                            </StackPanel>
+                                                        </Expander.Content>
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                        </DataGrid.GroupStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Name}"
                                                 Header="{Binding Locale[app_NameHeader],

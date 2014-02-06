@@ -36,7 +36,10 @@ namespace FFXIVAPP.Client
 
         #region Property Bindings
 
-        internal static readonly PluginHost Plugins = new PluginHost();
+        internal static PluginHost Plugins
+        {
+            get { return PluginHost.Instance; }
+        }
 
         public static string[] MArgs { get; private set; }
 

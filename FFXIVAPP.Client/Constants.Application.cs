@@ -31,7 +31,6 @@ namespace FFXIVAPP.Client
 
             private static XDocument _xSettings;
             private static List<string> _settings;
-            private static Dictionary<string, bool> _enabledPlugins;
 
             public static XDocument XSettings
             {
@@ -60,12 +59,6 @@ namespace FFXIVAPP.Client
             {
                 get { return _settings ?? (_settings = new List<string>()); }
                 set { _settings = value; }
-            }
-
-            public static Dictionary<string, bool> EnabledPlugins
-            {
-                get { return _enabledPlugins ?? (_enabledPlugins = new Dictionary<string, bool>()); }
-                set { _enabledPlugins = value; }
             }
 
             #endregion

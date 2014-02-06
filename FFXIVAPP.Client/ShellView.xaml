@@ -217,14 +217,12 @@
                                     BorderThickness="{Binding TabStripPlacement,
                                                               Converter={StaticResource TabStripBorderConverter},
                                                               RelativeSource={RelativeSource Self}}"
+                                    ItemsSource="{Binding PluginTabItems,
+                                                          Source={StaticResource AppProperties}}"
                                     Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}">
                             <TabControl.BorderBrush>
                                 <SolidColorBrush Color="{DynamicResource AccentColor}" />
                             </TabControl.BorderBrush>
-                            <TabItem x:Name="ParsePlugin"
-                                     Header="FFXIVAPP.Plugin.Parse">
-                                <parse:ShellView />
-                            </TabItem>
                         </TabControl>
                     </Grid>
                 </TabItem>

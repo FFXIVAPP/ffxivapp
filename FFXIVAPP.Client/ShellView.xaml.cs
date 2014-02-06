@@ -75,10 +75,10 @@ namespace FFXIVAPP.Client
 
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
-            Initializer.GetHomePlugin();
             Initializer.SetSignatures();
             Initializer.StartMemoryWorkers();
-            Initializer.SetupPlugins();
+            Initializer.SetupParsePlugin();
+            Initializer.GetHomePlugin();
             Initializer.UpdatePluginConstants();
 
             #endregion

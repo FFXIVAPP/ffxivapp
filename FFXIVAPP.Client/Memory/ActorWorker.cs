@@ -123,47 +123,40 @@ namespace FFXIVAPP.Client.Memory
 
                             #region ActorEntity Handlers
 
-                            var monsterEntries = new List<ActorEntity>();
                             var npcEntries = new List<ActorEntity>();
-                            var pcEntries = new List<ActorEntity>();
                             for (var i = 0; i < sourceData.Count; i++)
                             {
-                                var source = sourceData[i];
-                                //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
-                                //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
-                                //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
-                                //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
-                                entry.MapIndex = mapIndex;
-                                if (!entry.IsValid)
+                                try
                                 {
-                                    continue;
+                                    var source = sourceData[i];
+                                    //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                    //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
+                                    //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
+                                    //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                    //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                    entry.MapIndex = mapIndex;
+                                    if (!entry.IsValid)
+                                    {
+                                        continue;
+                                    }
+                                    switch (entry.Type)
+                                    {
+                                        case Actor.Type.Monster:
+                                        case Actor.Type.PC:
+                                            break;
+                                        default:
+                                            npcEntries.Add(entry);
+                                            break;
+                                    }
                                 }
-                                switch (entry.Type)
+                                catch (Exception ex)
                                 {
-                                    case Actor.Type.Monster:
-                                        monsterEntries.Add(entry);
-                                        break;
-                                    case Actor.Type.PC:
-                                        pcEntries.Add(entry);
-                                        break;
-                                    default:
-                                        npcEntries.Add(entry);
-                                        break;
                                 }
-                            }
-                            if (monsterEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
                             }
                             if (npcEntries.Any())
                             {
                                 AppContextHelper.Instance.RaiseNewNPCEntries(npcEntries);
-                            }
-                            if (pcEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
                             }
 
                             #endregion

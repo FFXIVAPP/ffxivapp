@@ -127,53 +127,48 @@ namespace FFXIVAPP.Client.Memory
                             #region ActorEntity Handlers
 
                             var monsterEntries = new List<ActorEntity>();
-                            var npcEntries = new List<ActorEntity>();
                             var pcEntries = new List<ActorEntity>();
                             for (var i = 0; i < sourceData.Count; i++)
                             {
-                                var source = sourceData[i];
-                                //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
-                                //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
-                                //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
-                                //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
-                                entry.MapIndex = mapIndex;
-                                if (i == 0)
+                                try
                                 {
-                                    if (targetAddress > 0)
+                                    var source = sourceData[i];
+                                    //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                    //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
+                                    //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
+                                    //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                    //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                    entry.MapIndex = mapIndex;
+                                    if (i == 0)
                                     {
-                                        var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                        entry.TargetID = (int) targetInfo.CurrentTargetID;
+                                        if (targetAddress > 0)
+                                        {
+                                            var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
+                                            entry.TargetID = (int)targetInfo.CurrentTargetID;
+                                        }
+                                    }
+                                    if (!entry.IsValid)
+                                    {
+                                        continue;
+                                    }
+                                    switch (entry.Type)
+                                    {
+                                        case Actor.Type.Monster:
+                                            monsterEntries.Add(entry);
+                                            break;    
+                                        case Actor.Type.PC:
+                                            pcEntries.Add(entry);
+                                            break;
                                     }
                                 }
-                                if (!entry.IsValid)
+                                catch (Exception ex)
                                 {
-                                    continue;
-                                }
-                                switch (entry.Type)
-                                {
-                                    case Actor.Type.Monster:
-                                        monsterEntries.Add(entry);
-                                        break;
-                                    case Actor.Type.NPC:
-                                        npcEntries.Add(entry);
-                                        break;
-                                    case Actor.Type.PC:
-                                        pcEntries.Add(entry);
-                                        break;
-                                    default:
-                                        npcEntries.Add(entry);
-                                        break;
                                 }
                             }
                             if (monsterEntries.Any())
                             {
                                 AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
-                            }
-                            if (npcEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewNPCEntries(npcEntries);
                             }
                             if (pcEntries.Any())
                             {

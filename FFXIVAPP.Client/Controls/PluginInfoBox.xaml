@@ -122,12 +122,6 @@
                                                           Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
-                        <DockPanel DockPanel.Dock="Right">
-                            <controls:ToggleSwitch Width="120"
-                                                   IsChecked="{Binding IsEnabled}"
-                                                   IsCheckedChanged="ToggleSwitchOnCheckedChanged"
-                                                   Tag="{Binding Name}" />
-                        </DockPanel>
                         <DockPanel Margin="5 0">
                             <StackPanel Grid.Column="1"
                                         Height="Auto"

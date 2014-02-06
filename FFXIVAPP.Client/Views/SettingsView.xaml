@@ -370,52 +370,6 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_ThirdPartyPluginsTabHeader],
-                                      Source={StaticResource AppProperties}}">
-                <ScrollViewer>
-                    <StackPanel>
-                        <Border Height="33"
-                                Margin="5"
-                                Background="LightYellow"
-                                BorderBrush="{DynamicResource AccentColorBrush}"
-                                BorderThickness="2"
-                                CornerRadius="2">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Text="{Binding Locale[app_ChangesOnRestartMessage],
-                                                      Source={StaticResource AppProperties}}"
-                                       TextWrapping="WrapWithOverflow" />
-                        </Border>
-                        <ItemsControl>
-                            <ItemsControl.Resources>
-                                <CollectionViewSource x:Key="PluginInfo"
-                                                      Source="{Binding PluginInfo,
-                                                                       Source={StaticResource AppProperties}}">
-                                    <CollectionViewSource.SortDescriptions>
-                                        <componentModel:SortDescription Direction="Ascending"
-                                                                        PropertyName="Name" />
-                                    </CollectionViewSource.SortDescriptions>
-                                </CollectionViewSource>
-                            </ItemsControl.Resources>
-                            <ItemsControl.ItemsSource>
-                                <Binding Source="{StaticResource PluginInfo}" />
-                            </ItemsControl.ItemsSource>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <controls:PluginInfoBox DataContext="{Binding}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

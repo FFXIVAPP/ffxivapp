@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Memory;
@@ -20,6 +21,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using SmartAssembly.Attributes;
+using ContextMenu = System.Windows.Forms.ContextMenu;
 
 namespace FFXIVAPP.Client
 {
@@ -41,8 +43,7 @@ namespace FFXIVAPP.Client
         private Dictionary<string, string> _locale;
         private string _logsPath;
         private NotifyIcon _notifyIcon;
-        private ObservableCollection<PluginInfo> _pluginInfo;
-        private ObservableCollection<UIElement> _pluginTabItems;
+        private ObservableCollection<TabItem> _pluginTabItems;
         private string _pluginsSettingsPath;
         private List<string> _savedLogsDirectoryList;
         private string _screenShotsPath;
@@ -110,22 +111,12 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public ObservableCollection<UIElement> PluginTabItems
+        public ObservableCollection<TabItem> PluginTabItems
         {
-            get { return _pluginTabItems ?? (_pluginTabItems = new ObservableCollection<UIElement>()); }
+            get { return _pluginTabItems ?? (_pluginTabItems = new ObservableCollection<TabItem>()); }
             set
             {
                 _pluginTabItems = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public ObservableCollection<PluginInfo> PluginInfo
-        {
-            get { return _pluginInfo ?? (_pluginInfo = new ObservableCollection<PluginInfo>()); }
-            set
-            {
-                _pluginInfo = value;
                 RaisePropertyChanged();
             }
         }

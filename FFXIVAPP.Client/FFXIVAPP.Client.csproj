@@ -168,6 +168,7 @@
     <Compile Include="Controls\PluginInfoBox.xaml.cs">
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NameMultiValueConverter.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
     <Compile Include="Helpers\ActorEntityHelper.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
@@ -272,7 +273,6 @@
     <Compile Include="Memory\Signature.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatLogWorker.cs" />
-    <Compile Include="Memory\NPCWorker.cs" />
     <Compile Include="Models\KillEntry.cs" />
     <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\Parse\StatGroups\Player.Stats.Buffs.cs" />
