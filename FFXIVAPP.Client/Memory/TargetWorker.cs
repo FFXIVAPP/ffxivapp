@@ -98,9 +98,8 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.CurrentTarget);
-                                            var name = MemoryHandler.Instance.GetString(targetInfo.CurrentTarget, 48);
-                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.CurrentTarget, 0x3F40);
+                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
                                                 try
@@ -125,9 +124,8 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.MouseOverTarget);
-                                            var name = MemoryHandler.Instance.GetString(targetInfo.MouseOverTarget, 48);
-                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.MouseOverTarget, 0x3F40);
+                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
                                                 try
@@ -150,10 +148,8 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                     if (targetInfo.FocusTarget > 0)
                                     {
-                                        somethingFound = true;
-                                        var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.FocusTarget);
-                                        var name = MemoryHandler.Instance.GetString(targetInfo.FocusTarget, 48);
-                                        var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                        var source = MemoryHandler.Instance.GetByteArray(targetInfo.FocusTarget, 0x3F40);
+                                        var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                         if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                         {
                                             try
@@ -166,6 +162,7 @@ namespace FFXIVAPP.Client.Memory
                                         }
                                         if (entry.IsValid)
                                         {
+                                            somethingFound = true;
                                             targetEntity.FocusTarget = entry;
                                         }
                                     }
@@ -173,9 +170,8 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(targetInfo.PreviousTarget);
-                                            var name = MemoryHandler.Instance.GetString(targetInfo.PreviousTarget, 48);
-                                            var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.PreviousTarget, 0x3F40);
+                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
                                                 try
@@ -209,8 +205,8 @@ namespace FFXIVAPP.Client.Memory
                                         var address = targetHateStructure + (i * 72);
                                         var enmityEntry = new EnmityEntry
                                         {
-                                            ID = (uint) MemoryHandler.Instance.GetInt32(address),
-                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address + 4)
+                                            ID = (uint)MemoryHandler.Instance.GetInt32(address),
+                                            Enmity = (uint)MemoryHandler.Instance.GetInt32(address + 4)
                                         };
                                         if (enmityEntry.ID <= 0)
                                         {

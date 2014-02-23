@@ -26,7 +26,14 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
+        private static SigScanner _instance;
         private Dictionary<string, uint> _locations;
+
+        public static SigScanner Instance
+        {
+            get { return _instance ?? (_instance = new SigScanner()); }
+            set { _instance = value; }
+        }
 
         public Dictionary<string, uint> Locations
         {
@@ -144,7 +151,7 @@ namespace FFXIVAPP.Client.Memory
                 while (true)
                 {
                     var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint) address, out info, (uint) Marshal.SizeOf(info));
+                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint)address, out info, (uint)Marshal.SizeOf(info));
                     if (0 == result)
                     {
                         break;
@@ -178,7 +185,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -195,7 +202,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
                             }
-                            Locations.Add(signature.Key, (uint) searchResult);
+                            Locations.Add(signature.Key, (uint)searchResult);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();
@@ -243,7 +250,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -301,7 +308,14 @@ namespace FFXIVAPP.Client.Memory
                         }
                     }
                     var idx = -1;
-                    idx = pos == pattern.Length ? Horspool(buffer, pattern) : BNDM(buffer, pattern, WildCardChar);
+                    if (pattern.Length > 32)
+                    {
+                        idx = FindSuperSig(buffer, pattern);
+                    }
+                    else
+                    {
+                        idx = pos == pattern.Length ? Horspool(buffer, pattern) : BNDM(buffer, pattern, WildCardChar);
+                    }
                     if (idx < 0)
                     {
                         return IntPtr.Zero;
@@ -309,14 +323,14 @@ namespace FFXIVAPP.Client.Memory
                     switch (searchType)
                     {
                         case ScanResultType.ValueBeforeSig:
-                            return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx - 4) + offset);
                         case ScanResultType.ValueAfterSig:
-                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
                         case ScanResultType.AddressStartOfSig:
-                            return (IntPtr) (idx + offset);
+                            return (IntPtr)(idx + offset);
                         case ScanResultType.ValueAtWildCard:
                         default:
-                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pos) + offset);
+                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pos) + offset);
                     }
                 }
             }
@@ -324,6 +338,49 @@ namespace FFXIVAPP.Client.Memory
             {
             }
             return IntPtr.Zero;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        private static int FindSuperSig(byte[] buffer, byte[] pattern)
+        {
+            var result = -1;
+            if (buffer.Length <= 0 || pattern.Length <= 0 || buffer.Length < pattern.Length)
+            {
+                return result;
+            }
+            for (var i = 0; i <= buffer.Length - pattern.Length; i++)
+            {
+                if (buffer[i] != pattern[0])
+                {
+                    continue;
+                }
+                if (buffer.Length > 1)
+                {
+                    var matched = true;
+                    for (var y = 1; y <= pattern.Length - 1; y++)
+                    {
+                        if (buffer[i + y] == pattern[y] || pattern[y] == WildCardChar)
+                        {
+                            continue;
+                        }
+                        matched = false;
+                        break;
+                    }
+                    if (!matched)
+                    {
+                        continue;
+                    }
+                    result = i;
+                    break;
+                }
+                result = i;
+                break;
+            }
+            return result;
         }
 
         /// <summary>Backward Nondeterministic Dawg Matching search algorithm</summary>
@@ -367,7 +424,6 @@ namespace FFXIVAPP.Client.Memory
                 while (d != 0)
                 {
                     d &= b[buffer[pos + j]];
-
                     if (d != 0)
                     {
                         if (j == 0)
@@ -441,7 +497,7 @@ namespace FFXIVAPP.Client.Memory
                     }
                     else
                     {
-                        pattern[x] = (byte) (hexTable[Char.ToUpper(signature[i]) - '0'] << 4 | hexTable[Char.ToUpper(signature[i + 1]) - '0']);
+                        pattern[x] = (byte)(hexTable[Char.ToUpper(signature[i]) - '0'] << 4 | hexTable[Char.ToUpper(signature[i + 1]) - '0']);
                     }
                 }
                 return pattern;

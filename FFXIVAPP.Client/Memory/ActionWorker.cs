@@ -97,73 +97,87 @@ namespace FFXIVAPP.Client.Memory
                             foreach (var source in sources.AsParallel()
                                                           .Where(s => s.Count() > 0))
                             {
-                                var combatEntry = new CombatEntry();
-
                                 var entryID = BitConverter.ToUInt32(source, 0x74);
-                                var entryType = (Actor.Type) source[0x8A];
+                                var entryType = (Actor.Type)source[0x8A];
                                 var entryName = MemoryHandler.Instance.GetStringFromBytes(source, 48);
 
-                                #region Incoming Handler
+                                #region FlyingText Handler
 
-                                IntPtr incomingAddress;
-                                if ((incomingAddress = MemoryHandler.Instance.ReadPointer((IntPtr) BitConverter.ToUInt32(source, 0x2FD4))) == IntPtr.Zero)
+                                try
                                 {
-                                    continue;
-                                }
-                                var limit = MemoryHandler.Instance.GetInt32(BitConverter.ToUInt32(source, 0x2FD8));
-                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FDC);
-                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FE0);
-                                //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x2FF0);
-                                if (limit >= 0x100)
-                                {
-                                    continue;
-                                }
-                                var incomingEntries = new List<IncomingEntry>();
-                                for (var m = 0; m < limit; m++)
-                                {
-                                    IntPtr ptr3;
-                                    if ((ptr3 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(incomingAddress, m * 4))) == IntPtr.Zero)
-                                    {
-                                        continue;
-                                    }
-                                    IntPtr ptr4;
-                                    if ((ptr4 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr3, 4))) == IntPtr.Zero)
-                                    {
-                                        continue;
-                                    }
-                                    IntPtr ptr5;
-                                    if ((ptr5 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr4, 0))) == IntPtr.Zero)
-                                    {
-                                        continue;
-                                    }
-                                    IntPtr ptr6;
-                                    if ((ptr6 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr5, 4))) == IntPtr.Zero)
-                                    {
-                                        continue;
-                                    }
-                                    var incomingEntry = new IncomingEntry
-                                    {
-                                        ID = (uint) ptr3.ToInt64(),
-                                        Amount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x10)),
-                                        ComboAmount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 20)),
-                                        Type1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 4)),
-                                        Type2 = MemoryHandler.Instance.ReadInt32(ptr3),
-                                        SkillID = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 12)),
-                                        UNK1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6)),
-                                        UNK2 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 8)),
-                                        UNK3 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x18)),
-                                        UNK4 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x1C)),
-                                        TargetID = entryID,
-                                        TargetName = entryName,
-                                        TargetType = entryType
-                                    };
-                                    if (incomingEntry.SkillID > 0)
-                                    {
-                                        incomingEntries.Add(incomingEntry);
-                                    }
-                                }
+                                    var flyingTextEntries = new List<FlyingTextEntry>();
 
-                                combatEntry.IncomingEntries = incomingEntries;
+                                    switch (entryType)
+                                    {
+                                        case Actor.Type.Monster:
+                                        case Actor.Type.PC:
+                                            IntPtr flyingTextAddress;
+                                            if ((flyingTextAddress = MemoryHandler.Instance.ReadPointer((IntPtr)BitConverter.ToUInt32(source, 0x3194))) == IntPtr.Zero)
+                                            {
+                                                continue;
+                                            }
+                                            var limit = MemoryHandler.Instance.GetInt32(BitConverter.ToUInt32(source, 0x3198));
+                                            //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x319C);
+                                            //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x31A0);
+                                            //MemoryHandler.Instance.ReadInt32((IntPtr) characterAddress, 0x31B0);
+                                            if (limit < 0x100)
+                                            {
+                                                for (var m = 0; m < limit; m++)
+                                                {
+                                                    try
+                                                    {
+                                                        IntPtr ptr3;
+                                                        if ((ptr3 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(flyingTextAddress, m * 4))) == IntPtr.Zero)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        IntPtr ptr4;
+                                                        if ((ptr4 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr3, 4))) == IntPtr.Zero)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        IntPtr ptr5;
+                                                        if ((ptr5 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr4, 0))) == IntPtr.Zero)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        IntPtr ptr6;
+                                                        if ((ptr6 = MemoryHandler.Instance.ReadPointer(IntPtr.Add(ptr5, 4))) == IntPtr.Zero)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        var flyingTextEntry = new FlyingTextEntry
+                                                        {
+                                                            ID = (uint)ptr3.ToInt64(),
+                                                            Amount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x10)),
+                                                            ComboAmount = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 20)),
+                                                            Type1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 4)),
+                                                            Type2 = MemoryHandler.Instance.ReadInt32(ptr3),
+                                                            SkillID = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 12)),
+                                                            UNK1 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6)),
+                                                            UNK2 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 8)),
+                                                            UNK3 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x18)),
+                                                            UNK4 = MemoryHandler.Instance.ReadInt32(MemoryHandler.Instance.ReadPointer(ptr6, 0x1C)),
+                                                            TargetID = entryID,
+                                                            TargetName = entryName,
+                                                            TargetType = entryType
+                                                        };
+                                                        if (flyingTextEntry.SkillID > 0)
+                                                        {
+                                                            flyingTextEntries.Add(flyingTextEntry);
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                }
 
                                 #endregion
 
@@ -171,82 +185,85 @@ namespace FFXIVAPP.Client.Memory
 
                                 var incomingActionEntries = new List<IncomingActionEntry>();
 
-                                switch (entryType)
+                                try
                                 {
-                                    case Actor.Type.Monster:
-                                    case Actor.Type.PC:
-                                        try
-                                        {
+                                    switch (entryType)
+                                    {
+                                        case Actor.Type.Monster:
+                                        case Actor.Type.PC:
                                             var sourceArray = new byte[0xBB8];
-                                            Buffer.BlockCopy(source, 0x32C0, sourceArray, 0, 0xBB8);
+                                            Buffer.BlockCopy(source, 0x3480, sourceArray, 0, 0xBB8);
                                             for (uint d = 0; d < 30; d++)
                                             {
-                                                var destinationArray = new byte[100];
-                                                var index = d * 100;
-                                                Array.Copy(sourceArray, index, destinationArray, 0, 100);
-                                                var incomingActionEntry = new IncomingActionEntry
+                                                try
                                                 {
-                                                    Code = BitConverter.ToInt32(destinationArray, 0),
-                                                    SequenceID = BitConverter.ToInt32(destinationArray, 4),
-                                                    SkillID = BitConverter.ToInt32(destinationArray, 12),
-                                                    SourceID = BitConverter.ToUInt32(destinationArray, 20),
-                                                    Type = destinationArray[66],
-                                                    Amount = BitConverter.ToInt16(destinationArray, 70),
-                                                    TargetID = entryID,
-                                                    TargetName = entryName,
-                                                    TargetType = entryType
-                                                };
-                                                if (incomingActionEntry.SequenceID > 0 && incomingActionEntry.SkillID > 0 && incomingActionEntry.SourceID > 0)
+                                                    var destinationArray = new byte[100];
+                                                    var index = d * 100;
+                                                    Array.Copy(sourceArray, index, destinationArray, 0, 100);
+                                                    var incomingActionEntry = new IncomingActionEntry
+                                                    {
+                                                        Code = BitConverter.ToInt32(destinationArray, 0),
+                                                        SequenceID = BitConverter.ToInt32(destinationArray, 4),
+                                                        SkillID = BitConverter.ToInt32(destinationArray, 12),
+                                                        SourceID = BitConverter.ToUInt32(destinationArray, 20),
+                                                        Type = destinationArray[66],
+                                                        Amount = BitConverter.ToInt16(destinationArray, 70),
+                                                        TargetID = entryID,
+                                                        TargetName = entryName,
+                                                        TargetType = entryType
+                                                    };
+                                                    if (incomingActionEntry.SequenceID > 0 && incomingActionEntry.SkillID > 0 && incomingActionEntry.SourceID > 0)
+                                                    {
+                                                        incomingActionEntries.Add(incomingActionEntry);
+                                                    }
+
+                                                }
+                                                catch (Exception ex)
                                                 {
-                                                    incomingActionEntries.Add(incomingActionEntry);
                                                 }
                                             }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                        }
-                                        break;
+                                            break;
+                                    }
                                 }
-
-                                combatEntry.IncomingActionEntries = incomingActionEntries;
+                                catch (Exception ex)
+                                {
+                                }
 
                                 #endregion
 
                                 #region OutGoing Handler
 
-                                var outGoingCount = source[0x32B8];
-                                if (outGoingCount > 0)
+                                var outGoingActionEntries = new List<OutGoingActionEntry>();
+
+                                try
                                 {
-                                    var outGoingEntry = new OutGoingEntry
+                                    switch (entryType)
                                     {
-                                        Counter = outGoingCount,
-                                        SkillID = source[0x31B0],
-                                        SequenceID = BitConverter.ToInt32(source, 0x31BC),
-                                        SourceID = entryID,
-                                        SourceName = entryName,
-                                        SourceType = entryType
-                                    };
-                                    for (var j = 0; j < outGoingCount; j++)
-                                    {
-                                        outGoingEntry.TargetIDs.Add(BitConverter.ToUInt32(source, 0x31C8 + j * 8));
+                                        case Actor.Type.Monster:
+                                        case Actor.Type.PC:
+                                            var sourceArray = new byte[0x108];
+                                            Buffer.BlockCopy(source, 0x3334, sourceArray, 0, 0x108);
+                                            var outGoingActionEntry = new OutGoingActionEntry
+                                            {
+                                                Amount = 0,
+                                                SequenceID = BitConverter.ToInt32(sourceArray, 8),
+                                                SkillID = BitConverter.ToInt32(sourceArray, 0),
+                                                SourceID = entryID,
+                                                TargetID = BitConverter.ToUInt32(sourceArray, 12),
+                                                Type = source[0x8A]
+                                            };
+                                            if (outGoingActionEntry.SequenceID > 0 && outGoingActionEntry.SkillID > 0 && outGoingActionEntry.SourceID > 0 && outGoingActionEntry.TargetID != 0xE0000000)
+                                            {
+                                                outGoingActionEntries.Add(outGoingActionEntry);
+                                            }
+                                            break;
                                     }
-                                    if (outGoingEntry.SkillID > 0)
-                                    {
-                                        CombatTracker.EnsureOutGoingEntries(outGoingEntry);
-                                    }
+                                }
+                                catch (Exception ex)
+                                {
                                 }
 
                                 #endregion
-
-                                if (incomingEntries.Any())
-                                {
-                                    CombatTracker.EnsureIncomingEntries(incomingEntries);
-                                }
-
-                                if (incomingActionEntries.Any())
-                                {
-                                    CombatTracker.EnsureIncomingActionEntries(incomingActionEntries);
-                                }
                             }
 
                             //Stopwatch.Stop();

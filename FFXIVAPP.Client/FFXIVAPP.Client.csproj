@@ -335,6 +335,8 @@
     <Compile Include="PluginInitializer.cs" />
     <Compile Include="PluginInitializer.Parse.cs" />
     <Compile Include="Utilities\BuildUtilities.cs" />
+    <Compile Include="Utilities\FlyingTextEntry.cs" />
+    <Compile Include="Utilities\OutGoingActionEntry.cs" />
     <Compile Include="Utilities\Parse\Filter.Declarations.cs" />
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
@@ -344,7 +346,6 @@
     <Compile Include="SettingsProviders\Application\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
-    <Compile Include="Utilities\CombatEntry.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
     <Compile Include="Utilities\Parse\Filter.Actions.cs" />
     <Compile Include="Utilities\Parse\Filter.Beneficial.cs" />
@@ -354,18 +355,12 @@
     <Compile Include="Utilities\Parse\Filter.Detrimental.cs" />
     <Compile Include="Utilities\Parse\Filter.Failed.cs" />
     <Compile Include="Utilities\Parse\Filter.Items.cs" />
-    <Compile Include="Utilities\OutGoingContainer.cs" />
-    <Compile Include="Utilities\IncomingContainer.cs" />
-    <Compile Include="Utilities\IncomingActionContainer.cs" />
-    <Compile Include="Utilities\IncomingEntry.cs" />
     <Compile Include="Utilities\IncomingActionEntry.cs" />
-    <Compile Include="Utilities\CombatTracker.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="Utilities\LogPublisher.Parse.cs" />
     <Compile Include="Utilities\MicroStopwatch.cs" />
     <Compile Include="Utilities\MicroTimer.cs" />
     <Compile Include="Utilities\MicroTimerEventArgs.cs" />
-    <Compile Include="Utilities\OutGoingEntry.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="ViewModels\Parse\AboutViewModel.cs" />

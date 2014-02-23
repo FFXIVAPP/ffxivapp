@@ -71,8 +71,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XChatCodes.Descendants()
                                                   .Elements("Code"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xDescription = (string) xElement.Element("Description");
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xDescription = (string)xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xDescription))
                     {
                         continue;
@@ -91,15 +91,15 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XActions.Descendants()
                                                   .Elements("Action"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xJA = (string) xElement.Element("JA");
-                    var xEN = (string) xElement.Element("EN");
-                    var xFR = (string) xElement.Element("FR");
-                    var xDE = (string) xElement.Element("DE");
-                    var xJA_HelpLabel = (string) xElement.Element("JA_HelpLabel");
-                    var xEN_HelpLabel = (string) xElement.Element("EN_HelpLabel");
-                    var xFR_HelpLabel = (string) xElement.Element("FR_HelpLabel");
-                    var xDE_HelpLabel = (string) xElement.Element("DE_HelpLabel");
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xJA = (string)xElement.Element("JA");
+                    var xEN = (string)xElement.Element("EN");
+                    var xFR = (string)xElement.Element("FR");
+                    var xDE = (string)xElement.Element("DE");
+                    var xJA_HelpLabel = (string)xElement.Element("JA_HelpLabel");
+                    var xEN_HelpLabel = (string)xElement.Element("EN_HelpLabel");
+                    var xFR_HelpLabel = (string)xElement.Element("FR_HelpLabel");
+                    var xDE_HelpLabel = (string)xElement.Element("DE_HelpLabel");
                     if (String.IsNullOrWhiteSpace(xKey) || Constants.Actions.ContainsKey(xKey))
                     {
                         continue;
@@ -128,8 +128,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XAutoTranslate.Descendants()
                                                   .Elements("Code"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xValue = (string)xElement.Element(Settings.Default.GameLanguage);
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -148,9 +148,9 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XColors.Descendants()
                                                   .Elements("Color"))
                 {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xValue = (string) xElement.Element("Value");
-                    var xDescription = (string) xElement.Element("Description");
+                    var xKey = (string)xElement.Attribute("Key");
+                    var xValue = (string)xElement.Element("Value");
+                    var xDescription = (string)xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -215,18 +215,18 @@ namespace FFXIVAPP.Client
                                                   .Elements("PluginSource"))
                 {
                     var xKey = Guid.Empty;
-                    var xSourceURI = (string) xElement.Element("SourceURI");
+                    var xSourceURI = (string)xElement.Element("SourceURI");
                     var xEnabled = true;
                     try
                     {
-                        xEnabled = (bool) xElement.Element("Enabled");
+                        xEnabled = (bool)xElement.Element("Enabled");
                     }
                     catch (Exception)
                     {
                     }
                     try
                     {
-                        xKey = (Guid) xElement.Attribute("Key");
+                        xKey = (Guid)xElement.Attribute("Key");
                     }
                     catch (Exception)
                     {
@@ -255,69 +255,70 @@ namespace FFXIVAPP.Client
         {
             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
             UpdateViewModel.Instance.AvailablePlugins.Clear();
-            var pluginSourceList = new List<PluginSourceItem>();
-            try
+
+            Func<bool> updateCheck = delegate
             {
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
-                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
-                httpWebRequest.ContentType = "application/text; charset=utf-8";
-                httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                var pluginSourceList = new List<PluginSourceItem>();
+                try
                 {
-                    using (var response = httpResponse.GetResponseStream())
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
+                    httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                    httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+                    httpWebRequest.ContentType = "application/text; charset=utf-8";
+                    httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                    using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
                     {
-                        var responseText = "";
-                        if (response != null)
+                        using (var response = httpResponse.GetResponseStream())
                         {
-                            using (var streamReader = new StreamReader(response))
+                            var responseText = "";
+                            if (response != null)
                             {
-                                responseText = streamReader.ReadToEnd();
+                                using (var streamReader = new StreamReader(response))
+                                {
+                                    responseText = streamReader.ReadToEnd();
+                                }
                             }
-                        }
-                        if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
-                        {
-                            var jsonResult = JArray.Parse(responseText);
-                            pluginSourceList.AddRange(from item in jsonResult
-                                                      let name = item["Name"].ToString()
-                                                      let enabled = Boolean.Parse(item["Enabled"].ToString())
-                                                      let sourceURI = item["SourceURI"].ToString()
-                                                      where enabled
-                                                      select new PluginSourceItem
-                                                      {
-                                                          Enabled = enabled,
-                                                          Key = Guid.NewGuid(),
-                                                          SourceURI = sourceURI
-                                                      });
+                            if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
+                            {
+                                var jsonResult = JArray.Parse(responseText);
+                                pluginSourceList.AddRange(from item in jsonResult
+                                                          let name = item["Name"].ToString()
+                                                          let enabled = Boolean.Parse(item["Enabled"].ToString())
+                                                          let sourceURI = item["SourceURI"].ToString()
+                                                          where enabled
+                                                          select new PluginSourceItem
+                                                          {
+                                                              Enabled = enabled,
+                                                              Key = Guid.NewGuid(),
+                                                              SourceURI = sourceURI
+                                                          });
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-            }
-            foreach (var pluginSourceItem in UpdateViewModel.Instance.AvailableSources)
-            {
-                if (pluginSourceList.Any(p => String.Equals(p.SourceURI, pluginSourceItem.SourceURI, Constants.InvariantComparer)))
+                catch (Exception ex)
                 {
-                    continue;
                 }
-                pluginSourceList.Add(pluginSourceItem);
-            }
-            foreach (var item in pluginSourceList)
-            {
-                if (item.Enabled)
+                foreach (var pluginSourceItem in UpdateViewModel.Instance.AvailableSources)
                 {
-                    var pluginUpdateCheck = (Func<bool>) delegate
+                    if (pluginSourceList.Any(p => String.Equals(p.SourceURI, pluginSourceItem.SourceURI, Constants.InvariantComparer)))
+                    {
+                        continue;
+                    }
+                    pluginSourceList.Add(pluginSourceItem);
+                }
+                foreach (var item in pluginSourceList)
+                {
+                    if (item.Enabled)
                     {
                         try
                         {
-                            var httpWebRequest = (HttpWebRequest) WebRequest.Create(item.SourceURI);
+                            var httpWebRequest = (HttpWebRequest)WebRequest.Create(item.SourceURI);
                             httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                             httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                             httpWebRequest.ContentType = "application/text; charset=utf-8";
                             httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                            using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                            using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
                             {
                                 using (var response = httpResponse.GetResponseStream())
                                 {
@@ -368,10 +369,6 @@ namespace FFXIVAPP.Client
                         catch (Exception ex)
                         {
                         }
-                        return true;
-                    };
-                    pluginUpdateCheck.BeginInvoke(delegate
-                    {
                         DispatcherHelper.Invoke(delegate
                         {
                             if (UpdateView.View.AvailableDG.Items.Count == UpdateViewModel.Instance.AvailablePlugins.Count)
@@ -381,9 +378,11 @@ namespace FFXIVAPP.Client
                             UpdateView.View.AvailableDG.Items.Refresh();
                             UpdateViewModel.Instance.SetupGrouping();
                         });
-                    }, pluginUpdateCheck);
+                    }
                 }
-            }
+                return true;
+            };
+            updateCheck.BeginInvoke(null, null);
         }
 
         /// <summary>
@@ -469,12 +468,12 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
                 httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
                 {
                     using (var response = httpResponse.GetResponseStream())
                     {
@@ -504,7 +503,7 @@ namespace FFXIVAPP.Client
                                 foreach (var feature in enabledFeatures)
                                 {
                                     var key = feature["Hash"].ToString();
-                                    var enabled = (bool) feature["Enabled"];
+                                    var enabled = (bool)feature["Enabled"];
                                     switch (key)
                                     {
                                         case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
@@ -592,7 +591,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "GAMEMAIN",
                 Value = "47616D654D61696E000000",
-                Offset = 1176
+                Offset = 1180
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -604,25 +603,25 @@ namespace FFXIVAPP.Client
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2524
+                Offset = 2548
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "ACTORMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 1140
+                Offset = 1164
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYMAP",
-                Value = "??FFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
-                Offset = 44
+                Value = "0000DB0FC93FDB0F49416F1283??FFFFFFFFDB0FC93FDB0F49416F1283??00000000??0000",
+                Offset = 50
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYCOUNT",
                 Value = "5F50617274794C69737400",
-                Offset = 512
+                Offset = 520
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -633,8 +632,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "TARGET",
-                Value = "DB0F49416F1283??????????????????DB0FC940920A063F",
-                Offset = 136
+                Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
+                Offset = 214
             });
         }
 

@@ -38,7 +38,8 @@
         </StackPanel>
     </Expander>
 
-    <Expander Header="Stats:Totals:ActionsUsed">
+    <Expander Header="Stats:Totals:ActionsUsed"
+              Visibility="Collapsed">
         <StackPanel>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedTotalDamageActionsUsedInfoHeader],
                                        Source={StaticResource AppProperties}}">
@@ -114,7 +115,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageRegAccuracyInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageRegAccuracy,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -175,7 +177,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageCritPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageCritPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -229,7 +232,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageCounterPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageCounterPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -257,7 +261,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageBlockPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageBlockPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -285,7 +290,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageParryPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageParryPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -313,7 +319,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageResistPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageResistPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -341,7 +348,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageEvadePercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageEvadePercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -435,7 +443,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedHealingCritPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedHealingCritPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -511,7 +520,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenRegAccuracyInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenRegAccuracy,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -572,7 +582,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenCritPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenCritPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -626,7 +637,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenCounterPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenCounterPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -654,7 +666,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenBlockPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenBlockPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -682,7 +695,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenParryPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenParryPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -710,7 +724,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenResistPercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenResistPercent,
                                                                     Source={StaticResource PluginSettings}}" />
@@ -738,7 +753,8 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="{Binding Locale[parse_ShowCombinedDamageTakenEvadePercentInfoHeader],
-                                       Source={StaticResource AppProperties}}">
+                                       Source={StaticResource AppProperties}}"
+                      Visibility="Collapsed">
                 <StackPanel>
                     <MetroControls:ToggleSwitch IsChecked="{Binding ShowBasicCombinedDamageTakenEvadePercent,
                                                                     Source={StaticResource PluginSettings}}" />

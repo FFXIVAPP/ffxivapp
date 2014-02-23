@@ -10,7 +10,7 @@ using SmartAssembly.Attributes;
 namespace FFXIVAPP.Client.Utilities
 {
     [DoNotObfuscate]
-    public class IncomingEntry
+    public class FlyingTextEntry
     {
         #region Memory Array Items
 

@@ -692,7 +692,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicTotalOverallDamage
         {
             get { return ((bool) (this["ShowBasicTotalOverallDamage"])); }
@@ -744,7 +744,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
+        [DefaultSettingValue("False")]
         public bool ShowBasicDPS
         {
             get { return ((bool) (this["ShowBasicDPS"])); }
@@ -3524,7 +3524,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
+        [DefaultSettingValue("True")]
         public bool ShowBasicCombinedTotalOverallDamage
         {
             get { return ((bool) (this["ShowBasicCombinedTotalOverallDamage"])); }
@@ -3576,7 +3576,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Parse
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
+        [DefaultSettingValue("True")]
         public bool ShowBasicCombinedDPS
         {
             get { return ((bool) (this["ShowBasicCombinedDPS"])); }

@@ -101,7 +101,9 @@ namespace FFXIVAPP.Common.Core.Memory.Enums
             Unknown = 0x0,
             Claimed = 0x01,
             Idle = 0x02,
-            Crafting = 0x05
+            Crafting = 0x05,
+            UnknownUnSheathed = 0x06,
+            UnknownSheathed = 0x07
         }
 
         public enum TargetType : byte

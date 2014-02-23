@@ -53,227 +53,11 @@ namespace FFXIVAPP.Client.Memory
         }
 
         [StructLayout(LayoutKind.Explicit)]
-        public struct IncomingAction
-        {
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0x0)] //176
-            public int Code;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0x4)] //176
-            public int SequenceID;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0xC)] //176
-            public int SkillID;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x14)] //228
-            public uint SourceID;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x42)] //284
-            public byte Type;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x46)] //388
-            public int Amount;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
         internal struct Location
         {
             [MarshalAs(UnmanagedType.I4)]
             [FieldOffset(0x0)] //0
             public uint BaseAddress;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        public struct NPCEntry
-        {
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x0)] //0
-            public uint GatheringType;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x74)] //116
-            public uint ID;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x78)] //120
-            public uint NPCID1;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x80)] //128
-            public uint NPCID2;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x84)] //132
-            public uint OwnerID;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x8A)] //138
-            public Actor.Type Type;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x8C)] //140
-            public Actor.TargetType TargetType;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x8D)] //141
-            public byte Distance;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x8E)] //142
-            public byte GatheringStatus;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0xA0)] //160
-            public float X;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0xA4)] //164
-            public float Z;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0xA8)] //168
-            public float Y;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0xB0)] //176
-            public float Heading;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0xE4)] //228
-            public uint Fate;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x11C)] //284
-            public byte GatheringInvisible;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x184)] //388
-            public uint ModelID;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x188)] //392
-            public Actor.ActionStatus ActionStatus;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x193)] //393
-            public bool IsGM;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x194)] //394
-            public Actor.Icon Icon;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x196)] //405
-            public Actor.Status Status;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x198)] //0
-            public uint ClaimedByID;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x1A0)] //416
-            public int TargetID;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0xA78)] //416
-            public int PCTargetID;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x1698)] //5784
-            public Actor.Job Job;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x1699)] //5785
-            public byte Level;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x169A)] //5786
-            public byte GrandCompany;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x169B)] //5787
-            public byte GrandCompanyRank;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x169E)] //5790
-            public byte Title;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x16A0)] //5792
-            public int HPCurrent;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x16A4)] //5796
-            public int HPMax;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x16A8)] //5800
-            public int MPCurrent;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x16AC)] //5804
-            public int MPMax;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x16B0)] //5808
-            public short TPCurrent;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x16B2)] //5810
-            public short GPCurrent;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x16B4)] //5812
-            public short GPMax;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x16B6)] //5814
-            public short CPCurrent;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x16B8)] //5816
-            public short CPMax;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x2E58)] //11864
-            public byte Race;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x2E59)] //11865
-            public Actor.Sex Sex;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x2E72)] //11890
-            public byte Agro;
-
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 60)]
-            [FieldOffset(0x2FF8)] //12280
-            public Status[] Statuses;
-
-            [MarshalAs(UnmanagedType.I1)]
-            [FieldOffset(0x3170)]
-            public bool IsCasting;
-
-            [MarshalAs(UnmanagedType.I2)]
-            [FieldOffset(0x3174)]
-            public short CastingID;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x3180)] //116
-            public uint CastingTargetID;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0x31A4)]
-            public float CastingProgress;
-
-            [MarshalAs(UnmanagedType.R4)]
-            [FieldOffset(0x31A8)]
-            public float CastingTime;
         }
 
         [StructLayout(LayoutKind.Explicit)]
@@ -319,11 +103,11 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(0x6C)]
             public int HPMax;
 
-            [MarshalAs(UnmanagedType.I4)]
+            [MarshalAs(UnmanagedType.I2)]
             [FieldOffset(0x70)]
             public short MPCurrent;
 
-            [MarshalAs(UnmanagedType.I4)]
+            [MarshalAs(UnmanagedType.I2)]
             [FieldOffset(0x72)]
             public short MPMax;
 
@@ -712,19 +496,19 @@ namespace FFXIVAPP.Client.Memory
             public uint CurrentTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x18)] //24
+            [FieldOffset(0x8)] //24
             public uint MouseOverTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x40)] //64
+            [FieldOffset(0x38)] //64
             public uint FocusTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x4C)] //76
+            [FieldOffset(0x44)] //76
             public uint PreviousTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x60)] //96
+            [FieldOffset(0x58)] //96
             public uint CurrentTargetID;
         }
     }

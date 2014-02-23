@@ -906,7 +906,20 @@
         </member>
         <member name="P:MahApps.Metro.Controls.NumericUpDown.InterceptArrowKeys">
             <summary>
-                Gets or sets a value indicating whether the user can use the UP ARROW and DOWN ARROW keys to select values.
+                Gets or sets a value indicating whether the user can use the arrow keys to change values.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.InterceptMouseWheel">
+            <summary>
+                Gets or sets a value indicating whether the user can use the mouse wheel to change values.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.NumericUpDown.TrackMouseWheelWhenMouseOver">
+            <summary>
+                Gets or sets a value indicating whether the control must have the focus in order to change values using the mouse wheel.
+            <remarks>
+                If the value is false then the value changes when the mouse wheel is over the control. If the value is true then the value changes only if the control has the focus.
+            </remarks>
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.NumericUpDown.IsReadOnly">
@@ -959,12 +972,12 @@
             <see cref="T:MahApps.Metro.Controls.RangeSlider"/>
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSelectionChangedEventArgs.NewRangeStart">
+        <member name="P:MahApps.Metro.Controls.RangeSelectionChangedEventArgs.NewLowerValue">
             <summary>
             The value of the new range's beginning.
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSelectionChangedEventArgs.NewRangeStop">
+        <member name="P:MahApps.Metro.Controls.RangeSelectionChangedEventArgs.NewUpperValue">
             <summary>
             The value of the new range's ending.
             </summary>
@@ -974,22 +987,79 @@
             A slider control with the ability to select a range between two values.
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSlider.RangeStart">
+        <member name="M:MahApps.Metro.Controls.RangeSlider.OnMinimumChanged(System.Double,System.Double)">
             <summary>
-            Gets/sets the beginning of the range.
+            Responds to a change in the value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Minimum"/> property.
+            </summary>
+            <param name="oldMinimum">The old value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Minimum"/> property.</param><param name="newMinimum">The new value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Minimum"/> property.</param>
+        </member>
+        <member name="M:MahApps.Metro.Controls.RangeSlider.OnMaximumChanged(System.Double,System.Double)">
+            <summary>
+            Responds to a change in the value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Maximum"/> property.
+            </summary>
+            <param name="oldMaximum">The old value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Maximum"/> property.</param><param name="newMaximum">The new value of the <see cref="P:System.Windows.Controls.Primitives.RangeBase.Maximum"/> property.</param>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.Interval">
+            <summary>
+            Get/sets value how fast thumbs will move when user press on left/right/central with left mouse button (IsMoveToPoint must be set to FALSE)
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSlider.RangeStop">
+        <member name="P:MahApps.Metro.Controls.RangeSlider.AutoToolTipPrecision">
             <summary>
-            Gets/sets the end of the range.
+            Get/sets precision of the value, which displaying inside AutotToolTip
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSlider.RangeStartSelected">
+        <member name="P:MahApps.Metro.Controls.RangeSlider.AutoToolTipPlacement">
+            <summary>
+            Get/sets tooltip, which will show while dragging thumbs and display currect value
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.TickPlacement">
+            <summary>
+            Get/sets tick placement position
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.IsMoveToPointEnabled">
+            <summary>
+            Get/sets IsMoveToPoint feature which will enable/disable moving to exact point inside control when user clicked on it
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.TickFrequency">
+            <summary>
+            Get/sets tickFrequency
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.Orientation">
+            <summary>
+            Get/sets orientation of range slider
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.IsSnapToTickEnabled">
+            <summary>
+            Get/sets whether possibility to make manipulations inside range with left/right mouse buttons + cotrol button
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.ExtendedMode">
+            <summary>
+            Get/sets whether possibility to make manipulations inside range with left/right mouse buttons + cotrol button
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.MoveWholeRange">
+            <summary>
+            Get/sets whether whole range will be moved when press on right/left/central part of control
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.MinRangeWidth">
+            <summary>
+            Get/sets the minimal distance between two thumbs.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.RangeSlider.LowerValue">
             <summary>
             Get/sets the beginning of the range selection.
             </summary>
         </member>
-        <member name="P:MahApps.Metro.Controls.RangeSlider.RangeStopSelected">
+        <member name="P:MahApps.Metro.Controls.RangeSlider.UpperValue">
             <summary>
             Get/sets the end of the range selection.
             </summary>
@@ -1006,6 +1076,11 @@
             <remarks>
             Password watermarking code from: http://prabu-guru.blogspot.com/2010/06/how-to-add-watermark-text-to-textbox.html
             </remarks>
+        </member>
+        <member name="M:MahApps.Metro.Controls.TextboxHelper.GetIsSpellCheckContextMenuEnabled(System.Windows.UIElement)">
+            <summary>
+            Indicates if a TextBox or RichTextBox should use SpellCheck context menu
+            </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.TextboxHelper.FocusBorderBrush">
             <summary>
@@ -1131,7 +1206,7 @@
             <returns>The submitted item's parent, if available. Otherwise
             null.</returns>
         </member>
-        <member name="M:MahApps.Metro.Controls.TreeHelper.FindChildren``1(System.Windows.DependencyObject)">
+        <member name="M:MahApps.Metro.Controls.TreeHelper.FindChildren``1(System.Windows.DependencyObject,System.Boolean)">
             <summary>
             Analyzes both visual and logical tree in order to find all elements of a given
             type that are descendants of the <paramref name="source"/> item.
@@ -1139,9 +1214,10 @@
             <typeparam name="T">The type of the queried items.</typeparam>
             <param name="source">The root element that marks the source of the search. If the
             source is already of the requested type, it will not be included in the result.</param>
+            <param name="forceUsingTheVisualTreeHelper">Sometimes it's better to search in the VisualTree (e.g. in tests)</param>
             <returns>All descendants of <paramref name="source"/> that match the requested type.</returns>
         </member>
-        <member name="M:MahApps.Metro.Controls.TreeHelper.GetChildObjects(System.Windows.DependencyObject)">
+        <member name="M:MahApps.Metro.Controls.TreeHelper.GetChildObjects(System.Windows.DependencyObject,System.Boolean)">
             <summary>
             This method is an alternative to WPF's
             <see cref="M:System.Windows.Media.VisualTreeHelper.GetChild(System.Windows.DependencyObject,System.Int32)"/> method, which also
@@ -1149,6 +1225,7 @@
             this method falls back to the logical tree of the element.
             </summary>
             <param name="parent">The item to be processed.</param>
+            <param name="forceUsingTheVisualTreeHelper">Sometimes it's better to search in the VisualTree (e.g. in tests)</param>
             <returns>The submitted item's child elements, if available.</returns>
         </member>
         <member name="M:MahApps.Metro.Controls.TreeHelper.TryFindFromPoint``1(System.Windows.UIElement,System.Windows.Point)">

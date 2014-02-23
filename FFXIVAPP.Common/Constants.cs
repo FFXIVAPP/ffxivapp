@@ -67,7 +67,7 @@ namespace FFXIVAPP.Common
 
         #endregion
 
-        #region Auto-Properties
+        #region Auto-Properties MAIN APPLICATION
 
         public static bool EnableNLog { get; set; }
 

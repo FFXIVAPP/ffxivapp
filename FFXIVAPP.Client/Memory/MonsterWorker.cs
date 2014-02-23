@@ -10,9 +10,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using System.Windows;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
+using FFXIVAPP.Common.Helpers;
+using Newtonsoft.Json;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -156,7 +159,7 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         case Actor.Type.Monster:
                                             monsterEntries.Add(entry);
-                                            break;    
+                                            break;
                                         case Actor.Type.PC:
                                             pcEntries.Add(entry);
                                             break;

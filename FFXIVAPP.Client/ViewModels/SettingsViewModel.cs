@@ -77,6 +77,7 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand RefreshListCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }
         public ICommand DefaultSettingsCommand { get; private set; }
+        public ICommand ChangeAudioModeCommand { get; private set; }
         public ICommand GetCICUIDCommand { get; private set; }
         public ICommand SaveCharacterCommand { get; private set; }
         public ICommand ColorSelectionCommand { get; private set; }
@@ -90,6 +91,7 @@ namespace FFXIVAPP.Client.ViewModels
             RefreshListCommand = new DelegateCommand(RefreshList);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
             DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
+            ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
             GetCICUIDCommand = new DelegateCommand(GetCICUID);
             SaveCharacterCommand = new DelegateCommand(SaveCharacter);
             ColorSelectionCommand = new DelegateCommand(ColorSelection);
@@ -136,6 +138,13 @@ namespace FFXIVAPP.Client.ViewModels
         private static void DefaultSettings()
         {
             SettingsHelper.Default();
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void ChangeAudioMode()
+        {
+            SoundPlayerHelper.CacheSoundFiles();
         }
 
         /// <summary>
