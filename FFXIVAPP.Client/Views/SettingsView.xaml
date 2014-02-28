@@ -122,6 +122,14 @@
             <TabItem Header="Performance &amp; Logging">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="Default Audio Device">
+                            <ComboBox x:Name="AudioDeviceSelect"
+                                      Margin="5"
+                                      IsReadOnly="False"
+                                      ItemsSource="{Binding AvailableAudioDevicesList}"
+                                      SelectedValue="{Binding DefaultAudioDevice,
+                                                              Source={x:Static Properties:Settings.Default}}" />
+                        </GroupBox>
                         <GroupBox Header="{Binding Locale[app_EnableNLogHeader],
                                                    Source={StaticResource AppProperties}}">
                             <StackPanel>

@@ -53,26 +53,13 @@ namespace FFXIVAPP.Client
         {
             View.Topmost = Settings.Default.TopMost;
 
-            #region Initial BootStrapping
-
-            Initializer.SetupCurrentUICulture();
-            Initializer.LoadChatCodes();
-            Initializer.LoadAutoTranslate();
-            Initializer.LoadActions();
-            Initializer.LoadColors();
-            Initializer.LoadApplicationSettings();
-            Initializer.LoadSoundsIntoCache();
-            Initializer.LoadPlugins();
-            Initializer.LoadAvailableSources();
-            Initializer.LoadAvailablePlugins();
-
-            #endregion
-
             LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
 
             #region GUI Finalization
 
+            Initializer.LoadAvailableSources();
+            Initializer.LoadAvailablePlugins();
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
             Initializer.SetSignatures();

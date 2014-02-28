@@ -108,6 +108,18 @@
             This property can be used to set the Transition for animated TabControls
             </summary>
         </member>
+        <member name="F:MahApps.Metro.Controls.ControlsHelper.ContentDirectionProperty">
+            <summary>
+            This property can be used to handle the style for CheckBox and RadioButton
+            LeftToRight means content left and button right and RightToLeft vise versa
+            </summary>
+        </member>
+        <member name="M:MahApps.Metro.Controls.ControlsHelper.GetContentDirection(System.Windows.UIElement)">
+            <summary>
+            This property can be used to handle the style for CheckBox and RadioButton
+            LeftToRight means content left and button right and RightToLeft vise versa
+            </summary>
+        </member>
         <member name="M:MahApps.Metro.Controls.Dialogs.BaseMetroDialog.#ctor(MahApps.Metro.Controls.MetroWindow,MahApps.Metro.Controls.Dialogs.MetroDialogSettings)">
             <summary>
             Initializes a new MahApps.Metro.Controls.BaseMetroDialog.
@@ -418,6 +430,11 @@
         <member name="P:MahApps.Metro.Controls.Flyout.IsOpen">
             <summary>
             Gets/sets whether this flyout is visible.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.Controls.Flyout.AnimateOnPositionChange">
+            <summary>
+            Gets/sets whether this flyout uses the open/close animation when changing the <see cref="P:MahApps.Metro.Controls.Flyout.Position"/> property. (default is true)
             </summary>
         </member>
         <member name="P:MahApps.Metro.Controls.Flyout.IsPinned">

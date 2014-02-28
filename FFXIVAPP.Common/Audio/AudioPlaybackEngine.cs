@@ -4,6 +4,7 @@
 // © 2013 Ryan Wilson
 
 using System;
+using System.ComponentModel;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
@@ -23,30 +24,54 @@ namespace FFXIVAPP.Common.Audio
 
         #endregion
 
-        private readonly MixingSampleProvider _mixer;
-        private readonly IWavePlayer _outputDevice;
-
+        private Guid LastAudioDevice { get; set; }
+        private MixingSampleProvider Mixer;
+        private IWavePlayer OutputDevice;
+        private int SampleRate = 44100;
+        private int ChannelCount = 2;
 
         public AudioPlaybackEngine(int sampleRate = 44100, int channelCount = 2)
         {
-            //outputDevice = new WaveOutEvent();
-            //outputDevice = new DirectSoundOut(40);
-            //outputDevice = new WasapiOut(AudioClientShareMode.Shared, true, 40);
-            _outputDevice = new DirectSoundOut(100);
-            _mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channelCount));
-            _mixer.ReadFully = true;
-            _outputDevice.Init(_mixer);
-            _outputDevice.Play();
+            SampleRate = sampleRate;
+            ChannelCount = channelCount;
+            SetupEngine();
+        }
+
+        private void SetupEngine()
+        {
+            //OutputDevice = new WaveOutEvent();
+            //OutputDevice = new DirectSoundOut(40);
+            //OutputDevice = new WasapiOut(AudioClientShareMode.Shared, true, 40);
+            if (Constants.DefaultAudioDevice == Guid.Empty)
+            {
+                OutputDevice = new DirectSoundOut(100);
+            }
+            else
+            {
+                LastAudioDevice = Constants.DefaultAudioDevice;
+                OutputDevice = new DirectSoundOut(Constants.DefaultAudioDevice, 100);
+            }
+            Mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(SampleRate, ChannelCount))
+            {
+                ReadFully = true
+            };
+            OutputDevice.Init(Mixer);
+            OutputDevice.Play();
         }
 
         public void Dispose()
         {
-            _outputDevice.Dispose();
+            OutputDevice.Dispose();
         }
 
         public void PlaySound(CachedSound sound, int volume = 100)
         {
-            _mixer.AddMixerInput(new CachedSoundSampleProvider(sound, (float) volume / 100));
+            if (LastAudioDevice != Constants.DefaultAudioDevice)
+            {
+                OutputDevice.Stop();
+                SetupEngine();
+            }
+            Mixer.AddMixerInput(new CachedSoundSampleProvider(sound, (float) volume / 100));
         }
     }
 }

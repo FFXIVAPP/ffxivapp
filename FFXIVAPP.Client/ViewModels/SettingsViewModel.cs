@@ -41,6 +41,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static SettingsViewModel _instance;
         private List<string> _homePluginList;
+        private List<string> _availableAudioDevicesList;
 
         public static SettingsViewModel Instance
         {
@@ -62,6 +63,25 @@ namespace FFXIVAPP.Client.ViewModels
                                                                .ToList());
                 }
                 _homePluginList = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public List<string> AvailableAudioDevicesList
+        {
+            get
+            {
+                return _availableAudioDevicesList ?? (_availableAudioDevicesList = new List<string>(Settings.Default.DefaultAudioDeviceList.Cast<string>()
+                                                                                                            .ToList()));
+            }
+            set
+            {
+                if (_availableAudioDevicesList == null)
+                {
+                    _availableAudioDevicesList = new List<string>(Settings.Default.DefaultAudioDeviceList.Cast<string>()
+                                                                          .ToList());
+                }
+                _availableAudioDevicesList = value;
                 RaisePropertyChanged();
             }
         }

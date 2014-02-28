@@ -71,6 +71,8 @@ namespace FFXIVAPP.Common
 
         public static bool EnableNLog { get; set; }
 
+        public static Guid DefaultAudioDevice { get; set; }
+
         #endregion
     }
 }

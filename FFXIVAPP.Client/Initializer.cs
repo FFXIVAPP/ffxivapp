@@ -71,8 +71,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XChatCodes.Descendants()
                                                   .Elements("Code"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xDescription = (string)xElement.Element("Description");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xDescription = (string) xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xDescription))
                     {
                         continue;
@@ -91,15 +91,15 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XActions.Descendants()
                                                   .Elements("Action"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xJA = (string)xElement.Element("JA");
-                    var xEN = (string)xElement.Element("EN");
-                    var xFR = (string)xElement.Element("FR");
-                    var xDE = (string)xElement.Element("DE");
-                    var xJA_HelpLabel = (string)xElement.Element("JA_HelpLabel");
-                    var xEN_HelpLabel = (string)xElement.Element("EN_HelpLabel");
-                    var xFR_HelpLabel = (string)xElement.Element("FR_HelpLabel");
-                    var xDE_HelpLabel = (string)xElement.Element("DE_HelpLabel");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xJA = (string) xElement.Element("JA");
+                    var xEN = (string) xElement.Element("EN");
+                    var xFR = (string) xElement.Element("FR");
+                    var xDE = (string) xElement.Element("DE");
+                    var xJA_HelpLabel = (string) xElement.Element("JA_HelpLabel");
+                    var xEN_HelpLabel = (string) xElement.Element("EN_HelpLabel");
+                    var xFR_HelpLabel = (string) xElement.Element("FR_HelpLabel");
+                    var xDE_HelpLabel = (string) xElement.Element("DE_HelpLabel");
                     if (String.IsNullOrWhiteSpace(xKey) || Constants.Actions.ContainsKey(xKey))
                     {
                         continue;
@@ -128,8 +128,8 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XAutoTranslate.Descendants()
                                                   .Elements("Code"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xValue = (string)xElement.Element(Settings.Default.GameLanguage);
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xValue = (string) xElement.Element(Settings.Default.GameLanguage);
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -148,9 +148,9 @@ namespace FFXIVAPP.Client
                 foreach (var xElement in Constants.Client.XColors.Descendants()
                                                   .Elements("Color"))
                 {
-                    var xKey = (string)xElement.Attribute("Key");
-                    var xValue = (string)xElement.Element("Value");
-                    var xDescription = (string)xElement.Element("Description");
+                    var xKey = (string) xElement.Attribute("Key");
+                    var xValue = (string) xElement.Element("Value");
+                    var xDescription = (string) xElement.Element("Description");
                     if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
                     {
                         continue;
@@ -189,6 +189,16 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
+        public static void LoadAvailableAudioDevices()
+        {
+            foreach (var device in App.AvailableAudioDevices)
+            {
+                SettingsViewModel.Instance.AvailableAudioDevicesList.Add(device.Description);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
         public static void LoadSoundsIntoCache()
         {
             SoundPlayerHelper.CacheSoundFiles();
@@ -215,18 +225,18 @@ namespace FFXIVAPP.Client
                                                   .Elements("PluginSource"))
                 {
                     var xKey = Guid.Empty;
-                    var xSourceURI = (string)xElement.Element("SourceURI");
+                    var xSourceURI = (string) xElement.Element("SourceURI");
                     var xEnabled = true;
                     try
                     {
-                        xEnabled = (bool)xElement.Element("Enabled");
+                        xEnabled = (bool) xElement.Element("Enabled");
                     }
                     catch (Exception)
                     {
                     }
                     try
                     {
-                        xKey = (Guid)xElement.Attribute("Key");
+                        xKey = (Guid) xElement.Attribute("Key");
                     }
                     catch (Exception)
                     {
@@ -261,12 +271,12 @@ namespace FFXIVAPP.Client
                 var pluginSourceList = new List<PluginSourceItem>();
                 try
                 {
-                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
+                    var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
                     httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                     httpWebRequest.ContentType = "application/text; charset=utf-8";
                     httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                    using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                    using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                     {
                         using (var response = httpResponse.GetResponseStream())
                         {
@@ -313,12 +323,12 @@ namespace FFXIVAPP.Client
                     {
                         try
                         {
-                            var httpWebRequest = (HttpWebRequest)WebRequest.Create(item.SourceURI);
+                            var httpWebRequest = (HttpWebRequest) WebRequest.Create(item.SourceURI);
                             httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                             httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                             httpWebRequest.ContentType = "application/text; charset=utf-8";
                             httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                            using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                            using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                             {
                                 using (var response = httpResponse.GetResponseStream())
                                 {
@@ -468,12 +478,12 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
                 httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                using (var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                 {
                     using (var response = httpResponse.GetResponseStream())
                     {
@@ -503,7 +513,7 @@ namespace FFXIVAPP.Client
                                 foreach (var feature in enabledFeatures)
                                 {
                                     var key = feature["Hash"].ToString();
-                                    var enabled = (bool)feature["Enabled"];
+                                    var enabled = (bool) feature["Enabled"];
                                     switch (key)
                                     {
                                         case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":

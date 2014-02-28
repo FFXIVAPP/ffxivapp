@@ -5,11 +5,13 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml;
@@ -19,6 +21,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using NAudio.Wave;
 using NLog;
 using NLog.Config;
 using SmartAssembly.Attributes;
@@ -31,6 +34,7 @@ namespace FFXIVAPP.Client
         #region Logger
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static List<DirectSoundDeviceInfo> _availableAudioDevices;
 
         #endregion
 
@@ -39,6 +43,11 @@ namespace FFXIVAPP.Client
         internal static PluginHost Plugins
         {
             get { return PluginHost.Instance; }
+        }
+
+        internal static IEnumerable<DirectSoundDeviceInfo> AvailableAudioDevices
+        {
+            get { return _availableAudioDevices ?? (_availableAudioDevices = new List<DirectSoundDeviceInfo>(DirectSoundOut.Devices.Where(d => d.Guid != Guid.Empty))); }
         }
 
         public static string[] MArgs { get; private set; }
@@ -154,54 +163,76 @@ namespace FFXIVAPP.Client
         private static void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Logging.Log(Logger, String.Format("PropertyChanged : {0}", e.PropertyName));
-            switch (e.PropertyName)
+            try
             {
-                case "CharacterName":
-                    Constants.CharacterName = Settings.Default.CharacterName;
-                    break;
-                case "FirstName":
-                    Initializer.SetCharacter();
-                    break;
-                case "LastName":
-                    Initializer.SetCharacter();
-                    break;
-                case "GameLanguage":
-                    Constants.GameLanguage = Settings.Default.GameLanguage;
-                    var lang = Settings.Default.GameLanguage.ToLower();
-                    var cultureInfo = new CultureInfo("en");
-                    switch (lang)
-                    {
-                        case "japanese":
-                            cultureInfo = new CultureInfo("ja");
-                            break;
-                        case "german":
-                            cultureInfo = new CultureInfo("de");
-                            break;
-                        case "french":
-                            cultureInfo = new CultureInfo("fr");
-                            break;
-                    }
-                    Constants.CultureInfo = Settings.Default.Culture = cultureInfo;
-                    LocaleHelper.Update(Settings.Default.Culture);
-                    break;
-                case "ServerName":
-                    Constants.ServerName = Settings.Default.ServerName;
-                    break;
-                case "EnableNLog":
-                    Common.Constants.EnableNLog = Constants.EnableNLog = Settings.Default.EnableNLog;
-                    break;
-                case "EnableHelpLabels":
-                    Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
-                    break;
-                case "Theme":
-                    Constants.Theme = Settings.Default.Theme;
-                    break;
-                case "TopMost":
-                    if (ShellView.View != null)
-                    {
-                        ShellView.View.Topmost = Settings.Default.TopMost;
-                    }
-                    break;
+                switch (e.PropertyName)
+                {
+                    case "CharacterName":
+                        Constants.CharacterName = Settings.Default.CharacterName;
+                        break;
+                    case "FirstName":
+                        Initializer.SetCharacter();
+                        break;
+                    case "LastName":
+                        Initializer.SetCharacter();
+                        break;
+                    case "GameLanguage":
+                        Constants.GameLanguage = Settings.Default.GameLanguage;
+                        var lang = Settings.Default.GameLanguage.ToLower();
+                        var cultureInfo = new CultureInfo("en");
+                        switch (lang)
+                        {
+                            case "japanese":
+                                cultureInfo = new CultureInfo("ja");
+                                break;
+                            case "german":
+                                cultureInfo = new CultureInfo("de");
+                                break;
+                            case "french":
+                                cultureInfo = new CultureInfo("fr");
+                                break;
+                        }
+                        Constants.CultureInfo = Settings.Default.Culture = cultureInfo;
+                        LocaleHelper.Update(Settings.Default.Culture);
+                        break;
+                    case "ServerName":
+                        Constants.ServerName = Settings.Default.ServerName;
+                        break;
+                    case "EnableNLog":
+                        Common.Constants.EnableNLog = Constants.EnableNLog = Settings.Default.EnableNLog;
+                        break;
+                    case "EnableHelpLabels":
+                        Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
+                        break;
+                    case "Theme":
+                        Constants.Theme = Settings.Default.Theme;
+                        break;
+                    case "TopMost":
+                        if (ShellView.View != null)
+                        {
+                            ShellView.View.Topmost = Settings.Default.TopMost;
+                        }
+                        break;
+                    case "DefaultAudioDevice":
+                        if (Settings.Default.DefaultAudioDevice == "System Default")
+                        {
+                            Common.Constants.DefaultAudioDevice = Guid.Empty;
+                        }
+                        else
+                        {
+                            foreach (var audioDevice in AvailableAudioDevices.Where(device => device.Guid != Guid.Empty))
+                            {
+                                if (audioDevice.Description == Settings.Default.DefaultAudioDevice)
+                                {
+                                    Common.Constants.DefaultAudioDevice = audioDevice.Guid;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
 

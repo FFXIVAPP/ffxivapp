@@ -84,6 +84,21 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.SoundsPath = Common.Constants.SoundsPath;
             AppViewModel.Instance.SettingsPath = Common.Constants.SettingsPath;
             AppViewModel.Instance.PluginsSettingsPath = Common.Constants.PluginsSettingsPath;
+
+            #region Initial BootStrapping
+
+            Initializer.SetupCurrentUICulture();
+            Initializer.LoadChatCodes();
+            Initializer.LoadAutoTranslate();
+            Initializer.LoadActions();
+            Initializer.LoadColors();
+            Initializer.LoadApplicationSettings();
+            Initializer.LoadAvailableAudioDevices();
+            Initializer.LoadSoundsIntoCache();
+            Initializer.LoadPlugins();
+
+            #endregion
+
             ProcessDetachCheckTimer.Elapsed += ProcessDetachCheckTimerOnElapsed;
         }
 
