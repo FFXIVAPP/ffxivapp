@@ -584,6 +584,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Media\Images\History.png" />
+    <None Include="app.config" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>

@@ -6,10 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using NLog;
 using SmartAssembly.Attributes;
 
@@ -48,7 +50,7 @@ namespace FFXIVAPP.Client.Memory
 
         public ChatLogWorker()
         {
-            _scanTimer = new Timer(100);
+            _scanTimer = new Timer(250);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -83,6 +85,11 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+            double refresh = 250;
+            if (Double.TryParse(Settings.Default.ChatLogWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
+            {
+                _scanTimer.Interval = refresh;
+            }
             Func<bool> scannerWorker = delegate
             {
                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))

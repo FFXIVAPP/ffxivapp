@@ -6,9 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using Newtonsoft.Json;
@@ -43,7 +45,7 @@ namespace FFXIVAPP.Client.Memory
 
         public PlayerInfoWorker()
         {
-            _scanTimer = new Timer(500);
+            _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -78,6 +80,11 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+            double refresh = 1000;
+            if (Double.TryParse(Settings.Default.PlayerInfoWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
+            {
+                _scanTimer.Interval = refresh;
+            }
             Func<bool> scannerWorker = delegate
             {
                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))

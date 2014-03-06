@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
@@ -41,7 +42,7 @@ namespace FFXIVAPP.Client.Memory
 
         public PartyInfoWorker()
         {
-            _scanTimer = new Timer(100);
+            _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
@@ -76,6 +77,11 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+            double refresh = 1000;
+            if (Double.TryParse(Settings.Default.PartyInfoWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
+            {
+                _scanTimer.Interval = refresh;
+            }
             Func<bool> scannerWorker = delegate
             {
                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))

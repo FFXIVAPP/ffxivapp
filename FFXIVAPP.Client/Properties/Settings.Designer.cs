@@ -470,5 +470,89 @@ namespace FFXIVAPP.Client.Properties {
                 return ((global::System.Collections.Specialized.StringCollection)(this["DefaultAudioDeviceList"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public double ActionWorkerRefresh {
+            get {
+                return ((double)(this["ActionWorkerRefresh"]));
+            }
+            set {
+                this["ActionWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double ActorWorkerRefresh {
+            get {
+                return ((double)(this["ActorWorkerRefresh"]));
+            }
+            set {
+                this["ActorWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("250")]
+        public double ChatLogWorkerRefresh {
+            get {
+                return ((double)(this["ChatLogWorkerRefresh"]));
+            }
+            set {
+                this["ChatLogWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public double PartyInfoWorkerRefresh {
+            get {
+                return ((double)(this["PartyInfoWorkerRefresh"]));
+            }
+            set {
+                this["PartyInfoWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public double PlayerInfoWorkerRefresh {
+            get {
+                return ((double)(this["PlayerInfoWorkerRefresh"]));
+            }
+            set {
+                this["PlayerInfoWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double TargetWorkerRefresh {
+            get {
+                return ((double)(this["TargetWorkerRefresh"]));
+            }
+            set {
+                this["TargetWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double MonsterWorkerRefresh {
+            get {
+                return ((double)(this["MonsterWorkerRefresh"]));
+            }
+            set {
+                this["MonsterWorkerRefresh"] = value;
+            }
+        }
     }
 }

@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using System.Windows;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Helpers;
@@ -80,6 +82,11 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+            double refresh = 100;
+            if (Double.TryParse(Settings.Default.MonsterWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
+            {
+                _scanTimer.Interval = refresh;
+            }
             Func<bool> scannerWorker = delegate
             {
                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
