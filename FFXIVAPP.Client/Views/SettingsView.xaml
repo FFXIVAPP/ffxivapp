@@ -28,8 +28,7 @@
 
     <Grid x:Name="LayoutRoot">
         <TabControl>
-            <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_MainSettingsTabHeader], Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox Header="UI Scale">
@@ -53,8 +52,7 @@
                                                                   Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_ProcessIDHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_ProcessIDHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <TextBlock HorizontalAlignment="Center"
                                            Foreground="{DynamicResource BlackColorBrush}"
@@ -78,8 +76,7 @@
                                                           Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_ChangeThemeHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_ChangeThemeHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <ComboBox x:Name="ThemeSelect"
                                           Margin="5"
@@ -91,25 +88,19 @@
                                           Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_TopMostHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_TopMostHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding TopMost,
-                                                                                Source={x:Static Properties:Settings.Default}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding TopMost, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_SaveLogHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_SaveLogHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding SaveLog,
-                                                                                Source={x:Static Properties:Settings.Default}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding SaveLog, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_EnableHelpLabelsHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_EnableHelpLabelsHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableHelpLabels,
-                                                                                Source={x:Static Properties:Settings.Default}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <Button Margin="5"
@@ -130,22 +121,57 @@
                                       SelectedValue="{Binding DefaultAudioDevice,
                                                               Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_EnableNLogHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="Memory Scanning Speed (Milliseconds)">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableNLog,
-                                                                                Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Actions (Disabled)" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding ActionWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Actor (NPCs &amp; Other)" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding ActorWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="ChatLog" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding ChatLogWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Monsters &amp; PCs)" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding MonsterWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Party Info" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding PartyInfoWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Player Info (YOU)" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding PlayerInfoWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                                <TextBlock Text="Targets &amp; Enmity" />
+                                <TextBox Margin="5"
+                                         AutoWordSelection="True"
+                                         Text="{Binding TargetWorkerRefresh,
+                                                        Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_EnableNLogHeader], Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableNLog, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_CharacterSettingsTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_CharacterSettingsTabHeader], Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="{Binding Locale[app_LodestoneIDLabel],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_LodestoneIDLabel], Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <TextBox x:Name="CICUID"
                                          Margin="5"
@@ -159,27 +185,23 @@
                                                           Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_CharacterInformationHeader],
-                                                   Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_CharacterInformationHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <TextBlock Text="{Binding Locale[app_FirstNameLabel],
-                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Text="{Binding Locale[app_FirstNameLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="FirstName"
                                          Margin="5"
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding FirstName,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="{Binding Locale[app_LastNameLabel],
-                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Text="{Binding Locale[app_LastNameLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox x:Name="LastName"
                                          Margin="5"
                                          AutoWordSelection="True"
                                          MaxLength="32"
                                          Text="{Binding LastName,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="{Binding Locale[app_ServerLabel],
-                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Text="{Binding Locale[app_ServerLabel], Source={StaticResource AppProperties}}" />
                                 <ComboBox x:Name="ServerList"
                                           Margin="5"
                                           IsReadOnly="False"
@@ -192,8 +214,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_ColorSettingsTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_ColorSettingsTabHeader], Source={StaticResource AppProperties}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="33" />
@@ -250,14 +271,12 @@
                     </DockPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_IntegrationSettingsTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_IntegrationSettingsTabHeader], Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox Header="Allow XIVDB Integration">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding AllowXIVDBIntegration,
-                                                                                Source={x:Static Properties:Settings.Default}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding AllowXIVDBIntegration, Source={x:Static Properties:Settings.Default}}" />
                                 <FlowDocumentScrollViewer ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                     <FlowDocument>
                                         <Paragraph Margin="0"
@@ -285,9 +304,7 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="0">
-                                    <TextBlock FontWeight="Bold">
-                                        Enabled:
-                                    </TextBlock>
+                                    <TextBlock FontWeight="Bold">Enabled:</TextBlock>
                                     <TextBlock x:Name="MonsterUploadEnabled"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterUploadEnabled,
@@ -310,9 +327,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="1">
-                                    <TextBlock FontWeight="Bold">
-                                        Seen:
-                                    </TextBlock>
+                                    <TextBlock FontWeight="Bold">Seen:</TextBlock>
                                     <TextBlock x:Name="MonsterSeen"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterSeen,
@@ -341,9 +356,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="2">
-                                    <TextBlock FontWeight="Bold">
-                                        Chunks Processed:
-                                    </TextBlock>
+                                    <TextBlock FontWeight="Bold">Chunks Processed:</TextBlock>
                                     <TextBlock x:Name="MonsterProcessed"
                                                Foreground="{DynamicResource BlackColorBrush}"
                                                Text="{Binding MonsterProcessed,

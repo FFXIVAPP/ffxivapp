@@ -240,25 +240,25 @@
   &lt;string&gt;System Default&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="ActionWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="ActionWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="ActorWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="ActorWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="ChatLogWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="ChatLogWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">250</Value>
     </Setting>
-    <Setting Name="PartyInfoWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="PartyInfoWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="PlayerInfoWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="PlayerInfoWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="TargetWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="TargetWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
-    <Setting Name="MonsterWorkerRefresh" Type="System.Double" Scope="User">
+    <Setting Name="MonsterWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>

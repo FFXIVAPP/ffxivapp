@@ -474,9 +474,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public double ActionWorkerRefresh {
+        public string ActionWorkerRefresh {
             get {
-                return ((double)(this["ActionWorkerRefresh"]));
+                return ((string)(this["ActionWorkerRefresh"]));
             }
             set {
                 this["ActionWorkerRefresh"] = value;
@@ -486,9 +486,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public double ActorWorkerRefresh {
+        public string ActorWorkerRefresh {
             get {
-                return ((double)(this["ActorWorkerRefresh"]));
+                return ((string)(this["ActorWorkerRefresh"]));
             }
             set {
                 this["ActorWorkerRefresh"] = value;
@@ -498,9 +498,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("250")]
-        public double ChatLogWorkerRefresh {
+        public string ChatLogWorkerRefresh {
             get {
-                return ((double)(this["ChatLogWorkerRefresh"]));
+                return ((string)(this["ChatLogWorkerRefresh"]));
             }
             set {
                 this["ChatLogWorkerRefresh"] = value;
@@ -510,9 +510,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public double PartyInfoWorkerRefresh {
+        public string PartyInfoWorkerRefresh {
             get {
-                return ((double)(this["PartyInfoWorkerRefresh"]));
+                return ((string)(this["PartyInfoWorkerRefresh"]));
             }
             set {
                 this["PartyInfoWorkerRefresh"] = value;
@@ -522,9 +522,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public double PlayerInfoWorkerRefresh {
+        public string PlayerInfoWorkerRefresh {
             get {
-                return ((double)(this["PlayerInfoWorkerRefresh"]));
+                return ((string)(this["PlayerInfoWorkerRefresh"]));
             }
             set {
                 this["PlayerInfoWorkerRefresh"] = value;
@@ -534,9 +534,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public double TargetWorkerRefresh {
+        public string TargetWorkerRefresh {
             get {
-                return ((double)(this["TargetWorkerRefresh"]));
+                return ((string)(this["TargetWorkerRefresh"]));
             }
             set {
                 this["TargetWorkerRefresh"] = value;
@@ -546,9 +546,9 @@ namespace FFXIVAPP.Client.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public double MonsterWorkerRefresh {
+        public string MonsterWorkerRefresh {
             get {
-                return ((double)(this["MonsterWorkerRefresh"]));
+                return ((string)(this["MonsterWorkerRefresh"]));
             }
             set {
                 this["MonsterWorkerRefresh"] = value;
