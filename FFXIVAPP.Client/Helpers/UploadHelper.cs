@@ -6,8 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Windows;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json;
 using SmartAssembly.Attributes;
 
@@ -69,7 +71,7 @@ namespace FFXIVAPP.Client.Helpers
             {
                 var jsonData = JsonConvert.SerializeObject(ImportData);
                 var postData = String.Format("jobj={0}", HttpUtility.UrlEncode(jsonData));
-                var jsonResult = HttpPostHelper.Post("http://xivtooltips.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
+                var jsonResult = HttpPostHelper.Post("http://xivapptoxivdb.com/modules/dataimporter/data_importer.php", HttpPostHelper.PostType.Form, postData);
                 var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonResult)["result"];
                 switch (result)
                 {
