@@ -1,7 +1,31 @@
 ﻿// FFXIVAPP.Client
 // SigScanner.cs
 // 
-// © 2013 Ryan Wilson
+// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met: 
+// 
+//  * Redistributions of source code must retain the above copyright notice, 
+//    this list of conditions and the following disclaimer. 
+//  * Redistributions in binary form must reproduce the above copyright 
+//    notice, this list of conditions and the following disclaimer in the 
+//    documentation and/or other materials provided with the distribution. 
+//  * Neither the name of SyndicatedLife nor the names of its contributors may 
+//    be used to endorse or promote products derived from this software 
+//    without specific prior written permission. 
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+// POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
 using System.Collections.Generic;
@@ -11,11 +35,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using NLog;
-using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Memory
 {
-    [DoNotObfuscate]
     public class SigScanner : INotifyPropertyChanged
     {
         #region Logger
@@ -151,7 +173,7 @@ namespace FFXIVAPP.Client.Memory
                 while (true)
                 {
                     var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint)address, out info, (uint)Marshal.SizeOf(info));
+                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint) address, out info, (uint) Marshal.SizeOf(info));
                     if (0 == result)
                     {
                         break;
@@ -185,7 +207,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -202,7 +224,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
                             }
-                            Locations.Add(signature.Key, (uint)searchResult);
+                            Locations.Add(signature.Key, (uint) searchResult);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();
@@ -250,7 +272,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         var buffer = new byte[region.RegionSize];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr)region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -323,14 +345,14 @@ namespace FFXIVAPP.Client.Memory
                     switch (searchType)
                     {
                         case ScanResultType.ValueBeforeSig:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx - 4) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
                         case ScanResultType.ValueAfterSig:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
                         case ScanResultType.AddressStartOfSig:
-                            return (IntPtr)(idx + offset);
+                            return (IntPtr) (idx + offset);
                         case ScanResultType.ValueAtWildCard:
                         default:
-                            return (IntPtr)(BitConverter.ToInt32(buffer, idx + pos) + offset);
+                            return (IntPtr) (BitConverter.ToInt32(buffer, idx + pos) + offset);
                     }
                 }
             }
@@ -497,7 +519,7 @@ namespace FFXIVAPP.Client.Memory
                     }
                     else
                     {
-                        pattern[x] = (byte)(hexTable[Char.ToUpper(signature[i]) - '0'] << 4 | hexTable[Char.ToUpper(signature[i + 1]) - '0']);
+                        pattern[x] = (byte) (hexTable[Char.ToUpper(signature[i]) - '0'] << 4 | hexTable[Char.ToUpper(signature[i + 1]) - '0']);
                     }
                 }
                 return pattern;

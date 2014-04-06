@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Enums
 {
-    [DoNotObfuscate]
     public class Memory
     {
         public enum Job

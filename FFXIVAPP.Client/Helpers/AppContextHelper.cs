@@ -1,25 +1,44 @@
 ﻿// FFXIVAPP.Client
 // AppContextHelper.cs
 // 
-// © 2013 Ryan Wilson
+// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met: 
+// 
+//  * Redistributions of source code must retain the above copyright notice, 
+//    this list of conditions and the following disclaimer. 
+//  * Redistributions in binary form must reproduce the above copyright 
+//    notice, this list of conditions and the following disclaimer in the 
+//    documentation and/or other materials provided with the distribution. 
+//  * Neither the name of SyndicatedLife nor the names of its contributors may 
+//    be used to endorse or promote products derived from this software 
+//    without specific prior written permission. 
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+// POSSIBILITY OF SUCH DAMAGE. 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Utilities;
-using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Parse;
-using Newtonsoft.Json;
 using NLog;
-using SmartAssembly.Attributes;
 using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    [DoNotObfuscate]
     public class AppContextHelper
     {
         #region Logger
@@ -91,42 +110,6 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            MonsterWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = MonsterWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.ID == actor.ID);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(actor)))
-                        {
-                            MonsterWorkerDelegate.AddUniqueNPCEntity(actor);
-                        }
-                        XIVDBViewModel.Instance.MonsterSeen++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                var chunkSize = MonsterWorkerDelegate.UploadHelper.ChunkSize;
-                var chunksProcessed = MonsterWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                         .Count <= (chunkSize * (chunksProcessed + 1)))
-                {
-                    return;
-                }
-                MonsterWorkerDelegate.ProcessUploads();
-            }, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
@@ -137,42 +120,6 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            NPCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = NPCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.NPCID2 == actor.NPCID2);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(actor)))
-                        {
-                            NPCWorkerDelegate.AddUniqueNPCEntity(actor);
-                        }
-                        XIVDBViewModel.Instance.NPCSeen++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                var chunkSize = NPCWorkerDelegate.UploadHelper.ChunkSize;
-                var chunksProcessed = NPCWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (NPCWorkerDelegate.GetUniqueNPCEntities()
-                                     .Count <= (chunkSize * (chunksProcessed + 1)))
-                {
-                    return;
-                }
-                NPCWorkerDelegate.ProcessUploads();
-            }, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
@@ -183,40 +130,6 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            PCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            CurrentUser = actorEntities.First();
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = PCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        PCWorkerDelegate.AddUniqueNPCEntity(actor);
-                        XIVDBViewModel.Instance.PCSeen++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                var chunkSize = PCWorkerDelegate.UploadHelper.ChunkSize;
-                var chunksProcessed = PCWorkerDelegate.UploadHelper.ChunksProcessed;
-                if (PCWorkerDelegate.GetUniqueNPCEntities()
-                                    .Count <= (chunkSize * (chunksProcessed + 1)))
-                {
-                    return;
-                }
-                PCWorkerDelegate.ProcessUploads();
-            }, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }

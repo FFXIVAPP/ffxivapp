@@ -48,18 +48,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SmartAssembly|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\build\SmartAssembly\</OutputPath>
+    <OutputPath>..\distribution\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -77,13 +66,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FFXIVAPP.Common, Version=2.0.4954.37721, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="FFXIVAPP.Common, Version=2.0.5199.31147, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\FFXIVAPP.Common.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Common.dll</HintPath>
     </Reference>
-    <Reference Include="FFXIVAPP.IPluginInterface, Version=2.0.4954.37856, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="FFXIVAPP.IPluginInterface, Version=2.0.5180.18071, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\FFXIVAPP.IPluginInterface.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
     <Reference Include="FFXIVAPP.Localization">
       <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Localization.dll</HintPath>
@@ -91,9 +80,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MahApps.Metro, Version=0.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.7.0.15, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -105,10 +94,6 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="SmartAssembly.Attributes, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\SmartAssembly.Attributes.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -117,7 +102,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -173,6 +158,10 @@
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameMultiValueConverter.cs" />
+    <Compile Include="Delegates\KillWorkerDelegate.cs" />
+    <Compile Include="Delegates\LootWorkerDelegate.cs" />
+    <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
+    <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
     <Compile Include="Helpers\ActorEntityHelper.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
@@ -190,6 +179,8 @@
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
     <Compile Include="Models\BuildNumber.cs" />
+    <Compile Include="Models\KillEntry.cs" />
+    <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\Parse\ActionHistoryItem.cs" />
     <Compile Include="Models\Parse\History\HistoryContainer.cs" />
     <Compile Include="Models\Parse\History\HistoryGroup.cs" />
@@ -237,10 +228,6 @@
     </Compile>
     <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Delegates\ChatLogWorkerDelegate.cs" />
-    <Compile Include="Delegates\KillWorkerDelegate.cs" />
-    <Compile Include="Delegates\LootWorkerDelegate.cs" />
-    <Compile Include="Delegates\NPCWorkerDelegate.cs" />
-    <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Enums\Parse\EventDirection.cs" />
     <Compile Include="Enums\Parse\EventSubject.cs" />
     <Compile Include="Enums\Parse\EventType.cs" />
@@ -255,7 +242,6 @@
     <Compile Include="Helpers\Parse\HealingOverTimeHelper.cs" />
     <Compile Include="Helpers\Parse\DamageOverTimeHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Helpers\HttpPostHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Helpers\Parse\FilterHelper.cs" />
     <Compile Include="Helpers\Parse\LineHelper.cs" />
@@ -263,7 +249,6 @@
     <Compile Include="Helpers\Parse\ParsingLogHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Client.cs" />
     <Compile Include="Helpers\SettingsHelper.Parse.cs" />
-    <Compile Include="Helpers\UploadHelper.cs" />
     <Compile Include="Helpers\SavedlLogsHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -277,8 +262,6 @@
     <Compile Include="Memory\Signature.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatLogWorker.cs" />
-    <Compile Include="Models\KillEntry.cs" />
-    <Compile Include="Models\LootEntry.cs" />
     <Compile Include="Models\Parse\StatGroups\Player.Stats.Buffs.cs" />
     <Compile Include="Models\Parse\XOverTimeAction.cs" />
     <Compile Include="Models\Parse\Events\Event.cs" />
@@ -383,7 +366,6 @@
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\XIVDBViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -661,6 +643,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -668,9 +651,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <UsingTask TaskName="SmartAssembly.MSBuild.Tasks.Build" AssemblyName="SmartAssembly.MSBuild.Tasks, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7f465a1c156d4d57" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'SmartAssembly'">
-    <SmartAssembly.MSBuild.Tasks.Build ProjectFile="FFXIVAPP.Client.saproj" input="$(OutDir)FFXIVAPP.Client.exe" output="$(OutDir)FFXIVAPP.Client.exe" OverwriteAssembly="true" />
-  </Target>
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

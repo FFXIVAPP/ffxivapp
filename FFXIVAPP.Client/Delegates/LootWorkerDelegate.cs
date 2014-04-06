@@ -1,21 +1,40 @@
-﻿// FFXIVAPP.Client
+﻿// FFXIVAPP.Plugin.XIVDB
 // LootWorkerDelegate.cs
 // 
-// © 2013 Ryan Wilson
+// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met: 
+// 
+//  * Redistributions of source code must retain the above copyright notice, 
+//    this list of conditions and the following disclaimer. 
+//  * Redistributions in binary form must reproduce the above copyright 
+//    notice, this list of conditions and the following disclaimer in the 
+//    documentation and/or other materials provided with the distribution. 
+//  * Neither the name of SyndicatedLife nor the names of its contributors may 
+//    be used to endorse or promote products derived from this software 
+//    without specific prior written permission. 
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+// POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Client.ViewModels;
 using Newtonsoft.Json;
-using SmartAssembly.Attributes;
 
 namespace FFXIVAPP.Client.Delegates
 {
-    [DoNotObfuscate]
     public static class LootWorkerDelegate
     {
         #region Collection Access & Modification
@@ -50,61 +69,13 @@ namespace FFXIVAPP.Client.Delegates
 
         private static IList<LootEntry> _lootEntries = new List<LootEntry>();
 
-        private static readonly UploadHelper UploadHelper = new UploadHelper(5);
-
         #endregion
 
         /// <summary>
         /// </summary>
         public static void OnNewLoot(LootEntry lootEntry)
         {
-            Func<bool> saveToDictionary = delegate
-            {
-                if (!lootEntry.IsValid())
-                {
-                    return false;
-                }
-                if (HttpPostHelper.IsValidJson(JsonConvert.SerializeObject(lootEntry)))
-                {
-                    AddLootEntry(lootEntry);
-                }
-                XIVDBViewModel.Instance.LootSeen++;
-                return true;
-            };
-            saveToDictionary.BeginInvoke(delegate
-            {
-                var chunkSize = UploadHelper.ChunkSize;
-                var chunksProcessed = UploadHelper.ChunksProcessed;
-                if (GetLootEntries()
-                    .Count <= (chunkSize * (chunksProcessed + 1)))
-                {
-                    return;
-                }
-                ProcessUploads();
-            }, saveToDictionary);
-        }
-
-        /// <summary>
-        /// </summary>
-        public static void ProcessUploads()
-        {
-            if (UploadHelper.Processing || !Settings.Default.AllowXIVDBIntegration || !Constants.IsOpen || !XIVDBViewModel.Instance.LootUploadEnabled)
-            {
-                return;
-            }
-            var chunkSize = UploadHelper.ChunkSize;
-            var chunksProcessed = UploadHelper.ChunksProcessed;
-            try
-            {
-                UploadHelper.Processing = true;
-                UploadHelper.PostUpload("loot", new List<LootEntry>(GetLootEntries()
-                    .Skip(chunksProcessed * chunkSize)));
-                XIVDBViewModel.Instance.LootProcessed++;
-            }
-            catch (Exception ex)
-            {
-                UploadHelper.Processing = false;
-            }
+            
         }
     }
 }
