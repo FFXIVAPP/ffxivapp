@@ -39,11 +39,18 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Helpers
 {
     internal static class TabItemHelper
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         /// <summary>
         /// </summary>
         /// <param name="image"> </param>

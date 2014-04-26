@@ -33,6 +33,7 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
+using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client.Helpers
 {

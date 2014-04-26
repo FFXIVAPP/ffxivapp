@@ -38,8 +38,6 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
@@ -435,9 +433,6 @@ namespace FFXIVAPP.Client
             {
                 case "None":
                     break;
-                case "Parse":
-                    SetHomePlugin(0);
-                    break;
                 default:
                     try
                     {
@@ -761,20 +756,6 @@ namespace FFXIVAPP.Client
             _targetWorker.StartScanning();
             _partyInfoWorker = new PartyInfoWorker();
             _partyInfoWorker.StartScanning();
-        }
-
-        /// <summary>
-        /// </summary>
-        public static void SetupParsePlugin()
-        {
-            var parseLogo = new BitmapImage(new Uri(Common.Constants.AppPack + "Resources/Media/Icons/Parse.png"));
-            AppViewModel.Instance.PluginTabItems.Insert(0, new TabItem
-            {
-                Content = new Views.Parse.ShellView(),
-                Name = "FFXIVAPPPluginParse",
-                Header = "FFXIVAPP.Plugin.Parse",
-                HeaderTemplate = TabItemHelper.ImageHeader(parseLogo, "Parse")
-            });
         }
 
         public static void UpdatePluginConstants()

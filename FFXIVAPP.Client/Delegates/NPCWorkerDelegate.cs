@@ -1,4 +1,4 @@
-﻿// FFXIVAPP.Plugin.XIVDB
+﻿// FFXIVAPP.Client
 // NPCWorkerDelegate.cs
 // 
 // Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved

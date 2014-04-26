@@ -39,13 +39,11 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Parse;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.IPluginInterface.Events;
 using NLog;
-using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
 namespace FFXIVAPP.Client
 {
@@ -250,8 +248,6 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<TargetEntityEvent> NewTargetEntity = delegate { };
 
-        public event EventHandler<ParseEntityEvent> NewParseEntity = delegate { };
-
         public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
 
         public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
@@ -321,16 +317,6 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, targetEntityEvent);
-            }
-        }
-
-        public virtual void RaiseNewParseEntity(ParseEntity e)
-        {
-            var parseEntityEvent = new ParseEntityEvent(this, e);
-            var handler = NewParseEntity;
-            if (handler != null)
-            {
-                handler(this, parseEntityEvent);
             }
         }
 

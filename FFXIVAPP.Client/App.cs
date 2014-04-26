@@ -229,6 +229,9 @@ namespace FFXIVAPP.Client
                     case "Theme":
                         Constants.Theme = Settings.Default.Theme;
                         break;
+                    case "UIScale":
+                        Constants.UIScale = Settings.Default.UIScale;
+                        break;
                     case "TopMost":
                         if (ShellView.View != null)
                         {

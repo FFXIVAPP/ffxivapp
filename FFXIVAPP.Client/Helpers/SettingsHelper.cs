@@ -48,7 +48,6 @@ namespace FFXIVAPP.Client.Helpers
             }
             Client.Save();
             Application.Save();
-            Parse.Save();
         }
 
         /// <summary>

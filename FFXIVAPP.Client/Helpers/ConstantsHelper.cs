@@ -50,7 +50,8 @@ namespace FFXIVAPP.Client.Helpers
                 EnableHelpLabels = Constants.EnableHelpLabels,
                 GameLanguage = Constants.GameLanguage,
                 ServerName = Constants.ServerName,
-                Theme = Constants.Theme
+                Theme = Constants.Theme,
+                UIScale = Constants.UIScale
             });
         }
 

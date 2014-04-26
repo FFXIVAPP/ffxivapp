@@ -36,6 +36,7 @@ using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Helpers;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory

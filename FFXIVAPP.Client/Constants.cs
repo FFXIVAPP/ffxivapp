@@ -64,6 +64,7 @@ namespace FFXIVAPP.Client
         private static bool _enableNLog;
         private static bool _enableHelpLabels;
         private static string _theme;
+        private static string _uiScale;
 
         public static Dictionary<string, ActionInfo> Actions
         {
@@ -172,6 +173,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _theme = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static string UIScale
+        {
+            get { return _uiScale; }
+            set
+            {
+                _uiScale = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }

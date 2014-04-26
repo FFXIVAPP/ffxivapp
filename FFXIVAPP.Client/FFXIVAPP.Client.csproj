@@ -126,40 +126,10 @@
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Constants.Application.cs" />
-    <Compile Include="Constants.Parse.cs" />
-    <Compile Include="Controls\Parse\BasicCombinedDisplaySettings.xaml.cs">
-      <DependentUpon>BasicCombinedDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\CombinedDamageTakenDataGrid.xaml.cs">
-      <DependentUpon>CombinedDamageTakenDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\CombinedDamageDataGrid.xaml.cs">
-      <DependentUpon>CombinedDamageDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\DamageOverTimeDataGrid.xaml.cs">
-      <DependentUpon>DamageOverTimeDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml.cs">
-      <DependentUpon>DamageTakenOverTimeDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\CombinedHealingDataGrid.xaml.cs">
-      <DependentUpon>CombinedHealingDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\HealingOverHealingDataGrid.xaml.cs">
-      <DependentUpon>HealingOverHealingDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\HealingMitigatedDataGrid.xaml.cs">
-      <DependentUpon>HealingMitigatedDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\HealingOverTimeDataGrid.xaml.cs">
-      <DependentUpon>HealingOverTimeDataGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PluginInfoBox.xaml.cs">
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameMultiValueConverter.cs" />
-    <Compile Include="Delegates\KillWorkerDelegate.cs" />
-    <Compile Include="Delegates\LootWorkerDelegate.cs" />
     <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
@@ -167,10 +137,6 @@
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Application.cs" />
-    <Compile Include="Helpers\StatusEffectHelper.cs" />
-    <Compile Include="Helpers\StatusItem.cs" />
-    <Compile Include="Helpers\StatusLocalization.cs" />
-    <Compile Include="Helpers\ZoneHelper.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ActionWorker.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
@@ -179,76 +145,16 @@
     <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\ActionInfo.cs" />
     <Compile Include="Models\BuildNumber.cs" />
-    <Compile Include="Models\KillEntry.cs" />
-    <Compile Include="Models\LootEntry.cs" />
-    <Compile Include="Models\Parse\ActionHistoryItem.cs" />
-    <Compile Include="Models\Parse\History\HistoryContainer.cs" />
-    <Compile Include="Models\Parse\History\HistoryGroup.cs" />
-    <Compile Include="Models\Parse\History\HistoryGroupPropertyDescriptor.cs" />
-    <Compile Include="Models\Parse\History\HistoryGroupTypeDescriptor.cs" />
-    <Compile Include="Models\Parse\History\HistoryStat.cs" />
-    <Compile Include="Models\Parse\History\HistoryStatPropertyDescriptor.cs" />
-    <Compile Include="Models\Parse\History\HistoryTimeline.cs" />
-    <Compile Include="Models\Parse\History\IHistoryContainer.cs" />
-    <Compile Include="Models\Parse\History\NumericHistoryStat.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageOverTime.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageTakenOverTime.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageOverTime.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageTakenOverTime.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingMitigated.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverTime.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.HealingOverHealing.cs" />
-    <Compile Include="Models\Parse\StatGroups\StatGeneration.cs" />
     <Compile Include="Models\PluginDownloadItem.cs" />
     <Compile Include="Models\PluginFile.cs" />
     <Compile Include="Models\PluginInfo.cs" />
-    <Compile Include="Controls\Parse\BasicDisplaySettings.xaml.cs">
-      <DependentUpon>BasicDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\BuffDataGrid.xaml.cs">
-      <DependentUpon>BuffDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\ColumnDisplaySettings.xaml.cs">
-      <DependentUpon>ColumnDisplaySettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\DamageDataGrid.xaml.cs">
-      <DependentUpon>DamageDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\DamageTakenDataGrid.xaml.cs">
-      <DependentUpon>DamageTakenDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\EmptyDataGrid.xaml.cs">
-      <DependentUpon>EmptyDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\HealingDataGrid.xaml.cs">
-      <DependentUpon>HealingDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Parse\PlayerInfoBox.xaml.cs">
-      <DependentUpon>PlayerInfoBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\NameToAvatarConverter.cs" />
     <Compile Include="Delegates\ChatLogWorkerDelegate.cs" />
-    <Compile Include="Enums\Parse\EventDirection.cs" />
-    <Compile Include="Enums\Parse\EventSubject.cs" />
-    <Compile Include="Enums\Parse\EventType.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
-    <Compile Include="Enums\Parse\FilterType.cs" />
-    <Compile Include="Enums\Parse\HealingType.cs" />
-    <Compile Include="Enums\Parse\TimelineEventType.cs" />
-    <Compile Include="Enums\Parse\TimelineType.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
-    <Compile Include="Helpers\Parse\MagicBarrierHelper.cs" />
-    <Compile Include="Helpers\Parse\HealingOverTimeHelper.cs" />
-    <Compile Include="Helpers\Parse\DamageOverTimeHelper.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
-    <Compile Include="Helpers\Parse\FilterHelper.cs" />
-    <Compile Include="Helpers\Parse\LineHelper.cs" />
-    <Compile Include="Helpers\Parse\ParseHelper.cs" />
-    <Compile Include="Helpers\Parse\ParsingLogHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Client.cs" />
-    <Compile Include="Helpers\SettingsHelper.Parse.cs" />
     <Compile Include="Helpers\SavedlLogsHelper.cs" />
     <Compile Include="Helpers\NotifyIconHelper.cs" />
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
@@ -262,65 +168,12 @@
     <Compile Include="Memory\Signature.cs" />
     <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatLogWorker.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.Buffs.cs" />
-    <Compile Include="Models\Parse\XOverTimeAction.cs" />
-    <Compile Include="Models\Parse\Events\Event.cs" />
-    <Compile Include="Models\Parse\Events\EventCode.cs" />
-    <Compile Include="Models\Parse\Events\EventCodeComparer.cs" />
-    <Compile Include="Models\Parse\Events\EventGroup.cs" />
-    <Compile Include="Models\Parse\Events\EventMonitor.cs" />
-    <Compile Include="Models\Parse\Events\EventParser.cs" />
-    <Compile Include="Models\Parse\Expressions.cs" />
-    <Compile Include="Models\Parse\Fights\Fight.cs" />
-    <Compile Include="Models\Parse\Fights\FightList.cs" />
-    <Compile Include="Models\Parse\HistoryControl.cs" />
-    <Compile Include="Models\Parse\IParsingControl.cs" />
-    <Compile Include="Models\Parse\Line.cs" />
-    <Compile Include="Models\Parse\LineHistory.cs" />
-    <Compile Include="Models\Parse\LinkedStats\AccuracyStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\AverageStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\CounterStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\MaxStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\MinStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\NumericStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\PercentStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\PerSecondAverageStat.cs" />
-    <Compile Include="Models\Parse\LinkedStats\TotalStat.cs" />
-    <Compile Include="Models\Parse\LimitBreaks.cs" />
-    <Compile Include="Models\Parse\ParseControl.cs" />
-    <Compile Include="Models\Parse\ParseHistoryItem.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.Damage.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.DamageTaken.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.Drops.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.Healing.cs" />
-    <Compile Include="Models\Parse\StatGroups\Monster.Stats.Kill.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Handlers.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.Damage.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.DamageTaken.cs" />
-    <Compile Include="Models\Parse\StatGroups\Player.Stats.Healing.cs" />
-    <Compile Include="Models\Parse\Stats\ILinkedStat.cs" />
-    <Compile Include="Models\Parse\Stats\IStatContainer.cs" />
-    <Compile Include="Models\Parse\Stats\LinkedStat.cs" />
-    <Compile Include="Models\Parse\Stats\Stat.cs" />
-    <Compile Include="Models\Parse\Stats\StatChangedEvent.cs" />
-    <Compile Include="Models\Parse\Stats\StatContainer.cs" />
-    <Compile Include="Models\Parse\Stats\StatGroup.cs" />
-    <Compile Include="Models\Parse\Stats\StatGroupPropertyDescriptor.cs" />
-    <Compile Include="Models\Parse\Stats\StatGroupTypeDescriptor.cs" />
-    <Compile Include="Models\Parse\Stats\StatPropertyDescriptor.cs" />
-    <Compile Include="Models\Parse\Timelines\Timeline.cs" />
-    <Compile Include="Models\Parse\Timelines\TimelineChangedEvent.cs" />
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
-    <Compile Include="Monitors\StatMonitor.cs" />
-    <Compile Include="Monitors\TimelineMonitor.cs" />
     <Compile Include="PluginHost.cs" />
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
-    <Compile Include="PluginInitializer.Parse.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -329,37 +182,19 @@
     <Compile Include="Utilities\BuildUtilities.cs" />
     <Compile Include="Utilities\FlyingTextEntry.cs" />
     <Compile Include="Utilities\OutGoingActionEntry.cs" />
-    <Compile Include="Utilities\Parse\Filter.Declarations.cs" />
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
-    <Compile Include="RegularExpressions\MonsterRegEx.cs" />
-    <Compile Include="RegularExpressions\PlayerRegEx.cs" />
-    <Compile Include="SettingsProviders\Parse\Settings.cs" />
     <Compile Include="SettingsProviders\Application\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
-    <Compile Include="Utilities\Parse\Filter.Actions.cs" />
-    <Compile Include="Utilities\Parse\Filter.Beneficial.cs" />
-    <Compile Include="Utilities\Parse\Filter.cs" />
-    <Compile Include="Utilities\Parse\Filter.Cure.cs" />
-    <Compile Include="Utilities\Parse\Filter.Damage.cs" />
-    <Compile Include="Utilities\Parse\Filter.Detrimental.cs" />
-    <Compile Include="Utilities\Parse\Filter.Failed.cs" />
-    <Compile Include="Utilities\Parse\Filter.Items.cs" />
     <Compile Include="Utilities\IncomingActionEntry.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
-    <Compile Include="Utilities\LogPublisher.Parse.cs" />
     <Compile Include="Utilities\MicroStopwatch.cs" />
     <Compile Include="Utilities\MicroTimer.cs" />
     <Compile Include="Utilities\MicroTimerEventArgs.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
-    <Compile Include="ViewModels\Parse\AboutViewModel.cs" />
-    <Compile Include="ViewModels\Parse\MainViewModel.cs" />
-    <Compile Include="ViewModels\Parse\PluginViewModel.cs" />
-    <Compile Include="ViewModels\Parse\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\Parse\ShellViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\DefaultViewModel.cs" />
@@ -372,18 +207,6 @@
     <Compile Include="Views\UpdateView.xaml.cs">
       <DependentUpon>UpdateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Parse\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Parse\ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -393,87 +216,19 @@
     <Compile Include="Views\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\xMetroWindowDataGrid.xaml.cs">
-      <DependentUpon>xMetroWindowDataGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\xMetroWindow.xaml.cs">
       <DependentUpon>xMetroWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\xMetroWindowDataGrid.xaml.cs">
+      <DependentUpon>xMetroWindowDataGrid.xaml</DependentUpon>
+    </Compile>
     <Page Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\BasicCombinedDisplaySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\CombinedDamageTakenDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\CombinedDamageDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\DamageOverTimeDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\DamageTakenOverTimeDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\CombinedHealingDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\HealingOverHealingDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\HealingMitigatedDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\HealingOverTimeDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PluginInfoBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Parse\BasicDisplaySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\BuffDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\ColumnDisplaySettings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\DamageDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\DamageTakenDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\EmptyDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\HealingDataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Parse\PlayerInfoBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Styles\TabItem.xaml">
       <SubType>Designer</SubType>
@@ -491,22 +246,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Parse\AboutView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\SettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Parse\ShellView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -519,13 +258,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\xMetroWindowDataGrid.xaml">
+    <Page Include="Windows\xMetroWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\xMetroWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Windows\xMetroWindowDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -537,7 +276,6 @@
     <Resource Include="Resources\Media\Icons\de.png" />
     <Resource Include="Resources\Media\Icons\en.png" />
     <Resource Include="Resources\Actions.xml" />
-    <Resource Include="Resources\Media\Icons\Parse.png" />
     <Resource Include="Resources\Media\Images\Donations.png" />
     <Resource Include="Resources\Media\Images\Save.png" />
     <Resource Include="Resources\Media\Images\Header.png" />
@@ -545,7 +283,6 @@
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
-    <Resource Include="Defaults\RegularExpressions.xml" />
     <Resource Include="Defaults\Settings.xml" />
     <Content Include="Licenses\License.NAudio.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

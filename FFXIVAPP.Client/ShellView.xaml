@@ -9,7 +9,6 @@
                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                            xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                           xmlns:parse="clr-namespace:FFXIVAPP.Client.Views.Parse"
                            Title="{Binding AppTitle,
                                            Source={StaticResource AppProperties}}"
                            Width="{Binding Width,

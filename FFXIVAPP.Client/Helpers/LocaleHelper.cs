@@ -47,20 +47,7 @@ namespace FFXIVAPP.Client.Helpers
             var client = Localization.LocaleHelper.ResolveOne(cultureInfo, "client")
                                      .Cast<DictionaryEntry>()
                                      .ToDictionary(item => (string) item.Key, item => (string) item.Value);
-            var parse = Localization.LocaleHelper.ResolveOne(cultureInfo, "parse")
-                                    .Cast<DictionaryEntry>()
-                                    .ToDictionary(item => (string) item.Key, item => (string) item.Value);
             foreach (var resource in client)
-            {
-                try
-                {
-                    results.Add(resource.Key, resource.Value);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-            foreach (var resource in parse)
             {
                 try
                 {

@@ -88,7 +88,6 @@ namespace FFXIVAPP.Client
             Initializer.SetGlobals();
             Initializer.SetSignatures();
             Initializer.StartMemoryWorkers();
-            Initializer.SetupParsePlugin();
             Initializer.GetHomePlugin();
             Initializer.UpdatePluginConstants();
 

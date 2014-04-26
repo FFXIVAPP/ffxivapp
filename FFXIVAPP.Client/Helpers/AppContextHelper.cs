@@ -27,15 +27,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
-using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Parse;
 using NLog;
-using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -76,7 +74,6 @@ namespace FFXIVAPP.Client.Helpers
             }
         }
 
-        public ActorEntity CurrentUser { get; set; }
         public PlayerEntity CurrentUserStats { get; set; }
 
         #endregion
@@ -93,13 +90,6 @@ namespace FFXIVAPP.Client.Helpers
                 return;
             }
             AppViewModel.Instance.ChatHistory.Add(chatLogEntry);
-            // process official plugins
-            if (chatLogEntry.Line.ToLower()
-                            .StartsWith("com:"))
-            {
-                LogPublisher.HandleCommands(chatLogEntry);
-            }
-            LogPublisher.Parse.Process(chatLogEntry);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
         }
@@ -110,6 +100,28 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
+            MonsterWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
+            Func<bool> saveToDictionary = delegate
+            {
+                try
+                {
+                    var enumerable = MonsterWorkerDelegate.GetUniqueNPCEntities();
+                    foreach (var actor in actorEntities)
+                    {
+                        var exists = enumerable.FirstOrDefault(n => n.ID == actor.ID);
+                        if (exists != null)
+                        {
+                            continue;
+                        }
+                        MonsterWorkerDelegate.AddUniqueNPCEntity(actor);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                return true;
+            };
+            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
@@ -120,6 +132,28 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
+            NPCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
+            Func<bool> saveToDictionary = delegate
+            {
+                try
+                {
+                    var enumerable = NPCWorkerDelegate.GetUniqueNPCEntities();
+                    foreach (var actor in actorEntities)
+                    {
+                        var exists = enumerable.FirstOrDefault(n => n.NPCID2 == actor.NPCID2);
+                        if (exists != null)
+                        {
+                            continue;
+                        }
+                        NPCWorkerDelegate.AddUniqueNPCEntity(actor);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                return true;
+            };
+            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
@@ -130,6 +164,28 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
+            PCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
+            Func<bool> saveToDictionary = delegate
+            {
+                try
+                {
+                    var enumerable = PCWorkerDelegate.GetUniqueNPCEntities();
+                    foreach (var actor in actorEntities)
+                    {
+                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
+                        if (exists != null)
+                        {
+                            continue;
+                        }
+                        PCWorkerDelegate.AddUniqueNPCEntity(actor);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+                return true;
+            };
+            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
@@ -145,12 +201,6 @@ namespace FFXIVAPP.Client.Helpers
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
-        }
-
-        public void RaiseNewParseEntity(ParseEntity parseEntity)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewParseEntity(parseEntity);
         }
 
         public void RaiseNewPartyEntries(List<PartyEntity> partyEntries)
