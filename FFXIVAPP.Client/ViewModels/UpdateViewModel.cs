@@ -189,9 +189,14 @@ namespace FFXIVAPP.Client.ViewModels
                                                                                           .Location), "Plugins", plugin.Name, pluginFile.Location, pluginFile.Name);
                             Directory.CreateDirectory(Path.GetDirectoryName(saveLocation));
                             sb.Append(plugin.SourceURI.Trim('/'));
-                            sb.AppendFormat("/{0}", pluginFile.Location.Trim('/'));
+                            var location = pluginFile.Location.Trim('/');
+                            if (!String.IsNullOrWhiteSpace(location))
+                            {
+                                sb.AppendFormat("/{0}", location);
+                            }
                             sb.AppendFormat("/{0}", pluginFile.Name.Trim('/'));
-                            client.DownloadFileAsync(new Uri(sb.ToString()), saveLocation);
+                            var uri = new Uri(sb.ToString());
+                            client.DownloadFileAsync(uri, saveLocation);
                             client.DownloadProgressChanged += delegate { DispatcherHelper.Invoke(delegate { UpdateView.View.AvailableLoadingProgressMessage.Text = String.Format("{0}/{1}", pluginFile.Location.Trim('/'), pluginFile.Name); }); };
                             client.DownloadFileCompleted += delegate
                             {
