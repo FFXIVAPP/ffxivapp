@@ -1,0 +1,29 @@
+[{
+    "Name": "FFXIVAPP.Plugin.Event",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-event/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.Informer",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-informer/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.Log",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-log/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.Parse",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-parse/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.Radar",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-radar/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.Widgets",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-widgets/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "Talis.XIVPlugin.Twintania",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/Bio2hazard/talis.xivplugin.twintania/raw/master/distribution/VERSION.json"
+}]
