@@ -183,34 +183,28 @@ namespace FFXIVAPP.Client
 
         public string ConfigurationsPath
         {
-            get
+            get { return _configurationsPath; }
+            set
             {
+                _configurationsPath = value;
                 if (!Directory.Exists(_configurationsPath))
                 {
                     Directory.CreateDirectory(_configurationsPath);
                 }
-                return _configurationsPath;
-            }
-            set
-            {
-                _configurationsPath = value;
                 RaisePropertyChanged();
             }
         }
 
         public string LogsPath
         {
-            get
+            get { return _logsPath; }
+            set
             {
+                _logsPath = value;
                 if (!Directory.Exists(_logsPath))
                 {
                     Directory.CreateDirectory(_logsPath);
                 }
-                return _logsPath;
-            }
-            set
-            {
-                _logsPath = value;
                 RaisePropertyChanged();
             }
         }
@@ -235,68 +229,56 @@ namespace FFXIVAPP.Client
 
         public string ScreenShotsPath
         {
-            get
+            get { return _screenShotsPath; }
+            set
             {
+                _screenShotsPath = value;
                 if (!Directory.Exists(_screenShotsPath))
                 {
                     Directory.CreateDirectory(_screenShotsPath);
                 }
-                return _screenShotsPath;
-            }
-            set
-            {
-                _screenShotsPath = value;
                 RaisePropertyChanged();
             }
         }
 
         public string SoundsPath
         {
-            get
+            get { return _soundsPath; }
+            set
             {
+                _soundsPath = value;
                 if (!Directory.Exists(_soundsPath))
                 {
                     Directory.CreateDirectory(_soundsPath);
                 }
-                return _soundsPath;
-            }
-            set
-            {
-                _soundsPath = value;
                 RaisePropertyChanged();
             }
         }
 
         public string SettingsPath
         {
-            get
+            get { return _settingsPath; }
+            set
             {
+                _settingsPath = value;
                 if (!Directory.Exists(_settingsPath))
                 {
                     Directory.CreateDirectory(_settingsPath);
                 }
-                return _settingsPath;
-            }
-            set
-            {
-                _settingsPath = value;
                 RaisePropertyChanged();
             }
         }
 
         public string PluginsSettingsPath
         {
-            get
+            get { return _pluginsSettingsPath; }
+            set
             {
+                _pluginsSettingsPath = value;
                 if (!Directory.Exists(_pluginsSettingsPath))
                 {
                     Directory.CreateDirectory(_pluginsSettingsPath);
                 }
-                return _pluginsSettingsPath;
-            }
-            set
-            {
-                _pluginsSettingsPath = value;
                 RaisePropertyChanged();
             }
         }
