@@ -87,8 +87,8 @@ If you have other files they can be added into that structure. If they are in su
                 "Location": ""
             },
 			{
-				"Name: "Some.ext",
-				"Location: "path/to/sub/folder"
+				"Name": "Some.ext",
+				"Location": "path/to/sub/folder"
 			}
         ],
 		"SourceURI": "http://url/to/base/directory/of/download"
