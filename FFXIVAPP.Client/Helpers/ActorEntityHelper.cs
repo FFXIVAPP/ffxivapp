@@ -61,36 +61,36 @@ namespace FFXIVAPP.Client.Helpers
                 entry.Heading = BitConverter.ToSingle(source, 0xB0);
                 entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
                 entry.GatheringInvisible = source[0x11C]; // ??
-                entry.ModelID = BitConverter.ToUInt32(source, 0x184);
-                entry.ActionStatus = (Actor.ActionStatus) source[0x18C];
-                entry.IsGM = BitConverter.ToBoolean(source, 0x193); // ?
-                entry.Icon = (Actor.Icon) source[0x19C];
-                entry.Status = (Actor.Status) source[0x19E];
+                entry.ModelID = BitConverter.ToUInt32(source, 0x174);
+                entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
+                entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
+                entry.Icon = (Actor.Icon) source[0x18C];
+                entry.Status = (Actor.Status) source[0x18E];
                 entry.ClaimedByID = BitConverter.ToUInt32(source, 0x1A0);
                 var targetID = BitConverter.ToUInt32(source, 0x1A8);
                 var pcTargetID = BitConverter.ToUInt32(source, 0xAA8);
-                entry.Job = (Actor.Job) source[0x17C0];
-                entry.Level = source[0x17C1];
-                entry.GrandCompany = source[0x17C3];
-                entry.GrandCompanyRank = source[0x17C4];
-                entry.Title = source[0x17C6];
-                entry.HPCurrent = BitConverter.ToInt32(source, 0x17C8);
-                entry.HPMax = BitConverter.ToInt32(source, 0x17CC);
-                entry.MPCurrent = BitConverter.ToInt32(source, 0x17D0);
-                entry.MPMax = BitConverter.ToInt32(source, 0x17D4);
-                entry.TPCurrent = BitConverter.ToInt16(source, 0x17D8);
+                entry.Job = (Actor.Job) source[0x17E0];
+                entry.Level = source[0x17E1];
+                entry.GrandCompany = source[0x17E3];
+                entry.GrandCompanyRank = source[0x17E4];
+                entry.Title = source[0x17E6];
+                entry.HPCurrent = BitConverter.ToInt32(source, 0x17E8);
+                entry.HPMax = BitConverter.ToInt32(source, 0x17EC);
+                entry.MPCurrent = BitConverter.ToInt32(source, 0x17F0);
+                entry.MPMax = BitConverter.ToInt32(source, 0x17F4);
+                entry.TPCurrent = BitConverter.ToInt16(source, 0x17F8);
                 entry.TPMax = 1000;
-                entry.GPCurrent = BitConverter.ToInt16(source, 0x17DA);
-                entry.GPMax = BitConverter.ToInt16(source, 0x17DC);
-                entry.CPCurrent = BitConverter.ToInt16(source, 0x17DE);
-                entry.CPMax = BitConverter.ToInt16(source, 0x17E0);
+                entry.GPCurrent = BitConverter.ToInt16(source, 0x17FA);
+                entry.GPMax = BitConverter.ToInt16(source, 0x17FC);
+                entry.CPCurrent = BitConverter.ToInt16(source, 0x17FE);
+                entry.CPMax = BitConverter.ToInt16(source, 0x1800);
                 entry.Race = source[0x2E58]; // ??
                 entry.Sex = (Actor.Sex) source[0x2E59]; //?
-                entry.IsCasting = BitConverter.ToBoolean(source, 0x32C0);
-                entry.CastingID = BitConverter.ToInt16(source, 0x32C4);
-                entry.CastingTargetID = BitConverter.ToUInt32(source, 0x32D0);
-                entry.CastingProgress = BitConverter.ToSingle(source, 0x32F4);
-                entry.CastingTime = BitConverter.ToSingle(source, 0x33D8);
+                entry.IsCasting = BitConverter.ToBoolean(source, 0x32E0);
+                entry.CastingID = BitConverter.ToInt16(source, 0x32E4);
+                entry.CastingTargetID = BitConverter.ToUInt32(source, 0x32F0);
+                entry.CastingProgress = BitConverter.ToSingle(source, 0x3314);
+                entry.CastingTime = BitConverter.ToSingle(source, 0x33F8);
                 entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
                 if (targetID > 0)
                 {
@@ -118,7 +118,7 @@ namespace FFXIVAPP.Client.Helpers
                 entry.StatusEntries = new List<StatusEntry>();
                 const int statusSize = 12;
                 var statusesSource = new byte[limit * statusSize];
-                Buffer.BlockCopy(source, 0x3148, statusesSource, 0, limit * 12);
+                Buffer.BlockCopy(source, 0x3168, statusesSource, 0, limit * 12);
                 for (var i = 0; i < limit; i++)
                 {
                     var statusSource = new byte[statusSize];

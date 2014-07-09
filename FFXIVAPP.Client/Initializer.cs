@@ -630,7 +630,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2564
+                Offset = 2732
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -641,20 +641,20 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYMAP",
-                Value = "0000DB0FC93FDB0F49416F1283??FFFFFFFF00000000DB0FC93FDB0F49416F1283??000000",
-                Offset = 54
+                Value = "DB0F49416F1283??FFFFFFFF000000000000000000000000DB0FC93FDB0F49416F1283??00",
+                Offset = 56
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYCOUNT",
                 Value = "5F50617274794C69737400",
-                Offset = 520
+                Offset = 836
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "MAP",
                 Value = "F783843E????????????????DB0FC93FDB0F49416F1283??",
-                Offset = 1040
+                Offset = 880
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
