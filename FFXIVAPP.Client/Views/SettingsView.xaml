@@ -18,8 +18,6 @@
 
     <UserControl.Resources>
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
-        <x:Static x:Key="XIVDBViewModel"
-                  Member="ViewModels:XIVDBViewModel.Instance" />
     </UserControl.Resources>
 
     <UserControl.DataContext>

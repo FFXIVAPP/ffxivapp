@@ -60,7 +60,7 @@
         <Binding Source="{StaticResource ShellViewModel}" />
     </MetroControls:MetroWindow.DataContext>
 
-    <MetroControls:MetroWindow.WindowCommands>
+    <MetroControls:MetroWindow.RightWindowCommands>
         <MetroControls:WindowCommands>
             <Button Command="{Binding SetLocaleCommand}"
                     CommandParameter="English">
@@ -131,7 +131,7 @@
                 </StackPanel>
             </Button>
         </MetroControls:WindowCommands>
-    </MetroControls:MetroWindow.WindowCommands>
+    </MetroControls:MetroWindow.RightWindowCommands>
 
     <MetroControls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
