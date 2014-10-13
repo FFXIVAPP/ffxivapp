@@ -250,5 +250,8 @@
     <Setting Name="MonsterWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="InventoryWorkerRefresh" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

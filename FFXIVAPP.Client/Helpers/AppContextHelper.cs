@@ -208,5 +208,11 @@ namespace FFXIVAPP.Client.Helpers
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
         }
+
+        public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
+        }
     }
 }

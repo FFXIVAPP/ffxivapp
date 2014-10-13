@@ -69,6 +69,7 @@ namespace FFXIVAPP.Client
         private static PlayerInfoWorker _playerInfoWorker;
         private static TargetWorker _targetWorker;
         private static PartyInfoWorker _partyInfoWorker;
+        private static InventoryWorker _inventoryWorker;
 
         #endregion
 
@@ -662,6 +663,12 @@ namespace FFXIVAPP.Client
                 Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
                 Offset = 206
             });
+            AppViewModel.Instance.Signatures.Add(new Signature
+            {
+                Key = "INVENTORY",
+                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF0000000000000000000000000000000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
+                Offset = 56
+            });
         }
 
         /// <summary>
@@ -756,6 +763,8 @@ namespace FFXIVAPP.Client
             _targetWorker.StartScanning();
             _partyInfoWorker = new PartyInfoWorker();
             _partyInfoWorker.StartScanning();
+            _inventoryWorker = new InventoryWorker();
+            _inventoryWorker.StartScanning();
         }
 
         public static void UpdatePluginConstants()
@@ -801,6 +810,11 @@ namespace FFXIVAPP.Client
             {
                 _partyInfoWorker.StopScanning();
                 _partyInfoWorker.Dispose();
+            }
+            if (_inventoryWorker != null)
+            {
+                _inventoryWorker.StopScanning();
+                _inventoryWorker.Dispose();
             }
         }
     }

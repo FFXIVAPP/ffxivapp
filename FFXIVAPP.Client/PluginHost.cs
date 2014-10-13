@@ -250,6 +250,8 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
 
+        public event EventHandler<InventoryEntitiesEvent> NewInventoryEntries = delegate { };
+
         public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
         {
             var constantsEntityEvent = new ConstantsEntityEvent(this, e);
@@ -327,6 +329,16 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, partyEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewInventoryEntries(List<InventoryEntity> e)
+        {
+            var inventoryEntitiesEvent = new InventoryEntitiesEvent(this, e);
+            var handler = NewInventoryEntries;
+            if (handler != null)
+            {
+                handler(this, inventoryEntitiesEvent);
             }
         }
 
