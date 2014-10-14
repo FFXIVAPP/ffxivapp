@@ -196,6 +196,7 @@ namespace FFXIVAPP.Client.Memory
                     container.Items.Add(new ItemInfo
                     {
                         ID = id,
+                        Slot = MemoryHandler.Instance.GetByte(itemOffset, 0x4),
                         Amount = MemoryHandler.Instance.GetByte(itemOffset, 0xC),
                         SB = MemoryHandler.Instance.GetUInt16(itemOffset, 0x10),
                         Durability = MemoryHandler.Instance.GetUInt16(itemOffset, 0x12),

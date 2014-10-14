@@ -666,7 +666,7 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "INVENTORY",
-                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF0000000000000000000000000000000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
+                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??00??00??00????DB0FC93FDB0F49416F12833AFFFFFFFF",
                 Offset = 56
             });
         }
