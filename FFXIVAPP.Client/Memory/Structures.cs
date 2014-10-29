@@ -518,19 +518,19 @@ namespace FFXIVAPP.Client.Memory
             public uint CurrentTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x18)] //24
+            [FieldOffset(0xC)] //12
             public uint MouseOverTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x48)] //64
+            [FieldOffset(0x3C)] //60
             public uint FocusTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x54)] //76
+            [FieldOffset(0x48)] //72
             public uint PreviousTarget;
 
             [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x68)] //96
+            [FieldOffset(0x5C)] //94
             public uint CurrentTargetID;
         }
     }
