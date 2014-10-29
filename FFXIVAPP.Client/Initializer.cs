@@ -611,8 +611,6 @@ namespace FFXIVAPP.Client
                 Key = "CHARMAP",
                 Value = "00000000DB0FC93FDB0F49416F1283????FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
                 Offset = 872
-                // Value = "??FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
-                // Offset = 792
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -649,8 +647,6 @@ namespace FFXIVAPP.Client
                 Key = "TARGET",
                 Value = "DB0FC93FDB0F49416F1283????FFFFFFDB0FC940920A063F",
                 Offset = 172
-                //Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
-                //Offset = 206
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
