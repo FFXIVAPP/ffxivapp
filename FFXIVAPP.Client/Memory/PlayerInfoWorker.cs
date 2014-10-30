@@ -36,7 +36,6 @@ using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Memory.Enums;
 using Newtonsoft.Json;
 using NLog;
 
@@ -140,111 +139,35 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                 }
                             }
-                            var playerInfo = MemoryHandler.Instance.GetStructure<Structures.PlayerInfo>(PlayerInfoMap);
-                            var playerEntity = new PlayerEntity
+                            var source = MemoryHandler.Instance.GetByteArray(PlayerInfoMap, 0x256);
+                            try
                             {
-                                Name = MemoryHandler.Instance.GetString(PlayerInfoMap, 1),
-                                EnmityEntries = enmityEntries,
-                                Accuracy = playerInfo.Accuracy,
-                                ACN = playerInfo.ACN,
-                                ACN_CurrentEXP = playerInfo.ACN_CurrentEXP,
-                                ALC = playerInfo.ALC,
-                                ARC = playerInfo.ARC,
-                                ARC_CurrentEXP = playerInfo.ARC_CurrentEXP,
-                                ARM = playerInfo.ARM,
-                                ARM_CurrentEXP = playerInfo.ARM_CurrentEXP,
-                                AttackMagicPotency = playerInfo.AttackMagicPotency,
-                                AttackPower = playerInfo.AttackPower,
-                                BTN = playerInfo.BTN,
-                                BTN_CurrentEXP = playerInfo.BTN_CurrentEXP,
-                                BSM = playerInfo.BSM,
-                                BSM_CurrentEXP = playerInfo.BSM_CurrentEXP,
-                                BaseDexterity = playerInfo.BaseDexterity,
-                                BaseIntelligence = playerInfo.BaseIntelligence,
-                                BaseMind = playerInfo.BaseMind,
-                                BasePiety = playerInfo.BasePiety,
-                                BaseStrength = playerInfo.BaseStrength,
-                                BaseVitality = playerInfo.BaseVitality,
-                                CNJ = playerInfo.CNJ,
-                                CNJ_CurrentEXP = playerInfo.CNJ_CurrentEXP,
-                                CPMax = playerInfo.CPMax,
-                                CPT = playerInfo.CPT,
-                                CPT_CurrentEXP = playerInfo.CPT_CurrentEXP,
-                                CUL = playerInfo.CUL,
-                                CUL_CurrentEXP = playerInfo.CUL_CurrentEXP,
-                                Control = playerInfo.Control,
-                                Craftmanship = playerInfo.Craftmanship,
-                                CriticalHitRate = playerInfo.CriticalHitRate,
-                                Defense = playerInfo.Defense,
-                                Determination = playerInfo.Determination,
-                                Dexterity = playerInfo.Dexterity,
-                                FSH = playerInfo.FSH,
-                                FSH_CurrentEXP = playerInfo.FSH_CurrentEXP,
-                                FireResistance = playerInfo.FireResistance,
-                                GLD = playerInfo.GLD,
-                                GLD_CurrentEXP = playerInfo.GLD_CurrentEXP,
-                                GPMax = playerInfo.GPMax,
-                                GSM = playerInfo.GSM,
-                                GSM_CurrentEXP = playerInfo.GSM_CurrentEXP,
-                                Gathering = playerInfo.Gathering,
-                                HPMax = playerInfo.HPMax,
-                                HealingMagicPotency = playerInfo.HealingMagicPotency,
-                                IceResistance = playerInfo.IceResistance,
-                                Intelligence = playerInfo.Intelligence,
-                                JobID = playerInfo.JobID,
-                                LNC = playerInfo.LNC,
-                                LNC_CurrentEXP = playerInfo.LNC_CurrentEXP,
-                                LTW = playerInfo.LTW,
-                                LTW_CurrentEXP = playerInfo.LTW_CurrentEXP,
-                                LightningResistance = playerInfo.LightningResistance,
-                                MIN = playerInfo.MIN,
-                                MIN_CurrentEXP = playerInfo.MIN_CurrentEXP,
-                                MPMax = playerInfo.MPMax,
-                                MRD = playerInfo.MRD,
-                                MRD_CurrentEXP = playerInfo.MRD_CurrentEXP,
-                                MagicDefense = playerInfo.MagicDefense,
-                                Mind = playerInfo.Mind,
-                                PGL = playerInfo.PGL,
-                                PGL_CurrentEXP = playerInfo.PGL_CurrentEXP,
-                                Parry = playerInfo.Parry,
-                                Perception = playerInfo.Perception,
-                                PiercingResistance = playerInfo.PiercingResistance,
-                                Piety = playerInfo.Piety,
-                                SkillSpeed = playerInfo.SkillSpeed,
-                                SlashingResistance = playerInfo.SlashingResistance,
-                                SpellSpeed = playerInfo.SpellSpeed,
-                                Strength = playerInfo.Strength,
-                                THM = playerInfo.THM,
-                                THM_CurrentEXP = playerInfo.THM_CurrentEXP,
-                                TPMax = playerInfo.TPMax,
-                                Vitality = playerInfo.Vitality,
-                                WVR = playerInfo.WVR,
-                                WVR_CurrentEXP = playerInfo.WVR_CurrentEXP,
-                                WaterResistance = playerInfo.WaterResistance,
-                                WindResistance = playerInfo.WindResistance
-                            };
-                            playerEntity.Job = (Actor.Job) playerEntity.JobID;
-                            var notify = false;
-                            if (LastPlayerEntity == null)
-                            {
-                                LastPlayerEntity = playerEntity;
-                                notify = true;
-                            }
-                            else
-                            {
-                                var hash1 = JsonConvert.SerializeObject(LastPlayerEntity)
-                                                       .GetHashCode();
-                                var hash2 = JsonConvert.SerializeObject(playerEntity)
-                                                       .GetHashCode();
-                                if (!hash1.Equals(hash2))
+                                var entry = PlayerEntityHelper.ResolvePlayerFromBytes(source);
+                                var notify = false;
+                                if (LastPlayerEntity == null)
                                 {
-                                    LastPlayerEntity = playerEntity;
+                                    LastPlayerEntity = entry;
                                     notify = true;
                                 }
+                                else
+                                {
+                                    var hash1 = JsonConvert.SerializeObject(LastPlayerEntity)
+                                                           .GetHashCode();
+                                    var hash2 = JsonConvert.SerializeObject(entry)
+                                                           .GetHashCode();
+                                    if (!hash1.Equals(hash2))
+                                    {
+                                        LastPlayerEntity = entry;
+                                        notify = true;
+                                    }
+                                }
+                                if (notify)
+                                {
+                                    AppContextHelper.Instance.RaiseNewPlayerEntity(entry);
+                                }
                             }
-                            if (notify)
+                            catch (Exception ex)
                             {
-                                AppContextHelper.Instance.RaiseNewPlayerEntity(playerEntity);
                             }
                         }
                         catch (Exception ex)

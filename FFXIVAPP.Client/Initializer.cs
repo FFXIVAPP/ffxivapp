@@ -532,21 +532,6 @@ namespace FFXIVAPP.Client
                             //    {
                             //        var key = feature["Hash"].ToString();
                             //        var enabled = (bool) feature["Enabled"];
-                            //        switch (key)
-                            //        {
-                            //            case "E9FA3917-ACEB-47AE-88CC-58AB014058F5":
-                            //                XIVDBViewModel.Instance.MonsterUploadEnabled = enabled;
-                            //                break;
-                            //            case "6D2DB102-B1AE-4249-9E73-4ABC7B1947BC":
-                            //                XIVDBViewModel.Instance.NPCUploadEnabled = enabled;
-                            //                break;
-                            //            case "D95ADD76-7DA7-4692-AD00-DB12F2853908":
-                            //                XIVDBViewModel.Instance.KillUploadEnabled = enabled;
-                            //                break;
-                            //            case "6A50A13B-BA83-45D7-862F-F110049E7E78":
-                            //                XIVDBViewModel.Instance.LootUploadEnabled = enabled;
-                            //                break;
-                            //        }
                             //    }
                             //}
                             //catch (Exception ex)
@@ -619,31 +604,31 @@ namespace FFXIVAPP.Client
             {
                 Key = "GAMEMAIN",
                 Value = "47616D654D61696E000000",
-                Offset = 1176
+                Offset = 1248
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "??FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
-                Offset = 792
+                Value = "00000000DB0FC93FDB0F49416F1283????FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
+                Offset = 872
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2732
+                Offset = 2716
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "ACTORMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 1332
+                Offset = 1316
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYMAP",
                 Value = "DB0F49416F1283??FFFFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
-                Offset = 56
+                Offset = 52
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -660,8 +645,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "TARGET",
-                Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
-                Offset = 206
+                Value = "DB0FC93FDB0F49416F1283????FFFFFFDB0FC940920A063F",
+                Offset = 172
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
