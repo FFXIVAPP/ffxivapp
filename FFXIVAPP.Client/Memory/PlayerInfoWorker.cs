@@ -120,7 +120,7 @@ namespace FFXIVAPP.Client.Memory
                         try
                         {
                             var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5688);
-                            var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
+                            var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3380;
                             var enmityEntries = new List<EnmityEntry>();
                             if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
                             {
@@ -129,8 +129,8 @@ namespace FFXIVAPP.Client.Memory
                                     var address = enmityStructure + (i * 72);
                                     var enmityEntry = new EnmityEntry
                                     {
-                                        Name = MemoryHandler.Instance.GetString(address),
-                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                        ID = (uint)MemoryHandler.Instance.GetInt32(address),
+                                        Name = MemoryHandler.Instance.GetString(address + 4),
                                         Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
                                     };
                                     if (enmityEntry.ID > 0)
@@ -143,6 +143,7 @@ namespace FFXIVAPP.Client.Memory
                             try
                             {
                                 var entry = PlayerEntityHelper.ResolvePlayerFromBytes(source);
+                                entry.EnmityEntries = enmityEntries;
                                 var notify = false;
                                 if (LastPlayerEntity == null)
                                 {
