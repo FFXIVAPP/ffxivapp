@@ -26,4 +26,8 @@
     "Name": "Talis.XIVPlugin.Twintania",
     "Enabled": "True",
     "SourceURI": "https://github.com/Bio2hazard/talis.xivplugin.twintania/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVDBM.Plugin",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/cjmanca/FFXIVDBM.Plugin/raw/master/distribution/VERSION.json"
 }]
