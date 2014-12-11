@@ -36,6 +36,7 @@ namespace FFXIVAPP.Client.Models
     {
         private string _location;
         private string _name;
+        private string _checksum;
 
         public string Name
         {
@@ -53,6 +54,16 @@ namespace FFXIVAPP.Client.Models
             set
             {
                 _location = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Checksum
+        {
+            get { return _checksum; }
+            set
+            {
+                _checksum = value;
                 RaisePropertyChanged();
             }
         }

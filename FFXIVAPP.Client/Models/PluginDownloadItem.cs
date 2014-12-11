@@ -39,6 +39,8 @@ namespace FFXIVAPP.Client.Models
         private List<PluginFile> _files;
         private string _latestVersion;
         private string _name;
+        private string _friendlyName;
+        private string _description;
         private string _sourceUri;
         private PluginStatus _status;
 
@@ -48,6 +50,26 @@ namespace FFXIVAPP.Client.Models
             set
             {
                 _name = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string FriendlyName
+        {
+            get { return _friendlyName; }
+            set
+            {
+                _friendlyName = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
                 RaisePropertyChanged();
             }
         }

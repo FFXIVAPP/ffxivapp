@@ -371,9 +371,12 @@ namespace FFXIVAPP.Client
                                             Files = new List<PluginFile>(pluginFiles.Select(pluginFile => new PluginFile
                                             {
                                                 Location = pluginFile["Location"].ToString(),
-                                                Name = pluginFile["Name"].ToString()
+                                                Name = pluginFile["Name"].ToString(),
+                                                Checksum = pluginFile["Checksum"] == null ? "" : pluginFile["Checksum"].ToString()
                                             })),
                                             Name = pluginInfo["Name"].ToString(),
+                                            FriendlyName = pluginInfo["FriendlyName"] == null ? pluginInfo["Name"].ToString() : pluginInfo["FriendlyName"].ToString(),
+                                            Description = pluginInfo["Description"] == null ? "" : pluginInfo["Description"].ToString(),
                                             SourceURI = pluginInfo["SourceURI"].ToString(),
                                             LatestVersion = pluginInfo["Version"].ToString()
                                         };
