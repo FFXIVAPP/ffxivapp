@@ -46,6 +46,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
@@ -188,38 +189,50 @@ namespace FFXIVAPP.Client.ViewModels
                             var saveLocation = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly()
                                                                                           .Location), "Plugins", plugin.Name, pluginFile.Location, pluginFile.Name);
                             Directory.CreateDirectory(Path.GetDirectoryName(saveLocation));
-                            sb.Append(plugin.SourceURI.Trim('/'));
-                            var location = pluginFile.Location.Trim('/');
-                            if (!String.IsNullOrWhiteSpace(location))
+
+
+                            if (UpdateUtilities.VerifyFile(saveLocation, pluginFile.Checksum))
                             {
-                                sb.AppendFormat("/{0}", location);
-                            }
-                            sb.AppendFormat("/{0}", pluginFile.Name.Trim('/'));
-                            var uri = new Uri(sb.ToString());
-                            client.DownloadFileAsync(uri, saveLocation);
-                            client.DownloadProgressChanged += delegate { DispatcherHelper.Invoke(delegate { UpdateView.View.AvailableLoadingProgressMessage.Text = String.Format("{0}/{1}", pluginFile.Location.Trim('/'), pluginFile.Name); }); };
-                            client.DownloadFileCompleted += delegate
-                            {
+                                // no need to download file, since it hasn't changed
+                                // count this file as "updated" for the purpose of checking if the install finished
                                 updateCount++;
-                                DispatcherHelper.Invoke(delegate
+                            }
+                            else
+                            {
+                                sb.Append(plugin.SourceURI.Trim('/'));
+                                var location = pluginFile.Location.Trim('/');
+                                if (!String.IsNullOrWhiteSpace(location))
                                 {
-                                    UpdateView.View.AvailableLoadingProgressMessage.Text = "";
+                                    sb.AppendFormat("/{0}", location);
+                                }
+                                sb.AppendFormat("/{0}", pluginFile.Name.Trim('/'));
+                                var uri = new Uri(sb.ToString());
+                                client.DownloadFileAsync(uri, saveLocation);
+                                client.DownloadProgressChanged += delegate { DispatcherHelper.Invoke(delegate { UpdateView.View.AvailableLoadingProgressMessage.Text = String.Format("{0}/{1}", pluginFile.Location.Trim('/'), pluginFile.Name); }); };
+                                client.DownloadFileCompleted += delegate
+                                {
+                                    updateCount++;
+
                                     if (updateCount >= updateLimit)
                                     {
-                                        if (plugin.Status != PluginStatus.Installed)
+                                        DispatcherHelper.Invoke(delegate
                                         {
-                                            plugin.Status = PluginStatus.Installed;
-                                            Instance.SetupGrouping();
-                                            if (asyncAction != null)
+                                            if (plugin.Status != PluginStatus.Installed)
                                             {
-                                                DispatcherHelper.Invoke(asyncAction);
+                                                plugin.Status = PluginStatus.Installed;
+                                                Instance.SetupGrouping();
+                                                if (asyncAction != null)
+                                                {
+                                                    DispatcherHelper.Invoke(asyncAction);
+                                                }
                                             }
-                                        }
-                                        UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
-                                        UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
+                                            UpdateView.View.AvailableLoadingProgressMessage.Text = "";
+                                            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
+                                            UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
+                                        }, DispatcherPriority.Send);
                                     }
-                                }, DispatcherPriority.Send);
-                            };
+                                };
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -227,6 +240,26 @@ namespace FFXIVAPP.Client.ViewModels
                         updateCount++;
                     }
                 }
+
+                // need to check here aswell, since if all files mathced hash, none will be downloaded, so the DownloadFileCompleted delegate would never be triggered
+                if (updateCount >= updateLimit)
+                {
+                    if (plugin.Status != PluginStatus.Installed)
+                    {
+                        plugin.Status = PluginStatus.Installed;
+                        Instance.SetupGrouping();
+                        if (asyncAction != null)
+                        {
+                            DispatcherHelper.Invoke(asyncAction);
+                        }
+                    }
+                    DispatcherHelper.Invoke(delegate
+                    {
+                        UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
+                        UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
+                    }, DispatcherPriority.Send);
+                }
+
                 return true;
             };
             checkAvailable.BeginInvoke(null, null);

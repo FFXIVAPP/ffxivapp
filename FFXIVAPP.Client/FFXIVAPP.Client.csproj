@@ -198,6 +198,7 @@
     <Compile Include="Utilities\MicroStopwatch.cs" />
     <Compile Include="Utilities\MicroTimer.cs" />
     <Compile Include="Utilities\MicroTimerEventArgs.cs" />
+    <Compile Include="Utilities\UpdateUtilities.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

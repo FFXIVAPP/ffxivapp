@@ -128,10 +128,11 @@
                             </GroupStyle>
                         </DataGrid.GroupStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}"
+                            <DataGridTextColumn Binding="{Binding FriendlyName}"
                                                 Header="{Binding Locale[app_NameHeader],
                                                                  Source={StaticResource AppProperties}}"
-                                                Utilities:GridViewSort.PropertyName="Name" />
+                                                IsReadOnly="True"
+                                                Utilities:GridViewSort.PropertyName="FriendlyName" />
                             <DataGridTextColumn Binding="{Binding CurrentVersion}"
                                                 Header="{Binding Locale[app_CurrentVersionHeader],
                                                                  Source={StaticResource AppProperties}}"
@@ -152,11 +153,10 @@
                                                                  Source={StaticResource AppProperties}}"
                                                 IsReadOnly="True"
                                                 Utilities:GridViewSort.PropertyName="Status" />
-                            <DataGridTextColumn Binding="{Binding SourceURI}"
-                                                Header="{Binding Locale[app_SourceURIHeader],
-                                                                 Source={StaticResource AppProperties}}"
+                            <DataGridTextColumn Binding="{Binding Description}"
+                                                Header="Description"
                                                 IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="SourceURI" />
+                                                Utilities:GridViewSort.PropertyName="Description" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <DockPanel Grid.Row="3"
@@ -172,12 +172,8 @@
                                        RenderOptions.BitmapScalingMode="HighQuality"
                                        Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png" />
                                 <TextBlock Padding="3,0,3,0"
-                                           Text="{Binding Locale[app_RefreshPluginsButtonText],
-                                                          Source={StaticResource AppProperties},
-                                                          Converter={StaticResource ToUpperConverter}}"
-                                           Visibility="{Binding EnableHelpLabels,
-                                                                Converter={StaticResource VisibilityConverter},
-                                                                Source={x:Static Properties:Settings.Default}}" />
+                                           Text="{Binding Locale[app_RefreshPluginsButtonText], Converter={StaticResource ToUpperConverter}, Source={StaticResource AppProperties}}"
+                                           Visibility="{Binding EnableHelpLabels, Converter={StaticResource VisibilityConverter}, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </Button>
                         <Button Height="28"
