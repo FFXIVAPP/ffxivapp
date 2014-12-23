@@ -36,11 +36,11 @@ namespace FFXIVAPP.Client.Models
     public class PluginDownloadItem : INotifyPropertyChanged
     {
         private string _currentVersion;
+        private string _description;
         private List<PluginFile> _files;
+        private string _friendlyName;
         private string _latestVersion;
         private string _name;
-        private string _friendlyName;
-        private string _description;
         private string _sourceUri;
         private PluginStatus _status;
 

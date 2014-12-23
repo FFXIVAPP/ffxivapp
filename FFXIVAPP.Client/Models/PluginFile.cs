@@ -34,9 +34,9 @@ namespace FFXIVAPP.Client.Models
 {
     public class PluginFile : INotifyPropertyChanged
     {
+        private string _checksum;
         private string _location;
         private string _name;
-        private string _checksum;
 
         public string Name
         {
