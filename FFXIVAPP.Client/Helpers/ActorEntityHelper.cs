@@ -1,7 +1,7 @@
 ﻿// FFXIVAPP.Client
 // ActorEntityHelper.cs
 // 
-// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
 // Redistribution and use in source and binary forms, with or without 
 // modification, are permitted provided that the following conditions are met: 
@@ -65,25 +65,25 @@ namespace FFXIVAPP.Client.Helpers
                 entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
                 entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
                 entry.Icon = (Actor.Icon) source[0x18C];
-                entry.Status = (Actor.Status) source[0x18E];
-                entry.ClaimedByID = BitConverter.ToUInt32(source, 0x1A0);
-                var targetID = BitConverter.ToUInt32(source, 0x1A8);
-                var pcTargetID = BitConverter.ToUInt32(source, 0xAA8);
-                entry.Job = (Actor.Job) source[0x17C0];
-                entry.Level = source[0x17C1];
-                entry.GrandCompany = source[0x17C3];
-                entry.GrandCompanyRank = source[0x17C4];
-                entry.Title = source[0x17C6];
-                entry.HPCurrent = BitConverter.ToInt32(source, 0x17C8);
-                entry.HPMax = BitConverter.ToInt32(source, 0x17CC);
-                entry.MPCurrent = BitConverter.ToInt32(source, 0x17D0);
-                entry.MPMax = BitConverter.ToInt32(source, 0x17D4);
-                entry.TPCurrent = BitConverter.ToInt16(source, 0x17D8);
+                entry.Status = (Actor.Status) source[0x17E]; //0x18E];
+                entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180); // 0x1A0);
+                var targetID = BitConverter.ToUInt32(source, 0x188); // 0x1A8);
+                var pcTargetID = BitConverter.ToUInt32(source, 0x938); // 0xAA8);
+                entry.Job = (Actor.Job) source[0x1540]; // 0x17C0];
+                entry.Level = source[0x1541]; // 0x17C1];
+                entry.GrandCompany = source[0x1543]; // 0x17C3];
+                entry.GrandCompanyRank = source[0x1544]; //0x17C4];
+                entry.Title = source[0x1546]; //0x17C6];
+                entry.HPCurrent = BitConverter.ToInt32(source, 0x1548); // 0x17C8);
+                entry.HPMax = BitConverter.ToInt32(source, 0x154C); // 0x17CC);
+                entry.MPCurrent = BitConverter.ToInt32(source, 0x1550); // 0x17D0);
+                entry.MPMax = BitConverter.ToInt32(source, 0x1554); // 0x17D4);
+                entry.TPCurrent = BitConverter.ToInt16(source, 0x1558); // 0x17D8);
                 entry.TPMax = 1000;
-                entry.GPCurrent = BitConverter.ToInt16(source, 0x17DA);
-                entry.GPMax = BitConverter.ToInt16(source, 0x17DC);
-                entry.CPCurrent = BitConverter.ToInt16(source, 0x17DE);
-                entry.CPMax = BitConverter.ToInt16(source, 0x17E0);
+                entry.GPCurrent = BitConverter.ToInt16(source, 0x155A); // 0x17DA);
+                entry.GPMax = BitConverter.ToInt16(source, 0x155C); // 0x17DC);
+                entry.CPCurrent = BitConverter.ToInt16(source, 0x155E); // 0x17DE);
+                entry.CPMax = BitConverter.ToInt16(source, 0x1560); // 0x17E0);
                 entry.Race = source[0x2808]; // ??
                 entry.Sex = (Actor.Sex) source[0x2809]; //?
                 entry.IsCasting = BitConverter.ToBoolean(source, 0x2C90);

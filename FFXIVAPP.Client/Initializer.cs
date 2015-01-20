@@ -1,7 +1,7 @@
 ﻿// FFXIVAPP.Client
 // Initializer.cs
 // 
-// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
 // Redistribution and use in source and binary forms, with or without 
 // modification, are permitted provided that the following conditions are met: 
@@ -625,7 +625,7 @@ namespace FFXIVAPP.Client
             {
                 Key = "ACTORMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 1316
+                Offset = 1348 // pre-2.5 = 1316
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
