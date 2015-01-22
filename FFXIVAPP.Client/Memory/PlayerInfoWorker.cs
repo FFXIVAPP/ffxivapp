@@ -129,8 +129,8 @@ namespace FFXIVAPP.Client.Memory
                                     var address = enmityStructure + (i * 72);
                                     var enmityEntry = new EnmityEntry
                                     {
-                                        ID = (uint) MemoryHandler.Instance.GetInt32(address),
-                                        Name = MemoryHandler.Instance.GetString(address + 4),
+                                        Name = MemoryHandler.Instance.GetString(address),
+                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
                                         Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
                                     };
                                     if (enmityEntry.ID > 0)

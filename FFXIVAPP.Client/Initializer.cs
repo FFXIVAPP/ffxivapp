@@ -612,14 +612,14 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "00000000DB0FC93FDB0F49416F1283????FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
-                Offset = 872
+                Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
+                Offset = 326
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "NPCMAP",
                 Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2716
+                Offset = 2748
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {

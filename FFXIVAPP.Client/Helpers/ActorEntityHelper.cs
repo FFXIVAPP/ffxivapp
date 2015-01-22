@@ -86,11 +86,11 @@ namespace FFXIVAPP.Client.Helpers
                 entry.CPMax = BitConverter.ToInt16(source, 0x1560); // 0x17E0);
                 entry.Race = source[0x2808]; // ??
                 entry.Sex = (Actor.Sex) source[0x2809]; //?
-                entry.IsCasting = BitConverter.ToBoolean(source, 0x2C90);
-                entry.CastingID = BitConverter.ToInt16(source, 0x2C94);
-                entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2CA0);
-                entry.CastingProgress = BitConverter.ToSingle(source, 0x2CC4);
-                entry.CastingTime = BitConverter.ToSingle(source, 0x2DA8);
+                entry.IsCasting = BitConverter.ToBoolean(source, 0x2A30); // 0x2C90);
+                entry.CastingID = BitConverter.ToInt16(source, 0x2A34); // 0x2C94);
+                entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2A40); // 0x2CA0);
+                entry.CastingProgress = BitConverter.ToSingle(source, 0x2A64); // 0x2CC4);
+                entry.CastingTime = BitConverter.ToSingle(source, 0x2A68); // 0x2DA8);
                 entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
                 if (targetID > 0)
                 {
@@ -118,7 +118,7 @@ namespace FFXIVAPP.Client.Helpers
                 entry.StatusEntries = new List<StatusEntry>();
                 const int statusSize = 12;
                 var statusesSource = new byte[limit * statusSize];
-                Buffer.BlockCopy(source, 0x2B18, statusesSource, 0, limit * 12);
+                Buffer.BlockCopy(source, 0x28B8, statusesSource, 0, limit * 12);
                 for (var i = 0; i < limit; i++)
                 {
                     var statusSource = new byte[statusSize];
