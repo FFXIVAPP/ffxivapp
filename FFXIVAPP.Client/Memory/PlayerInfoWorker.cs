@@ -119,8 +119,8 @@ namespace FFXIVAPP.Client.Memory
                         }
                         try
                         {
-                            var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5688);
-                            var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3380;
+                            var enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 116032); // + 5688
+                            var enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 118340; // + 3380
                             var enmityEntries = new List<EnmityEntry>();
                             if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
                             {
@@ -129,9 +129,9 @@ namespace FFXIVAPP.Client.Memory
                                     var address = enmityStructure + (i * 72);
                                     var enmityEntry = new EnmityEntry
                                     {
-                                        Name = MemoryHandler.Instance.GetString(address),
-                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
-                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
+                                        ID = (uint) MemoryHandler.Instance.GetInt32(address),
+                                        Name = MemoryHandler.Instance.GetString(address + 4),
+                                        Enmity = (uint)MemoryHandler.Instance.GetInt16(address + 72)
                                     };
                                     if (enmityEntry.ID > 0)
                                     {
@@ -179,7 +179,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5724;
+                            PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 115996; // + 5724;
                             MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", PlayerInfoMap);
                         }
                         catch (Exception ex)

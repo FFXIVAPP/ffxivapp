@@ -612,8 +612,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "CHARMAP",
-                Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
-                Offset = 326
+                Value = "FFFFFFFF????????DB0FC93FDB0F49416F12833A00000000????????DB0FC93FDB0F49416F12833A00000000",
+                Offset = 44
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -630,8 +630,8 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "PARTYMAP",
-                Value = "DB0F49416F1283??FFFFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
-                Offset = 52
+                Value = "DB0F49416F12833A0000000000000000000000000000000000000000000000000000000000000000????????DB0FC93F",
+                Offset = 92
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
@@ -642,20 +642,20 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "MAP",
-                Value = "F783843E????????????????FFFFFFFFDB0FC93FDB0F49416F12833A",
-                Offset = 896
+                Value = "F783843E????????????????FFFFFFFF????????DB0FC93FDB0F49416F12833A",
+                Offset = 820
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "TARGET",
-                Value = "DB0FC93FDB0F49416F1283????FFFFFFDB0FC940920A063F",
-                Offset = 172
+                Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
+                Offset = 218
             });
             AppViewModel.Instance.Signatures.Add(new Signature
             {
                 Key = "INVENTORY",
-                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??00??00??00????DB0FC93FDB0F49416F12833AFFFFFFFF",
-                Offset = 56
+                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??????00??00????0000????????????DB0FC93FDB0F49416F12833A",
+                Offset = 60
             });
         }
 
