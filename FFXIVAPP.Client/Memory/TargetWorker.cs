@@ -1,7 +1,7 @@
 ﻿// FFXIVAPP.Client
 // TargetWorker.cs
 // 
-// Copyright © 2007 - 2014 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
 // Redistribution and use in source and binary forms, with or without 
 // modification, are permitted provided that the following conditions are met: 
@@ -113,7 +113,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1136;
+                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 120584;// + 1136;
                             var enmityEntries = new List<EnmityEntry>();
                             var targetEntity = new TargetEntity();
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
