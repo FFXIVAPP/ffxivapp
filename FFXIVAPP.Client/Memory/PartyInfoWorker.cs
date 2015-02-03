@@ -123,7 +123,7 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < partyCount; i++)
                                     {
-                                        var address = PartyInfoMap + (i * 594);
+                                        var address = PartyInfoMap + (i * 544);
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
                                         var entry = new PartyEntity
                                         {
