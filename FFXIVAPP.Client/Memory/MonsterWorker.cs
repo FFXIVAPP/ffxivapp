@@ -196,13 +196,13 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                 }
                             }
-                            if (monsterEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
-                            }
                             if (pcEntries.Any())
                             {
                                 AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
+                            }
+                            if (monsterEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
                             }
 
                             #endregion

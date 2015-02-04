@@ -59,7 +59,7 @@ namespace FFXIVAPP.Client.Delegates
             lock (_npcEntities)
             {
                 _npcEntities = new List<ActorEntity>(entities);
-                CurrentUser = _npcEntities.First();
+                CurrentUser = _npcEntities.FirstOrDefault();
             }
         }
 
