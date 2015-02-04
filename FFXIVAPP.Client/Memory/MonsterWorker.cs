@@ -40,6 +40,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using NLog;
+using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -195,13 +196,13 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                 }
                             }
-                            if (monsterEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
-                            }
                             if (pcEntries.Any())
                             {
                                 AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
+                            }
+                            if (monsterEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
                             }
 
                             #endregion

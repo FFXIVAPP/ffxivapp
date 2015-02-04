@@ -53,8 +53,8 @@ namespace FFXIVAPP.Client.Helpers
                 entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
                 entry.Type = (Actor.Type) source[0x8A];
                 entry.TargetType = (Actor.TargetType) source[0x8C];
-                entry.Distance = source[0x8D];
-                entry.GatheringStatus = source[0x8E];
+                entry.Distance = source[0x8E];
+                entry.GatheringStatus = source[0x8F];
                 entry.X = BitConverter.ToSingle(source, 0xA0);
                 entry.Z = BitConverter.ToSingle(source, 0xA4);
                 entry.Y = BitConverter.ToSingle(source, 0xA8);
