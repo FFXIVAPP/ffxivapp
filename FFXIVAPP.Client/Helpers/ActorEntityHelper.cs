@@ -34,12 +34,13 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Helpers
 {
     public static class ActorEntityHelper
     {
-        public static ActorEntity ResolveActorFromBytes(byte[] source)
+        public static ActorEntity ResolveActorFromBytes(byte[] source, bool isCurrentUser = false)
         {
             var entry = new ActorEntity();
             try
@@ -166,6 +167,12 @@ namespace FFXIVAPP.Client.Helpers
             {
             }
             CleanXPValue(ref entry);
+
+            if (isCurrentUser)
+            {
+                PCWorkerDelegate.CurrentUser = entry;
+            }
+            entry.CurrentUser = PCWorkerDelegate.CurrentUser;
             return entry;
         }
 
