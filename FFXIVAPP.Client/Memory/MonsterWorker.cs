@@ -194,14 +194,26 @@ namespace FFXIVAPP.Client.Memory
                                 catch (Exception ex)
                                 {
                                 }
+                            } 
+                            if (pcEntries.Any())
+                            {
+                                foreach (ActorEntity ent in pcEntries)
+                                {
+                                    ent.CurrentUser = pcEntries.First();
+                                }
+                                foreach (ActorEntity ent in monsterEntries)
+                                {
+                                    ent.CurrentUser = pcEntries.First();
+                                }
+                            }
+                            if (pcEntries.Any())
+                            {
+                                ActorEntityHelper.CurrentUser = pcEntries.First();
+                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
                             }
                             if (monsterEntries.Any())
                             {
                                 AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
-                            }
-                            if (pcEntries.Any())
-                            {
-                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
                             }
 
                             #endregion

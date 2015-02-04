@@ -122,6 +122,11 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
+
+            foreach (ActorEntity ent in actorEntities)
+            {
+                ent.CurrentUser = ActorEntityHelper.CurrentUser;
+            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
@@ -154,6 +159,11 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
+
+            foreach (ActorEntity ent in actorEntities)
+            {
+                ent.CurrentUser = ActorEntityHelper.CurrentUser;
+            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
@@ -186,6 +196,11 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
+
+            foreach (ActorEntity ent in actorEntities)
+            {
+                ent.CurrentUser = ActorEntityHelper.CurrentUser;
+            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
@@ -199,6 +214,12 @@ namespace FFXIVAPP.Client.Helpers
 
         public void RaiseNewTargetEntity(TargetEntity targetEntity)
         {
+
+            targetEntity.CurrentTarget.CurrentUser = ActorEntityHelper.CurrentUser;
+            targetEntity.FocusTarget.CurrentUser = ActorEntityHelper.CurrentUser;
+            targetEntity.MouseOverTarget.CurrentUser = ActorEntityHelper.CurrentUser;
+            targetEntity.PreviousTarget.CurrentUser = ActorEntityHelper.CurrentUser;
+
             // THIRD PARTY
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }
