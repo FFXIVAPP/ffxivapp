@@ -122,11 +122,6 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
-
-            foreach (ActorEntity ent in actorEntities)
-            {
-                ent.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
@@ -159,11 +154,6 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
-
-            foreach (ActorEntity ent in actorEntities)
-            {
-                ent.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
@@ -196,11 +186,6 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             };
             saveToDictionary.BeginInvoke(null, saveToDictionary);
-
-            foreach (ActorEntity ent in actorEntities)
-            {
-                ent.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
@@ -214,24 +199,6 @@ namespace FFXIVAPP.Client.Helpers
 
         public void RaiseNewTargetEntity(TargetEntity targetEntity)
         {
-
-            if (targetEntity.CurrentTarget != null)
-            {
-                targetEntity.CurrentTarget.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
-            if (targetEntity.FocusTarget != null)
-            {
-                targetEntity.FocusTarget.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
-            if (targetEntity.MouseOverTarget != null)
-            {
-                targetEntity.MouseOverTarget.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
-            if (targetEntity.PreviousTarget != null)
-            {
-                targetEntity.PreviousTarget.CurrentUser = PCWorkerDelegate.CurrentUser;
-            }
-
             // THIRD PARTY
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }

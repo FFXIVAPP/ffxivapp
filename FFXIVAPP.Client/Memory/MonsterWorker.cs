@@ -156,6 +156,8 @@ namespace FFXIVAPP.Client.Memory
 
                             #region ActorEntity Handlers
 
+                            bool firstTime = true;
+
                             var monsterEntries = new List<ActorEntity>();
                             var pcEntries = new List<ActorEntity>();
                             for (var i = 0; i < sourceData.Count; i++)
@@ -164,7 +166,10 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     var source = sourceData[i];
                                     //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime);
+
+                                    firstTime = false;
+
                                     //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
                                     //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                     //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
