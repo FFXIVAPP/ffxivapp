@@ -59,6 +59,7 @@ namespace FFXIVAPP.Client.Delegates
             lock (_npcEntities)
             {
                 _npcEntities = new List<ActorEntity>(entities);
+                CurrentUser = _npcEntities.First();
             }
         }
 
@@ -94,9 +95,13 @@ namespace FFXIVAPP.Client.Delegates
             }
         }
 
+
         #endregion
 
         #region Declarations
+
+        public static ActorEntity CurrentUser {get; set;}
+
 
         private static IList<ActorEntity> _npcEntities = new List<ActorEntity>();
 

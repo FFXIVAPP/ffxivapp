@@ -39,8 +39,6 @@ namespace FFXIVAPP.Client.Helpers
 {
     public static class ActorEntityHelper
     {
-        public static ActorEntity CurrentUser = null;
-
         public static ActorEntity ResolveActorFromBytes(byte[] source)
         {
             var entry = new ActorEntity();
