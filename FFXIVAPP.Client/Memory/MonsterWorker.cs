@@ -40,7 +40,6 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using NLog;
-using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -156,7 +155,7 @@ namespace FFXIVAPP.Client.Memory
 
                             #region ActorEntity Handlers
 
-                            bool firstTime = true;
+                            var firstTime = true;
 
                             var monsterEntries = new List<ActorEntity>();
                             var pcEntries = new List<ActorEntity>();

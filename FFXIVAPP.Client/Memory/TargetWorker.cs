@@ -113,7 +113,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 120584;// + 1136;
+                            var targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 120584; // + 1136;
                             var enmityEntries = new List<EnmityEntry>();
                             var targetEntity = new TargetEntity();
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))

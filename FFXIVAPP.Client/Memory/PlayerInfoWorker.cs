@@ -131,7 +131,7 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         ID = (uint) MemoryHandler.Instance.GetInt32(address),
                                         Name = MemoryHandler.Instance.GetString(address + 4),
-                                        Enmity = (uint)MemoryHandler.Instance.GetInt16(address + 72)
+                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 72)
                                     };
                                     if (enmityEntry.ID > 0)
                                     {

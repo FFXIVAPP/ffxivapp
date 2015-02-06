@@ -111,8 +111,6 @@ namespace FFXIVAPP.Client.Memory
             {
                 var autoTranslateList = new List<byte>();
                 var newList = new List<byte>();
-                //var check = Encoding.UTF8.GetString(bytes.Take(4)
-                //                                         .ToArray());
                 for (var x = 0; x < bytes.Count(); x++)
                 {
                     if (bytes[x] == 2)
@@ -133,14 +131,16 @@ namespace FFXIVAPP.Client.Memory
                             //2 46 5 7 242 2 210 3
                             //2 29 1 3
                             var length = bytes[x + 2];
+                            var limit = length - 1;
                             if (length > 1)
                             {
                                 x = x + 3;
                                 autoTranslateList.Add(Convert.ToByte('['));
-                                while (bytes[x] != 3)
+                                var translated = new byte[limit];
+                                Buffer.BlockCopy(bytes, x, translated, 0, limit);
+                                foreach (var b in translated)
                                 {
-                                    autoTranslateList.AddRange(Encoding.UTF8.GetBytes(bytes[x].ToString("X2")));
-                                    x++;
+                                    autoTranslateList.AddRange(Encoding.UTF8.GetBytes(b.ToString("X2")));
                                 }
                                 autoTranslateList.Add(Convert.ToByte(']'));
                                 string aCheckStr;
@@ -150,9 +150,16 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     aCheckStr = "";
                                 }
-                                var atbyte = (!String.IsNullOrWhiteSpace(aCheckStr)) ? Encoding.UTF8.GetBytes(aCheckStr) : autoTranslateList.ToArray();
-                                newList.AddRange(atbyte);
+                                if (String.IsNullOrWhiteSpace(aCheckStr))
+                                {
+                                    // TODO: implement showing or using in the chatlog
+                                }
+                                else
+                                {
+                                    newList.AddRange(Encoding.UTF8.GetBytes(aCheckStr));
+                                }
                                 autoTranslateList.Clear();
+                                x += limit;
                             }
                             else
                             {
@@ -166,15 +173,19 @@ namespace FFXIVAPP.Client.Memory
                             break;
                     }
                 }
+                //var cleanedList = newList.Where(v => (v >= 0x0020 && v <= 0xD7FF) || (v >= 0xE000 && v <= 0xFFFD) || v == 0x0009 || v == 0x000A || v == 0x000D);
                 var cleaned = HttpUtility.HtmlDecode(Encoding.UTF8.GetString(newList.ToArray()))
                                          .Replace("  ", " ");
                 autoTranslateList.Clear();
                 newList.Clear();
                 cleaned = Regex.Replace(cleaned, @"", "⇒");
                 cleaned = Regex.Replace(cleaned, @"", "[HQ]");
+                cleaned = Regex.Replace(cleaned, @"", "");
+                cleaned = Regex.Replace(cleaned, @"�", "");
                 cleaned = Regex.Replace(cleaned, @"\[+0([12])010101([\w]+)?\]+", "");
                 cleaned = Regex.Replace(cleaned, @"\[+CF010101([\w]+)?\]+", "");
                 cleaned = Regex.Replace(cleaned, @"\[+..FF\w{6}\]+|\[+EC\]+", "");
+                cleaned = Regex.Replace(cleaned, @"\[\]+", "");
                 line = cleaned;
             }
             catch (Exception ex)

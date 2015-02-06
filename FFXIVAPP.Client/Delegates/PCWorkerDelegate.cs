@@ -98,11 +98,10 @@ namespace FFXIVAPP.Client.Delegates
 
         #region Declarations
 
-        public static ActorEntity CurrentUser { get; set; }
-
         private static IList<ActorEntity> _npcEntities = new List<ActorEntity>();
 
         private static IList<ActorEntity> _uniqueNPCEntities = new List<ActorEntity>();
+        public static ActorEntity CurrentUser { get; set; }
 
         #endregion
     }

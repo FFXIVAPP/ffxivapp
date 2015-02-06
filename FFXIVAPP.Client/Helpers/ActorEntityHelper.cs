@@ -29,12 +29,12 @@
 
 using System;
 using System.Collections.Generic;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Helpers
 {
