@@ -277,6 +277,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\Media\Icons\cn.png" />
     <Resource Include="Resources\Media\Icons\fr.png" />
     <Resource Include="Resources\Media\Icons\ja.png" />
     <Resource Include="Resources\Media\Icons\de.png" />

@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -122,12 +123,35 @@ namespace FFXIVAPP.Client.Memory
                                 var somethingFound = false;
                                 if (targetAddress > 0)
                                 {
-                                    var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                    if (targetInfo.CurrentTarget > 0)
+                                    //var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
+                                    uint currentTarget;
+                                    uint mouseOverTarget;
+                                    uint focusTarget;
+                                    uint previousTarget;
+                                    uint currentTargetID;
+                                    var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 128);
+                                    switch (Settings.Default.GameLanguage)
+                                    {
+                                        case "Chinese":
+                                            currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
+                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x18);
+                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x48);
+                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x54);
+                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                            break;
+                                        default:
+                                            currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
+                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0xC);
+                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x3C);
+                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x48);
+                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x5C);
+                                            break;
+                                    }
+                                    if (currentTarget > 0)
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.CurrentTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(currentTarget, 0x3F40);
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -149,11 +173,11 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                         }
                                     }
-                                    if (targetInfo.MouseOverTarget > 0)
+                                    if (mouseOverTarget > 0)
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.MouseOverTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(mouseOverTarget, 0x3F40);
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -175,9 +199,9 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                         }
                                     }
-                                    if (targetInfo.FocusTarget > 0)
+                                    if (focusTarget > 0)
                                     {
-                                        var source = MemoryHandler.Instance.GetByteArray(targetInfo.FocusTarget, 0x3F40);
+                                        var source = MemoryHandler.Instance.GetByteArray(focusTarget, 0x3F40);
                                         var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                         if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                         {
@@ -195,11 +219,11 @@ namespace FFXIVAPP.Client.Memory
                                             targetEntity.FocusTarget = entry;
                                         }
                                     }
-                                    if (targetInfo.PreviousTarget > 0)
+                                    if (previousTarget > 0)
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(targetInfo.PreviousTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(previousTarget, 0x3F40);
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -221,10 +245,10 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                         }
                                     }
-                                    if (targetInfo.CurrentTargetID > 0)
+                                    if (currentTargetID > 0)
                                     {
                                         somethingFound = true;
-                                        targetEntity.CurrentTargetID = targetInfo.CurrentTargetID;
+                                        targetEntity.CurrentTargetID = currentTargetID;
                                     }
                                 }
                                 if (targetEntity.CurrentTargetID > 0)

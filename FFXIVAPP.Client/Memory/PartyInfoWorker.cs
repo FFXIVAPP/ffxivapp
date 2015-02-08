@@ -123,7 +123,17 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < partyCount; i++)
                                     {
-                                        var address = PartyInfoMap + (i * 544);
+                                        uint size;
+                                        switch (Settings.Default.GameLanguage)
+                                        {
+                                            case "Chinese":
+                                                size = 594;
+                                                break;
+                                            default:
+                                                size = 544;
+                                                break;
+                                        }
+                                        var address = PartyInfoMap + (i * size);
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
                                         var entry = new PartyEntity
                                         {
@@ -157,20 +167,20 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
                                                 statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                                                var statusKey = "";
+                                                var statusKey = statusInfo.Name.English;
                                                 switch (Settings.Default.GameLanguage)
                                                 {
-                                                    case "English":
-                                                        statusKey = statusInfo.Name.English;
-                                                        break;
                                                     case "French":
                                                         statusKey = statusInfo.Name.French;
+                                                        break;
+                                                    case "Japanese":
+                                                        statusKey = statusInfo.Name.Japanese;
                                                         break;
                                                     case "German":
                                                         statusKey = statusInfo.Name.German;
                                                         break;
-                                                    case "Japanese":
-                                                        statusKey = statusInfo.Name.Japanese;
+                                                    case "Chinese":
+                                                        statusKey = statusInfo.Name.Chinese;
                                                         break;
                                                 }
                                                 statusEntry.StatusName = statusKey;

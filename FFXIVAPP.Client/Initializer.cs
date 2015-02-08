@@ -603,60 +603,115 @@ namespace FFXIVAPP.Client
         public static void SetSignatures()
         {
             AppViewModel.Instance.Signatures.Clear();
-            AppViewModel.Instance.Signatures.Add(new Signature
+            switch (Settings.Default.GameLanguage)
             {
-                Key = "GAMEMAIN",
-                Value = "47616D654D61696E000000",
-                Offset = 1260 // pre 2.5 = 1248
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "CHARMAP",
-                Value = "FFFFFFFF????????DB0FC93FDB0F49416F12833A00000000????????DB0FC93FDB0F49416F12833A00000000",
-                Offset = 44
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "NPCMAP",
-                Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 2748
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "ACTORMAP",
-                Value = "3E000000????????4000000001000000000000000001000000",
-                Offset = 1348 // pre-2.5 = 1316
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "PARTYMAP",
-                Value = "DB0F49416F12833A0000000000000000000000000000000000000000000000000000000000000000????????DB0FC93F",
-                Offset = 92
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "PARTYCOUNT",
-                Value = "5F50617274794C69737400",
-                Offset = 1340
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "MAP",
-                Value = "F783843E????????????????FFFFFFFF????????DB0FC93FDB0F49416F12833A",
-                Offset = 820
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "TARGET",
-                Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
-                Offset = 218
-            });
-            AppViewModel.Instance.Signatures.Add(new Signature
-            {
-                Key = "INVENTORY",
-                Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??????00??00????0000????????????DB0FC93FDB0F49416F12833A",
-                Offset = 60
-            });
+                case "Chinese":
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "GAMEMAIN",
+                        Value = "47616D654D61696E000000",
+                        Offset = 1180
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "CHARMAP",
+                        Value = "??FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
+                        Offset = 792
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "NPCMAP",
+                        Value = "3E000000????????4000000001000000000000000001000000",
+                        Offset = 2732
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "ACTORMAP",
+                        Value = "3E000000????????4000000001000000000000000001000000",
+                        Offset = 1332
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "PARTYMAP",
+                        Value = "DB0F49416F1283??FFFFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
+                        Offset = 56
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "PARTYCOUNT",
+                        Value = "5F50617274794C69737400",
+                        Offset = 1340
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "MAP",
+                        Value = "F783843E????????????????FFFFFFFFDB0FC93FDB0F49416F12833A",
+                        Offset = 896
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "TARGET",
+                        Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
+                        Offset = 206
+                    });
+                    break;
+                default:
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "GAMEMAIN",
+                        Value = "47616D654D61696E000000",
+                        Offset = 1260 // pre 2.5 = 1248
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "CHARMAP",
+                        Value = "FFFFFFFF????????DB0FC93FDB0F49416F12833A00000000????????DB0FC93FDB0F49416F12833A00000000",
+                        Offset = 44
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "NPCMAP",
+                        Value = "3E000000????????4000000001000000000000000001000000",
+                        Offset = 2748
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "ACTORMAP",
+                        Value = "3E000000????????4000000001000000000000000001000000",
+                        Offset = 1348 // pre-2.5 = 1316
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "PARTYMAP",
+                        Value = "DB0F49416F12833A0000000000000000000000000000000000000000000000000000000000000000????????DB0FC93F",
+                        Offset = 92
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "PARTYCOUNT",
+                        Value = "5F50617274794C69737400",
+                        Offset = 1340
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "MAP",
+                        Value = "F783843E????????????????FFFFFFFF????????DB0FC93FDB0F49416F12833A",
+                        Offset = 820
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "TARGET",
+                        Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
+                        Offset = 218
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "INVENTORY",
+                        Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??????00??00????0000????????????DB0FC93FDB0F49416F12833A",
+                        Offset = 60
+                    });
+                    break;
+            }
         }
 
         /// <summary>

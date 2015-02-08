@@ -178,8 +178,18 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         if (targetAddress > 0)
                                         {
-                                            var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                            entry.TargetID = (int) targetInfo.CurrentTargetID;
+                                            uint currentTargetID;
+                                            var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 128);
+                                            switch (Settings.Default.GameLanguage)
+                                            {
+                                                case "Chinese":
+                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                    break;
+                                                default:
+                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                    break;
+                                            }
+                                            entry.TargetID = (int) currentTargetID;
                                         }
                                     }
                                     if (!entry.IsValid)

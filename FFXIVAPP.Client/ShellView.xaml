@@ -94,6 +94,14 @@
                        Source="/FFXIVAPP.Client;component/Resources/Media/Icons/de.png"
                        ToolTip="Deutsch" />
             </Button>
+            <Button Command="{Binding SetLocaleCommand}"
+                    CommandParameter="Chinese">
+                <Image Width="20"
+                       Height="20"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/cn.png"
+                       ToolTip="中國" />
+            </Button>
             <Button x:Name="save"
                     Command="{Binding SaveAndClearHistoryCommand}">
                 <StackPanel Orientation="Horizontal">

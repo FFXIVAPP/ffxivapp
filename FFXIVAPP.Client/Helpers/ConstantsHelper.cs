@@ -66,14 +66,16 @@ namespace FFXIVAPP.Client.Helpers
                 {
                     switch (Settings.Default.GameLanguage)
                     {
-                        case "English":
-                            return Constants.Actions[skillKey].EN;
                         case "French":
                             return Constants.Actions[skillKey].FR;
                         case "Japanese":
                             return Constants.Actions[skillKey].JA;
                         case "German":
                             return Constants.Actions[skillKey].DE;
+                        case "Chinese":
+                            return Constants.Actions[skillKey].ZH;
+                        default:
+                            return Constants.Actions[skillKey].EN;
                     }
                 }
             }
@@ -92,12 +94,6 @@ namespace FFXIVAPP.Client.Helpers
                     var info = actionInfo.Value;
                     switch (Settings.Default.GameLanguage)
                     {
-                        case "English":
-                            if (String.Equals(info.EN, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
                         case "French":
                             if (String.Equals(info.FR, name, Constants.InvariantComparer))
                             {
@@ -112,6 +108,18 @@ namespace FFXIVAPP.Client.Helpers
                             break;
                         case "German":
                             if (String.Equals(info.DE, name, Constants.InvariantComparer))
+                            {
+                                return info;
+                            }
+                            break;
+                        case "Chinese":
+                            if (String.Equals(info.EN, name, Constants.InvariantComparer))
+                            {
+                                return info;
+                            }
+                            break;
+                        default:
+                            if (String.Equals(info.EN, name, Constants.InvariantComparer))
                             {
                                 return info;
                             }

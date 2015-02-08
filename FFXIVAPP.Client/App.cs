@@ -204,14 +204,17 @@ namespace FFXIVAPP.Client
                         var cultureInfo = new CultureInfo("en");
                         switch (lang)
                         {
+                            case "french":
+                                cultureInfo = new CultureInfo("fr");
+                                break;
                             case "japanese":
                                 cultureInfo = new CultureInfo("ja");
                                 break;
                             case "german":
                                 cultureInfo = new CultureInfo("de");
                                 break;
-                            case "french":
-                                cultureInfo = new CultureInfo("fr");
+                            case "chinese":
+                                cultureInfo = new CultureInfo("zh");
                                 break;
                         }
                         Constants.CultureInfo = Settings.Default.Culture = cultureInfo;

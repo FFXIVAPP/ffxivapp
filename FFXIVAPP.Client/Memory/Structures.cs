@@ -153,29 +153,5 @@ namespace FFXIVAPP.Client.Memory
             [FieldOffset(0x8)] //8
             public uint CasterID;
         };
-
-        [StructLayout(LayoutKind.Explicit, Pack = 1)]
-        public struct Target
-        {
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x0)] //0
-            public uint CurrentTarget;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0xC)] //12
-            public uint MouseOverTarget;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x3C)] //60
-            public uint FocusTarget;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x48)] //72
-            public uint PreviousTarget;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x5C)] //94
-            public uint CurrentTargetID;
-        }
     }
 }

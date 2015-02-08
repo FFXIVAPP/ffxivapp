@@ -86,7 +86,19 @@ namespace FFXIVAPP.Client
 
         private static void SetLocale(string language)
         {
-            Settings.Default.GameLanguage = language;
+            if ((Settings.Default.GameLanguage == "English" && language == "Chinese") || (Settings.Default.GameLanguage == "Chinese" && language == "English"))
+            {
+                Action ok = () =>
+                {
+                    Settings.Default.GameLanguage = language;
+                };
+                Action cancel = () => { };
+                MessageBoxHelper.ShowMessageAsync("Warning!", "FFXIVAPP will restart to perform this change. Do you wish to continue?", ok, cancel);
+            }
+            else
+            {
+                Settings.Default.GameLanguage = language;
+            }
         }
 
         /// <summary>

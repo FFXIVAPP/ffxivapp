@@ -45,54 +45,109 @@ namespace FFXIVAPP.Client.Helpers
             var entry = new ActorEntity();
             try
             {
+                uint targetID;
+                uint pcTargetID;
                 entry.MapIndex = 0;
                 entry.TargetID = 0;
-                entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
-                entry.ID = BitConverter.ToUInt32(source, 0x74);
-                entry.NPCID1 = BitConverter.ToUInt32(source, 0x78);
-                entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);
-                entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
-                entry.Type = (Actor.Type) source[0x8A];
-                entry.TargetType = (Actor.TargetType) source[0x8C];
-                entry.Distance = source[0x90];
-                entry.GatheringStatus = source[0x8F];
-                entry.X = BitConverter.ToSingle(source, 0xA0);
-                entry.Z = BitConverter.ToSingle(source, 0xA4);
-                entry.Y = BitConverter.ToSingle(source, 0xA8);
-                entry.Heading = BitConverter.ToSingle(source, 0xB0);
-                entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
-                entry.GatheringInvisible = source[0x11C]; // ??
-                entry.ModelID = BitConverter.ToUInt32(source, 0x174);
-                entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
-                entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
-                entry.Icon = (Actor.Icon) source[0x18C];
-                entry.Status = (Actor.Status) source[0x17E]; //0x18E];
-                entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180); // 0x1A0);
-                var targetID = BitConverter.ToUInt32(source, 0x188); // 0x1A8);
-                var pcTargetID = BitConverter.ToUInt32(source, 0x938); // 0xAA8);
-                entry.Job = (Actor.Job) source[0x1540]; // 0x17C0];
-                entry.Level = source[0x1541]; // 0x17C1];
-                entry.GrandCompany = source[0x1543]; // 0x17C3];
-                entry.GrandCompanyRank = source[0x1544]; //0x17C4];
-                entry.Title = source[0x1546]; //0x17C6];
-                entry.HPCurrent = BitConverter.ToInt32(source, 0x1548); // 0x17C8);
-                entry.HPMax = BitConverter.ToInt32(source, 0x154C); // 0x17CC);
-                entry.MPCurrent = BitConverter.ToInt32(source, 0x1550); // 0x17D0);
-                entry.MPMax = BitConverter.ToInt32(source, 0x1554); // 0x17D4);
-                entry.TPCurrent = BitConverter.ToInt16(source, 0x1558); // 0x17D8);
-                entry.TPMax = 1000;
-                entry.GPCurrent = BitConverter.ToInt16(source, 0x155A); // 0x17DA);
-                entry.GPMax = BitConverter.ToInt16(source, 0x155C); // 0x17DC);
-                entry.CPCurrent = BitConverter.ToInt16(source, 0x155E); // 0x17DE);
-                entry.CPMax = BitConverter.ToInt16(source, 0x1560); // 0x17E0);
-                entry.Race = source[0x2808]; // ??
-                entry.Sex = (Actor.Sex) source[0x2809]; //?
-                entry.IsCasting = BitConverter.ToBoolean(source, 0x2A30); // 0x2C90);
-                entry.CastingID = BitConverter.ToInt16(source, 0x2A34); // 0x2C94);
-                entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2A40); // 0x2CA0);
-                entry.CastingProgress = BitConverter.ToSingle(source, 0x2A64); // 0x2CC4);
-                entry.CastingTime = BitConverter.ToSingle(source, 0x2A68); // 0x2DA8);
-                entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
+                switch (Settings.Default.GameLanguage)
+                {
+                    case "Chinese":
+                        entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
+                        entry.ID = BitConverter.ToUInt32(source, 0x74);
+                        entry.NPCID1 = BitConverter.ToUInt32(source, 0x78);
+                        entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                        entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
+                        entry.Type = (Actor.Type) source[0x8A];
+                        entry.TargetType = (Actor.TargetType) source[0x8C];
+                        entry.GatheringStatus = source[0x8E];
+                        entry.Distance = source[0x8F];
+                        entry.X = BitConverter.ToSingle(source, 0xA0);
+                        entry.Z = BitConverter.ToSingle(source, 0xA4);
+                        entry.Y = BitConverter.ToSingle(source, 0xA8);
+                        entry.Heading = BitConverter.ToSingle(source, 0xB0);
+                        entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
+                        entry.GatheringInvisible = source[0x11C]; // ??
+                        entry.ModelID = BitConverter.ToUInt32(source, 0x174);
+                        entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
+                        entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
+                        entry.Icon = (Actor.Icon) source[0x18C];
+                        entry.Status = (Actor.Status) source[0x18E];
+                        entry.ClaimedByID = BitConverter.ToUInt32(source, 0x1A0);
+                        targetID = BitConverter.ToUInt32(source, 0x1A8);
+                        pcTargetID = BitConverter.ToUInt32(source, 0xAA8);
+                        entry.Job = (Actor.Job) source[0x1790];
+                        entry.Level = source[0x1791];
+                        entry.GrandCompany = source[0x1793];
+                        entry.GrandCompanyRank = source[0x1794];
+                        entry.Title = source[0x1796];
+                        entry.HPCurrent = BitConverter.ToInt32(source, 0x1798);
+                        entry.HPMax = BitConverter.ToInt32(source, 0x179C);
+                        entry.MPCurrent = BitConverter.ToInt32(source, 0x17A0);
+                        entry.MPMax = BitConverter.ToInt32(source, 0x17A4);
+                        entry.TPCurrent = BitConverter.ToInt16(source, 0x17A8);
+                        entry.TPMax = 1000;
+                        entry.GPCurrent = BitConverter.ToInt16(source, 0x17AA);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x17AC);
+                        entry.CPCurrent = BitConverter.ToInt16(source, 0x17AE);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x18B0);
+                        entry.Race = source[0x2808]; // ??
+                        entry.Sex = (Actor.Sex) source[0x2809]; //?
+                        entry.IsCasting = BitConverter.ToBoolean(source, 0x2C90);
+                        entry.CastingID = BitConverter.ToInt16(source, 0x2C94);
+                        entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2CA0);
+                        entry.CastingProgress = BitConverter.ToSingle(source, 0x2CC4);
+                        entry.CastingTime = BitConverter.ToSingle(source, 0x2DA8);
+                        entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
+                        break;
+                    default:
+                        entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
+                        entry.ID = BitConverter.ToUInt32(source, 0x74);
+                        entry.NPCID1 = BitConverter.ToUInt32(source, 0x78);
+                        entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                        entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
+                        entry.Type = (Actor.Type) source[0x8A];
+                        entry.TargetType = (Actor.TargetType) source[0x8C];
+                        entry.GatheringStatus = source[0x8F];
+                        entry.Distance = source[0x90];
+                        entry.X = BitConverter.ToSingle(source, 0xA0);
+                        entry.Z = BitConverter.ToSingle(source, 0xA4);
+                        entry.Y = BitConverter.ToSingle(source, 0xA8);
+                        entry.Heading = BitConverter.ToSingle(source, 0xB0);
+                        entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
+                        entry.GatheringInvisible = source[0x11C]; // ??
+                        entry.ModelID = BitConverter.ToUInt32(source, 0x174);
+                        entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
+                        entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
+                        entry.Icon = (Actor.Icon) source[0x18C];
+                        entry.Status = (Actor.Status) source[0x17E]; //0x18E];
+                        entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180); // 0x1A0);
+                        targetID = BitConverter.ToUInt32(source, 0x188); // 0x1A8);
+                        pcTargetID = BitConverter.ToUInt32(source, 0x938); // 0xAA8);
+                        entry.Job = (Actor.Job) source[0x1540]; // 0x17C0];
+                        entry.Level = source[0x1541]; // 0x17C1];
+                        entry.GrandCompany = source[0x1543]; // 0x17C3];
+                        entry.GrandCompanyRank = source[0x1544]; //0x17C4];
+                        entry.Title = source[0x1546]; //0x17C6];
+                        entry.HPCurrent = BitConverter.ToInt32(source, 0x1548); // 0x17C8);
+                        entry.HPMax = BitConverter.ToInt32(source, 0x154C); // 0x17CC);
+                        entry.MPCurrent = BitConverter.ToInt32(source, 0x1550); // 0x17D0);
+                        entry.MPMax = BitConverter.ToInt32(source, 0x1554); // 0x17D4);
+                        entry.TPCurrent = BitConverter.ToInt16(source, 0x1558); // 0x17D8);
+                        entry.TPMax = 1000;
+                        entry.GPCurrent = BitConverter.ToInt16(source, 0x155A); // 0x17DA);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x155C); // 0x17DC);
+                        entry.CPCurrent = BitConverter.ToInt16(source, 0x155E); // 0x17DE);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x1560); // 0x17E0);
+                        entry.Race = source[0x2808]; // ??
+                        entry.Sex = (Actor.Sex) source[0x2809]; //?
+                        entry.IsCasting = BitConverter.ToBoolean(source, 0x2A30); // 0x2C90);
+                        entry.CastingID = BitConverter.ToInt16(source, 0x2A34); // 0x2C94);
+                        entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2A40); // 0x2CA0);
+                        entry.CastingProgress = BitConverter.ToSingle(source, 0x2A64); // 0x2CC4);
+                        entry.CastingTime = BitConverter.ToSingle(source, 0x2A68); // 0x2DA8);
+                        entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
+                        break;
+                }
                 if (targetID > 0)
                 {
                     entry.TargetID = (int) targetID;
@@ -119,7 +174,15 @@ namespace FFXIVAPP.Client.Helpers
                 entry.StatusEntries = new List<StatusEntry>();
                 const int statusSize = 12;
                 var statusesSource = new byte[limit * statusSize];
-                Buffer.BlockCopy(source, 0x28B8, statusesSource, 0, limit * 12);
+                switch (Settings.Default.GameLanguage)
+                {
+                    case "Chinese":
+                        Buffer.BlockCopy(source, 0x2B18, statusesSource, 0, limit * 12);
+                        break;
+                    default:
+                        Buffer.BlockCopy(source, 0x28B8, statusesSource, 0, limit * 12);
+                        break;
+                }
                 for (var i = 0; i < limit; i++)
                 {
                     var statusSource = new byte[statusSize];
@@ -136,20 +199,20 @@ namespace FFXIVAPP.Client.Helpers
                     {
                         var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
                         statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                        var statusKey = "";
+                        var statusKey = statusInfo.Name.English;
                         switch (Settings.Default.GameLanguage)
                         {
-                            case "English":
-                                statusKey = statusInfo.Name.English;
-                                break;
                             case "French":
                                 statusKey = statusInfo.Name.French;
+                                break;
+                            case "Japanese":
+                                statusKey = statusInfo.Name.Japanese;
                                 break;
                             case "German":
                                 statusKey = statusInfo.Name.German;
                                 break;
-                            case "Japanese":
-                                statusKey = statusInfo.Name.Japanese;
+                            case "Chinese":
+                                statusKey = statusInfo.Name.Chinese;
                                 break;
                         }
                         statusEntry.StatusName = statusKey;

@@ -31,10 +31,12 @@ namespace FFXIVAPP.Client.Models
 {
     public class ActionInfo
     {
+        public string ZH { get; set; }
         public string JA { get; set; }
         public string EN { get; set; }
         public string FR { get; set; }
         public string DE { get; set; }
+        public string ZH_HelpLabel { get; set; }
         public string JA_HelpLabel { get; set; }
         public string EN_HelpLabel { get; set; }
         public string FR_HelpLabel { get; set; }
