@@ -128,6 +128,7 @@ namespace FFXIVAPP.Client.Helpers
                     {
                         TargetName = entry.Name,
                         StatusID = BitConverter.ToInt16(statusSource, 0x0),
+                        Stacks = statusSource[0x2],
                         Duration = BitConverter.ToSingle(statusSource, 0x4),
                         CasterID = BitConverter.ToUInt32(statusSource, 0x8)
                     };
