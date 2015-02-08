@@ -124,8 +124,8 @@ namespace FFXIVAPP.Client.Memory
                             switch (Settings.Default.GameLanguage)
                             {
                                 case "Chinese":
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 116032);
-                                    enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 118340;
+                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5688);
+                                    enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
                                     break;
                                 default:
                                     enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 116032);

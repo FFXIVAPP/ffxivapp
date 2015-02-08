@@ -282,7 +282,9 @@
     <Resource Include="Resources\Media\Icons\ja.png" />
     <Resource Include="Resources\Media\Icons\de.png" />
     <Resource Include="Resources\Media\Icons\en.png" />
-    <Resource Include="Resources\Actions.xml" />
+    <Resource Include="Resources\Actions.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="Resources\Media\Images\Donations.png" />
     <Resource Include="Resources\Media\Images\Save.png" />
     <Resource Include="Resources\Media\Images\Header.png" />
