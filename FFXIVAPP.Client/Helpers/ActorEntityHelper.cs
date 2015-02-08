@@ -54,7 +54,7 @@ namespace FFXIVAPP.Client.Helpers
                 entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
                 entry.Type = (Actor.Type) source[0x8A];
                 entry.TargetType = (Actor.TargetType) source[0x8C];
-                entry.Distance = source[0x8E];
+                entry.Distance = source[0x90];
                 entry.GatheringStatus = source[0x8F];
                 entry.X = BitConverter.ToSingle(source, 0xA0);
                 entry.Z = BitConverter.ToSingle(source, 0xA4);
@@ -128,6 +128,7 @@ namespace FFXIVAPP.Client.Helpers
                     {
                         TargetName = entry.Name,
                         StatusID = BitConverter.ToInt16(statusSource, 0x0),
+                        Stacks = statusSource[0x2],
                         Duration = BitConverter.ToSingle(statusSource, 0x4),
                         CasterID = BitConverter.ToUInt32(statusSource, 0x8)
                     };
