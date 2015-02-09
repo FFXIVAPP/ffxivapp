@@ -39,6 +39,7 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;

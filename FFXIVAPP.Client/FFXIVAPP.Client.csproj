@@ -141,6 +141,11 @@
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Application.cs" />
+    <Compile Include="Localization\Chinese.cs" />
+    <Compile Include="Localization\English.cs" />
+    <Compile Include="Localization\French.cs" />
+    <Compile Include="Localization\German.cs" />
+    <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ActionWorker.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
