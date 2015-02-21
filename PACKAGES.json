@@ -30,4 +30,8 @@
     "Name": "FFXIVDBM.Plugin",
     "Enabled": "True",
     "SourceURI": "https://github.com/cjmanca/FFXIVDBM.Plugin/raw/master/distribution/VERSION.json"
+}, {
+    "Name": "FFXIVAPP.Plugin.GathererTimer",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/dreams00/ffxivapp-plugin-gatherer-timer/raw/master/distribution/VERSION.json"
 }]
