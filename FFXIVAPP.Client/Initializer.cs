@@ -654,6 +654,12 @@ namespace FFXIVAPP.Client
                         Value = "40??00000000000000000000000000000000000000000000000000000000????0000????000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
                         Offset = 206
                     });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "INVENTORY",
+                        Value = "DB0FC93FDB0F49416F1283??FFFFFFFF0000000000000000000000000000000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
+                        Offset = 56
+                    });
                     break;
                 default:
                     AppViewModel.Instance.Signatures.Add(new Signature
