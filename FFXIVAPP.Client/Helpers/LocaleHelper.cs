@@ -27,11 +27,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
+using FFXIVAPP.Client.Localization;
 using FFXIVAPP.Client.Models;
 
 namespace FFXIVAPP.Client.Helpers
@@ -43,24 +43,39 @@ namespace FFXIVAPP.Client.Helpers
         /// <param name="cultureInfo"> </param>
         public static void Update(CultureInfo cultureInfo)
         {
-            var results = new Dictionary<string, string>();
-            var client = Localization.LocaleHelper.ResolveOne(cultureInfo, "client")
-                                     .Cast<DictionaryEntry>()
-                                     .ToDictionary(item => (string) item.Key, item => (string) item.Value);
-            foreach (var resource in client)
+            var culture = cultureInfo.TwoLetterISOLanguageName;
+            ResourceDictionary dictionary;
+            if (Constants.Supported.Contains(culture))
             {
-                try
+                switch (culture)
                 {
-                    results.Add(resource.Key, resource.Value);
-                }
-                catch (Exception ex)
-                {
+                    case "fr":
+                        dictionary = French.Context();
+                        break;
+                    case "ja":
+                        dictionary = Japanese.Context();
+                        break;
+                    case "de":
+                        dictionary = German.Context();
+                        break;
+                    case "zh":
+                        dictionary = Chinese.Context();
+                        break;
+                    default:
+                        dictionary = English.Context();
+                        break;
                 }
             }
-            AppViewModel.Instance.Locale = results;
+            else
+            {
+                dictionary = English.Context();
+            }
+            var locale = dictionary.Cast<DictionaryEntry>()
+                                   .ToDictionary(item => (string) item.Key, item => (string) item.Value);
+            AppViewModel.Instance.Locale = locale;
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
             {
-                pluginInstance.Instance.Locale = results;
+                pluginInstance.Instance.Locale = locale;
             }
         }
     }

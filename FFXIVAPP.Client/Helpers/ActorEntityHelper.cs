@@ -180,7 +180,7 @@ namespace FFXIVAPP.Client.Helpers
                         Buffer.BlockCopy(source, 0x3168, statusesSource, 0, limit * 12);
                         break;
                     default:
-                        Buffer.BlockCopy(source, 0x28B8, statusesSource, 0, limit * 12);
+                        Buffer.BlockCopy(source, 0x28BC, statusesSource, 0, limit * 12);
                         break;
                 }
                 for (var i = 0; i < limit; i++)

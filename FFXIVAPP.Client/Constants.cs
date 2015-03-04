@@ -42,7 +42,7 @@ namespace FFXIVAPP.Client
 
         public static readonly string[] Supported =
         {
-            "ja", "fr", "en", "de"
+            "ja", "fr", "en", "de", "zh"
         };
 
         public static StringComparison InvariantComparer = StringComparison.InvariantCultureIgnoreCase;
