@@ -176,6 +176,11 @@ namespace FFXIVAPP.Client.Memory
                                     entry.MapIndex = mapIndex;
                                     if (i == 0)
                                     {
+                                        var name = Settings.Default.CharacterName;
+                                        if (name != entry.Name || String.IsNullOrWhiteSpace(name))
+                                        {
+                                            Settings.Default.CharacterName = entry.Name;
+                                        }
                                         if (targetAddress > 0)
                                         {
                                             uint currentTargetID;

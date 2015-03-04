@@ -60,6 +60,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_DescriptionHeader", "Beschreibung");
             Dictionary.Add("app_DescriptionLabel", "Beschreibung:");
             Dictionary.Add("app_EnableNLogHeader", "Protokoll mit Nlog zulassen");
+            Dictionary.Add("app_CharacterNameLabel", "Character Name:");
             Dictionary.Add("app_FirstNameLabel", "Virname:");
             Dictionary.Add("app_GameLanguageLabel", "Spielsprache");
             Dictionary.Add("app_ImportLodestoneIDButtonText", "Lodestone ID Importieren");

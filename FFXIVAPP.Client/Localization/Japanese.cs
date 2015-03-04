@@ -60,6 +60,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_DescriptionHeader", "内容");
             Dictionary.Add("app_DescriptionLabel", "内容:");
             Dictionary.Add("app_EnableNLogHeader", "NLogでのログ取得を有効にする");
+            Dictionary.Add("app_CharacterNameLabel", "名:");
             Dictionary.Add("app_FirstNameLabel", "名前:");
             Dictionary.Add("app_GameLanguageLabel", "表示言語:");
             Dictionary.Add("app_ImportLodestoneIDButtonText", "Lodestone IDを取得する");

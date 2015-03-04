@@ -192,12 +192,6 @@ namespace FFXIVAPP.Client
                     case "CharacterName":
                         Constants.CharacterName = Settings.Default.CharacterName;
                         break;
-                    case "FirstName":
-                        Initializer.SetCharacter();
-                        break;
-                    case "LastName":
-                        Initializer.SetCharacter();
-                        break;
                     case "GameLanguage":
                         Constants.GameLanguage = Settings.Default.GameLanguage;
                         var lang = Settings.Default.GameLanguage.ToLower();

@@ -38,7 +38,6 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
-using FFXIVAPP.Common.Core.Constant;
 using Newtonsoft.Json;
 using NLog;
 
@@ -93,36 +92,7 @@ namespace FFXIVAPP.Client.Memory
         #region Threads
 
         public Stopwatch Stopwatch = new Stopwatch();
-        // when CharacterName is not set in FFXIVAPP, get it from CHARMAP.
-        private void SetCharacterName()
-        {
-            if (Settings.Default.CharacterName.Length == 0)
-            {
-                var characterAddressMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
-                uint characterAddress = MemoryHandler.Instance.GetUInt32(characterAddressMap);
-                String tempName = MemoryHandler.Instance.GetString(characterAddress, 0x30);
-                if (!tempName.Equals(Constants.CharacterName))
-                {
-                    Constants.CharacterName = tempName;
-                    ConstantsEntity lce = new ConstantsEntity
-                    {
-                        AutoTranslate = Constants.AutoTranslate,
-                        CharacterName = Constants.CharacterName,
-                        ChatCodes = Constants.ChatCodes,
-                        ChatCodesXml = Constants.ChatCodesXml,
-                        Colors = Constants.Colors,
-                        CultureInfo = Constants.CultureInfo,
-                        EnableHelpLabels = Constants.EnableHelpLabels,
-                        GameLanguage = Constants.GameLanguage,
-                        ServerName = Constants.ServerName,
-                        Theme = Constants.Theme,
-                        UIScale = Constants.UIScale
-                    };
-                    AppContextHelper.Instance.RaiseNewConstants(lce);
-                }
-            }
-            
-        }
+
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
@@ -157,7 +127,6 @@ namespace FFXIVAPP.Client.Memory
                             GetItems(InventoryPointerMap, Inventory.Container.EXTRA_EQ),
                             GetItems(InventoryPointerMap, Inventory.Container.CRYSTALS),
                             GetItems(InventoryPointerMap, Inventory.Container.QUESTS_KI),
-
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_1),
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_2),
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_3),
@@ -165,12 +134,10 @@ namespace FFXIVAPP.Client.Memory
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_5),
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_6),
                             GetItems(InventoryPointerMap, Inventory.Container.HIRE_7),
-                           
                             GetItems(InventoryPointerMap, Inventory.Container.COMPANY_1),
                             GetItems(InventoryPointerMap, Inventory.Container.COMPANY_2),
                             GetItems(InventoryPointerMap, Inventory.Container.COMPANY_3),
                             GetItems(InventoryPointerMap, Inventory.Container.COMPANY_CRYSTALS),
-                            
                             GetItems(InventoryPointerMap, Inventory.Container.AC_MH),
                             GetItems(InventoryPointerMap, Inventory.Container.AC_OH),
                             GetItems(InventoryPointerMap, Inventory.Container.AC_HEAD),
@@ -205,7 +172,6 @@ namespace FFXIVAPP.Client.Memory
                         }
                         if (notify)
                         {
-                            SetCharacterName();
                             AppContextHelper.Instance.RaiseNewInventoryEntries(inventoryEntities);
                         }
                     }
@@ -232,20 +198,20 @@ namespace FFXIVAPP.Client.Memory
                 Type = type
             };
             // The number of item is 50 in COMPANY's locker
-            int MAX_AMOUNT;
+            int limit;
             switch (type)
             {
                 case Inventory.Container.COMPANY_1:
                 case Inventory.Container.COMPANY_2:
                 case Inventory.Container.COMPANY_3:
-                    MAX_AMOUNT = 3200;
+                    limit = 3200;
                     break;
                 default:
-                    MAX_AMOUNT = 1600;
+                    limit = 1600;
                     break;
             }
 
-            for (var ci = 0; ci < MAX_AMOUNT; ci += 64)
+            for (var ci = 0; ci < limit; ci += 64)
             {
                 var itemOffset = (uint) (containerAddress + ci);
                 var id = MemoryHandler.Instance.GetUInt32(itemOffset, 0x8);
@@ -260,7 +226,7 @@ namespace FFXIVAPP.Client.Memory
                         Durability = MemoryHandler.Instance.GetUInt16(itemOffset, 0x12),
                         GlamourID = MemoryHandler.Instance.GetUInt32(itemOffset, 0x30),
                         //get the flag that show if the item is hq or not
-                        IsHQ = (MemoryHandler.Instance.GetByte(itemOffset, 0x14) == 0x01)? true:false
+                        IsHQ = (MemoryHandler.Instance.GetByte(itemOffset, 0x14) == 0x01)
                     });
                 }
             }

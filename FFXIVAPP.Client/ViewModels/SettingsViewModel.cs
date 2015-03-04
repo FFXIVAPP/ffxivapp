@@ -121,7 +121,6 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand DefaultSettingsCommand { get; private set; }
         public ICommand ChangeAudioModeCommand { get; private set; }
         public ICommand GetCICUIDCommand { get; private set; }
-        public ICommand SaveCharacterCommand { get; private set; }
         public ICommand ColorSelectionCommand { get; private set; }
         public ICommand UpdateColorCommand { get; private set; }
 
@@ -135,7 +134,6 @@ namespace FFXIVAPP.Client.ViewModels
             DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
             ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
             GetCICUIDCommand = new DelegateCommand(GetCICUID);
-            SaveCharacterCommand = new DelegateCommand(SaveCharacter);
             ColorSelectionCommand = new DelegateCommand(ColorSelection);
             UpdateColorCommand = new DelegateCommand(UpdateColor);
         }
@@ -193,7 +191,6 @@ namespace FFXIVAPP.Client.ViewModels
         /// </summary>
         private static void GetCICUID()
         {
-            SaveCharacter();
             var characterName = Settings.Default.CharacterName;
             var serverName = Settings.Default.ServerName;
             if (characterName.Replace(" ", "")
@@ -253,13 +250,6 @@ namespace FFXIVAPP.Client.ViewModels
             }
             var result = function.EndInvoke(asyncResult);
             Settings.Default.CICUID = result;
-        }
-
-        /// <summary>
-        /// </summary>
-        private static void SaveCharacter()
-        {
-            Initializer.SetCharacter();
         }
 
         /// <summary>
