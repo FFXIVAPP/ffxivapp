@@ -120,7 +120,7 @@ namespace FFXIVAPP.Client.Memory
                                     targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1136;
                                     break;
                                 default:
-                                    targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 120584;
+                                    targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] - 120664;
                                     break;
                             }
                             var enmityEntries = new List<EnmityEntry>();
