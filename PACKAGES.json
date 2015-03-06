@@ -34,4 +34,8 @@
     "Name": "FFXIVAPP.Plugin.GathererTimer",
     "Enabled": "True",
     "SourceURI": "https://github.com/dreams00/ffxivapp-plugin-gatherer-timer/raw/master/distribution/VERSION.json"
+},  {
+    "Name": "FFXIVAPP.Plugin.ItemDB",
+    "Enabled": "True",
+    "SourceURI": "https://github.com/violet1986/ffxivapp-plugin-itemdb/raw/master/distribution/VERSION.json"
 }]
