@@ -153,25 +153,6 @@ namespace FFXIVAPP.Client.Memory
                             GetItems(InventoryPointerMap, Inventory.Container.AC_SOULS)
                         };
                         var notify = false;
-                        // Get Latest Character Name
-                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                        {
-                            try
-                            {
-                                var charMapAddress = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
-                                var characterAddressMap = MemoryHandler.Instance.GetByteArray(charMapAddress, 4);
-                                var characterAddress = BitConverter.ToUInt32(characterAddressMap, 0);
-                                Settings.Default.CharacterName = MemoryHandler.Instance.GetString(characterAddress, 48);
-                            }
-                            catch (Exception ex)
-                            {
-                                Settings.Default.CharacterName = "";
-                            }
-                        }
-                        else
-                        {
-                            Settings.Default.CharacterName = "";
-                        }
                         if (LastInventoryEntities == null)
                         {
                             LastInventoryEntities = inventoryEntities;
@@ -187,6 +168,30 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 LastInventoryEntities = inventoryEntities;
                                 notify = true;
+                            }
+                            // Get Latest Character Name
+                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
+                            {
+                                try
+                                {
+                                    var charMapAddress = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
+                                    var characterAddressMap = MemoryHandler.Instance.GetByteArray(charMapAddress, 4);
+                                    var characterAddress = BitConverter.ToUInt32(characterAddressMap, 0);
+                                    var name = MemoryHandler.Instance.GetString(characterAddress, 48);
+                                    if (Settings.Default.CharacterName != name || String.IsNullOrWhiteSpace(Settings.Default.CharacterName))
+                                    {
+                                        Settings.Default.CharacterName = name;
+                                        notify = true;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Settings.Default.CharacterName = "";
+                                }
+                            }
+                            else
+                            {
+                                Settings.Default.CharacterName = "";
                             }
                         }
                         if (notify)
