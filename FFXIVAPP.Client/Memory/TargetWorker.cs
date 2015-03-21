@@ -142,10 +142,10 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         case "Chinese":
                                             currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
-                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x18);
-                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x48);
-                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x54);
-                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0xC);
+                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x3C);
+                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x48);
+                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x5C);
                                             break;
                                         default:
                                             currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
