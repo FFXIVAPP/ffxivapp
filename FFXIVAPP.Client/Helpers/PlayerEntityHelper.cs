@@ -52,13 +52,13 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Job Levels
 
-                        entry.PGL = source[0x66];
-                        entry.GLD = source[0x68];
+                        entry.GLD = source[0x66];
+                        entry.PGL = source[0x68];
                         entry.MRD = source[0x6A];
-                        entry.ARC = source[0x6C];
-                        entry.LNC = source[0x6E];
-                        entry.THM = source[0x70];
-                        entry.CNJ = source[0x72];
+                        entry.LNC = source[0x6C];
+                        entry.ARC = source[0x6E];
+                        entry.CNJ = source[0x70];
+                        entry.THM = source[0x72];
 
                         entry.CPT = source[0x74];
                         entry.BSM = source[0x76];
@@ -74,95 +74,98 @@ namespace FFXIVAPP.Client.Helpers
                         entry.FSH = source[0x88];
 
                         entry.ACN = source[0x8A];
+                        entry.ROG = source[0x8C];
 
                         #endregion
 
                         #region Current Experience
 
-                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, 0x8C);
-                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, 0x90);
-                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, 0x94);
-                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, 0x98);
-                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, 0x9C);
-                        entry.THM_CurrentEXP = BitConverter.ToInt32(source, 0xA0);
-                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, 0xA4);
-                        entry.ACN_CurrentEXP = BitConverter.ToInt32(source, 0xA8);
+                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, 0x94);
+                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, 0x98);
+                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, 0x9C);
+                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, 0xA0);
+                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, 0xA4);
+                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, 0xA8);
+                        entry.THM_CurrentEXP = BitConverter.ToInt32(source, 0xAC);
 
-                        entry.BSM_CurrentEXP = BitConverter.ToInt32(source, 0xAC);
                         entry.CPT_CurrentEXP = BitConverter.ToInt32(source, 0xB0);
-                        entry.GSM_CurrentEXP = BitConverter.ToInt32(source, 0xB4);
+                        entry.BSM_CurrentEXP = BitConverter.ToInt32(source, 0xB4);
                         entry.ARM_CurrentEXP = BitConverter.ToInt32(source, 0xB8);
-                        entry.WVR_CurrentEXP = BitConverter.ToInt32(source, 0xBC);
+                        entry.GSM_CurrentEXP = BitConverter.ToInt32(source, 0xBC);
                         entry.LTW_CurrentEXP = BitConverter.ToInt32(source, 0xC0);
-                        entry.CUL_CurrentEXP = BitConverter.ToInt32(source, 0xC4);
+                        entry.WVR_CurrentEXP = BitConverter.ToInt32(source, 0xC4);
+                        entry.ALC_CurrentEXP = BitConverter.ToInt32(source, 0xC8);
+                        entry.CUL_CurrentEXP = BitConverter.ToInt32(source, 0xCC);
 
-                        entry.MIN_CurrentEXP = BitConverter.ToInt32(source, 0xC8);
-                        entry.BTN_CurrentEXP = BitConverter.ToInt32(source, 0xCC);
-                        entry.FSH_CurrentEXP = BitConverter.ToInt32(source, 0xD0);
+                        entry.MIN_CurrentEXP = BitConverter.ToInt32(source, 0xD0);
+                        entry.BTN_CurrentEXP = BitConverter.ToInt32(source, 0xD4);
+                        entry.FSH_CurrentEXP = BitConverter.ToInt32(source, 0xD8);
+
+                        entry.ACN_CurrentEXP = BitConverter.ToInt32(source, 0xDC);
+                        entry.ROG_CurrentEXP = BitConverter.ToInt32(source, 0xE0);
 
                         #endregion
 
                         #region Base Stats
 
-                        entry.BaseStrength = BitConverter.ToInt16(source, 0xE4);
-                        entry.BaseDexterity = BitConverter.ToInt16(source, 0xE8);
-                        entry.BaseVitality = BitConverter.ToInt16(source, 0xEC);
-                        entry.BaseIntelligence = BitConverter.ToInt16(source, 0xF0);
-                        entry.BaseMind = BitConverter.ToInt16(source, 0xF4);
-                        entry.BasePiety = BitConverter.ToInt16(source, 0xF8);
+                        entry.BaseStrength = BitConverter.ToInt16(source, 0xFC);
+                        entry.BaseDexterity = BitConverter.ToInt16(source, 0x100);
+                        entry.BaseVitality = BitConverter.ToInt16(source, 0x104);
+                        entry.BaseIntelligence = BitConverter.ToInt16(source, 0x108);
+                        entry.BaseMind = BitConverter.ToInt16(source, 0x10C);
+                        entry.BasePiety = BitConverter.ToInt16(source, 0x110);
 
                         #endregion
 
                         #region Base Stats (base+gear+bonus)
 
-                        entry.Strength = BitConverter.ToInt16(source, 0x100);
-                        entry.Dexterity = BitConverter.ToInt16(source, 0x104);
-                        entry.Vitality = BitConverter.ToInt16(source, 0x108);
-                        entry.Intelligence = BitConverter.ToInt16(source, 0x10C);
-                        entry.Mind = BitConverter.ToInt16(source, 0x110);
-                        entry.Piety = BitConverter.ToInt16(source, 0x114);
+                        entry.Strength = BitConverter.ToInt16(source, 0x118);
+                        entry.Dexterity = BitConverter.ToInt16(source, 0x11C);
+                        entry.Vitality = BitConverter.ToInt16(source, 0x120);
+                        entry.Intelligence = BitConverter.ToInt16(source, 0x124);
+                        entry.Mind = BitConverter.ToInt16(source, 0x128);
+                        entry.Piety = BitConverter.ToInt16(source, 0x12C);
 
                         #endregion
 
                         #region Basic Info
 
-                        entry.HPMax = BitConverter.ToInt16(source, 0x118);
-                        entry.MPMax = BitConverter.ToInt16(source, 0x11C);
-                        entry.TPMax = BitConverter.ToInt16(source, 0x120);
-                        entry.GPMax = BitConverter.ToInt16(source, 0x124);
-                        entry.CPMax = BitConverter.ToInt16(source, 0x128);
+                        entry.HPMax = BitConverter.ToInt16(source, 0x130);
+                        entry.MPMax = BitConverter.ToInt16(source, 0x134);
+                        entry.TPMax = BitConverter.ToInt16(source, 0x138);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x13C);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x140);
 
                         #endregion
 
                         #region Offensive Properties
 
-                        entry.Accuracy = BitConverter.ToInt16(source, 0x154);
-                        entry.CriticalHitRate = BitConverter.ToInt16(source, 0x168);
-                        entry.Determination = BitConverter.ToInt16(source, 0x1A4);
+                        entry.Accuracy = BitConverter.ToInt16(source, 0x16C);
+                        entry.CriticalHitRate = BitConverter.ToInt16(source, 0x180);
+                        entry.Determination = BitConverter.ToInt16(source, 0x1C4);
 
                         #endregion
 
                         #region Defensive Properties
 
-                        entry.Parry = BitConverter.ToInt16(source, 0x148);
-                        entry.Defense = BitConverter.ToInt16(source, 0x14A);
-                        entry.Evasion = BitConverter.ToInt16(source, 0x158);
-                        entry.MagicDefense = BitConverter.ToInt16(source, 0x15C);
+                        entry.Parry = BitConverter.ToInt16(source, 0x160);
+                        entry.Defense = BitConverter.ToInt16(source, 0x168);
+                        entry.MagicDefense = BitConverter.ToInt16(source, 0x174);
 
                         #endregion
 
                         #region Phyiscal Properties
 
-                        entry.AttackPower = BitConverter.ToInt16(source, 0x14C);
-                        entry.SkillSpeed = BitConverter.ToInt16(source, 0x1B0);
+                        entry.AttackPower = BitConverter.ToInt16(source, 0x164);
+                        entry.SkillSpeed = BitConverter.ToInt16(source, 0x1C8);
 
                         #endregion
 
                         #region Mental Properties
 
-                        entry.SpellSpeed = BitConverter.ToInt16(source, 0x1B4);
-                        entry.AttackMagicPotency = BitConverter.ToInt16(source, 0x180);
-                        entry.HealingMagicPotency = BitConverter.ToInt16(source, 0x184);
+                        entry.SpellSpeed = BitConverter.ToInt16(source, 0x170);
+                        entry.AttackMagicPotency = BitConverter.ToInt16(source, 0x198);
+                        entry.HealingMagicPotency = BitConverter.ToInt16(source, 0x19C);
 
                         #endregion
 
@@ -181,34 +184,34 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Elemental Resistances
 
-                        entry.FireResistance = BitConverter.ToInt16(source, 0x190);
-                        entry.IceResistance = BitConverter.ToInt16(source, 0x194);
-                        entry.WindResistance = BitConverter.ToInt16(source, 0x198);
-                        entry.EarthResistance = BitConverter.ToInt16(source, 0x19C);
-                        entry.LightningResistance = BitConverter.ToInt16(source, 0x1A0);
-                        entry.WaterResistance = BitConverter.ToInt16(source, 0x1A4);
+                        entry.FireResistance = BitConverter.ToInt16(source, 0x1A8);
+                        entry.IceResistance = BitConverter.ToInt16(source, 0x1AC);
+                        entry.WindResistance = BitConverter.ToInt16(source, 0x1B0);
+                        entry.EarthResistance = BitConverter.ToInt16(source, 0x1B4);
+                        entry.LightningResistance = BitConverter.ToInt16(source, 0x1B8);
+                        entry.WaterResistance = BitConverter.ToInt16(source, 0x1BC);
 
                         #endregion
 
                         #region Physical Resistances
 
-                        entry.SlashingResistance = BitConverter.ToInt16(source, 0x170);
-                        entry.PiercingResistance = BitConverter.ToInt16(source, 0x174);
-                        entry.BluntResistance = BitConverter.ToInt16(source, 0x178);
+                        entry.SlashingResistance = BitConverter.ToInt16(source, 0x188);
+                        entry.PiercingResistance = BitConverter.ToInt16(source, 0x18C);
+                        entry.BluntResistance = BitConverter.ToInt16(source, 0x190);
 
                         #endregion
 
                         #region Crafting
 
-                        entry.Craftmanship = BitConverter.ToInt16(source, 0x214);
-                        entry.Control = BitConverter.ToInt16(source, 0x218);
+                        entry.Craftmanship = BitConverter.ToInt16(source, 0x22C);
+                        entry.Control = BitConverter.ToInt16(source, 0x230);
 
                         #endregion
 
                         #region Gathering
 
-                        entry.Gathering = BitConverter.ToInt16(source, 0x21C);
-                        entry.Perception = BitConverter.ToInt16(source, 0x220);
+                        entry.Gathering = BitConverter.ToInt16(source, 0x234);
+                        entry.Perception = BitConverter.ToInt16(source, 0x238);
 
                         #endregion
 
