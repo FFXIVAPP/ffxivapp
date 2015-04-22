@@ -147,13 +147,11 @@
     <Compile Include="Localization\German.cs" />
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
-    <Compile Include="Memory\ActionWorker.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
     <Compile Include="Memory\PlayerInfoWorker.cs" />
-    <Compile Include="Models\ActionInfo.cs" />
     <Compile Include="Models\BuildNumber.cs" />
     <Compile Include="Models\PluginDownloadItem.cs" />
     <Compile Include="Models\PluginFile.cs" />
@@ -181,6 +179,20 @@
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
+    <Compile Include="Network\IPHelper.cs" />
+    <Compile Include="Network\NetworkWorker.cs" />
+    <Compile Include="Network\DNSHeader.cs" />
+    <Compile Include="Network\TCPRow.cs" />
+    <Compile Include="Network\TCPTable.cs" />
+    <Compile Include="Network\ServerConnection.cs" />
+    <Compile Include="Network\SocketObject.cs" />
+    <Compile Include="Network\IPHeader.cs" />
+    <Compile Include="Network\NetworkConnection.cs" />
+    <Compile Include="Network\NetworkPacket.cs" />
+    <Compile Include="Network\Protocol.cs" />
+    <Compile Include="Network\TCPHeader.cs" />
+    <Compile Include="Network\UDPHeader.cs" />
+    <Compile Include="Network\UnsafeNativeMethods.cs" />
     <Compile Include="PluginHost.cs" />
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
@@ -190,15 +202,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BuildUtilities.cs" />
-    <Compile Include="Utilities\FlyingTextEntry.cs" />
-    <Compile Include="Utilities\OutGoingActionEntry.cs" />
     <Compile Include="Reflection\AssemblyReflectionProxy.cs" />
     <Compile Include="Reflection\AssemblyReflectionManager.cs" />
     <Compile Include="SettingsProviders\Application\Settings.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Utilities\CommandBuilder.cs" />
-    <Compile Include="Utilities\IncomingActionEntry.cs" />
     <Compile Include="Utilities\LogPublisher.cs" />
     <Compile Include="Utilities\MicroStopwatch.cs" />
     <Compile Include="Utilities\MicroTimer.cs" />

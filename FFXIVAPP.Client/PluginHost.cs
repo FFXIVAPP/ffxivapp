@@ -34,11 +34,13 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml.Linq;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Network;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
@@ -253,6 +255,8 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<InventoryEntitiesEvent> NewInventoryEntries = delegate { };
 
+        public event EventHandler<NetworkPacketEvent> NewNetworkPacket = delegate { };
+
         public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
         {
             var constantsEntityEvent = new ConstantsEntityEvent(this, e);
@@ -340,6 +344,16 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, inventoryEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewNetworkPacket(NetworkPacket e)
+        {
+            var networkPacketEvent = new NetworkPacketEvent(this, e);
+            var handler = NewNetworkPacket;
+            if (handler != null)
+            {
+                handler(this, networkPacketEvent);
             }
         }
 

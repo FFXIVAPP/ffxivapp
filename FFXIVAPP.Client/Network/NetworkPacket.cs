@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// FlyingTextEntry.cs
+// NetworkPacket.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -27,35 +27,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Core.Memory.Enums;
-
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Network
 {
-    public class FlyingTextEntry
+    public class NetworkPacket
     {
-        #region Memory Array Items
-
-        public int Amount { get; set; }
-        public int ComboAmount { get; set; }
-        public uint ID { get; set; }
-        public int SkillID { get; set; }
-        public int Type1 { get; set; }
-        public int Type2 { get; set; }
-        public int UNK1 { get; set; }
-        public int UNK2 { get; set; }
-        public int UNK3 { get; set; }
-        public int UNK4 { get; set; }
-
-        #endregion
-
-        public string SkillName
-        {
-            get { return ConstantsHelper.GetActionNameByID(SkillID); }
-        }
-
-        public uint TargetID { get; set; }
-        public string TargetName { get; set; }
-        public Actor.Type TargetType { get; set; }
+        public byte[] Buffer;
+        public bool Push;
+        public uint TCPSequence;
     }
 }

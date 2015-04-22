@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
@@ -189,12 +190,26 @@ namespace FFXIVAPP.Client.Helpers
                     Buffer.BlockCopy(statusesSource, i * statusSize, statusSource, 0, statusSize);
                     var statusEntry = new StatusEntry
                     {
+                        TargetEntity = entry,
                         TargetName = entry.Name,
                         StatusID = BitConverter.ToInt16(statusSource, 0x0),
                         Stacks = statusSource[0x2],
                         Duration = BitConverter.ToSingle(statusSource, 0x4),
                         CasterID = BitConverter.ToUInt32(statusSource, 0x8)
                     };
+                    try
+                    {
+                        var pc = PCWorkerDelegate.GetUniqueNPCEntities()
+                                                 .FirstOrDefault(a => a.ID == statusEntry.CasterID);
+                        var npc = NPCWorkerDelegate.GetUniqueNPCEntities()
+                                                   .FirstOrDefault(a => a.NPCID2 == statusEntry.CasterID);
+                        var monster = MonsterWorkerDelegate.GetUniqueNPCEntities()
+                                                           .FirstOrDefault(a => a.ID == statusEntry.CasterID);
+                        statusEntry.SourceEntity = (pc ?? npc) ?? monster;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     try
                     {
                         var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);

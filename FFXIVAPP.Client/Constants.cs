@@ -32,7 +32,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models;
+using FFXIVAPP.Common.Core.Constant;
 
 namespace FFXIVAPP.Client
 {
@@ -69,7 +69,11 @@ namespace FFXIVAPP.Client
         public static Dictionary<string, ActionInfo> Actions
         {
             get { return _actions ?? (_actions = new Dictionary<string, ActionInfo>()); }
-            set { _actions = value; }
+            set
+            {
+                _actions = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
         }
 
         public static Dictionary<string, string> AutoTranslate

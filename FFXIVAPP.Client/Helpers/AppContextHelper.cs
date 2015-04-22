@@ -33,6 +33,7 @@ using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Network;
 using NLog;
 
 namespace FFXIVAPP.Client.Helpers
@@ -213,6 +214,12 @@ namespace FFXIVAPP.Client.Helpers
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
+        }
+
+        public void RaiseNewPacket(NetworkPacket networkPacket)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
         }
     }
 }

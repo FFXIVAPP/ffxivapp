@@ -42,10 +42,12 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Network;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -62,7 +64,6 @@ namespace FFXIVAPP.Client
 
         #region Declarations
 
-        private static ActionWorker _actionWorker;
         private static ActorWorker _actorWorker;
         private static ChatLogWorker _chatLogWorker;
         private static MonsterWorker _monsterWorker;
@@ -70,6 +71,7 @@ namespace FFXIVAPP.Client
         private static TargetWorker _targetWorker;
         private static PartyInfoWorker _partyInfoWorker;
         private static InventoryWorker _inventoryWorker;
+        private static NetworkWorker _networkWorker;
 
         #endregion
 
@@ -589,7 +591,6 @@ namespace FFXIVAPP.Client
             updateCheck.BeginInvoke(null, null);
         }
 
-
         /// <summary>
         /// </summary>
         public static void SetSignatures()
@@ -792,8 +793,6 @@ namespace FFXIVAPP.Client
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
-            //_actionWorker = new ActionWorker();
-            //_actionWorker.StartScanning();
             _actorWorker = new ActorWorker();
             _actorWorker.StartScanning();
             _monsterWorker = new MonsterWorker();
@@ -806,6 +805,8 @@ namespace FFXIVAPP.Client
             _partyInfoWorker.StartScanning();
             _inventoryWorker = new InventoryWorker();
             _inventoryWorker.StartScanning();
+            _networkWorker = new NetworkWorker();
+            _networkWorker.StartScanning();
         }
 
         public static void UpdatePluginConstants()
@@ -821,11 +822,6 @@ namespace FFXIVAPP.Client
             {
                 _chatLogWorker.StopScanning();
                 _chatLogWorker.Dispose();
-            }
-            if (_actionWorker != null)
-            {
-                _actionWorker.StopScanning();
-                _actionWorker.Dispose();
             }
             if (_actorWorker != null)
             {
@@ -856,6 +852,11 @@ namespace FFXIVAPP.Client
             {
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
+            }
+            if (_networkWorker != null)
+            {
+                _networkWorker.StopScanning();
+                _networkWorker.Dispose();
             }
         }
     }

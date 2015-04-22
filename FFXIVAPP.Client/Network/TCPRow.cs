@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// IncomingActionEntry.cs
+// TCPRow.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -27,31 +27,60 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Core.Memory.Enums;
+using System.Net;
+using System.Net.NetworkInformation;
 
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Network
 {
-    public class IncomingActionEntry
+    public class TCPRow
     {
-        #region Memory Array Items
+        #region Private Fields
 
-        public int Code { get; set; }
-        public int SequenceID { get; set; }
-        public int SkillID { get; set; }
-        public uint SourceID { get; set; }
-        public byte Type { get; set; }
-        public int Amount { get; set; }
+        private IPEndPoint localEndPoint;
+        private int processId;
+        private IPEndPoint remoteEndPoint;
+        private TcpState state;
 
         #endregion
 
-        public string SkillName
+        #region Constructors
+
+        public TCPRow(UnsafeNativeMethods.TCPRow row)
         {
-            get { return ConstantsHelper.GetActionNameByID(SkillID); }
+            state = row.State;
+            processId = row.ProcessID;
+            var localPort = (row.LocalPort1 << 8) + (row.LocalPort2) + (row.LocalPort3 << 24) + (row.LocalPort4 << 16);
+            long localAddress = row.LocalAddress;
+            localEndPoint = new IPEndPoint(localAddress, localPort);
+            var remotePort = (row.RemotePort1 << 8) + (row.RemotePort2) + (row.RemotePort3 << 24) + (row.RemotePort4 << 16);
+            long remoteAddress = row.RemoteAddress;
+            remoteEndPoint = new IPEndPoint(remoteAddress, remotePort);
         }
 
-        public uint TargetID { get; set; }
-        public string TargetName { get; set; }
-        public Actor.Type TargetType { get; set; }
+        #endregion
+
+        #region Public Properties
+
+        public IPEndPoint LocalEndPoint
+        {
+            get { return localEndPoint; }
+        }
+
+        public IPEndPoint RemoteEndPoint
+        {
+            get { return remoteEndPoint; }
+        }
+
+        public TcpState State
+        {
+            get { return state; }
+        }
+
+        public int ProcessId
+        {
+            get { return processId; }
+        }
+
+        #endregion
     }
 }

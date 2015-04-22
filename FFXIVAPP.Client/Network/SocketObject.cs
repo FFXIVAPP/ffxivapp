@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// ActionInfo.cs
+// IFStateObject.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -27,19 +27,17 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-namespace FFXIVAPP.Client.Models
+using System.Collections.Generic;
+using System.Net.Sockets;
+
+namespace FFXIVAPP.Client.Network
 {
-    public class ActionInfo
+    public class SocketObject
     {
-        public string ZH { get; set; }
-        public string JA { get; set; }
-        public string EN { get; set; }
-        public string FR { get; set; }
-        public string DE { get; set; }
-        public string ZH_HelpLabel { get; set; }
-        public string JA_HelpLabel { get; set; }
-        public string EN_HelpLabel { get; set; }
-        public string FR_HelpLabel { get; set; }
-        public string DE_HelpLabel { get; set; }
+        public byte[] Buffer = new byte[0x20000];
+        public object SocketLock = new object();
+        public List<NetworkConnection> Connections = new List<NetworkConnection>();
+        public string IPAddress;
+        public Socket Socket;
     }
 }

@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// OutGoingActionEntry.cs
+// UnsafeNativeMethods.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -27,34 +27,53 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-#region Usings
+using System;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Core.Memory.Enums;
-
-#endregion
-
-namespace FFXIVAPP.Client.Utilities
+namespace FFXIVAPP.Client.Network
 {
-    public class OutGoingActionEntry
+    public static class UnsafeNativeMethods
     {
-        #region Memory Array Items
+        [DllImport("iphlpapi.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern uint GetExtendedTcpTable(IntPtr tcpTable, ref int tcpTableLength, bool sort, int ipVersion, TCP_TABLE_CLASS tcpTableClass, uint reserved = 0);
 
-        public int SequenceID { get; set; }
-        public int SkillID { get; set; }
-        public uint SourceID { get; set; }
-        public byte Type { get; set; }
-        public int Amount { get; set; }
-
-        #endregion
-
-        public string SkillName
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TCPRow
         {
-            get { return ConstantsHelper.GetActionNameByID(SkillID); }
+            public TcpState State;
+            public uint LocalAddress;
+            public byte LocalPort1;
+            public byte LocalPort2;
+            public byte LocalPort3;
+            public byte LocalPort4;
+            public uint RemoteAddress;
+            public byte RemotePort1;
+            public byte RemotePort2;
+            public byte RemotePort3;
+            public byte RemotePort4;
+            public int ProcessID;
         }
 
-        public uint TargetID { get; set; }
-        public string TargetName { get; set; }
-        public Actor.Type TargetType { get; set; }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TCPTable
+        {
+            public uint Length;
+            private TCPRow Row;
+        }
+
+        public enum TCP_TABLE_CLASS
+        {
+            BASIC_LISTENER,
+            BASIC_CONNECTIONS,
+            BASIC_ALL,
+            OWNER_PID_LISTENER,
+            OWNER_PID_CONNECTIONS,
+            OWNER_PID_ALL,
+            OWNER_MODULE_LISTENER,
+            OWNER_MODULE_CONNECTIONS,
+            OWNER_MODULE_ALL
+        }
     }
 }

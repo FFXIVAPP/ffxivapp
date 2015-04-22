@@ -44,6 +44,7 @@ namespace FFXIVAPP.Client.Helpers
                 AutoTranslate = Constants.AutoTranslate,
                 CharacterName = Constants.CharacterName,
                 ChatCodes = Constants.ChatCodes,
+                Actions = Constants.Actions,
                 ChatCodesXml = Constants.ChatCodesXml,
                 Colors = Constants.Colors,
                 CultureInfo = Constants.CultureInfo,
