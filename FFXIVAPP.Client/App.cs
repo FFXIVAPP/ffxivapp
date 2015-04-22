@@ -139,17 +139,28 @@ namespace FFXIVAPP.Client
         /// </summary>
         private static void ConfigureNLog()
         {
-            if (File.Exists("./FFXIVAPP.Client.exe.nlog"))
+            var hasLocal = false;
+            const string fileName = "./FFXIVAPP.Client.exe.nlog";
+            if (File.Exists(fileName))
             {
-                return;
+                hasLocal = true;
             }
             var resource = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/FFXIVAPP.Client.exe.nlog");
             if (resource == null)
             {
                 return;
             }
-            var stringReader = new StringReader(XElement.Load(resource.Stream)
-                                                        .ToString());
+            StringReader stringReader;
+            if (hasLocal)
+            {
+                stringReader = new StringReader(XElement.Load(fileName)
+                                                       .ToString());
+            }
+            else
+            {
+                stringReader = new StringReader(XElement.Load(resource.Stream)
+                                                       .ToString());
+            }
             using (var xmlReader = XmlReader.Create(stringReader))
             {
                 LogManager.Configuration = new XmlLoggingConfiguration(xmlReader, null);

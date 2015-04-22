@@ -336,117 +336,120 @@ namespace FFXIVAPP.Client.Network
 
         private void ProcessNetworkBuffer(NetworkConnection connection)
         {
-            int messageLength;
-            InitialProcess:
-            if (connection.NetworkBufferPosition < 0x1C)
+            while (true)
             {
-                return;
-            }
-            uint bufferSize;
-            byte[] destinationArray;
-            lock (connection.NetworkBufferLock)
-            {
-                var indexes = new List<uint>
+                if (connection.NetworkBufferPosition < 0x1C)
                 {
-                    BitConverter.ToUInt32(connection.NetworkBuffer, 0),
-                    BitConverter.ToUInt32(connection.NetworkBuffer, 4),
-                    BitConverter.ToUInt32(connection.NetworkBuffer, 8),
-                    BitConverter.ToUInt32(connection.NetworkBuffer, 12)
-                };
-                if ((indexes[0] != 0x41A05252) && ((indexes.Any(x => x != 0))))
-                {
-                    AdjustNetworkBuffer(connection);
-                    return;
+                    break;
                 }
-                bufferSize = BitConverter.ToUInt32(connection.NetworkBuffer, 0x18);
-                if ((bufferSize == 0) || (bufferSize > 0x10000))
+                uint bufferSize;
+                byte[] destinationArray;
+                lock (connection.NetworkBufferLock)
                 {
-                    AdjustNetworkBuffer(connection);
-                    return;
-                }
-                if (connection.NetworkBufferPosition < bufferSize)
-                {
-                    if (DateTime.Now.Subtract(connection.LastNetworkBufferUpdate)
-                                .Seconds <= 5)
+                    var indexes = new List<uint>
                     {
+                        BitConverter.ToUInt32(connection.NetworkBuffer, 0),
+                        BitConverter.ToUInt32(connection.NetworkBuffer, 4),
+                        BitConverter.ToUInt32(connection.NetworkBuffer, 8),
+                        BitConverter.ToUInt32(connection.NetworkBuffer, 12)
+                    };
+                    if ((indexes[0] != 0x41A05252) && ((indexes.Any(x => x != 0))))
+                    {
+                        AdjustNetworkBuffer(connection);
                         return;
                     }
-                    AdjustNetworkBuffer(connection);
-                    return;
-                }
-                destinationArray = new byte[bufferSize];
-                Array.Copy(connection.NetworkBuffer, destinationArray, bufferSize);
-                Array.Copy(connection.NetworkBuffer, bufferSize, connection.NetworkBuffer, 0L, connection.NetworkBufferPosition - bufferSize);
-                connection.NetworkBufferPosition -= (int) bufferSize;
-                connection.LastNetworkBufferUpdate = DateTime.Now;
-            }
-            if (bufferSize <= 40)
-            {
-                return;
-            }
-            var timeDifference = BitConverter.ToUInt64(destinationArray, 0x10);
-            var time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(timeDifference)
-                                                                          .ToLocalTime();
-            int limiter = BitConverter.ToInt16(destinationArray, 30);
-            int code = BitConverter.ToInt16(destinationArray, 0x20);
-            var bytes = new byte[0x10000];
-            switch (code)
-            {
-                case 0:
-                case 1:
-                    messageLength = ((int) bufferSize) - 40;
-                    for (var i = 0; i < ((bufferSize / 4) - 10); i++)
+                    bufferSize = BitConverter.ToUInt32(connection.NetworkBuffer, 0x18);
+                    if ((bufferSize == 0) || (bufferSize > 0x10000))
                     {
-                        Array.Copy(BitConverter.GetBytes(BitConverter.ToUInt32(destinationArray, (i * 4) + 40)), 0, bytes, i * 4, 4);
-                    }
-                    goto SubProcess;
-            }
-            try
-            {
-                using (var destinationStream = new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A))
-                {
-                    using (var decompressedStream = new DeflateStream(destinationStream, CompressionMode.Decompress))
-                    {
-                        messageLength = decompressedStream.Read(bytes, 0, bytes.Length);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-            SubProcess:
-            var position = 0;
-            try
-            {
-                for (var i = 0; i < limiter; i++)
-                {
-                    if ((position + 4) > messageLength)
-                    {
+                        AdjustNetworkBuffer(connection);
                         return;
                     }
-                    var messageSize = BitConverter.ToUInt32(bytes, position);
-                    if ((position + messageSize) > messageLength)
+                    if (connection.NetworkBufferPosition < bufferSize)
                     {
-                        return;
-                    }
-                    if (messageSize > 0x18)
-                    {
-                        AppContextHelper.Instance.RaiseNewPacket(new Common.Core.Network.NetworkPacket
+                        if (DateTime.Now.Subtract(connection.LastNetworkBufferUpdate)
+                                    .Seconds > 5)
                         {
-                            Key = BitConverter.ToUInt32(bytes, position + 0x10),
-                            Buffer = bytes,
-                            CurrentPosition = position,
-                            MessageSize = (int) messageSize,
-                            PacketDate = time
-                        });
+                            AdjustNetworkBuffer(connection);
+                        }
+                        break;
                     }
-                    position += (int) messageSize;
+                    destinationArray = new byte[bufferSize];
+                    Array.Copy(connection.NetworkBuffer, destinationArray, bufferSize);
+                    Array.Copy(connection.NetworkBuffer, bufferSize, connection.NetworkBuffer, 0L, connection.NetworkBufferPosition - bufferSize);
+                    connection.NetworkBufferPosition -= (int) bufferSize;
+                    connection.LastNetworkBufferUpdate = DateTime.Now;
                 }
-                goto InitialProcess;
-            }
-            catch (Exception ex)
-            {
+                if (bufferSize <= 40)
+                {
+                    return;
+                }
+                var timeDifference = BitConverter.ToUInt64(destinationArray, 0x10);
+                var time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(timeDifference)
+                                                                              .ToLocalTime();
+                int limiter = BitConverter.ToInt16(destinationArray, 30);
+                int encoding = BitConverter.ToInt16(destinationArray, 0x20);
+                var bytes = new byte[0x10000];
+                int messageLength;
+                switch (encoding)
+                {
+                    case 0:
+                    case 1:
+                        messageLength = ((int)bufferSize) - 40;
+                        for (var i = 0; i < ((bufferSize / 4) - 10); i++)
+                        {
+                            Array.Copy(BitConverter.GetBytes(BitConverter.ToUInt32(destinationArray, (i * 4) + 40)), 0, bytes, i * 4, 4);
+                        }
+                        break;
+                    default:
+                        try
+                        {
+                            using (var destinationStream = new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A))
+                            {
+                                using (var decompressedStream = new DeflateStream(destinationStream, CompressionMode.Decompress))
+                                {
+                                    messageLength = decompressedStream.Read(bytes, 0, bytes.Length);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            return;
+                        }
+                        break;
+                }
+                var position = 0;
+                try
+                {
+                    for (var i = 0; i < limiter; i++)
+                    {
+                        if ((position + 4) > messageLength)
+                        {
+                            return;
+                        }
+                        var messageSize = BitConverter.ToUInt32(bytes, position);
+                        if ((position + messageSize) > messageLength)
+                        {
+                            return;
+                        }
+                        if (messageSize > 0x18)
+                        {
+                            var networkPacket = new Common.Core.Network.NetworkPacket
+                            {
+                                Key = BitConverter.ToUInt32(bytes, position + 0x10),
+                                Buffer = bytes,
+                                CurrentPosition = position,
+                                MessageSize = (int) messageSize,
+                                PacketDate = time
+                            };
+                            AppContextHelper.Instance.RaiseNewPacket(networkPacket);
+                        }
+                        position += (int)messageSize;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
             }
         }
 
