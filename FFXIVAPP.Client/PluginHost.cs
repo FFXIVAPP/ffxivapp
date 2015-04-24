@@ -34,14 +34,12 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml.Linq;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Network;
-using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
@@ -89,6 +87,18 @@ namespace FFXIVAPP.Client
         public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
 
         #endregion
+
+        private List<string> DependencyUpgrades = new List<string>
+        {
+            "FFXIVAPP.Common",
+            "FFXIVAPP.IPluginInterface",
+            "MahApps.Metro",
+            "HtmlAgilityPack",
+            "NAudio",
+            "Newtonsoft.Json",
+            "NLog",
+            "System.Windows.Interactivity"
+        };
 
         /// <summary>
         /// </summary>
@@ -179,6 +189,18 @@ namespace FFXIVAPP.Client
             }
         }
 
+        private bool HostAssemblyValidation(string name, Version version)
+        {
+            var reference = Assembly.GetExecutingAssembly()
+                                    .GetReferencedAssemblies()
+                                    .FirstOrDefault(a => a.Name == name);
+            if (reference == null)
+            {
+                return true;
+            }
+            return version.CompareTo(reference.Version) == 0;
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="assemblyPath"></param>
@@ -188,6 +210,18 @@ namespace FFXIVAPP.Client
             {
                 var bytes = File.ReadAllBytes(assemblyPath);
                 var pAssembly = Assembly.Load(bytes);
+                var references = pAssembly.GetReferencedAssemblies();
+                var load = true;
+                foreach (var valid in references.Where(a => DependencyUpgrades.Contains(a.Name))
+                                                .Select(assembly => HostAssemblyValidation(assembly.Name, assembly.Version))
+                                                .Where(valid => !valid))
+                {
+                    load = false;
+                }
+                if (!load)
+                {
+                    return;
+                }
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
