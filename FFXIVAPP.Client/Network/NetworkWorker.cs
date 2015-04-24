@@ -34,11 +34,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Text;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using NLog;
 
@@ -58,10 +57,10 @@ namespace FFXIVAPP.Client.Network
 
         #region Declarations
 
-        private List<ServerConnection> ServerConnections = new List<ServerConnection>();
-        private List<SocketObject> Sockets = new List<SocketObject>();
         private List<ServerConnection> DroppedConnections = new List<ServerConnection>();
         private object Lock = new object();
+        private List<ServerConnection> ServerConnections = new List<ServerConnection>();
+        private List<SocketObject> Sockets = new List<SocketObject>();
 
         #endregion
 
@@ -394,7 +393,7 @@ namespace FFXIVAPP.Client.Network
                 {
                     case 0:
                     case 1:
-                        messageLength = ((int)bufferSize) - 40;
+                        messageLength = ((int) bufferSize) - 40;
                         for (var i = 0; i < ((bufferSize / 4) - 10); i++)
                         {
                             Array.Copy(BitConverter.GetBytes(BitConverter.ToUInt32(destinationArray, (i * 4) + 40)), 0, bytes, i * 4, 4);
@@ -443,7 +442,7 @@ namespace FFXIVAPP.Client.Network
                             };
                             AppContextHelper.Instance.RaiseNewPacket(networkPacket);
                         }
-                        position += (int)messageSize;
+                        position += (int) messageSize;
                     }
                 }
                 catch (Exception ex)
@@ -462,7 +461,7 @@ namespace FFXIVAPP.Client.Network
         private IEnumerable<string> GetNetworkInterfaces()
         {
             var source = new List<string>();
-            foreach (var networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+            foreach (var networkInterface in App.AvailableNetworkInterfaces.Where(i => i.Name == Settings.Default.DefaultNetworkInterface))
             {
                 using (var enumerator = (networkInterface.GetIPProperties()
                                                          .UnicastAddresses.Select(x => x.Address.ToString())).GetEnumerator())

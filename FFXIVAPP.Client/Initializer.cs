@@ -220,6 +220,14 @@ namespace FFXIVAPP.Client
             }
         }
 
+        public static void LoadAvailableNetworkDevices()
+        {
+            foreach (var networkInterface in App.AvailableNetworkInterfaces)
+            {
+                SettingsViewModel.Instance.AvailableNetworkInterfacesList.Add(networkInterface.Name);
+            }
+        }
+
         /// <summary>
         /// </summary>
         public static void LoadSoundsIntoCache()
@@ -805,8 +813,6 @@ namespace FFXIVAPP.Client
             _partyInfoWorker.StartScanning();
             _inventoryWorker = new InventoryWorker();
             _inventoryWorker.StartScanning();
-            _networkWorker = new NetworkWorker();
-            _networkWorker.StartScanning();
         }
 
         public static void UpdatePluginConstants()
@@ -853,11 +859,31 @@ namespace FFXIVAPP.Client
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
             }
+        }
+
+        public static void StartNetworkWorker()
+        {
+            RefreshNetworkWorker();
+        }
+
+        public static void StopNetworkWorker()
+        {
             if (_networkWorker != null)
             {
                 _networkWorker.StopScanning();
                 _networkWorker.Dispose();
             }
+        }
+
+        public static void RefreshNetworkWorker()
+        {
+            if (_networkWorker != null)
+            {
+                _networkWorker.StopScanning();
+                _networkWorker.Dispose();
+            }
+            _networkWorker = new NetworkWorker();
+            _networkWorker.StartScanning();
         }
     }
 }

@@ -128,7 +128,8 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
-                MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                MessageBoxHelper.ShowMessageAsync(title, ex.Message);
             }
         }
 

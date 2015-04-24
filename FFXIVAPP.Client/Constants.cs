@@ -62,6 +62,7 @@ namespace FFXIVAPP.Client
         private static string _serverName;
         private static string _gameLanguage;
         private static bool _enableNLog;
+        private static bool _enableNetworkReading;
         private static bool _enableHelpLabels;
         private static string _theme;
         private static string _uiScale;
@@ -157,6 +158,16 @@ namespace FFXIVAPP.Client
             set
             {
                 _enableNLog = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static bool EnableNetworkReading
+        {
+            get { return _enableNetworkReading; }
+            set
+            {
+                _enableNetworkReading = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }

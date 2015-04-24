@@ -120,6 +120,23 @@
             <TabItem Header="Performance &amp; Logging">
                 <ScrollViewer>
                     <StackPanel>
+                        <GroupBox Header="Default Network Interface (Packet Reading)">
+                            <ComboBox x:Name="NetworkInterfaceSelect"
+                                      Margin="5"
+                                      IsReadOnly="False"
+                                      ItemsSource="{Binding AvailableNetworkInterfacesList}"
+                                      SelectedValue="{Binding DefaultNetworkInterface,
+                                                              Source={x:Static Properties:Settings.Default}}" />
+                        </GroupBox>
+                        <GroupBox Header="Enable Network Reading">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding EnableNetworkReading,
+                                                                                Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <Button Margin="5"
+                                Command="{Binding RefreshNetworkWorkerCommand}"
+                                Content="Reset NetworkWorker" />
                         <GroupBox Header="Default Audio Device">
                             <ComboBox x:Name="AudioDeviceSelect"
                                       Margin="5"
@@ -130,11 +147,6 @@
                         </GroupBox>
                         <GroupBox Header="Memory Scanning Speed (Milliseconds)">
                             <StackPanel>
-                                <TextBlock Text="Actions (Disabled)" />
-                                <TextBox Margin="5"
-                                         AutoWordSelection="True"
-                                         Text="{Binding ActionWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="Actor (NPCs &amp; Other)" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"

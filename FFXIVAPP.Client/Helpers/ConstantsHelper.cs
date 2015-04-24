@@ -27,10 +27,6 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
-using System;
-using System.Globalization;
-using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Constant;
 
 namespace FFXIVAPP.Client.Helpers
@@ -52,87 +48,89 @@ namespace FFXIVAPP.Client.Helpers
                 GameLanguage = Constants.GameLanguage,
                 ServerName = Constants.ServerName,
                 Theme = Constants.Theme,
-                UIScale = Constants.UIScale
+                UIScale = Constants.UIScale,
+                EnableNLog = Constants.EnableNLog,
+                EnableNetworkReading = Constants.EnableNetworkReading
             });
         }
 
         #region Action Helpers
 
-        public static string GetActionNameByID(int key)
-        {
-            var skillKey = key.ToString(CultureInfo.InvariantCulture);
-            try
-            {
-                if (Constants.Actions.ContainsKey(skillKey))
-                {
-                    switch (Settings.Default.GameLanguage)
-                    {
-                        case "French":
-                            return Constants.Actions[skillKey].FR;
-                        case "Japanese":
-                            return Constants.Actions[skillKey].JA;
-                        case "German":
-                            return Constants.Actions[skillKey].DE;
-                        case "Chinese":
-                            return Constants.Actions[skillKey].ZH;
-                        default:
-                            return Constants.Actions[skillKey].EN;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return "???";
-        }
+        //public static string GetActionNameByID(int key)
+        //{
+        //    var skillKey = key.ToString(CultureInfo.InvariantCulture);
+        //    try
+        //    {
+        //        if (Constants.Actions.ContainsKey(skillKey))
+        //        {
+        //            switch (Settings.Default.GameLanguage)
+        //            {
+        //                case "French":
+        //                    return Constants.Actions[skillKey].FR;
+        //                case "Japanese":
+        //                    return Constants.Actions[skillKey].JA;
+        //                case "German":
+        //                    return Constants.Actions[skillKey].DE;
+        //                case "Chinese":
+        //                    return Constants.Actions[skillKey].ZH;
+        //                default:
+        //                    return Constants.Actions[skillKey].EN;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //    return "???";
+        //}
 
-        public static ActionInfo GetActionInfoByName(string name)
-        {
-            try
-            {
-                foreach (var actionInfo in Constants.Actions)
-                {
-                    var info = actionInfo.Value;
-                    switch (Settings.Default.GameLanguage)
-                    {
-                        case "French":
-                            if (String.Equals(info.FR, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
-                        case "Japanese":
-                            if (String.Equals(info.JA, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
-                        case "German":
-                            if (String.Equals(info.DE, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
-                        case "Chinese":
-                            if (String.Equals(info.EN, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
-                        default:
-                            if (String.Equals(info.EN, name, Constants.InvariantComparer))
-                            {
-                                return info;
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return null;
-        }
+        //public static ActionInfo GetActionInfoByName(string name)
+        //{
+        //    try
+        //    {
+        //        foreach (var actionInfo in Constants.Actions)
+        //        {
+        //            var info = actionInfo.Value;
+        //            switch (Settings.Default.GameLanguage)
+        //            {
+        //                case "French":
+        //                    if (String.Equals(info.FR, name, Constants.InvariantComparer))
+        //                    {
+        //                        return info;
+        //                    }
+        //                    break;
+        //                case "Japanese":
+        //                    if (String.Equals(info.JA, name, Constants.InvariantComparer))
+        //                    {
+        //                        return info;
+        //                    }
+        //                    break;
+        //                case "German":
+        //                    if (String.Equals(info.DE, name, Constants.InvariantComparer))
+        //                    {
+        //                        return info;
+        //                    }
+        //                    break;
+        //                case "Chinese":
+        //                    if (String.Equals(info.EN, name, Constants.InvariantComparer))
+        //                    {
+        //                        return info;
+        //                    }
+        //                    break;
+        //                default:
+        //                    if (String.Equals(info.EN, name, Constants.InvariantComparer))
+        //                    {
+        //                        return info;
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //    return null;
+        //}
 
         #endregion
     }

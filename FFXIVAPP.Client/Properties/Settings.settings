@@ -232,9 +232,6 @@
   &lt;string&gt;System Default&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="ActionWorkerRefresh" Type="System.String" Scope="User">
-      <Value Profile="(Default)">5</Value>
-    </Setting>
     <Setting Name="ActorWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
@@ -255,6 +252,12 @@
     </Setting>
     <Setting Name="InventoryWorkerRefresh" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="DefaultNetworkInterface" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EnableNetworkReading" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

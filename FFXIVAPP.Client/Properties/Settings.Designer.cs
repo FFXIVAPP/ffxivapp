@@ -452,18 +452,6 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public string ActionWorkerRefresh {
-            get {
-                return ((string)(this["ActionWorkerRefresh"]));
-            }
-            set {
-                this["ActionWorkerRefresh"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public string ActorWorkerRefresh {
             get {
@@ -543,6 +531,30 @@ namespace FFXIVAPP.Client.Properties {
             }
             set {
                 this["InventoryWorkerRefresh"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultNetworkInterface {
+            get {
+                return ((string)(this["DefaultNetworkInterface"]));
+            }
+            set {
+                this["DefaultNetworkInterface"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableNetworkReading {
+            get {
+                return ((bool)(this["EnableNetworkReading"]));
+            }
+            set {
+                this["EnableNetworkReading"] = value;
             }
         }
     }

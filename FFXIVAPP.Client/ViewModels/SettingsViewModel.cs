@@ -63,6 +63,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static SettingsViewModel _instance;
         private List<string> _availableAudioDevicesList;
+        private List<string> _availableNetworkInterfacesList;
         private List<string> _homePluginList;
 
         public static SettingsViewModel Instance
@@ -108,6 +109,23 @@ namespace FFXIVAPP.Client.ViewModels
             }
         }
 
+        public List<string> AvailableNetworkInterfacesList
+        {
+            get
+            {
+                return _availableNetworkInterfacesList ?? (_availableNetworkInterfacesList = new List<string>());
+            }
+            set
+            {
+                if (_availableNetworkInterfacesList == null)
+                {
+                    _availableNetworkInterfacesList = new List<string>();
+                }
+                _availableNetworkInterfacesList = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Declarations
@@ -115,6 +133,7 @@ namespace FFXIVAPP.Client.ViewModels
         private static string _key = "";
         private static string _value = "";
 
+        public ICommand RefreshNetworkWorkerCommand { get; private set; }
         public ICommand SetProcessCommand { get; private set; }
         public ICommand RefreshListCommand { get; private set; }
         public ICommand ChangeThemeCommand { get; private set; }
@@ -128,6 +147,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         public SettingsViewModel()
         {
+            RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
             SetProcessCommand = new DelegateCommand(SetProcess);
             RefreshListCommand = new DelegateCommand(RefreshList);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
@@ -147,6 +167,13 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
+
+        /// <summary>
+        /// </summary>
+        private static void RefreshNetworkWorker()
+        {
+            Initializer.RefreshNetworkWorker();
+        }
 
         /// <summary>
         /// </summary>

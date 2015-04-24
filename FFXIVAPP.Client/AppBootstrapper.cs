@@ -116,6 +116,7 @@ namespace FFXIVAPP.Client
             Initializer.LoadColors();
             Initializer.LoadApplicationSettings();
             Initializer.LoadAvailableAudioDevices();
+            Initializer.LoadAvailableNetworkDevices();
             Initializer.LoadSoundsIntoCache();
             Initializer.LoadPlugins();
 

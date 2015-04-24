@@ -88,6 +88,10 @@ namespace FFXIVAPP.Client
             Initializer.SetGlobals();
             Initializer.SetSignatures();
             Initializer.StartMemoryWorkers();
+            if (Settings.Default.EnableNetworkReading)
+            {
+                Initializer.StartNetworkWorker();
+            }
             Initializer.GetHomePlugin();
             Initializer.UpdatePluginConstants();
 
