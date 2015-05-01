@@ -31,6 +31,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Helpers;
@@ -140,7 +141,7 @@ namespace FFXIVAPP.Client
         {
             Application.Current.MainWindow.WindowState = WindowState.Normal;
             SettingsHelper.Save(update);
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded)
+            foreach (var pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Loaded))
             {
                 pluginInstance.Instance.Dispose(update);
             }

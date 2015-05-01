@@ -27,6 +27,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
+using System;
 using System.Collections;
 using System.Linq;
 using FFXIVAPP.Client.Models;
@@ -57,8 +58,15 @@ namespace FFXIVAPP.Client.Helpers
         /// <returns> </returns>
         public PluginInstance Find(string plugin)
         {
-            return List.Cast<PluginInstance>()
-                       .FirstOrDefault(pluginInstance => (pluginInstance.Instance.Name.Equals(plugin, Constants.InvariantComparer)) || pluginInstance.AssemblyPath.Equals(plugin, Constants.InvariantComparer));
+            try
+            {
+                return List.Cast<PluginInstance>()
+                           .FirstOrDefault(pluginInstance => (pluginInstance.Instance.Name.Equals(plugin, Constants.InvariantComparer)) || pluginInstance.AssemblyPath.Equals(plugin, Constants.InvariantComparer));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

@@ -218,10 +218,6 @@ namespace FFXIVAPP.Client
                 {
                     load = false;
                 }
-                if (!load)
-                {
-                    return;
-                }
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
@@ -237,6 +233,7 @@ namespace FFXIVAPP.Client
                     AssemblyPath = assemblyPath
                 };
                 plugin.Instance.Initialize(Instance);
+                plugin.Loaded = load;
                 Loaded.Add(plugin);
             }
             catch (Exception ex)

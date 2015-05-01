@@ -80,6 +80,10 @@ namespace FFXIVAPP.Client.Helpers
         {
             try
             {
+                if (!pluginInstance.Loaded)
+                {
+                    return;
+                }
                 var pluginName = pluginInstance.Instance.FriendlyName;
                 if (SettingsViewModel.Instance.HomePluginList.Any(p => p.ToUpperInvariant()
                                                                         .StartsWith(pluginName.ToUpperInvariant())))

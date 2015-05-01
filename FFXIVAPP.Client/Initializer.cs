@@ -404,6 +404,13 @@ namespace FFXIVAPP.Client
                                                 pluginDownload.Status = PluginStatus.UpdateAvailable;
                                                 AppViewModel.Instance.HasNewPluginUpdate = true;
                                             }
+                                            else
+                                            {
+                                                if (!found.Loaded)
+                                                {
+                                                    pluginDownload.Status = PluginStatus.OutOfDate;
+                                                }
+                                            }
                                         }
                                         DispatcherHelper.Invoke(() => UpdateViewModel.Instance.AvailablePlugins.Add(pluginDownload));
                                     }

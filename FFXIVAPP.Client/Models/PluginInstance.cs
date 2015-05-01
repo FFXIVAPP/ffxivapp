@@ -36,9 +36,11 @@ namespace FFXIVAPP.Client.Models
         public PluginInstance()
         {
             AssemblyPath = "";
+            Loaded = false;
         }
 
         public IPlugin Instance { get; set; }
         public string AssemblyPath { get; set; }
+        public bool Loaded { get; set; }
     }
 }

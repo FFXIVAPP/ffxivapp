@@ -33,6 +33,7 @@ namespace FFXIVAPP.Client.Models
     {
         NotInstalled,
         Installed,
-        UpdateAvailable
+        UpdateAvailable,
+        OutOfDate
     }
 }
