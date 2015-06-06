@@ -40,6 +40,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using FFXIVAPP.Client.Memory;
+using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
@@ -75,6 +76,22 @@ namespace FFXIVAPP.Client
         private string _soundsPath;
         private Style _tabControlCollapsedHeader;
         private List<string> _updateNotes;
+
+        #region UILanguages
+
+        private ObservableCollection<UILanguage> _uiLanguages;
+
+        public ObservableCollection<UILanguage> UILanguages
+        {
+            get { return _uiLanguages ?? (_uiLanguages = new ObservableCollection<UILanguage>()); }
+            set
+            {
+                _uiLanguages = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         public static AppViewModel Instance
         {

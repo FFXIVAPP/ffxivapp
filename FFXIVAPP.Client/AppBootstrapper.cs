@@ -31,8 +31,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Models;
+using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -106,6 +109,46 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.SoundsPath = Common.Constants.SoundsPath;
             AppViewModel.Instance.SettingsPath = Common.Constants.SettingsPath;
             AppViewModel.Instance.PluginsSettingsPath = Common.Constants.PluginsSettingsPath;
+
+            #region Culture BootStrapping
+
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "English",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/en.png",
+                Title = "English",
+                CultureInfo = new CultureInfo("en")
+            });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "Japanese",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ja.png",
+                Title = "日本語",
+                CultureInfo = new CultureInfo("ja")
+            });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "French",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/fr.png",
+                Title = "Français",
+                CultureInfo = new CultureInfo("fr")
+            });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "German",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/de.png",
+                Title = "Deutsch",
+                CultureInfo = new CultureInfo("de")
+            });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "Chinese",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/cn.png",
+                Title = "中國",
+                CultureInfo = new CultureInfo("zh")
+            });
+
+            #endregion
 
             #region Initial BootStrapping
 

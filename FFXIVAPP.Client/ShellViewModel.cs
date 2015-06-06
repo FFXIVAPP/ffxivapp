@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -67,7 +68,7 @@ namespace FFXIVAPP.Client
 
         public ShellViewModel()
         {
-            SetLocaleCommand = new DelegateCommand<string>(SetLocale);
+            SetLocaleCommand = new DelegateCommand(SetLocale);
             SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
             ScreenShotCommand = new DelegateCommand(ScreenShot);
             UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
@@ -84,23 +85,47 @@ namespace FFXIVAPP.Client
 
         #region Command Bindings
 
-        private static void SetLocale(string language)
+        private static List<string> SupportedGameLanguages = new List<string>
         {
-            if (language == Settings.Default.GameLanguage)
+            "English",
+            "Japanese",
+            "French",
+            "German",
+            "Chinese"
+        };
+
+        private static void SetLocale()
+        {
+            var uiLanguage = ShellView.View.LanguageSelect.SelectedValue.ToString();
+            if (String.IsNullOrWhiteSpace(uiLanguage))
             {
                 return;
             }
-            if (language == "Chinese" || Settings.Default.GameLanguage == "Chinese")
+            if (uiLanguage == Settings.Default.GameLanguage)
             {
-                Action ok = () => { Settings.Default.GameLanguage = language; };
+                return;
+            }
+            if (SupportedGameLanguages.Contains(uiLanguage))
+            {
+                if (uiLanguage == Settings.Default.GameLanguage)
+                {
+                    return;
+                }
+                Action ok = () => { Settings.Default.GameLanguage = uiLanguage; };
                 Action cancel = () => { };
                 var title = AppViewModel.Instance.Locale["app_WarningMessage"];
-                var message = "FFXIVAPP will restart to perform this change. Do you wish to continue?";
+                var message = AppViewModel.Instance.Locale["app_UILanguageChangeWarningGeneral"];
+                if (uiLanguage == "Chinese" || Settings.Default.GameLanguage == "Chinese")
+                {
+                    message = message + AppViewModel.Instance.Locale["app_UILanguageChangeWarningChinese"];
+                }
                 MessageBoxHelper.ShowMessageAsync(title, message, ok, cancel);
             }
             else
             {
-                Settings.Default.GameLanguage = language;
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                var message = AppViewModel.Instance.Locale["app_UILanguageChangeWarningNoGameLanguage"];
+                MessageBoxHelper.ShowMessageAsync(title, message);
             }
         }
 

@@ -33,12 +33,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -162,12 +160,12 @@ namespace FFXIVAPP.Client
             if (hasLocal)
             {
                 stringReader = new StringReader(XElement.Load(fileName)
-                                                       .ToString());
+                                                        .ToString());
             }
             else
             {
                 stringReader = new StringReader(XElement.Load(resource.Stream)
-                                                       .ToString());
+                                                        .ToString());
             }
             using (var xmlReader = XmlReader.Create(stringReader))
             {
@@ -213,25 +211,14 @@ namespace FFXIVAPP.Client
                         break;
                     case "GameLanguage":
                         Constants.GameLanguage = Settings.Default.GameLanguage;
-                        var lang = Settings.Default.GameLanguage.ToLower();
-                        var cultureInfo = new CultureInfo("en");
-                        switch (lang)
+                        break;
+                    case "UILanguage":
+                        if (AppViewModel.Instance.UILanguages.Any(ui => ui.Language == Settings.Default.UILanguage))
                         {
-                            case "french":
-                                cultureInfo = new CultureInfo("fr");
-                                break;
-                            case "japanese":
-                                cultureInfo = new CultureInfo("ja");
-                                break;
-                            case "german":
-                                cultureInfo = new CultureInfo("de");
-                                break;
-                            case "chinese":
-                                cultureInfo = new CultureInfo("zh");
-                                break;
+                            var uiLanguage = AppViewModel.Instance.UILanguages.First(ui => ui.Language == Settings.Default.UILanguage);
+                            Constants.CultureInfo = Settings.Default.Culture = uiLanguage.CultureInfo;
+                            LocaleHelper.Update(Settings.Default.Culture);
                         }
-                        Constants.CultureInfo = Settings.Default.Culture = cultureInfo;
-                        LocaleHelper.Update(Settings.Default.Culture);
                         break;
                     case "ServerName":
                         Constants.ServerName = Settings.Default.ServerName;

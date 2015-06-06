@@ -127,6 +127,9 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_pluginUpdateMessageText", "看來某些插件有更新。為了確保兼容性, 請在 \"更新\" 選項內更新插件.");
             Dictionary.Add("app_CurrentVersionHeader", "现在");
             Dictionary.Add("app_LatestVersionHeader", "最新");
+            Dictionary.Add("app_UILanguageChangeWarningGeneral", "Do you want to change the GameLanguage setting as well to match this applications UILanguage? If you cancel you will manually have to change GameLanguage in Settings later.");
+            Dictionary.Add("app_UILanguageChangeWarningChinese", " When changing to or from Chinese an application restart is also required.");
+            Dictionary.Add("app_UILanguageChangeWarningNoGameLanguage", "The selected UILanguage does not have a supported GameLanguage. Please choose your game language in Settings.");
             return Dictionary;
         }
     }

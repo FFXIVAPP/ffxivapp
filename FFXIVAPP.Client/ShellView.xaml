@@ -63,46 +63,28 @@
 
     <MetroControls:MetroWindow.RightWindowCommands>
         <MetroControls:WindowCommands>
-            <Button Command="{Binding SetLocaleCommand}"
-                    CommandParameter="English">
-                <Image Width="20"
-                       Height="20"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/en.png"
-                       ToolTip="English" />
-            </Button>
-            <Button Command="{Binding SetLocaleCommand}"
-                    CommandParameter="Japanese">
-                <Image Width="20"
-                       Height="20"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/ja.png"
-                       ToolTip="日本語" />
-            </Button>
-            <Button Command="{Binding SetLocaleCommand}"
-                    CommandParameter="French">
-                <Image Width="20"
-                       Height="20"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/fr.png"
-                       ToolTip="Français" />
-            </Button>
-            <Button Command="{Binding SetLocaleCommand}"
-                    CommandParameter="German">
-                <Image Width="20"
-                       Height="20"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/de.png"
-                       ToolTip="Deutsch" />
-            </Button>
-            <Button Command="{Binding SetLocaleCommand}"
-                    CommandParameter="Chinese">
-                <Image Width="20"
-                       Height="20"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Icons/cn.png"
-                       ToolTip="中國" />
-            </Button>
+            <ComboBox x:Name="LanguageSelect"
+                      MinWidth="120"
+                      IsReadOnly="False"
+                      ItemsSource="{Binding UILanguages,
+                                            Source={StaticResource AppProperties}}"
+                      SelectedValue="{Binding UILanguage,
+                                              Source={x:Static Properties:Settings.Default}}"
+                      SelectedValuePath="Language"
+                      Utilities:SelectionBehavior.SelectionChanged="{Binding SetLocaleCommand}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{Binding ImageURI}" />
+                            <TextBlock Margin="5 0"
+                                       Foreground="Black"
+                                       Text="{Binding Title}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button x:Name="save"
                     Command="{Binding SaveAndClearHistoryCommand}">
                 <StackPanel Orientation="Horizontal">

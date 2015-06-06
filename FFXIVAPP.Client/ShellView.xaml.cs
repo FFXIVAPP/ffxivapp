@@ -78,10 +78,18 @@ namespace FFXIVAPP.Client
         {
             View.Topmost = Settings.Default.TopMost;
 
-            LocaleHelper.Update(Settings.Default.Culture);
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
 
             #region GUI Finalization
+
+            if (String.IsNullOrWhiteSpace(Settings.Default.UILanguage))
+            {
+                Settings.Default.UILanguage = Settings.Default.GameLanguage;
+            }
+            else
+            {
+                LocaleHelper.Update(Settings.Default.Culture);
+            }
 
             Initializer.LoadAvailableSources();
             Initializer.LoadAvailablePlugins();
@@ -141,7 +149,8 @@ namespace FFXIVAPP.Client
         {
             Application.Current.MainWindow.WindowState = WindowState.Normal;
             SettingsHelper.Save(update);
-            foreach (var pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Loaded))
+            foreach (var pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>()
+                                              .Where(pluginInstance => pluginInstance.Loaded))
             {
                 pluginInstance.Instance.Dispose(update);
             }

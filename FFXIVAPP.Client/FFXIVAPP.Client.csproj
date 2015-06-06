@@ -178,6 +178,7 @@
     <Compile Include="Memory\ChatLogWorker.cs" />
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
+    <Compile Include="Models\UILanguage.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="Network\IPHelper.cs" />
     <Compile Include="Network\NetworkWorker.cs" />
