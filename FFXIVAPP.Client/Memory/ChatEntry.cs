@@ -45,16 +45,24 @@ namespace FFXIVAPP.Client.Memory
             try
             {
                 chatLogEntry.Bytes = raw;
+                chatLogEntry.TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(ByteArrayToString(raw.Take(4)
+                                                                                                                 .Reverse()
+                                                                                                                 .ToArray()), NumberStyles.HexNumber));
+                chatLogEntry.Code = ByteArrayToString(raw.Skip(4)
+                                                         .Take(2)
+                                                         .Reverse()
+                                                         .ToArray());
                 chatLogEntry.Raw = Encoding.UTF8.GetString(raw.ToArray());
-                var cut = (chatLogEntry.Raw.Substring(13, 1) == ":") ? 14 : 13;
-                var cleaned = new ChatCleaner(raw).Result;
+                var cleanable = raw.Skip(8)
+                                   .ToArray();
+                var cleaned = new ChatCleaner(cleanable).Result;
+                var cut = (cleaned.Substring(1, 1) == ":") ? 2 : 1;
                 chatLogEntry.Line = XmlHelper.SanitizeXmlString(cleaned.Substring(cut));
                 chatLogEntry.Line = new ChatCleaner(chatLogEntry.Line).Result;
                 chatLogEntry.JP = Encoding.UTF8.GetBytes(chatLogEntry.Line)
                                           .Any(b => b > 128);
-                chatLogEntry.Code = chatLogEntry.Raw.Substring(8, 4);
+                
                 chatLogEntry.Combined = String.Format("{0}:{1}", chatLogEntry.Code, chatLogEntry.Line);
-                chatLogEntry.TimeStamp = DateTimeHelper.UnixTimeStampToDateTime(Int32.Parse(chatLogEntry.Raw.Substring(0, 8), NumberStyles.HexNumber));
             }
             catch (Exception ex)
             {
@@ -65,6 +73,16 @@ namespace FFXIVAPP.Client.Memory
                 chatLogEntry.Combined = "";
             }
             return chatLogEntry;
+        }
+
+        private static string ByteArrayToString(byte[] raw)
+        {
+            var hex = new StringBuilder(raw.Length * 2);
+            foreach (var b in raw)
+            {
+                hex.AppendFormat("{0:X2}", b);
+            }
+            return hex.ToString();
         }
     }
 }

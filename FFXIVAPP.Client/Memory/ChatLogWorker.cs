@@ -31,6 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
@@ -154,7 +155,7 @@ namespace FFXIVAPP.Client.Memory
                         catch (Exception ex)
                         {
                         }
-                        foreach (var bytes in buffered)
+                        foreach (var bytes in buffered.Where(b => b.Count > 0))
                         {
                             try
                             {

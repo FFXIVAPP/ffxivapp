@@ -674,7 +674,7 @@ namespace FFXIVAPP.Client
                     {
                         Key = "GAMEMAIN",
                         Value = "47616D654D61696E000000",
-                        Offset = 1260 // pre 2.5 = 1248
+                        Offset = 1344 // pre 3.0 = 1260
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
