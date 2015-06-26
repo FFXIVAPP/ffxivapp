@@ -679,8 +679,8 @@ namespace FFXIVAPP.Client
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "CHARMAP",
-                        Value = "????0000000000000100000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFFDB0FC940",
-                        Offset = 320 // pre 3.0 2.4
+                        Value = "0100000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFFDB0FC940",
+                        Offset = 312 // pre 3.0 2.4
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
