@@ -68,34 +68,34 @@
   <ItemGroup>
     <Reference Include="FFXIVAPP.Common, Version=2.0.5199.31147, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Common.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\FFXIVAPP.Common.dll</HintPath>
     </Reference>
     <Reference Include="FFXIVAPP.IPluginInterface, Version=2.0.5180.18071, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.IPluginInterface.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
     <Reference Include="FFXIVAPP.Localization">
-      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Localization.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\FFXIVAPP.Localization.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-aio\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-resources\MahApps.Metro.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-aio\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-aio\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=3.2.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-aio\packages\NLog.3.2.0.0\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -105,7 +105,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ffxivapp-resources\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\ffxivapp-resources-master\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -146,6 +146,7 @@
     <Compile Include="Localization\French.cs" />
     <Compile Include="Localization\German.cs" />
     <Compile Include="Localization\Japanese.cs" />
+    <Compile Include="Localization\Russian.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\Media\Icons\ru.png" />
     <Resource Include="Resources\Media\Icons\cn.png" />
     <Resource Include="Resources\Media\Icons\fr.png" />
     <Resource Include="Resources\Media\Icons\ja.png" />

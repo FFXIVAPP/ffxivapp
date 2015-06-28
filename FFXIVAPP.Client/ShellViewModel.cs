@@ -42,7 +42,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
-
+ 
 namespace FFXIVAPP.Client
 {
     [Export(typeof (ShellViewModel))]

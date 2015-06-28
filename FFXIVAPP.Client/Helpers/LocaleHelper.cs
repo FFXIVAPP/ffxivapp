@@ -61,6 +61,9 @@ namespace FFXIVAPP.Client.Helpers
                     case "zh":
                         dictionary = Chinese.Context();
                         break;
+                    case "ru":
+                        dictionary = Russian.Context();
+                        break;
                     default:
                         dictionary = English.Context();
                         break;
