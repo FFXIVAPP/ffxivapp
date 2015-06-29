@@ -130,6 +130,22 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_UILanguageChangeWarningGeneral", "Do you want to change the GameLanguage setting as well to match this applications UILanguage? If you cancel you will manually have to change GameLanguage in Settings later.");
             Dictionary.Add("app_UILanguageChangeWarningChinese", " When changing to or from Chinese an application restart is also required.");
             Dictionary.Add("app_UILanguageChangeWarningNoGameLanguage", "The selected UILanguage does not have a supported GameLanguage. Please choose your game language in Settings.");
+            Dictionary.Add("app_UIScaleHeader", "UI.Scale");
+            Dictionary.Add("app_HomePluginLabel", "Home Plugin");
+            Dictionary.Add("app_ProcessSelectedInfo", "*Only use this if you restarted the game or are dual-boxing.");
+            Dictionary.Add("app_PALSettingsTabHeader", "Performance & Logging");
+            Dictionary.Add("app_DefNetInterfaceLabel", "Default Network Interface (Packet Reading)");
+            Dictionary.Add("app_EnableNetReadingLabel", "Enable Network Reading");
+            Dictionary.Add("app_BTNResNetWorker", "Reset Network Worker");
+            Dictionary.Add("app_DefAudioDeviceLabel", "Default Audio Device");
+            Dictionary.Add("app_MemScanSpeedLabel", "Memory Scanning Speed (Milliseconds)");
+            Dictionary.Add("app_ActorMSSLabel", "Actor (NPCs &amp; Other)");
+            Dictionary.Add("app_ChatLogMSSLabel", "ChatLog");
+            Dictionary.Add("app_MonstersPCMSSLabel", "Monsters &amp; PCs");
+            Dictionary.Add("app_PartyInfMSSLabel", "Party Info");
+            Dictionary.Add("app_PlayerInfMSSLabel", "Player Info (YOU)");
+            Dictionary.Add("app_TargEnmMSSLabel", "Targets &amp; Enmity");
+            Dictionary.Add("app_InvMSSLabel", "Inventory");
             return Dictionary;
         }
     }

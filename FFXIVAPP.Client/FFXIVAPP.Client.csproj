@@ -146,7 +146,8 @@
     <Compile Include="Localization\French.cs" />
     <Compile Include="Localization\German.cs" />
     <Compile Include="Localization\Japanese.cs" />
-    <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Localization\Russian.cs" />
+	<Compile Include="Memory\ChatEntry.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+	<Resource Include="Resources\Media\Icons\ru.png" />
     <Resource Include="Resources\Media\Icons\cn.png" />
     <Resource Include="Resources\Media\Icons\fr.png" />
     <Resource Include="Resources\Media\Icons\ja.png" />

@@ -146,6 +146,13 @@ namespace FFXIVAPP.Client
                 Title = "中國",
                 CultureInfo = new CultureInfo("zh")
             });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "Russian",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ru.png",
+                Title = "Русский",
+                CultureInfo = new CultureInfo("ru")
+            });
 
             #endregion
 

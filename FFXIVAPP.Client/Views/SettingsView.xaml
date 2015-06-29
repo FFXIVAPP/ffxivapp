@@ -30,7 +30,8 @@
                                       Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="UI Scale">
+                        <GroupBox Header="{Binding Locale[app_UIScaleHeader],
+                                      Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <ComboBox x:Name="UIScaleSelect"
                                           Margin="5"
@@ -53,7 +54,8 @@
                                                                   Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
-                        <GroupBox Header="Home Plugin">
+                        <GroupBox Header="{Binding Locale[app_HomePluginLabel],
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <ComboBox x:Name="HomePluginSelect"
                                           Margin="5"
@@ -71,9 +73,9 @@
                                            TextWrapping="WrapWithOverflow"
                                            Visibility="{Binding EnableHelpLabels,
                                                                 Source={x:Static Properties:Settings.Default},
-                                                                Converter={StaticResource VisibilityConverter}}">
-                                    *Only use this if you restarted the game or are dual-boxing.
-                                </TextBlock>
+                                                                Converter={StaticResource VisibilityConverter}}"
+                                           Text="{Binding Locale[app_ProcessSelectedInfo],
+                                                   Source={StaticResource AppProperties}}" />
                                 <ComboBox x:Name="PIDSelect"
                                           Margin="5" />
                                 <Button x:Name="SetProcess"
@@ -129,10 +131,12 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Performance &amp; Logging">
+            <TabItem Header="{Binding Locale[app_PALSettingsTabHeader],
+                                      Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <GroupBox Header="Default Network Interface (Packet Reading)">
+                        <GroupBox Header="{Binding Locale[app_DefNetInterfaceLabel],
+                                      Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="NetworkInterfaceSelect"
                                       Margin="5"
                                       IsReadOnly="False"
@@ -140,7 +144,8 @@
                                       SelectedValue="{Binding DefaultNetworkInterface,
                                                               Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
-                        <GroupBox Header="Enable Network Reading">
+                        <GroupBox Header="{Binding Locale[app_EnableNetReadingLabel],
+                                      Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding EnableNetworkReading,
                                                                                 Source={x:Static Properties:Settings.Default}}" />
@@ -148,8 +153,10 @@
                         </GroupBox>
                         <Button Margin="5"
                                 Command="{Binding RefreshNetworkWorkerCommand}"
-                                Content="Reset NetworkWorker" />
-                        <GroupBox Header="Default Audio Device">
+                                Content="{Binding Locale[app_BTNResNetWorker],
+                                      Source={StaticResource AppProperties}}" />
+                        <GroupBox Header="{Binding Locale[app_DefAudioDeviceLabel],
+                                      Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="AudioDeviceSelect"
                                       Margin="5"
                                       IsReadOnly="False"
@@ -157,39 +164,47 @@
                                       SelectedValue="{Binding DefaultAudioDevice,
                                                               Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
-                        <GroupBox Header="Memory Scanning Speed (Milliseconds)">
+                        <GroupBox Header="{Binding Locale[app_MemScanSpeedLabel],
+                                      Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <TextBlock Text="Actor (NPCs &amp; Other)" />
+                                <TextBlock Text="{Binding Locale[app_ActorMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding ActorWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="ChatLog" />
+                                <TextBlock Text="{Binding Locale[app_ChatLogMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding ChatLogWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="Monsters &amp; PCs" />
+                                <TextBlock Text="{Binding Locale[app_MonstersPCMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding MonsterWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="Party Info" />
+                                <TextBlock Text="{Binding Locale[app_PartyInfMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding PartyInfoWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="Player Info (YOU)" />
+                                <TextBlock Text="{Binding Locale[app_PlayerInfMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding PlayerInfoWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="Targets &amp; Enmity" />
+                                <TextBlock Text="{Binding Locale[app_TargEnmMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding TargetWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="Inventory" />
+                                <TextBlock Text="{Binding Locale[app_InvMSSLabel],
+                                      Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding InventoryWorkerRefresh,
