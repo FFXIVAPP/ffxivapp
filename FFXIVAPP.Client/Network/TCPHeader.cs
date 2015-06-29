@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Network
         private readonly ushort _urgentPointer;
         private readonly ushort _window = 555;
 
-       public TCPHeader(byte[] byBuffer, int nReceived)
+        public TCPHeader(byte[] byBuffer, int nReceived)
         {
             try
             {

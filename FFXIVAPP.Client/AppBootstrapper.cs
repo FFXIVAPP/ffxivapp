@@ -35,7 +35,6 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using NLog;

@@ -32,14 +32,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 

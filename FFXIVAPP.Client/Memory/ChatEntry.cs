@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client.Memory
                 chatLogEntry.Line = new ChatCleaner(chatLogEntry.Line).Result;
                 chatLogEntry.JP = Encoding.UTF8.GetBytes(chatLogEntry.Line)
                                           .Any(b => b > 128);
-                
+
                 chatLogEntry.Combined = String.Format("{0}:{1}", chatLogEntry.Code, chatLogEntry.Line);
             }
             catch (Exception ex)

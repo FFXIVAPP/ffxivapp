@@ -277,7 +277,7 @@ namespace FFXIVAPP.Client.Memory
                                         if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                         {
                                             if (PCWorkerDelegate.GetUniqueNPCEntities()
-                                                                    .Any(a => a.ID == enmityEntry.ID))
+                                                                .Any(a => a.ID == enmityEntry.ID))
                                             {
                                                 enmityEntry.Name = PCWorkerDelegate.GetUniqueNPCEntities()
                                                                                    .First(a => a.ID == enmityEntry.ID)
@@ -286,7 +286,7 @@ namespace FFXIVAPP.Client.Memory
                                             if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                             {
                                                 if (NPCWorkerDelegate.GetUniqueNPCEntities()
-                                                                         .Any(a => a.NPCID2 == enmityEntry.ID))
+                                                                     .Any(a => a.NPCID2 == enmityEntry.ID))
                                                 {
                                                     enmityEntry.Name = NPCWorkerDelegate.GetUniqueNPCEntities()
                                                                                         .First(a => a.NPCID2 == enmityEntry.ID)
@@ -296,7 +296,7 @@ namespace FFXIVAPP.Client.Memory
                                             if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                             {
                                                 if (MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                                                             .Any(a => a.ID == enmityEntry.ID))
+                                                                         .Any(a => a.ID == enmityEntry.ID))
                                                 {
                                                     enmityEntry.Name = MonsterWorkerDelegate.GetUniqueNPCEntities()
                                                                                             .First(a => a.ID == enmityEntry.ID)
