@@ -154,7 +154,8 @@
                                                 IsReadOnly="True"
                                                 Utilities:GridViewSort.PropertyName="Status" />
                             <DataGridTextColumn Binding="{Binding Description}"
-                                                Header="Description"
+                                                Header="{Binding Locale[app_DescriptionHeader],
+                                                                 Source={StaticResource AppProperties}}"
                                                 IsReadOnly="True"
                                                 Utilities:GridViewSort.PropertyName="Description" />
                         </DataGrid.Columns>
