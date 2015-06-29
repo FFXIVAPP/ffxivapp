@@ -60,14 +60,14 @@ namespace FFXIVAPP.Client.Network
                     {
                         _versionAndHeaderLength = binaryReader.ReadByte();
                         _differentiatedServices = binaryReader.ReadByte();
-                        _totalLength = (ushort)IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
-                        _identification = (ushort)IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
-                        _flags = (ushort)IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
+                        _totalLength = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
+                        _identification = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
+                        _flags = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
                         _TTL = binaryReader.ReadByte();
                         _protocol = binaryReader.ReadByte();
                         _checksum = IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
-                        _sourceIPAddress = (uint)(binaryReader.ReadInt32());
-                        _destinationIPAddress = (uint)(binaryReader.ReadInt32());
+                        _sourceIPAddress = (uint) (binaryReader.ReadInt32());
+                        _destinationIPAddress = (uint) (binaryReader.ReadInt32());
                         _headerLength = _versionAndHeaderLength;
                         _headerLength <<= 4;
                         _headerLength >>= 4;

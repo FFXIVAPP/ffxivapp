@@ -674,31 +674,37 @@ namespace FFXIVAPP.Client
                     {
                         Key = "GAMEMAIN",
                         Value = "47616D654D61696E000000",
-                        Offset = 1260 // pre 2.5 = 1248
+                        Offset = 1344 // pre 3.0 = 1260
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "CHARMAP",
-                        Value = "FFFFFFFF????????DB0FC93FDB0F49416F12833A00000000????????DB0FC93FDB0F49416F12833A00000000",
-                        Offset = 44
+                        Value = "DB0F49416F12833AFFFFFFFF00000000000000000000000000000000????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A",
+                        Offset = 476 // pre 3.0 2.4
+                    });
+                    AppViewModel.Instance.Signatures.Add(new Signature
+                    {
+                        Key = "ENMITYMAP",
+                        Value = "FFFFFFFF000000000000000000000000000000000000000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
+                        Offset = 14964 // pre 3.0 2.4
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "NPCMAP",
                         Value = "3E000000????????4000000001000000000000000001000000",
-                        Offset = 2748
+                        Offset = 3524 // pre 3.0 = 2748
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "ACTORMAP",
                         Value = "3E000000????????4000000001000000000000000001000000",
-                        Offset = 1348 // pre-2.5 = 1316
+                        Offset = 1644 // pre-3.0 = 1348
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "PARTYMAP",
-                        Value = "DB0F49416F12833A0000000000000000000000000000000000000000000000000000000000000000????????DB0FC93F",
-                        Offset = 92
+                        Value = "00000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFFDB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A00000000",
+                        Offset = 80
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
@@ -709,20 +715,20 @@ namespace FFXIVAPP.Client
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "MAP",
-                        Value = "F783843E????????????????FFFFFFFF????????DB0FC93FDB0F49416F12833A",
-                        Offset = 820
+                        Value = "F783843E????????????????FFFFFFFFDB0FC940AAAA26416D30763FDB0FC93F",
+                        Offset = 2052
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "TARGET",
-                        Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC93FDB0F49416F12833A",
-                        Offset = 218
+                        Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC940AAAA26416D30763F",
+                        Offset = 238
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "INVENTORY",
-                        Value = "DB0FC93FDB0F49416F1283??FFFFFFFF00000000??00??00??00??00??????00??00????0000????????????DB0FC93FDB0F49416F12833A",
-                        Offset = 60
+                        Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
+                        Offset = 106
                     });
                     break;
             }

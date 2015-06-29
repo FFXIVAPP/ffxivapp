@@ -35,7 +35,6 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -146,6 +145,13 @@ namespace FFXIVAPP.Client
                 ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/cn.png",
                 Title = "中國",
                 CultureInfo = new CultureInfo("zh")
+            });
+            AppViewModel.Instance.UILanguages.Add(new UILanguage
+            {
+                Language = "Russian",
+                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ru.png",
+                Title = "Русский",
+                CultureInfo = new CultureInfo("ru")
             });
 
             #endregion

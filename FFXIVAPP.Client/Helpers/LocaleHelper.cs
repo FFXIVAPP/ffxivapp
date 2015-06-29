@@ -61,6 +61,9 @@ namespace FFXIVAPP.Client.Helpers
                     case "zh":
                         dictionary = Chinese.Context();
                         break;
+                    case "ru":
+                        dictionary = Russian.Context();
+                        break;
                     default:
                         dictionary = English.Context();
                         break;
@@ -73,7 +76,8 @@ namespace FFXIVAPP.Client.Helpers
             var locale = dictionary.Cast<DictionaryEntry>()
                                    .ToDictionary(item => (string) item.Key, item => (string) item.Value);
             AppViewModel.Instance.Locale = locale;
-            foreach (var pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Loaded))
+            foreach (var pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>()
+                                              .Where(pluginInstance => pluginInstance.Loaded))
             {
                 pluginInstance.Instance.Locale = locale;
             }

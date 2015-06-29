@@ -111,10 +111,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         public List<string> AvailableNetworkInterfacesList
         {
-            get
-            {
-                return _availableNetworkInterfacesList ?? (_availableNetworkInterfacesList = new List<string>());
-            }
+            get { return _availableNetworkInterfacesList ?? (_availableNetworkInterfacesList = new List<string>()); }
             set
             {
                 if (_availableNetworkInterfacesList == null)

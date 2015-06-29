@@ -28,7 +28,6 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
@@ -36,6 +35,19 @@ namespace FFXIVAPP.Client.Network
 {
     public static class UnsafeNativeMethods
     {
+        public enum TCP_TABLE_CLASS
+        {
+            BASIC_LISTENER,
+            BASIC_CONNECTIONS,
+            BASIC_ALL,
+            OWNER_PID_LISTENER,
+            OWNER_PID_CONNECTIONS,
+            OWNER_PID_ALL,
+            OWNER_MODULE_LISTENER,
+            OWNER_MODULE_CONNECTIONS,
+            OWNER_MODULE_ALL
+        }
+
         [DllImport("iphlpapi.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         public static extern uint GetExtendedTcpTable(IntPtr tcpTable, ref int tcpTableLength, bool sort, int ipVersion, TCP_TABLE_CLASS tcpTableClass, uint reserved = 0);
 
@@ -61,19 +73,6 @@ namespace FFXIVAPP.Client.Network
         {
             public uint Length;
             private TCPRow Row;
-        }
-
-        public enum TCP_TABLE_CLASS
-        {
-            BASIC_LISTENER,
-            BASIC_CONNECTIONS,
-            BASIC_ALL,
-            OWNER_PID_LISTENER,
-            OWNER_PID_CONNECTIONS,
-            OWNER_PID_ALL,
-            OWNER_MODULE_LISTENER,
-            OWNER_MODULE_CONNECTIONS,
-            OWNER_MODULE_ALL
         }
     }
 }

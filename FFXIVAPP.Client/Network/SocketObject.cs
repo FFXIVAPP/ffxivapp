@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// IFStateObject.cs
+// SocketObject.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -35,9 +35,9 @@ namespace FFXIVAPP.Client.Network
     public class SocketObject
     {
         public byte[] Buffer = new byte[0x20000];
-        public object SocketLock = new object();
         public List<NetworkConnection> Connections = new List<NetworkConnection>();
         public string IPAddress;
         public Socket Socket;
+        public object SocketLock = new object();
     }
 }

@@ -134,7 +134,7 @@ namespace FFXIVAPP.Client.Reflection
         public bool UnloadDomain(string domainName)
         {
             // check the appdomain name is valid
-            if (string.IsNullOrEmpty(domainName))
+            if (String.IsNullOrEmpty(domainName))
             {
                 return false;
             }
