@@ -113,14 +113,17 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            uint targetHateStructure;
+                            uint targetHateStructure = 0;
                             switch (Settings.Default.GameLanguage)
                             {
                                 case "Chinese":
                                     targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1136;
                                     break;
                                 default:
-                                    targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["ENMITYMAP"];
+                                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("ENMITYMAP"))
+                                    {
+                                        targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["ENMITYMAP"];
+                                    }
                                     break;
                             }
                             var enmityEntries = new List<EnmityEntry>();
@@ -259,7 +262,7 @@ namespace FFXIVAPP.Client.Memory
                                         targetEntity.CurrentTargetID = currentTargetID;
                                     }
                                 }
-                                if (targetEntity.CurrentTargetID > 0)
+                                if (targetEntity.CurrentTargetID > 0 && targetHateStructure > 0)
                                 {
                                     for (uint i = 0; i < 16; i++)
                                     {

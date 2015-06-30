@@ -685,7 +685,7 @@ namespace FFXIVAPP.Client
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "ENMITYMAP",
-                        Value = "FFFFFFFF000000000000000000000000000000000000000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
+                        Value = "FFFFFFFF0000????????????????????????????????????????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
                         Offset = 14964 // pre 3.0 2.4
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
