@@ -114,10 +114,12 @@ namespace FFXIVAPP.Client.Helpers
                         entry.Z = BitConverter.ToSingle(source, 0xA4);
                         entry.Y = BitConverter.ToSingle(source, 0xA8);
                         entry.Heading = BitConverter.ToSingle(source, 0xB0);
+                        entry.HitBoxRadius = BitConverter.ToSingle(source, 0xC0);
                         entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
                         entry.GatheringInvisible = source[0x11C]; // ??
                         entry.ModelID = BitConverter.ToUInt32(source, 0x174);
                         entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
+                        // 0x17D - 0 = Green name, 4 = non-agro (yellow name)
                         entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
                         entry.Icon = (Actor.Icon) source[0x18C];
                         entry.Status = (Actor.Status) source[0x17E]; //0x18E];
