@@ -721,8 +721,8 @@ namespace FFXIVAPP.Client
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "TARGET",
-                        Value = "403F00000000000000000000000000000000????0000????000000000000??000000????????DB0FC940AAAA26416D30763F",
-                        Offset = 238
+                        Value = "DB0F49416F12833AFFFFFFFF00000000000000000000000000000000????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A",
+                        Offset = 372
                     });
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
