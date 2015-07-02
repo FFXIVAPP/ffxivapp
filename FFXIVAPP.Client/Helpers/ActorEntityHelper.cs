@@ -103,13 +103,13 @@ namespace FFXIVAPP.Client.Helpers
                     default:
                         entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
                         entry.ID = BitConverter.ToUInt32(source, 0x74);
-                        entry.NPCID1 = BitConverter.ToUInt32(source, 0x78);
+                        entry.NPCID1 = BitConverter.ToUInt32(source, 0x7C);
                         entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);
                         entry.OwnerID = BitConverter.ToUInt32(source, 0x84);
                         entry.Type = (Actor.Type) source[0x8A];
                         entry.TargetType = (Actor.TargetType) source[0x8C];
                         entry.GatheringStatus = source[0x8F];
-                        entry.Distance = source[0x90];
+                        entry.Distance = source[0x91];
                         entry.X = BitConverter.ToSingle(source, 0xA0);
                         entry.Z = BitConverter.ToSingle(source, 0xA4);
                         entry.Y = BitConverter.ToSingle(source, 0xA8);
