@@ -34,6 +34,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using NLog;
+using System.Collections.Generic;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -51,6 +52,7 @@ namespace FFXIVAPP.Client.Memory
         private Process _process;
         private IntPtr _processHandle;
         private SigScanner _sigScanner;
+        private Dictionary<String, List<uint>> _pointerPath;
 
         public Process Process
         {
@@ -88,6 +90,17 @@ namespace FFXIVAPP.Client.Memory
                     _sigScanner = new SigScanner();
                 }
                 _sigScanner = value;
+            }
+        }
+
+
+        public Dictionary<String, List<uint>> PointerPaths
+        {
+            get { return _pointerPath ?? (_pointerPath = new Dictionary<String, List<uint>>()); }
+            set
+            {
+                _pointerPath = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -142,6 +155,34 @@ namespace FFXIVAPP.Client.Memory
             }
             Constants.ProcessHandle = ProcessHandle;
             SigScanner.Locations.Clear();
+        }
+
+        public static uint ResolvePointerPath(string pathname)
+        {
+            if (Instance._pointerPath.ContainsKey(pathname))
+            {
+                return ResolvePointerPath(Instance._pointerPath[pathname]);
+            }
+            return 0;
+        }
+
+        public static uint ResolvePointerPath(List<uint> path)
+        {
+            uint addr = MemoryHandler.GetStaticAddress(0);
+            uint nextAddr = addr;
+
+            foreach (var offset in path)
+            {
+                addr = nextAddr + offset;
+                nextAddr = (uint)MemoryHandler.Instance.GetInt32(addr);
+            }
+
+            return addr;
+        }
+
+        public static uint GetStaticAddress(uint offset)
+        {
+            return (uint)Instance.Process.MainModule.BaseAddress.ToInt64() + offset;
         }
 
         /// <summary>

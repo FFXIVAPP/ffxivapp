@@ -128,8 +128,11 @@ namespace FFXIVAPP.Client.Memory
                                     enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
                                     break;
                                 default:
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16C35C); // 0x1C590); // 116032
-                                    enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16BA5C; // 0x1CE94; // 118340;
+                                    enmityStructure = MemoryHandler.ResolvePointerPath("AGRO");
+                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.ResolvePointerPath("AGRO_COUNT"));
+
+                                    //enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16C35C); // 0x1C590); // 116032
+                                    //enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16BA5C; // 0x1CE94; // 118340;
                                     break;
                             }
                             var enmityEntries = new List<EnmityEntry>();

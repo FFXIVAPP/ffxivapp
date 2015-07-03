@@ -38,6 +38,7 @@ using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 using NLog;
+using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -119,6 +120,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 var partyEntities = new List<PartyEntity>();
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
+
                                 if (partyCount > 0 && partyCount < 9)
                                 {
                                     for (uint i = 0; i < partyCount; i++)
@@ -198,6 +200,72 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             partyEntities.Add(entry);
                                         }
+                                    }
+                                }
+                                else if (partyCount == 0 && PCWorkerDelegate.CurrentUser != null)
+                                {
+                                    var entry = new PartyEntity
+                                    {
+                                        Name = PCWorkerDelegate.CurrentUser.Name,
+                                        ID = PCWorkerDelegate.CurrentUser.ID,
+                                        Coordinate = new Coordinate(PCWorkerDelegate.CurrentUser.X, PCWorkerDelegate.CurrentUser.Z, PCWorkerDelegate.CurrentUser.Y),
+                                        X = PCWorkerDelegate.CurrentUser.X,
+                                        Z = PCWorkerDelegate.CurrentUser.Z,
+                                        Y = PCWorkerDelegate.CurrentUser.Y,
+                                        Level = PCWorkerDelegate.CurrentUser.Level,
+                                        HPCurrent = PCWorkerDelegate.CurrentUser.HPCurrent,
+                                        HPMax = PCWorkerDelegate.CurrentUser.HPMax,
+                                        MPCurrent = PCWorkerDelegate.CurrentUser.MPCurrent,
+                                        MPMax = PCWorkerDelegate.CurrentUser.MPMax,
+                                        Job = PCWorkerDelegate.CurrentUser.Job
+                                    };
+                                    if (entry.HPMax == 0)
+                                    {
+                                        entry.HPMax = 1;
+                                    }
+                                    foreach (var status in PCWorkerDelegate.CurrentUser.StatusEntries)
+                                    {
+                                        var statusEntry = new StatusEntry
+                                        {
+                                            TargetName = entry.Name,
+                                            StatusID = status.StatusID,
+                                            Duration = status.Duration,
+                                            CasterID = status.CasterID
+                                        };
+                                        try
+                                        {
+                                            var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                                            statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                                            var statusKey = statusInfo.Name.English;
+                                            switch (Settings.Default.GameLanguage)
+                                            {
+                                                case "French":
+                                                    statusKey = statusInfo.Name.French;
+                                                    break;
+                                                case "Japanese":
+                                                    statusKey = statusInfo.Name.Japanese;
+                                                    break;
+                                                case "German":
+                                                    statusKey = statusInfo.Name.German;
+                                                    break;
+                                                case "Chinese":
+                                                    statusKey = statusInfo.Name.Chinese;
+                                                    break;
+                                            }
+                                            statusEntry.StatusName = statusKey;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            statusEntry.StatusName = "UNKNOWN";
+                                        }
+                                        if (statusEntry.IsValid())
+                                        {
+                                            entry.StatusEntries.Add(statusEntry);
+                                        }
+                                    }
+                                    if (entry.IsValid)
+                                    {
+                                        partyEntities.Add(entry);
                                     }
                                 }
                                 AppContextHelper.Instance.RaiseNewPartyEntries(partyEntities);
