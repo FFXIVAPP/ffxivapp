@@ -134,7 +134,7 @@ namespace FFXIVAPP.Client.Memory
             Process = process;
             try
             {
-                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.All, false, (uint) process.Id);
+                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.PROCESS_VM_ALL, false, (uint)process.Id);
             }
             catch (Exception ex)
             {

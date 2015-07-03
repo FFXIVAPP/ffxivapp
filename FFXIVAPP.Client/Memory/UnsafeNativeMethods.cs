@@ -36,7 +36,7 @@ namespace FFXIVAPP.Client.Memory
     {
         public enum ProcessAccessFlags
         {
-            All = 0x001F0FFF,
+            PROCESS_VM_ALL = 0x001F0FFF
         }
 
         /// <summary>
@@ -45,14 +45,14 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="bInheritHandle"></param>
         /// <param name="dwProcessId"></param>
         /// <returns></returns>
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, UInt32 dwProcessId);
 
         /// <summary>
         /// </summary>
         /// <param name="hObject"></param>
         /// <returns></returns>
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern Int32 CloseHandle(IntPtr hObject);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="nSize"> </param>
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, int nSize, out int lpNumberOfBytesRead);
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="nSize"> </param>
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, int nSize, out int lpNumberOfBytesRead);
 
         /// <summary>

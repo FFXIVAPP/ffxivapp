@@ -141,9 +141,15 @@ namespace FFXIVAPP.Client.Memory
 
                             #endregion
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], 4000);
+                            var endianSize = 4;
+                            var limit = 344;
+                            var chunkSize = endianSize * limit;
+                            
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], chunkSize);
+                            
                             var sourceData = new List<byte[]>();
-                            for (var i = 0; i <= 1000; i += 4)
+                            
+                            for (var i = 0; i <= (chunkSize / endianSize); i += endianSize)
                             {
                                 var characterAddress = BitConverter.ToUInt32(characterAddressMap, i);
                                 if (characterAddress == 0)
