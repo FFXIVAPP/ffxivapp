@@ -676,12 +676,6 @@ namespace FFXIVAPP.Client
                         Value = "47616D654D61696E000000",
                         Offset = 1344 // pre 3.0 = 1260
                     });
-                    //AppViewModel.Instance.Signatures.Add(new Signature
-                    //{
-                    //    Key = "CHARMAP",
-                    //    Value = "DB0F49416F12833AFFFFFFFF00000000000000000000000000000000????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A",
-                    //    Offset = 476 // pre 3.0 2.4
-                    //});
                     AppViewModel.Instance.Signatures.Add(new Signature
                     {
                         Key = "CHARMAP",
@@ -736,6 +730,24 @@ namespace FFXIVAPP.Client
                         Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
                         Offset = 106
                     });
+
+                    MemoryHandler.Instance.PointerPaths["CHARMAP"] = new List<uint>()
+                    {
+                        0x003B1710,
+                        0x18
+                    };
+
+                    MemoryHandler.Instance.PointerPaths["AGRO"] = new List<uint>()
+                    {
+                        0x002321B4,
+                        0x0
+                    };
+                    MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<uint>()
+                    {
+                        0x002321B4,
+                        0x900
+                    };
+
                     break;
             }
         }

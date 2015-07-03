@@ -119,6 +119,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 var partyEntities = new List<PartyEntity>();
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
+
                                 if (partyCount > 0 && partyCount < 9)
                                 {
                                     for (uint i = 0; i < partyCount; i++)
@@ -135,69 +136,20 @@ namespace FFXIVAPP.Client.Memory
                                         }
                                         var address = PartyInfoMap + (i * size);
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
-                                        var entry = new PartyEntity
-                                        {
-                                            Name = MemoryHandler.Instance.GetString(address, 32),
-                                            ID = actor.ID,
-                                            Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
-                                            X = actor.X,
-                                            Z = actor.Z,
-                                            Y = actor.Y,
-                                            Level = actor.Level,
-                                            HPCurrent = actor.HPCurrent,
-                                            HPMax = actor.HPMax,
-                                            MPCurrent = actor.MPCurrent,
-                                            MPMax = actor.MPMax,
-                                            Job = actor.Job
-                                        };
-                                        if (entry.HPMax == 0)
-                                        {
-                                            entry.HPMax = 1;
-                                        }
-                                        foreach (var status in actor.Statuses)
-                                        {
-                                            var statusEntry = new StatusEntry
-                                            {
-                                                TargetName = entry.Name,
-                                                StatusID = status.StatusID,
-                                                Duration = status.Duration,
-                                                CasterID = status.CasterID
-                                            };
-                                            try
-                                            {
-                                                var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                                                statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                                                var statusKey = statusInfo.Name.English;
-                                                switch (Settings.Default.GameLanguage)
-                                                {
-                                                    case "French":
-                                                        statusKey = statusInfo.Name.French;
-                                                        break;
-                                                    case "Japanese":
-                                                        statusKey = statusInfo.Name.Japanese;
-                                                        break;
-                                                    case "German":
-                                                        statusKey = statusInfo.Name.German;
-                                                        break;
-                                                    case "Chinese":
-                                                        statusKey = statusInfo.Name.Chinese;
-                                                        break;
-                                                }
-                                                statusEntry.StatusName = statusKey;
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                statusEntry.StatusName = "UNKNOWN";
-                                            }
-                                            if (statusEntry.IsValid())
-                                            {
-                                                entry.StatusEntries.Add(statusEntry);
-                                            }
-                                        }
+                                        var entry = GetPartyEntity(address, actor);
                                         if (entry.IsValid)
                                         {
                                             partyEntities.Add(entry);
                                         }
+                                    }
+                                }
+                                else if (partyCount == 0)
+                                {
+                                    var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(PartyInfoMap);
+                                    var entry = GetPartyEntity(PartyInfoMap, actor);
+                                    if (entry.IsValid)
+                                    {
+                                        partyEntities.Add(entry);
                                     }
                                 }
                                 AppContextHelper.Instance.RaiseNewPartyEntries(partyEntities);
@@ -212,6 +164,77 @@ namespace FFXIVAPP.Client.Memory
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
+        }
+
+        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember actor)
+        {
+            try
+            {
+                var entry = new PartyEntity
+                {
+                    Name = MemoryHandler.Instance.GetString(address, 32),
+                    ID = actor.ID,
+                    Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
+                    X = actor.X,
+                    Z = actor.Z,
+                    Y = actor.Y,
+                    Level = actor.Level,
+                    HPCurrent = actor.HPCurrent,
+                    HPMax = actor.HPMax,
+                    MPCurrent = actor.MPCurrent,
+                    MPMax = actor.MPMax,
+                    Job = actor.Job
+                };
+                if (entry.HPMax == 0)
+                {
+                    entry.HPMax = 1;
+                }
+                foreach (var status in actor.Statuses)
+                {
+                    var statusEntry = new StatusEntry
+                    {
+                        TargetName = entry.Name,
+                        StatusID = status.StatusID,
+                        Duration = status.Duration,
+                        CasterID = status.CasterID
+                    };
+                    try
+                    {
+                        var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                        statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                        var statusKey = statusInfo.Name.English;
+                        switch (Settings.Default.GameLanguage)
+                        {
+                            case "French":
+                                statusKey = statusInfo.Name.French;
+                                break;
+                            case "Japanese":
+                                statusKey = statusInfo.Name.Japanese;
+                                break;
+                            case "German":
+                                statusKey = statusInfo.Name.German;
+                                break;
+                            case "Chinese":
+                                statusKey = statusInfo.Name.Chinese;
+                                break;
+                        }
+                        statusEntry.StatusName = statusKey;
+                    }
+                    catch (Exception ex)
+                    {
+                        statusEntry.StatusName = "UNKNOWN";
+                    }
+                    if (statusEntry.IsValid())
+                    {
+                        entry.StatusEntries.Add(statusEntry);
+                    }
+                }
+                return entry;
+            }
+            catch (Exception ex)
+            {
+            }
+            return new PartyEntity();
         }
 
         #endregion

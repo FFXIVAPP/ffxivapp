@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -48,6 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static MemoryHandler _instance;
+        private Dictionary<string, List<uint>> _pointerPaths;
         private Process _process;
         private IntPtr _processHandle;
         private SigScanner _sigScanner;
@@ -88,6 +90,16 @@ namespace FFXIVAPP.Client.Memory
                     _sigScanner = new SigScanner();
                 }
                 _sigScanner = value;
+            }
+        }
+
+        public Dictionary<String, List<uint>> PointerPaths
+        {
+            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<uint>>()); }
+            set
+            {
+                _pointerPaths = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -134,7 +146,7 @@ namespace FFXIVAPP.Client.Memory
             Process = process;
             try
             {
-                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.PROCESS_VM_ALL, false, (uint)process.Id);
+                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.PROCESS_VM_ALL, false, (uint) process.Id);
             }
             catch (Exception ex)
             {
@@ -142,6 +154,30 @@ namespace FFXIVAPP.Client.Memory
             }
             Constants.ProcessHandle = ProcessHandle;
             SigScanner.Locations.Clear();
+        }
+
+        public static uint ResolvePointerPath(string pathname)
+        {
+            return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname]) : 0;
+        }
+
+        public static uint ResolvePointerPath(IEnumerable<uint> path)
+        {
+            var address = GetStaticAddress(0);
+            var nextAddress = address;
+
+            foreach (var offset in path)
+            {
+                address = nextAddress + offset;
+                nextAddress = (uint) Instance.GetInt32(address);
+            }
+
+            return address;
+        }
+
+        public static uint GetStaticAddress(uint offset)
+        {
+            return (uint) Instance.Process.MainModule.BaseAddress.ToInt64() + offset;
         }
 
         /// <summary>
