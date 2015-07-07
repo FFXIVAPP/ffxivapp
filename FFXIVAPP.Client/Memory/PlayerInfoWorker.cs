@@ -199,10 +199,10 @@ namespace FFXIVAPP.Client.Memory
                                     PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5724;
                                     break;
                                 default:
-                                    PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16C380; // old: 115996;
+                                    //PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 0x16C380; // old: 115996;
                                     break;
                             }
-                            MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", PlayerInfoMap);
+                            MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", MemoryHandler.ResolvePointerPath("PLAYERINFO"));
                         }
                         catch (Exception ex)
                         {
