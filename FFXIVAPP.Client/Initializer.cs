@@ -731,6 +731,11 @@ namespace FFXIVAPP.Client
                         Offset = 106
                     });
 
+                    MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<uint>()
+                    {
+                        0x01D77D60
+                    };
+
                     MemoryHandler.Instance.PointerPaths["CHARMAP"] = new List<uint>()
                     {
                         0x003B1710,
@@ -739,12 +744,12 @@ namespace FFXIVAPP.Client
 
                     MemoryHandler.Instance.PointerPaths["AGRO"] = new List<uint>()
                     {
-                        0x002321B4,
+                        0x00232244,
                         0x0
                     };
                     MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<uint>()
                     {
-                        0x002321B4,
+                        0x00232244,
                         0x900
                     };
 
