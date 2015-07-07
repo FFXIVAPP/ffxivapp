@@ -33,6 +33,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
@@ -146,7 +147,7 @@ namespace FFXIVAPP.Client.Memory
                                 else if (partyCount == 0)
                                 {
                                     var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(PartyInfoMap);
-                                    var entry = GetPartyEntity(PartyInfoMap, actor);
+                                    var entry = GetPartyEntity(PartyInfoMap, actor, PCWorkerDelegate.CurrentUser);
                                     if (entry.IsValid)
                                     {
                                         partyEntities.Add(entry);
@@ -166,15 +167,14 @@ namespace FFXIVAPP.Client.Memory
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
         }
 
-        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember actor)
+        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember partyMember, ActorEntity currentUser = null)
         {
+            var actor = currentUser ?? (dynamic) partyMember;
             try
             {
                 var entry = new PartyEntity
                 {
-                    Name = MemoryHandler.Instance.GetString(address, 32),
                     ID = actor.ID,
-                    Coordinate = new Coordinate(actor.X, actor.Z, actor.Y),
                     X = actor.X,
                     Z = actor.Z,
                     Y = actor.Y,
@@ -189,45 +189,56 @@ namespace FFXIVAPP.Client.Memory
                 {
                     entry.HPMax = 1;
                 }
-                foreach (var status in actor.Statuses)
+                if (currentUser == null)
                 {
-                    var statusEntry = new StatusEntry
+                    entry.Name = MemoryHandler.Instance.GetString(address, 32);
+                    entry.Coordinate = new Coordinate(actor.X, actor.Z, actor.Y);
+                    foreach (var status in actor.Statuses)
                     {
-                        TargetName = entry.Name,
-                        StatusID = status.StatusID,
-                        Duration = status.Duration,
-                        CasterID = status.CasterID
-                    };
-                    try
-                    {
-                        var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                        statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                        var statusKey = statusInfo.Name.English;
-                        switch (Settings.Default.GameLanguage)
+                        var statusEntry = new StatusEntry
                         {
-                            case "French":
-                                statusKey = statusInfo.Name.French;
-                                break;
-                            case "Japanese":
-                                statusKey = statusInfo.Name.Japanese;
-                                break;
-                            case "German":
-                                statusKey = statusInfo.Name.German;
-                                break;
-                            case "Chinese":
-                                statusKey = statusInfo.Name.Chinese;
-                                break;
+                            TargetName = entry.Name,
+                            StatusID = status.StatusID,
+                            Duration = status.Duration,
+                            CasterID = status.CasterID
+                        };
+                        try
+                        {
+                            var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
+                            statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                            var statusKey = statusInfo.Name.English;
+                            switch (Settings.Default.GameLanguage)
+                            {
+                                case "French":
+                                    statusKey = statusInfo.Name.French;
+                                    break;
+                                case "Japanese":
+                                    statusKey = statusInfo.Name.Japanese;
+                                    break;
+                                case "German":
+                                    statusKey = statusInfo.Name.German;
+                                    break;
+                                case "Chinese":
+                                    statusKey = statusInfo.Name.Chinese;
+                                    break;
+                            }
+                            statusEntry.StatusName = statusKey;
                         }
-                        statusEntry.StatusName = statusKey;
+                        catch (Exception ex)
+                        {
+                            statusEntry.StatusName = "UNKNOWN";
+                        }
+                        if (statusEntry.IsValid())
+                        {
+                            entry.StatusEntries.Add(statusEntry);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        statusEntry.StatusName = "UNKNOWN";
-                    }
-                    if (statusEntry.IsValid())
-                    {
-                        entry.StatusEntries.Add(statusEntry);
-                    }
+                }
+                else
+                {
+                    entry.Name = actor.Name;
+                    entry.Coordinate = actor.Coordinate;
+                    entry.StatusEntries = actor.StatusEntries;
                 }
                 return entry;
             }
