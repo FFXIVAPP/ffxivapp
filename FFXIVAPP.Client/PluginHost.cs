@@ -308,7 +308,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewMonsterEntries(List<ActorEntity> e)
+        public virtual void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewMonsterEntries;
@@ -318,7 +318,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewNPCEntries(List<ActorEntity> e)
+        public virtual void RaiseNewNPCEntries(IDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewNPCEntries;
@@ -328,7 +328,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPCEntries(List<ActorEntity> e)
+        public virtual void RaiseNewPCEntries(IDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewPCEntries;
@@ -358,7 +358,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPartyEntries(List<PartyEntity> e)
+        public virtual void RaiseNewPartyEntries(IDictionary<UInt32, PartyEntity> e)
         {
             var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
             var handler = NewPartyEntries;

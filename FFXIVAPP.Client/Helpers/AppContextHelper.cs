@@ -95,98 +95,35 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
         }
 
-        public void RaiseNewMonsterEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            MonsterWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = MonsterWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.ID == actor.ID);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        MonsterWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
+            MonsterWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
 
-        public void RaiseNewNPCEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewNPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            NPCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = NPCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.NPCID2 == actor.NPCID2);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        NPCWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
+            NPCWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
 
-        public void RaiseNewPCEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            PCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = PCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        PCWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
+            PCWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
@@ -204,7 +141,7 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }
 
-        public void RaiseNewPartyEntries(List<PartyEntity> partyEntries)
+        public void RaiseNewPartyEntries(IDictionary<UInt32, PartyEntity> partyEntries)
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPartyEntries(partyEntries);

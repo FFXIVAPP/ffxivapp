@@ -279,32 +279,15 @@ namespace FFXIVAPP.Client.Memory
                                         }
                                         if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                         {
-                                            if (PCWorkerDelegate.GetUniqueNPCEntities()
-                                                                .Any(a => a.ID == enmityEntry.ID))
+                                            var pc = PCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                            var npc = NPCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                            var monster = MonsterWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                            try
                                             {
-                                                enmityEntry.Name = PCWorkerDelegate.GetUniqueNPCEntities()
-                                                                                   .First(a => a.ID == enmityEntry.ID)
-                                                                                   .Name;
+                                                enmityEntry.Name = (pc ?? npc).Name ?? monster.Name;
                                             }
-                                            if (String.IsNullOrWhiteSpace(enmityEntry.Name))
+                                            catch (Exception ex)
                                             {
-                                                if (NPCWorkerDelegate.GetUniqueNPCEntities()
-                                                                     .Any(a => a.NPCID2 == enmityEntry.ID))
-                                                {
-                                                    enmityEntry.Name = NPCWorkerDelegate.GetUniqueNPCEntities()
-                                                                                        .First(a => a.NPCID2 == enmityEntry.ID)
-                                                                                        .Name;
-                                                }
-                                            }
-                                            if (String.IsNullOrWhiteSpace(enmityEntry.Name))
-                                            {
-                                                if (MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                                                         .Any(a => a.ID == enmityEntry.ID))
-                                                {
-                                                    enmityEntry.Name = MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                                                                            .First(a => a.ID == enmityEntry.ID)
-                                                                                            .Name;
-                                                }
                                             }
                                         }
                                         enmityEntries.Add(enmityEntry);

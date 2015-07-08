@@ -166,9 +166,9 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var monsterEntries = new List<ActorEntity>();
-                            var pcEntries = new List<ActorEntity>();
-                            var npcEntries = new List<ActorEntity>();
+                            var monsterEntries = new Dictionary<UInt32, ActorEntity>();
+                            var pcEntries = new Dictionary<UInt32, ActorEntity>();
+                            var npcEntries = new Dictionary<UInt32, ActorEntity>();
                             for (var i = 0; i < sourceData.Count; i++)
                             {
                                 try
@@ -214,13 +214,16 @@ namespace FFXIVAPP.Client.Memory
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
-                                            monsterEntries.Add(entry);
+                                            monsterEntries.Add(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
-                                            pcEntries.Add(entry);
+                                            pcEntries.Add(entry.ID, entry);
+                                            break;
+                                        case Actor.Type.NPC:
+                                            npcEntries.Add(entry.NPCID2, entry);
                                             break;
                                         default:
-                                            npcEntries.Add(entry);
+                                            npcEntries.Add(entry.ID, entry);
                                             break;
                                     }
                                 }

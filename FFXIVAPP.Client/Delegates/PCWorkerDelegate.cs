@@ -42,55 +42,37 @@ namespace FFXIVAPP.Client.Delegates
         {
             lock (_npcEntities)
             {
-                _npcEntities.Add(entity);
+                _npcEntities[entity.NPCID2] = entity;
             }
         }
 
-        public static ActorEntity GetNPCEntityByName(string name)
+        public static ActorEntity GetNPCEntity(UInt32 key)
         {
             lock (_npcEntities)
             {
-                return _npcEntities.FirstOrDefault(e => String.Equals(name, e.Name, Constants.InvariantComparer));
+                ActorEntity npc;
+                _npcEntities.TryGetValue(key, out npc);
+                return npc;
             }
         }
 
-        public static void ReplaceNPCEntities(IEnumerable<ActorEntity> entities)
+        public static void ReplaceNPCEntities(IEnumerable<KeyValuePair<uint, ActorEntity>> entities)
         {
             lock (_npcEntities)
             {
-                _npcEntities = new List<ActorEntity>(entities);
+                _npcEntities.Clear();
+                foreach (var kvp in entities)
+                {
+                    _npcEntities[kvp.Key] = kvp.Value;
+                }
             }
         }
 
-        public static IList<ActorEntity> GetNPCEntities()
+        public static IDictionary<UInt32, ActorEntity> GetNPCEntities()
         {
             lock (_npcEntities)
             {
-                return new List<ActorEntity>(_npcEntities);
-            }
-        }
-
-        public static void AddUniqueNPCEntity(ActorEntity entity)
-        {
-            lock (_uniqueNPCEntities)
-            {
-                _uniqueNPCEntities.Add(entity);
-            }
-        }
-
-        public static void ReplaceUniqueNPCEntities(IEnumerable<ActorEntity> entities)
-        {
-            lock (_uniqueNPCEntities)
-            {
-                _uniqueNPCEntities = new List<ActorEntity>(entities);
-            }
-        }
-
-        public static IList<ActorEntity> GetUniqueNPCEntities()
-        {
-            lock (_uniqueNPCEntities)
-            {
-                return new List<ActorEntity>(_uniqueNPCEntities);
+                return new Dictionary<UInt32, ActorEntity>(_npcEntities);
             }
         }
 
@@ -98,9 +80,8 @@ namespace FFXIVAPP.Client.Delegates
 
         #region Declarations
 
-        private static IList<ActorEntity> _npcEntities = new List<ActorEntity>();
-
-        private static IList<ActorEntity> _uniqueNPCEntities = new List<ActorEntity>();
+        private static IDictionary<UInt32, ActorEntity> _npcEntities = new Dictionary<UInt32, ActorEntity>();
+        
         public static ActorEntity CurrentUser { get; set; }
 
         #endregion

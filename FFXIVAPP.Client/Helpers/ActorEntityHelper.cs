@@ -201,12 +201,9 @@ namespace FFXIVAPP.Client.Helpers
                     };
                     try
                     {
-                        var pc = PCWorkerDelegate.GetUniqueNPCEntities()
-                                                 .FirstOrDefault(a => a.ID == statusEntry.CasterID);
-                        var npc = NPCWorkerDelegate.GetUniqueNPCEntities()
-                                                   .FirstOrDefault(a => a.NPCID2 == statusEntry.CasterID);
-                        var monster = MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                                           .FirstOrDefault(a => a.ID == statusEntry.CasterID);
+                        var pc = PCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var npc = NPCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var monster = MonsterWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
                         statusEntry.SourceEntity = (pc ?? npc) ?? monster;
                     }
                     catch (Exception ex)

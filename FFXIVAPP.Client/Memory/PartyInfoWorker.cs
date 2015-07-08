@@ -118,7 +118,7 @@ namespace FFXIVAPP.Client.Memory
                             PartyCountMap = MemoryHandler.Instance.SigScanner.Locations["PARTYCOUNT"];
                             try
                             {
-                                var partyEntities = new List<PartyEntity>();
+                                var partyEntities = new Dictionary<UInt32, PartyEntity>();
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
 
                                 if (partyCount > 0 && partyCount < 9)
@@ -140,7 +140,7 @@ namespace FFXIVAPP.Client.Memory
                                         var entry = GetPartyEntity(address, actor);
                                         if (entry.IsValid)
                                         {
-                                            partyEntities.Add(entry);
+                                            partyEntities[entry.ID] = entry;
                                         }
                                     }
                                 }
@@ -150,7 +150,7 @@ namespace FFXIVAPP.Client.Memory
                                     var entry = GetPartyEntity(PartyInfoMap, actor, PCWorkerDelegate.CurrentUser);
                                     if (entry.IsValid)
                                     {
-                                        partyEntities.Add(entry);
+                                        partyEntities[entry.ID] = entry;
                                     }
                                 }
                                 AppContextHelper.Instance.RaiseNewPartyEntries(partyEntities);
