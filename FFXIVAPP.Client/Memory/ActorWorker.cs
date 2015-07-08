@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -87,6 +88,8 @@ namespace FFXIVAPP.Client.Memory
 
         #region Threads
 
+        public Stopwatch Stopwatch = new Stopwatch();
+
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
@@ -107,7 +110,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
                 {
-                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("ACTORMAP"))
+                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
                     {
                         try
                         {
@@ -138,20 +141,33 @@ namespace FFXIVAPP.Client.Memory
 
                             #endregion
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["ACTORMAP"], 4000);
-                            var sourceData = new List<byte[]>();
-                            for (var i = 0; i <= 1000; i += 4)
+                            var endianSize = 4;
+                            var limit = 1372;
+                            var chunkSize = endianSize * limit;
+
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], chunkSize);
+
+                            var uniqueAddresses = new Dictionary<UInt32, UInt32>();
+
+                            for (var i = 0; i <= (chunkSize / endianSize); i += endianSize)
                             {
                                 var characterAddress = BitConverter.ToUInt32(characterAddressMap, i);
                                 if (characterAddress == 0)
                                 {
                                     continue;
                                 }
-                                sourceData.Add(MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40));
+                                uniqueAddresses[characterAddress] = characterAddress;
                             }
+
+                            var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray(kvp.Value, 0x3F40))
+                                                            .ToList();
 
                             #region ActorEntity Handlers
 
+                            var firstTime = true;
+
+                            var monsterEntries = new List<ActorEntity>();
+                            var pcEntries = new List<ActorEntity>();
                             var npcEntries = new List<ActorEntity>();
                             for (var i = 0; i < sourceData.Count; i++)
                             {
@@ -159,12 +175,38 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     var source = sourceData[i];
                                     //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime);
+
+                                    firstTime = false;
+
                                     //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
                                     //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                     //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
                                     //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
                                     entry.MapIndex = mapIndex;
+                                    if (i == 0)
+                                    {
+                                        var name = Settings.Default.CharacterName;
+                                        if (name != entry.Name || String.IsNullOrWhiteSpace(name))
+                                        {
+                                            Settings.Default.CharacterName = entry.Name;
+                                        }
+                                        if (targetAddress > 0)
+                                        {
+                                            uint currentTargetID;
+                                            var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 128);
+                                            switch (Settings.Default.GameLanguage)
+                                            {
+                                                case "Chinese":
+                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                    break;
+                                                default:
+                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                    break;
+                                            }
+                                            entry.TargetID = (int) currentTargetID;
+                                        }
+                                    }
                                     if (!entry.IsValid)
                                     {
                                         continue;
@@ -172,7 +214,10 @@ namespace FFXIVAPP.Client.Memory
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
+                                            monsterEntries.Add(entry);
+                                            break;
                                         case Actor.Type.PC:
+                                            pcEntries.Add(entry);
                                             break;
                                         default:
                                             npcEntries.Add(entry);
@@ -182,6 +227,14 @@ namespace FFXIVAPP.Client.Memory
                                 catch (Exception ex)
                                 {
                                 }
+                            }
+                            if (pcEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
+                            }
+                            if (monsterEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
                             }
                             if (npcEntries.Any())
                             {

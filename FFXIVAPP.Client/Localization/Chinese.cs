@@ -139,9 +139,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_BTNResNetWorker", "Reset Network Worker");
             Dictionary.Add("app_DefAudioDeviceLabel", "Default Audio Device");
             Dictionary.Add("app_MemScanSpeedLabel", "Memory Scanning Speed (Milliseconds)");
-            Dictionary.Add("app_ActorMSSLabel", "Actor (NPCs &amp; Other)");
+            Dictionary.Add("app_ActorMSSLabel", "Actors (Anything Targetable)");
             Dictionary.Add("app_ChatLogMSSLabel", "ChatLog");
-            Dictionary.Add("app_MonstersPCMSSLabel", "Monsters &amp; PCs");
             Dictionary.Add("app_PlayerInfMSSLabel", "Player Info (YOU)");
             Dictionary.Add("app_TargEnmMSSLabel", "Targets &amp; Enmity");
             Dictionary.Add("app_InvMSSLabel", "Inventory");

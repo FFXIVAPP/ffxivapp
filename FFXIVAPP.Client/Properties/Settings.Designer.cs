@@ -512,18 +512,6 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public string MonsterWorkerRefresh {
-            get {
-                return ((string)(this["MonsterWorkerRefresh"]));
-            }
-            set {
-                this["MonsterWorkerRefresh"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string InventoryWorkerRefresh {
             get {

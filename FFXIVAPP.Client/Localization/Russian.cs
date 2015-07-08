@@ -142,7 +142,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_MemScanSpeedLabel", "Скорочть Чтения Памяти Игры (Миллисекунды)");
             Dictionary.Add("app_ActorMSSLabel", "Субъект (NPCs и Остальные)");
             Dictionary.Add("app_ChatLogMSSLabel", "Запись Чата");
-            Dictionary.Add("app_MonstersPCMSSLabel", "Монстры и Игроки");
+            Dictionary.Add("app_ActorsPCMSSLabel", "Монстры и Игроки");
             Dictionary.Add("app_PartyInfMSSLabel", "Информация о Группе");
             Dictionary.Add("app_PlayerInfMSSLabel", "Информация о персонаже (Вы)");
             Dictionary.Add("app_TargEnmMSSLabel", "Цели и Враждебность");

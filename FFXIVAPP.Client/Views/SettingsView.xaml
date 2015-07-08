@@ -31,7 +31,7 @@
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox Header="{Binding Locale[app_UIScaleHeader],
-                                      Source={StaticResource AppProperties}}">
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <ComboBox x:Name="UIScaleSelect"
                                           Margin="5"
@@ -70,12 +70,12 @@
                             <StackPanel>
                                 <TextBlock HorizontalAlignment="Center"
                                            Foreground="{DynamicResource BlackColorBrush}"
+                                           Text="{Binding Locale[app_ProcessSelectedInfo],
+                                                          Source={StaticResource AppProperties}}"
                                            TextWrapping="WrapWithOverflow"
                                            Visibility="{Binding EnableHelpLabels,
                                                                 Source={x:Static Properties:Settings.Default},
-                                                                Converter={StaticResource VisibilityConverter}}"
-                                           Text="{Binding Locale[app_ProcessSelectedInfo],
-                                                   Source={StaticResource AppProperties}}" />
+                                                                Converter={StaticResource VisibilityConverter}}" />
                                 <ComboBox x:Name="PIDSelect"
                                           Margin="5" />
                                 <Button x:Name="SetProcess"
@@ -136,7 +136,7 @@
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox Header="{Binding Locale[app_DefNetInterfaceLabel],
-                                      Source={StaticResource AppProperties}}">
+                                                   Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="NetworkInterfaceSelect"
                                       Margin="5"
                                       IsReadOnly="False"
@@ -145,7 +145,7 @@
                                                               Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_EnableNetReadingLabel],
-                                      Source={StaticResource AppProperties}}">
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <MetroControls:ToggleSwitch IsChecked="{Binding EnableNetworkReading,
                                                                                 Source={x:Static Properties:Settings.Default}}" />
@@ -154,9 +154,9 @@
                         <Button Margin="5"
                                 Command="{Binding RefreshNetworkWorkerCommand}"
                                 Content="{Binding Locale[app_BTNResNetWorker],
-                                      Source={StaticResource AppProperties}}" />
+                                                  Source={StaticResource AppProperties}}" />
                         <GroupBox Header="{Binding Locale[app_DefAudioDeviceLabel],
-                                      Source={StaticResource AppProperties}}">
+                                                   Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="AudioDeviceSelect"
                                       Margin="5"
                                       IsReadOnly="False"
@@ -165,46 +165,40 @@
                                                               Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_MemScanSpeedLabel],
-                                      Source={StaticResource AppProperties}}">
+                                                   Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <TextBlock Text="{Binding Locale[app_ActorMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
-                                <TextBox Margin="5"
-                                         AutoWordSelection="True"
-                                         Text="{Binding ActorWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_ChatLogMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding ChatLogWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
-                                <TextBlock Text="{Binding Locale[app_MonstersPCMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                <TextBlock Text="{Binding Locale[app_ActorsPCMSSLabel],
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding MonsterWorkerRefresh,
+                                         Text="{Binding ActorWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_PartyInfMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding PartyInfoWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_PlayerInfMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding PlayerInfoWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_TargEnmMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding TargetWorkerRefresh,
                                                         Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_InvMSSLabel],
-                                      Source={StaticResource AppProperties}}" />
+                                                          Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
                                          Text="{Binding InventoryWorkerRefresh,

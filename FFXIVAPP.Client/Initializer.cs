@@ -66,7 +66,6 @@ namespace FFXIVAPP.Client
 
         private static ActorWorker _actorWorker;
         private static ChatLogWorker _chatLogWorker;
-        private static MonsterWorker _monsterWorker;
         private static PlayerInfoWorker _playerInfoWorker;
         private static TargetWorker _targetWorker;
         private static PartyInfoWorker _partyInfoWorker;
@@ -839,8 +838,6 @@ namespace FFXIVAPP.Client
             _chatLogWorker.StartScanning();
             _actorWorker = new ActorWorker();
             _actorWorker.StartScanning();
-            _monsterWorker = new MonsterWorker();
-            _monsterWorker.StartScanning();
             _playerInfoWorker = new PlayerInfoWorker();
             _playerInfoWorker.StartScanning();
             _targetWorker = new TargetWorker();
@@ -869,11 +866,6 @@ namespace FFXIVAPP.Client
             {
                 _actorWorker.StopScanning();
                 _actorWorker.Dispose();
-            }
-            if (_monsterWorker != null)
-            {
-                _monsterWorker.StopScanning();
-                _monsterWorker.Dispose();
             }
             if (_playerInfoWorker != null)
             {

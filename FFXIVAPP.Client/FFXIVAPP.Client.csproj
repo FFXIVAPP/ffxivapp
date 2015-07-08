@@ -148,7 +148,6 @@
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Localization\Russian.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
-    <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
@@ -171,7 +170,7 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\Structures.cs" />
-    <Compile Include="Memory\MonsterWorker.cs" />
+    <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />
     <Compile Include="Memory\Signature.cs" />
