@@ -112,17 +112,21 @@ namespace FFXIVAPP.Client
                 LocaleHelper.Update(Settings.Default.Culture);
             }
 
-            Initializer.LoadAvailableSources();
-            Initializer.LoadAvailablePlugins();
-            Initializer.CheckUpdates();
-            Initializer.SetGlobals();
-            Initializer.SetSignatures();
-
-            Initializer.StartMemoryWorkers();
-            if (Settings.Default.EnableNetworkReading)
+            DispatcherHelper.Invoke(delegate
             {
-                Initializer.StartNetworkWorker();
-            }
+                Initializer.LoadAvailableSources();
+                Initializer.LoadAvailablePlugins();
+                Initializer.CheckUpdates();
+                Initializer.SetGlobals();
+                Initializer.SetSignatures();
+
+                Initializer.StartMemoryWorkers();
+                if (Settings.Default.EnableNetworkReading)
+                {
+                    Initializer.StartNetworkWorker();
+                }
+            });
+
             Initializer.GetHomePlugin();
             Initializer.UpdatePluginConstants();
 
