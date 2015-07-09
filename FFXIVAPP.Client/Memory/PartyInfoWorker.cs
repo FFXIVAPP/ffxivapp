@@ -131,6 +131,7 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < partyCount; i++)
                                     {
+                                        UInt32 ID;
                                         uint size;
                                         switch (Settings.Default.GameLanguage)
                                         {
@@ -142,19 +143,38 @@ namespace FFXIVAPP.Client.Memory
                                                 break;
                                         }
                                         var address = PartyInfoMap + (i * size);
+                                        var source = MemoryHandler.Instance.GetByteArray(address, (int) size);
+                                        switch (Settings.Default.GameLanguage)
+                                        {
+                                            case "Chinese":
+                                                ID = BitConverter.ToUInt32(source, 0x10);
+                                                break;
+                                            default:
+                                                ID = BitConverter.ToUInt32(source, 0x10);
+                                                break;
+                                        }
+                                        ActorEntity existing = null;
+                                        if (currentPartyEntries.ContainsKey(ID))
+                                        {
+                                            currentPartyEntries.Remove(ID);
+                                            if (PCWorkerDelegate.NPCEntities.ContainsKey(ID))
+                                            {
+                                                existing = PCWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            newPartyEntries.Add(ID);
+                                        }
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
-                                        var entry = GetPartyEntity(address, actor);
+                                        var entry = GetPartyEntity(address, actor, existing);
                                         if (!entry.IsValid)
                                         {
                                             continue;
                                         }
-                                        if (currentPartyEntries.ContainsKey(entry.ID))
+                                        if (existing != null)
                                         {
-                                            currentPartyEntries.Remove(entry.ID);
-                                        }
-                                        else
-                                        {
-                                            newPartyEntries.Add(entry.ID);
+                                            continue;
                                         }
                                         PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                     }
@@ -209,9 +229,9 @@ namespace FFXIVAPP.Client.Memory
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
         }
 
-        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember partyMember, ActorEntity currentUser = null)
+        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember partyMember, ActorEntity actorEntity = null)
         {
-            var actor = currentUser ?? (dynamic) partyMember;
+            var actor = actorEntity ?? (dynamic) partyMember;
             try
             {
                 var entry = new PartyEntity
@@ -231,7 +251,7 @@ namespace FFXIVAPP.Client.Memory
                 {
                     entry.HPMax = 1;
                 }
-                if (currentUser == null)
+                if (actorEntity == null)
                 {
                     entry.Name = MemoryHandler.Instance.GetString(address, 32);
                     entry.Coordinate = new Coordinate(actor.X, actor.Z, actor.Y);
