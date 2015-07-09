@@ -107,6 +107,16 @@ namespace FFXIVAPP.Client.Helpers
 
         #region SEND ONCE VIA REFERENCE
 
+        public void RaiseNewMonsterAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewMonsterAddedEntries(keys);
+        }
+
         public void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
@@ -115,6 +125,26 @@ namespace FFXIVAPP.Client.Helpers
             }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
+        }
+
+        public void RaiseNewMonsterRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewMonsterRemovedEntries(keys);
+        }
+
+        public void RaiseNewNPCAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNPCAddedEntries(keys);
         }
 
         public void RaiseNewNPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
@@ -127,6 +157,26 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
 
+        public void RaiseNewNPCRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNPCRemovedEntries(keys);
+        }
+
+        public void RaiseNewPCAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPCAddedEntries(keys);
+        }
+
         public void RaiseNewPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
@@ -135,6 +185,16 @@ namespace FFXIVAPP.Client.Helpers
             }
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
+        }
+
+        public void RaiseNewPCRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPCRemovedEntries(keys);
         }
 
         #endregion

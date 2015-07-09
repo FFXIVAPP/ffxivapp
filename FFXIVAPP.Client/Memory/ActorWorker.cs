@@ -179,6 +179,10 @@ namespace FFXIVAPP.Client.Memory
                                                                    .Select(kvp => kvp.Key)
                                                                    .ToList();
 
+                            var newMonsterEntries = new List<UInt32>();
+                            var newNPCEntries = new List<UInt32>();
+                            var newPCEntries = new List<UInt32>();
+
                             for (var i = 0; i < sourceData.Count; i++)
                             {
                                 try
@@ -228,12 +232,20 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 currentMonsterEntries.Remove(entry.ID);
                                             }
+                                            else
+                                            {
+                                                newMonsterEntries.Add(entry.ID);
+                                            }
                                             MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
                                             if (currentPCEntries.Contains(entry.ID))
                                             {
                                                 currentPCEntries.Remove(entry.ID);
+                                            }
+                                            else
+                                            {
+                                                newPCEntries.Add(entry.ID);
                                             }
                                             PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
@@ -242,12 +254,20 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 currentNPCEntries.Remove(entry.NPCID2);
                                             }
+                                            else
+                                            {
+                                                newNPCEntries.Add(entry.NPCID2);
+                                            }
                                             NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
                                             break;
                                         default:
                                             if (currentNPCEntries.Contains(entry.ID))
                                             {
                                                 currentNPCEntries.Remove(entry.ID);
+                                            }
+                                            else
+                                            {
+                                                newNPCEntries.Add(entry.ID);
                                             }
                                             NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
@@ -266,17 +286,42 @@ namespace FFXIVAPP.Client.Memory
                                 AppContextHelper.Instance.RaiseNewPCEntries(PCWorkerDelegate.NPCEntities);
                             }
 
-                            foreach (var key in currentMonsterEntries)
+                            if (newMonsterEntries.Any())
                             {
-                                MonsterWorkerDelegate.RemoveNPCEntity(key);
+                                AppContextHelper.Instance.RaiseNewMonsterAddedEntries(newMonsterEntries);
                             }
-                            foreach (var key in currentNPCEntries)
+                            if (newNPCEntries.Any())
                             {
-                                NPCWorkerDelegate.RemoveNPCEntity(key);
+                                AppContextHelper.Instance.RaiseNewNPCAddedEntries(newNPCEntries);
                             }
-                            foreach (var key in currentPCEntries)
+                            if (newPCEntries.Any())
                             {
-                                PCWorkerDelegate.RemoveNPCEntity(key);
+                                AppContextHelper.Instance.RaiseNewPCAddedEntries(newPCEntries);
+                            }
+
+                            if (currentMonsterEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(currentMonsterEntries);
+                                foreach (var key in currentMonsterEntries)
+                                {
+                                    MonsterWorkerDelegate.RemoveNPCEntity(key);
+                                }
+                            }
+                            if (currentNPCEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewNPCRemovedEntries(currentNPCEntries);
+                                foreach (var key in currentNPCEntries)
+                                {
+                                    NPCWorkerDelegate.RemoveNPCEntity(key);
+                                }
+                            }
+                            if (currentPCEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewPCRemovedEntries(currentPCEntries);
+                                foreach (var key in currentPCEntries)
+                                {
+                                    PCWorkerDelegate.RemoveNPCEntity(key);
+                                }
                             }
 
                             #endregion
