@@ -133,6 +133,7 @@
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameMultiValueConverter.cs" />
+    <Compile Include="Delegates\PartyInfoWorkerDelegate.cs" />
     <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />

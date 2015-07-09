@@ -213,10 +213,30 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }
 
+        public void RaiseNewPartyAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyAddedEntries(keys);
+        }
+
         public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
+        }
+
+        public void RaiseNewPartyRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyRemovedEntries(keys);
         }
 
         public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)

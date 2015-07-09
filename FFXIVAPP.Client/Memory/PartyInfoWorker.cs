@@ -28,9 +28,10 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
@@ -54,6 +55,8 @@ namespace FFXIVAPP.Client.Memory
 
         private uint PartyInfoMap { get; set; }
         private uint PartyCountMap { get; set; }
+
+        public bool ReferencesSet { get; set; }
 
         #endregion
 
@@ -118,8 +121,11 @@ namespace FFXIVAPP.Client.Memory
                             PartyCountMap = MemoryHandler.Instance.SigScanner.Locations["PARTYCOUNT"];
                             try
                             {
-                                var partyEntities = new ConcurrentDictionary<UInt32, PartyEntity>();
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
+
+                                var currentPartyEntries = PartyInfoWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
+
+                                var newPartyEntries = new List<UInt32>();
 
                                 if (partyCount > 0 && partyCount < 9)
                                 {
@@ -138,10 +144,19 @@ namespace FFXIVAPP.Client.Memory
                                         var address = PartyInfoMap + (i * size);
                                         var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
                                         var entry = GetPartyEntity(address, actor);
-                                        if (entry.IsValid)
+                                        if (!entry.IsValid)
                                         {
-                                            partyEntities[entry.ID] = entry;
+                                            continue;
                                         }
+                                        if (currentPartyEntries.ContainsKey(entry.ID))
+                                        {
+                                            currentPartyEntries.Remove(entry.ID);
+                                        }
+                                        else
+                                        {
+                                            newPartyEntries.Add(entry.ID);
+                                        }
+                                        PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                     }
                                 }
                                 else if (partyCount == 0)
@@ -150,10 +165,37 @@ namespace FFXIVAPP.Client.Memory
                                     var entry = GetPartyEntity(PartyInfoMap, actor, PCWorkerDelegate.CurrentUser);
                                     if (entry.IsValid)
                                     {
-                                        partyEntities[entry.ID] = entry;
+                                        if (currentPartyEntries.ContainsKey(entry.ID))
+                                        {
+                                            currentPartyEntries.Remove(entry.ID);
+                                        }
+                                        else
+                                        {
+                                            newPartyEntries.Add(entry.ID);
+                                        }
+                                        PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                     }
                                 }
-                                AppContextHelper.Instance.RaiseNewPartyEntries(partyEntities);
+
+                                if (!ReferencesSet)
+                                {
+                                    ReferencesSet = true;
+                                    AppContextHelper.Instance.RaiseNewPartyEntries(PartyInfoWorkerDelegate.NPCEntities);
+                                }
+
+                                if (newPartyEntries.Any())
+                                {
+                                    AppContextHelper.Instance.RaiseNewPartyAddedEntries(newPartyEntries);
+                                }
+
+                                if (currentPartyEntries.Any())
+                                {
+                                    AppContextHelper.Instance.RaiseNewPartyRemovedEntries(currentPartyEntries.Keys.ToList());
+                                    foreach (var key in currentPartyEntries.Keys)
+                                    {
+                                        PartyInfoWorkerDelegate.RemoveNPCEntity(key);
+                                    }
+                                }
                             }
                             catch (Exception ex)
                             {

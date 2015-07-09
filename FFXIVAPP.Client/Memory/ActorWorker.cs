@@ -168,9 +168,9 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToList();
-                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToList();
-                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToList();
+                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
+                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
+                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
 
                             var newMonsterEntries = new List<UInt32>();
                             var newNPCEntries = new List<UInt32>();
@@ -221,7 +221,7 @@ namespace FFXIVAPP.Client.Memory
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
-                                            if (currentMonsterEntries.Contains(entry.ID))
+                                            if (currentMonsterEntries.ContainsKey(entry.ID))
                                             {
                                                 currentMonsterEntries.Remove(entry.ID);
                                             }
@@ -232,7 +232,7 @@ namespace FFXIVAPP.Client.Memory
                                             MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
-                                            if (currentPCEntries.Contains(entry.ID))
+                                            if (currentPCEntries.ContainsKey(entry.ID))
                                             {
                                                 currentPCEntries.Remove(entry.ID);
                                             }
@@ -243,7 +243,7 @@ namespace FFXIVAPP.Client.Memory
                                             PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.NPC:
-                                            if (currentNPCEntries.Contains(entry.NPCID2))
+                                            if (currentNPCEntries.ContainsKey(entry.NPCID2))
                                             {
                                                 currentNPCEntries.Remove(entry.NPCID2);
                                             }
@@ -254,7 +254,7 @@ namespace FFXIVAPP.Client.Memory
                                             NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
                                             break;
                                         default:
-                                            if (currentNPCEntries.Contains(entry.ID))
+                                            if (currentNPCEntries.ContainsKey(entry.ID))
                                             {
                                                 currentNPCEntries.Remove(entry.ID);
                                             }
@@ -294,24 +294,24 @@ namespace FFXIVAPP.Client.Memory
 
                             if (currentMonsterEntries.Any())
                             {
-                                AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(currentMonsterEntries);
-                                foreach (var key in currentMonsterEntries)
+                                AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(currentMonsterEntries.Keys.ToList());
+                                foreach (var key in currentMonsterEntries.Keys)
                                 {
                                     MonsterWorkerDelegate.RemoveNPCEntity(key);
                                 }
                             }
                             if (currentNPCEntries.Any())
                             {
-                                AppContextHelper.Instance.RaiseNewNPCRemovedEntries(currentNPCEntries);
-                                foreach (var key in currentNPCEntries)
+                                AppContextHelper.Instance.RaiseNewNPCRemovedEntries(currentNPCEntries.Keys.ToList());
+                                foreach (var key in currentNPCEntries.Keys)
                                 {
                                     NPCWorkerDelegate.RemoveNPCEntity(key);
                                 }
                             }
                             if (currentPCEntries.Any())
                             {
-                                AppContextHelper.Instance.RaiseNewPCRemovedEntries(currentPCEntries);
-                                foreach (var key in currentPCEntries)
+                                AppContextHelper.Instance.RaiseNewPCRemovedEntries(currentPCEntries.Keys.ToList());
+                                foreach (var key in currentPCEntries.Keys)
                                 {
                                     PCWorkerDelegate.RemoveNPCEntity(key);
                                 }

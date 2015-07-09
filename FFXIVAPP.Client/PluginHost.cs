@@ -295,7 +295,11 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<TargetEntityEvent> NewTargetEntity = delegate { };
 
+        public event EventHandler<PartyEntitiesAddedEvent> NewPartyEntriesAdded = delegate { };
+
         public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
+
+        public event EventHandler<PartyEntitiesRemovedEvent> NewPartyEntriesRemoved = delegate { };
 
         public event EventHandler<InventoryEntitiesEvent> NewInventoryEntries = delegate { };
 
@@ -431,6 +435,16 @@ namespace FFXIVAPP.Client
             }
         }
 
+        public virtual void RaiseNewPartyAddedEntries(List<UInt32> e)
+        {
+            var partyEntitiesAddedEvent = new PartyEntitiesAddedEvent(this, e);
+            var handler = NewPartyEntriesAdded;
+            if (handler != null)
+            {
+                handler(this, partyEntitiesAddedEvent);
+            }
+        }
+
         public virtual void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> e)
         {
             var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
@@ -438,6 +452,16 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, partyEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewPartyRemovedEntries(List<UInt32> e)
+        {
+            var partyEntitiesRemovedEvent = new PartyEntitiesRemovedEvent(this, e);
+            var handler = NewPartyEntriesRemoved;
+            if (handler != null)
+            {
+                handler(this, partyEntitiesRemovedEvent);
             }
         }
 
