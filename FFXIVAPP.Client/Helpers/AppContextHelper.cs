@@ -79,6 +79,8 @@ namespace FFXIVAPP.Client.Helpers
 
         #endregion
 
+        #region SEND EVERYTIME
+
         public void RaiseNewConstants(ConstantsEntity constantsEntity)
         {
             PluginHost.Instance.RaiseNewConstantsEntity(constantsEntity);
@@ -95,13 +97,22 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
         }
 
+        public void RaiseNewPacket(NetworkPacket networkPacket)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
+        }
+
+        #endregion
+
+        #region SEND ONCE VIA REFERENCE
+
         public void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            MonsterWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
@@ -112,7 +123,6 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            NPCWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
@@ -123,10 +133,11 @@ namespace FFXIVAPP.Client.Helpers
             {
                 return;
             }
-            PCWorkerDelegate.ReplaceNPCEntities(actorEntities);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
+
+        #endregion
 
         public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
         {
@@ -151,12 +162,6 @@ namespace FFXIVAPP.Client.Helpers
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
-        }
-
-        public void RaiseNewPacket(NetworkPacket networkPacket)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
         }
     }
 }

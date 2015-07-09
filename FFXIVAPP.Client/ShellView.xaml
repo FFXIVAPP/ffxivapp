@@ -35,7 +35,7 @@
                            WindowStyle="None"
                            d:DesignHeight="720"
                            d:DesignWidth="480"
-                           mc:Ignorable="d">
+                           mc:Ignorable="d" ContentRendered="MetroWindowContentRendered">
 
     <Window.Resources>
         <ResourceDictionary>

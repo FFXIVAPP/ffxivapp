@@ -35,6 +35,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
@@ -52,6 +53,8 @@ namespace FFXIVAPP.Client.Memory
         #endregion
 
         #region Property Bindings
+
+        public bool ReferencesSet { get; set; }
 
         #endregion
 
@@ -166,9 +169,16 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var monsterEntries = new Dictionary<UInt32, ActorEntity>();
-                            var pcEntries = new Dictionary<UInt32, ActorEntity>();
-                            var npcEntries = new Dictionary<UInt32, ActorEntity>();
+                            var currentMonsterEntries = MonsterWorkerDelegate.GetNPCEntities()
+                                                                             .Select(kvp => kvp.Key)
+                                                                             .ToList();
+                            var currentNPCEntries = NPCWorkerDelegate.GetNPCEntities()
+                                                                     .Select(kvp => kvp.Key)
+                                                                     .ToList();
+                            var currentPCEntries = PCWorkerDelegate.GetNPCEntities()
+                                                                   .Select(kvp => kvp.Key)
+                                                                   .ToList();
+
                             for (var i = 0; i < sourceData.Count; i++)
                             {
                                 try
@@ -214,16 +224,32 @@ namespace FFXIVAPP.Client.Memory
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
-                                            monsterEntries.Add(entry.ID, entry);
+                                            if (currentMonsterEntries.Contains(entry.ID))
+                                            {
+                                                currentMonsterEntries.Remove(entry.ID);
+                                            }
+                                            MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
-                                            pcEntries.Add(entry.ID, entry);
+                                            if (currentPCEntries.Contains(entry.ID))
+                                            {
+                                                currentPCEntries.Remove(entry.ID);
+                                            }
+                                            PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.NPC:
-                                            npcEntries.Add(entry.NPCID2, entry);
+                                            if (currentNPCEntries.Contains(entry.NPCID2))
+                                            {
+                                                currentNPCEntries.Remove(entry.NPCID2);
+                                            }
+                                            NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
                                             break;
                                         default:
-                                            npcEntries.Add(entry.ID, entry);
+                                            if (currentNPCEntries.Contains(entry.ID))
+                                            {
+                                                currentNPCEntries.Remove(entry.ID);
+                                            }
+                                            NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                     }
                                 }
@@ -231,17 +257,26 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                 }
                             }
-                            if (pcEntries.Any())
+
+                            if (!ReferencesSet)
                             {
-                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
+                                ReferencesSet = true;
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(MonsterWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewNPCEntries(NPCWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewPCEntries(PCWorkerDelegate.NPCEntities);
                             }
-                            if (monsterEntries.Any())
+
+                            foreach (var key in currentMonsterEntries)
                             {
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
+                                MonsterWorkerDelegate.RemoveNPCEntity(key);
                             }
-                            if (npcEntries.Any())
+                            foreach (var key in currentNPCEntries)
                             {
-                                AppContextHelper.Instance.RaiseNewNPCEntries(npcEntries);
+                                NPCWorkerDelegate.RemoveNPCEntity(key);
+                            }
+                            foreach (var key in currentPCEntries)
+                            {
+                                PCWorkerDelegate.RemoveNPCEntity(key);
                             }
 
                             #endregion

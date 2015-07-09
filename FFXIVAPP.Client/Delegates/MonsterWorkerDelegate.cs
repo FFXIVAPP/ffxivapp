@@ -29,7 +29,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FFXIVAPP.Common.Core.Memory;
 
 namespace FFXIVAPP.Client.Delegates
@@ -38,50 +37,64 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Collection Access & Modification
 
-        public static void AddNPCEntity(ActorEntity entity)
+        public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
         {
-            lock (_npcEntities)
+            lock (NPCEntities)
             {
-                _npcEntities[entity.ID] = entity;
+                NPCEntities[key] = entity;
             }
         }
 
+
         public static ActorEntity GetNPCEntity(UInt32 key)
         {
-            lock (_npcEntities)
+            lock (NPCEntities)
             {
                 ActorEntity npc;
-                _npcEntities.TryGetValue(key, out npc);
+                NPCEntities.TryGetValue(key, out npc);
                 return npc;
+            }
+        }
+
+        public static void RemoveNPCEntity(UInt32 key)
+        {
+            lock (NPCEntities)
+            {
+                NPCEntities.Remove(key);
             }
         }
 
         public static void ReplaceNPCEntities(IEnumerable<KeyValuePair<uint, ActorEntity>> entities)
         {
-            lock (_npcEntities)
+            lock (NPCEntities)
             {
-                _npcEntities.Clear();
+                NPCEntities.Clear();
                 foreach (var kvp in entities)
                 {
-                    _npcEntities[kvp.Key] = kvp.Value;
+                    NPCEntities[kvp.Key] = kvp.Value;
                 }
             }
         }
 
         public static IDictionary<UInt32, ActorEntity> GetNPCEntities()
         {
-            lock (_npcEntities)
+            lock (NPCEntities)
             {
-                return new Dictionary<UInt32, ActorEntity>(_npcEntities);
+                return new Dictionary<UInt32, ActorEntity>(NPCEntities);
             }
         }
-
 
         #endregion
 
         #region Declarations
 
-        private static IDictionary<UInt32, ActorEntity> _npcEntities = new Dictionary<UInt32, ActorEntity>();
+        private static IDictionary<UInt32, ActorEntity> _npcEntities;
+
+        public static IDictionary<UInt32, ActorEntity> NPCEntities
+        {
+            get { return _npcEntities ?? (_npcEntities = new Dictionary<UInt32, ActorEntity>()); }
+            private set { _npcEntities = value; }
+        }
 
         #endregion
     }

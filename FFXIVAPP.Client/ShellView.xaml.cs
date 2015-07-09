@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -55,6 +56,8 @@ namespace FFXIVAPP.Client
 
         #region Property Bindings
 
+        public bool IsRendered { get; set; }
+        
         #endregion
 
         #region Declarations
@@ -80,6 +83,24 @@ namespace FFXIVAPP.Client
 
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
 
+            AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
+            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+
+            AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MetroWindowContentRendered(object sender, EventArgs e)
+        {
+            if (IsRendered)
+            {
+                return;
+            }
+            IsRendered = true;
+
             #region GUI Finalization
 
             if (String.IsNullOrWhiteSpace(Settings.Default.UILanguage))
@@ -96,6 +117,7 @@ namespace FFXIVAPP.Client
             Initializer.CheckUpdates();
             Initializer.SetGlobals();
             Initializer.SetSignatures();
+
             Initializer.StartMemoryWorkers();
             if (Settings.Default.EnableNetworkReading)
             {
@@ -105,10 +127,6 @@ namespace FFXIVAPP.Client
             Initializer.UpdatePluginConstants();
 
             #endregion
-
-            AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
-            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
-            AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
         }
 
         /// <summary>
