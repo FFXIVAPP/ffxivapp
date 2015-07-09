@@ -40,9 +40,9 @@ namespace FFXIVAPP.Client.Helpers
 {
     public static class ActorEntityHelper
     {
-        public static ActorEntity ResolveActorFromBytes(byte[] source, bool isCurrentUser = false)
+        public static ActorEntity ResolveActorFromBytes(byte[] source, bool isCurrentUser = false, ActorEntity entry = null)
         {
-            var entry = new ActorEntity();
+            entry = entry ?? new ActorEntity();
             try
             {
                 uint targetID;

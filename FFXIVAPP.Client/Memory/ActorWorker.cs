@@ -38,6 +38,7 @@ using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using NLog;
 
@@ -182,7 +183,76 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     var source = sourceData[i];
                                     //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime);
+
+                                    UInt32 ID;
+                                    UInt32 NPCID2;
+                                    Actor.Type Type;
+
+                                    switch (Settings.Default.GameLanguage)
+                                    {
+                                        case "Chinese":
+                                            ID = BitConverter.ToUInt32(source, 0x74);
+                                            NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                                            Type = (Actor.Type)source[0x8A];
+                                            break;
+                                        default:
+                                            ID = BitConverter.ToUInt32(source, 0x74);
+                                            NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                                            Type = (Actor.Type)source[0x8A];
+                                            break;
+                                    }
+
+                                    ActorEntity existing = null;
+
+                                    switch (Type)
+                                    {
+                                        case Actor.Type.Monster:
+                                            if (currentMonsterEntries.ContainsKey(ID))
+                                            {
+                                                currentMonsterEntries.Remove(ID);
+                                                existing = MonsterWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newMonsterEntries.Add(ID);
+                                            }
+                                            break;
+                                        case Actor.Type.PC:
+                                            if (currentPCEntries.ContainsKey(ID))
+                                            {
+                                                currentPCEntries.Remove(ID);
+                                                existing = PCWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newPCEntries.Add(ID);
+                                            }
+                                            break;
+                                        case Actor.Type.NPC:
+                                            if (currentNPCEntries.ContainsKey(NPCID2))
+                                            {
+                                                currentNPCEntries.Remove(NPCID2);
+                                                existing = NPCWorkerDelegate.GetNPCEntity(NPCID2);
+                                            }
+                                            else
+                                            {
+                                                newNPCEntries.Add(NPCID2);
+                                            }
+                                            break;
+                                        default:
+                                            if (currentNPCEntries.ContainsKey(ID))
+                                            {
+                                                currentNPCEntries.Remove(ID);
+                                                existing = NPCWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newNPCEntries.Add(ID);
+                                            }
+                                            break;
+                                    }
+
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime, existing);
 
                                     firstTime = false;
 
@@ -218,50 +288,22 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         continue;
                                     }
+                                    if (existing != null)
+                                    {
+                                        continue;
+                                    }
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
-                                            if (currentMonsterEntries.ContainsKey(entry.ID))
-                                            {
-                                                currentMonsterEntries.Remove(entry.ID);
-                                            }
-                                            else
-                                            {
-                                                newMonsterEntries.Add(entry.ID);
-                                            }
                                             MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
-                                            if (currentPCEntries.ContainsKey(entry.ID))
-                                            {
-                                                currentPCEntries.Remove(entry.ID);
-                                            }
-                                            else
-                                            {
-                                                newPCEntries.Add(entry.ID);
-                                            }
                                             PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.NPC:
-                                            if (currentNPCEntries.ContainsKey(entry.NPCID2))
-                                            {
-                                                currentNPCEntries.Remove(entry.NPCID2);
-                                            }
-                                            else
-                                            {
-                                                newNPCEntries.Add(entry.NPCID2);
-                                            }
                                             NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
                                             break;
                                         default:
-                                            if (currentNPCEntries.ContainsKey(entry.ID))
-                                            {
-                                                currentNPCEntries.Remove(entry.ID);
-                                            }
-                                            else
-                                            {
-                                                newNPCEntries.Add(entry.ID);
-                                            }
                                             NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                     }
