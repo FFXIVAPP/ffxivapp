@@ -28,7 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -118,7 +118,7 @@ namespace FFXIVAPP.Client.Memory
                             PartyCountMap = MemoryHandler.Instance.SigScanner.Locations["PARTYCOUNT"];
                             try
                             {
-                                var partyEntities = new Dictionary<UInt32, PartyEntity>();
+                                var partyEntities = new ConcurrentDictionary<UInt32, PartyEntity>();
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
 
                                 if (partyCount > 0 && partyCount < 9)

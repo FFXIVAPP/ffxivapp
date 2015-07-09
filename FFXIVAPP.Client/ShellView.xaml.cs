@@ -34,7 +34,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
@@ -57,7 +56,7 @@ namespace FFXIVAPP.Client
         #region Property Bindings
 
         public bool IsRendered { get; set; }
-        
+
         #endregion
 
         #region Declarations

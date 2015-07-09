@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
@@ -117,7 +118,7 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewMonsterAddedEntries(keys);
         }
 
-        public void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> actorEntities)
+        public void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -147,7 +148,7 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewNPCAddedEntries(keys);
         }
 
-        public void RaiseNewNPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
+        public void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -177,7 +178,7 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewPCAddedEntries(keys);
         }
 
-        public void RaiseNewPCEntries(IDictionary<UInt32, ActorEntity> actorEntities)
+        public void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
@@ -212,7 +213,7 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }
 
-        public void RaiseNewPartyEntries(IDictionary<UInt32, PartyEntity> partyEntries)
+        public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPartyEntries(partyEntries);

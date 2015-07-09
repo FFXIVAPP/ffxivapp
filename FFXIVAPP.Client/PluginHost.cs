@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -279,13 +280,13 @@ namespace FFXIVAPP.Client
         public event EventHandler<ActorEntitiesRemovedEvent> NewNPCEntriesRemoved = delegate { };
 
         public event EventHandler<ActorEntitiesAddedEvent> NewNPCEntriesAdded = delegate { };
-        
+
         public event EventHandler<ActorEntitiesEvent> NewNPCEntries = delegate { };
 
         public event EventHandler<ActorEntitiesRemovedEvent> NewMonsterEntriesRemoved = delegate { };
 
         public event EventHandler<ActorEntitiesAddedEvent> NewPCEntriesAdded = delegate { };
-        
+
         public event EventHandler<ActorEntitiesEvent> NewPCEntries = delegate { };
 
         public event EventHandler<ActorEntitiesRemovedEvent> NewPCEntriesRemoved = delegate { };
@@ -330,7 +331,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewMonsterEntries(IDictionary<UInt32, ActorEntity> e)
+        public virtual void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewMonsterEntries;
@@ -360,7 +361,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewNPCEntries(IDictionary<UInt32, ActorEntity> e)
+        public virtual void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewNPCEntries;
@@ -390,7 +391,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPCEntries(IDictionary<UInt32, ActorEntity> e)
+        public virtual void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewPCEntries;
@@ -430,7 +431,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPartyEntries(IDictionary<UInt32, PartyEntity> e)
+        public virtual void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> e)
         {
             var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
             var handler = NewPartyEntries;

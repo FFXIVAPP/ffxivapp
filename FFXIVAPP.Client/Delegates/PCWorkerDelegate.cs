@@ -28,77 +28,47 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Concurrent;
 using FFXIVAPP.Common.Core.Memory;
 
 namespace FFXIVAPP.Client.Delegates
 {
     public static class PCWorkerDelegate
     {
-         #region Collection Access & Modification
+        #region Collection Access & Modification
 
         public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
         {
-            lock (NPCEntities)
-            {
-                NPCEntities[key] = entity;
-            }
+            NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
-
 
         public static ActorEntity GetNPCEntity(UInt32 key)
         {
-            lock (NPCEntities)
-            {
-                ActorEntity npc;
-                NPCEntities.TryGetValue(key, out npc);
-                return npc;
-            }
+            ActorEntity npc;
+            NPCEntities.TryGetValue(key, out npc);
+            return npc;
         }
 
-        public static void RemoveNPCEntity(UInt32 key)
+        public static bool RemoveNPCEntity(UInt32 key)
         {
-            lock (NPCEntities)
-            {
-                NPCEntities.Remove(key);
-            }
-        }
-
-        public static void ReplaceNPCEntities(IEnumerable<KeyValuePair<uint, ActorEntity>> entities)
-        {
-            lock (NPCEntities)
-            {
-                NPCEntities.Clear();
-                foreach (var kvp in entities)
-                {
-                    NPCEntities[kvp.Key] = kvp.Value;
-                }
-            }
-        }
-
-        public static IDictionary<UInt32, ActorEntity> GetNPCEntities()
-        {
-            lock (NPCEntities)
-            {
-                return new Dictionary<UInt32, ActorEntity>(NPCEntities);
-            }
+            ActorEntity removed;
+            return NPCEntities.TryRemove(key, out removed);
         }
 
         #endregion
 
         #region Declarations
 
-        private static IDictionary<UInt32, ActorEntity> _npcEntities;
+        private static ConcurrentDictionary<UInt32, ActorEntity> _npcEntities;
 
-        public static IDictionary<UInt32, ActorEntity> NPCEntities
+        public static ConcurrentDictionary<UInt32, ActorEntity> NPCEntities
         {
-            get { return _npcEntities ?? (_npcEntities = new Dictionary<UInt32, ActorEntity>()); }
+            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
             private set { _npcEntities = value; }
         }
 
-         public static ActorEntity CurrentUser { get; set; }
+        public static ActorEntity CurrentUser { get; set; }
 
-        #endregion    
+        #endregion
     }
 }

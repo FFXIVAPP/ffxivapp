@@ -38,7 +38,6 @@ using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
 using NLog;
 
@@ -169,15 +168,9 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var currentMonsterEntries = MonsterWorkerDelegate.GetNPCEntities()
-                                                                             .Select(kvp => kvp.Key)
-                                                                             .ToList();
-                            var currentNPCEntries = NPCWorkerDelegate.GetNPCEntities()
-                                                                     .Select(kvp => kvp.Key)
-                                                                     .ToList();
-                            var currentPCEntries = PCWorkerDelegate.GetNPCEntities()
-                                                                   .Select(kvp => kvp.Key)
-                                                                   .ToList();
+                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToList();
+                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToList();
+                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToList();
 
                             var newMonsterEntries = new List<UInt32>();
                             var newNPCEntries = new List<UInt32>();
