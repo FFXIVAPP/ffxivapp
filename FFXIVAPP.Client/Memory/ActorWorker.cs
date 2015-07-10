@@ -35,6 +35,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
@@ -52,6 +53,8 @@ namespace FFXIVAPP.Client.Memory
         #endregion
 
         #region Property Bindings
+
+        public bool ReferencesSet { get; set; }
 
         #endregion
 
@@ -166,16 +169,90 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var monsterEntries = new List<ActorEntity>();
-                            var pcEntries = new List<ActorEntity>();
-                            var npcEntries = new List<ActorEntity>();
+                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+
+                            var newMonsterEntries = new List<UInt32>();
+                            var newNPCEntries = new List<UInt32>();
+                            var newPCEntries = new List<UInt32>();
+
                             for (var i = 0; i < sourceData.Count; i++)
                             {
                                 try
                                 {
                                     var source = sourceData[i];
                                     //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
-                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime);
+
+                                    UInt32 ID;
+                                    UInt32 NPCID2;
+                                    Actor.Type Type;
+
+                                    switch (Settings.Default.GameLanguage)
+                                    {
+                                        case "Chinese":
+                                            ID = BitConverter.ToUInt32(source, 0x74);
+                                            NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                                            Type = (Actor.Type) source[0x8A];
+                                            break;
+                                        default:
+                                            ID = BitConverter.ToUInt32(source, 0x74);
+                                            NPCID2 = BitConverter.ToUInt32(source, 0x80);
+                                            Type = (Actor.Type) source[0x8A];
+                                            break;
+                                    }
+
+                                    ActorEntity existing = null;
+
+                                    switch (Type)
+                                    {
+                                        case Actor.Type.Monster:
+                                            if (currentMonsterEntries.ContainsKey(ID))
+                                            {
+                                                currentMonsterEntries.Remove(ID);
+                                                existing = MonsterWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newMonsterEntries.Add(ID);
+                                            }
+                                            break;
+                                        case Actor.Type.PC:
+                                            if (currentPCEntries.ContainsKey(ID))
+                                            {
+                                                currentPCEntries.Remove(ID);
+                                                existing = PCWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newPCEntries.Add(ID);
+                                            }
+                                            break;
+                                        case Actor.Type.NPC:
+                                            if (currentNPCEntries.ContainsKey(NPCID2))
+                                            {
+                                                currentNPCEntries.Remove(NPCID2);
+                                                existing = NPCWorkerDelegate.GetNPCEntity(NPCID2);
+                                            }
+                                            else
+                                            {
+                                                newNPCEntries.Add(NPCID2);
+                                            }
+                                            break;
+                                        default:
+                                            if (currentNPCEntries.ContainsKey(ID))
+                                            {
+                                                currentNPCEntries.Remove(ID);
+                                                existing = NPCWorkerDelegate.GetNPCEntity(ID);
+                                            }
+                                            else
+                                            {
+                                                newNPCEntries.Add(ID);
+                                            }
+                                            break;
+                                    }
+
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime, existing);
 
                                     firstTime = false;
 
@@ -211,16 +288,23 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         continue;
                                     }
+                                    if (existing != null)
+                                    {
+                                        continue;
+                                    }
                                     switch (entry.Type)
                                     {
                                         case Actor.Type.Monster:
-                                            monsterEntries.Add(entry);
+                                            MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                         case Actor.Type.PC:
-                                            pcEntries.Add(entry);
+                                            PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
+                                            break;
+                                        case Actor.Type.NPC:
+                                            NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
                                             break;
                                         default:
-                                            npcEntries.Add(entry);
+                                            NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                             break;
                                     }
                                 }
@@ -228,17 +312,51 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                 }
                             }
-                            if (pcEntries.Any())
+
+                            if (!ReferencesSet)
                             {
-                                AppContextHelper.Instance.RaiseNewPCEntries(pcEntries);
+                                ReferencesSet = true;
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(MonsterWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewNPCEntries(NPCWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewPCEntries(PCWorkerDelegate.NPCEntities);
                             }
-                            if (monsterEntries.Any())
+
+                            if (newMonsterEntries.Any())
                             {
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(monsterEntries);
+                                AppContextHelper.Instance.RaiseNewMonsterAddedEntries(newMonsterEntries);
                             }
-                            if (npcEntries.Any())
+                            if (newNPCEntries.Any())
                             {
-                                AppContextHelper.Instance.RaiseNewNPCEntries(npcEntries);
+                                AppContextHelper.Instance.RaiseNewNPCAddedEntries(newNPCEntries);
+                            }
+                            if (newPCEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewPCAddedEntries(newPCEntries);
+                            }
+
+                            if (currentMonsterEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(currentMonsterEntries.Keys.ToList());
+                                foreach (var key in currentMonsterEntries.Keys)
+                                {
+                                    MonsterWorkerDelegate.RemoveNPCEntity(key);
+                                }
+                            }
+                            if (currentNPCEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewNPCRemovedEntries(currentNPCEntries.Keys.ToList());
+                                foreach (var key in currentNPCEntries.Keys)
+                                {
+                                    NPCWorkerDelegate.RemoveNPCEntity(key);
+                                }
+                            }
+                            if (currentPCEntries.Any())
+                            {
+                                AppContextHelper.Instance.RaiseNewPCRemovedEntries(currentPCEntries.Keys.ToList());
+                                foreach (var key in currentPCEntries.Keys)
+                                {
+                                    PCWorkerDelegate.RemoveNPCEntity(key);
+                                }
                             }
 
                             #endregion

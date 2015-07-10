@@ -28,8 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Concurrent;
 using FFXIVAPP.Common.Core.Memory;
 
 namespace FFXIVAPP.Client.Delegates
@@ -38,69 +37,35 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Collection Access & Modification
 
-        public static void AddNPCEntity(ActorEntity entity)
+        public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
         {
-            lock (_npcEntities)
-            {
-                _npcEntities.Add(entity);
-            }
+            NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
 
-        public static ActorEntity GetNPCEntityByName(string name)
+        public static ActorEntity GetNPCEntity(UInt32 key)
         {
-            lock (_npcEntities)
-            {
-                return _npcEntities.FirstOrDefault(e => String.Equals(name, e.Name, Constants.InvariantComparer));
-            }
+            ActorEntity npc;
+            NPCEntities.TryGetValue(key, out npc);
+            return npc;
         }
 
-        public static void ReplaceNPCEntities(IEnumerable<ActorEntity> entities)
+        public static bool RemoveNPCEntity(UInt32 key)
         {
-            lock (_npcEntities)
-            {
-                _npcEntities = new List<ActorEntity>(entities);
-            }
-        }
-
-        public static IList<ActorEntity> GetNPCEntities()
-        {
-            lock (_npcEntities)
-            {
-                return new List<ActorEntity>(_npcEntities);
-            }
-        }
-
-        public static void AddUniqueNPCEntity(ActorEntity entity)
-        {
-            lock (_uniqueNPCEntities)
-            {
-                _uniqueNPCEntities.Add(entity);
-            }
-        }
-
-        public static void ReplaceUniqueNPCEntities(IEnumerable<ActorEntity> entities)
-        {
-            lock (_uniqueNPCEntities)
-            {
-                _uniqueNPCEntities = new List<ActorEntity>(entities);
-            }
-        }
-
-        public static IList<ActorEntity> GetUniqueNPCEntities()
-        {
-            lock (_uniqueNPCEntities)
-            {
-                return new List<ActorEntity>(_uniqueNPCEntities);
-            }
+            ActorEntity removed;
+            return NPCEntities.TryRemove(key, out removed);
         }
 
         #endregion
 
         #region Declarations
 
-        private static IList<ActorEntity> _npcEntities = new List<ActorEntity>();
+        private static ConcurrentDictionary<UInt32, ActorEntity> _npcEntities;
 
-        private static IList<ActorEntity> _uniqueNPCEntities = new List<ActorEntity>();
+        public static ConcurrentDictionary<UInt32, ActorEntity> NPCEntities
+        {
+            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
+            private set { _npcEntities = value; }
+        }
 
         #endregion
     }

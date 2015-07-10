@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -272,17 +273,33 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<ChatLogEntryEvent> NewChatLogEntry = delegate { };
 
+        public event EventHandler<ActorEntitiesAddedEvent> NewMonsterEntriesAdded = delegate { };
+
         public event EventHandler<ActorEntitiesEvent> NewMonsterEntries = delegate { };
+
+        public event EventHandler<ActorEntitiesRemovedEvent> NewNPCEntriesRemoved = delegate { };
+
+        public event EventHandler<ActorEntitiesAddedEvent> NewNPCEntriesAdded = delegate { };
 
         public event EventHandler<ActorEntitiesEvent> NewNPCEntries = delegate { };
 
+        public event EventHandler<ActorEntitiesRemovedEvent> NewMonsterEntriesRemoved = delegate { };
+
+        public event EventHandler<ActorEntitiesAddedEvent> NewPCEntriesAdded = delegate { };
+
         public event EventHandler<ActorEntitiesEvent> NewPCEntries = delegate { };
+
+        public event EventHandler<ActorEntitiesRemovedEvent> NewPCEntriesRemoved = delegate { };
 
         public event EventHandler<PlayerEntityEvent> NewPlayerEntity = delegate { };
 
         public event EventHandler<TargetEntityEvent> NewTargetEntity = delegate { };
 
+        public event EventHandler<PartyEntitiesAddedEvent> NewPartyEntriesAdded = delegate { };
+
         public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
+
+        public event EventHandler<PartyEntitiesRemovedEvent> NewPartyEntriesRemoved = delegate { };
 
         public event EventHandler<InventoryEntitiesEvent> NewInventoryEntries = delegate { };
 
@@ -308,7 +325,17 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewMonsterEntries(List<ActorEntity> e)
+        public virtual void RaiseNewMonsterAddedEntries(List<UInt32> e)
+        {
+            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
+            var handler = NewMonsterEntriesAdded;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesAddedEvent);
+            }
+        }
+
+        public virtual void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewMonsterEntries;
@@ -318,7 +345,27 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewNPCEntries(List<ActorEntity> e)
+        public virtual void RaiseNewMonsterRemovedEntries(List<UInt32> e)
+        {
+            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
+            var handler = NewMonsterEntriesRemoved;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesRemovedEvent);
+            }
+        }
+
+        public virtual void RaiseNewNPCAddedEntries(List<UInt32> e)
+        {
+            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
+            var handler = NewNPCEntriesAdded;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesAddedEvent);
+            }
+        }
+
+        public virtual void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewNPCEntries;
@@ -328,13 +375,43 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPCEntries(List<ActorEntity> e)
+        public virtual void RaiseNewNPCRemovedEntries(List<UInt32> e)
+        {
+            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
+            var handler = NewNPCEntriesRemoved;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesRemovedEvent);
+            }
+        }
+
+        public virtual void RaiseNewPCAddedEntries(List<UInt32> e)
+        {
+            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
+            var handler = NewPCEntriesAdded;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesAddedEvent);
+            }
+        }
+
+        public virtual void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
         {
             var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
             var handler = NewPCEntries;
             if (handler != null)
             {
                 handler(this, actorEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewPCRemovedEntries(List<UInt32> e)
+        {
+            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
+            var handler = NewPCEntriesRemoved;
+            if (handler != null)
+            {
+                handler(this, actorEntitiesRemovedEvent);
             }
         }
 
@@ -358,13 +435,33 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public virtual void RaiseNewPartyEntries(List<PartyEntity> e)
+        public virtual void RaiseNewPartyAddedEntries(List<UInt32> e)
+        {
+            var partyEntitiesAddedEvent = new PartyEntitiesAddedEvent(this, e);
+            var handler = NewPartyEntriesAdded;
+            if (handler != null)
+            {
+                handler(this, partyEntitiesAddedEvent);
+            }
+        }
+
+        public virtual void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> e)
         {
             var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
             var handler = NewPartyEntries;
             if (handler != null)
             {
                 handler(this, partyEntitiesEvent);
+            }
+        }
+
+        public virtual void RaiseNewPartyRemovedEntries(List<UInt32> e)
+        {
+            var partyEntitiesRemovedEvent = new PartyEntitiesRemovedEvent(this, e);
+            var handler = NewPartyEntriesRemoved;
+            if (handler != null)
+            {
+                handler(this, partyEntitiesRemovedEvent);
             }
         }
 

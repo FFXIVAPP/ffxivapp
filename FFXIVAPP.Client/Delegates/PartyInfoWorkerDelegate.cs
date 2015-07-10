@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Client
-// PCWorkerDelegate.cs
+// PartyInfoWorkerDelegate.cs
 // 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
@@ -33,25 +33,25 @@ using FFXIVAPP.Common.Core.Memory;
 
 namespace FFXIVAPP.Client.Delegates
 {
-    public static class PCWorkerDelegate
+    public static class PartyInfoWorkerDelegate
     {
         #region Collection Access & Modification
 
-        public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
+        public static void EnsureNPCEntity(UInt32 key, PartyEntity entity)
         {
             NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
 
-        public static ActorEntity GetNPCEntity(UInt32 key)
+        public static PartyEntity GetNPCEntity(UInt32 key)
         {
-            ActorEntity npc;
+            PartyEntity npc;
             NPCEntities.TryGetValue(key, out npc);
             return npc;
         }
 
         public static bool RemoveNPCEntity(UInt32 key)
         {
-            ActorEntity removed;
+            PartyEntity removed;
             return NPCEntities.TryRemove(key, out removed);
         }
 
@@ -59,15 +59,13 @@ namespace FFXIVAPP.Client.Delegates
 
         #region Declarations
 
-        private static ConcurrentDictionary<UInt32, ActorEntity> _npcEntities;
+        private static ConcurrentDictionary<UInt32, PartyEntity> _npcEntities;
 
-        public static ConcurrentDictionary<UInt32, ActorEntity> NPCEntities
+        public static ConcurrentDictionary<UInt32, PartyEntity> NPCEntities
         {
-            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
+            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, PartyEntity>()); }
             private set { _npcEntities = value; }
         }
-
-        public static ActorEntity CurrentUser { get; set; }
 
         #endregion
     }

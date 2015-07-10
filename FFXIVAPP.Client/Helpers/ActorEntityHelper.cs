@@ -29,7 +29,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
@@ -41,9 +40,9 @@ namespace FFXIVAPP.Client.Helpers
 {
     public static class ActorEntityHelper
     {
-        public static ActorEntity ResolveActorFromBytes(byte[] source, bool isCurrentUser = false)
+        public static ActorEntity ResolveActorFromBytes(byte[] source, bool isCurrentUser = false, ActorEntity entry = null)
         {
-            var entry = new ActorEntity();
+            entry = entry ?? new ActorEntity();
             try
             {
                 uint targetID;
@@ -201,12 +200,9 @@ namespace FFXIVAPP.Client.Helpers
                     };
                     try
                     {
-                        var pc = PCWorkerDelegate.GetUniqueNPCEntities()
-                                                 .FirstOrDefault(a => a.ID == statusEntry.CasterID);
-                        var npc = NPCWorkerDelegate.GetUniqueNPCEntities()
-                                                   .FirstOrDefault(a => a.NPCID2 == statusEntry.CasterID);
-                        var monster = MonsterWorkerDelegate.GetUniqueNPCEntities()
-                                                           .FirstOrDefault(a => a.ID == statusEntry.CasterID);
+                        var pc = PCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var npc = NPCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var monster = MonsterWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
                         statusEntry.SourceEntity = (pc ?? npc) ?? monster;
                     }
                     catch (Exception ex)

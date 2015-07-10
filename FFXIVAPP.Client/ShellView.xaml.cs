@@ -55,6 +55,8 @@ namespace FFXIVAPP.Client
 
         #region Property Bindings
 
+        public bool IsRendered { get; set; }
+
         #endregion
 
         #region Declarations
@@ -80,6 +82,24 @@ namespace FFXIVAPP.Client
 
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
 
+            AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
+            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+
+            AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MetroWindowContentRendered(object sender, EventArgs e)
+        {
+            if (IsRendered)
+            {
+                return;
+            }
+            IsRendered = true;
+
             #region GUI Finalization
 
             if (String.IsNullOrWhiteSpace(Settings.Default.UILanguage))
@@ -91,24 +111,25 @@ namespace FFXIVAPP.Client
                 LocaleHelper.Update(Settings.Default.Culture);
             }
 
-            Initializer.LoadAvailableSources();
-            Initializer.LoadAvailablePlugins();
-            Initializer.CheckUpdates();
-            Initializer.SetGlobals();
-            Initializer.SetSignatures();
-            Initializer.StartMemoryWorkers();
-            if (Settings.Default.EnableNetworkReading)
+            DispatcherHelper.Invoke(delegate
             {
-                Initializer.StartNetworkWorker();
-            }
+                Initializer.LoadAvailableSources();
+                Initializer.LoadAvailablePlugins();
+                Initializer.CheckUpdates();
+                Initializer.SetGlobals();
+                Initializer.SetSignatures();
+
+                Initializer.StartMemoryWorkers();
+                if (Settings.Default.EnableNetworkReading)
+                {
+                    Initializer.StartNetworkWorker();
+                }
+            });
+
             Initializer.GetHomePlugin();
             Initializer.UpdatePluginConstants();
 
             #endregion
-
-            AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
-            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
-            AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
         }
 
         /// <summary>

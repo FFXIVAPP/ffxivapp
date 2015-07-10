@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
@@ -79,6 +80,8 @@ namespace FFXIVAPP.Client.Helpers
 
         #endregion
 
+        #region SEND EVERYTIME
+
         public void RaiseNewConstants(ConstantsEntity constantsEntity)
         {
             PluginHost.Instance.RaiseNewConstantsEntity(constantsEntity);
@@ -95,101 +98,107 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
         }
 
-        public void RaiseNewMonsterEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewPacket(NetworkPacket networkPacket)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
+        }
+
+        #endregion
+
+        #region SEND ONCE VIA REFERENCE
+
+        public void RaiseNewMonsterAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewMonsterAddedEntries(keys);
+        }
+
+        public void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            MonsterWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = MonsterWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.ID == actor.ID);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        MonsterWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
         }
 
-        public void RaiseNewNPCEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewMonsterRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewMonsterRemovedEntries(keys);
+        }
+
+        public void RaiseNewNPCAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNPCAddedEntries(keys);
+        }
+
+        public void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            NPCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = NPCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => n.NPCID2 == actor.NPCID2);
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        NPCWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
         }
 
-        public void RaiseNewPCEntries(List<ActorEntity> actorEntities)
+        public void RaiseNewNPCRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewNPCRemovedEntries(keys);
+        }
+
+        public void RaiseNewPCAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPCAddedEntries(keys);
+        }
+
+        public void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
         {
             if (!actorEntities.Any())
             {
                 return;
             }
-            PCWorkerDelegate.ReplaceNPCEntities(new List<ActorEntity>(actorEntities));
-            Func<bool> saveToDictionary = delegate
-            {
-                try
-                {
-                    var enumerable = PCWorkerDelegate.GetUniqueNPCEntities();
-                    foreach (var actor in actorEntities)
-                    {
-                        var exists = enumerable.FirstOrDefault(n => String.Equals(n.Name, actor.Name, Constants.InvariantComparer));
-                        if (exists != null)
-                        {
-                            continue;
-                        }
-                        PCWorkerDelegate.AddUniqueNPCEntity(actor);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-                return true;
-            };
-            saveToDictionary.BeginInvoke(null, saveToDictionary);
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPCEntries(actorEntities);
         }
+
+        public void RaiseNewPCRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPCRemovedEntries(keys);
+        }
+
+        #endregion
 
         public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
         {
@@ -204,22 +213,36 @@ namespace FFXIVAPP.Client.Helpers
             PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
         }
 
-        public void RaiseNewPartyEntries(List<PartyEntity> partyEntries)
+        public void RaiseNewPartyAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyAddedEntries(keys);
+        }
+
+        public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
+        }
+
+        public void RaiseNewPartyRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyRemovedEntries(keys);
         }
 
         public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
-        }
-
-        public void RaiseNewPacket(NetworkPacket networkPacket)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
         }
     }
 }
