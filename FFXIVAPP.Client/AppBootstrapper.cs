@@ -83,7 +83,7 @@ namespace FFXIVAPP.Client
                 }
             }
             Constants.IsOpen = false;
-            Constants.ProcessID = -1;
+            Constants.ProcessModel = new ProcessModel();
             //initialize application data
             AppViewModel.Instance.ConfigurationsPath = Common.Constants.ConfigurationsPath;
             AppViewModel.Instance.LogsPath = Common.Constants.LogsPath;
@@ -183,7 +183,7 @@ namespace FFXIVAPP.Client
                     case true:
                         try
                         {
-                            var CurrentFFXIV = Process.GetProcessById(Constants.ProcessID);
+                            var CurrentFFXIV = Process.GetProcessById(Constants.ProcessModel.ProcessID);
                         }
                         catch (ArgumentException ex)
                         {

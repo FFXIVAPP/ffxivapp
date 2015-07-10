@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static SigScanner _instance;
-        private Dictionary<string, uint> _locations;
+        private Dictionary<string, long> _locations;
 
         public static SigScanner Instance
         {
@@ -57,14 +57,14 @@ namespace FFXIVAPP.Client.Memory
             set { _instance = value; }
         }
 
-        public Dictionary<string, uint> Locations
+        public Dictionary<string, long> Locations
         {
-            get { return _locations ?? (_locations = new Dictionary<string, uint>()); }
+            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
             private set
             {
                 if (_locations == null)
                 {
-                    _locations = new Dictionary<string, uint>();
+                    _locations = new Dictionary<string, long>();
                 }
                 _locations = value;
                 RaisePropertyChanged();
@@ -145,12 +145,12 @@ namespace FFXIVAPP.Client.Memory
             {
                 var sw = new Stopwatch();
                 sw.Start();
-                if (MemoryHandler.Instance.Process == null)
+                if (MemoryHandler.Instance.ProcessModel.Process == null)
                 {
                     return false;
                 }
                 LoadRegions();
-                Locations = new Dictionary<string, uint>();
+                Locations = new Dictionary<string, long>();
                 if (signatures.Any())
                 {
                     FindSignatures(signatures, ScanResultType.AddressStartOfSig);

@@ -125,10 +125,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Constants.Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
-    <Compile Include="Constants.Application.cs" />
     <Compile Include="Controls\PluginInfoBox.xaml.cs">
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
@@ -179,6 +177,7 @@
     <Compile Include="Memory\ChatLogWorker.cs" />
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
+    <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\UILanguage.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="Network\IPHelper.cs" />

@@ -68,18 +68,18 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
             DefaultSettings();
             SaveSettingsNode();
             SavePluginSourcesNode();
-            Constants.Application.XSettings.Save(Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml"));
+            Constants.XSettings.Save(Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml"));
         }
 
         private void DefaultSettings()
         {
-            Constants.Application.Settings.Clear();
+            Constants.Settings.Clear();
         }
 
         public new void Reset()
         {
             DefaultSettings();
-            foreach (var key in Constants.Application.Settings)
+            foreach (var key in Constants.Settings)
             {
                 var settingsProperty = Default.Properties[key];
                 if (settingsProperty == null)
@@ -148,14 +148,14 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
 
         private void SaveSettingsNode()
         {
-            if (Constants.Application.XSettings == null)
+            if (Constants.XSettings == null)
             {
                 return;
             }
-            var xElements = Constants.Application.XSettings.Descendants()
+            var xElements = Constants.XSettings.Descendants()
                                      .Elements("Setting");
             var enumerable = xElements as XElement[] ?? xElements.ToArray();
-            foreach (var setting in Constants.Application.Settings)
+            foreach (var setting in Constants.Settings)
             {
                 var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
                                                               .Value == setting);
@@ -171,7 +171,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                             Value = xValue
                         }
                     };
-                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "Setting", xKey, keyPairList);
+                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
                 }
                 else
                 {
@@ -186,15 +186,15 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
 
         public void SavePluginSourcesNode()
         {
-            if (Constants.Application.XSettings == null)
+            if (Constants.XSettings == null)
             {
                 return;
             }
-            Constants.Application.XSettings.Descendants("PluginSource")
+            Constants.XSettings.Descendants("PluginSource")
                      .Where(node => UpdateViewModel.Instance.AvailableSources.All(source => source.Key.ToString() != node.Attribute("Key")
                                                                                                                          .Value))
                      .Remove();
-            var xElements = Constants.Application.XSettings.Descendants()
+            var xElements = Constants.XSettings.Descendants()
                                      .Elements("PluginSource");
             var enumerable = xElements as XElement[] ?? xElements.ToArray();
             // ensure enabled plugin settings
@@ -220,7 +220,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                                                               .Value == xKey.ToString());
                 if (element == null)
                 {
-                    XmlHelper.SaveXmlNode(Constants.Application.XSettings, "Settings", "PluginSource", xKey.ToString(), keyPairList);
+                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "PluginSource", xKey.ToString(), keyPairList);
                 }
                 else
                 {

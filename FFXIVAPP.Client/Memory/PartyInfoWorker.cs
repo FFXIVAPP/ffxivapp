@@ -33,7 +33,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
@@ -54,8 +53,8 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
-        private uint PartyInfoMap { get; set; }
-        private uint PartyCountMap { get; set; }
+        private long PartyInfoMap { get; set; }
+        private long PartyCountMap { get; set; }
 
         public bool ReferencesSet { get; set; }
 
@@ -239,7 +238,7 @@ namespace FFXIVAPP.Client.Memory
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
         }
 
-        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember partyMember, ActorEntity actorEntity = null)
+        private static PartyEntity GetPartyEntity(long address, Structures.PartyMember partyMember, ActorEntity actorEntity = null)
         {
             var actor = actorEntity ?? (dynamic) partyMember;
             try

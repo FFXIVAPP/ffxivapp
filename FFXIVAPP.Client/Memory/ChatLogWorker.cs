@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
-        private uint ChatPointerMap { get; set; }
+        private long ChatPointerMap { get; set; }
 
         #endregion
 
@@ -174,7 +174,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            ChatPointerMap = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20;
+                            ChatPointerMap = MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20;
                             MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", ChatPointerMap);
                         }
                         catch (Exception ex)
@@ -193,7 +193,7 @@ namespace FFXIVAPP.Client.Memory
             _indexes.Clear();
             for (var i = 0; i < _chatLimit; i++)
             {
-                _indexes.Add((int) MemoryHandler.Instance.GetUInt32((uint) (_chatLogPointers.OffsetArrayStart + (i * 4))));
+                _indexes.Add((int) MemoryHandler.Instance.GetPlatformUInt((uint) (_chatLogPointers.OffsetArrayStart + (i * 4))));
             }
         }
 

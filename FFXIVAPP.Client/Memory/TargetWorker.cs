@@ -112,7 +112,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            uint targetHateStructure = 0;
+                            long targetHateStructure = 0;
                             switch (Settings.Default.GameLanguage)
                             {
                                 case "Chinese":
@@ -167,7 +167,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -193,7 +193,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -217,7 +217,7 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             try
                                             {
-                                                entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                             }
                                             catch (Exception ex)
                                             {
@@ -239,7 +239,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -269,8 +269,8 @@ namespace FFXIVAPP.Client.Memory
                                         var enmityEntry = new EnmityEntry
                                         {
                                             Name = MemoryHandler.Instance.GetString(address),
-                                            ID = (uint) MemoryHandler.Instance.GetInt32(address, 64),
-                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address, 68)
+                                            ID = (uint) MemoryHandler.Instance.GetPlatformInt(address, 64),
+                                            Enmity = (uint) MemoryHandler.Instance.GetPlatformInt(address, 68)
                                         };
                                         if (enmityEntry.ID <= 0)
                                         {

@@ -37,6 +37,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -49,6 +50,7 @@ using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -88,9 +90,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadChatCodes()
         {
-            if (Constants.Client.XChatCodes != null)
+            if (Constants.XChatCodes != null)
             {
-                foreach (var xElement in Constants.Client.XChatCodes.Descendants()
+                foreach (var xElement in Constants.XChatCodes.Descendants()
                                                   .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -108,9 +110,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadActions()
         {
-            if (Constants.Client.XActions != null)
+            if (Constants.XActions != null)
             {
-                foreach (var xElement in Constants.Client.XActions.Descendants()
+                foreach (var xElement in Constants.XActions.Descendants()
                                                   .Elements("Action"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -145,9 +147,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadAutoTranslate()
         {
-            if (Constants.Client.XAutoTranslate != null)
+            if (Constants.XAutoTranslate != null)
             {
-                foreach (var xElement in Constants.Client.XAutoTranslate.Descendants()
+                foreach (var xElement in Constants.XAutoTranslate.Descendants()
                                                   .Elements("Code"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -165,9 +167,9 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadColors()
         {
-            if (Constants.Client.XColors != null)
+            if (Constants.XColors != null)
             {
-                foreach (var xElement in Constants.Client.XColors.Descendants()
+                foreach (var xElement in Constants.XColors.Descendants()
                                                   .Elements("Color"))
                 {
                     var xKey = (string) xElement.Attribute("Key");
@@ -204,7 +206,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void LoadApplicationSettings()
         {
-            if (Constants.Application.XSettings != null)
+            if (Constants.XSettings != null)
             {
             }
         }
@@ -249,9 +251,9 @@ namespace FFXIVAPP.Client
 
         public static void LoadAvailableSources()
         {
-            if (Constants.Application.XSettings != null)
+            if (Constants.XSettings != null)
             {
-                foreach (var xElement in Constants.Application.XSettings.Descendants()
+                foreach (var xElement in Constants.XSettings.Descendants()
                                                   .Elements("PluginSource"))
                 {
                     var xKey = Guid.Empty;
@@ -730,26 +732,25 @@ namespace FFXIVAPP.Client
                         Offset = 106
                     });
 
-                    MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<uint>()
+                    MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
                     {
                         0x01D77D60
                     };
 
-                    MemoryHandler.Instance.PointerPaths["CHARMAP"] = new List<uint>()
+                    MemoryHandler.Instance.PointerPaths["CHARMAP"] = new List<long>()
                     {
                         0x003B1710,
                         0x18
                     };
 
-                    MemoryHandler.Instance.PointerPaths["AGRO"] = new List<uint>()
+                    MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
                     {
-                        0x00232244,
-                        0x0
+                        0x1038D3C - 0x900
                     };
-                    MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<uint>()
+
+                    MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
                     {
-                        0x00232244,
-                        0x900
+                        0x1038D3C
                     };
 
                     break;
@@ -761,34 +762,51 @@ namespace FFXIVAPP.Client
         /// <returns> </returns>
         private static int GetProcessID()
         {
-            if (Constants.IsOpen && Constants.ProcessID > 0)
+            if (Constants.IsOpen && Constants.ProcessModel.ProcessID > 0)
             {
                 try
                 {
-                    Process.GetProcessById(Constants.ProcessID);
-                    return Constants.ProcessID;
+                    Process.GetProcessById(Constants.ProcessModel.ProcessID);
+                    return Constants.ProcessModel.ProcessID;
                 }
                 catch (ArgumentException ex)
                 {
                     Constants.IsOpen = false;
                 }
             }
-            Constants.ProcessIDs = Process.GetProcessesByName("ffxiv");
-            if (Constants.ProcessIDs.Length == 0)
+            Constants.ProcessModels = new List<ProcessModel>();
+            foreach (var process in Process.GetProcessesByName("ffxiv"))
+            {
+                Constants.ProcessModels.Add(new ProcessModel
+                {
+                    Process = process
+                });
+            }
+            foreach (var process in Process.GetProcessesByName("ffxiv_dx11"))
+            {
+                Constants.ProcessModels.Add(new ProcessModel
+                {
+                    Process = process,
+                    IsWin64 = true
+                });
+            }
+            if (Constants.ProcessModels.Any())
+            {
+                Constants.IsOpen = true;
+                foreach (var processModel in Constants.ProcessModels)
+                {
+                    SettingsView.View.PIDSelect.Items.Add(String.Format("[{0}] - {1}", processModel.Process.Id, processModel.IsWin64 ? "64-Bit" : "32-Bit"));
+                }
+                SettingsView.View.PIDSelect.SelectedIndex = 0;
+                UpdateProcessID(Constants.ProcessModels.First());
+                return Constants.ProcessModels.First()
+                                .Process.Id;
+            }
+            else
             {
                 Constants.IsOpen = false;
                 return -1;
             }
-            Constants.IsOpen = true;
-            foreach (var process in Constants.ProcessIDs)
-            {
-                SettingsView.View.PIDSelect.Items.Add(process.Id);
-            }
-            SettingsView.View.PIDSelect.SelectedIndex = 0;
-            UpdateProcessID(Constants.ProcessIDs.First()
-                                     .Id);
-            return Constants.ProcessIDs.First()
-                            .Id;
         }
 
         /// <summary>
@@ -800,7 +818,9 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            UpdateProcessID(Convert.ToInt32(SettingsView.View.PIDSelect.Text));
+            var ID = Regex.Match(SettingsView.View.PIDSelect.Text, @"\[(?<id>\d+)\]", SharedRegEx.DefaultOptions)
+                          .Groups["id"];
+            UpdateProcessID(Constants.ProcessModels.FirstOrDefault(pm => pm.ProcessID == Convert.ToInt32(ID)));
             StartMemoryWorkers();
         }
 
@@ -808,15 +828,15 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void ResetProcessID()
         {
-            Constants.ProcessID = -1;
+            Constants.ProcessModel = new ProcessModel();
         }
 
         /// <summary>
         /// </summary>
         /// <param name="pid"> </param>
-        private static void UpdateProcessID(int pid)
+        private static void UpdateProcessID(ProcessModel processModel)
         {
-            Constants.ProcessID = pid;
+            Constants.ProcessModel = processModel;
         }
 
         /// <summary>
@@ -824,15 +844,14 @@ namespace FFXIVAPP.Client
         public static void StartMemoryWorkers()
         {
             StopMemoryWorkers();
-            var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessID;
+            var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessModel.ProcessID;
             Constants.IsOpen = true;
             if (id < 0)
             {
                 Constants.IsOpen = false;
                 return;
             }
-            var process = Process.GetProcessById(id);
-            MemoryHandler.Instance.SetProcess(process);
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel);
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();

@@ -119,7 +119,7 @@ namespace FFXIVAPP.Client.Memory
                         {
                             #region Ensure Target & Map
 
-                            uint targetAddress = 0;
+                            long targetAddress = 0;
                             uint mapIndex = 0;
                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
                             {
@@ -135,7 +135,7 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 try
                                 {
-                                    mapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                    mapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                 }
                                 catch (Exception ex)
                                 {

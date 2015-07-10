@@ -51,7 +51,7 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
-        private uint PlayerInfoMap { get; set; }
+        private long PlayerInfoMap { get; set; }
 
         private PlayerEntity LastPlayerEntity { get; set; }
 
@@ -120,7 +120,7 @@ namespace FFXIVAPP.Client.Memory
                         try
                         {
                             short enmityCount;
-                            uint enmityStructure;
+                            long enmityStructure;
                             switch (Settings.Default.GameLanguage)
                             {
                                 case "Chinese":
@@ -141,7 +141,7 @@ namespace FFXIVAPP.Client.Memory
                                     var enmityEntry = new EnmityEntry
                                     {
                                         Name = MemoryHandler.Instance.GetString(address),
-                                        ID = (uint) MemoryHandler.Instance.GetInt32(address + 64),
+                                        ID = (uint) MemoryHandler.Instance.GetPlatformInt(address + 64),
                                         Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
                                     };
                                     if (enmityEntry.ID > 0)
