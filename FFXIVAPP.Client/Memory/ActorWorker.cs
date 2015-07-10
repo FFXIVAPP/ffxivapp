@@ -169,9 +169,9 @@ namespace FFXIVAPP.Client.Memory
 
                             var firstTime = true;
 
-                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
-                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
-                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
+                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
 
                             var newMonsterEntries = new List<UInt32>();
                             var newNPCEntries = new List<UInt32>();

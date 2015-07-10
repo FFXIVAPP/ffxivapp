@@ -33,6 +33,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
@@ -123,11 +124,11 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
 
-                                var currentPartyEntries = PartyInfoWorkerDelegate.NPCEntities.Keys.ToDictionary(x => x, x => x);
+                                var currentPartyEntries = PartyInfoWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
 
                                 var newPartyEntries = new List<UInt32>();
 
-                                if (partyCount > 0 && partyCount < 9)
+                                if (partyCount > 1 && partyCount < 9)
                                 {
                                     for (uint i = 0; i < partyCount; i++)
                                     {
@@ -157,6 +158,10 @@ namespace FFXIVAPP.Client.Memory
                                         if (currentPartyEntries.ContainsKey(ID))
                                         {
                                             currentPartyEntries.Remove(ID);
+                                            if (MonsterWorkerDelegate.NPCEntities.ContainsKey(ID))
+                                            {
+                                                existing = MonsterWorkerDelegate.GetNPCEntity(ID);
+                                            }
                                             if (PCWorkerDelegate.NPCEntities.ContainsKey(ID))
                                             {
                                                 existing = PCWorkerDelegate.GetNPCEntity(ID);
@@ -179,21 +184,26 @@ namespace FFXIVAPP.Client.Memory
                                         PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
                                     }
                                 }
-                                else if (partyCount == 0)
+                                else if (partyCount == 0 || partyCount == 1)
                                 {
                                     var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(PartyInfoMap);
                                     var entry = GetPartyEntity(PartyInfoMap, actor, PCWorkerDelegate.CurrentUser);
                                     if (entry.IsValid)
                                     {
+                                        var exists = false;
                                         if (currentPartyEntries.ContainsKey(entry.ID))
                                         {
                                             currentPartyEntries.Remove(entry.ID);
+                                            exists = true;
                                         }
                                         else
                                         {
                                             newPartyEntries.Add(entry.ID);
                                         }
-                                        PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
+                                        if (!exists)
+                                        {
+                                            PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
+                                        }
                                     }
                                 }
 
