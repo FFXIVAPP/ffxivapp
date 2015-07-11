@@ -57,46 +57,57 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="hProcess"> </param>
+        /// <param name="processHandle"> </param>
         /// <param name="lpBaseAddress"> </param>
         /// <param name="lpBuffer"> </param>
-        /// <param name="nSize"> </param>
+        /// <param name="regionSize"> </param>
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, int nSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, int regionSize, out int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
-        /// <param name="hProcess"> </param>
+        /// <param name="processHandle"> </param>
         /// <param name="lpBaseAddress"> </param>
         /// <param name="lpBuffer"> </param>
-        /// <param name="nSize"> </param>
+        /// <param name="regionSize"> </param>
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, int nSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, int regionSize, out int lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
-        /// <param name="hProcess"> </param>
-        /// <param name="lpAddress"> </param>
+        /// <param name="processHandle"> </param>
+        /// <param name="lpBaseAddress"> </param>
+        /// <param name="lpBuffer"> </param>
+        /// <param name="regionSize"> </param>
+        /// <param name="lpNumberOfBytesRead"> </param>
+        /// <returns> </returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, byte[] lpBuffer, IntPtr regionSize, out int lpNumberOfBytesRead);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="processHandle"> </param>
+        /// <param name="lpBaseAddress"> </param>
         /// <param name="lpBuffer"> </param>
         /// <param name="dwLength"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll")]
-        public static extern int VirtualQueryEx(IntPtr hProcess, uint lpAddress, out MemoryBasicInformation lpBuffer, uint dwLength);
+        public static extern int VirtualQueryEx(IntPtr processHandle, IntPtr lpBaseAddress, out MemoryBasicInformation lpBuffer, uint dwLength);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MemoryBasicInformation
         {
-            public readonly int BaseAddress;
-            public readonly int AllocationBase;
-            public readonly int AllocationProtect;
-            public readonly int RegionSize;
-            public readonly int State;
-            public readonly int Protect;
-            public readonly int Type;
+            public readonly IntPtr BaseAddress;
+            public readonly IntPtr AllocationBase;
+            public readonly IntPtr AllocationProtect;
+            public readonly IntPtr RegionSize;
+            public readonly IntPtr State;
+            public readonly IntPtr Protect;
+            public readonly IntPtr Type;
         }
     }
 }

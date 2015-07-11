@@ -686,6 +686,12 @@ namespace FFXIVAPP.Client
                             Value = "47616D654D61696E000000",
                             Offset = 1672
                         });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "CHARMAP",
+                            Value = "DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A000000000000000000000000????0000????0000FFFFFFFF",
+                            Offset = 60
+                        });
                     }
                     else
                     {

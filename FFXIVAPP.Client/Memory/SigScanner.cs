@@ -34,6 +34,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -169,24 +170,25 @@ namespace FFXIVAPP.Client.Memory
             try
             {
                 _regions = new List<UnsafeNativeMethods.MemoryBasicInformation>();
-                var address = 0;
+                var address = new IntPtr();
                 while (true)
                 {
                     var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint) address, out info, (uint) Marshal.SizeOf(info));
+                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, address, out info, (uint) Marshal.SizeOf(info));
                     if (0 == result)
                     {
                         break;
                     }
-                    if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard))
+                    if (0 != ((long) info.State & MemCommit) && 0 != ((long) info.Protect & Writable) && 0 == ((long) info.Protect & PageGuard))
                     {
                         _regions.Add(info);
                     }
-                    address = info.BaseAddress + info.RegionSize;
+                    address = info.BaseAddress + (int) info.RegionSize;
                 }
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
 
@@ -205,9 +207,9 @@ namespace FFXIVAPP.Client.Memory
                 {
                     try
                     {
-                        var buffer = new byte[region.RegionSize];
+                        var buffer = new byte[region.RegionSize.ToInt64()];
                         int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -222,7 +224,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (ScanResultType.AddressStartOfSig == searchType)
                             {
-                                searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                                searchResult = IntPtr.Add(searchResult, (int) region.BaseAddress);
                             }
                             Locations.Add(signature.Key, (uint) searchResult);
                         }
@@ -231,11 +233,13 @@ namespace FFXIVAPP.Client.Memory
                     }
                     catch (Exception ex)
                     {
+                        Logging.Log(Logger, ex.Message, ex);
                     }
                 }
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
 
@@ -270,7 +274,7 @@ namespace FFXIVAPP.Client.Memory
                 {
                     try
                     {
-                        var buffer = new byte[region.RegionSize];
+                        var buffer = new byte[region.RegionSize.ToInt64()];
                         int lpNumberOfByteRead;
                         if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
@@ -284,7 +288,7 @@ namespace FFXIVAPP.Client.Memory
                         }
                         if (ScanResultType.AddressStartOfSig == searchType)
                         {
-                            searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                            searchResult = new IntPtr((long) (region.BaseAddress + searchResult.ToInt32()));
                         }
                         return searchResult;
                     }

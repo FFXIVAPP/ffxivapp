@@ -133,13 +133,13 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 _chatLogPointers = new ChatLogPointers
                                 {
-                                    LineCount = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
-                                    OffsetArrayStart = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C),
-                                    OffsetArrayPos = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x44),
-                                    OffsetArrayEnd = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x4C),
-                                    LogStart = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x5C),
-                                    LogNext = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x64),
-                                    LogEnd = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x6C)
+                                    LineCount = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
+                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C),
+                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x44),
+                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x4C),
+                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x5C),
+                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x64),
+                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x6C)
                                 };
                             }
                             else
