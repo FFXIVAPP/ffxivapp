@@ -34,62 +34,6 @@ namespace FFXIVAPP.Client.Memory
 {
     public static class Structures
     {
-        [StructLayout(LayoutKind.Explicit)]
-        internal struct CHARMAP
-        {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1000)]
-            [FieldOffset(0x0)] //0
-            public Location[] Locations;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        internal struct ChatLog
-        {
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x0)] //0
-            public uint LineCount;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x20)] //32
-            public uint OffsetArrayStart;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x24)] //36
-            public uint OffsetArrayPos;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x28)] //40
-            public uint OffsetArrayEnd;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x30)] //48
-            public uint LogStart;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x34)] //52
-            public uint LogNext;
-
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x38)] //56
-            public uint LogEnd;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        internal struct Location
-        {
-            [MarshalAs(UnmanagedType.I4)]
-            [FieldOffset(0x0)] //0
-            public uint BaseAddress;
-        }
-
-        [StructLayout(LayoutKind.Explicit)]
-        internal struct NPCMAP
-        {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
-            [FieldOffset(0x0)] //0
-            public Location[] Locations;
-        }
-
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct PartyMember
         {

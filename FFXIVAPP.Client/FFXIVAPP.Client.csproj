@@ -147,6 +147,7 @@
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Localization\Russian.cs" />
     <Compile Include="Memory\ChatEntry.cs" />
+    <Compile Include="Memory\ChatLogPointers.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />

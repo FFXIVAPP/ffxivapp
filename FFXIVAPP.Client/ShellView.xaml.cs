@@ -117,7 +117,6 @@ namespace FFXIVAPP.Client
                 Initializer.LoadAvailablePlugins();
                 Initializer.CheckUpdates();
                 Initializer.SetGlobals();
-                Initializer.SetSignatures();
 
                 Initializer.StartMemoryWorkers();
                 if (Settings.Default.EnableNetworkReading)

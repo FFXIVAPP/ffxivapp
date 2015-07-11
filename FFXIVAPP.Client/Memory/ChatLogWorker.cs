@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Memory
         public bool FirstRun = true;
         private int _chatLimit = 1000;
 
-        private Structures.ChatLog _chatLogPointers;
+        private ChatLogPointers _chatLogPointers;
         private bool _isScanning;
         private int _previousArrayIndex;
         private int _previousOffset;
@@ -128,9 +128,38 @@ namespace FFXIVAPP.Client.Memory
                         try
                         {
                             _indexes.Clear();
-                            _chatLogPointers = MemoryHandler.Instance.GetStructure<Structures.ChatLog>(ChatPointerMap);
+
+                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
+                            {
+                                _chatLogPointers = new ChatLogPointers
+                                {
+                                    LineCount = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
+                                    OffsetArrayStart = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C),
+                                    OffsetArrayPos = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x44),
+                                    OffsetArrayEnd = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x4C),
+                                    LogStart = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x5C),
+                                    LogNext = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x64),
+                                    LogEnd = (uint)MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x6C)
+                                };
+                            }
+                            else
+                            {
+                                _chatLogPointers = new ChatLogPointers
+                                {
+                                    LineCount = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
+                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x20),
+                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x24),
+                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x28),
+                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x30),
+                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x34),
+                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x38)
+                                };
+                            }
+
                             EnsureArrayIndexes();
+
                             var currentArrayIndex = (_chatLogPointers.OffsetArrayPos - _chatLogPointers.OffsetArrayStart) / 4;
+                            
                             if (FirstRun)
                             {
                                 FirstRun = false;
