@@ -317,7 +317,7 @@ namespace FFXIVAPP.Client.Memory
 
         private void FindExtendedSignatures(IEnumerable<Signature> signatures)
         {
-            var bufferSize = 0x1000;
+            const int bufferSize = 0x1000;
             var moduleMemorySize = MemoryHandler.Instance.ProcessModel.Process.MainModule.ModuleMemorySize;
             var baseAddress = MemoryHandler.Instance.ProcessModel.Process.MainModule.BaseAddress;
             var searchEnd = IntPtr.Add(baseAddress, moduleMemorySize);
@@ -325,6 +325,7 @@ namespace FFXIVAPP.Client.Memory
             var lpBuffer = new byte[bufferSize];
             var notFound = new List<Signature>(signatures);
             var temp = new List<Signature>();
+            var regionCount = 0;
             while (searchStart.ToInt64() < searchEnd.ToInt64())
             {
                 try
@@ -336,34 +337,31 @@ namespace FFXIVAPP.Client.Memory
                     {
                         regionSize = (IntPtr) (searchEnd.ToInt64() - searchStart.ToInt64());
                     }
-                    if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
+                    if (UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
                     {
-                        var errorCode = Marshal.GetLastWin32Error();
-                        throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
-                    }
-                    foreach (var signature in notFound)
-                    {
-                        var searchResult = FindExtendedSingature(lpBuffer, signature.Value, signature.Offset);
-                        if (IntPtr.Zero == searchResult)
+                        foreach (var signature in notFound)
                         {
-                            temp.Add(signature);
-                            continue;
+                            //var idx = FindExtendedSingature(lpBuffer, signature.Value, signature.Offset);
+                            var idx = FindSuperSig(lpBuffer, SigToByte(signature.Value, WildCardChar));
+                            if (idx < 0)
+                            {
+                                temp.Add(signature);
+                                continue;
+                            }
+                            var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
+                            var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
+                            Locations.Add(signature.Key, searchResult.ToInt64());
                         }
-                        Locations.Add(signature.Key, (uint) searchResult);
+                        notFound = new List<Signature>(temp);
+                        temp.Clear();
                     }
-                    notFound = new List<Signature>(temp);
-                    temp.Clear();
+                    regionCount++;
                     searchStart = IntPtr.Add(searchStart, bufferSize);
                 }
                 catch (Exception ex)
                 {
                 }
             }
-        }
-
-        private static IntPtr FindExtendedSingature(byte[] buffer, string signature, int offset)
-        {
-            return IntPtr.Zero;
         }
 
         /// <summary>
