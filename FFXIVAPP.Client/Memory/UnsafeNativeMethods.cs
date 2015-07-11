@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, int regionSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] Byte[] lpBuffer, IntPtr regionSize, out IntPtr lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
@@ -75,7 +75,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, int regionSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, IntPtr regionSize, out IntPtr lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
@@ -86,7 +86,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpNumberOfBytesRead"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, byte[] lpBuffer, IntPtr regionSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, byte[] lpBuffer, uint regionSize, out IntPtr lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>
@@ -96,18 +96,18 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="dwLength"> </param>
         /// <returns> </returns>
         [DllImport("kernel32.dll")]
-        public static extern int VirtualQueryEx(IntPtr processHandle, IntPtr lpBaseAddress, out MemoryBasicInformation lpBuffer, uint dwLength);
+        public static extern int VirtualQueryEx(IntPtr processHandle, IntPtr lpBaseAddress, out MEMORY_BASIC_INFORMATION lpBuffer, uint dwLength);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct MemoryBasicInformation
+        public struct MEMORY_BASIC_INFORMATION
         {
-            public readonly IntPtr BaseAddress;
-            public readonly IntPtr AllocationBase;
-            public readonly IntPtr AllocationProtect;
-            public readonly IntPtr RegionSize;
-            public readonly IntPtr State;
-            public readonly IntPtr Protect;
-            public readonly IntPtr Type;
+            public IntPtr BaseAddress;
+            public IntPtr AllocationBase;
+            public uint AllocationProtect;
+            public IntPtr RegionSize;
+            public uint State;
+            public uint Protect;
+            public uint Type;
         }
     }
 }

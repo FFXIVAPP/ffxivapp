@@ -188,8 +188,8 @@ namespace FFXIVAPP.Client.Memory
         private static bool Peek(long address, byte[] buffer)
         {
             var target = new IntPtr(address);
-            int lpNumberOfBytesRead;
-            return UnsafeNativeMethods.ReadProcessMemory(Instance.ProcessHandle, target, buffer, buffer.Length, out lpNumberOfBytesRead);
+            IntPtr lpNumberOfBytesRead;
+            return UnsafeNativeMethods.ReadProcessMemory(Instance.ProcessHandle, target, buffer, new IntPtr(buffer.Length), out lpNumberOfBytesRead);
         }
 
         /// <summary>
@@ -377,9 +377,9 @@ namespace FFXIVAPP.Client.Memory
         /// <returns></returns>
         public T GetStructure<T>(long address, int offset = 0)
         {
-            int lpNumberOfBytesRead;
+            IntPtr lpNumberOfBytesRead;
             var buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof (T)));
-            UnsafeNativeMethods.ReadProcessMemory(ProcessModel.Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof (T)), out lpNumberOfBytesRead);
+            UnsafeNativeMethods.ReadProcessMemory(ProcessModel.Process.Handle, new IntPtr(address) + offset, buffer, new IntPtr(Marshal.SizeOf(typeof (T))), out lpNumberOfBytesRead);
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;

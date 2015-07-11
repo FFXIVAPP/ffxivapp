@@ -617,7 +617,6 @@ namespace FFXIVAPP.Client
                 case "Chinese":
                     if (IsWin64)
                     {
-
                     }
                     else
                     {

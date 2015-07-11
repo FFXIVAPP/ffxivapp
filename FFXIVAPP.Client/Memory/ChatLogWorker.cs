@@ -159,7 +159,7 @@ namespace FFXIVAPP.Client.Memory
                             EnsureArrayIndexes();
 
                             var currentArrayIndex = (_chatLogPointers.OffsetArrayPos - _chatLogPointers.OffsetArrayStart) / 4;
-                            
+
                             if (FirstRun)
                             {
                                 FirstRun = false;
