@@ -295,6 +295,10 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         newMonsterEntries.Remove(entry.ID);
                                         newMonsterEntries.Remove(entry.NPCID2);
+                                        newNPCEntries.Remove(entry.ID);
+                                        newNPCEntries.Remove(entry.NPCID2);
+                                        newPCEntries.Remove(entry.ID);
+                                        newPCEntries.Remove(entry.NPCID2);
                                         continue;
                                     }
                                     if (existing != null)

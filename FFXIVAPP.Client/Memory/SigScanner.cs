@@ -341,7 +341,6 @@ namespace FFXIVAPP.Client.Memory
                     {
                         foreach (var signature in notFound)
                         {
-                            //var idx = FindExtendedSingature(lpBuffer, signature.Value, signature.Offset);
                             var idx = FindSuperSig(lpBuffer, SigToByte(signature.Value, WildCardChar));
                             if (idx < 0)
                             {
