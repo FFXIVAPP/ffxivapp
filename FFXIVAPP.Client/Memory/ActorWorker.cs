@@ -144,25 +144,32 @@ namespace FFXIVAPP.Client.Memory
 
                             #endregion
 
-                            var endianSize = 4;
-                            var limit = 1372;
-                            var chunkSize = endianSize * limit;
+                            var endianSize = MemoryHandler.Instance.ProcessModel.IsWin64 ? 8 : 4;
+                            const int limit = 1372;
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], chunkSize);
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"],  endianSize * limit);
 
-                            var uniqueAddresses = new Dictionary<UInt32, UInt32>();
+                            var uniqueAddresses = new Dictionary<IntPtr, IntPtr>();
 
-                            for (var i = 0; i <= (chunkSize / endianSize); i += endianSize)
+                            for (var i = 0; i < limit; i++)
                             {
-                                var characterAddress = BitConverter.ToUInt32(characterAddressMap, i);
-                                if (characterAddress == 0)
+                                IntPtr characterAddress;
+                                if (MemoryHandler.Instance.ProcessModel.IsWin64)
+                                {
+                                    characterAddress = new IntPtr(BitConverter.ToInt64(characterAddressMap, i * endianSize));
+                                }
+                                else
+                                {
+                                    characterAddress = new IntPtr(BitConverter.ToInt32(characterAddressMap, i * endianSize));
+                                }
+                                if (characterAddress == IntPtr.Zero)
                                 {
                                     continue;
                                 }
                                 uniqueAddresses[characterAddress] = characterAddress;
                             }
 
-                            var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray(kvp.Value, 0x3F40))
+                            var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray((long) kvp.Value, 0x3F40))
                                                             .ToList();
 
                             #region ActorEntity Handlers
@@ -286,6 +293,8 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                     if (!entry.IsValid)
                                     {
+                                        newMonsterEntries.Remove(entry.ID);
+                                        newMonsterEntries.Remove(entry.NPCID2);
                                         continue;
                                     }
                                     if (existing != null)
