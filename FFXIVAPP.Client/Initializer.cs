@@ -721,6 +721,18 @@ namespace FFXIVAPP.Client
                             Value = "DB0F49416F12833AFFFFFFFF0000000000000000000000000000000000000000????????00000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A0000000000000000",
                             Offset = 472
                         });
+                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
+                        {
+                            0x1679030
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
+                        {
+                            0x1678708 + 8
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
+                        {
+                            0x1679010
+                        };
                     }
                     else
                     {
@@ -775,11 +787,6 @@ namespace FFXIVAPP.Client
                         MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
                         {
                             0x01D77D60
-                        };
-                        MemoryHandler.Instance.PointerPaths["CHARMAP"] = new List<long>()
-                        {
-                            0x003B1710,
-                            0x18
                         };
                         MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
                         {
