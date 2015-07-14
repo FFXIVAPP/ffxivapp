@@ -134,6 +134,7 @@
     <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
+    <Compile Include="Helpers\PartyEntityHelper.cs" />
     <Compile Include="Helpers\PlayerEntityHelper.cs" />
     <Compile Include="Helpers\ActorEntityHelper.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
@@ -168,7 +169,6 @@
     <Compile Include="Helpers\TabItemHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Memory\ChatCleaner.cs" />
-    <Compile Include="Memory\Structures.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />

@@ -691,6 +691,36 @@ namespace FFXIVAPP.Client
                             Value = "DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A000000000000000000000000????0000????0000FFFFFFFF",
                             Offset = 60
                         });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "ENMITYMAP",
+                            Value = "FFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000????????????????????????????????????????????DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
+                            Offset = 96 // pre 3.0 2.4
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYMAP",
+                            Value = "FFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
+                            Offset = -188764
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYCOUNT",
+                            Value = "5F50617274794C69737400",
+                            Offset = 2416
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "MAP",
+                            Value = "F783843E????????????????????????FFFFFFFFDB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A",
+                            Offset = 3092
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "TARGET",
+                            Value = "DB0F49416F12833AFFFFFFFF0000000000000000000000000000000000000000????????00000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A0000000000000000",
+                            Offset = 472
+                        });
                     }
                     else
                     {
@@ -711,18 +741,6 @@ namespace FFXIVAPP.Client
                             Key = "ENMITYMAP",
                             Value = "FFFFFFFF0000????????????????????????????????????????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
                             Offset = 14964 // pre 3.0 2.4
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "NPCMAP",
-                            Value = "3E000000????????4000000001000000000000000001000000",
-                            Offset = 3524 // pre 3.0 = 2748
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ACTORMAP",
-                            Value = "3E000000????????4000000001000000000000000001000000",
-                            Offset = 1644 // pre-3.0 = 1348
                         });
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
