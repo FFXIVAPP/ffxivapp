@@ -80,11 +80,11 @@ namespace FFXIVAPP.Client.Helpers
 
             private static void SaveColorsNode()
             {
-                if (Constants.Client.XColors == null)
+                if (Constants.XColors == null)
                 {
                     return;
                 }
-                var xElements = Constants.Client.XColors.Descendants()
+                var xElements = Constants.XColors.Descendants()
                                          .Elements("Color");
                 var enumerable = xElements as XElement[] ?? xElements.ToArray();
                 foreach (var color in Constants.Colors)
@@ -107,7 +107,7 @@ namespace FFXIVAPP.Client.Helpers
                     });
                     if (element == null)
                     {
-                        XmlHelper.SaveXmlNode(Constants.Client.XColors, "Colors", "Color", xKey, keyPairList);
+                        XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);
                     }
                     else
                     {
@@ -123,7 +123,7 @@ namespace FFXIVAPP.Client.Helpers
                         }
                     }
                 }
-                Constants.Client.XColors.Save(Path.Combine(AppViewModel.Instance.ConfigurationsPath, "Colors.xml"));
+                Constants.XColors.Save(Path.Combine(AppViewModel.Instance.ConfigurationsPath, "Colors.xml"));
             }
 
             #endregion

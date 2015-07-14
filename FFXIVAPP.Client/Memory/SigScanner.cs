@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static SigScanner _instance;
-        private Dictionary<string, uint> _locations;
+        private Dictionary<string, long> _locations;
 
         public static SigScanner Instance
         {
@@ -57,14 +57,14 @@ namespace FFXIVAPP.Client.Memory
             set { _instance = value; }
         }
 
-        public Dictionary<string, uint> Locations
+        public Dictionary<string, long> Locations
         {
-            get { return _locations ?? (_locations = new Dictionary<string, uint>()); }
+            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
             private set
             {
                 if (_locations == null)
                 {
-                    _locations = new Dictionary<string, uint>();
+                    _locations = new Dictionary<string, long>();
                 }
                 _locations = value;
                 RaisePropertyChanged();
@@ -120,13 +120,12 @@ namespace FFXIVAPP.Client.Memory
         #region Declarations
 
         private byte[] _memDump;
-        private List<UnsafeNativeMethods.MemoryBasicInformation> _regions;
+        private List<UnsafeNativeMethods.MEMORY_BASIC_INFORMATION> _regions;
 
         #endregion
 
         /// <summary>
         /// </summary>
-        /// <param name="process"> </param>
         /// <param name="signatures"> </param>
         public SigScanner(List<Signature> signatures = null)
         {
@@ -145,15 +144,23 @@ namespace FFXIVAPP.Client.Memory
             {
                 var sw = new Stopwatch();
                 sw.Start();
-                if (MemoryHandler.Instance.Process == null)
+                if (MemoryHandler.Instance.ProcessModel.Process == null)
                 {
                     return false;
                 }
                 LoadRegions();
-                Locations = new Dictionary<string, uint>();
+                Locations = new Dictionary<string, long>();
                 if (signatures.Any())
                 {
+                    // this will scan 32 bit regions for some reason
                     FindSignatures(signatures, ScanResultType.AddressStartOfSig);
+                }
+                var signaturesNotFound = signatures.Where(s => !Locations.ContainsKey(s.Key))
+                                                   .ToList();
+                if (signaturesNotFound.Any())
+                {
+                    // have to extend this to scan from game base address up
+                    FindExtendedSignatures(signaturesNotFound);
                 }
                 _memDump = null;
                 sw.Stop();
@@ -168,21 +175,18 @@ namespace FFXIVAPP.Client.Memory
         {
             try
             {
-                _regions = new List<UnsafeNativeMethods.MemoryBasicInformation>();
-                var address = 0;
+                _regions = new List<UnsafeNativeMethods.MEMORY_BASIC_INFORMATION>();
+                var address = new IntPtr();
                 while (true)
                 {
-                    var info = new UnsafeNativeMethods.MemoryBasicInformation();
-                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, (uint) address, out info, (uint) Marshal.SizeOf(info));
+                    var info = new UnsafeNativeMethods.MEMORY_BASIC_INFORMATION();
+                    var result = UnsafeNativeMethods.VirtualQueryEx(MemoryHandler.Instance.ProcessHandle, address, out info, (uint) Marshal.SizeOf(info));
                     if (0 == result)
                     {
                         break;
                     }
-                    if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard))
-                    {
-                        _regions.Add(info);
-                    }
-                    address = info.BaseAddress + info.RegionSize;
+                    _regions.Add(info);
+                    address = info.BaseAddress + (int) info.RegionSize;
                 }
             }
             catch (Exception ex)
@@ -205,9 +209,9 @@ namespace FFXIVAPP.Client.Memory
                 {
                     try
                     {
-                        var buffer = new byte[region.RegionSize];
-                        int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
+                        var buffer = new byte[region.RegionSize.ToInt32()];
+                        IntPtr lpNumberOfByteRead;
+                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
                         {
                             var errorCode = Marshal.GetLastWin32Error();
                             throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
@@ -222,7 +226,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (ScanResultType.AddressStartOfSig == searchType)
                             {
-                                searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
+                                searchResult = IntPtr.Add(searchResult, (int) region.BaseAddress);
                             }
                             Locations.Add(signature.Key, (uint) searchResult);
                         }
@@ -235,68 +239,9 @@ namespace FFXIVAPP.Client.Memory
                 }
             }
             catch (Exception ex)
-            {
-            }
-        }
 
-        /// <summary>
-        ///     Searches the loaded process for the given byte signature
-        /// </summary>
-        /// <param name="signature">The hex pattern to search for</param>
-        /// <param name="searchType"></param>
-        /// <returns>The pointer found at the matching location</returns>
-        private IntPtr FindSignature(string signature, ScanResultType searchType)
-        {
-            return FindSignature(signature, 0, searchType);
-        }
-
-        /// <summary>
-        ///     <para>Searches the loaded process for the given byte signature.</para>
-        ///     <para>Uses the character ? as a wildcard</para>
-        /// </summary>
-        /// <param name="signature">The hex pattern to search for</param>
-        /// <param name="offset">An offset to add to the pointer VALUE</param>
-        /// <param name="searchType">What type os result to return</param>
-        /// <returns>The pointer found at the matching location</returns>
-        private IntPtr FindSignature(string signature, int offset, ScanResultType searchType)
-        {
-            try
-            {
-                if (signature.Length == 0 || signature.Length % 2 != 0)
-                {
-                    throw new Exception("FindSignature(): Invalid signature");
-                }
-                foreach (var region in _regions)
-                {
-                    try
-                    {
-                        var buffer = new byte[region.RegionSize];
-                        int lpNumberOfByteRead;
-                        if (!UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, (IntPtr) region.BaseAddress, buffer, region.RegionSize, out lpNumberOfByteRead))
-                        {
-                            var errorCode = Marshal.GetLastWin32Error();
-                            throw new Exception("FindSignature(): Unable to read memory. Error Code [" + errorCode + "]");
-                        }
-                        var searchResult = FindSignature(buffer, signature, offset, searchType);
-                        if (IntPtr.Zero == searchResult)
-                        {
-                            continue;
-                        }
-                        if (ScanResultType.AddressStartOfSig == searchType)
-                        {
-                            searchResult = new IntPtr(region.BaseAddress + searchResult.ToInt32());
-                        }
-                        return searchResult;
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-            }
-            catch (Exception ex)
             {
             }
-            return IntPtr.Zero;
         }
 
         /// <summary>
@@ -345,8 +290,16 @@ namespace FFXIVAPP.Client.Memory
                     switch (searchType)
                     {
                         case ScanResultType.ValueBeforeSig:
+                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
+                            {
+                                return (IntPtr) (BitConverter.ToInt64(buffer, idx - 8) + offset);
+                            }
                             return (IntPtr) (BitConverter.ToInt32(buffer, idx - 4) + offset);
                         case ScanResultType.ValueAfterSig:
+                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
+                            {
+                                return (IntPtr) (BitConverter.ToInt64(buffer, idx + pattern.Length) + offset);
+                            }
                             return (IntPtr) (BitConverter.ToInt32(buffer, idx + pattern.Length) + offset);
                         case ScanResultType.AddressStartOfSig:
                             return (IntPtr) (idx + offset);
@@ -360,6 +313,54 @@ namespace FFXIVAPP.Client.Memory
             {
             }
             return IntPtr.Zero;
+        }
+
+        private void FindExtendedSignatures(IEnumerable<Signature> signatures)
+        {
+            const int bufferSize = 0x1000;
+            var moduleMemorySize = MemoryHandler.Instance.ProcessModel.Process.MainModule.ModuleMemorySize;
+            var baseAddress = MemoryHandler.Instance.ProcessModel.Process.MainModule.BaseAddress;
+            var searchEnd = IntPtr.Add(baseAddress, moduleMemorySize);
+            var searchStart = baseAddress;
+            var lpBuffer = new byte[bufferSize];
+            var notFound = new List<Signature>(signatures);
+            var temp = new List<Signature>();
+            var regionCount = 0;
+            while (searchStart.ToInt64() < searchEnd.ToInt64())
+            {
+                try
+                {
+                    IntPtr lpNumberOfBytesRead;
+                    var regionSize = new IntPtr(bufferSize);
+                    if (IntPtr.Add(searchStart, bufferSize)
+                              .ToInt64() > searchEnd.ToInt64())
+                    {
+                        regionSize = (IntPtr) (searchEnd.ToInt64() - searchStart.ToInt64());
+                    }
+                    if (UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
+                    {
+                        foreach (var signature in notFound)
+                        {
+                            var idx = FindSuperSig(lpBuffer, SigToByte(signature.Value, WildCardChar));
+                            if (idx < 0)
+                            {
+                                temp.Add(signature);
+                                continue;
+                            }
+                            var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
+                            var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
+                            Locations.Add(signature.Key, searchResult.ToInt64());
+                        }
+                        notFound = new List<Signature>(temp);
+                        temp.Clear();
+                    }
+                    regionCount++;
+                    searchStart = IntPtr.Add(searchStart, bufferSize);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
 
         /// <summary>

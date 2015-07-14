@@ -525,7 +525,7 @@ namespace FFXIVAPP.Client.Network
         {
             var tables = IPHelper.GetExtendedTCPTable(true);
             return (tables.Cast<TCPRow>()
-                          .Where(table => table.ProcessId == Constants.ProcessID)
+                          .Where(table => table.ProcessId == Constants.ProcessModel.ProcessID)
                           .Select(table => new ServerConnection
                           {
                               SourceAddress = BitConverter.ToUInt32(table.RemoteEndPoint.Address.GetAddressBytes(), 0),

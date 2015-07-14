@@ -33,13 +33,11 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Helpers;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -54,8 +52,8 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
-        private uint PartyInfoMap { get; set; }
-        private uint PartyCountMap { get; set; }
+        private long PartyInfoMap { get; set; }
+        private long PartyCountMap { get; set; }
 
         public bool ReferencesSet { get; set; }
 
@@ -171,8 +169,7 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             newPartyEntries.Add(ID);
                                         }
-                                        var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(address);
-                                        var entry = GetPartyEntity(address, actor, existing);
+                                        var entry = PartyEntityHelper.ResolvePartyMemberFromBytes(source, existing);
                                         if (!entry.IsValid)
                                         {
                                             continue;
@@ -186,8 +183,7 @@ namespace FFXIVAPP.Client.Memory
                                 }
                                 else if (partyCount == 0 || partyCount == 1)
                                 {
-                                    var actor = MemoryHandler.Instance.GetStructure<Structures.PartyMember>(PartyInfoMap);
-                                    var entry = GetPartyEntity(PartyInfoMap, actor, PCWorkerDelegate.CurrentUser);
+                                    var entry = PartyEntityHelper.ResolvePartyMemberFromBytes(new byte[0], PCWorkerDelegate.CurrentUser);
                                     if (entry.IsValid)
                                     {
                                         var exists = false;
@@ -237,87 +233,6 @@ namespace FFXIVAPP.Client.Memory
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
-        }
-
-        private static PartyEntity GetPartyEntity(uint address, Structures.PartyMember partyMember, ActorEntity actorEntity = null)
-        {
-            var actor = actorEntity ?? (dynamic) partyMember;
-            try
-            {
-                var entry = new PartyEntity
-                {
-                    ID = actor.ID,
-                    X = actor.X,
-                    Z = actor.Z,
-                    Y = actor.Y,
-                    Level = actor.Level,
-                    HPCurrent = actor.HPCurrent,
-                    HPMax = actor.HPMax,
-                    MPCurrent = actor.MPCurrent,
-                    MPMax = actor.MPMax,
-                    Job = actor.Job
-                };
-                if (entry.HPMax == 0)
-                {
-                    entry.HPMax = 1;
-                }
-                if (actorEntity == null)
-                {
-                    entry.Name = MemoryHandler.Instance.GetString(address, 32);
-                    entry.Coordinate = new Coordinate(actor.X, actor.Z, actor.Y);
-                    foreach (var status in actor.Statuses)
-                    {
-                        var statusEntry = new StatusEntry
-                        {
-                            TargetName = entry.Name,
-                            StatusID = status.StatusID,
-                            Duration = status.Duration,
-                            CasterID = status.CasterID
-                        };
-                        try
-                        {
-                            var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                            statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                            var statusKey = statusInfo.Name.English;
-                            switch (Settings.Default.GameLanguage)
-                            {
-                                case "French":
-                                    statusKey = statusInfo.Name.French;
-                                    break;
-                                case "Japanese":
-                                    statusKey = statusInfo.Name.Japanese;
-                                    break;
-                                case "German":
-                                    statusKey = statusInfo.Name.German;
-                                    break;
-                                case "Chinese":
-                                    statusKey = statusInfo.Name.Chinese;
-                                    break;
-                            }
-                            statusEntry.StatusName = statusKey;
-                        }
-                        catch (Exception ex)
-                        {
-                            statusEntry.StatusName = "UNKNOWN";
-                        }
-                        if (statusEntry.IsValid())
-                        {
-                            entry.StatusEntries.Add(statusEntry);
-                        }
-                    }
-                }
-                else
-                {
-                    entry.Name = actor.Name;
-                    entry.Coordinate = actor.Coordinate;
-                    entry.StatusEntries = actor.StatusEntries;
-                }
-                return entry;
-            }
-            catch (Exception ex)
-            {
-            }
-            return new PartyEntity();
         }
 
         #endregion

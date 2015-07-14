@@ -112,7 +112,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         try
                         {
-                            uint targetHateStructure = 0;
+                            long targetHateStructure = 0;
                             switch (Settings.Default.GameLanguage)
                             {
                                 case "Chinese":
@@ -134,12 +134,12 @@ namespace FFXIVAPP.Client.Memory
                                 if (targetAddress > 0)
                                 {
                                     //var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                    uint currentTarget;
-                                    uint mouseOverTarget;
-                                    uint focusTarget;
-                                    uint previousTarget;
-                                    uint currentTargetID;
-                                    var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 128);
+                                    uint currentTarget = 0;
+                                    uint mouseOverTarget = 0;
+                                    uint focusTarget = 0;
+                                    uint previousTarget = 0;
+                                    uint currentTargetID = 0;
+                                    var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 192);
                                     switch (Settings.Default.GameLanguage)
                                     {
                                         case "Chinese":
@@ -151,10 +151,20 @@ namespace FFXIVAPP.Client.Memory
                                             break;
                                         default:
                                             currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
-                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x8);
-                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x38);
-                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x44);
-                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x58);
+                                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
+                                            {
+                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x10);
+                                                focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x50);
+                                                previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x80);
+                                            }
+                                            else
+                                            {
+                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x8);
+                                                focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x38);
+                                                previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x44);
+                                                currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x58);
+                                            }
                                             break;
                                     }
                                     if (currentTarget > 0)
@@ -167,7 +177,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -193,7 +203,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -217,7 +227,7 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             try
                                             {
-                                                entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                             }
                                             catch (Exception ex)
                                             {
@@ -239,7 +249,7 @@ namespace FFXIVAPP.Client.Memory
                                             {
                                                 try
                                                 {
-                                                    entry.MapIndex = MemoryHandler.Instance.GetUInt32(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
+                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -265,31 +275,37 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     for (uint i = 0; i < 16; i++)
                                     {
-                                        var address = targetHateStructure + (i * 72);
-                                        var enmityEntry = new EnmityEntry
+                                        try
                                         {
-                                            Name = MemoryHandler.Instance.GetString(address),
-                                            ID = (uint) MemoryHandler.Instance.GetInt32(address, 64),
-                                            Enmity = (uint) MemoryHandler.Instance.GetInt32(address, 68)
-                                        };
-                                        if (enmityEntry.ID <= 0)
-                                        {
-                                            continue;
-                                        }
-                                        if (String.IsNullOrWhiteSpace(enmityEntry.Name))
-                                        {
-                                            var pc = PCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
-                                            var npc = NPCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
-                                            var monster = MonsterWorkerDelegate.GetNPCEntity(enmityEntry.ID);
-                                            try
+                                            var address = targetHateStructure + (i * 72);
+                                            var enmityEntry = new EnmityEntry
                                             {
-                                                enmityEntry.Name = (pc ?? npc).Name ?? monster.Name;
-                                            }
-                                            catch (Exception ex)
+                                                Name = MemoryHandler.Instance.GetString(address),
+                                                ID = (uint)MemoryHandler.Instance.GetPlatformInt(address, 64),
+                                                Enmity = (uint)MemoryHandler.Instance.GetPlatformInt(address, 68)
+                                            };
+                                            if (enmityEntry.ID <= 0)
                                             {
+                                                continue;
                                             }
+                                            if (String.IsNullOrWhiteSpace(enmityEntry.Name))
+                                            {
+                                                var pc = PCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                                var npc = NPCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                                var monster = MonsterWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                                try
+                                                {
+                                                    enmityEntry.Name = (pc ?? npc).Name ?? monster.Name;
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                }
+                                            }
+                                            enmityEntries.Add(enmityEntry);
                                         }
-                                        enmityEntries.Add(enmityEntry);
+                                        catch (Exception ex)
+                                        {
+                                        }
                                     }
                                 }
                                 targetEntity.EnmityEntries = enmityEntries;

@@ -29,10 +29,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
+using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Core.Constant;
+using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client
 {
@@ -52,6 +55,12 @@ namespace FFXIVAPP.Client
 
         #region Property Bindings
 
+        private static XDocument _xSettings;
+        private static List<string> _settings;
+        private static XDocument _xActions;
+        private static XDocument _xAutoTranslate;
+        private static XDocument _xChatCodes;
+        private static XDocument _xColors;
         private static Dictionary<string, ActionInfo> _actions;
         private static Dictionary<string, string> _autoTranslate;
         private static Dictionary<string, string> _chatCodes;
@@ -66,6 +75,127 @@ namespace FFXIVAPP.Client
         private static bool _enableHelpLabels;
         private static string _theme;
         private static string _uiScale;
+
+        public static XDocument XSettings
+        {
+            get
+            {
+                var settingsFile = Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml");
+                if (_xSettings != null)
+                {
+                    return _xSettings;
+                }
+                try
+                {
+                    var found = File.Exists(settingsFile);
+                    _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xSettings = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                }
+                return _xSettings;
+            }
+            set { _xSettings = value; }
+        }
+
+        public static List<string> Settings
+        {
+            get { return _settings ?? (_settings = new List<string>()); }
+            set { _settings = value; }
+        }
+
+        public static XDocument XActions
+        {
+            get
+            {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Actions.xml");
+                if (_xActions != null)
+                {
+                    return _xActions;
+                }
+                try
+                {
+                    var found = File.Exists(file);
+                    _xActions = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xActions = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
+                }
+                return _xActions;
+            }
+            set { _xActions = value; }
+        }
+
+        public static XDocument XAutoTranslate
+        {
+            get
+            {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "AutoTranslate.xml");
+                if (_xAutoTranslate != null)
+                {
+                    return _xAutoTranslate;
+                }
+                try
+                {
+                    var found = File.Exists(file);
+                    _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xAutoTranslate = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
+                }
+                return _xAutoTranslate;
+            }
+            set { _xAutoTranslate = value; }
+        }
+
+        public static XDocument XChatCodes
+        {
+            get
+            {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "ChatCodes.xml");
+                if (_xChatCodes != null)
+                {
+                    return _xChatCodes;
+                }
+                try
+                {
+                    var found = File.Exists(file);
+                    _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xChatCodes = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                }
+                return _xChatCodes;
+            }
+            set { _xChatCodes = value; }
+        }
+
+        public static XDocument XColors
+        {
+            get
+            {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Colors.xml");
+                if (_xColors != null)
+                {
+                    return _xColors;
+                }
+                try
+                {
+                    var found = File.Exists(file);
+                    _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
+                }
+                catch (Exception ex)
+                {
+                    _xColors = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
+                }
+                return _xColors;
+            }
+            set { _xColors = value; }
+        }
 
         public static Dictionary<string, ActionInfo> Actions
         {
@@ -99,7 +229,7 @@ namespace FFXIVAPP.Client
 
         public static string ChatCodesXml
         {
-            get { return Client.XChatCodes.ToString(); }
+            get { return XChatCodes.ToString(); }
         }
 
         public static Dictionary<string, string[]> Colors
@@ -208,11 +338,11 @@ namespace FFXIVAPP.Client
 
         public static IntPtr ProcessHandle { get; set; }
 
-        public static int ProcessID { get; set; }
+        public static ProcessModel ProcessModel { get; set; }
 
         public static bool IsOpen { get; set; }
 
-        public static Process[] ProcessIDs { get; set; }
+        public static List<ProcessModel> ProcessModels { get; set; }
 
         #endregion
     }

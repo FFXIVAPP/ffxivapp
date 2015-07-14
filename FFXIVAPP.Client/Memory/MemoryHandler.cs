@@ -30,10 +30,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using FFXIVAPP.Client.Models;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -49,17 +49,17 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static MemoryHandler _instance;
-        private Dictionary<string, List<uint>> _pointerPaths;
-        private Process _process;
+        private Dictionary<string, List<long>> _pointerPaths;
         private IntPtr _processHandle;
+        private ProcessModel _processModel;
         private SigScanner _sigScanner;
 
-        public Process Process
+        public ProcessModel ProcessModel
         {
-            get { return _process; }
+            get { return _processModel; }
             set
             {
-                _process = value;
+                _processModel = value;
                 RaisePropertyChanged();
             }
         }
@@ -93,9 +93,9 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
-        public Dictionary<String, List<uint>> PointerPaths
+        public Dictionary<String, List<long>> PointerPaths
         {
-            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<uint>>()); }
+            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
             set
             {
                 _pointerPaths = value;
@@ -121,12 +121,12 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
-        /// <param name="process"> </param>
-        public MemoryHandler(Process process)
+        /// <param name="processModel"> </param>
+        public MemoryHandler(ProcessModel processModel)
         {
-            if (process != null)
+            if (processModel != null)
             {
-                SetProcess(process);
+                SetProcess(processModel);
             }
         }
 
@@ -141,27 +141,27 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
-        public void SetProcess(Process process)
+        public void SetProcess(ProcessModel processModel)
         {
-            Process = process;
+            ProcessModel = processModel;
             try
             {
-                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.PROCESS_VM_ALL, false, (uint) process.Id);
+                ProcessHandle = UnsafeNativeMethods.OpenProcess(UnsafeNativeMethods.ProcessAccessFlags.PROCESS_VM_ALL, false, (uint) ProcessModel.ProcessID);
             }
             catch (Exception ex)
             {
-                ProcessHandle = process.Handle;
+                ProcessHandle = processModel.Process.Handle;
             }
             Constants.ProcessHandle = ProcessHandle;
             SigScanner.Locations.Clear();
         }
 
-        public static uint ResolvePointerPath(string pathname)
+        public static long ResolvePointerPath(string pathname)
         {
             return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname]) : 0;
         }
 
-        public static uint ResolvePointerPath(IEnumerable<uint> path)
+        public static long ResolvePointerPath(IEnumerable<long> path)
         {
             var address = GetStaticAddress(0);
             var nextAddress = address;
@@ -169,15 +169,15 @@ namespace FFXIVAPP.Client.Memory
             foreach (var offset in path)
             {
                 address = nextAddress + offset;
-                nextAddress = (uint) Instance.GetInt32(address);
+                nextAddress = (uint) Instance.GetPlatformInt(address);
             }
 
             return address;
         }
 
-        public static uint GetStaticAddress(uint offset)
+        public static long GetStaticAddress(long offset)
         {
-            return (uint) Instance.Process.MainModule.BaseAddress.ToInt64() + offset;
+            return Instance.ProcessModel.Process.MainModule.BaseAddress.ToInt64() + offset;
         }
 
         /// <summary>
@@ -185,11 +185,11 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"> </param>
         /// <param name="buffer"> </param>
         /// <returns> </returns>
-        private static bool Peek(uint address, byte[] buffer)
+        private static bool Peek(long address, byte[] buffer)
         {
             var target = new IntPtr(address);
-            int lpNumberOfBytesRead;
-            return UnsafeNativeMethods.ReadProcessMemory(Instance.ProcessHandle, target, buffer, buffer.Length, out lpNumberOfBytesRead);
+            IntPtr lpNumberOfBytesRead;
+            return UnsafeNativeMethods.ReadProcessMemory(Instance.ProcessHandle, target, buffer, new IntPtr(buffer.Length), out lpNumberOfBytesRead);
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public byte GetByte(uint address, uint offset = 0)
+        public byte GetByte(long address, long offset = 0)
         {
             var data = new byte[1];
             Peek(address + offset, data);
@@ -209,7 +209,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public byte[] GetByteArray(uint address, int length)
+        public byte[] GetByteArray(long address, int length)
         {
             var data = new byte[length];
             Peek(address, data);
@@ -221,31 +221,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public double GetDouble(uint address, uint offset = 0)
-        {
-            var value = new byte[8];
-            Peek(address + offset, value);
-            return BitConverter.ToDouble(value, 0);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        public float GetFloat(uint address, uint offset = 0)
-        {
-            var value = new byte[4];
-            Peek(address + offset, value);
-            return BitConverter.ToSingle(value, 0);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        public short GetInt16(uint address, uint offset = 0)
+        public short GetInt16(long address, long offset = 0)
         {
             var value = new byte[2];
             Peek(address + offset, value);
@@ -257,7 +233,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public int GetInt32(uint address, uint offset = 0)
+        public int GetInt32(long address, long offset = 0)
         {
             var value = new byte[4];
             Peek(address + offset, value);
@@ -269,11 +245,24 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public long GetInt64(uint address, uint offset = 0)
+        public long GetInt64(long address, long offset = 0)
         {
             var value = new byte[8];
             Peek(address + offset, value);
             return BitConverter.ToInt64(value, 0);
+        }
+
+        public long GetPlatformInt(long address, long offset = 0)
+        {
+            if (ProcessModel.IsWin64)
+            {
+                var win64 = new byte[8];
+                Peek(address + offset, win64);
+                return BitConverter.ToInt64(win64, 0);
+            }
+            var win32 = new byte[4];
+            Peek(address + offset, win32);
+            return BitConverter.ToInt32(win32, 0);
         }
 
         /// <summary>
@@ -282,7 +271,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="offset"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public string GetString(uint address, uint offset = 0, int size = 256)
+        public string GetString(long address, long offset = 0, int size = 256)
         {
             var bytes = new byte[size];
             Peek(address + offset, bytes);
@@ -323,45 +312,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public int GetProgram(uint address, uint offset = 0)
-        {
-            var value = new byte[30];
-            Peek(address + offset, value);
-            return BitConverter.ToInt32(value, 0);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        public UInt32 GetUInt32(uint address, uint offset = 0)
-        {
-            var value = new byte[4];
-            Peek(address + offset, value);
-            return BitConverter.ToUInt32(value, 0);
-        }
-
-        public int ReadInt32(IntPtr address, int offset = 0)
-        {
-            var value = new byte[4];
-            Peek((uint) (address + offset), value);
-            return BitConverter.ToInt32(value, 0);
-        }
-
-        public IntPtr ReadPointer(IntPtr address, int offset = 0)
-        {
-            var value = new byte[4];
-            Peek((uint) (address + offset), value);
-            return IntPtr.Add(IntPtr.Zero, BitConverter.ToInt32(value, 0));
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        public UInt16 GetUInt16(uint address, uint offset = 0)
+        public ushort GetUInt16(long address, long offset = 0)
         {
             var value = new byte[4];
             Peek(address + offset, value);
@@ -370,62 +321,68 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public uint GetUInt32(long address, long offset = 0)
+        {
+            var value = new byte[4];
+            Peek(address + offset, value);
+            return BitConverter.ToUInt32(value, 0);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public ulong GetUInt64(long address, long offset = 0)
+        {
+            var value = new byte[8];
+            Peek(address + offset, value);
+            return BitConverter.ToUInt32(value, 0);
+        }
+
+        public long GetPlatformUInt(long address, long offset = 0)
+        {
+            if (ProcessModel.IsWin64)
+            {
+                var win64 = new byte[8];
+                Peek(address + offset, win64);
+                return (long) BitConverter.ToUInt64(win64, 0);
+            }
+            var win32 = new byte[4];
+            Peek(address + offset, win32);
+            return BitConverter.ToUInt32(win32, 0);
+        }
+
+        public IntPtr ReadPointer(IntPtr address, long offset = 0)
+        {
+            if (ProcessModel.IsWin64)
+            {
+                var win64 = new byte[8];
+                Peek((long) (address + (int) offset), win64);
+                return IntPtr.Add(IntPtr.Zero, (int) BitConverter.ToInt64(win64, 0));
+            }
+            var win32 = new byte[4];
+            Peek((long) (address + (int) offset), win32);
+            return IntPtr.Add(IntPtr.Zero, BitConverter.ToInt32(win32, 0));
+        }
+
+        /// <summary>
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="address"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public T GetStructure<T>(uint address, int offset = 0)
+        public T GetStructure<T>(long address, int offset = 0)
         {
-            int lpNumberOfBytesRead;
+            IntPtr lpNumberOfBytesRead;
             var buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof (T)));
-            UnsafeNativeMethods.ReadProcessMemory(Process.Handle, new IntPtr(address) + offset, buffer, Marshal.SizeOf(typeof (T)), out lpNumberOfBytesRead);
+            UnsafeNativeMethods.ReadProcessMemory(ProcessModel.Process.Handle, new IntPtr(address) + offset, buffer, new IntPtr(Marshal.SizeOf(typeof (T))), out lpNumberOfBytesRead);
             var retValue = (T) Marshal.PtrToStructure(buffer, typeof (T));
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public T GetStructureFromBytes<T>(byte[] source) where T : struct
-        {
-            unsafe
-            {
-                fixed (byte* p = &source[0])
-                {
-                    return (T) Marshal.PtrToStructure(new IntPtr(p), typeof (T));
-                }
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="byteArray"> </param>
-        /// <returns> </returns>
-        public static char[] ByteArrayToCharArray(byte[] byteArray)
-        {
-            var charArray = new char[byteArray.Length];
-            for (var x = 0; x < byteArray.Length; x++)
-            {
-                charArray[x] = Convert.ToChar(byteArray[x]);
-            }
-            return charArray;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="charArray"> </param>
-        /// <returns> </returns>
-        public static byte[] CharArrayToByteArray(char[] charArray)
-        {
-            var byteArray = new byte[charArray.Length];
-            for (var x = 0; x < charArray.Length; x++)
-            {
-                byteArray[x] = Convert.ToByte(charArray[x]);
-            }
-            return byteArray;
         }
 
         #region Implementation of INotifyPropertyChanged

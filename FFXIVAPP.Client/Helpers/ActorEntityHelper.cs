@@ -109,12 +109,13 @@ namespace FFXIVAPP.Client.Helpers
                         entry.TargetType = (Actor.TargetType) source[0x8C];
                         entry.GatheringStatus = source[0x8F];
                         entry.Distance = source[0x91];
-                        entry.X = BitConverter.ToSingle(source, 0xA0);
-                        entry.Z = BitConverter.ToSingle(source, 0xA4);
-                        entry.Y = BitConverter.ToSingle(source, 0xA8);
-                        entry.Heading = BitConverter.ToSingle(source, 0xB0);
-                        entry.HitBoxRadius = BitConverter.ToSingle(source, 0xC0);
-                        entry.Fate = BitConverter.ToUInt32(source, 0xE4); // ??
+                        var defaultBaseOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x10 : 0;
+                        entry.X = BitConverter.ToSingle(source, 0xA0 + defaultBaseOffset);
+                        entry.Z = BitConverter.ToSingle(source, 0xA4 + defaultBaseOffset);
+                        entry.Y = BitConverter.ToSingle(source, 0xA8 + defaultBaseOffset);
+                        entry.Heading = BitConverter.ToSingle(source, 0xB0 + defaultBaseOffset);
+                        entry.HitBoxRadius = BitConverter.ToSingle(source, 0xC0 + defaultBaseOffset);
+                        entry.Fate = BitConverter.ToUInt32(source, 0xE4 + defaultBaseOffset); // ??
                         entry.GatheringInvisible = source[0x11C]; // ??
                         entry.ModelID = BitConverter.ToUInt32(source, 0x174);
                         entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
@@ -125,21 +126,22 @@ namespace FFXIVAPP.Client.Helpers
                         entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180); // 0x1A0);
                         targetID = BitConverter.ToUInt32(source, 0x188); // 0x1A8);
                         pcTargetID = BitConverter.ToUInt32(source, 0x938); // 0xAA8);
-                        entry.Job = (Actor.Job) source[0x14C0]; // 0x17C0];
-                        entry.Level = source[0x14C1]; // 0x17C1];
-                        entry.GrandCompany = source[0x14C3]; // 0x17C3];
-                        entry.GrandCompanyRank = source[0x14C4]; //0x17C4];
-                        entry.Title = source[0x1546]; //0x17C6];
-                        entry.HPCurrent = BitConverter.ToInt32(source, 0x14C8); // 0x17C8);
-                        entry.HPMax = BitConverter.ToInt32(source, 0x14CC); // 0x17CC);
-                        entry.MPCurrent = BitConverter.ToInt32(source, 0x14D0); // 0x17D0);
-                        entry.MPMax = BitConverter.ToInt32(source, 0x14D4); // 0x17D4);
-                        entry.TPCurrent = BitConverter.ToInt16(source, 0x14D8); // 0x17D8);
+                        var defaultStatOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x230 : 0;
+                        entry.Job = (Actor.Job) source[0x14C0 + defaultStatOffset]; // 0x17C0];
+                        entry.Level = source[0x14C1 + defaultStatOffset]; // 0x17C1];
+                        entry.GrandCompany = source[0x14C3 + defaultStatOffset]; // 0x17C3];
+                        entry.GrandCompanyRank = source[0x14C4 + defaultStatOffset]; //0x17C4];
+                        entry.Title = source[0x1546 + defaultStatOffset]; //0x17C6];
+                        entry.HPCurrent = BitConverter.ToInt32(source, 0x14C8 + defaultStatOffset); // 0x17C8);
+                        entry.HPMax = BitConverter.ToInt32(source, 0x14CC + defaultStatOffset); // 0x17CC);
+                        entry.MPCurrent = BitConverter.ToInt32(source, 0x14D0 + defaultStatOffset); // 0x17D0);
+                        entry.MPMax = BitConverter.ToInt32(source, 0x14D4 + defaultStatOffset); // 0x17D4);
+                        entry.TPCurrent = BitConverter.ToInt16(source, 0x14D8 + defaultStatOffset); // 0x17D8);
                         entry.TPMax = 1000;
-                        entry.GPCurrent = BitConverter.ToInt16(source, 0x14DA); // 0x17DA);
-                        entry.GPMax = BitConverter.ToInt16(source, 0x14DC); // 0x17DC);
-                        entry.CPCurrent = BitConverter.ToInt16(source, 0x14DE); // 0x17DE);
-                        entry.CPMax = BitConverter.ToInt16(source, 0x14E0); // 0x17E0);
+                        entry.GPCurrent = BitConverter.ToInt16(source, 0x14DA + defaultStatOffset); // 0x17DA);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x14DC + defaultStatOffset); // 0x17DC);
+                        entry.CPCurrent = BitConverter.ToInt16(source, 0x14DE + defaultStatOffset); // 0x17DE);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x14E0 + defaultStatOffset); // 0x17E0);
                         entry.Race = source[0x2808]; // ??
                         entry.Sex = (Actor.Sex) source[0x2809]; //?
                         entry.IsCasting = BitConverter.ToBoolean(source, 0x2A30); // 0x2C90);
@@ -182,7 +184,8 @@ namespace FFXIVAPP.Client.Helpers
                         Buffer.BlockCopy(source, 0x3168, statusesSource, 0, limit * 12);
                         break;
                     default:
-                        Buffer.BlockCopy(source, 0x2878, statusesSource, 0, limit * 12);
+                        var defaultStatusEffectOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x3740 : 0x2878;
+                        Buffer.BlockCopy(source, defaultStatusEffectOffset, statusesSource, 0, limit * 12);
                         break;
                 }
                 for (var i = 0; i < limit; i++)
