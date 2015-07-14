@@ -185,7 +185,10 @@ namespace FFXIVAPP.Client.Memory
                     {
                         break;
                     }
-                    _regions.Add(info);
+                    if (0 != (info.State & MemCommit) && 0 != (info.Protect & Writable) && 0 == (info.Protect & PageGuard))
+                    {
+                        _regions.Add(info);
+                    }
                     address = info.BaseAddress + (int) info.RegionSize;
                 }
             }
