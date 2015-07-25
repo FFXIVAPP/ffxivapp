@@ -128,8 +128,8 @@ namespace FFXIVAPP.Client.Memory
                                     enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
                                     break;
                                 default:
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.ResolvePointerPath("AGRO_COUNT"));
-                                    enmityStructure = MemoryHandler.ResolvePointerPath("AGRO");
+                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.ResolvePointerPath("AGRO_COUNT"));
+                                    enmityStructure = MemoryHandler.Instance.ResolvePointerPath("AGRO");
                                     break;
                             }
                             var enmityEntries = new List<EnmityEntry>();
@@ -196,7 +196,7 @@ namespace FFXIVAPP.Client.Memory
                                     PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5724;
                                     break;
                                 default:
-                                    PlayerInfoMap = MemoryHandler.ResolvePointerPath("PLAYERINFO");
+                                    PlayerInfoMap = MemoryHandler.Instance.ResolvePointerPath("PLAYERINFO");
                                     break;
                             }
                             MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", PlayerInfoMap);

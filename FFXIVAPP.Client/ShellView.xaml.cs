@@ -159,6 +159,7 @@ namespace FFXIVAPP.Client
         private void MetroWindowClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+            Initializer.UnHookDirectX();
             DispatcherHelper.Invoke(() => CloseApplication(), DispatcherPriority.Send);
         }
 

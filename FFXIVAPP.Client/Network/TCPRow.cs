@@ -29,6 +29,7 @@
 
 using System.Net;
 using System.Net.NetworkInformation;
+using FFXIVAPP.Client.Interop;
 
 namespace FFXIVAPP.Client.Network
 {

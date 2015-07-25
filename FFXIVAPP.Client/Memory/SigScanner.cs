@@ -34,6 +34,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FFXIVAPP.Client.Interop;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory

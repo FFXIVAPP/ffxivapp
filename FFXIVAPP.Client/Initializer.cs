@@ -40,6 +40,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
+using Direct3DHook;
+using Direct3DHook.Hook;
+using Direct3DHook.Interface;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
@@ -64,17 +67,7 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Declarations
-
-        private static ActorWorker _actorWorker;
-        private static ChatLogWorker _chatLogWorker;
-        private static PlayerInfoWorker _playerInfoWorker;
-        private static TargetWorker _targetWorker;
-        private static PartyInfoWorker _partyInfoWorker;
-        private static InventoryWorker _inventoryWorker;
-        private static NetworkWorker _networkWorker;
-
-        #endregion
+        private static HookProcess _hookProcess;
 
         /// <summary>
         /// </summary>
@@ -721,18 +714,6 @@ namespace FFXIVAPP.Client
                             Value = "DB0F49416F12833AFFFFFFFF0000000000000000000000000000000000000000????????00000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A0000000000000000",
                             Offset = 472
                         });
-                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
-                        {
-                            0x1679030
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
-                        {
-                            0x1678708 + 8
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
-                        {
-                            0x1679010
-                        };
                     }
                     else
                     {
@@ -784,6 +765,35 @@ namespace FFXIVAPP.Client
                             Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
                             Offset = 106
                         });
+                    }
+                    break;
+            }
+        }
+
+        public static void SetPointers(bool IsWin64 = false)
+        {
+            AppViewModel.Instance.Signatures.Clear();
+            switch (Settings.Default.GameLanguage)
+            {
+                case "Chinese":
+                default:
+                    if (IsWin64)
+                    {
+                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
+                        {
+                            0x1679030
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
+                        {
+                            0x1678708 + 8
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
+                        {
+                            0x1679010
+                        };
+                    }
+                    else
+                    {
                         MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
                         {
                             0x01D77D60
@@ -887,6 +897,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void StartMemoryWorkers()
         {
+            UnHookDirectX();
             StopMemoryWorkers();
             var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessModel.ProcessID;
             Constants.IsOpen = true;
@@ -895,8 +906,9 @@ namespace FFXIVAPP.Client
                 Constants.IsOpen = false;
                 return;
             }
-            SetSignatures(Constants.ProcessModel.IsWin64);
             MemoryHandler.Instance.SetProcess(Constants.ProcessModel);
+            SetSignatures(Constants.ProcessModel.IsWin64);
+            SetPointers(Constants.ProcessModel.IsWin64);
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
@@ -910,6 +922,7 @@ namespace FFXIVAPP.Client
             _partyInfoWorker.StartScanning();
             _inventoryWorker = new InventoryWorker();
             _inventoryWorker.StartScanning();
+            HookDirectX();
         }
 
         public static void UpdatePluginConstants()
@@ -978,5 +991,58 @@ namespace FFXIVAPP.Client
             _networkWorker = new NetworkWorker();
             _networkWorker.StartScanning();
         }
+
+        public static void HookDirectX()
+        {
+            if (Constants.ProcessModel == null)
+            {
+                return;
+            }
+            if (HookManager.IsHooked(Constants.ProcessModel.ProcessID))
+            {
+                return;
+            }
+            try
+            {
+                var hookConfig = new HookConfig
+                {
+                    Direct3DVersion = Constants.ProcessModel.IsWin64 ? Direct3DVersion.Direct3D11 : Direct3DVersion.AutoDetect
+                };
+                var hookInterface = new HookInterface();
+                hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
+                _hookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private static void HookInterfaceRemoteMessage(MessageReceivedEventArgs message)
+        {
+            //DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
+        }
+
+        public static void UnHookDirectX()
+        {
+            if (_hookProcess == null)
+            {
+                return;
+            }
+            HookManager.RemoveHookedProcess(_hookProcess.Process.Id);
+            _hookProcess.HookInterface.Disconnect();
+            _hookProcess = null;
+        }
+
+        #region Declarations
+
+        private static ActorWorker _actorWorker;
+        private static ChatLogWorker _chatLogWorker;
+        private static PlayerInfoWorker _playerInfoWorker;
+        private static TargetWorker _targetWorker;
+        private static PartyInfoWorker _partyInfoWorker;
+        private static InventoryWorker _inventoryWorker;
+        private static NetworkWorker _networkWorker;
+
+        #endregion
     }
 }

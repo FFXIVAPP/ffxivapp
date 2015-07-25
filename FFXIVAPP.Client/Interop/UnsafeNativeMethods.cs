@@ -28,12 +28,15 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
-namespace FFXIVAPP.Client.Memory
+namespace FFXIVAPP.Client.Interop
 {
     public static class UnsafeNativeMethods
     {
+        #region WinAPI
+
         public enum ProcessAccessFlags
         {
             PROCESS_VM_ALL = 0x001F0FFF
@@ -50,10 +53,36 @@ namespace FFXIVAPP.Client.Memory
 
         /// <summary>
         /// </summary>
+        /// <param name="lpModuleName"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="lpFileName"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr LoadLibrary(string lpFileName);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="hModule"></param>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FreeLibrary(IntPtr hModule);
+
+        /// <summary>
+        /// </summary>
         /// <param name="hObject"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern Int32 CloseHandle(IntPtr hObject);
+
+        #endregion
+
+        #region ProcessMemory
 
         /// <summary>
         /// </summary>
@@ -95,7 +124,7 @@ namespace FFXIVAPP.Client.Memory
         /// <param name="lpBuffer"> </param>
         /// <param name="dwLength"> </param>
         /// <returns> </returns>
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int VirtualQueryEx(IntPtr processHandle, IntPtr lpBaseAddress, out MEMORY_BASIC_INFORMATION lpBuffer, uint dwLength);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -109,5 +138,51 @@ namespace FFXIVAPP.Client.Memory
             public uint Protect;
             public uint Type;
         }
+
+        #endregion
+
+        #region Network
+
+        public enum TCP_TABLE_CLASS
+        {
+            BASIC_LISTENER,
+            BASIC_CONNECTIONS,
+            BASIC_ALL,
+            OWNER_PID_LISTENER,
+            OWNER_PID_CONNECTIONS,
+            OWNER_PID_ALL,
+            OWNER_MODULE_LISTENER,
+            OWNER_MODULE_CONNECTIONS,
+            OWNER_MODULE_ALL
+        }
+
+        [DllImport("iphlpapi.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+        public static extern uint GetExtendedTcpTable(IntPtr tcpTable, ref int tcpTableLength, bool sort, int ipVersion, TCP_TABLE_CLASS tcpTableClass, uint reserved = 0);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TCPRow
+        {
+            public TcpState State;
+            public uint LocalAddress;
+            public byte LocalPort1;
+            public byte LocalPort2;
+            public byte LocalPort3;
+            public byte LocalPort4;
+            public uint RemoteAddress;
+            public byte RemotePort1;
+            public byte RemotePort2;
+            public byte RemotePort3;
+            public byte RemotePort4;
+            public int ProcessID;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TCPTable
+        {
+            public uint Length;
+            private TCPRow Row;
+        }
+
+        #endregion
     }
 }

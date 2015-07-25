@@ -33,6 +33,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using FFXIVAPP.Client.Interop;
 using FFXIVAPP.Client.Models;
 using NLog;
 
@@ -156,12 +157,12 @@ namespace FFXIVAPP.Client.Memory
             SigScanner.Locations.Clear();
         }
 
-        public static long ResolvePointerPath(string pathname)
+        public long ResolvePointerPath(string pathname)
         {
-            return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname]) : 0;
+            return _pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(_pointerPaths[pathname]) : 0;
         }
 
-        public static long ResolvePointerPath(IEnumerable<long> path)
+        public long ResolvePointerPath(IEnumerable<long> path)
         {
             var address = GetStaticAddress(0);
             var nextAddress = address;
@@ -169,15 +170,15 @@ namespace FFXIVAPP.Client.Memory
             foreach (var offset in path)
             {
                 address = nextAddress + offset;
-                nextAddress = (uint) Instance.GetPlatformInt(address);
+                nextAddress = (uint) GetPlatformInt(address);
             }
 
             return address;
         }
 
-        public static long GetStaticAddress(long offset)
+        public long GetStaticAddress(long offset)
         {
-            return Instance.ProcessModel.Process.MainModule.BaseAddress.ToInt64() + offset;
+            return ProcessModel.Process.MainModule.BaseAddress.ToInt64() + offset;
         }
 
         /// <summary>
