@@ -28,8 +28,11 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace FFXIVAPP.Client.Interop
 {
@@ -50,28 +53,6 @@ namespace FFXIVAPP.Client.Interop
         /// <returns></returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, UInt32 dwProcessId);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="lpModuleName"></param>
-        /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="lpFileName"></param>
-        /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr LoadLibrary(string lpFileName);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="hModule"></param>
-        /// <returns></returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool FreeLibrary(IntPtr hModule);
 
         /// <summary>
         /// </summary>
@@ -105,17 +86,6 @@ namespace FFXIVAPP.Client.Interop
         /// <returns> </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, [In] [Out] IntPtr lpBuffer, IntPtr regionSize, out IntPtr lpNumberOfBytesRead);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="processHandle"> </param>
-        /// <param name="lpBaseAddress"> </param>
-        /// <param name="lpBuffer"> </param>
-        /// <param name="regionSize"> </param>
-        /// <param name="lpNumberOfBytesRead"> </param>
-        /// <returns> </returns>
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr lpBaseAddress, byte[] lpBuffer, uint regionSize, out IntPtr lpNumberOfBytesRead);
 
         /// <summary>
         /// </summary>

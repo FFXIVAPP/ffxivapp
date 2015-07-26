@@ -67,8 +67,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        private static HookProcess _hookProcess;
-
         /// <summary>
         /// </summary>
         public static void SetupCurrentUICulture()
@@ -992,6 +990,8 @@ namespace FFXIVAPP.Client
             _networkWorker.StartScanning();
         }
 
+        private static HookProcess HookProcess;
+
         public static void HookDirectX()
         {
             if (Constants.ProcessModel == null)
@@ -1006,11 +1006,12 @@ namespace FFXIVAPP.Client
             {
                 var hookConfig = new HookConfig
                 {
-                    Direct3DVersion = Constants.ProcessModel.IsWin64 ? Direct3DVersion.Direct3D11 : Direct3DVersion.AutoDetect
+                    Direct3DVersion = Constants.ProcessModel.IsWin64 ? Direct3DVersion.Direct3D11 : Direct3DVersion.AutoDetect,
+                    ShowFPS = true
                 };
                 var hookInterface = new HookInterface();
                 hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
-                _hookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
+                HookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
             }
             catch (Exception ex)
             {
@@ -1019,18 +1020,18 @@ namespace FFXIVAPP.Client
 
         private static void HookInterfaceRemoteMessage(MessageReceivedEventArgs message)
         {
-            //DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
+            DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
         }
 
         public static void UnHookDirectX()
         {
-            if (_hookProcess == null)
+            if (HookProcess == null)
             {
                 return;
             }
-            HookManager.RemoveHookedProcess(_hookProcess.Process.Id);
-            _hookProcess.HookInterface.Disconnect();
-            _hookProcess = null;
+            HookManager.RemoveHookedProcess(HookProcess.Process.Id);
+            HookProcess.HookInterface.Disconnect();
+            HookProcess = null;
         }
 
         #region Declarations
