@@ -405,9 +405,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Direct3DHook\Direct3DHook\Direct3DHook.csproj">
-      <Project>{23178a3d-2ac0-419a-b1b6-59ca45191270}</Project>
-      <Name>Direct3DHook</Name>
+    <ProjectReference Include="..\..\ffxivapp-hooker\FFXIVAPP.Hooker\FFXIVAPP.Hooker.csproj">
+      <Project>{d425cf86-abeb-44fc-9413-318b4c1617b5}</Project>
+      <Name>FFXIVAPP.Hooker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

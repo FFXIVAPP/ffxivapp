@@ -49,33 +49,6 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Property Bindings
-
-        private static bool _colorFound;
-        private string _result;
-
-        private bool ColorFound
-        {
-            get { return _colorFound; }
-            set
-            {
-                _colorFound = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Result
-        {
-            get { return _result; }
-            private set
-            {
-                _result = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
         #region Declarations
 
         private static readonly Regex Checks = new Regex(@"^00(20|21|23|27|28|46|47|48|49|5C)$", SharedRegEx.DefaultOptions);
@@ -236,6 +209,33 @@ namespace FFXIVAPP.Client.Memory
             }
             return line;
         }
+
+        #region Property Bindings
+
+        private static bool _colorFound;
+        private string _result;
+
+        private bool ColorFound
+        {
+            get { return _colorFound; }
+            set
+            {
+                _colorFound = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Result
+        {
+            get { return _result; }
+            private set
+            {
+                _result = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         #region Implementation of INotifyPropertyChanged
 

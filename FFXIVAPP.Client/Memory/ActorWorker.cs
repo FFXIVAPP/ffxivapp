@@ -52,9 +52,24 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        public ActorWorker()
+        {
+            _scanTimer = new Timer(100);
+            _scanTimer.Elapsed += ScanTimerElapsed;
+        }
+
         #region Property Bindings
 
         public bool ReferencesSet { get; set; }
+
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            _scanTimer.Elapsed -= ScanTimerElapsed;
+        }
 
         #endregion
 
@@ -64,12 +79,6 @@ namespace FFXIVAPP.Client.Memory
         private bool _isScanning;
 
         #endregion
-
-        public ActorWorker()
-        {
-            _scanTimer = new Timer(100);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
 
         #region Timer Controls
 
@@ -147,7 +156,7 @@ namespace FFXIVAPP.Client.Memory
                             var endianSize = MemoryHandler.Instance.ProcessModel.IsWin64 ? 8 : 4;
                             const int limit = 1372;
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"],  endianSize * limit);
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], endianSize * limit);
 
                             var uniqueAddresses = new Dictionary<IntPtr, IntPtr>();
 
@@ -394,15 +403,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

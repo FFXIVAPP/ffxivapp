@@ -28,11 +28,8 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace FFXIVAPP.Client.Interop
 {

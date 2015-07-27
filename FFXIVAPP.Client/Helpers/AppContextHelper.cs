@@ -47,6 +47,51 @@ namespace FFXIVAPP.Client.Helpers
 
         #endregion
 
+        public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
+        {
+            CurrentUserStats = playerEntity;
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPlayerEntity(playerEntity);
+        }
+
+        public void RaiseNewTargetEntity(TargetEntity targetEntity)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
+        }
+
+        public void RaiseNewPartyAddedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyAddedEntries(keys);
+        }
+
+        public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
+        }
+
+        public void RaiseNewPartyRemovedEntries(List<UInt32> keys)
+        {
+            if (!keys.Any())
+            {
+                return;
+            }
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewPartyRemovedEntries(keys);
+        }
+
+        public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
+        }
+
         #region Property Backings
 
         private static AppContextHelper _instance;
@@ -199,50 +244,5 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         #endregion
-
-        public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
-        {
-            CurrentUserStats = playerEntity;
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPlayerEntity(playerEntity);
-        }
-
-        public void RaiseNewTargetEntity(TargetEntity targetEntity)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
-        }
-
-        public void RaiseNewPartyAddedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyAddedEntries(keys);
-        }
-
-        public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
-        }
-
-        public void RaiseNewPartyRemovedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyRemovedEntries(keys);
-        }
-
-        public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
-        }
     }
 }

@@ -40,33 +40,14 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof (MainViewModel))]
     internal sealed class MainViewModel : INotifyPropertyChanged
     {
-        #region Property Bindings
-
-        private static MainViewModel _instance;
-
-        public static MainViewModel Instance
-        {
-            get { return _instance ?? (_instance = new MainViewModel()); }
-        }
-
-        #endregion
-
-        #region Declarations
-
-        public DelegateCommand OpenWebSiteCommand { get; private set; }
-
-        #endregion
-
         public MainViewModel()
         {
             OpenWebSiteCommand = new DelegateCommand(OpenWebSite);
         }
 
-        #region Loading Functions
+        #region Declarations
 
-        #endregion
-
-        #region Utility Functions
+        public DelegateCommand OpenWebSiteCommand { get; private set; }
 
         #endregion
 
@@ -83,6 +64,25 @@ namespace FFXIVAPP.Client.ViewModels
                 MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
             }
         }
+
+        #endregion
+
+        #region Property Bindings
+
+        private static MainViewModel _instance;
+
+        public static MainViewModel Instance
+        {
+            get { return _instance ?? (_instance = new MainViewModel()); }
+        }
+
+        #endregion
+
+        #region Loading Functions
+
+        #endregion
+
+        #region Utility Functions
 
         #endregion
 

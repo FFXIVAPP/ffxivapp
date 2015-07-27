@@ -45,6 +45,15 @@ namespace FFXIVAPP.Client
     [Export(typeof (ShellViewModel))]
     internal sealed class ShellViewModel : INotifyPropertyChanged
     {
+        public ShellViewModel()
+        {
+            SetLocaleCommand = new DelegateCommand(SetLocale);
+            SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
+            ScreenShotCommand = new DelegateCommand(ScreenShot);
+            UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
+            UpdateTitleCommand = new DelegateCommand(UpdateTitle);
+        }
+
         #region Property Bindings
 
         private static ShellViewModel _instance;
@@ -65,15 +74,6 @@ namespace FFXIVAPP.Client
         public ICommand UpdateTitleCommand { get; private set; }
 
         #endregion
-
-        public ShellViewModel()
-        {
-            SetLocaleCommand = new DelegateCommand(SetLocale);
-            SaveAndClearHistoryCommand = new DelegateCommand(SaveAndClearHistory);
-            ScreenShotCommand = new DelegateCommand(ScreenShot);
-            UpdateSelectedPluginCommand = new DelegateCommand(UpdateSelectedPlugin);
-            UpdateTitleCommand = new DelegateCommand(UpdateTitle);
-        }
 
         #region Loading Functions
 

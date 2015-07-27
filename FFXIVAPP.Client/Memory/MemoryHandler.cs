@@ -47,79 +47,6 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Property Bindings
-
-        private static MemoryHandler _instance;
-        private Dictionary<string, List<long>> _pointerPaths;
-        private IntPtr _processHandle;
-        private ProcessModel _processModel;
-        private SigScanner _sigScanner;
-
-        public ProcessModel ProcessModel
-        {
-            get { return _processModel; }
-            set
-            {
-                _processModel = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public IntPtr ProcessHandle
-        {
-            get { return _processHandle; }
-            set
-            {
-                _processHandle = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public static MemoryHandler Instance
-        {
-            get { return _instance ?? (_instance = new MemoryHandler(null)); }
-            set { _instance = value; }
-        }
-
-        public SigScanner SigScanner
-        {
-            get { return _sigScanner ?? (_sigScanner = new SigScanner()); }
-            set
-            {
-                if (_sigScanner == null)
-                {
-                    _sigScanner = new SigScanner();
-                }
-                _sigScanner = value;
-            }
-        }
-
-        public Dictionary<String, List<long>> PointerPaths
-        {
-            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
-            set
-            {
-                _pointerPaths = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Private Structs
-
-        public struct MemoryBlock
-        {
-            public long Length;
-            public long Start;
-        }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
         /// <summary>
         /// </summary>
         /// <param name="processModel"> </param>
@@ -385,6 +312,79 @@ namespace FFXIVAPP.Client.Memory
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
         }
+
+        #region Private Structs
+
+        public struct MemoryBlock
+        {
+            public long Length;
+            public long Start;
+        }
+
+        #endregion
+
+        #region Property Bindings
+
+        private static MemoryHandler _instance;
+        private Dictionary<string, List<long>> _pointerPaths;
+        private IntPtr _processHandle;
+        private ProcessModel _processModel;
+        private SigScanner _sigScanner;
+
+        public ProcessModel ProcessModel
+        {
+            get { return _processModel; }
+            set
+            {
+                _processModel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public IntPtr ProcessHandle
+        {
+            get { return _processHandle; }
+            set
+            {
+                _processHandle = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public static MemoryHandler Instance
+        {
+            get { return _instance ?? (_instance = new MemoryHandler(null)); }
+            set { _instance = value; }
+        }
+
+        public SigScanner SigScanner
+        {
+            get { return _sigScanner ?? (_sigScanner = new SigScanner()); }
+            set
+            {
+                if (_sigScanner == null)
+                {
+                    _sigScanner = new SigScanner();
+                }
+                _sigScanner = value;
+            }
+        }
+
+        public Dictionary<String, List<long>> PointerPaths
+        {
+            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
+            set
+            {
+                _pointerPaths = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Declarations
+
+        #endregion
 
         #region Implementation of INotifyPropertyChanged
 

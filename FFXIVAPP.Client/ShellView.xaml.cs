@@ -53,16 +53,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Property Bindings
-
-        public bool IsRendered { get; set; }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
         public static ShellView View;
 
         public ShellView()
@@ -71,6 +61,12 @@ namespace FFXIVAPP.Client
             View = this;
             View.Topmost = true;
         }
+
+        #region Property Bindings
+
+        public bool IsRendered { get; set; }
+
+        #endregion
 
         /// <summary>
         /// </summary>
@@ -207,5 +203,9 @@ namespace FFXIVAPP.Client
             }
             Environment.Exit(0);
         }
+
+        #region Declarations
+
+        #endregion
     }
 }

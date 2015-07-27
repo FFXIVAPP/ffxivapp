@@ -40,9 +40,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
-using Direct3DHook;
-using Direct3DHook.Hook;
-using Direct3DHook.Interface;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
@@ -54,6 +51,9 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Hooker;
+using FFXIVAPP.Hooker.Hook;
+using FFXIVAPP.Hooker.Interface;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -66,6 +66,8 @@ namespace FFXIVAPP.Client
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #endregion
+
+        private static HookProcess HookProcess;
 
         /// <summary>
         /// </summary>
@@ -990,8 +992,6 @@ namespace FFXIVAPP.Client
             _networkWorker.StartScanning();
         }
 
-        private static HookProcess HookProcess;
-
         public static void HookDirectX()
         {
             if (Constants.ProcessModel == null)
@@ -1006,7 +1006,7 @@ namespace FFXIVAPP.Client
             {
                 var hookConfig = new HookConfig
                 {
-                    Direct3DVersion = Constants.ProcessModel.IsWin64 ? Direct3DVersion.Direct3D11 : Direct3DVersion.AutoDetect,
+                    Direct3DVersion = Direct3DVersion.AutoDetect,
                     ShowFPS = true
                 };
                 var hookInterface = new HookInterface();
@@ -1020,7 +1020,7 @@ namespace FFXIVAPP.Client
 
         private static void HookInterfaceRemoteMessage(MessageReceivedEventArgs message)
         {
-            DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
+            // DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
         }
 
         public static void UnHookDirectX()
