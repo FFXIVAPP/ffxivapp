@@ -51,6 +51,7 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Hooker;
 using FFXIVAPP.Hooker.Hook;
 using FFXIVAPP.Hooker.Interface;
@@ -1020,7 +1021,7 @@ namespace FFXIVAPP.Client
 
         private static void HookInterfaceRemoteMessage(MessageReceivedEventArgs message)
         {
-            // DispatcherHelper.Invoke(() => MessageBox.Show(message.Message));
+            Logging.Log(Logger, message.Message);
         }
 
         public static void UnHookDirectX()
