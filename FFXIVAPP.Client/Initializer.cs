@@ -39,6 +39,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
@@ -1013,9 +1014,21 @@ namespace FFXIVAPP.Client
                 var hookInterface = new HookInterface();
                 hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
                 HookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
+                var hookProcessSuccessTimer = new Timer
+                {
+                    Interval = 250
+                };
+                hookProcessSuccessTimer.Tick += (sender, args) =>
+                {
+                    HookProcess.HookInterface.DisplayInGameText("FFXIVAPP -> [Hooked]");
+                    hookProcessSuccessTimer.Stop();
+                    hookProcessSuccessTimer.Dispose();
+                };
+                hookProcessSuccessTimer.Start();
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
 
