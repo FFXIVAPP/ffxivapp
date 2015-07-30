@@ -254,7 +254,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            var pluginInstance = App.Plugins.Loaded.Find(popupContent.PluginName);
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
             if (pluginInstance == null)
             {
                 return;
@@ -267,6 +267,20 @@ namespace FFXIVAPP.Client
                 cancelAction = delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel; };
             }
             MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
+        }
+
+        public void DisplayInGameText(string pluginName, string message)
+        {
+            if (message == null)
+            {
+                return;
+            }
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.HookInterface?.DisplayInGameText(String.Format("{0} :: {1}", pluginName, message));
         }
 
         public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };

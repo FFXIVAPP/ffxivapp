@@ -69,8 +69,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        private static HookProcess HookProcess;
-
         /// <summary>
         /// </summary>
         public static void SetupCurrentUICulture()
@@ -1013,14 +1011,14 @@ namespace FFXIVAPP.Client
                 };
                 var hookInterface = new HookInterface();
                 hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
-                HookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
+                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
                 var hookProcessSuccessTimer = new Timer
                 {
                     Interval = 250
                 };
                 hookProcessSuccessTimer.Tick += (sender, args) =>
                 {
-                    HookProcess.HookInterface.DisplayInGameText("FFXIVAPP -> [Hooked]");
+                    Constants.HookProcess.HookInterface.DisplayInGameText("FFXIVAPP :: [Hooked]");
                     hookProcessSuccessTimer.Stop();
                     hookProcessSuccessTimer.Dispose();
                 };
@@ -1039,13 +1037,13 @@ namespace FFXIVAPP.Client
 
         public static void UnHookDirectX()
         {
-            if (HookProcess == null)
+            if (Constants.HookProcess == null)
             {
                 return;
             }
-            HookManager.RemoveHookedProcess(HookProcess.Process.Id);
-            HookProcess.HookInterface.Disconnect();
-            HookProcess = null;
+            HookManager.RemoveHookedProcess(Constants.HookProcess.Process.Id);
+            Constants.HookProcess.HookInterface.Disconnect();
+            Constants.HookProcess = null;
         }
 
         #region Declarations

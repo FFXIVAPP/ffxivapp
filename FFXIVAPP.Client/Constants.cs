@@ -36,6 +36,7 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Hooker;
 
 namespace FFXIVAPP.Client
 {
@@ -75,6 +76,8 @@ namespace FFXIVAPP.Client
         private static bool _enableHelpLabels;
         private static string _theme;
         private static string _uiScale;
+
+        public static HookProcess HookProcess { get; set; }
 
         public static XDocument XSettings
         {
