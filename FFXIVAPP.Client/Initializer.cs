@@ -998,6 +998,10 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
+            if (Settings.Default.EnableDirectXHook == false)
+            {
+                return;
+            }
             if (HookManager.IsHooked(Constants.ProcessModel.ProcessID))
             {
                 return;
@@ -1007,7 +1011,7 @@ namespace FFXIVAPP.Client
                 var hookConfig = new HookConfig
                 {
                     Direct3DVersion = Direct3DVersion.AutoDetect,
-                    ShowFPS = true
+                    ShowFPS = Settings.Default.DirectXShowFPS
                 };
                 var hookInterface = new HookInterface();
                 hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
@@ -1041,9 +1045,16 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            HookManager.RemoveHookedProcess(Constants.HookProcess.Process.Id);
-            Constants.HookProcess.HookInterface.Disconnect();
-            Constants.HookProcess = null;
+            try
+            {
+                HookManager.RemoveHookedProcess(Constants.HookProcess.Process.Id);
+                Constants.HookProcess.HookInterface.Disconnect();
+                Constants.HookProcess = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(Logger, ex.Message, ex);
+            }
         }
 
         #region Declarations

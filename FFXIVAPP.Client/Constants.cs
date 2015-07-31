@@ -42,6 +42,12 @@ namespace FFXIVAPP.Client
 {
     public static partial class Constants
     {
+        #region DirectX
+
+        public static HookProcess HookProcess { get; set; }
+
+        #endregion
+
         #region Declarations
 
         public static readonly string[] Supported =
@@ -76,8 +82,6 @@ namespace FFXIVAPP.Client
         private static bool _enableHelpLabels;
         private static string _theme;
         private static string _uiScale;
-
-        public static HookProcess HookProcess { get; set; }
 
         public static XDocument XSettings
         {

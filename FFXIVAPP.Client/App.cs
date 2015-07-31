@@ -208,6 +208,16 @@ namespace FFXIVAPP.Client
                             Initializer.StopNetworkWorker();
                         }
                         break;
+                    case "EnableDirectXHook":
+                        if (Settings.Default.EnableDirectXHook)
+                        {
+                            Initializer.HookDirectX();
+                        }
+                        else
+                        {
+                            Initializer.UnHookDirectX();
+                        }
+                        break;
                     case "EnableHelpLabels":
                         Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                         break;

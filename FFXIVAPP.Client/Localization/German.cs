@@ -144,6 +144,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_PlayerInfMSSLabel", "Player Info (YOU)");
             Dictionary.Add("app_TargEnmMSSLabel", "Targets &amp; Enmity");
             Dictionary.Add("app_InvMSSLabel", "Inventory");
+            Dictionary.Add("app_EnableDirectXHookLabel", "Enable DirectX Hook");
+            Dictionary.Add("app_DirectXFPSDisplayLabel", "Enable DirectX FPS Display");
             return Dictionary;
         }
     }
