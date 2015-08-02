@@ -1000,14 +1000,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            if (Constants.HookProcess == null)
-            {
-                return;
-            }
-            if (Constants.HookProcess.IsHooked(Constants.ProcessModel.Process))
-            {
-                UnHookDirectX();
-            }
+            UnHookDirectX();
             try
             {
                 Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process);
