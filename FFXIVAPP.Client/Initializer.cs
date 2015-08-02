@@ -1003,12 +1003,22 @@ namespace FFXIVAPP.Client
             UnHookDirectX();
             try
             {
-                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process);
+                var overlayInterface = new OverlayInterface
+                {
+                    ProcessId = Constants.ProcessModel.ProcessID
+                };
+                overlayInterface.RemoteMessage += OverlayInterfaceRemoteMessage;
+                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, overlayInterface);
             }
             catch (Exception ex)
             {
                 Logging.Log(Logger, ex.Message, ex);
             }
+        }
+
+        private static void OverlayInterfaceRemoteMessage(MessageReceivedEventArgs message)
+        {
+            Logging.Log(Logger, message.Message);
         }
 
         public static void UnHookDirectX()
