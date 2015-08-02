@@ -54,8 +54,6 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Hooker;
-using FFXIVAPP.Hooker.Hook;
-using FFXIVAPP.Hooker.Interface;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -1002,31 +1000,13 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            if (HookManager.IsHooked(Constants.ProcessModel.ProcessID))
+            if (Constants.HookProcess == null)
             {
                 return;
             }
             try
             {
-                var hookConfig = new HookConfig
-                {
-                    Direct3DVersion = Direct3DVersion.AutoDetect,
-                    ShowFPS = Settings.Default.DirectXShowFPS
-                };
-                var hookInterface = new HookInterface();
-                hookInterface.RemoteMessage += HookInterfaceRemoteMessage;
-                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, hookConfig, hookInterface);
-                var hookProcessSuccessTimer = new Timer
-                {
-                    Interval = 250
-                };
-                hookProcessSuccessTimer.Tick += (sender, args) =>
-                {
-                    Constants.HookProcess.HookInterface.DisplayInGameText("FFXIVAPP :: [Hooked]");
-                    hookProcessSuccessTimer.Stop();
-                    hookProcessSuccessTimer.Dispose();
-                };
-                hookProcessSuccessTimer.Start();
+                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process);
             }
             catch (Exception ex)
             {
@@ -1034,21 +1014,11 @@ namespace FFXIVAPP.Client
             }
         }
 
-        private static void HookInterfaceRemoteMessage(MessageReceivedEventArgs message)
-        {
-            Logging.Log(Logger, message.Message);
-        }
-
         public static void UnHookDirectX()
         {
-            if (Constants.HookProcess == null)
-            {
-                return;
-            }
             try
             {
-                HookManager.RemoveHookedProcess(Constants.HookProcess.Process.Id);
-                Constants.HookProcess.HookInterface.Disconnect();
+                Constants.HookProcess?.UnHook();
                 Constants.HookProcess = null;
             }
             catch (Exception ex)

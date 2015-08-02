@@ -280,7 +280,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            Constants.HookProcess?.HookInterface?.DisplayInGameText(String.Format("{0} :: {1}", pluginName, message));
+            //Constants.HookProcess?.HookInterface?.DisplayInGameText(String.Format("{0} :: {1}", pluginName, message));
         }
 
         public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };
