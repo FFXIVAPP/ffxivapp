@@ -1000,15 +1000,26 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            UnHookDirectX();
             try
             {
-                var overlayInterface = new OverlayInterface
+                var overlayConfig = new OverlayConfig
                 {
-                    ProcessId = Constants.ProcessModel.ProcessID
+                    ShowFPS = Settings.Default.DirectXShowFPS
                 };
+                var overlayInterface = new OverlayInterface();
                 overlayInterface.RemoteMessage += OverlayInterfaceRemoteMessage;
                 Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, overlayInterface);
+                var processSuccessTimer = new Timer
+                {
+                    Interval = 250
+                };
+                processSuccessTimer.Tick += (sender, args) =>
+                {
+                    Constants.HookProcess.OverlayInterface.DisplayInGameText("FFXIVAPP :: [Hooked]");
+                    processSuccessTimer.Stop();
+                    processSuccessTimer.Dispose();
+                };
+                processSuccessTimer.Start();
             }
             catch (Exception ex)
             {
@@ -1023,9 +1034,15 @@ namespace FFXIVAPP.Client
 
         public static void UnHookDirectX()
         {
+            if (Constants.HookProcess == null)
+            {
+                return;
+            }
             try
             {
-                Constants.HookProcess?.UnHook();
+                Constants.HookProcess.OverlayInterface.Disconnect();
+                Constants.HookProcess.UnHook();
+                Constants.HookProcess.Dispose();
                 Constants.HookProcess = null;
             }
             catch (Exception ex)
