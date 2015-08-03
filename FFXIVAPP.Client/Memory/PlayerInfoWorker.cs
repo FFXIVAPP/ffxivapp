@@ -49,41 +49,17 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Property Bindings
-
-        private long PlayerInfoMap { get; set; }
-
-        private PlayerEntity LastPlayerEntity { get; set; }
-
-        #endregion
-
-        #region Declarations
-
-        private readonly Timer _scanTimer;
-        private bool _isScanning;
-
-        #endregion
-
         public PlayerInfoWorker()
         {
             _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
-        #region Timer Controls
+        #region Implementation of IDisposable
 
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
+        public void Dispose()
         {
-            _scanTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
+            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion
@@ -128,8 +104,8 @@ namespace FFXIVAPP.Client.Memory
                                     enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
                                     break;
                                 default:
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.ResolvePointerPath("AGRO_COUNT"));
-                                    enmityStructure = MemoryHandler.ResolvePointerPath("AGRO");
+                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.ResolvePointerPath("AGRO_COUNT"));
+                                    enmityStructure = MemoryHandler.Instance.ResolvePointerPath("AGRO");
                                     break;
                             }
                             var enmityEntries = new List<EnmityEntry>();
@@ -196,7 +172,7 @@ namespace FFXIVAPP.Client.Memory
                                     PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5724;
                                     break;
                                 default:
-                                    PlayerInfoMap = MemoryHandler.ResolvePointerPath("PLAYERINFO");
+                                    PlayerInfoMap = MemoryHandler.Instance.ResolvePointerPath("PLAYERINFO");
                                     break;
                             }
                             MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", PlayerInfoMap);
@@ -214,6 +190,39 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        #region Property Bindings
+
+        private long PlayerInfoMap { get; set; }
+
+        private PlayerEntity LastPlayerEntity { get; set; }
+
+        #endregion
+
+        #region Declarations
+
+        private readonly Timer _scanTimer;
+        private bool _isScanning;
+
+        #endregion
+
+        #region Timer Controls
+
+        /// <summary>
+        /// </summary>
+        public void StartScanning()
+        {
+            _scanTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// </summary>
+        public void StopScanning()
+        {
+            _scanTimer.Enabled = false;
+        }
+
+        #endregion
+
         #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -221,15 +230,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

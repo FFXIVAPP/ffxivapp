@@ -39,6 +39,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
@@ -51,6 +52,9 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Common.Utilities;
+using FFXIVAPP.Hooker;
+using FFXIVAPP.Hooker.Events;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -61,18 +65,6 @@ namespace FFXIVAPP.Client
         #region Logger
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
-
-        #region Declarations
-
-        private static ActorWorker _actorWorker;
-        private static ChatLogWorker _chatLogWorker;
-        private static PlayerInfoWorker _playerInfoWorker;
-        private static TargetWorker _targetWorker;
-        private static PartyInfoWorker _partyInfoWorker;
-        private static InventoryWorker _inventoryWorker;
-        private static NetworkWorker _networkWorker;
 
         #endregion
 
@@ -721,18 +713,6 @@ namespace FFXIVAPP.Client
                             Value = "DB0F49416F12833AFFFFFFFF0000000000000000000000000000000000000000????????00000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A0000000000000000",
                             Offset = 472
                         });
-                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
-                        {
-                            0x1679030
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
-                        {
-                            0x1678708 + 8
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
-                        {
-                            0x1679010
-                        };
                     }
                     else
                     {
@@ -784,6 +764,35 @@ namespace FFXIVAPP.Client
                             Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
                             Offset = 106
                         });
+                    }
+                    break;
+            }
+        }
+
+        public static void SetPointers(bool IsWin64 = false)
+        {
+            AppViewModel.Instance.Signatures.Clear();
+            switch (Settings.Default.GameLanguage)
+            {
+                case "Chinese":
+                default:
+                    if (IsWin64)
+                    {
+                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
+                        {
+                            0x1679030
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
+                        {
+                            0x1678708 + 8
+                        };
+                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
+                        {
+                            0x1679010
+                        };
+                    }
+                    else
+                    {
                         MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
                         {
                             0x01D77D60
@@ -887,6 +896,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         public static void StartMemoryWorkers()
         {
+            UnHookDirectX();
             StopMemoryWorkers();
             var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessModel.ProcessID;
             Constants.IsOpen = true;
@@ -895,8 +905,9 @@ namespace FFXIVAPP.Client
                 Constants.IsOpen = false;
                 return;
             }
-            SetSignatures(Constants.ProcessModel.IsWin64);
             MemoryHandler.Instance.SetProcess(Constants.ProcessModel);
+            SetSignatures(Constants.ProcessModel.IsWin64);
+            SetPointers(Constants.ProcessModel.IsWin64);
             MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
@@ -910,6 +921,7 @@ namespace FFXIVAPP.Client
             _partyInfoWorker.StartScanning();
             _inventoryWorker = new InventoryWorker();
             _inventoryWorker.StartScanning();
+            HookDirectX();
         }
 
         public static void UpdatePluginConstants()
@@ -978,5 +990,83 @@ namespace FFXIVAPP.Client
             _networkWorker = new NetworkWorker();
             _networkWorker.StartScanning();
         }
+
+        public static void HookDirectX()
+        {
+            if (Constants.ProcessModel == null)
+            {
+                return;
+            }
+            if (Settings.Default.EnableDirectXHook == false)
+            {
+                return;
+            }
+            if (HookManager.IsHooked(Constants.ProcessModel.ProcessID))
+            {
+                return;
+            }
+            try
+            {
+                var overlayConfig = new OverlayConfig
+                {
+                    ShowFPS = Settings.Default.DirectXShowFPS
+                };
+                var overlayInterface = new OverlayInterface();
+                overlayInterface.RemoteMessage += OverlayInterfaceRemoteMessage;
+                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, overlayConfig, overlayInterface);
+                var processSuccessTimer = new Timer
+                {
+                    Interval = 500
+                };
+                processSuccessTimer.Tick += (sender, args) =>
+                {
+                    Constants.HookProcess.OverlayInterface.DisplayInGameText("FFXIVAPP :: [Hooked]");
+                    processSuccessTimer.Stop();
+                    processSuccessTimer.Dispose();
+                };
+                processSuccessTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(Logger, ex.Message, ex);
+            }
+        }
+
+        private static void OverlayInterfaceRemoteMessage(MessageReceivedEventArgs message)
+        {
+            Logging.Log(Logger, message.Message);
+        }
+
+        public static void UnHookDirectX()
+        {
+            if (Constants.HookProcess == null)
+            {
+                return;
+            }
+            try
+            {
+                HookManager.RemoveHookedProcess(Constants.ProcessModel.ProcessID);
+                Constants.HookProcess.OverlayInterface.Disconnect();
+                //Constants.HookProcess.UnHook();
+                //Constants.HookProcess.Dispose();
+                Constants.HookProcess = null;
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(Logger, ex.Message, ex);
+            }
+        }
+
+        #region Declarations
+
+        private static ActorWorker _actorWorker;
+        private static ChatLogWorker _chatLogWorker;
+        private static PlayerInfoWorker _playerInfoWorker;
+        private static TargetWorker _targetWorker;
+        private static PartyInfoWorker _partyInfoWorker;
+        private static InventoryWorker _inventoryWorker;
+        private static NetworkWorker _networkWorker;
+
+        #endregion
     }
 }

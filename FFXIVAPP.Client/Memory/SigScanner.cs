@@ -34,59 +34,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FFXIVAPP.Client.Interop;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
 {
     public class SigScanner : INotifyPropertyChanged
     {
-        #region Logger
-
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
-
-        #region Property Bindings
-
-        private static SigScanner _instance;
-        private Dictionary<string, long> _locations;
-
-        public static SigScanner Instance
-        {
-            get { return _instance ?? (_instance = new SigScanner()); }
-            set { _instance = value; }
-        }
-
-        public Dictionary<string, long> Locations
-        {
-            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
-            private set
-            {
-                if (_locations == null)
-                {
-                    _locations = new Dictionary<string, long>();
-                }
-                _locations = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Constants
-
-        private const int WildCardChar = 63;
-        private const int MemCommit = 0x1000;
-        private const int PageNoAccess = 0x01;
-        private const int PageReadwrite = 0x04;
-        private const int PageWritecopy = 0x08;
-        private const int PageExecuteReadwrite = 0x40;
-        private const int PageExecuteWritecopy = 0x80;
-        private const int PageGuard = 0x100;
-        private const int Writable = PageReadwrite | PageWritecopy | PageExecuteReadwrite | PageExecuteWritecopy | PageGuard;
-
-        #endregion
-
         #region ResultTypes
 
         /// <summary>
@@ -117,10 +71,9 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Declarations
+        #region Logger
 
-        private byte[] _memDump;
-        private List<UnsafeNativeMethods.MEMORY_BASIC_INFORMATION> _regions;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #endregion
 
@@ -533,6 +486,54 @@ namespace FFXIVAPP.Client.Memory
                 return null;
             }
         }
+
+        #region Property Bindings
+
+        private static SigScanner _instance;
+        private Dictionary<string, long> _locations;
+
+        public static SigScanner Instance
+        {
+            get { return _instance ?? (_instance = new SigScanner()); }
+            set { _instance = value; }
+        }
+
+        public Dictionary<string, long> Locations
+        {
+            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
+            private set
+            {
+                if (_locations == null)
+                {
+                    _locations = new Dictionary<string, long>();
+                }
+                _locations = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Constants
+
+        private const int WildCardChar = 63;
+        private const int MemCommit = 0x1000;
+        private const int PageNoAccess = 0x01;
+        private const int PageReadwrite = 0x04;
+        private const int PageWritecopy = 0x08;
+        private const int PageExecuteReadwrite = 0x40;
+        private const int PageExecuteWritecopy = 0x80;
+        private const int PageGuard = 0x100;
+        private const int Writable = PageReadwrite | PageWritecopy | PageExecuteReadwrite | PageExecuteWritecopy | PageGuard;
+
+        #endregion
+
+        #region Declarations
+
+        private byte[] _memDump;
+        private List<UnsafeNativeMethods.MEMORY_BASIC_INFORMATION> _regions;
+
+        #endregion
 
         #region Implementation of INotifyPropertyChanged
 

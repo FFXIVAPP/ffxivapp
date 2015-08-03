@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using FFXIVAPP.Client.Interop;
 
 namespace FFXIVAPP.Client.Network
 {

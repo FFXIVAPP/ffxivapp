@@ -53,16 +53,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Property Bindings
-
-        public bool IsRendered { get; set; }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
         public static ShellView View;
 
         public ShellView()
@@ -71,6 +61,12 @@ namespace FFXIVAPP.Client
             View = this;
             View.Topmost = true;
         }
+
+        #region Property Bindings
+
+        public bool IsRendered { get; set; }
+
+        #endregion
 
         /// <summary>
         /// </summary>
@@ -159,6 +155,7 @@ namespace FFXIVAPP.Client
         private void MetroWindowClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+            Initializer.UnHookDirectX();
             DispatcherHelper.Invoke(() => CloseApplication(), DispatcherPriority.Send);
         }
 
@@ -206,5 +203,9 @@ namespace FFXIVAPP.Client
             }
             Environment.Exit(0);
         }
+
+        #region Declarations
+
+        #endregion
     }
 }

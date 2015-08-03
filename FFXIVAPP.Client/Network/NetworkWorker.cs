@@ -51,6 +51,18 @@ namespace FFXIVAPP.Client.Network
 
         #endregion
 
+        public NetworkWorker()
+        {
+        }
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+        }
+
+        #endregion
+
         #region Property Bindings
 
         #endregion
@@ -63,10 +75,6 @@ namespace FFXIVAPP.Client.Network
         private List<SocketObject> Sockets = new List<SocketObject>();
 
         #endregion
-
-        public NetworkWorker()
-        {
-        }
 
         #region Timer Controls
 
@@ -562,14 +570,6 @@ namespace FFXIVAPP.Client.Network
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
         }
 
         #endregion

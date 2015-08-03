@@ -53,35 +53,6 @@ namespace FFXIVAPP.Client
 {
     public partial class App
     {
-        #region Logger
-
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private static List<DirectSoundDeviceInfo> _availableAudioDevices;
-        private static IEnumerable<NetworkInterface> _availableNetworkInterfaces;
-
-        #endregion
-
-        #region Property Bindings
-
-        internal static PluginHost Plugins
-        {
-            get { return PluginHost.Instance; }
-        }
-
-        internal static IEnumerable<DirectSoundDeviceInfo> AvailableAudioDevices
-        {
-            get { return _availableAudioDevices ?? (_availableAudioDevices = new List<DirectSoundDeviceInfo>(DirectSoundOut.Devices.Where(d => d.Guid != Guid.Empty))); }
-        }
-
-        internal static IEnumerable<NetworkInterface> AvailableNetworkInterfaces
-        {
-            get { return _availableNetworkInterfaces ?? (_availableNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces()); }
-        }
-
-        public static string[] MArgs { get; private set; }
-
-        #endregion
-
         private App()
         {
             Startup += ApplicationStartup;
@@ -237,6 +208,16 @@ namespace FFXIVAPP.Client
                             Initializer.StopNetworkWorker();
                         }
                         break;
+                    case "EnableDirectXHook":
+                        if (Settings.Default.EnableDirectXHook)
+                        {
+                            Initializer.HookDirectX();
+                        }
+                        else
+                        {
+                            Initializer.UnHookDirectX();
+                        }
+                        break;
                     case "EnableHelpLabels":
                         Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                         break;
@@ -283,5 +264,34 @@ namespace FFXIVAPP.Client
         {
             Logging.Log(Logger, String.Format("SettingChanging : [{0},{1}]", e.SettingKey, e.NewValue));
         }
+
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static List<DirectSoundDeviceInfo> _availableAudioDevices;
+        private static IEnumerable<NetworkInterface> _availableNetworkInterfaces;
+
+        #endregion
+
+        #region Property Bindings
+
+        internal static PluginHost Plugins
+        {
+            get { return PluginHost.Instance; }
+        }
+
+        internal static IEnumerable<DirectSoundDeviceInfo> AvailableAudioDevices
+        {
+            get { return _availableAudioDevices ?? (_availableAudioDevices = new List<DirectSoundDeviceInfo>(DirectSoundOut.Devices.Where(d => d.Guid != Guid.Empty))); }
+        }
+
+        internal static IEnumerable<NetworkInterface> AvailableNetworkInterfaces
+        {
+            get { return _availableNetworkInterfaces ?? (_availableNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces()); }
+        }
+
+        public static string[] MArgs { get; private set; }
+
+        #endregion
     }
 }

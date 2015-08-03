@@ -58,6 +58,17 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof (UpdateViewModel))]
     internal sealed class UpdateViewModel : INotifyPropertyChanged
     {
+        public UpdateViewModel()
+        {
+            RefreshAvailableCommand = new DelegateCommand(RefreshAvailable);
+            InstallCommand = new DelegateCommand(Install);
+            UnInstallCommand = new DelegateCommand(UnInstall);
+            AddOrUpdateSourceCommand = new DelegateCommand(AddOrUpdateSource);
+            DeleteSourceCommand = new DelegateCommand(DeleteSource);
+            SourceSelectionCommand = new DelegateCommand(SourceSelection);
+            AvailableDGDoubleClickCommand = new DelegateCommand(AvailableDGDoubleClick);
+        }
+
         #region Property Bindings
 
         private static UpdateViewModel _instance;
@@ -102,17 +113,6 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand AvailableDGDoubleClickCommand { get; private set; }
 
         #endregion
-
-        public UpdateViewModel()
-        {
-            RefreshAvailableCommand = new DelegateCommand(RefreshAvailable);
-            InstallCommand = new DelegateCommand(Install);
-            UnInstallCommand = new DelegateCommand(UnInstall);
-            AddOrUpdateSourceCommand = new DelegateCommand(AddOrUpdateSource);
-            DeleteSourceCommand = new DelegateCommand(DeleteSource);
-            SourceSelectionCommand = new DelegateCommand(SourceSelection);
-            AvailableDGDoubleClickCommand = new DelegateCommand(AvailableDGDoubleClick);
-        }
 
         #region Loading Functions
 

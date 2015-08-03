@@ -49,21 +49,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Property Bindings
-
-        private static AppBootstrapper _instance;
-
-        public static AppBootstrapper Instance
-        {
-            get { return _instance ?? (_instance = new AppBootstrapper()); }
-        }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
         /*main entry to app
          * used for:
          *  initializing settings
@@ -202,6 +187,21 @@ namespace FFXIVAPP.Client
             {
             }
         }
+
+        #region Property Bindings
+
+        private static AppBootstrapper _instance;
+
+        public static AppBootstrapper Instance
+        {
+            get { return _instance ?? (_instance = new AppBootstrapper()); }
+        }
+
+        #endregion
+
+        #region Declarations
+
+        #endregion
 
         #region Loading Functions
 

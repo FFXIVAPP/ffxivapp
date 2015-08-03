@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -54,32 +55,6 @@ namespace FFXIVAPP.Client
         #region Logger
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
-
-        #region Property Bindings
-
-        private static PluginHost _instance;
-        private PluginCollectionHelper _loaded;
-
-        public PluginCollectionHelper Loaded
-        {
-            get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
-            set
-            {
-                if (_loaded == null)
-                {
-                    _loaded = new PluginCollectionHelper();
-                }
-                _loaded = value;
-            }
-        }
-
-        public static PluginHost Instance
-        {
-            get { return _instance ?? (_instance = new PluginHost()); }
-            set { _instance = value; }
-        }
 
         #endregion
 
@@ -242,6 +217,32 @@ namespace FFXIVAPP.Client
             }
         }
 
+        #region Property Bindings
+
+        private static PluginHost _instance;
+        private PluginCollectionHelper _loaded;
+
+        public PluginCollectionHelper Loaded
+        {
+            get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
+            set
+            {
+                if (_loaded == null)
+                {
+                    _loaded = new PluginCollectionHelper();
+                }
+                _loaded = value;
+            }
+        }
+
+        public static PluginHost Instance
+        {
+            get { return _instance ?? (_instance = new PluginHost()); }
+            set { _instance = value; }
+        }
+
+        #endregion
+
         #region Implementaion of IPluginHost
 
         /// <summary>
@@ -254,7 +255,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            var pluginInstance = App.Plugins.Loaded.Find(popupContent.PluginName);
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
             if (pluginInstance == null)
             {
                 return;
@@ -267,6 +268,44 @@ namespace FFXIVAPP.Client
                 cancelAction = delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel; };
             }
             MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
+        }
+
+        public void DisplayInGameText(string pluginName, string message)
+        {
+            if (message == null)
+            {
+                return;
+            }
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.OverlayInterface?.DisplayInGameText(String.Format("{0} :: {1}", pluginName, message));
+        }
+
+        public void AddOrUpdateInGameOverlay(string pluginName, Guid overlayID, Stream imageStream, float alpha, PointF location)
+        {
+            if (imageStream == null)
+            {
+                return;
+            }
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.OverlayInterface?.AddOrUpdateInGameOverlay(overlayID, imageStream, alpha, location);
+        }
+
+        public void RemoveInGameOverlay(string pluginName, Guid overlayID)
+        {
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.OverlayInterface?.RemoveInGameOverlay(overlayID);
         }
 
         public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };

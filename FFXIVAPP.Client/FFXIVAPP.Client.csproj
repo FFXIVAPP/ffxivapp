@@ -31,6 +31,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -137,6 +139,7 @@
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Application.cs" />
+    <Compile Include="Interop\UnsafeNativeMethods.cs" />
     <Compile Include="Localization\Chinese.cs" />
     <Compile Include="Localization\English.cs" />
     <Compile Include="Localization\French.cs" />
@@ -170,7 +173,6 @@
     <Compile Include="Memory\MemoryHandler.cs" />
     <Compile Include="Memory\SigScanner.cs" />
     <Compile Include="Memory\Signature.cs" />
-    <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatLogWorker.cs" />
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
@@ -190,7 +192,6 @@
     <Compile Include="Network\Protocol.cs" />
     <Compile Include="Network\TCPHeader.cs" />
     <Compile Include="Network\UDPHeader.cs" />
-    <Compile Include="Network\UnsafeNativeMethods.cs" />
     <Compile Include="PluginHost.cs" />
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
@@ -403,7 +404,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\ffxivapp-hooker\FFXIVAPP.Hooker\FFXIVAPP.Hooker.csproj">
+      <Project>{d425cf86-abeb-44fc-9413-318b4c1617b5}</Project>
+      <Name>FFXIVAPP.Hooker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

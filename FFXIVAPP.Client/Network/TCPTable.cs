@@ -58,18 +58,18 @@ namespace FFXIVAPP.Client.Network
 
         #endregion
 
-        #region IEnumerable<TCPRow> Members
+        #region IEnumerable Members
 
-        public IEnumerator<TCPRow> GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return rows.GetEnumerator();
         }
 
         #endregion
 
-        #region IEnumerable Members
+        #region IEnumerable<TCPRow> Members
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator<TCPRow> GetEnumerator()
         {
             return rows.GetEnumerator();
         }

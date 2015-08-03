@@ -49,9 +49,24 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        public ChatLogWorker()
+        {
+            _scanTimer = new Timer(250);
+            _scanTimer.Elapsed += ScanTimerElapsed;
+        }
+
         #region Property Bindings
 
         private long ChatPointerMap { get; set; }
+
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            _scanTimer.Elapsed -= ScanTimerElapsed;
+        }
 
         #endregion
 
@@ -70,12 +85,6 @@ namespace FFXIVAPP.Client.Memory
         private int _previousOffset;
 
         #endregion
-
-        public ChatLogWorker()
-        {
-            _scanTimer = new Timer(250);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
 
         #region Timer Controls
 
@@ -253,15 +262,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

@@ -38,6 +38,12 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof (DefaultViewModel))]
     internal sealed class DefaultViewModel : INotifyPropertyChanged
     {
+        public DefaultViewModel()
+        {
+            DefaultCommand = new DelegateCommand(Default);
+            DefaultCommandT = new DelegateCommand<object>(DefaultT);
+        }
+
         #region Property Bindings
 
         private static DefaultViewModel _instance;
@@ -55,12 +61,6 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand DefaultCommandT { get; private set; }
 
         #endregion
-
-        public DefaultViewModel()
-        {
-            DefaultCommand = new DelegateCommand(Default);
-            DefaultCommandT = new DelegateCommand<object>(DefaultT);
-        }
 
         #region Loading Functions
 

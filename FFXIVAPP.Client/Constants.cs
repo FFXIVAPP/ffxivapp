@@ -36,11 +36,18 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Hooker;
 
 namespace FFXIVAPP.Client
 {
     public static partial class Constants
     {
+        #region DirectX
+
+        public static HookProcess HookProcess { get; set; }
+
+        #endregion
+
         #region Declarations
 
         public static readonly string[] Supported =

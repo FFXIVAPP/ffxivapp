@@ -37,7 +37,6 @@ namespace FFXIVAPP.Client.Network
 {
     public class IPHeader
     {
-        private readonly byte _TTL;
         private readonly short _checksum;
         private readonly List<byte> _data = new List<byte>();
         private readonly uint _destinationIPAddress;
@@ -48,6 +47,7 @@ namespace FFXIVAPP.Client.Network
         private readonly byte _protocol;
         private readonly uint _sourceIPAddress;
         private readonly ushort _totalLength;
+        private readonly byte _TTL;
         private readonly byte _versionAndHeaderLength;
 
         public IPHeader(byte[] byBuffer, int nReceived)
