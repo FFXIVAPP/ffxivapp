@@ -54,6 +54,7 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Hooker;
+using FFXIVAPP.Hooker.Events;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -1000,6 +1001,10 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
+            if (HookManager.IsHooked(Constants.ProcessModel.ProcessID))
+            {
+                return;
+            }
             try
             {
                 var overlayConfig = new OverlayConfig
@@ -1008,10 +1013,10 @@ namespace FFXIVAPP.Client
                 };
                 var overlayInterface = new OverlayInterface();
                 overlayInterface.RemoteMessage += OverlayInterfaceRemoteMessage;
-                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, overlayInterface);
+                Constants.HookProcess = new HookProcess(Constants.ProcessModel.Process, overlayConfig, overlayInterface);
                 var processSuccessTimer = new Timer
                 {
-                    Interval = 250
+                    Interval = 500
                 };
                 processSuccessTimer.Tick += (sender, args) =>
                 {
@@ -1040,9 +1045,10 @@ namespace FFXIVAPP.Client
             }
             try
             {
+                HookManager.RemoveHookedProcess(Constants.ProcessModel.ProcessID);
                 Constants.HookProcess.OverlayInterface.Disconnect();
-                Constants.HookProcess.UnHook();
-                Constants.HookProcess.Dispose();
+                //Constants.HookProcess.UnHook();
+                //Constants.HookProcess.Dispose();
                 Constants.HookProcess = null;
             }
             catch (Exception ex)

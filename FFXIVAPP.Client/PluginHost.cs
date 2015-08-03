@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -281,6 +282,30 @@ namespace FFXIVAPP.Client
                 return;
             }
             Constants.HookProcess?.OverlayInterface?.DisplayInGameText(String.Format("{0} :: {1}", pluginName, message));
+        }
+
+        public void AddOrUpdateInGameOverlay(string pluginName, Guid overlayID, Stream imageStream, float alpha, PointF location)
+        {
+            if (imageStream == null)
+            {
+                return;
+            }
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.OverlayInterface?.AddOrUpdateInGameOverlay(overlayID, imageStream, alpha, location);
+        }
+
+        public void RemoveInGameOverlay(string pluginName, Guid overlayID)
+        {
+            var pluginInstance = App.Plugins.Loaded.Find(pluginName);
+            if (pluginInstance == null)
+            {
+                return;
+            }
+            Constants.HookProcess?.OverlayInterface?.RemoveInGameOverlay(overlayID);
         }
 
         public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };
