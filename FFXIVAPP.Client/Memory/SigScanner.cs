@@ -138,7 +138,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="signatures"> </param>
-        public void LoadOffsets(List<Signature> signatures)
+        public void LoadOffsets(List<Signature> pSignatures)
         {
             Func<bool> d = delegate
             {
@@ -148,23 +148,36 @@ namespace FFXIVAPP.Client.Memory
                 {
                     return false;
                 }
+                List<Signature> signatures = new List<Signature>(pSignatures);
                 LoadRegions();
-                Locations = new Dictionary<string, Signature>();
+                //Locations = new Dictionary<string, Signature>();
                 if (signatures.Any())
                 {
                     foreach (var sig in signatures)
                     {
+                        if (sig.Value == "")
+                        {
+                            // doesn't need a signature scan
+                            Locations.Add(sig.Key, sig);
+                            continue;
+                        }
                         sig.Value = sig.Value.Replace("*", "?"); // allows either ? or * to be used as wildcard
                     }
+
+                    signatures.RemoveAll(a => Locations.ContainsKey(a.Key));
+
                     // this will scan 32 bit regions for some reason
-                    FindSignatures(signatures, ScanResultType.AddressStartOfSig);
-                }
-                var signaturesNotFound = signatures.Where(s => !Locations.ContainsKey(s.Key))
-                                                   .ToList();
-                if (signaturesNotFound.Any())
-                {
-                    // have to extend this to scan from game base address up
-                    FindExtendedSignatures(signaturesNotFound);
+                    //FindSignatures(signatures, ScanResultType.AddressStartOfSig);
+
+                    //var signaturesNotFound = signatures.Where(s => !Locations.ContainsKey(s.Key)).ToList();
+
+                    //signatures.RemoveAll(a => Locations.ContainsKey(a.Key));
+
+                    //if (signatures.Any())
+                    {
+                        // have to extend this to scan from game base address up
+                        FindExtendedSignatures(signatures);
+                    }
                 }
                 _memDump = null;
                 sw.Stop();
@@ -233,7 +246,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (ScanResultType.AddressStartOfSig == searchType)
                             {
-                                searchResult = IntPtr.Add(searchResult, (int) region.BaseAddress);
+                                searchResult = IntPtr.Add(searchResult, (int)region.BaseAddress);
                             }
                             signature.SigScanAddress = searchResult;
                             Locations.Add(signature.Key, signature);
@@ -247,7 +260,6 @@ namespace FFXIVAPP.Client.Memory
                 }
             }
             catch (Exception ex)
-
             {
             }
         }
@@ -343,25 +355,19 @@ namespace FFXIVAPP.Client.Memory
                     if (IntPtr.Add(searchStart, bufferSize)
                               .ToInt64() > searchEnd.ToInt64())
                     {
-                        regionSize = (IntPtr) (searchEnd.ToInt64() - searchStart.ToInt64());
+                        regionSize = (IntPtr)(searchEnd.ToInt64() - searchStart.ToInt64());
                     }
                     if (UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
                     {
                         foreach (var signature in notFound)
                         {
-                            if (signature.Value == "")
-                            {
-                                // doesn't need a signature scan
-                                Locations.Add(signature.Key, signature);
-                                continue;
-                            }
                             var idx = FindSuperSig(lpBuffer, SigToByte(signature.Value, WildCardChar));
                             if (idx < 0)
                             {
                                 temp.Add(signature);
                                 continue;
                             }
-                            var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
+                            var baseResult = new IntPtr((long)(baseAddress + (regionCount * bufferSize)));
                             var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
                             signature.SigScanAddress = new IntPtr(searchResult.ToInt64());
                             Locations.Add(signature.Key, signature);

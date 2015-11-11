@@ -755,7 +755,8 @@ namespace FFXIVAPP.Client
                             Value = "750e85d2750ab9",
                             PointerPath = new List<long>()
                             {
-                                0L,
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT offsets
                                 88L
                                 // values above are "Target" from ACT. Adjust to what ffxivapp expects:
                                 + 16L
@@ -769,7 +770,8 @@ namespace FFXIVAPP.Client
                             Value = "8b55fc83e2f983ca098b4d08a1********515250E8********a1",
                             PointerPath = new List<long>()
                             {
-                                0L,
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "ChatLogLenStart" offsets
                                 0L,
                                 24L,
                                 736L
@@ -784,7 +786,8 @@ namespace FFXIVAPP.Client
                             Value = "81feffff0000743581fe58010000732d8b3cb5",
                             PointerPath = new List<long>()
                             {
-                                0L,
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "MobArray" offsets
                                 0L
                             }
                         });
@@ -794,8 +797,11 @@ namespace FFXIVAPP.Client
                             Value = "85c074178b407450b9",
                             PointerPath = new List<long>()
                             {
-                                0L,
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "PartyList" offsets
                                 0L
+                                // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
+                                +0x10
                             }
                         });
                         AppViewModel.Instance.Signatures.Add(new Signature
@@ -804,7 +810,8 @@ namespace FFXIVAPP.Client
                             Value = "8b0d********85c975068b0d",
                             PointerPath = new List<long>()
                             {
-                                0L,
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "ZoneID" offsets
                                 0L
                             }
                         });
@@ -835,23 +842,26 @@ namespace FFXIVAPP.Client
                                 0x103EBF4 + 0x900
                             }
                         });
-
-
-                        // TODO: Update the following for patch 3.1
-                        /*
-                       
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "ENMITYMAP",
-                            Value = "FFFFFFFF0000????????????????????????????????????????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
-                            Offset = 14964 // pre 3.0 2.4
+                            PointerPath = new List<long>()
+                            {
+                                0x103E2EC
+                            }
                         });
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "PARTYCOUNT",
-                            Value = "5F50617274794C69737400",
-                            Offset = 1340
+                            PointerPath = new List<long>()
+                            {
+                                0x10A5E6C
+                            }
                         });
+
+
+                        // TODO: Update the following for patch 3.1
+                        /*
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "INVENTORY",

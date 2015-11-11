@@ -173,6 +173,7 @@ namespace FFXIVAPP.Client.Memory
                                         {
                                             var source = MemoryHandler.Instance.GetByteArray(currentTarget, 0x23F0); // old size: 0x3F40
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
+                                            currentTargetID = entry.ID;
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
                                                 try

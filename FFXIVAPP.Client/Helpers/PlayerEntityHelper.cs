@@ -43,7 +43,7 @@ namespace FFXIVAPP.Client.Helpers
             var entry = new PlayerEntity();
             try
             {
-                entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 1); // no longer stored here...
+                entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 1);
 
                 switch (Settings.Default.GameLanguage)
                 {
@@ -223,47 +223,51 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Job Levels
 
-                        int i = 0x82;
+                        int step = 2;
+                        int i = 0x68 - step;
 
-                        entry.GLD = source[i += 2]; // 0x84
-                        entry.PGL = source[i += 2];
-                        entry.MRD = source[i += 2];
-                        entry.LNC = source[i += 2];
-                        entry.ARC = source[i += 2]; // 0x8C
-                        entry.CNJ = source[i += 2];
-                        entry.THM = source[i += 2];
+                        entry.PGL = source[i += step];
+                        entry.GLD = source[i += step];
+                        entry.MRD = source[i += step];
+                        entry.ARC = source[i += step];
+                        entry.LNC = source[i += step];
+                        entry.THM = source[i += step];
+                        entry.CNJ = source[i += step];
 
-                        entry.CPT = source[i += 2];
-                        entry.BSM = source[i += 2];
-                        entry.ARM = source[i += 2];
-                        entry.GSM = source[i += 2];
-                        entry.LTW = source[i += 2];
-                        entry.WVR = source[i += 2];
-                        entry.ALC = source[i += 2];
-                        entry.CUL = source[i += 2];
+                        entry.CPT = source[i += step];
+                        entry.BSM = source[i += step];
+                        entry.ARM = source[i += step];
+                        entry.GSM = source[i += step];
+                        entry.LTW = source[i += step];
+                        entry.WVR = source[i += step];
+                        entry.ALC = source[i += step];
+                        entry.CUL = source[i += step];
 
-                        entry.MIN = source[i += 2];
-                        entry.BTN = source[i += 2];
-                        entry.FSH = source[i += 2];
+                        entry.MIN = source[i += step];
+                        entry.BTN = source[i += step];
+                        entry.FSH = source[i += step];
 
-                        entry.ACN = source[i += 2];
-                        entry.ROG = source[i += 2];
+                        entry.ACN = source[i += step];
+                        entry.ROG = source[i += step];
+
+                        entry.MCH = source[i += step];
+                        entry.DRK = source[i += step];
+                        entry.AST = source[i += step];
 
                         #endregion
 
                         #region Current Experience
 
-                        int step = 4;
+                        step = 4;
+                        i = 0x98 - step;
 
-                        i = 0xCC;
-
-                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD0
-                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD4
-                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD8
-                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xDC
-                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xE0
-                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, i += step);
                         entry.THM_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, i += step);
 
                         entry.CPT_CurrentEXP = BitConverter.ToInt32(source, i += step);
                         entry.BSM_CurrentEXP = BitConverter.ToInt32(source, i += step);
@@ -281,68 +285,81 @@ namespace FFXIVAPP.Client.Helpers
                         entry.ACN_CurrentEXP = BitConverter.ToInt32(source, i += step);
                         entry.ROG_CurrentEXP = BitConverter.ToInt32(source, i += step);
 
+                        entry.MCH_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.DRK_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.AST_CurrentEXP = BitConverter.ToInt32(source, i += step);
+
                         #endregion
 
                         #region Base Stats
 
-                        entry.BaseStrength = BitConverter.ToInt16(source, 0xFC);
-                        entry.BaseDexterity = BitConverter.ToInt16(source, 0x100);
-                        entry.BaseVitality = BitConverter.ToInt16(source, 0x104);
-                        entry.BaseIntelligence = BitConverter.ToInt16(source, 0x108);
-                        entry.BaseMind = BitConverter.ToInt16(source, 0x10C);
-                        entry.BasePiety = BitConverter.ToInt16(source, 0x110);
+                        step = 4;
+                        i = 0x100 - step;
+
+                        entry.BaseStrength = BitConverter.ToInt16(source, i += step);
+                        entry.BaseDexterity = BitConverter.ToInt16(source, i += step);
+                        entry.BaseVitality = BitConverter.ToInt16(source, i += step);
+                        entry.BaseIntelligence = BitConverter.ToInt16(source, i += step);
+                        entry.BaseMind = BitConverter.ToInt16(source, i += step);
+                        entry.BasePiety = BitConverter.ToInt16(source, i += step);
 
                         #endregion
 
                         #region Base Stats (base+gear+bonus)
 
-                        entry.Strength = BitConverter.ToInt16(source, 0x118);
-                        entry.Dexterity = BitConverter.ToInt16(source, 0x11C);
-                        entry.Vitality = BitConverter.ToInt16(source, 0x120);
-                        entry.Intelligence = BitConverter.ToInt16(source, 0x124);
-                        entry.Mind = BitConverter.ToInt16(source, 0x128);
-                        entry.Piety = BitConverter.ToInt16(source, 0x12C);
+                        step = 4;
+                        i = 0x11C - step;
+
+                        entry.Strength = BitConverter.ToInt16(source, i += step);
+                        entry.Dexterity = BitConverter.ToInt16(source, i += step);
+                        entry.Vitality = BitConverter.ToInt16(source, i += step);
+                        entry.Intelligence = BitConverter.ToInt16(source, i += step);
+                        entry.Mind = BitConverter.ToInt16(source, i += step);
+                        entry.Piety = BitConverter.ToInt16(source, i += step);
 
                         #endregion
 
                         #region Basic Info
 
-                        entry.HPMax = BitConverter.ToInt16(source, 0x134);
-                        entry.MPMax = BitConverter.ToInt16(source, 0x138);
-                        entry.TPMax = BitConverter.ToInt16(source, 0x13C);
-                        entry.GPMax = BitConverter.ToInt16(source, 0x140);
-                        entry.CPMax = BitConverter.ToInt16(source, 0x144);
+                        step = 4;
+                        i = 0x138 - step;
+
+                        entry.HPMax = BitConverter.ToInt16(source, i += step);
+                        entry.MPMax = BitConverter.ToInt16(source, i += step);
+                        entry.TPMax = BitConverter.ToInt16(source, i += step);
+                        entry.GPMax = BitConverter.ToInt16(source, i += step);
+                        entry.CPMax = BitConverter.ToInt16(source, i += step);
                         
                         #endregion
 
                         #region Offensive Properties
 
-                        entry.Accuracy = BitConverter.ToInt16(source, 0x16C);
-                        entry.CriticalHitRate = BitConverter.ToInt16(source, 0x180);
-                        entry.Determination = BitConverter.ToInt16(source, 0x1C4);
+                        entry.Accuracy = BitConverter.ToInt16(source, 0x170);
+                        entry.CriticalHitRate = BitConverter.ToInt16(source, 0x184);
+                        entry.Determination = BitConverter.ToInt16(source, 0x1C8);
 
                         #endregion
 
                         #region Defensive Properties
 
-                        entry.Parry = BitConverter.ToInt16(source, 0x160);
-                        entry.Defense = BitConverter.ToInt16(source, 0x168);
-                        entry.MagicDefense = BitConverter.ToInt16(source, 0x174);
+                        entry.Parry = BitConverter.ToInt16(source, 0x164);
+                        entry.Defense = BitConverter.ToInt16(source, 0x16C);
+                        entry.MagicDefense = BitConverter.ToInt16(source, 0x178);
 
                         #endregion
 
                         #region Phyiscal Properties
 
-                        entry.AttackPower = BitConverter.ToInt16(source, 0x164);
-                        entry.SkillSpeed = BitConverter.ToInt16(source, 0x1C8);
+                        entry.AttackPower = BitConverter.ToInt16(source, 0x168);
+                        entry.SkillSpeed = BitConverter.ToInt16(source, 0x1CC);
 
                         #endregion
 
                         #region Mental Properties
 
-                        entry.SpellSpeed = BitConverter.ToInt16(source, 0x170);
-                        entry.AttackMagicPotency = BitConverter.ToInt16(source, 0x198);
-                        entry.HealingMagicPotency = BitConverter.ToInt16(source, 0x19C);
+                        entry.SpellSpeed = BitConverter.ToInt16(source, 0x174);
+                        entry.AttackMagicPotency = BitConverter.ToInt16(source, 0x19C);
+                        entry.HealingMagicPotency = BitConverter.ToInt16(source, 0x1A0);
 
                         #endregion
 
@@ -361,34 +378,40 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Elemental Resistances
 
-                        entry.FireResistance = BitConverter.ToInt16(source, 0x1A8);
-                        entry.IceResistance = BitConverter.ToInt16(source, 0x1AC);
-                        entry.WindResistance = BitConverter.ToInt16(source, 0x1B0);
-                        entry.EarthResistance = BitConverter.ToInt16(source, 0x1B4);
-                        entry.LightningResistance = BitConverter.ToInt16(source, 0x1B8);
-                        entry.WaterResistance = BitConverter.ToInt16(source, 0x1BC);
+                        step = 4;
+                        i = 0x1AC - step;
+
+                        entry.FireResistance = BitConverter.ToInt16(source, i += step);
+                        entry.IceResistance = BitConverter.ToInt16(source, i += step);
+                        entry.WindResistance = BitConverter.ToInt16(source, i += step);
+                        entry.EarthResistance = BitConverter.ToInt16(source, i += step);
+                        entry.LightningResistance = BitConverter.ToInt16(source, i += step);
+                        entry.WaterResistance = BitConverter.ToInt16(source, i += step);
 
                         #endregion
 
                         #region Physical Resistances
 
-                        entry.SlashingResistance = BitConverter.ToInt16(source, 0x188);
-                        entry.PiercingResistance = BitConverter.ToInt16(source, 0x18C);
-                        entry.BluntResistance = BitConverter.ToInt16(source, 0x190);
+                        step = 4;
+                        i = 0x18C - step;
+
+                        entry.SlashingResistance = BitConverter.ToInt16(source, i += step);
+                        entry.PiercingResistance = BitConverter.ToInt16(source, i += step);
+                        entry.BluntResistance = BitConverter.ToInt16(source, i += step);
 
                         #endregion
 
                         #region Crafting
 
-                        entry.Craftmanship = BitConverter.ToInt16(source, 0x22C);
-                        entry.Control = BitConverter.ToInt16(source, 0x230);
+                        entry.Craftmanship = BitConverter.ToInt16(source, 0x230);
+                        entry.Control = BitConverter.ToInt16(source, 0x234);
 
                         #endregion
 
                         #region Gathering
 
-                        entry.Gathering = BitConverter.ToInt16(source, 0x234);
-                        entry.Perception = BitConverter.ToInt16(source, 0x238);
+                        entry.Gathering = BitConverter.ToInt16(source, 0x238);
+                        entry.Perception = BitConverter.ToInt16(source, 0x23C);
 
                         #endregion
 

@@ -338,6 +338,8 @@ namespace FFXIVAPP.Client.Memory
                                 }
                             }
 
+                            MemoryHandler._scanCount++;
+
                             if (!ReferencesSet)
                             {
                                 ReferencesSet = true;

@@ -214,24 +214,27 @@ namespace FFXIVAPP.Client.Helpers
                     try
                     {
                         var statusInfo = StatusEffectHelper.StatusInfo(statusEntry.StatusID);
-                        statusEntry.IsCompanyAction = statusInfo.CompanyAction;
-                        var statusKey = statusInfo.Name.English;
-                        switch (Settings.Default.GameLanguage)
+                        if (statusInfo != null)
                         {
-                            case "French":
-                                statusKey = statusInfo.Name.French;
-                                break;
-                            case "Japanese":
-                                statusKey = statusInfo.Name.Japanese;
-                                break;
-                            case "German":
-                                statusKey = statusInfo.Name.German;
-                                break;
-                            case "Chinese":
-                                statusKey = statusInfo.Name.Chinese;
-                                break;
+                            statusEntry.IsCompanyAction = statusInfo.CompanyAction;
+                            var statusKey = statusInfo.Name.English;
+                            switch (Settings.Default.GameLanguage)
+                            {
+                                case "French":
+                                    statusKey = statusInfo.Name.French;
+                                    break;
+                                case "Japanese":
+                                    statusKey = statusInfo.Name.Japanese;
+                                    break;
+                                case "German":
+                                    statusKey = statusInfo.Name.German;
+                                    break;
+                                case "Chinese":
+                                    statusKey = statusInfo.Name.Chinese;
+                                    break;
+                            }
+                            statusEntry.StatusName = statusKey;
                         }
-                        statusEntry.StatusName = statusKey;
                     }
                     catch (Exception ex)
                     {

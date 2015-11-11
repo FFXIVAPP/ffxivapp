@@ -53,6 +53,15 @@ namespace FFXIVAPP.Client.Memory
         private IntPtr _processHandle;
         private ProcessModel _processModel;
         private SigScanner _sigScanner;
+        internal static int _scanCount = 0;
+
+        public static int scanCount
+        {
+            get
+            {
+                return _scanCount;
+            }
+        }
 
         public ProcessModel ProcessModel
         {
