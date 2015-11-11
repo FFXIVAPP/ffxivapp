@@ -92,7 +92,7 @@ namespace FFXIVAPP.Client.Helpers
                         entry.CPMax = BitConverter.ToInt16(source, 0x17E0);
                         entry.Race = source[0x2E58]; // ??
                         entry.Sex = (Actor.Sex) source[0x2E59]; //?
-                        entry.IsCasting = BitConverter.ToBoolean(source, 0x32E0);
+                        entry.IsCasting = BitConverter.ToBoolean(source, 0x32E0) && BitConverter.ToBoolean(source, 0x32E1);
                         entry.CastingID = BitConverter.ToInt16(source, 0x32E4);
                         entry.CastingTargetID = BitConverter.ToUInt32(source, 0x32F0);
                         entry.CastingProgress = BitConverter.ToSingle(source, 0x3314);
@@ -118,37 +118,37 @@ namespace FFXIVAPP.Client.Helpers
                         entry.Fate = BitConverter.ToUInt32(source, 0xE4 + defaultBaseOffset); // ??
                         entry.GatheringInvisible = source[0x11C]; // ??
                         entry.ModelID = BitConverter.ToUInt32(source, 0x174);
-                        entry.ActionStatus = (Actor.ActionStatus) source[0x17C];
+                        entry.ActionStatus = (Actor.ActionStatus)source[0x16C];
                         // 0x17D - 0 = Green name, 4 = non-agro (yellow name)
                         entry.IsGM = BitConverter.ToBoolean(source, 0x183); // ?
                         entry.Icon = (Actor.Icon) source[0x18C];
-                        entry.Status = (Actor.Status) source[0x17E]; //0x18E];
-                        entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180); // 0x1A0);
-                        targetID = BitConverter.ToUInt32(source, 0x188); // 0x1A8);
-                        pcTargetID = BitConverter.ToUInt32(source, 0x938); // 0xAA8);
+                        entry.Status = (Actor.Status) source[0x17E];
+                        entry.ClaimedByID = BitConverter.ToUInt32(source, 0x180);
+                        targetID = BitConverter.ToUInt32(source, 0x818);
+                        pcTargetID = targetID; //BitConverter.ToUInt32(source, 0x938); // no longer exists?
                         var defaultStatOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x230 : 0;
-                        entry.Job = (Actor.Job) source[0x14C0 + defaultStatOffset]; // 0x17C0];
-                        entry.Level = source[0x14C1 + defaultStatOffset]; // 0x17C1];
-                        entry.GrandCompany = source[0x14C3 + defaultStatOffset]; // 0x17C3];
-                        entry.GrandCompanyRank = source[0x14C4 + defaultStatOffset]; //0x17C4];
-                        entry.Title = source[0x1546 + defaultStatOffset]; //0x17C6];
-                        entry.HPCurrent = BitConverter.ToInt32(source, 0x14C8 + defaultStatOffset); // 0x17C8);
-                        entry.HPMax = BitConverter.ToInt32(source, 0x14CC + defaultStatOffset); // 0x17CC);
-                        entry.MPCurrent = BitConverter.ToInt32(source, 0x14D0 + defaultStatOffset); // 0x17D0);
-                        entry.MPMax = BitConverter.ToInt32(source, 0x14D4 + defaultStatOffset); // 0x17D4);
-                        entry.TPCurrent = BitConverter.ToInt16(source, 0x14D8 + defaultStatOffset); // 0x17D8);
+                        entry.Job = (Actor.Job) source[0x1230 + defaultStatOffset];
+                        entry.Level = source[0x1231 + defaultStatOffset];
+                        entry.GrandCompany = source[0x1233 + defaultStatOffset];
+                        entry.GrandCompanyRank = source[0x1234 + defaultStatOffset];
+                        entry.Title = source[0x12B6 + defaultStatOffset];
+                        entry.HPCurrent = BitConverter.ToInt32(source, 0x1238 + defaultStatOffset);
+                        entry.HPMax = BitConverter.ToInt32(source, 0x123C + defaultStatOffset);
+                        entry.MPCurrent = BitConverter.ToInt32(source, 0x1240 + defaultStatOffset);
+                        entry.MPMax = BitConverter.ToInt32(source, 0x1244 + defaultStatOffset);
+                        entry.TPCurrent = BitConverter.ToInt16(source, 0x1248 + defaultStatOffset);
                         entry.TPMax = 1000;
-                        entry.GPCurrent = BitConverter.ToInt16(source, 0x14DA + defaultStatOffset); // 0x17DA);
-                        entry.GPMax = BitConverter.ToInt16(source, 0x14DC + defaultStatOffset); // 0x17DC);
-                        entry.CPCurrent = BitConverter.ToInt16(source, 0x14DE + defaultStatOffset); // 0x17DE);
-                        entry.CPMax = BitConverter.ToInt16(source, 0x14E0 + defaultStatOffset); // 0x17E0);
-                        entry.Race = source[0x2808]; // ??
-                        entry.Sex = (Actor.Sex) source[0x2809]; //?
-                        entry.IsCasting = BitConverter.ToBoolean(source, 0x2A30); // 0x2C90);
-                        entry.CastingID = BitConverter.ToInt16(source, 0x2A34); // 0x2C94);
-                        entry.CastingTargetID = BitConverter.ToUInt32(source, 0x2A40); // 0x2CA0);
-                        entry.CastingProgress = BitConverter.ToSingle(source, 0x2A64); // 0x2CC4);
-                        entry.CastingTime = BitConverter.ToSingle(source, 0x2A68); // 0x2DA8);
+                        entry.GPCurrent = BitConverter.ToInt16(source, 0x124A + defaultStatOffset);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x124C + defaultStatOffset);
+                        entry.CPCurrent = BitConverter.ToInt16(source, 0x124E + defaultStatOffset);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x1250 + defaultStatOffset);
+                        //entry.Race = source[0x2578]; // ??
+                        //entry.Sex = (Actor.Sex) source[0x2579]; //?
+                        entry.IsCasting = BitConverter.ToBoolean(source, 0x1690) && BitConverter.ToBoolean(source, 0x1691); // 0x2C90);
+                        entry.CastingID = BitConverter.ToInt16(source, 0x1694); // 0x2C94);
+                        entry.CastingTargetID = BitConverter.ToUInt32(source, 0x16A0); // 0x2CA0);
+                        entry.CastingProgress = BitConverter.ToSingle(source, 0x16C4); // 0x2CC4);
+                        entry.CastingTime = BitConverter.ToSingle(source, 0x16C8); // 0x2DA8);
                         entry.Coordinate = new Coordinate(entry.X, entry.Z, entry.Y);
                         break;
                 }
@@ -181,11 +181,11 @@ namespace FFXIVAPP.Client.Helpers
                 switch (Settings.Default.GameLanguage)
                 {
                     case "Chinese":
-                        Buffer.BlockCopy(source, 0x3168, statusesSource, 0, limit * 12);
+                        Buffer.BlockCopy(source, 0x3168, statusesSource, 0, limit * statusSize);
                         break;
                     default:
-                        var defaultStatusEffectOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x3740 : 0x2878;
-                        Buffer.BlockCopy(source, defaultStatusEffectOffset, statusesSource, 0, limit * 12);
+                        var defaultStatusEffectOffset = MemoryHandler.Instance.ProcessModel.IsWin64 ? 0x3740 : 0x1518;
+                        Buffer.BlockCopy(source, defaultStatusEffectOffset, statusesSource, 0, limit * statusSize);
                         break;
                 }
                 for (var i = 0; i < limit; i++)

@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static MemoryHandler _instance;
-        private Dictionary<string, List<long>> _pointerPaths;
+        //private Dictionary<string, List<long>> _pointerPaths;
         private IntPtr _processHandle;
         private ProcessModel _processModel;
         private SigScanner _sigScanner;
@@ -93,6 +93,7 @@ namespace FFXIVAPP.Client.Memory
             }
         }
 
+        /*
         public Dictionary<String, List<long>> PointerPaths
         {
             get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
@@ -102,7 +103,7 @@ namespace FFXIVAPP.Client.Memory
                 RaisePropertyChanged();
             }
         }
-
+        */
         #endregion
 
         #region Private Structs
@@ -156,28 +157,40 @@ namespace FFXIVAPP.Client.Memory
             SigScanner.Locations.Clear();
         }
 
-        public static long ResolvePointerPath(string pathname)
+        /*
+        // DEPRICATED - use MemoryHandler.Instance.SigScanner.Locations[pathname].GetAddress() instead
+        public static IntPtr ResolvePointerPath(string pathname)
         {
-            return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname]) : 0;
+            return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname], GetStaticAddress(0)) : IntPtr.Zero;
         }
-
-        public static long ResolvePointerPath(IEnumerable<long> path)
+        */
+        public static IntPtr ResolvePointerPath(IEnumerable<long> path, IntPtr baseAddress)
         {
-            var address = GetStaticAddress(0);
-            var nextAddress = address;
+            var nextAddress = baseAddress;
 
             foreach (var offset in path)
             {
-                address = nextAddress + offset;
-                nextAddress = (uint) Instance.GetPlatformInt(address);
+                try
+                {
+                    baseAddress = new IntPtr(nextAddress.ToInt64() + offset);
+                    if (baseAddress == IntPtr.Zero)
+                    {
+                        return IntPtr.Zero;
+                    }
+                    nextAddress = Instance.ReadPointer(baseAddress);
+                }
+                catch
+                {
+                    return IntPtr.Zero;
+                }
             }
 
-            return address;
+            return baseAddress;
         }
 
-        public static long GetStaticAddress(long offset)
+        public static IntPtr GetStaticAddress(long offset)
         {
-            return Instance.ProcessModel.Process.MainModule.BaseAddress.ToInt64() + offset;
+            return new IntPtr(Instance.ProcessModel.Process.MainModule.BaseAddress.ToInt64() + offset);
         }
 
         /// <summary>
@@ -263,6 +276,19 @@ namespace FFXIVAPP.Client.Memory
             var win32 = new byte[4];
             Peek(address + offset, win32);
             return BitConverter.ToInt32(win32, 0);
+        }
+
+        public IntPtr ReadPointer(IntPtr address, long offset = 0)
+        {
+            if (ProcessModel.IsWin64)
+            {
+                var win64 = new byte[8];
+                Peek((address.ToInt64() + offset), win64);
+                return IntPtr.Add(IntPtr.Zero, (int)BitConverter.ToInt64(win64, 0));
+            }
+            var win32 = new byte[4];
+            Peek((address.ToInt64() + offset), win32);
+            return IntPtr.Add(IntPtr.Zero, BitConverter.ToInt32(win32, 0));
         }
 
         /// <summary>
@@ -354,19 +380,6 @@ namespace FFXIVAPP.Client.Memory
             var win32 = new byte[4];
             Peek(address + offset, win32);
             return BitConverter.ToUInt32(win32, 0);
-        }
-
-        public IntPtr ReadPointer(IntPtr address, long offset = 0)
-        {
-            if (ProcessModel.IsWin64)
-            {
-                var win64 = new byte[8];
-                Peek((long) (address + (int) offset), win64);
-                return IntPtr.Add(IntPtr.Zero, (int) BitConverter.ToInt64(win64, 0));
-            }
-            var win32 = new byte[4];
-            Peek((long) (address + (int) offset), win32);
-            return IntPtr.Add(IntPtr.Zero, BitConverter.ToInt32(win32, 0));
         }
 
         /// <summary>

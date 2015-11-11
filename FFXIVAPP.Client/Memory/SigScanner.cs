@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static SigScanner _instance;
-        private Dictionary<string, long> _locations;
+        private Dictionary<string, Signature> _locations;
 
         public static SigScanner Instance
         {
@@ -57,14 +57,14 @@ namespace FFXIVAPP.Client.Memory
             set { _instance = value; }
         }
 
-        public Dictionary<string, long> Locations
+        public Dictionary<string, Signature> Locations
         {
-            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
+            get { return _locations ?? (_locations = new Dictionary<string, Signature>()); }
             private set
             {
                 if (_locations == null)
                 {
-                    _locations = new Dictionary<string, long>();
+                    _locations = new Dictionary<string, Signature>();
                 }
                 _locations = value;
                 RaisePropertyChanged();
@@ -149,9 +149,13 @@ namespace FFXIVAPP.Client.Memory
                     return false;
                 }
                 LoadRegions();
-                Locations = new Dictionary<string, long>();
+                Locations = new Dictionary<string, Signature>();
                 if (signatures.Any())
                 {
+                    foreach (var sig in signatures)
+                    {
+                        sig.Value = sig.Value.Replace("*", "?"); // allows either ? or * to be used as wildcard
+                    }
                     // this will scan 32 bit regions for some reason
                     FindSignatures(signatures, ScanResultType.AddressStartOfSig);
                 }
@@ -231,7 +235,8 @@ namespace FFXIVAPP.Client.Memory
                             {
                                 searchResult = IntPtr.Add(searchResult, (int) region.BaseAddress);
                             }
-                            Locations.Add(signature.Key, (uint) searchResult);
+                            signature.SigScanAddress = searchResult;
+                            Locations.Add(signature.Key, signature);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();
@@ -344,6 +349,12 @@ namespace FFXIVAPP.Client.Memory
                     {
                         foreach (var signature in notFound)
                         {
+                            if (signature.Value == "")
+                            {
+                                // doesn't need a signature scan
+                                Locations.Add(signature.Key, signature);
+                                continue;
+                            }
                             var idx = FindSuperSig(lpBuffer, SigToByte(signature.Value, WildCardChar));
                             if (idx < 0)
                             {
@@ -352,7 +363,8 @@ namespace FFXIVAPP.Client.Memory
                             }
                             var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
                             var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
-                            Locations.Add(signature.Key, searchResult.ToInt64());
+                            signature.SigScanAddress = new IntPtr(searchResult.ToInt64());
+                            Locations.Add(signature.Key, signature);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();

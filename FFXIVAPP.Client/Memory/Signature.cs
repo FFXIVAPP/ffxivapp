@@ -27,6 +27,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE. 
 
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace FFXIVAPP.Client.Memory
@@ -36,6 +38,70 @@ namespace FFXIVAPP.Client.Memory
         public string Key { get; set; }
         public string Value { get; set; }
         public Regex RegularExpress { get; set; }
-        public int Offset { get; set; }
+
+        public IntPtr SigScanAddress { get; set; }
+
+        private bool offsetSet = false;
+        private int _Offset = 0;
+        public int Offset 
+        { 
+            get
+            { 
+                if (!offsetSet)
+                {
+                    _Offset = Value.Length / 2;
+                }
+                return _Offset;
+            }
+            set
+            {
+                offsetSet = true;
+                _Offset = value;
+            }
+        }
+        public List<long> PointerPath { get; set; }
+
+
+        public Signature()
+        {
+            Key = "";
+            Value = "";
+            RegularExpress = null;
+            SigScanAddress = IntPtr.Zero;
+            PointerPath = null;
+        }
+
+
+        public IntPtr GetAddress()
+        {
+            IntPtr baseAddress = IntPtr.Zero;
+            if (SigScanAddress != IntPtr.Zero)
+            {
+                baseAddress = SigScanAddress; // SigScanner should have already applied the base offset
+            }
+            else
+            {
+                if (PointerPath == null || PointerPath.Count == 0)
+                {
+                    return IntPtr.Zero;
+                }
+                baseAddress = MemoryHandler.GetStaticAddress(0);
+            }
+
+            if (PointerPath == null || PointerPath.Count == 0)
+            {
+                return baseAddress;
+            }
+
+            return MemoryHandler.ResolvePointerPath(PointerPath, baseAddress);
+        }
+
+        // convenience conversion for less code breakage. 
+        // FIXME: convert all calling functions to handle IntPtr properly someday, and stop using long for addresses
+        public static implicit operator long(Signature value)
+        {
+            return value.GetAddress().ToInt64();
+        }
+
     }
 }

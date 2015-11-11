@@ -679,6 +679,8 @@ namespace FFXIVAPP.Client
                 default:
                     if (IsWin64)
                     {
+                        // TODO: Need to do all 64 bit values still
+                        /*
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "GAMEMAIN",
@@ -733,9 +735,141 @@ namespace FFXIVAPP.Client
                         {
                             0x1679010
                         };
+                        */
                     }
                     else
                     {
+
+                        // can still use old style entry of signatures
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "GAMEMAIN",
+                            Value = "47616D654D61696E000000",
+                            Offset = 1344 // is this even used anymore?
+                        });
+
+                        // or a combination of signature and offset from that signature
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "TARGET",
+                            Value = "750e85d2750ab9",
+                            PointerPath = new List<long>()
+                            {
+                                0L,
+                                88L
+                                // values above are "Target" from ACT. Adjust to what ffxivapp expects:
+                                + 16L
+                            }
+                        });
+
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "CHATLOG",
+                            Value = "8b55fc83e2f983ca098b4d08a1********515250E8********a1",
+                            PointerPath = new List<long>()
+                            {
+                                0L,
+                                0L,
+                                24L,
+                                736L
+                                // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
+                                - 0x24
+                            }
+                        });
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "CHARMAP",
+                            Value = "81feffff0000743581fe58010000732d8b3cb5",
+                            PointerPath = new List<long>()
+                            {
+                                0L,
+                                0L
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYMAP",
+                            Value = "85c074178b407450b9",
+                            PointerPath = new List<long>()
+                            {
+                                0L,
+                                0L
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "MAP",
+                            Value = "8b0d********85c975068b0d",
+                            PointerPath = new List<long>()
+                            {
+                                0L,
+                                0L
+                            }
+                        });
+
+                        // or just pure offsets from base address
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PLAYERINFO",
+                            PointerPath = new List<long>()
+                            {
+                                0x103F518
+                            }
+                        });
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "AGRO",
+                            PointerPath = new List<long>()
+                            {
+                                0x103EBF4
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "AGRO_COUNT",
+                            PointerPath = new List<long>()
+                            {
+                                0x103EBF4 + 0x900
+                            }
+                        });
+
+
+                        // TODO: Update the following for patch 3.1
+                        /*
+                       
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "ENMITYMAP",
+                            Value = "FFFFFFFF0000????????????????????????????????????????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
+                            Offset = 14964 // pre 3.0 2.4
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYCOUNT",
+                            Value = "5F50617274794C69737400",
+                            Offset = 1340
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "INVENTORY",
+                            Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
+                            Offset = 106
+                        });
+                         
+                         */
+
+
+
+
+
+
+                        //
+                        // These have already been implemented in the new style. Old info here for reference only.
+                        //
+                        /*
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "GAMEMAIN",
@@ -796,6 +930,7 @@ namespace FFXIVAPP.Client
                         {
                             0x1038D3C
                         };
+                        */
                     }
                     break;
             }

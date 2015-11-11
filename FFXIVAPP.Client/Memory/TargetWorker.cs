@@ -160,7 +160,7 @@ namespace FFXIVAPP.Client.Memory
                                             }
                                             else
                                             {
-                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x8);
+                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0xC);
                                                 focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x38);
                                                 previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x44);
                                                 currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x58);
@@ -171,7 +171,7 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(currentTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(currentTarget, 0x23F0); // old size: 0x3F40
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -197,7 +197,7 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(mouseOverTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(mouseOverTarget, 0x23F0); // old size: 0x3F40
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {
@@ -221,7 +221,7 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                     if (focusTarget > 0)
                                     {
-                                        var source = MemoryHandler.Instance.GetByteArray(focusTarget, 0x3F40);
+                                        var source = MemoryHandler.Instance.GetByteArray(focusTarget, 0x23F0); // old size: 0x3F40
                                         var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                         if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                         {
@@ -243,7 +243,7 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         try
                                         {
-                                            var source = MemoryHandler.Instance.GetByteArray(previousTarget, 0x3F40);
+                                            var source = MemoryHandler.Instance.GetByteArray(previousTarget, 0x23F0); // old size: 0x3F40
                                             var entry = ActorEntityHelper.ResolveActorFromBytes(source);
                                             if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
                                             {

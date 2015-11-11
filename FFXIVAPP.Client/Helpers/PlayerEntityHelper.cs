@@ -32,6 +32,7 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
+using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -42,7 +43,7 @@ namespace FFXIVAPP.Client.Helpers
             var entry = new PlayerEntity();
             try
             {
-                entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 1);
+                entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 1); // no longer stored here...
 
                 switch (Settings.Default.GameLanguage)
                 {
@@ -217,62 +218,68 @@ namespace FFXIVAPP.Client.Helpers
 
                         break;
                     default:
-                        entry.JobID = source[0x64];
+                        entry.JobID = source[0x66];
                         entry.Job = (Actor.Job) entry.JobID;
 
                         #region Job Levels
 
-                        entry.GLD = source[0x66];
-                        entry.PGL = source[0x68];
-                        entry.MRD = source[0x6A];
-                        entry.LNC = source[0x6C];
-                        entry.ARC = source[0x6E];
-                        entry.CNJ = source[0x70];
-                        entry.THM = source[0x72];
+                        int i = 0x82;
 
-                        entry.CPT = source[0x74];
-                        entry.BSM = source[0x76];
-                        entry.ARM = source[0x78];
-                        entry.GSM = source[0x7A];
-                        entry.LTW = source[0x7C];
-                        entry.WVR = source[0x7E];
-                        entry.ALC = source[0x80];
-                        entry.CUL = source[0x82];
+                        entry.GLD = source[i += 2]; // 0x84
+                        entry.PGL = source[i += 2];
+                        entry.MRD = source[i += 2];
+                        entry.LNC = source[i += 2];
+                        entry.ARC = source[i += 2]; // 0x8C
+                        entry.CNJ = source[i += 2];
+                        entry.THM = source[i += 2];
 
-                        entry.MIN = source[0x84];
-                        entry.BTN = source[0x86];
-                        entry.FSH = source[0x88];
+                        entry.CPT = source[i += 2];
+                        entry.BSM = source[i += 2];
+                        entry.ARM = source[i += 2];
+                        entry.GSM = source[i += 2];
+                        entry.LTW = source[i += 2];
+                        entry.WVR = source[i += 2];
+                        entry.ALC = source[i += 2];
+                        entry.CUL = source[i += 2];
 
-                        entry.ACN = source[0x8A];
-                        entry.ROG = source[0x8C];
+                        entry.MIN = source[i += 2];
+                        entry.BTN = source[i += 2];
+                        entry.FSH = source[i += 2];
+
+                        entry.ACN = source[i += 2];
+                        entry.ROG = source[i += 2];
 
                         #endregion
 
                         #region Current Experience
 
-                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, 0x94);
-                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, 0x98);
-                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, 0x9C);
-                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, 0xA0);
-                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, 0xA4);
-                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, 0xA8);
-                        entry.THM_CurrentEXP = BitConverter.ToInt32(source, 0xAC);
+                        int step = 4;
 
-                        entry.CPT_CurrentEXP = BitConverter.ToInt32(source, 0xB0);
-                        entry.BSM_CurrentEXP = BitConverter.ToInt32(source, 0xB4);
-                        entry.ARM_CurrentEXP = BitConverter.ToInt32(source, 0xB8);
-                        entry.GSM_CurrentEXP = BitConverter.ToInt32(source, 0xBC);
-                        entry.LTW_CurrentEXP = BitConverter.ToInt32(source, 0xC0);
-                        entry.WVR_CurrentEXP = BitConverter.ToInt32(source, 0xC4);
-                        entry.ALC_CurrentEXP = BitConverter.ToInt32(source, 0xC8);
-                        entry.CUL_CurrentEXP = BitConverter.ToInt32(source, 0xCC);
+                        i = 0xCC;
 
-                        entry.MIN_CurrentEXP = BitConverter.ToInt32(source, 0xD0);
-                        entry.BTN_CurrentEXP = BitConverter.ToInt32(source, 0xD4);
-                        entry.FSH_CurrentEXP = BitConverter.ToInt32(source, 0xD8);
+                        entry.GLD_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD0
+                        entry.PGL_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD4
+                        entry.MRD_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xD8
+                        entry.LNC_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xDC
+                        entry.ARC_CurrentEXP = BitConverter.ToInt32(source, i += step); // 0xE0
+                        entry.CNJ_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.THM_CurrentEXP = BitConverter.ToInt32(source, i += step);
 
-                        entry.ACN_CurrentEXP = BitConverter.ToInt32(source, 0xDC);
-                        entry.ROG_CurrentEXP = BitConverter.ToInt32(source, 0xE0);
+                        entry.CPT_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.BSM_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.ARM_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.GSM_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.LTW_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.WVR_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.ALC_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.CUL_CurrentEXP = BitConverter.ToInt32(source, i += step);
+
+                        entry.MIN_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.BTN_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.FSH_CurrentEXP = BitConverter.ToInt32(source, i += step);
+
+                        entry.ACN_CurrentEXP = BitConverter.ToInt32(source, i += step);
+                        entry.ROG_CurrentEXP = BitConverter.ToInt32(source, i += step);
 
                         #endregion
 
@@ -300,12 +307,12 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Basic Info
 
-                        entry.HPMax = BitConverter.ToInt16(source, 0x130);
-                        entry.MPMax = BitConverter.ToInt16(source, 0x134);
-                        entry.TPMax = BitConverter.ToInt16(source, 0x138);
-                        entry.GPMax = BitConverter.ToInt16(source, 0x13C);
-                        entry.CPMax = BitConverter.ToInt16(source, 0x140);
-
+                        entry.HPMax = BitConverter.ToInt16(source, 0x134);
+                        entry.MPMax = BitConverter.ToInt16(source, 0x138);
+                        entry.TPMax = BitConverter.ToInt16(source, 0x13C);
+                        entry.GPMax = BitConverter.ToInt16(source, 0x140);
+                        entry.CPMax = BitConverter.ToInt16(source, 0x144);
+                        
                         #endregion
 
                         #region Offensive Properties
