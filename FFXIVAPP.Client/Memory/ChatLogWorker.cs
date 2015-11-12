@@ -147,12 +147,12 @@ namespace FFXIVAPP.Client.Memory
                                 _chatLogPointers = new ChatLogPointers
                                 {
                                     LineCount = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
-                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x20),
-                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x24),
-                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x28),
-                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x30),
-                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x34),
-                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x38)
+                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x24),
+                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x28),
+                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x2C),
+                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x34),
+                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x38),
+                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C)
                                 };
                             }
 
@@ -199,6 +199,7 @@ namespace FFXIVAPP.Client.Memory
                             }
                         }
                     }
+                    /*
                     else
                     {
                         try
@@ -210,6 +211,7 @@ namespace FFXIVAPP.Client.Memory
                         {
                         }
                     }
+                    */
                 }
                 _isScanning = false;
                 return true;

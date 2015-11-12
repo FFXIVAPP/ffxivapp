@@ -49,7 +49,7 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         private static SigScanner _instance;
-        private Dictionary<string, long> _locations;
+        private Dictionary<string, Signature> _locations;
 
         public static SigScanner Instance
         {
@@ -57,14 +57,14 @@ namespace FFXIVAPP.Client.Memory
             set { _instance = value; }
         }
 
-        public Dictionary<string, long> Locations
+        public Dictionary<string, Signature> Locations
         {
-            get { return _locations ?? (_locations = new Dictionary<string, long>()); }
+            get { return _locations ?? (_locations = new Dictionary<string, Signature>()); }
             private set
             {
                 if (_locations == null)
                 {
-                    _locations = new Dictionary<string, long>();
+                    _locations = new Dictionary<string, Signature>();
                 }
                 _locations = value;
                 RaisePropertyChanged();
@@ -138,7 +138,7 @@ namespace FFXIVAPP.Client.Memory
         /// <summary>
         /// </summary>
         /// <param name="signatures"> </param>
-        public void LoadOffsets(List<Signature> signatures)
+        public void LoadOffsets(List<Signature> pSignatures)
         {
             Func<bool> d = delegate
             {
@@ -148,19 +148,36 @@ namespace FFXIVAPP.Client.Memory
                 {
                     return false;
                 }
+                List<Signature> signatures = new List<Signature>(pSignatures);
                 LoadRegions();
-                Locations = new Dictionary<string, long>();
+                //Locations = new Dictionary<string, Signature>();
                 if (signatures.Any())
                 {
+                    foreach (var sig in signatures)
+                    {
+                        if (sig.Value == "")
+                        {
+                            // doesn't need a signature scan
+                            Locations.Add(sig.Key, sig);
+                            continue;
+                        }
+                        sig.Value = sig.Value.Replace("*", "?"); // allows either ? or * to be used as wildcard
+                    }
+
+                    signatures.RemoveAll(a => Locations.ContainsKey(a.Key));
+
                     // this will scan 32 bit regions for some reason
-                    FindSignatures(signatures, ScanResultType.AddressStartOfSig);
-                }
-                var signaturesNotFound = signatures.Where(s => !Locations.ContainsKey(s.Key))
-                                                   .ToList();
-                if (signaturesNotFound.Any())
-                {
-                    // have to extend this to scan from game base address up
-                    FindExtendedSignatures(signaturesNotFound);
+                    //FindSignatures(signatures, ScanResultType.AddressStartOfSig);
+
+                    //var signaturesNotFound = signatures.Where(s => !Locations.ContainsKey(s.Key)).ToList();
+
+                    //signatures.RemoveAll(a => Locations.ContainsKey(a.Key));
+
+                    //if (signatures.Any())
+                    {
+                        // have to extend this to scan from game base address up
+                        FindExtendedSignatures(signatures);
+                    }
                 }
                 _memDump = null;
                 sw.Stop();
@@ -229,9 +246,10 @@ namespace FFXIVAPP.Client.Memory
                             }
                             if (ScanResultType.AddressStartOfSig == searchType)
                             {
-                                searchResult = IntPtr.Add(searchResult, (int) region.BaseAddress);
+                                searchResult = IntPtr.Add(searchResult, (int)region.BaseAddress);
                             }
-                            Locations.Add(signature.Key, (uint) searchResult);
+                            signature.SigScanAddress = searchResult;
+                            Locations.Add(signature.Key, signature);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();
@@ -242,7 +260,6 @@ namespace FFXIVAPP.Client.Memory
                 }
             }
             catch (Exception ex)
-
             {
             }
         }
@@ -338,7 +355,7 @@ namespace FFXIVAPP.Client.Memory
                     if (IntPtr.Add(searchStart, bufferSize)
                               .ToInt64() > searchEnd.ToInt64())
                     {
-                        regionSize = (IntPtr) (searchEnd.ToInt64() - searchStart.ToInt64());
+                        regionSize = (IntPtr)(searchEnd.ToInt64() - searchStart.ToInt64());
                     }
                     if (UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
                     {
@@ -350,9 +367,10 @@ namespace FFXIVAPP.Client.Memory
                                 temp.Add(signature);
                                 continue;
                             }
-                            var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
+                            var baseResult = new IntPtr((long)(baseAddress + (regionCount * bufferSize)));
                             var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
-                            Locations.Add(signature.Key, searchResult.ToInt64());
+                            signature.SigScanAddress = new IntPtr(searchResult.ToInt64());
+                            Locations.Add(signature.Key, signature);
                         }
                         notFound = new List<Signature>(temp);
                         temp.Clear();

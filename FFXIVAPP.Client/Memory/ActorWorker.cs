@@ -151,6 +151,12 @@ namespace FFXIVAPP.Client.Memory
 
                             var uniqueAddresses = new Dictionary<IntPtr, IntPtr>();
 
+                            IntPtr firstAddress = IntPtr.Zero;
+
+
+                            var firstTime = true;
+
+
                             for (var i = 0; i < limit; i++)
                             {
                                 IntPtr characterAddress;
@@ -166,15 +172,19 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                     continue;
                                 }
+
+                                if (firstTime)
+                                {
+                                    firstAddress = characterAddress;
+                                    firstTime = false;
+                                }
                                 uniqueAddresses[characterAddress] = characterAddress;
                             }
 
-                            var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray((long) kvp.Value, 0x3F40))
-                                                            .ToList();
+                            //var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray((long)kvp.Value, 0x23F0)).ToList(); // old size: 0x3F40
+                                                            
 
                             #region ActorEntity Handlers
-
-                            var firstTime = true;
 
                             var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
                             var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
@@ -184,11 +194,11 @@ namespace FFXIVAPP.Client.Memory
                             var newNPCEntries = new List<UInt32>();
                             var newPCEntries = new List<UInt32>();
 
-                            for (var i = 0; i < sourceData.Count; i++)
+                            foreach (var kvp in uniqueAddresses)
                             {
                                 try
                                 {
-                                    var source = sourceData[i];
+                                    var source = MemoryHandler.Instance.GetByteArray(kvp.Value.ToInt64(), 0x23F0);
                                     //var source = MemoryHandler.Instance.GetByteArray(characterAddress, 0x3F40);
 
                                     UInt32 ID;
@@ -259,16 +269,18 @@ namespace FFXIVAPP.Client.Memory
                                             break;
                                     }
 
-                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, firstTime, existing);
+                                    bool isFirstEntry = kvp.Value.ToInt64() == firstAddress.ToInt64();
 
-                                    firstTime = false;
+                                    var entry = ActorEntityHelper.ResolveActorFromBytes(source, isFirstEntry, existing);
+
+                                    //firstTime = false;
 
                                     //var actor = MemoryHandler.Instance.GetStructureFromBytes<Structures.NPCEntry>(source);
                                     //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                     //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
                                     //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
                                     entry.MapIndex = mapIndex;
-                                    if (i == 0)
+                                    if (isFirstEntry)
                                     {
                                         var name = Settings.Default.CharacterName;
                                         if (name != entry.Name || String.IsNullOrWhiteSpace(name))
@@ -285,7 +297,7 @@ namespace FFXIVAPP.Client.Memory
                                                     currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
                                                     break;
                                                 default:
-                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x68);
+                                                    currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x74);
                                                     break;
                                             }
                                             entry.TargetID = (int) currentTargetID;
@@ -325,6 +337,8 @@ namespace FFXIVAPP.Client.Memory
                                 {
                                 }
                             }
+
+                            MemoryHandler._scanCount++;
 
                             if (!ReferencesSet)
                             {
