@@ -51,6 +51,21 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        public InventoryWorker()
+        {
+            _scanTimer = new Timer(1000);
+            _scanTimer.Elapsed += ScanTimerElapsed;
+        }
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            _scanTimer.Elapsed -= ScanTimerElapsed;
+        }
+
+        #endregion
+
         #region Property Bindings
 
         public long InventoryPointerMap { get; set; }
@@ -64,12 +79,6 @@ namespace FFXIVAPP.Client.Memory
         private bool _isScanning;
 
         #endregion
-
-        public InventoryWorker()
-        {
-            _scanTimer = new Timer(1000);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
 
         #region Timer Controls
 
@@ -267,15 +276,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

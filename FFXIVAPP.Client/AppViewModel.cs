@@ -34,6 +34,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,7 +76,7 @@ namespace FFXIVAPP.Client
         private List<Signature> _signatures;
         private string _soundsPath;
         private Style _tabControlCollapsedHeader;
-        private List<string> _updateNotes;
+        private string _updateNotes;
 
         #region UILanguages
 
@@ -350,15 +351,11 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public List<string> UpdateNotes
+        public string UpdateNotes
         {
-            get { return _updateNotes ?? (_updateNotes = new List<string>()); }
+            get { return _updateNotes; }
             set
             {
-                if (_updateNotes == null)
-                {
-                    _updateNotes = new List<string>();
-                }
                 _updateNotes = value;
                 RaisePropertyChanged();
             }
@@ -376,7 +373,12 @@ namespace FFXIVAPP.Client
 
         public string Copyright
         {
-            get { return AssemblyHelper.Copyright; }
+            get
+            {
+                var att = Assembly.GetExecutingAssembly()
+                                  .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
+                return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
+            }
         }
 
         public List<Signature> Signatures

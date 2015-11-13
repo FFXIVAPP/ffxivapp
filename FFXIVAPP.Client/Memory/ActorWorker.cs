@@ -52,9 +52,24 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        public ActorWorker()
+        {
+            _scanTimer = new Timer(100);
+            _scanTimer.Elapsed += ScanTimerElapsed;
+        }
+
         #region Property Bindings
 
         public bool ReferencesSet { get; set; }
+
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            _scanTimer.Elapsed -= ScanTimerElapsed;
+        }
 
         #endregion
 
@@ -64,12 +79,6 @@ namespace FFXIVAPP.Client.Memory
         private bool _isScanning;
 
         #endregion
-
-        public ActorWorker()
-        {
-            _scanTimer = new Timer(100);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
 
         #region Timer Controls
 
@@ -147,11 +156,11 @@ namespace FFXIVAPP.Client.Memory
                             var endianSize = MemoryHandler.Instance.ProcessModel.IsWin64 ? 8 : 4;
                             const int limit = 1372;
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"],  endianSize * limit);
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], endianSize * limit);
 
                             var uniqueAddresses = new Dictionary<IntPtr, IntPtr>();
 
-                            IntPtr firstAddress = IntPtr.Zero;
+                            var firstAddress = IntPtr.Zero;
 
 
                             var firstTime = true;
@@ -182,7 +191,6 @@ namespace FFXIVAPP.Client.Memory
                             }
 
                             //var sourceData = uniqueAddresses.Select(kvp => MemoryHandler.Instance.GetByteArray((long)kvp.Value, 0x23F0)).ToList(); // old size: 0x3F40
-                                                            
 
                             #region ActorEntity Handlers
 
@@ -269,7 +277,7 @@ namespace FFXIVAPP.Client.Memory
                                             break;
                                     }
 
-                                    bool isFirstEntry = kvp.Value.ToInt64() == firstAddress.ToInt64();
+                                    var isFirstEntry = kvp.Value.ToInt64() == firstAddress.ToInt64();
 
                                     var entry = ActorEntityHelper.ResolveActorFromBytes(source, isFirstEntry, existing);
 
@@ -408,15 +416,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

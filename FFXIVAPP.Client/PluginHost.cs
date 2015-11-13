@@ -57,32 +57,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Property Bindings
-
-        private static PluginHost _instance;
-        private PluginCollectionHelper _loaded;
-
-        public PluginCollectionHelper Loaded
-        {
-            get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
-            set
-            {
-                if (_loaded == null)
-                {
-                    _loaded = new PluginCollectionHelper();
-                }
-                _loaded = value;
-            }
-        }
-
-        public static PluginHost Instance
-        {
-            get { return _instance ?? (_instance = new PluginHost()); }
-            set { _instance = value; }
-        }
-
-        #endregion
-
         #region Declarations
 
         public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
@@ -241,6 +215,32 @@ namespace FFXIVAPP.Client
             {
             }
         }
+
+        #region Property Bindings
+
+        private static PluginHost _instance;
+        private PluginCollectionHelper _loaded;
+
+        public PluginCollectionHelper Loaded
+        {
+            get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
+            set
+            {
+                if (_loaded == null)
+                {
+                    _loaded = new PluginCollectionHelper();
+                }
+                _loaded = value;
+            }
+        }
+
+        public static PluginHost Instance
+        {
+            get { return _instance ?? (_instance = new PluginHost()); }
+            set { _instance = value; }
+        }
+
+        #endregion
 
         #region Implementaion of IPluginHost
 

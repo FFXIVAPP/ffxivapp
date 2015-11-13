@@ -34,8 +34,7 @@
 
     <ScrollViewer>
         <StackPanel>
-            <Grid x:Name="LayoutRoot"
-                  Margin="5">
+            <Grid x:Name="LayoutRoot" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="5" />
@@ -58,13 +57,6 @@
                         Background="{DynamicResource AccentColorBrush}"
                         BorderBrush="{DynamicResource AccentColorBrush}"
                         BorderThickness="1" />
-                <Image Grid.Row="1"
-                       Grid.RowSpan="3"
-                       Grid.Column="2"
-                       Width="40"
-                       Height="40"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/FFXIVAPP.Client;component/Resources/Media/Images/FFXIVAPP.png" />
                 <DockPanel Grid.Row="0"
                            Grid.RowSpan="3"
                            Grid.Column="3"
@@ -79,17 +71,18 @@
                     </DockPanel>
                     <DockPanel />
                 </DockPanel>
+                <Image Grid.Row="1"
+                       Grid.RowSpan="3"
+                       Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/FFXIVAPP.Client;component/Resources/Media/Images/FFXIVAPP.png" />
                 <Border Grid.Row="3"
                         Grid.Column="0"
                         Grid.ColumnSpan="5"
                         BorderBrush="{DynamicResource AccentColorBrush}"
                         BorderThickness="1 0" />
-                <Border Grid.Row="4"
-                        Grid.RowSpan="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="5"
-                        BorderBrush="{DynamicResource AccentColorBrush}"
-                        BorderThickness="1 0 1 1" />
                 <Grid Grid.Row="3"
                       Grid.RowSpan="3"
                       Grid.Column="3"
@@ -100,69 +93,29 @@
                             <StackPanel x:Name="PluginsNamesPanel"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_LatestLabel],
-                                                          Source={StaticResource AppProperties}}" />
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_CurrentLabel],
-                                                          Source={StaticResource AppProperties}}" />
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_CopyrightLabel],
-                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding Locale[app_LatestLabel], Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding Locale[app_CurrentLabel], Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding Locale[app_CopyrightLabel], Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Margin="5 0">
                             <StackPanel Grid.Column="1"
                                         Height="Auto"
                                         HorizontalAlignment="Left">
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding LatestVersion,
-                                                          Source={StaticResource AppProperties}}" />
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding CurrentVersion,
-                                                          Source={StaticResource AppProperties}}" />
-                                <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Copyright,
-                                                          Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding LatestVersion, Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding CurrentVersion, Source={StaticResource AppProperties}}" />
+                                <TextBlock Foreground="{DynamicResource LabelTextBrush}" Text="{Binding Copyright, Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>
                 </Grid>
+                <Border Grid.Row="4"
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        BorderThickness="1 0 1 1" />
             </Grid>
-            <GroupBox Header="{Binding Locale[app_UpdateNotesHeader],
-                                       Source={StaticResource AppProperties}}">
-                <ItemsControl>
-                    <ItemsControl.Resources>
-                        <CollectionViewSource x:Key="Party"
-                                              Source="{Binding UpdateNotes,
-                                                               Source={StaticResource AppProperties}}" />
-                    </ItemsControl.Resources>
-                    <ItemsControl.ItemsSource>
-                        <Binding Source="{StaticResource Party}" />
-                    </ItemsControl.ItemsSource>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel LastChildFill="True">
-                                <DockPanel Width="15"
-                                           DockPanel.Dock="Left">
-                                    <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                               Text="•" />
-                                </DockPanel>
-                                <DockPanel>
-                                    <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                               Text="{Binding}"
-                                               TextWrapping="WrapWithOverflow" />
-                                </DockPanel>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </GroupBox>
             <Button Margin="3"
                     Command="{Binding ManualUpdateCommand}"
                     Content="{Binding Locale[app_ManualUpdateButtonText],

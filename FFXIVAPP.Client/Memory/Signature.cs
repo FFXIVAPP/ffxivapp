@@ -35,18 +35,27 @@ namespace FFXIVAPP.Client.Memory
 {
     public class Signature
     {
+        private int _Offset = 0;
+        private bool offsetSet = false;
+
+        public Signature()
+        {
+            Key = "";
+            Value = "";
+            RegularExpress = null;
+            SigScanAddress = IntPtr.Zero;
+            PointerPath = null;
+        }
+
         public string Key { get; set; }
         public string Value { get; set; }
         public Regex RegularExpress { get; set; }
-
         public IntPtr SigScanAddress { get; set; }
 
-        private bool offsetSet = false;
-        private int _Offset = 0;
-        public int Offset 
-        { 
+        public int Offset
+        {
             get
-            { 
+            {
                 if (!offsetSet)
                 {
                     _Offset = Value.Length / 2;
@@ -59,22 +68,12 @@ namespace FFXIVAPP.Client.Memory
                 _Offset = value;
             }
         }
+
         public List<long> PointerPath { get; set; }
-
-
-        public Signature()
-        {
-            Key = "";
-            Value = "";
-            RegularExpress = null;
-            SigScanAddress = IntPtr.Zero;
-            PointerPath = null;
-        }
-
 
         public IntPtr GetAddress()
         {
-            IntPtr baseAddress = IntPtr.Zero;
+            var baseAddress = IntPtr.Zero;
             if (SigScanAddress != IntPtr.Zero)
             {
                 baseAddress = SigScanAddress; // SigScanner should have already applied the base offset
@@ -100,8 +99,8 @@ namespace FFXIVAPP.Client.Memory
         // FIXME: convert all calling functions to handle IntPtr properly someday, and stop using long for addresses
         public static implicit operator long(Signature value)
         {
-            return value.GetAddress().ToInt64();
+            return value.GetAddress()
+                        .ToInt64();
         }
-
     }
 }

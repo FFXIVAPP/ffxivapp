@@ -40,33 +40,14 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof (AboutViewModel))]
     internal sealed class AboutViewModel : INotifyPropertyChanged
     {
-        #region Property Bindings
-
-        private static AboutViewModel _instance;
-
-        public static AboutViewModel Instance
-        {
-            get { return _instance ?? (_instance = new AboutViewModel()); }
-        }
-
-        #endregion
-
-        #region Declarations
-
-        public ICommand ManualUpdateCommand { get; private set; }
-
-        #endregion
-
         public AboutViewModel()
         {
             ManualUpdateCommand = new DelegateCommand(ManualUpdate);
         }
 
-        #region Loading Functions
+        #region Declarations
 
-        #endregion
-
-        #region Utility Functions
+        public ICommand ManualUpdateCommand { get; private set; }
 
         #endregion
 
@@ -78,6 +59,25 @@ namespace FFXIVAPP.Client.ViewModels
         {
             DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
         }
+
+        #endregion
+
+        #region Property Bindings
+
+        private static AboutViewModel _instance;
+
+        public static AboutViewModel Instance
+        {
+            get { return _instance ?? (_instance = new AboutViewModel()); }
+        }
+
+        #endregion
+
+        #region Loading Functions
+
+        #endregion
+
+        #region Utility Functions
 
         #endregion
 

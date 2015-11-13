@@ -49,39 +49,23 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Property Bindings
-
-        private TargetEntity LastTargetEntity { get; set; }
-
-        #endregion
-
-        #region Declarations
-
-        private readonly Timer _scanTimer;
-        private bool _isScanning;
-
-        #endregion
-
         public TargetWorker()
         {
             _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
-        #region Timer Controls
+        #region Property Bindings
 
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
-        }
+        private TargetEntity LastTargetEntity { get; set; }
 
-        /// <summary>
-        /// </summary>
-        public void StopScanning()
+        #endregion
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
         {
-            _scanTimer.Enabled = false;
+            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion
@@ -282,8 +266,8 @@ namespace FFXIVAPP.Client.Memory
                                             var enmityEntry = new EnmityEntry
                                             {
                                                 Name = MemoryHandler.Instance.GetString(address),
-                                                ID = (uint)MemoryHandler.Instance.GetPlatformInt(address, 64),
-                                                Enmity = (uint)MemoryHandler.Instance.GetPlatformInt(address, 68)
+                                                ID = (uint) MemoryHandler.Instance.GetPlatformInt(address, 64),
+                                                Enmity = (uint) MemoryHandler.Instance.GetPlatformInt(address, 68)
                                             };
                                             if (enmityEntry.ID <= 0)
                                             {
@@ -329,6 +313,31 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
+        #region Declarations
+
+        private readonly Timer _scanTimer;
+        private bool _isScanning;
+
+        #endregion
+
+        #region Timer Controls
+
+        /// <summary>
+        /// </summary>
+        public void StartScanning()
+        {
+            _scanTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// </summary>
+        public void StopScanning()
+        {
+            _scanTimer.Enabled = false;
+        }
+
+        #endregion
+
         #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -336,15 +345,6 @@ namespace FFXIVAPP.Client.Memory
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
         }
 
         #endregion

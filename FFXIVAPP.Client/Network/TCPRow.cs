@@ -34,15 +34,6 @@ namespace FFXIVAPP.Client.Network
 {
     public class TCPRow
     {
-        #region Private Fields
-
-        private IPEndPoint localEndPoint;
-        private int processId;
-        private IPEndPoint remoteEndPoint;
-        private TcpState state;
-
-        #endregion
-
         #region Constructors
 
         public TCPRow(UnsafeNativeMethods.TCPRow row)
@@ -56,6 +47,15 @@ namespace FFXIVAPP.Client.Network
             long remoteAddress = row.RemoteAddress;
             remoteEndPoint = new IPEndPoint(remoteAddress, remotePort);
         }
+
+        #endregion
+
+        #region Private Fields
+
+        private IPEndPoint localEndPoint;
+        private int processId;
+        private IPEndPoint remoteEndPoint;
+        private TcpState state;
 
         #endregion
 

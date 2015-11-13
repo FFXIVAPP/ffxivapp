@@ -32,7 +32,6 @@ using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Memory.Enums;
-using FFXIVAPP.Client.Delegates;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -223,8 +222,8 @@ namespace FFXIVAPP.Client.Helpers
 
                         #region Job Levels
 
-                        int step = 2;
-                        int i = 0x68 - step;
+                        var step = 2;
+                        var i = 0x68 - step;
 
                         entry.PGL = source[i += step];
                         entry.GLD = source[i += step];
@@ -329,7 +328,7 @@ namespace FFXIVAPP.Client.Helpers
                         entry.TPMax = BitConverter.ToInt16(source, i += step);
                         entry.GPMax = BitConverter.ToInt16(source, i += step);
                         entry.CPMax = BitConverter.ToInt16(source, i += step);
-                        
+
                         #endregion
 
                         #region Offensive Properties

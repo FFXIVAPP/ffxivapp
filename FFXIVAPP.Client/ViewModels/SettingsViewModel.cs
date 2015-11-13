@@ -59,6 +59,19 @@ namespace FFXIVAPP.Client.ViewModels
 
         #endregion
 
+        public SettingsViewModel()
+        {
+            RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
+            SetProcessCommand = new DelegateCommand(SetProcess);
+            RefreshListCommand = new DelegateCommand(RefreshList);
+            ChangeThemeCommand = new DelegateCommand(ChangeTheme);
+            DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
+            ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
+            GetCICUIDCommand = new DelegateCommand(GetCICUID);
+            ColorSelectionCommand = new DelegateCommand(ColorSelection);
+            UpdateColorCommand = new DelegateCommand(UpdateColor);
+        }
+
         #region Property Bindings
 
         private static SettingsViewModel _instance;
@@ -141,19 +154,6 @@ namespace FFXIVAPP.Client.ViewModels
         public ICommand UpdateColorCommand { get; private set; }
 
         #endregion
-
-        public SettingsViewModel()
-        {
-            RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
-            SetProcessCommand = new DelegateCommand(SetProcess);
-            RefreshListCommand = new DelegateCommand(RefreshList);
-            ChangeThemeCommand = new DelegateCommand(ChangeTheme);
-            DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
-            ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
-            GetCICUIDCommand = new DelegateCommand(GetCICUID);
-            ColorSelectionCommand = new DelegateCommand(ColorSelection);
-            UpdateColorCommand = new DelegateCommand(UpdateColor);
-        }
 
         #region Loading Functions
 

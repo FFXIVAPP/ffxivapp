@@ -46,89 +46,6 @@ namespace FFXIVAPP.Client.Memory
 
         #endregion
 
-        #region Property Bindings
-
-        private static MemoryHandler _instance;
-        //private Dictionary<string, List<long>> _pointerPaths;
-        private IntPtr _processHandle;
-        private ProcessModel _processModel;
-        private SigScanner _sigScanner;
-        internal static int _scanCount = 0;
-
-        public static int scanCount
-        {
-            get
-            {
-                return _scanCount;
-            }
-        }
-
-        public ProcessModel ProcessModel
-        {
-            get { return _processModel; }
-            set
-            {
-                _processModel = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public IntPtr ProcessHandle
-        {
-            get { return _processHandle; }
-            set
-            {
-                _processHandle = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public static MemoryHandler Instance
-        {
-            get { return _instance ?? (_instance = new MemoryHandler(null)); }
-            set { _instance = value; }
-        }
-
-        public SigScanner SigScanner
-        {
-            get { return _sigScanner ?? (_sigScanner = new SigScanner()); }
-            set
-            {
-                if (_sigScanner == null)
-                {
-                    _sigScanner = new SigScanner();
-                }
-                _sigScanner = value;
-            }
-        }
-
-        /*
-        public Dictionary<String, List<long>> PointerPaths
-        {
-            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
-            set
-            {
-                _pointerPaths = value;
-                RaisePropertyChanged();
-            }
-        }
-        */
-        #endregion
-
-        #region Private Structs
-
-        public struct MemoryBlock
-        {
-            public long Length;
-            public long Start;
-        }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
         /// <summary>
         /// </summary>
         /// <param name="processModel"> </param>
@@ -173,6 +90,7 @@ namespace FFXIVAPP.Client.Memory
             return Instance._pointerPaths.ContainsKey(pathname) ? ResolvePointerPath(Instance._pointerPaths[pathname], GetStaticAddress(0)) : IntPtr.Zero;
         }
         */
+
         public static IntPtr ResolvePointerPath(IEnumerable<long> path, IntPtr baseAddress)
         {
             var nextAddress = baseAddress;
@@ -293,7 +211,7 @@ namespace FFXIVAPP.Client.Memory
             {
                 var win64 = new byte[8];
                 Peek((address.ToInt64() + offset), win64);
-                return IntPtr.Add(IntPtr.Zero, (int)BitConverter.ToInt64(win64, 0));
+                return IntPtr.Add(IntPtr.Zero, (int) BitConverter.ToInt64(win64, 0));
             }
             var win32 = new byte[4];
             Peek((address.ToInt64() + offset), win32);
@@ -406,6 +324,87 @@ namespace FFXIVAPP.Client.Memory
             Marshal.FreeCoTaskMem(buffer);
             return retValue;
         }
+
+        #region Private Structs
+
+        public struct MemoryBlock
+        {
+            public long Length;
+            public long Start;
+        }
+
+        #endregion
+
+        #region Property Bindings
+
+        private static MemoryHandler _instance;
+        //private Dictionary<string, List<long>> _pointerPaths;
+        private IntPtr _processHandle;
+        private ProcessModel _processModel;
+        private SigScanner _sigScanner;
+        internal static int _scanCount = 0;
+
+        public static int scanCount
+        {
+            get { return _scanCount; }
+        }
+
+        public ProcessModel ProcessModel
+        {
+            get { return _processModel; }
+            set
+            {
+                _processModel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public IntPtr ProcessHandle
+        {
+            get { return _processHandle; }
+            set
+            {
+                _processHandle = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public static MemoryHandler Instance
+        {
+            get { return _instance ?? (_instance = new MemoryHandler(null)); }
+            set { _instance = value; }
+        }
+
+        public SigScanner SigScanner
+        {
+            get { return _sigScanner ?? (_sigScanner = new SigScanner()); }
+            set
+            {
+                if (_sigScanner == null)
+                {
+                    _sigScanner = new SigScanner();
+                }
+                _sigScanner = value;
+            }
+        }
+
+        /*
+        public Dictionary<String, List<long>> PointerPaths
+        {
+            get { return _pointerPaths ?? (_pointerPaths = new Dictionary<string, List<long>>()); }
+            set
+            {
+                _pointerPaths = value;
+                RaisePropertyChanged();
+            }
+        }
+        */
+
+        #endregion
+
+        #region Declarations
+
+        #endregion
 
         #region Implementation of INotifyPropertyChanged
 

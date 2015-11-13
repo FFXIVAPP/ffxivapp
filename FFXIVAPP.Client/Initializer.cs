@@ -64,18 +64,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        #region Declarations
-
-        private static ActorWorker _actorWorker;
-        private static ChatLogWorker _chatLogWorker;
-        private static PlayerInfoWorker _playerInfoWorker;
-        private static TargetWorker _targetWorker;
-        private static PartyInfoWorker _partyInfoWorker;
-        private static InventoryWorker _inventoryWorker;
-        private static NetworkWorker _networkWorker;
-
-        #endregion
-
         /// <summary>
         /// </summary>
         public static void SetupCurrentUICulture()
@@ -503,108 +491,96 @@ namespace FFXIVAPP.Client
             catch (Exception ex)
             {
             }
-            Func<bool> updateCheck = delegate
+            //Func<bool> updateCheck = delegate
+            //{
+            var current = Assembly.GetExecutingAssembly()
+                                  .GetName()
+                                  .Version.ToString();
+            AppViewModel.Instance.CurrentVersion = current;
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("https://github.com/Icehunter/ffxivapp/releases.atom"));
+            httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+            httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+            httpWebRequest.ContentType = "application/json; charset=utf-8";
+            httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+            using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
             {
-                var current = Assembly.GetExecutingAssembly()
-                                      .GetName()
-                                      .Version.ToString();
-                AppViewModel.Instance.CurrentVersion = current;
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("http://ffxiv-app.com/Json/CurrentVersion/"));
-                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-                httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+                using (var response = httpResponse.GetResponseStream())
                 {
-                    using (var response = httpResponse.GetResponseStream())
+                    var responseText = "";
+                    if (response != null)
                     {
-                        var responseText = "";
-                        if (response != null)
+                        using (var streamReader = new StreamReader(response))
                         {
-                            using (var streamReader = new StreamReader(response))
-                            {
-                                responseText = streamReader.ReadToEnd();
-                            }
+                            responseText = streamReader.ReadToEnd();
                         }
-                        var latestBuild = new BuildNumber();
-                        var currentBuild = new BuildNumber();
-                        if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
+                    }
+                    var latestBuild = new BuildNumber();
+                    var currentBuild = new BuildNumber();
+                    if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
+                    {
+                        AppViewModel.Instance.HasNewVersion = false;
+                        AppViewModel.Instance.LatestVersion = "Unknown";
+                    }
+                    else
+                    {
+                        var releases = XDocument.Parse(responseText);
+                        var latest = releases.Descendants()
+                                             .Elements()
+                                             .FirstOrDefault(e => e.Name.LocalName == "entry")
+                            ?.Elements()
+                                             .FirstOrDefault(e => e.Name.LocalName == "title")
+                            ?.Value ?? "Unknown";
+                        latest = latest.Split(' ')[0];
+                        AppViewModel.Instance.LatestVersion = latest;
+                        var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
+                        AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
+                                                                                              .Elements()
+                                                                                              .FirstOrDefault(e => e.Name.LocalName == "entry")
+                            ?.Elements()
+                                                                                              .FirstOrDefault(e => e.Name.LocalName == "content")
+                            ?.Value ?? "<h1>Notes Not Available</h1>");
+                        switch (latest)
                         {
-                            AppViewModel.Instance.HasNewVersion = false;
-                            AppViewModel.Instance.LatestVersion = "Unknown";
+                            case "Unknown":
+                                AppViewModel.Instance.HasNewVersion = false;
+                                break;
+                            default:
+                                AppViewModel.Instance.DownloadUri = String.Format("https://github.com/Icehunter/ffxivapp/releases/download/{0}/{0}.zip", latest);
+                                AppViewModel.Instance.HasNewVersion = BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild);
+                                break;
                         }
-                        else
+
+                        if (AppViewModel.Instance.HasNewVersion)
                         {
-                            var jsonResult = JObject.Parse(responseText);
-                            var latest = jsonResult["Version"].ToString();
-                            var updateNotes = jsonResult["Notes"].ToList();
-                            //var enabledFeatures = jsonResult["Features"];
-                            //try
-                            //{
-                            //    foreach (var feature in enabledFeatures)
-                            //    {
-                            //        var key = feature["Hash"].ToString();
-                            //        var enabled = (bool) feature["Enabled"];
-                            //    }
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //}
+                            var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
+                            var message = new StringBuilder();
                             try
                             {
-                                foreach (var note in updateNotes.Select(updateNote => updateNote.Value<string>()))
+                                var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild.Build + TimeSpan.TicksPerSecond * 2 * latestBuild.Revision));
+                                var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
+                                var timeSpan = latestBuildDateTime - currentBuildDateTime;
+                                if (timeSpan.TotalSeconds > 0)
                                 {
-                                    AppViewModel.Instance.UpdateNotes.Add(note);
+                                    message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
                                 }
                             }
                             catch (Exception ex)
                             {
-                                MessageBoxHelper.ShowMessage("Error", ex.Message);
                             }
-                            AppViewModel.Instance.DownloadUri = jsonResult["DownloadUri"].ToString();
-                            latest = (latest == "Unknown") ? "Unknown" : String.Format("3{0}", latest.Substring(1));
-                            AppViewModel.Instance.LatestVersion = latest;
-                            switch (latest)
+                            finally
                             {
-                                case "Unknown":
-                                    AppViewModel.Instance.HasNewVersion = false;
-                                    break;
-                                default:
-                                    AppViewModel.Instance.HasNewVersion = BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild);
-                                    break;
+                                message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
                             }
-
-                            if (AppViewModel.Instance.HasNewVersion)
-                            {
-                                var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
-                                var message = new StringBuilder();
-                                try
-                                {
-                                    var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild.Build + TimeSpan.TicksPerSecond * 2 * latestBuild.Revision));
-                                    var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
-                                    var timeSpan = latestBuildDateTime - currentBuildDateTime;
-                                    if (timeSpan.TotalSeconds > 0)
-                                    {
-                                        message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                }
-                                finally
-                                {
-                                    message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
-                                }
-                                MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
-                            }
-                            var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
-                            DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
+                            MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                         }
+                        var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                        DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                     }
                 }
-                return true;
-            };
-            updateCheck.BeginInvoke(null, null);
+            }
+            //return true;
+            //};
+            //updateCheck.BeginInvoke(null, null);
         }
 
         /// <summary>
@@ -739,7 +715,6 @@ namespace FFXIVAPP.Client
                     }
                     else
                     {
-
                         // can still use old style entry of signatures
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
@@ -758,7 +733,7 @@ namespace FFXIVAPP.Client
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT offsets
                                 88L
-                                // values above are "Target" from ACT. Adjust to what ffxivapp expects:
+                                    // values above are "Target" from ACT. Adjust to what ffxivapp expects:
                                 + 16L
                             }
                         });
@@ -775,7 +750,7 @@ namespace FFXIVAPP.Client
                                 0L,
                                 24L,
                                 736L
-                                // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
+                                    // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
                                 - 0x24
                             }
                         });
@@ -800,8 +775,8 @@ namespace FFXIVAPP.Client
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "PartyList" offsets
                                 0L
-                                // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
-                                +0x10
+                                    // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
+                                + 0x10
                             }
                         });
                         AppViewModel.Instance.Signatures.Add(new Signature
@@ -870,10 +845,6 @@ namespace FFXIVAPP.Client
                         });
                          
                          */
-
-
-
-
 
 
                         //
@@ -1123,5 +1094,17 @@ namespace FFXIVAPP.Client
             _networkWorker = new NetworkWorker();
             _networkWorker.StartScanning();
         }
+
+        #region Declarations
+
+        private static ActorWorker _actorWorker;
+        private static ChatLogWorker _chatLogWorker;
+        private static PlayerInfoWorker _playerInfoWorker;
+        private static TargetWorker _targetWorker;
+        private static PartyInfoWorker _partyInfoWorker;
+        private static InventoryWorker _inventoryWorker;
+        private static NetworkWorker _networkWorker;
+
+        #endregion
     }
 }
