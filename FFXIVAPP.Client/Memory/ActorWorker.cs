@@ -293,10 +293,6 @@ namespace FFXIVAPP.Client.Memory
                                     //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
                                     //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
 
-                                    if (entry.Name == "Eos")
-                                    {
-                                    }
-
                                     entry.MapIndex = mapIndex;
                                     if (isFirstEntry)
                                     {
@@ -408,14 +404,6 @@ namespace FFXIVAPP.Client.Memory
                                     PCWorkerDelegate.RemovePCEntity(key);
                                 }
                             }
-
-                            var tmpPet = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.OwnerID == PCWorkerDelegate.CurrentUser.ID)
-                                                              .ToList();
-                            var tmp = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.Name == "Eos")
-                                                           .ToList();
-
-                            var tmp2 = MonsterWorkerDelegate.MonsterEntities.OrderBy(x => x.Value.Distance)
-                                                            .ToList();
 
                             #endregion
                         }
