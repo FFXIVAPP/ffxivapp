@@ -84,8 +84,6 @@ namespace FFXIVAPP.Client.Network
 
         #region Timer Controls
 
-        private bool UseWinPCap = true;
-
         /// <summary>
         /// </summary>
         public void StartScanning()
@@ -102,7 +100,7 @@ namespace FFXIVAPP.Client.Network
 
             ValidateNetworkAccess();
 
-            if (UseWinPCap)
+            if (Settings.Default.NetworkUseWinPCap)
             {
                 // ISSUE: method pointer
                 WinPcapWrapper.DataReceived += WinPcapWrapper_DataReceived;
@@ -112,7 +110,7 @@ namespace FFXIVAPP.Client.Network
             {
                 try
                 {
-                    if (UseWinPCap)
+                    if (Settings.Default.NetworkUseWinPCap)
                     {
                         var allDevices = WinPcapWrapper.GetAllDevices();
                         stateObject.device = allDevices.FirstOrDefault(x => x.Addresses.Contains(stateObject.IPAddress));
@@ -1116,29 +1114,22 @@ namespace FFXIVAPP.Client.Network
         public struct Device
         {
             public string Name { get; internal set; }
-
             public string Description { get; internal set; }
-
             public List<string> Addresses { get; internal set; }
         }
 
         public class DeviceState
         {
             public SocketObject State { get; internal set; }
-
             public Device Device { get; internal set; }
-
             public int LinkType { get; internal set; }
-
             public IntPtr Handle { get; internal set; }
-
             public bool Cancel { get; internal set; }
         }
 
         public class DataReceivedEventArgs : EventArgs
         {
             public byte[] Data { get; set; }
-
             public DeviceState Device { get; set; }
         }
     }

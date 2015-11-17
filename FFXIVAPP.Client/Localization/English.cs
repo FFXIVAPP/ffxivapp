@@ -145,6 +145,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_PlayerInfMSSLabel", "Player Info (YOU)");
             Dictionary.Add("app_TargEnmMSSLabel", "Targets &amp; Enmity");
             Dictionary.Add("app_InvMSSLabel", "Inventory");
+            Dictionary.Add("app_NetworkUseWinPCapLabel", "Use WinPCap For Network Reading");
             return Dictionary;
         }
     }

@@ -147,6 +147,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_PlayerInfMSSLabel", "Информация о персонаже (Вы)");
             Dictionary.Add("app_TargEnmMSSLabel", "Цели и Враждебность");
             Dictionary.Add("app_InvMSSLabel", "Инвентарь");
+            Dictionary.Add("app_NetworkUseWinPCapLabel", "Use WinPCap For Network Reading");
             return Dictionary;
         }
     }

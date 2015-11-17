@@ -211,6 +211,12 @@ namespace FFXIVAPP.Client
                             Initializer.StopNetworkWorker();
                         }
                         break;
+                    case "NetworkUseWinPCap":
+                        if (Initializer.NetworkWorking)
+                        {
+                            Initializer.RefreshNetworkWorker();
+                        }
+                        break;
                     case "EnableHelpLabels":
                         Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;
                         break;
