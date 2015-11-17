@@ -68,11 +68,14 @@ namespace FFXIVAPP.Client.Network
                         _headerLength = (byte) (_flags >> 12);
                         _headerLength *= 4;
                         _messageLength = (ushort) (nReceived - _headerLength);
-                        var tempData = new byte[nReceived - _headerLength];
-                        Array.Copy(byBuffer, _headerLength, tempData, 0, nReceived - _headerLength);
-                        foreach (var b in tempData)
+                        if (_messageLength > 0)
                         {
-                            _data.Add(b);
+                            var tempData = new byte[_messageLength];
+                            Array.Copy(byBuffer, _headerLength, tempData, 0, _messageLength);
+                            foreach (var b in tempData)
+                            {
+                                _data.Add(b);
+                            }
                         }
                     }
                 }

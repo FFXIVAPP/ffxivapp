@@ -131,13 +131,13 @@ namespace FFXIVAPP.Client.Memory
                                         if (currentPartyEntries.ContainsKey(ID))
                                         {
                                             currentPartyEntries.Remove(ID);
-                                            if (MonsterWorkerDelegate.NPCEntities.ContainsKey(ID))
+                                            if (MonsterWorkerDelegate.MonsterEntities.ContainsKey(ID))
                                             {
-                                                existing = MonsterWorkerDelegate.GetNPCEntity(ID);
+                                                existing = MonsterWorkerDelegate.GetMonsterEntity(ID);
                                             }
-                                            if (PCWorkerDelegate.NPCEntities.ContainsKey(ID))
+                                            if (PCWorkerDelegate.PCEntities.ContainsKey(ID))
                                             {
-                                                existing = PCWorkerDelegate.GetNPCEntity(ID);
+                                                existing = PCWorkerDelegate.GetPCEntity(ID);
                                             }
                                         }
                                         else

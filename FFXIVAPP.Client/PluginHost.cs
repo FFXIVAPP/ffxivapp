@@ -166,14 +166,17 @@ namespace FFXIVAPP.Client
 
         private bool HostAssemblyValidation(string name, Version version)
         {
-            var reference = Assembly.GetExecutingAssembly()
-                                    .GetReferencedAssemblies()
-                                    .FirstOrDefault(a => a.Name == name);
-            if (reference == null)
+            var assemblies = Assembly.GetExecutingAssembly()
+                                    .GetReferencedAssemblies();
+
+            foreach (var reference in assemblies)
             {
-                return true;
+                if (reference.Name == name && version.CompareTo(reference.Version) == 0)
+                {
+                    return true;
+                }
             }
-            return version.CompareTo(reference.Version) == 0;
+            return true;
         }
 
         /// <summary>
@@ -187,11 +190,12 @@ namespace FFXIVAPP.Client
                 var pAssembly = Assembly.Load(bytes);
                 var references = pAssembly.GetReferencedAssemblies();
                 var load = true;
-                foreach (var valid in references.Where(a => DependencyUpgrades.Contains(a.Name))
-                                                .Select(assembly => HostAssemblyValidation(assembly.Name, assembly.Version))
-                                                .Where(valid => !valid))
+                foreach (var assembly in references.Where(a => DependencyUpgrades.Contains(a.Name)))
                 {
-                    load = false;
+                    if (!HostAssemblyValidation(assembly.Name, assembly.Version))
+                    {
+                        load = false;
+                    }
                 }
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
