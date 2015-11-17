@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -36,18 +37,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
-using NLog;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using NATUPNPLib;
 using NetFwTypeLib;
-using System.Collections;
-using System.Threading;
-using System.Text;
-using System.Collections.Concurrent;
+using NLog;
 
 namespace FFXIVAPP.Client.Network
 {
@@ -86,7 +84,7 @@ namespace FFXIVAPP.Client.Network
 
         #region Timer Controls
 
-        bool UseWinPCap = true;
+        private bool UseWinPCap = true;
 
         /// <summary>
         /// </summary>
@@ -95,7 +93,10 @@ namespace FFXIVAPP.Client.Network
             var interfaces = GetNetworkInterfaces();
             foreach (var item in interfaces.Where(x => !String.IsNullOrWhiteSpace(x)))
             {
-                Sockets.Add(new SocketObject() { IPAddress = item });
+                Sockets.Add(new SocketObject()
+                {
+                    IPAddress = item
+                });
             }
             UpdateConnectionList();
 
@@ -113,10 +114,12 @@ namespace FFXIVAPP.Client.Network
                 {
                     if (UseWinPCap)
                     {
-                        IList<WinPcapWrapper.Device> allDevices = WinPcapWrapper.GetAllDevices();
+                        var allDevices = WinPcapWrapper.GetAllDevices();
                         stateObject.device = allDevices.FirstOrDefault(x => x.Addresses.Contains(stateObject.IPAddress));
                         if (!string.IsNullOrWhiteSpace(stateObject.device.Name))
+                        {
                             WinPcapWrapper.StartCapture(stateObject);
+                        }
                     }
                     else
                     {
@@ -189,16 +192,16 @@ namespace FFXIVAPP.Client.Network
         }
 
 
-        object ReceiveLock = new object();
+        private object ReceiveLock = new object();
 
         private void OnReceive(IAsyncResult ar)
         {
             try
             {
-                var asyncState = (SocketObject)ar.AsyncState;
+                var asyncState = (SocketObject) ar.AsyncState;
                 int nReceived;
-                byte[] newBuffer = new byte[0x20000];
-                byte[] lastBuffer = newBuffer;
+                var newBuffer = new byte[0x20000];
+                var lastBuffer = newBuffer;
                 try
                 {
                     nReceived = asyncState.Socket.EndReceive(ar);
@@ -226,8 +229,6 @@ namespace FFXIVAPP.Client.Network
                     {
                     }
                 }
-
-
             }
             catch (ObjectDisposedException)
             {
@@ -245,7 +246,7 @@ namespace FFXIVAPP.Client.Network
             {
                 return;
             }
-            var startIndex = (byte)((byteData[0] & 15) * 4);
+            var startIndex = (byte) ((byteData[0] & 15) * 4);
             var lengthCheck = IPAddress.NetworkToHostOrder(BitConverter.ToInt16(byteData, 2));
             if ((nReceived < lengthCheck) || (startIndex > lengthCheck))
             {
@@ -255,11 +256,10 @@ namespace FFXIVAPP.Client.Network
             var TCP = new TCPHeader(byteData, nReceived);
             var serverConnection = new ServerConnection
             {
-
-                SourceAddress = (uint)BitConverter.ToInt32(byteData, 12),
-                DestinationAddress = (uint)BitConverter.ToInt32(byteData, 16),
-                SourcePort = (ushort)BitConverter.ToInt16(byteData, (int)startIndex),
-                DestinationPort = (ushort)BitConverter.ToInt16(byteData, (int)startIndex + 2),
+                SourceAddress = (uint) BitConverter.ToInt32(byteData, 12),
+                DestinationAddress = (uint) BitConverter.ToInt32(byteData, 16),
+                SourcePort = (ushort) BitConverter.ToInt16(byteData, (int) startIndex),
+                DestinationPort = (ushort) BitConverter.ToInt16(byteData, (int) startIndex + 2),
                 TimeStamp = DateTime.Now
                 /*
                     // these don't return the right ports for some reason
@@ -291,16 +291,18 @@ namespace FFXIVAPP.Client.Network
             {
                 return;
             }
-            var nextTCPSequence = (uint)IPAddress.NetworkToHostOrder(BitConverter.ToInt32(byteData, startIndex + 4));
-            var cut = (byte)(((byteData[startIndex + 12] & 240) >> 4) * 4);
+            var nextTCPSequence = (uint) IPAddress.NetworkToHostOrder(BitConverter.ToInt32(byteData, startIndex + 4));
+            var cut = (byte) (((byteData[startIndex + 12] & 240) >> 4) * 4);
             var length = (nReceived - startIndex) - cut;
             if ((length < 0) || (length > 0x10000))
             {
                 return;
             }
 
-            if ((int)lengthCheck == (int)startIndex + (int)cut)
+            if ((int) lengthCheck == (int) startIndex + (int) cut)
+            {
                 return;
+            }
 
             lock (asyncState.SocketLock)
             {
@@ -377,9 +379,9 @@ namespace FFXIVAPP.Client.Network
                     {
                         continue;
                     }
-                    connection.NextTCPSequence = stalePacket.TCPSequence + ((uint)stalePacket.Buffer.Length);
+                    connection.NextTCPSequence = stalePacket.TCPSequence + ((uint) stalePacket.Buffer.Length);
                     Array.Copy(stalePacket.Buffer, sequenceLength, connection.NetworkBuffer, connection.NetworkBufferPosition, stalePacket.Buffer.Length - sequenceLength);
-                    connection.NetworkBufferPosition += stalePacket.Buffer.Length - ((int)sequenceLength);
+                    connection.NetworkBufferPosition += stalePacket.Buffer.Length - ((int) sequenceLength);
                     if (stalePacket.Push)
                     {
                         ProcessNetworkBuffer(connection);
@@ -387,7 +389,6 @@ namespace FFXIVAPP.Client.Network
                 }
             }
         }
-
 
         #endregion
 
@@ -431,7 +432,7 @@ namespace FFXIVAPP.Client.Network
                     destinationArray = new byte[bufferSize];
                     Array.Copy(connection.NetworkBuffer, destinationArray, bufferSize);
                     Array.Copy(connection.NetworkBuffer, bufferSize, connection.NetworkBuffer, 0L, connection.NetworkBufferPosition - bufferSize);
-                    connection.NetworkBufferPosition -= (int)bufferSize;
+                    connection.NetworkBufferPosition -= (int) bufferSize;
                     connection.LastNetworkBufferUpdate = DateTime.Now;
                 }
                 if (bufferSize <= 40)
@@ -449,7 +450,7 @@ namespace FFXIVAPP.Client.Network
                 {
                     case 0:
                     case 1:
-                        messageLength = ((int)bufferSize) - 40;
+                        messageLength = ((int) bufferSize) - 40;
                         for (var i = 0; i < ((bufferSize / 4) - 10); i++)
                         {
                             Array.Copy(BitConverter.GetBytes(BitConverter.ToUInt32(destinationArray, (i * 4) + 40)), 0, bytes, i * 4, 4);
@@ -458,7 +459,7 @@ namespace FFXIVAPP.Client.Network
                     default:
                         try
                         {
-                            using (var decompressedStream = new DeflateStream((Stream)new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A), CompressionMode.Decompress))
+                            using (var decompressedStream = new DeflateStream((Stream) new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A), CompressionMode.Decompress))
                             {
                                 messageLength = decompressedStream.Read(bytes, 0, bytes.Length);
                             }
@@ -490,12 +491,12 @@ namespace FFXIVAPP.Client.Network
                                 Key = BitConverter.ToUInt32(bytes, position + 0x10),
                                 Buffer = bytes,
                                 CurrentPosition = position,
-                                MessageSize = (int)messageSize,
+                                MessageSize = (int) messageSize,
                                 PacketDate = time
                             };
                             AppContextHelper.Instance.RaiseNewPacket(networkPacket);
                         }
-                        position += (int)messageSize;
+                        position += (int) messageSize;
                     }
                 }
                 catch (Exception ex)
@@ -514,21 +515,27 @@ namespace FFXIVAPP.Client.Network
         public bool ValidateNetworkAccess()
         {
             if (Sockets == null || !Sockets.Any())
+            {
                 return false;
+            }
             try
             {
-                FirewallWrapper firewallWrapper = new FirewallWrapper();
+                var firewallWrapper = new FirewallWrapper();
                 if (firewallWrapper.IsFirewallDisabled())
+                {
                     return true;
+                }
 
                 firewallWrapper.AddFirewallApplicationEntry();
 
                 if (firewallWrapper.IsFirewallApplicationConfigured())
                 {
                     if (firewallWrapper.IsFirewallRuleConfigured())
+                    {
                         return true;
+                    }
                 }
-                int num = (int)MessageBox.Show("Unable to access network data due to Windows Firewall.  Please disable, or add a TCP rule for FFXIVAPP.Client.");
+                var num = (int) MessageBox.Show("Unable to access network data due to Windows Firewall.  Please disable, or add a TCP rule for FFXIVAPP.Client.");
                 return false;
             }
             catch (Exception ex)
@@ -550,42 +557,54 @@ namespace FFXIVAPP.Client.Network
 
             internal bool IsFirewallDisabled()
             {
-                INetFwMgr netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
+                var netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
                 return netFwMgr != null && !netFwMgr.LocalPolicy.CurrentProfile.FirewallEnabled;
             }
 
             internal bool IsFirewallApplicationConfigured()
             {
-                bool flag = false;
-                INetFwMgr netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
+                var flag = false;
+                var netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
                 if (netFwMgr == null)
+                {
                     return false;
-                IEnumerator enumerator = netFwMgr.LocalPolicy.CurrentProfile.AuthorizedApplications.GetEnumerator();
+                }
+                var enumerator = netFwMgr.LocalPolicy.CurrentProfile.AuthorizedApplications.GetEnumerator();
                 if (enumerator == null)
+                {
                     return false;
+                }
                 while (enumerator.MoveNext() && !flag)
                 {
-                    INetFwAuthorizedApplication authorizedApplication = enumerator.Current as INetFwAuthorizedApplication;
+                    var authorizedApplication = enumerator.Current as INetFwAuthorizedApplication;
                     if (authorizedApplication != null && authorizedApplication.Name == appName && authorizedApplication.Enabled)
+                    {
                         flag = true;
+                    }
                 }
                 return flag;
             }
 
             internal bool IsFirewallRuleConfigured()
             {
-                bool flag = false;
-                INetFwPolicy2 netFwPolicy2 = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2")) as INetFwPolicy2;
+                var flag = false;
+                var netFwPolicy2 = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwPolicy2")) as INetFwPolicy2;
                 if (netFwPolicy2 == null)
+                {
                     return false;
-                IEnumerator enumerator = netFwPolicy2.Rules.GetEnumerator();
+                }
+                var enumerator = netFwPolicy2.Rules.GetEnumerator();
                 if (enumerator == null)
+                {
                     return false;
+                }
                 while (enumerator.MoveNext() && !flag)
                 {
-                    INetFwRule2 netFwRule2 = enumerator.Current as INetFwRule2;
+                    var netFwRule2 = enumerator.Current as INetFwRule2;
                     if (netFwRule2 != null && netFwRule2.Name == appName && (netFwRule2.Enabled && netFwRule2.Protocol == 6))
+                    {
                         flag = true;
+                    }
                 }
                 return flag;
             }
@@ -594,18 +613,22 @@ namespace FFXIVAPP.Client.Network
             {
                 try
                 {
-                    INetFwMgr netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
+                    var netFwMgr = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwMgr")) as INetFwMgr;
                     if (netFwMgr == null)
+                    {
                         throw new ApplicationException("Unable to connect to fireall.");
-                    INetFwAuthorizedApplication app = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwAuthorizedApplication")) as INetFwAuthorizedApplication;
+                    }
+                    var app = Activator.CreateInstance(Type.GetTypeFromProgID("HNetCfg.FwAuthorizedApplication")) as INetFwAuthorizedApplication;
                     if (app == null)
+                    {
                         throw new ApplicationException("Unable to create new Firewall Application reference.");
+                    }
                     app.Enabled = true;
                     app.IpVersion = NET_FW_IP_VERSION_.NET_FW_IP_VERSION_ANY;
                     app.Name = appName;
                     app.ProcessImageFileName = Application.ExecutablePath;
                     app.Scope = NET_FW_SCOPE_.NET_FW_SCOPE_ALL;
-                    
+
                     netFwMgr.LocalPolicy.CurrentProfile.AuthorizedApplications.Add(app);
                 }
                 catch (Exception ex)
@@ -638,9 +661,8 @@ namespace FFXIVAPP.Client.Network
 
         private void UpdateConnectionList()
         {
-
             var serverIPList = GetXIVServerIPList();
-            List<ServerConnection> toAdd = new List<ServerConnection>();
+            var toAdd = new List<ServerConnection>();
             if (serverIPList != null)
             {
                 if (ServerConnections.Any())
@@ -669,53 +691,56 @@ namespace FFXIVAPP.Client.Network
                     ServerConnections = serverIPList;
                 }
             }
-
         }
 
         private static List<ServerConnection> GetXIVServerIPList()
         {
-            List<ServerConnection> list1 = new List<ServerConnection>();
+            var list1 = new List<ServerConnection>();
 
-            int id = Constants.ProcessModel.ProcessID;
-            IntPtr num1 = IntPtr.Zero;
-            int dwOutBufLen = 0;
-            int error = 0;
-            IntPtr num2 = IntPtr.Zero;
-            for (int index = 0; index < 5; ++index)
+            var id = Constants.ProcessModel.ProcessID;
+            var num1 = IntPtr.Zero;
+            var dwOutBufLen = 0;
+            var error = 0;
+            var num2 = IntPtr.Zero;
+            for (var index = 0; index < 5; ++index)
             {
-                error = (int)UnsafeNativeMethods.GetExtendedTcpTable(num1, ref dwOutBufLen, false, 2U, UnsafeNativeMethods.TCP_TABLE_CLASS.OWNER_PID_ALL, 0U);
+                error = (int) UnsafeNativeMethods.GetExtendedTcpTable(num1, ref dwOutBufLen, false, 2U, UnsafeNativeMethods.TCP_TABLE_CLASS.OWNER_PID_ALL, 0U);
                 if (error != 0)
                 {
                     if (num1 != IntPtr.Zero)
                     {
                         Marshal.FreeHGlobal(num1);
-                        IntPtr num3 = IntPtr.Zero;
+                        var num3 = IntPtr.Zero;
                     }
                     num1 = Marshal.AllocHGlobal(dwOutBufLen);
                 }
                 else
+                {
                     break;
+                }
             }
             try
             {
                 if (error != 0)
-                    throw new Win32Exception(error);
-                int num3 = Marshal.ReadInt32(num1);
-                IntPtr num4 = IntPtr.Add(num1, 4);
-                for (int index = 0; index <= num3 - 1; ++index)
                 {
-                    UnsafeNativeMethods.MIB_TCPROW_EX mibTcprowEx = (UnsafeNativeMethods.MIB_TCPROW_EX)Marshal.PtrToStructure(num4, typeof(UnsafeNativeMethods.MIB_TCPROW_EX));
+                    throw new Win32Exception(error);
+                }
+                var num3 = Marshal.ReadInt32(num1);
+                var num4 = IntPtr.Add(num1, 4);
+                for (var index = 0; index <= num3 - 1; ++index)
+                {
+                    var mibTcprowEx = (UnsafeNativeMethods.MIB_TCPROW_EX) Marshal.PtrToStructure(num4, typeof (UnsafeNativeMethods.MIB_TCPROW_EX));
                     if (mibTcprowEx.dwProcessId == id)
                     {
-                        List<ServerConnection> list2 = list1;
-                        ServerConnection ffxivConnection1 = new ServerConnection();
+                        var list2 = list1;
+                        var ffxivConnection1 = new ServerConnection();
                         ffxivConnection1.SourceAddress = mibTcprowEx.dwRemoteAddr;
-                        ffxivConnection1.SourcePort = (ushort)mibTcprowEx.dwRemotePort;
+                        ffxivConnection1.SourcePort = (ushort) mibTcprowEx.dwRemotePort;
                         ffxivConnection1.DestinationAddress = mibTcprowEx.dwLocalAddr;
-                        ffxivConnection1.DestinationPort = (ushort)mibTcprowEx.dwLocalPort;
+                        ffxivConnection1.DestinationPort = (ushort) mibTcprowEx.dwLocalPort;
                         list2.Add(ffxivConnection1);
                     }
-                    num4 = IntPtr.Add(num4, Marshal.SizeOf(typeof(UnsafeNativeMethods.MIB_TCPROW_EX)));
+                    num4 = IntPtr.Add(num4, Marshal.SizeOf(typeof (UnsafeNativeMethods.MIB_TCPROW_EX)));
                 }
             }
             catch
@@ -772,10 +797,8 @@ namespace FFXIVAPP.Client.Network
         }
 
         #endregion
-
-
-
     }
+
     internal static class WinPcapWrapper
     {
         private const int PCAP_ERRBUF_SIZE = 256;
@@ -784,40 +807,40 @@ namespace FFXIVAPP.Client.Network
         private const int DLT_EN10MB = 1;
         private const int DLT_NULL = 0;
         private const int AF_INET = 2;
-        private static ConcurrentDictionary<string, WinPcapWrapper.DeviceState> _activeDevices;
-        private static EventHandler<WinPcapWrapper.DataReceivedEventArgs> _DataReceived;
+        private static ConcurrentDictionary<string, DeviceState> _activeDevices;
+        private static EventHandler<DataReceivedEventArgs> _DataReceived;
 
-        public static event EventHandler<WinPcapWrapper.DataReceivedEventArgs> DataReceived
+        static WinPcapWrapper()
+        {
+            _activeDevices = new ConcurrentDictionary<string, DeviceState>();
+        }
+
+        public static event EventHandler<DataReceivedEventArgs> DataReceived
         {
             add
             {
-                EventHandler<WinPcapWrapper.DataReceivedEventArgs> eventHandler1 = WinPcapWrapper._DataReceived;
-                EventHandler<WinPcapWrapper.DataReceivedEventArgs> comparand;
+                var eventHandler1 = _DataReceived;
+                EventHandler<DataReceivedEventArgs> comparand;
                 do
                 {
                     comparand = eventHandler1;
-                    EventHandler<WinPcapWrapper.DataReceivedEventArgs> eventHandler2 = (EventHandler<WinPcapWrapper.DataReceivedEventArgs>)Delegate.Combine((Delegate)comparand, (Delegate)value);
-                    eventHandler1 = Interlocked.CompareExchange<EventHandler<WinPcapWrapper.DataReceivedEventArgs>>(ref WinPcapWrapper._DataReceived, eventHandler2, comparand);
+                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Combine((Delegate) comparand, (Delegate) value);
+                    eventHandler1 = Interlocked.CompareExchange<EventHandler<DataReceivedEventArgs>>(ref _DataReceived, eventHandler2, comparand);
                 }
                 while (eventHandler1 != comparand);
             }
             remove
             {
-                EventHandler<WinPcapWrapper.DataReceivedEventArgs> eventHandler1 = WinPcapWrapper._DataReceived;
-                EventHandler<WinPcapWrapper.DataReceivedEventArgs> comparand;
+                var eventHandler1 = _DataReceived;
+                EventHandler<DataReceivedEventArgs> comparand;
                 do
                 {
                     comparand = eventHandler1;
-                    EventHandler<WinPcapWrapper.DataReceivedEventArgs> eventHandler2 = (EventHandler<WinPcapWrapper.DataReceivedEventArgs>)Delegate.Remove((Delegate)comparand, (Delegate)value);
-                    eventHandler1 = Interlocked.CompareExchange<EventHandler<WinPcapWrapper.DataReceivedEventArgs>>(ref WinPcapWrapper._DataReceived, eventHandler2, comparand);
+                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Remove((Delegate) comparand, (Delegate) value);
+                    eventHandler1 = Interlocked.CompareExchange<EventHandler<DataReceivedEventArgs>>(ref _DataReceived, eventHandler2, comparand);
                 }
                 while (eventHandler1 != comparand);
             }
-        }
-
-        static WinPcapWrapper()
-        {
-            WinPcapWrapper._activeDevices = new ConcurrentDictionary<string, WinPcapWrapper.DeviceState>();
         }
 
         [DllImport("wpcap.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -850,40 +873,46 @@ namespace FFXIVAPP.Client.Network
         [DllImport("wpcap.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void pcap_close(IntPtr p);
 
-        private static void OnDataReceived(WinPcapWrapper.DataReceivedEventArgs e)
+        private static void OnDataReceived(DataReceivedEventArgs e)
         {
-            EventHandler<WinPcapWrapper.DataReceivedEventArgs> eventHandler = WinPcapWrapper._DataReceived;
+            var eventHandler = _DataReceived;
             if (eventHandler == null)
+            {
                 return;
-            eventHandler((object)null, e);
+            }
+            eventHandler((object) null, e);
         }
 
-        public static IList<WinPcapWrapper.Device> GetAllDevices()
+        public static IList<Device> GetAllDevices()
         {
-            List<WinPcapWrapper.Device> list = new List<WinPcapWrapper.Device>();
-            IntPtr alldevsp = IntPtr.Zero;
+            var list = new List<Device>();
+            var alldevsp = IntPtr.Zero;
             try
             {
-                StringBuilder errbuff = new StringBuilder(256);
-                if (WinPcapWrapper.pcap_findalldevs(ref alldevsp, errbuff) != 0)
-                    throw new ApplicationException("Cannot enumerate devices: [" + errbuff.ToString() + "].");
-                WinPcapWrapper.pcap_if pcapIf;
-                for (IntPtr ptr1 = alldevsp; ptr1 != IntPtr.Zero; ptr1 = pcapIf.next)
+                var errbuff = new StringBuilder(256);
+                if (pcap_findalldevs(ref alldevsp, errbuff) != 0)
                 {
-                    pcapIf = (WinPcapWrapper.pcap_if)Marshal.PtrToStructure(ptr1, typeof(WinPcapWrapper.pcap_if));
-                    WinPcapWrapper.Device device = new WinPcapWrapper.Device();
+                    throw new ApplicationException("Cannot enumerate devices: [" + errbuff.ToString() + "].");
+                }
+                pcap_if pcapIf;
+                for (var ptr1 = alldevsp; ptr1 != IntPtr.Zero; ptr1 = pcapIf.next)
+                {
+                    pcapIf = (pcap_if) Marshal.PtrToStructure(ptr1, typeof (pcap_if));
+                    var device = new Device();
                     device.Name = pcapIf.name;
                     device.Description = pcapIf.description;
                     device.Addresses = new List<string>();
-                    WinPcapWrapper.pcap_addr pcapAddr;
-                    for (IntPtr ptr2 = pcapIf.addresses; ptr2 != IntPtr.Zero; ptr2 = pcapAddr.next)
+                    pcap_addr pcapAddr;
+                    for (var ptr2 = pcapIf.addresses; ptr2 != IntPtr.Zero; ptr2 = pcapAddr.next)
                     {
-                        pcapAddr = (WinPcapWrapper.pcap_addr)Marshal.PtrToStructure(ptr2, typeof(WinPcapWrapper.pcap_addr));
+                        pcapAddr = (pcap_addr) Marshal.PtrToStructure(ptr2, typeof (pcap_addr));
                         if (pcapAddr.addr != IntPtr.Zero)
                         {
-                            WinPcapWrapper.sockaddr_in sockaddrIn = (WinPcapWrapper.sockaddr_in)Marshal.PtrToStructure(pcapAddr.addr, typeof(WinPcapWrapper.sockaddr_in));
-                            if ((int)sockaddrIn.sin_family == 2)
+                            var sockaddrIn = (sockaddr_in) Marshal.PtrToStructure(pcapAddr.addr, typeof (sockaddr_in));
+                            if ((int) sockaddrIn.sin_family == 2)
+                            {
                                 device.Addresses.Add(sockaddrIn.sin_addr[0].ToString() + "." + sockaddrIn.sin_addr[1].ToString() + "." + sockaddrIn.sin_addr[2].ToString() + "." + sockaddrIn.sin_addr[3].ToString());
+                            }
                         }
                     }
                     list.Add(device);
@@ -896,14 +925,16 @@ namespace FFXIVAPP.Client.Network
             finally
             {
                 if (alldevsp != IntPtr.Zero)
-                    WinPcapWrapper.pcap_freealldevs(alldevsp);
+                {
+                    pcap_freealldevs(alldevsp);
+                }
             }
-            return (IList<WinPcapWrapper.Device>)list;
+            return (IList<Device>) list;
         }
 
         public static void StartCapture(SocketObject state)
         {
-            WinPcapWrapper.DeviceState deviceState1 = new WinPcapWrapper.DeviceState();
+            var deviceState1 = new DeviceState();
 
             lock (deviceState1)
             {
@@ -911,36 +942,48 @@ namespace FFXIVAPP.Client.Network
                 deviceState1.Handle = IntPtr.Zero;
                 deviceState1.Cancel = false;
                 deviceState1.State = state;
-                IntPtr num = Marshal.AllocHGlobal(12);
+                var num = Marshal.AllocHGlobal(12);
                 try
                 {
-                    if (WinPcapWrapper._activeDevices.ContainsKey(state.device.Name))
-                        WinPcapWrapper.StopCapture(state.device.Name);
-                    StringBuilder errbuff = new StringBuilder(256);
-                    deviceState1.Handle = WinPcapWrapper.pcap_open(state.device.Name, 65536, 0, 500, IntPtr.Zero, errbuff);
+                    if (_activeDevices.ContainsKey(state.device.Name))
+                    {
+                        StopCapture(state.device.Name);
+                    }
+                    var errbuff = new StringBuilder(256);
+                    deviceState1.Handle = pcap_open(state.device.Name, 65536, 0, 500, IntPtr.Zero, errbuff);
                     if (deviceState1.Handle == IntPtr.Zero)
+                    {
                         throw new ApplicationException("Cannot open pcap interface [" + state.device.Name + "].  Error: " + errbuff.ToString());
-                    deviceState1.LinkType = WinPcapWrapper.pcap_datalink(deviceState1.Handle);
+                    }
+                    deviceState1.LinkType = pcap_datalink(deviceState1.Handle);
                     if (deviceState1.LinkType != 1 && deviceState1.LinkType != 0)
+                    {
                         throw new ApplicationException("Interface [" + state.device.Description + "] does not appear to support Ethernet.");
-                    if (WinPcapWrapper.pcap_compile(deviceState1.Handle, num, "ip and tcp", 1, 0U) != 0)
+                    }
+                    if (pcap_compile(deviceState1.Handle, num, "ip and tcp", 1, 0U) != 0)
+                    {
                         throw new ApplicationException("Unable to create TCP packet filter.");
-                    if (WinPcapWrapper.pcap_setfilter(deviceState1.Handle, num) != 0)
+                    }
+                    if (pcap_setfilter(deviceState1.Handle, num) != 0)
+                    {
                         throw new ApplicationException("Unable to apply TCP packet filter.");
-                    WinPcapWrapper.pcap_freecode(num);
-                    WinPcapWrapper._activeDevices[state.device.Name] = deviceState1;
+                    }
+                    pcap_freecode(num);
+                    _activeDevices[state.device.Name] = deviceState1;
                 }
                 catch (Exception ex)
                 {
                     if (deviceState1.Handle != IntPtr.Zero)
-                        WinPcapWrapper.pcap_close(deviceState1.Handle);
+                    {
+                        pcap_close(deviceState1.Handle);
+                    }
                     throw new ApplicationException("Unable to open winpcap device [" + state.device.Name + "].", ex);
                 }
                 finally
                 {
                     Marshal.FreeHGlobal(num);
                 }
-                ThreadPool.QueueUserWorkItem(new WaitCallback(PollNetworkDevice), (object)WinPcapWrapper._activeDevices[state.device.Name]);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(PollNetworkDevice), (object) _activeDevices[state.device.Name]);
             }
         }
 
@@ -948,19 +991,23 @@ namespace FFXIVAPP.Client.Network
         {
             try
             {
-                if (!WinPcapWrapper._activeDevices.ContainsKey(deviceName))
+                if (!_activeDevices.ContainsKey(deviceName))
+                {
                     return;
-                WinPcapWrapper.DeviceState deviceState1 = WinPcapWrapper._activeDevices[deviceName];
+                }
+                var deviceState1 = _activeDevices[deviceName];
 
                 lock (deviceState1)
                 {
                     deviceState1.Cancel = true;
                     Thread.Sleep(500);
                     if (deviceState1.Handle != IntPtr.Zero)
-                        WinPcapWrapper.pcap_close(deviceState1.Handle);
+                    {
+                        pcap_close(deviceState1.Handle);
+                    }
                     deviceState1.Handle = IntPtr.Zero;
-                    WinPcapWrapper.DeviceState deviceState3 = (WinPcapWrapper.DeviceState)null;
-                    WinPcapWrapper._activeDevices.TryRemove(deviceName, out deviceState3);
+                    var deviceState3 = (DeviceState) null;
+                    _activeDevices.TryRemove(deviceName, out deviceState3);
                 }
             }
             catch (Exception ex)
@@ -970,160 +1017,129 @@ namespace FFXIVAPP.Client.Network
 
         public static void StopAllCapture()
         {
-            ICollection<WinPcapWrapper.DeviceState> values = WinPcapWrapper._activeDevices.Values;
-            foreach (string deviceName in values.Select(x => x.Device.Name).Where(x => x != ""))
-                WinPcapWrapper.StopCapture(deviceName);
+            var values = _activeDevices.Values;
+            foreach (var deviceName in values.Select(x => x.Device.Name)
+                                             .Where(x => x != ""))
+            {
+                StopCapture(deviceName);
+            }
         }
 
         private static void PollNetworkDevice(object stateInfo)
         {
-            WinPcapWrapper.DeviceState deviceState = (WinPcapWrapper.DeviceState)stateInfo;
-            int offset = deviceState.LinkType == 1 ? 14 : 4;
-            IntPtr pkt_data = IntPtr.Zero;
-            IntPtr pkt_header = IntPtr.Zero;
+            var deviceState = (DeviceState) stateInfo;
+            var offset = deviceState.LinkType == 1 ? 14 : 4;
+            var pkt_data = IntPtr.Zero;
+            var pkt_header = IntPtr.Zero;
             while (!deviceState.Cancel)
             {
-                int num = WinPcapWrapper.pcap_next_ex(deviceState.Handle, ref pkt_header, ref pkt_data);
+                var num = pcap_next_ex(deviceState.Handle, ref pkt_header, ref pkt_data);
                 if (num < 0)
+                {
                     break;
+                }
                 if (num == 0)
                 {
                     Thread.Sleep(10);
                 }
                 else
                 {
-                    WinPcapWrapper.pcap_pkthdr pcapPkthdr = (WinPcapWrapper.pcap_pkthdr)Marshal.PtrToStructure(pkt_header, typeof(WinPcapWrapper.pcap_pkthdr));
-                    if ((long)pcapPkthdr.caplen > (long)offset)
+                    var pcapPkthdr = (pcap_pkthdr) Marshal.PtrToStructure(pkt_header, typeof (pcap_pkthdr));
+                    if ((long) pcapPkthdr.caplen > (long) offset)
                     {
-                        byte[] destination = new byte[(long)pcapPkthdr.caplen - (long)offset];
-                        Marshal.Copy(IntPtr.Add(pkt_data, offset), destination, 0, (int)pcapPkthdr.caplen - offset);
-                        WinPcapWrapper.DataReceivedEventArgs e = new WinPcapWrapper.DataReceivedEventArgs();
+                        var destination = new byte[(long) pcapPkthdr.caplen - (long) offset];
+                        Marshal.Copy(IntPtr.Add(pkt_data, offset), destination, 0, (int) pcapPkthdr.caplen - offset);
+                        var e = new DataReceivedEventArgs();
                         e.Data = destination;
                         e.Device = deviceState;
-                        WinPcapWrapper.OnDataReceived(e);
+                        OnDataReceived(e);
                     }
                     else
+                    {
                         continue;
+                    }
                 }
                 pkt_header = IntPtr.Zero;
                 pkt_data = IntPtr.Zero;
                 if (deviceState.Cancel)
+                {
                     break;
+                }
             }
         }
 
         private struct pcap_addr
         {
-            public IntPtr next;
             public IntPtr addr;
-            public IntPtr netmask;
             public IntPtr broadaddr;
             public IntPtr dstaddr;
+            public IntPtr netmask;
+            public IntPtr next;
         }
 
         private struct pcap_if
         {
-            public IntPtr next;
-            public string name;
-            public string description;
             public IntPtr addresses;
+            public string description;
             public uint flags;
+            public string name;
+            public IntPtr next;
         }
 
         private struct sockaddr_in
         {
-            public short sin_family;
-            public ushort sin_port;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
             public byte[] sin_addr;
+
+            public short sin_family;
+            public ushort sin_port;
+
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
             public byte[] sin_zero;
         }
 
         private struct pcap_pkthdr
         {
-            public uint timestamp_sec;
-            public uint timestamp_usec;
             public uint caplen;
             public uint len;
             public uint npkt;
+            public uint timestamp_sec;
+            public uint timestamp_usec;
         }
 
         private struct bpf_program
         {
-            public uint bf_len;
             public IntPtr bf_insns;
+            public uint bf_len;
         }
 
         public struct Device
         {
-            public string Name
-            {
-                get;
-                internal set;
-            }
+            public string Name { get; internal set; }
 
-            public string Description
-            {
-                get;
-                internal set;
-            }
+            public string Description { get; internal set; }
 
-            public List<string> Addresses
-            {
-                get;
-                internal set;
-            }
+            public List<string> Addresses { get; internal set; }
         }
 
         public class DeviceState
         {
-            public SocketObject State
-            {
-                get;
-                internal set;
-            }
+            public SocketObject State { get; internal set; }
 
-            public WinPcapWrapper.Device Device
-            {
-                get;
-                internal set;
-            }
+            public Device Device { get; internal set; }
 
-            public int LinkType
-            {
-                get;
-                internal set;
-            }
+            public int LinkType { get; internal set; }
 
-            public IntPtr Handle
-            {
-                get;
-                internal set;
-            }
+            public IntPtr Handle { get; internal set; }
 
-            public bool Cancel
-            {
-                get;
-                internal set;
-            }
-
+            public bool Cancel { get; internal set; }
         }
 
         public class DataReceivedEventArgs : EventArgs
         {
-            public byte[] Data
-            {
-                get;
-                set;
-            }
+            public byte[] Data { get; set; }
 
-            public WinPcapWrapper.DeviceState Device
-            {
-                get;
-                set;
-            }
-
+            public DeviceState Device { get; set; }
         }
     }
 }

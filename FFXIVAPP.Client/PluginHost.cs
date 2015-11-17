@@ -167,7 +167,7 @@ namespace FFXIVAPP.Client
         private bool HostAssemblyValidation(string name, Version version)
         {
             var assemblies = Assembly.GetExecutingAssembly()
-                                    .GetReferencedAssemblies();
+                                     .GetReferencedAssemblies();
 
             foreach (var reference in assemblies)
             {

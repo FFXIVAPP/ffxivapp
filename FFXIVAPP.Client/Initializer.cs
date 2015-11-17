@@ -38,6 +38,7 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
@@ -53,7 +54,6 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using NLog;
-using System.Threading;
 
 namespace FFXIVAPP.Client
 {
@@ -64,6 +64,11 @@ namespace FFXIVAPP.Client
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #endregion
+
+        public static bool NetworkWorking
+        {
+            get { return _networkWorker != null; }
+        }
 
         /// <summary>
         /// </summary>
@@ -531,18 +536,18 @@ namespace FFXIVAPP.Client
                         var latest = releases.Descendants()
                                              .Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            .Elements()
+                                             ?.Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "title")
-                            .Value ?? "Unknown";
+                                             ?.Value ?? "Unknown";
                         latest = latest.Split(' ')[0];
                         AppViewModel.Instance.LatestVersion = latest;
                         var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
                         AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
                                                                                               .Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            .Elements()
+                                                                                              ?.Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "content")
-                            .Value ?? "<h1>Notes Not Available</h1>");
+                                                                                              ?.Value ?? "<h1>Notes Not Available</h1>");
                         switch (latest)
                         {
                             case "Unknown":
@@ -1089,17 +1094,9 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public static bool NetworkWorking
-        {
-            get
-            {
-                return _networkWorker != null;
-            }
-        }
-
         public static void RefreshNetworkWorker()
         {
-            Thread thread = new Thread(StartNetworkingThread);
+            var thread = new Thread(StartNetworkingThread);
             thread.Start();
         }
 

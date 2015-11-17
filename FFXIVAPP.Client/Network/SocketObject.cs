@@ -36,9 +36,9 @@ namespace FFXIVAPP.Client.Network
     {
         internal byte[] Buffer = new byte[0x20000];
         internal List<NetworkConnection> Connections = new List<NetworkConnection>();
+        internal WinPcapWrapper.Device device;
         internal string IPAddress;
         internal Socket Socket;
         internal object SocketLock = new object();
-        internal WinPcapWrapper.Device device;
     }
 }

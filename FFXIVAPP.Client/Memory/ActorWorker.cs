@@ -228,7 +228,7 @@ namespace FFXIVAPP.Client.Memory
                                     }
 
                                     ActorEntity existing = null;
-                                    bool newEntry = false;
+                                    var newEntry = false;
 
                                     switch (Type)
                                     {
@@ -295,7 +295,6 @@ namespace FFXIVAPP.Client.Memory
 
                                     if (entry.Name == "Eos")
                                     {
-
                                     }
 
                                     entry.MapIndex = mapIndex;
@@ -355,7 +354,6 @@ namespace FFXIVAPP.Client.Memory
                                                 break;
                                         }
                                     }
-                                    
                                 }
                                 catch (Exception ex)
                                 {
@@ -363,7 +361,6 @@ namespace FFXIVAPP.Client.Memory
                             }
 
                             MemoryHandler._scanCount++;
-
 
 
                             //if (!ReferencesSet)
@@ -412,11 +409,13 @@ namespace FFXIVAPP.Client.Memory
                                 }
                             }
 
-                            var tmpPet = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.OwnerID == PCWorkerDelegate.CurrentUser.ID).ToList();
-                            var tmp = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.Name == "Eos").ToList();
+                            var tmpPet = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.OwnerID == PCWorkerDelegate.CurrentUser.ID)
+                                                              .ToList();
+                            var tmp = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.Name == "Eos")
+                                                           .ToList();
 
-                            var tmp2 = MonsterWorkerDelegate.MonsterEntities.OrderBy(x => x.Value.Distance).ToList();
-
+                            var tmp2 = MonsterWorkerDelegate.MonsterEntities.OrderBy(x => x.Value.Distance)
+                                                            .ToList();
 
                             #endregion
                         }
