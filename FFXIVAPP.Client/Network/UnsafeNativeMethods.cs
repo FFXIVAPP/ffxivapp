@@ -47,9 +47,18 @@ namespace FFXIVAPP.Client.Network
             OWNER_MODULE_CONNECTIONS,
             OWNER_MODULE_ALL
         }
+        internal struct MIB_TCPROW_EX
+        {
+            public TcpState dwState;
+            public uint dwLocalAddr;
+            public int dwLocalPort;
+            public uint dwRemoteAddr;
+            public int dwRemotePort;
+            public int dwProcessId;
+        }
 
         [DllImport("iphlpapi.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-        public static extern uint GetExtendedTcpTable(IntPtr tcpTable, ref int tcpTableLength, bool sort, int ipVersion, TCP_TABLE_CLASS tcpTableClass, uint reserved = 0);
+        public static extern uint GetExtendedTcpTable(IntPtr tcpTable, ref int tcpTableLength, bool sort, uint ipVersion, TCP_TABLE_CLASS tcpTableClass, uint reserved = 0);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct TCPRow

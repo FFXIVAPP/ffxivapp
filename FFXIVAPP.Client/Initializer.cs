@@ -53,6 +53,7 @@ using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using NLog;
+using System.Threading;
 
 namespace FFXIVAPP.Client
 {
@@ -447,7 +448,10 @@ namespace FFXIVAPP.Client
                     try
                     {
                         var index = SettingsViewModel.Instance.HomePluginList.IndexOf(homePlugin);
-                        SetHomePlugin(--index);
+                        if (index > 0)
+                        {
+                            SetHomePlugin(--index);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -527,18 +531,18 @@ namespace FFXIVAPP.Client
                         var latest = releases.Descendants()
                                              .Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            ?.Elements()
+                            .Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "title")
-                            ?.Value ?? "Unknown";
+                            .Value ?? "Unknown";
                         latest = latest.Split(' ')[0];
                         AppViewModel.Instance.LatestVersion = latest;
                         var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
                         AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
                                                                                               .Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            ?.Elements()
+                            .Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "content")
-                            ?.Value ?? "<h1>Notes Not Available</h1>");
+                            .Value ?? "<h1>Notes Not Available</h1>");
                         switch (latest)
                         {
                             case "Unknown":
@@ -727,7 +731,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "TARGET",
-                            Value = "750e85d2750ab9",
+                            Value = "750e85d2750ab9", // 7 digits
                             PointerPath = new List<long>()
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
@@ -1077,20 +1081,31 @@ namespace FFXIVAPP.Client
 
         public static void StopNetworkWorker()
         {
-            if (_networkWorker != null)
+            if (NetworkWorking)
             {
                 _networkWorker.StopScanning();
                 _networkWorker.Dispose();
+                _networkWorker = null;
+            }
+        }
+
+        public static bool NetworkWorking
+        {
+            get
+            {
+                return _networkWorker != null;
             }
         }
 
         public static void RefreshNetworkWorker()
         {
-            if (_networkWorker != null)
-            {
-                _networkWorker.StopScanning();
-                _networkWorker.Dispose();
-            }
+            Thread thread = new Thread(StartNetworkingThread);
+            thread.Start();
+        }
+
+        private static void StartNetworkingThread()
+        {
+            StopNetworkWorker();
             _networkWorker = new NetworkWorker();
             _networkWorker.StartScanning();
         }

@@ -110,7 +110,7 @@ namespace FFXIVAPP.Client.Memory
                         if (sig.Value == "")
                         {
                             // doesn't need a signature scan
-                            Locations.Add(sig.Key, sig);
+                            Locations[sig.Key] = sig;
                             continue;
                         }
                         sig.Value = sig.Value.Replace("*", "?"); // allows either ? or * to be used as wildcard

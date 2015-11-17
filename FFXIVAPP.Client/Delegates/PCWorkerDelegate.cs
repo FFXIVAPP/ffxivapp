@@ -37,34 +37,34 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Collection Access & Modification
 
-        public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
+        public static void EnsurePCEntity(UInt32 key, ActorEntity entity)
         {
-            NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
+            PCEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
 
-        public static ActorEntity GetNPCEntity(UInt32 key)
+        public static ActorEntity GetPCEntity(UInt32 key)
         {
-            ActorEntity npc;
-            NPCEntities.TryGetValue(key, out npc);
-            return npc;
+            ActorEntity pc;
+            PCEntities.TryGetValue(key, out pc);
+            return pc;
         }
 
-        public static bool RemoveNPCEntity(UInt32 key)
+        public static bool RemovePCEntity(UInt32 key)
         {
             ActorEntity removed;
-            return NPCEntities.TryRemove(key, out removed);
+            return PCEntities.TryRemove(key, out removed);
         }
 
         #endregion
 
         #region Declarations
 
-        private static ConcurrentDictionary<UInt32, ActorEntity> _npcEntities;
+        private static ConcurrentDictionary<UInt32, ActorEntity> _pcEntities;
 
-        public static ConcurrentDictionary<UInt32, ActorEntity> NPCEntities
+        public static ConcurrentDictionary<UInt32, ActorEntity> PCEntities
         {
-            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
-            private set { _npcEntities = value; }
+            get { return _pcEntities ?? (_pcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
+            private set { _pcEntities = value; }
         }
 
         public static ActorEntity CurrentUser { get; set; }

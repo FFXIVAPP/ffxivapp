@@ -194,9 +194,9 @@ namespace FFXIVAPP.Client.Memory
 
                             #region ActorEntity Handlers
 
-                            var currentMonsterEntries = MonsterWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentMonsterEntries = MonsterWorkerDelegate.MonsterEntities.Keys.ToDictionary(key => key);
                             var currentNPCEntries = NPCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
-                            var currentPCEntries = PCWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
+                            var currentPCEntries = PCWorkerDelegate.PCEntities.Keys.ToDictionary(key => key);
 
                             var newMonsterEntries = new List<UInt32>();
                             var newNPCEntries = new List<UInt32>();
@@ -228,6 +228,7 @@ namespace FFXIVAPP.Client.Memory
                                     }
 
                                     ActorEntity existing = null;
+                                    bool newEntry = false;
 
                                     switch (Type)
                                     {
@@ -235,22 +236,24 @@ namespace FFXIVAPP.Client.Memory
                                             if (currentMonsterEntries.ContainsKey(ID))
                                             {
                                                 currentMonsterEntries.Remove(ID);
-                                                existing = MonsterWorkerDelegate.GetNPCEntity(ID);
+                                                existing = MonsterWorkerDelegate.GetMonsterEntity(ID);
                                             }
                                             else
                                             {
                                                 newMonsterEntries.Add(ID);
+                                                newEntry = true;
                                             }
                                             break;
                                         case Actor.Type.PC:
                                             if (currentPCEntries.ContainsKey(ID))
                                             {
                                                 currentPCEntries.Remove(ID);
-                                                existing = PCWorkerDelegate.GetNPCEntity(ID);
+                                                existing = PCWorkerDelegate.GetPCEntity(ID);
                                             }
                                             else
                                             {
                                                 newPCEntries.Add(ID);
+                                                newEntry = true;
                                             }
                                             break;
                                         case Actor.Type.NPC:
@@ -262,6 +265,7 @@ namespace FFXIVAPP.Client.Memory
                                             else
                                             {
                                                 newNPCEntries.Add(NPCID2);
+                                                newEntry = true;
                                             }
                                             break;
                                         default:
@@ -273,6 +277,7 @@ namespace FFXIVAPP.Client.Memory
                                             else
                                             {
                                                 newNPCEntries.Add(ID);
+                                                newEntry = true;
                                             }
                                             break;
                                     }
@@ -287,6 +292,12 @@ namespace FFXIVAPP.Client.Memory
                                     //var actor = MemoryHandler.Instance.GetStructure<Structures.NPCEntry>(characterAddress);
                                     //var name = MemoryHandler.Instance.GetString(characterAddress, 48);
                                     //var entry = ActorEntityHelper.ResolveActorFromMemory(actor, name);
+
+                                    if (entry.Name == "Eos")
+                                    {
+
+                                    }
+
                                     entry.MapIndex = mapIndex;
                                     if (isFirstEntry)
                                     {
@@ -325,21 +336,26 @@ namespace FFXIVAPP.Client.Memory
                                     {
                                         continue;
                                     }
-                                    switch (entry.Type)
+
+                                    if (newEntry)
                                     {
-                                        case Actor.Type.Monster:
-                                            MonsterWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
-                                            break;
-                                        case Actor.Type.PC:
-                                            PCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
-                                            break;
-                                        case Actor.Type.NPC:
-                                            NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
-                                            break;
-                                        default:
-                                            NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
-                                            break;
+                                        switch (entry.Type)
+                                        {
+                                            case Actor.Type.Monster:
+                                                MonsterWorkerDelegate.EnsureMonsterEntity(entry.ID, entry);
+                                                break;
+                                            case Actor.Type.PC:
+                                                PCWorkerDelegate.EnsurePCEntity(entry.ID, entry);
+                                                break;
+                                            case Actor.Type.NPC:
+                                                NPCWorkerDelegate.EnsureNPCEntity(entry.NPCID2, entry);
+                                                break;
+                                            default:
+                                                NPCWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
+                                                break;
+                                        }
                                     }
+                                    
                                 }
                                 catch (Exception ex)
                                 {
@@ -348,12 +364,14 @@ namespace FFXIVAPP.Client.Memory
 
                             MemoryHandler._scanCount++;
 
-                            if (!ReferencesSet)
+
+
+                            //if (!ReferencesSet)
                             {
                                 ReferencesSet = true;
-                                AppContextHelper.Instance.RaiseNewMonsterEntries(MonsterWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewMonsterEntries(MonsterWorkerDelegate.MonsterEntities);
                                 AppContextHelper.Instance.RaiseNewNPCEntries(NPCWorkerDelegate.NPCEntities);
-                                AppContextHelper.Instance.RaiseNewPCEntries(PCWorkerDelegate.NPCEntities);
+                                AppContextHelper.Instance.RaiseNewPCEntries(PCWorkerDelegate.PCEntities);
                             }
 
                             if (newMonsterEntries.Any())
@@ -374,7 +392,7 @@ namespace FFXIVAPP.Client.Memory
                                 AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(currentMonsterEntries.Keys.ToList());
                                 foreach (var key in currentMonsterEntries.Keys)
                                 {
-                                    MonsterWorkerDelegate.RemoveNPCEntity(key);
+                                    MonsterWorkerDelegate.RemoveMonsterEntity(key);
                                 }
                             }
                             if (currentNPCEntries.Any())
@@ -390,9 +408,15 @@ namespace FFXIVAPP.Client.Memory
                                 AppContextHelper.Instance.RaiseNewPCRemovedEntries(currentPCEntries.Keys.ToList());
                                 foreach (var key in currentPCEntries.Keys)
                                 {
-                                    PCWorkerDelegate.RemoveNPCEntity(key);
+                                    PCWorkerDelegate.RemovePCEntity(key);
                                 }
                             }
+
+                            var tmpPet = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.OwnerID == PCWorkerDelegate.CurrentUser.ID).ToList();
+                            var tmp = MonsterWorkerDelegate.MonsterEntities.Where(x => x.Value.Name == "Eos").ToList();
+
+                            var tmp2 = MonsterWorkerDelegate.MonsterEntities.OrderBy(x => x.Value.Distance).ToList();
+
 
                             #endregion
                         }

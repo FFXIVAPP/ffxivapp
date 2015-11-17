@@ -115,7 +115,7 @@ namespace FFXIVAPP.Client
                 Initializer.SetGlobals();
 
                 Initializer.StartMemoryWorkers();
-                if (Settings.Default.EnableNetworkReading)
+                if (Settings.Default.EnableNetworkReading && !Initializer.NetworkWorking)
                 {
                     Initializer.StartNetworkWorker();
                 }

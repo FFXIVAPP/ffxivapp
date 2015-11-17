@@ -275,9 +275,9 @@ namespace FFXIVAPP.Client.Memory
                                             }
                                             if (String.IsNullOrWhiteSpace(enmityEntry.Name))
                                             {
-                                                var pc = PCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                                var pc = PCWorkerDelegate.GetPCEntity(enmityEntry.ID);
                                                 var npc = NPCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
-                                                var monster = MonsterWorkerDelegate.GetNPCEntity(enmityEntry.ID);
+                                                var monster = MonsterWorkerDelegate.GetMonsterEntity(enmityEntry.ID);
                                                 try
                                                 {
                                                     enmityEntry.Name = (pc ?? npc).Name ?? monster.Name;
@@ -294,8 +294,9 @@ namespace FFXIVAPP.Client.Memory
                                     }
                                 }
                                 targetEntity.EnmityEntries = enmityEntries;
-                                if (somethingFound)
+                                if (somethingFound || !ReferencesSet)
                                 {
+                                    ReferencesSet = true;
                                     AppContextHelper.Instance.RaiseNewTargetEntity(targetEntity);
                                 }
                             }
@@ -317,6 +318,7 @@ namespace FFXIVAPP.Client.Memory
 
         private readonly Timer _scanTimer;
         private bool _isScanning;
+        private bool ReferencesSet = false;
 
         #endregion
 

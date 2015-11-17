@@ -43,11 +43,9 @@ namespace FFXIVAPP.Client.Network
         public override bool Equals(object obj)
         {
             var connection = obj as ServerConnection;
-            if (connection == null)
-            {
+            if (connection == null || (int)this.SourceAddress != (int)connection.SourceAddress || ((int)this.DestinationAddress != (int)connection.DestinationAddress || (int)this.SourcePort != (int)connection.SourcePort))
                 return false;
-            }
-            return ((SourceAddress == connection.SourceAddress) && (DestinationAddress == connection.DestinationAddress));
+            return (int)this.DestinationPort == (int)connection.DestinationPort;
         }
 
         public override int GetHashCode()

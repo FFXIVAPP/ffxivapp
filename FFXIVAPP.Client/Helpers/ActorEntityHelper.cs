@@ -101,6 +101,10 @@ namespace FFXIVAPP.Client.Helpers
                         break;
                     default:
                         entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
+                        if (entry.Name == "Eos")
+                        {
+
+                        }
                         entry.ID = BitConverter.ToUInt32(source, 0x74);
                         entry.NPCID1 = BitConverter.ToUInt32(source, 0x7C);
                         entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);
@@ -203,9 +207,9 @@ namespace FFXIVAPP.Client.Helpers
                     };
                     try
                     {
-                        var pc = PCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var pc = PCWorkerDelegate.GetPCEntity(statusEntry.CasterID);
                         var npc = NPCWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
-                        var monster = MonsterWorkerDelegate.GetNPCEntity(statusEntry.CasterID);
+                        var monster = MonsterWorkerDelegate.GetMonsterEntity(statusEntry.CasterID);
                         statusEntry.SourceEntity = (pc ?? npc) ?? monster;
                     }
                     catch (Exception ex)

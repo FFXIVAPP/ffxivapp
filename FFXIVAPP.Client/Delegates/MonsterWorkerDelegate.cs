@@ -37,34 +37,34 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Collection Access & Modification
 
-        public static void EnsureNPCEntity(UInt32 key, ActorEntity entity)
+        public static void EnsureMonsterEntity(UInt32 key, ActorEntity entity)
         {
-            NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
+            MonsterEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
 
-        public static ActorEntity GetNPCEntity(UInt32 key)
+        public static ActorEntity GetMonsterEntity(UInt32 key)
         {
-            ActorEntity npc;
-            NPCEntities.TryGetValue(key, out npc);
-            return npc;
+            ActorEntity monster;
+            MonsterEntities.TryGetValue(key, out monster);
+            return monster;
         }
 
-        public static bool RemoveNPCEntity(UInt32 key)
+        public static bool RemoveMonsterEntity(UInt32 key)
         {
             ActorEntity removed;
-            return NPCEntities.TryRemove(key, out removed);
+            return MonsterEntities.TryRemove(key, out removed);
         }
 
         #endregion
 
         #region Declarations
 
-        private static ConcurrentDictionary<UInt32, ActorEntity> _npcEntities;
+        private static ConcurrentDictionary<UInt32, ActorEntity> _monsterEntities;
 
-        public static ConcurrentDictionary<UInt32, ActorEntity> NPCEntities
+        public static ConcurrentDictionary<UInt32, ActorEntity> MonsterEntities
         {
-            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
-            private set { _npcEntities = value; }
+            get { return _monsterEntities ?? (_monsterEntities = new ConcurrentDictionary<UInt32, ActorEntity>()); }
+            private set { _monsterEntities = value; }
         }
 
         #endregion

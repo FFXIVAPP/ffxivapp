@@ -32,12 +32,13 @@ using System.Net.Sockets;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class SocketObject
+    internal class SocketObject
     {
-        public byte[] Buffer = new byte[0x20000];
-        public List<NetworkConnection> Connections = new List<NetworkConnection>();
-        public string IPAddress;
-        public Socket Socket;
-        public object SocketLock = new object();
+        internal byte[] Buffer = new byte[0x20000];
+        internal List<NetworkConnection> Connections = new List<NetworkConnection>();
+        internal string IPAddress;
+        internal Socket Socket;
+        internal object SocketLock = new object();
+        internal WinPcapWrapper.Device device;
     }
 }
