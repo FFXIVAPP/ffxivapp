@@ -123,7 +123,7 @@ namespace FFXIVAPP.Client.ViewModels
         public void SetupGrouping()
         {
             var cvEvents = CollectionViewSource.GetDefaultView(UpdateView.View.AvailableDG.ItemsSource);
-            if (cvEvents != null && cvEvents.CanGroup == true)
+            if (cvEvents != null && cvEvents.CanGroup)
             {
                 cvEvents.GroupDescriptions.Clear();
                 cvEvents.GroupDescriptions.Add(new PropertyGroupDescription("Status"));

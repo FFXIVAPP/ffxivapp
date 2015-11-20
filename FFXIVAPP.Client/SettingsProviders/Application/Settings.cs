@@ -214,7 +214,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                     {
                         Key = "Enabled",
                         Value = xEnabled.ToString()
-                    },
+                    }
                 };
                 var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
                                                               .Value == xKey.ToString());

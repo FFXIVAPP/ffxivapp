@@ -318,7 +318,7 @@ namespace FFXIVAPP.Client.Memory
 
         private readonly Timer _scanTimer;
         private bool _isScanning;
-        private bool ReferencesSet = false;
+        private bool ReferencesSet;
 
         #endregion
 

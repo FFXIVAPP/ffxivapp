@@ -101,9 +101,6 @@ namespace FFXIVAPP.Client.Helpers
                         break;
                     default:
                         entry.Name = MemoryHandler.Instance.GetStringFromBytes(source, 48);
-                        if (entry.Name == "Eos")
-                        {
-                        }
                         entry.ID = BitConverter.ToUInt32(source, 0x74);
                         entry.NPCID1 = BitConverter.ToUInt32(source, 0x7C);
                         entry.NPCID2 = BitConverter.ToUInt32(source, 0x80);

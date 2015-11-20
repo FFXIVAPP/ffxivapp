@@ -131,7 +131,7 @@ namespace FFXIVAPP.Client
                         JA_HelpLabel = xJA_HelpLabel,
                         EN_HelpLabel = xEN_HelpLabel,
                         FR_HelpLabel = xFR_HelpLabel,
-                        DE_HelpLabel = xDE_HelpLabel,
+                        DE_HelpLabel = xDE_HelpLabel
                     });
                 }
             }
@@ -276,7 +276,7 @@ namespace FFXIVAPP.Client
                     {
                         Key = xKey,
                         SourceURI = xSourceURI,
-                        Enabled = xEnabled,
+                        Enabled = xEnabled
                     };
                     var found = UpdateViewModel.Instance.AvailableSources.Any(source => source.Key == pluginSourceItem.Key);
                     if (!found)
@@ -506,7 +506,7 @@ namespace FFXIVAPP.Client
                                   .GetName()
                                   .Version.ToString();
             AppViewModel.Instance.CurrentVersion = current;
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Format("https://github.com/Icehunter/ffxivapp/releases.atom"));
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/releases.atom");
             httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
             httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
             httpWebRequest.ContentType = "application/json; charset=utf-8";
@@ -536,18 +536,18 @@ namespace FFXIVAPP.Client
                         var latest = releases.Descendants()
                                              .Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "entry")
-                                             ?.Elements()
+                            ?.Elements()
                                              .FirstOrDefault(e => e.Name.LocalName == "title")
-                                             ?.Value ?? "Unknown";
+                            ?.Value ?? "Unknown";
                         latest = latest.Split(' ')[0];
                         AppViewModel.Instance.LatestVersion = latest;
                         var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
                         AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
                                                                                               .Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "entry")
-                                                                                              ?.Elements()
+                            ?.Elements()
                                                                                               .FirstOrDefault(e => e.Name.LocalName == "content")
-                                                                                              ?.Value ?? "<h1>Notes Not Available</h1>");
+                            ?.Value ?? "<h1>Notes Not Available</h1>");
                         switch (latest)
                         {
                             case "Unknown":
@@ -737,7 +737,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "TARGET",
                             Value = "750e85d2750ab9", // 7 digits
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT offsets
@@ -752,7 +752,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "CHATLOG",
                             Value = "8b55fc83e2f983ca098b4d08a1********515250E8********a1",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "ChatLogLenStart" offsets
@@ -768,7 +768,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "CHARMAP",
                             Value = "81feffff0000743581fe58010000732d8b3cb5",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "MobArray" offsets
@@ -779,7 +779,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "PARTYMAP",
                             Value = "85c074178b407450b9",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "PartyList" offsets
@@ -792,7 +792,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "MAP",
                             Value = "8b0d********85c975068b0d",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "ZoneID" offsets
@@ -804,7 +804,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "PLAYERINFO",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0x103F518
                             }
@@ -813,7 +813,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "AGRO",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0x103EBF4
                             }
@@ -821,7 +821,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "AGRO_COUNT",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0x103EBF4 + 0x900
                             }
@@ -829,7 +829,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "ENMITYMAP",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0x103E2EC
                             }
@@ -837,7 +837,7 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "PARTYCOUNT",
-                            PointerPath = new List<long>()
+                            PointerPath = new List<long>
                             {
                                 0x10A5E6C
                             }
@@ -971,11 +971,8 @@ namespace FFXIVAPP.Client
                 return Constants.ProcessModels.First()
                                 .Process.Id;
             }
-            else
-            {
-                Constants.IsOpen = false;
-                return -1;
-            }
+            Constants.IsOpen = false;
+            return -1;
         }
 
         /// <summary>

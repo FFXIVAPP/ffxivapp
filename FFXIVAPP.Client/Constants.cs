@@ -39,7 +39,7 @@ using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Client
 {
-    public static partial class Constants
+    public static class Constants
     {
         #region Declarations
 

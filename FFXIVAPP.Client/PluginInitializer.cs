@@ -29,7 +29,7 @@
 
 namespace FFXIVAPP.Client
 {
-    internal static partial class PluginInitializer
+    internal static class PluginInitializer
     {
     }
 }

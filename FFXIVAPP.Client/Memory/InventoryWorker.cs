@@ -255,8 +255,8 @@ namespace FFXIVAPP.Client.Memory
                         ID = (uint) id,
                         Slot = MemoryHandler.Instance.GetByte(itemOffset, 0x4),
                         Amount = MemoryHandler.Instance.GetByte(itemOffset, 0xC),
-                        SB = (uint) MemoryHandler.Instance.GetUInt16(itemOffset, 0x10),
-                        Durability = (uint) MemoryHandler.Instance.GetUInt16(itemOffset, 0x12),
+                        SB = MemoryHandler.Instance.GetUInt16(itemOffset, 0x10),
+                        Durability = MemoryHandler.Instance.GetUInt16(itemOffset, 0x12),
                         GlamourID = (uint) MemoryHandler.Instance.GetPlatformUInt(itemOffset, 0x30),
                         //get the flag that show if the item is hq or not
                         IsHQ = (MemoryHandler.Instance.GetByte(itemOffset, 0x14) == 0x01)

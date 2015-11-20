@@ -63,7 +63,7 @@ namespace FFXIVAPP.Client.Network
                         _acknowledgementNumber = (uint) IPAddress.NetworkToHostOrder(binaryReader.ReadInt32());
                         _flags = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
                         _window = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
-                        _checksum = (short) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
+                        _checksum = IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
                         _urgentPointer = (ushort) IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
                         _headerLength = (byte) (_flags >> 12);
                         _headerLength *= 4;

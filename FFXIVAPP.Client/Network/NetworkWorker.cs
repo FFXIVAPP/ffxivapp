@@ -57,10 +57,6 @@ namespace FFXIVAPP.Client.Network
 
         #endregion
 
-        public NetworkWorker()
-        {
-        }
-
         #region Implementation of IDisposable
 
         public void Dispose()
@@ -91,7 +87,7 @@ namespace FFXIVAPP.Client.Network
             var interfaces = GetNetworkInterfaces();
             foreach (var item in interfaces.Where(x => !String.IsNullOrWhiteSpace(x)))
             {
-                Sockets.Add(new SocketObject()
+                Sockets.Add(new SocketObject
                 {
                     IPAddress = item
                 });
@@ -256,8 +252,8 @@ namespace FFXIVAPP.Client.Network
             {
                 SourceAddress = (uint) BitConverter.ToInt32(byteData, 12),
                 DestinationAddress = (uint) BitConverter.ToInt32(byteData, 16),
-                SourcePort = (ushort) BitConverter.ToInt16(byteData, (int) startIndex),
-                DestinationPort = (ushort) BitConverter.ToInt16(byteData, (int) startIndex + 2),
+                SourcePort = (ushort) BitConverter.ToInt16(byteData, startIndex),
+                DestinationPort = (ushort) BitConverter.ToInt16(byteData, startIndex + 2),
                 TimeStamp = DateTime.Now
                 /*
                     // these don't return the right ports for some reason
@@ -297,7 +293,7 @@ namespace FFXIVAPP.Client.Network
                 return;
             }
 
-            if ((int) lengthCheck == (int) startIndex + (int) cut)
+            if (lengthCheck == startIndex + cut)
             {
                 return;
             }
@@ -337,7 +333,7 @@ namespace FFXIVAPP.Client.Network
 
                 if (!connection.NextTCPSequence.HasValue)
                 {
-                    connection.NextTCPSequence = new uint?(nextTCPSequence);
+                    connection.NextTCPSequence = nextTCPSequence;
                 }
                 if (connection.StalePackets.Count == 1)
                 {
@@ -457,7 +453,7 @@ namespace FFXIVAPP.Client.Network
                     default:
                         try
                         {
-                            using (var decompressedStream = new DeflateStream((Stream) new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A), CompressionMode.Decompress))
+                            using (var decompressedStream = new DeflateStream(new MemoryStream(destinationArray, 0x2A, destinationArray.Length - 0x2A), CompressionMode.Decompress))
                             {
                                 messageLength = decompressedStream.Read(bytes, 0, bytes.Length);
                             }
@@ -822,8 +818,8 @@ namespace FFXIVAPP.Client.Network
                 do
                 {
                     comparand = eventHandler1;
-                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Combine((Delegate) comparand, (Delegate) value);
-                    eventHandler1 = Interlocked.CompareExchange<EventHandler<DataReceivedEventArgs>>(ref _DataReceived, eventHandler2, comparand);
+                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Combine(comparand, value);
+                    eventHandler1 = Interlocked.CompareExchange(ref _DataReceived, eventHandler2, comparand);
                 }
                 while (eventHandler1 != comparand);
             }
@@ -834,8 +830,8 @@ namespace FFXIVAPP.Client.Network
                 do
                 {
                     comparand = eventHandler1;
-                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Remove((Delegate) comparand, (Delegate) value);
-                    eventHandler1 = Interlocked.CompareExchange<EventHandler<DataReceivedEventArgs>>(ref _DataReceived, eventHandler2, comparand);
+                    var eventHandler2 = (EventHandler<DataReceivedEventArgs>) Delegate.Remove(comparand, value);
+                    eventHandler1 = Interlocked.CompareExchange(ref _DataReceived, eventHandler2, comparand);
                 }
                 while (eventHandler1 != comparand);
             }
@@ -878,7 +874,7 @@ namespace FFXIVAPP.Client.Network
             {
                 return;
             }
-            eventHandler((object) null, e);
+            eventHandler(null, e);
         }
 
         public static IList<Device> GetAllDevices()
@@ -890,7 +886,7 @@ namespace FFXIVAPP.Client.Network
                 var errbuff = new StringBuilder(256);
                 if (pcap_findalldevs(ref alldevsp, errbuff) != 0)
                 {
-                    throw new ApplicationException("Cannot enumerate devices: [" + errbuff.ToString() + "].");
+                    throw new ApplicationException("Cannot enumerate devices: [" + errbuff + "].");
                 }
                 pcap_if pcapIf;
                 for (var ptr1 = alldevsp; ptr1 != IntPtr.Zero; ptr1 = pcapIf.next)
@@ -907,9 +903,9 @@ namespace FFXIVAPP.Client.Network
                         if (pcapAddr.addr != IntPtr.Zero)
                         {
                             var sockaddrIn = (sockaddr_in) Marshal.PtrToStructure(pcapAddr.addr, typeof (sockaddr_in));
-                            if ((int) sockaddrIn.sin_family == 2)
+                            if (sockaddrIn.sin_family == 2)
                             {
-                                device.Addresses.Add(sockaddrIn.sin_addr[0].ToString() + "." + sockaddrIn.sin_addr[1].ToString() + "." + sockaddrIn.sin_addr[2].ToString() + "." + sockaddrIn.sin_addr[3].ToString());
+                                device.Addresses.Add(sockaddrIn.sin_addr[0] + "." + sockaddrIn.sin_addr[1] + "." + sockaddrIn.sin_addr[2] + "." + sockaddrIn.sin_addr[3]);
                             }
                         }
                     }
@@ -927,7 +923,7 @@ namespace FFXIVAPP.Client.Network
                     pcap_freealldevs(alldevsp);
                 }
             }
-            return (IList<Device>) list;
+            return list;
         }
 
         public static void StartCapture(SocketObject state)
@@ -951,7 +947,7 @@ namespace FFXIVAPP.Client.Network
                     deviceState1.Handle = pcap_open(state.device.Name, 65536, 0, 500, IntPtr.Zero, errbuff);
                     if (deviceState1.Handle == IntPtr.Zero)
                     {
-                        throw new ApplicationException("Cannot open pcap interface [" + state.device.Name + "].  Error: " + errbuff.ToString());
+                        throw new ApplicationException("Cannot open pcap interface [" + state.device.Name + "].  Error: " + errbuff);
                     }
                     deviceState1.LinkType = pcap_datalink(deviceState1.Handle);
                     if (deviceState1.LinkType != 1 && deviceState1.LinkType != 0)
@@ -981,7 +977,7 @@ namespace FFXIVAPP.Client.Network
                 {
                     Marshal.FreeHGlobal(num);
                 }
-                ThreadPool.QueueUserWorkItem(new WaitCallback(PollNetworkDevice), (object) _activeDevices[state.device.Name]);
+                ThreadPool.QueueUserWorkItem(PollNetworkDevice, _activeDevices[state.device.Name]);
             }
         }
 
@@ -1043,9 +1039,9 @@ namespace FFXIVAPP.Client.Network
                 else
                 {
                     var pcapPkthdr = (pcap_pkthdr) Marshal.PtrToStructure(pkt_header, typeof (pcap_pkthdr));
-                    if ((long) pcapPkthdr.caplen > (long) offset)
+                    if (pcapPkthdr.caplen > offset)
                     {
-                        var destination = new byte[(long) pcapPkthdr.caplen - (long) offset];
+                        var destination = new byte[pcapPkthdr.caplen - offset];
                         Marshal.Copy(IntPtr.Add(pkt_data, offset), destination, 0, (int) pcapPkthdr.caplen - offset);
                         var e = new DataReceivedEventArgs();
                         e.Data = destination;

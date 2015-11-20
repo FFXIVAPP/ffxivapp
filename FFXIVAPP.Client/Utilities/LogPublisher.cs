@@ -31,7 +31,7 @@ using NLog;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public static partial class LogPublisher
+    public static class LogPublisher
     {
         #region Logger
 

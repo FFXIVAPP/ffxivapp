@@ -58,7 +58,7 @@ namespace FFXIVAPP.Client.Helpers
                     HPMax = actorEntity.HPMax,
                     MPCurrent = actorEntity.MPCurrent,
                     MPMax = actorEntity.MPMax,
-                    StatusEntries = actorEntity.StatusEntries,
+                    StatusEntries = actorEntity.StatusEntries
                 };
                 CleanXPValue(ref entry);
                 return entry;

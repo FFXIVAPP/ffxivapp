@@ -35,8 +35,8 @@ namespace FFXIVAPP.Client.Memory
 {
     public class Signature
     {
-        private int _Offset = 0;
-        private bool offsetSet = false;
+        private int _Offset;
+        private bool offsetSet;
 
         public Signature()
         {
