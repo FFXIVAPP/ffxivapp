@@ -664,6 +664,128 @@ namespace FFXIVAPP.Client
                 default:
                     if (IsWin64)
                     {
+                        // can still use old style entry of signatures
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "GAMEMAIN",
+                            Value = "47616D654D61696E000000",
+                            Offset = 1344 // is this even used anymore?
+                        });
+
+                        // or a combination of signature and offset from that signature
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "TARGET",
+                            Value = "0f84a005000048896808488978104c8960184c8968e8488d0d", // 25 digits
+                            PointerPath = new List<long>
+                            {
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT offsets
+                                144L
+                                    // values above are "Target" from ACT. Adjust to what ffxivapp expects:
+                                + 36L
+                            }
+                        });
+
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "CHATLOG",
+                            Value = "e8********85c0740e488b0d********33D2E8********488b0d",
+                            PointerPath = new List<long>
+                            {
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "ChatLogLenStart" offsets
+                                0L,
+                                48L,
+                                1048L
+                                    // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
+                                - 0x24
+                            }
+                        });
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "CHARMAP",
+                            Value = "48c1e8033dffff0000742b3da80100007324488d0d",
+                            PointerPath = new List<long>
+                            {
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "MobArray" offsets
+                                4L
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYMAP",
+                            Value = "85d27508b0014883c4205bc3488d0d",
+                            PointerPath = new List<long>
+                            {
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "PartyList" offsets
+                                0L
+                                    // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
+                                + 0x10
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "MAP",
+                            Value = "b83d020000488bac24a00000004883c4705f5e5bc38b0d",
+                            PointerPath = new List<long>
+                            {
+                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
+                                // Start ACT "ZoneID" offsets
+                                0L
+                            }
+                        });
+
+                        // or just pure offsets from base address
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PLAYERINFO",
+                            PointerPath = new List<long>
+                            {
+                                0x103F518
+                            }
+                        });
+
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "AGRO",
+                            PointerPath = new List<long>
+                            {
+                                0x103EBF4
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "AGRO_COUNT",
+                            PointerPath = new List<long>
+                            {
+                                0x103EBF4 + 0x900
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "ENMITYMAP",
+                            PointerPath = new List<long>
+                            {
+                                0x103E2EC
+                            }
+                        });
+                        AppViewModel.Instance.Signatures.Add(new Signature
+                        {
+                            Key = "PARTYCOUNT",
+                            PointerPath = new List<long>
+                            {
+                                0x10A5E6C
+                            }
+                        });
+
+
+
+
                         // TODO: Need to do all 64 bit values still
                         /*
                         AppViewModel.Instance.Signatures.Add(new Signature

@@ -91,9 +91,10 @@ namespace FFXIVAPP.Client.Memory
         }
         */
 
-        public static IntPtr ResolvePointerPath(IEnumerable<long> path, IntPtr baseAddress)
+        public static IntPtr ResolvePointerPath(IEnumerable<long> path, IntPtr baseAddress, bool FirstIsOffsetAddress = false)
         {
             var nextAddress = baseAddress;
+            
 
             foreach (var offset in path)
             {
@@ -104,7 +105,17 @@ namespace FFXIVAPP.Client.Memory
                     {
                         return IntPtr.Zero;
                     }
-                    nextAddress = Instance.ReadPointer(baseAddress);
+
+                    if (FirstIsOffsetAddress)
+                    {
+                        nextAddress = baseAddress + Instance.GetInt32(baseAddress.ToInt64());
+                        FirstIsOffsetAddress = false;
+                    }
+                    else
+                    {
+                        nextAddress = Instance.ReadPointer(baseAddress);
+                    }
+
                 }
                 catch
                 {

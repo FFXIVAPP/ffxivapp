@@ -158,7 +158,7 @@ namespace FFXIVAPP.Client.Memory
                     {
                         _regions.Add(info);
                     }
-                    address = info.BaseAddress + (int) info.RegionSize;
+                    address = IntPtr.Add(info.BaseAddress, info.RegionSize.ToInt32());
                 }
             }
             catch (Exception ex)
@@ -305,9 +305,9 @@ namespace FFXIVAPP.Client.Memory
                     IntPtr lpNumberOfBytesRead;
                     var regionSize = new IntPtr(bufferSize);
                     if (IntPtr.Add(searchStart, bufferSize)
-                              .ToInt64() > searchEnd.ToInt64())
+                                .ToInt64() > searchEnd.ToInt64())
                     {
-                        regionSize = (IntPtr) (searchEnd.ToInt64() - searchStart.ToInt64());
+                        regionSize = (IntPtr)(searchEnd.ToInt64() - searchStart.ToInt64());
                     }
                     if (UnsafeNativeMethods.ReadProcessMemory(MemoryHandler.Instance.ProcessHandle, searchStart, lpBuffer, regionSize, out lpNumberOfBytesRead))
                     {
@@ -319,7 +319,7 @@ namespace FFXIVAPP.Client.Memory
                                 temp.Add(signature);
                                 continue;
                             }
-                            var baseResult = new IntPtr((long) (baseAddress + (regionCount * bufferSize)));
+                            var baseResult = new IntPtr((long)(baseAddress + (regionCount * bufferSize)));
                             var searchResult = IntPtr.Add(baseResult, idx + signature.Offset);
                             signature.SigScanAddress = new IntPtr(searchResult.ToInt64());
                             Locations.Add(signature.Key, signature);

@@ -74,9 +74,13 @@ namespace FFXIVAPP.Client.Memory
         public IntPtr GetAddress()
         {
             var baseAddress = IntPtr.Zero;
+
+            bool FirstIsOffsetAddress = false;
+
             if (SigScanAddress != IntPtr.Zero)
             {
                 baseAddress = SigScanAddress; // SigScanner should have already applied the base offset
+                FirstIsOffsetAddress = true;
             }
             else
             {
@@ -92,7 +96,7 @@ namespace FFXIVAPP.Client.Memory
                 return baseAddress;
             }
 
-            return MemoryHandler.ResolvePointerPath(PointerPath, baseAddress);
+            return MemoryHandler.ResolvePointerPath(PointerPath, baseAddress, FirstIsOffsetAddress);
         }
 
         // convenience conversion for less code breakage. 

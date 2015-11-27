@@ -156,7 +156,9 @@ namespace FFXIVAPP.Client.Memory
                             var endianSize = MemoryHandler.Instance.ProcessModel.IsWin64 ? 8 : 4;
                             const int limit = 1372;
 
-                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"], endianSize * limit);
+                            long addr = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
+
+                            var characterAddressMap = MemoryHandler.Instance.GetByteArray(addr, endianSize * limit);
 
                             var uniqueAddresses = new Dictionary<IntPtr, IntPtr>();
 
