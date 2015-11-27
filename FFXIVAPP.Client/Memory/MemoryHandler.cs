@@ -108,7 +108,7 @@ namespace FFXIVAPP.Client.Memory
 
                     if (FirstIsOffsetAddress)
                     {
-                        nextAddress = baseAddress + Instance.GetInt32(baseAddress.ToInt64());
+                        nextAddress = baseAddress + Instance.GetInt32(baseAddress.ToInt64()) + 4;
                         FirstIsOffsetAddress = false;
                     }
                     else

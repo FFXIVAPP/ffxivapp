@@ -676,14 +676,15 @@ namespace FFXIVAPP.Client
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "TARGET",
-                            Value = "0f84a005000048896808488978104c8960184c8968e8488d0d", // 25 digits
+                            Value = "0f84a005000048896808488978104c8960184c8968e8488d0d", // 25 digits,
+                            ASMSignature = true,
                             PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT offsets
                                 144L
                                     // values above are "Target" from ACT. Adjust to what ffxivapp expects:
-                                + 36L
+                                + 32L
                             }
                         });
 
@@ -692,6 +693,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "CHATLOG",
                             Value = "e8********85c0740e488b0d********33D2E8********488b0d",
+                            ASMSignature = true,
                             PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
@@ -708,17 +710,19 @@ namespace FFXIVAPP.Client
                         {
                             Key = "CHARMAP",
                             Value = "48c1e8033dffff0000742b3da80100007324488d0d",
+                            ASMSignature = true,
                             PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
                                 // Start ACT "MobArray" offsets
-                                4L
+                                0L
                             }
                         });
                         AppViewModel.Instance.Signatures.Add(new Signature
                         {
                             Key = "PARTYMAP",
                             Value = "85d27508b0014883c4205bc3488d0d",
+                            ASMSignature = true,
                             PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
@@ -732,6 +736,7 @@ namespace FFXIVAPP.Client
                         {
                             Key = "MAP",
                             Value = "b83d020000488bac24a00000004883c4705f5e5bc38b0d",
+                            ASMSignature = true,
                             PointerPath = new List<long>
                             {
                                 0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.

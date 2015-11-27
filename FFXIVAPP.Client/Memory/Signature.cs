@@ -51,6 +51,7 @@ namespace FFXIVAPP.Client.Memory
         public string Value { get; set; }
         public Regex RegularExpress { get; set; }
         public IntPtr SigScanAddress { get; set; }
+        public bool ASMSignature { get; set; }
 
         public int Offset
         {
@@ -80,7 +81,10 @@ namespace FFXIVAPP.Client.Memory
             if (SigScanAddress != IntPtr.Zero)
             {
                 baseAddress = SigScanAddress; // SigScanner should have already applied the base offset
-                FirstIsOffsetAddress = true;
+                if (MemoryHandler.Instance.ProcessModel.IsWin64 && ASMSignature)
+                {
+                    FirstIsOffsetAddress = true;
+                }
             }
             else
             {
