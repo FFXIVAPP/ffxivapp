@@ -5,6 +5,7 @@ del Release.zip /q
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Client.exe.nlog
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Common.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.IPluginInterface.dll
+"C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Memory.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip FFXIVAPP.Updater.exe
 "C:\Program Files\7-Zip\7z.exe" a Release.zip HtmlAgilityPack.dll
 "C:\Program Files\7-Zip\7z.exe" a Release.zip Ionic.Zip.dll
