@@ -44,10 +44,6 @@ namespace FFXIVAPP.Updater
 
         #endregion
 
-        #region Property Bindings
-
-        #endregion
-
         private App()
         {
             Startup += ApplicationStartup;
@@ -104,5 +100,9 @@ namespace FFXIVAPP.Updater
             e.RequestCatch = true;
             MessageBox.Show(e.Exception.Message);
         }
+
+        #region Property Bindings
+
+        #endregion
     }
 }

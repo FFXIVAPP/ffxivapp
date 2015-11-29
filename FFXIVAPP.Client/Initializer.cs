@@ -52,6 +52,8 @@ using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Memory;
+using FFXIVAPP.Memory.Models;
 using Newtonsoft.Json.Linq;
 using NLog;
 
@@ -500,557 +502,96 @@ namespace FFXIVAPP.Client
             catch (Exception ex)
             {
             }
-            //Func<bool> updateCheck = delegate
-            //{
-            var current = Assembly.GetExecutingAssembly()
-                                  .GetName()
-                                  .Version.ToString();
-            AppViewModel.Instance.CurrentVersion = current;
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/releases.atom");
-            httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
-            httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
-            httpWebRequest.ContentType = "application/json; charset=utf-8";
-            httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
+            Func<bool> updateCheck = delegate
             {
-                using (var response = httpResponse.GetResponseStream())
+                var current = Assembly.GetExecutingAssembly()
+                                      .GetName()
+                                      .Version.ToString();
+                AppViewModel.Instance.CurrentVersion = current;
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/releases.atom");
+                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                using (var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse())
                 {
-                    var responseText = "";
-                    if (response != null)
+                    using (var response = httpResponse.GetResponseStream())
                     {
-                        using (var streamReader = new StreamReader(response))
+                        var responseText = "";
+                        if (response != null)
                         {
-                            responseText = streamReader.ReadToEnd();
+                            using (var streamReader = new StreamReader(response))
+                            {
+                                responseText = streamReader.ReadToEnd();
+                            }
                         }
-                    }
-                    var latestBuild = new BuildNumber();
-                    var currentBuild = new BuildNumber();
-                    if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
-                    {
-                        AppViewModel.Instance.HasNewVersion = false;
-                        AppViewModel.Instance.LatestVersion = "Unknown";
-                    }
-                    else
-                    {
-                        var releases = XDocument.Parse(responseText);
-                        var latest = releases.Descendants()
-                                             .Elements()
-                                             .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            ?.Elements()
-                                             .FirstOrDefault(e => e.Name.LocalName == "title")
-                            ?.Value ?? "Unknown";
-                        latest = latest.Split(' ')[0];
-                        AppViewModel.Instance.LatestVersion = latest;
-                        var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
-                        AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
-                                                                                              .Elements()
-                                                                                              .FirstOrDefault(e => e.Name.LocalName == "entry")
-                            ?.Elements()
-                                                                                              .FirstOrDefault(e => e.Name.LocalName == "content")
-                            ?.Value ?? "<h1>Notes Not Available</h1>");
-                        switch (latest)
+                        var latestBuild = new BuildNumber();
+                        var currentBuild = new BuildNumber();
+                        if (httpResponse.StatusCode != HttpStatusCode.OK || String.IsNullOrWhiteSpace(responseText))
                         {
-                            case "Unknown":
-                                AppViewModel.Instance.HasNewVersion = false;
-                                break;
-                            default:
-                                AppViewModel.Instance.DownloadUri = String.Format("https://github.com/Icehunter/ffxivapp/releases/download/{0}/{0}.zip", latest);
-                                AppViewModel.Instance.HasNewVersion = BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild);
-                                break;
+                            AppViewModel.Instance.HasNewVersion = false;
+                            AppViewModel.Instance.LatestVersion = "Unknown";
                         }
+                        else
+                        {
+                            var releases = XDocument.Parse(responseText);
+                            var latest = releases.Descendants()
+                                                 .Elements()
+                                                 .FirstOrDefault(e => e.Name.LocalName == "entry")
+                                ?.Elements()
+                                                 .FirstOrDefault(e => e.Name.LocalName == "title")
+                                ?.Value ?? "Unknown";
+                            latest = latest.Split(' ')[0];
+                            AppViewModel.Instance.LatestVersion = latest;
+                            var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
+                            AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
+                                                                                                  .Elements()
+                                                                                                  .FirstOrDefault(e => e.Name.LocalName == "entry")
+                                ?.Elements()
+                                                                                                  .FirstOrDefault(e => e.Name.LocalName == "content")
+                                ?.Value ?? "<h1>Notes Not Available</h1>");
+                            switch (latest)
+                            {
+                                case "Unknown":
+                                    AppViewModel.Instance.HasNewVersion = false;
+                                    break;
+                                default:
+                                    AppViewModel.Instance.DownloadUri = String.Format("https://github.com/Icehunter/ffxivapp/releases/download/{0}/{0}.zip", latest);
+                                    AppViewModel.Instance.HasNewVersion = BuildUtilities.NeedsUpdate(latest, current, ref latestBuild, ref currentBuild);
+                                    break;
+                            }
 
-                        if (AppViewModel.Instance.HasNewVersion)
-                        {
-                            var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
-                            var message = new StringBuilder();
-                            try
+                            if (AppViewModel.Instance.HasNewVersion)
                             {
-                                var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild.Build + TimeSpan.TicksPerSecond * 2 * latestBuild.Revision));
-                                var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
-                                var timeSpan = latestBuildDateTime - currentBuildDateTime;
-                                if (timeSpan.TotalSeconds > 0)
+                                var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
+                                var message = new StringBuilder();
+                                try
                                 {
-                                    message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+                                    var latestBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * latestBuild.Build + TimeSpan.TicksPerSecond * 2 * latestBuild.Revision));
+                                    var currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
+                                    var timeSpan = latestBuildDateTime - currentBuildDateTime;
+                                    if (timeSpan.TotalSeconds > 0)
+                                    {
+                                        message.AppendLine(String.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+                                    }
                                 }
+                                catch (Exception ex)
+                                {
+                                }
+                                finally
+                                {
+                                    message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
+                                }
+                                MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                             }
-                            catch (Exception ex)
-                            {
-                            }
-                            finally
-                            {
-                                message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
-                            }
-                            MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
+                            var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                            DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                         }
-                        var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
-                        DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                     }
                 }
-            }
-            //return true;
-            //};
-            //updateCheck.BeginInvoke(null, null);
-        }
-
-        /// <summary>
-        /// </summary>
-        public static void SetSignatures(bool IsWin64 = false)
-        {
-            AppViewModel.Instance.Signatures.Clear();
-            switch (Settings.Default.GameLanguage)
-            {
-                case "Chinese":
-                    if (IsWin64)
-                    {
-                    }
-                    else
-                    {
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "GAMEMAIN",
-                            Value = "47616D654D61696E000000",
-                            Offset = 1248
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHARMAP",
-                            Value = "00000000DB0FC93FDB0F49416F1283????FFFFFF000000??000000??DB0FC93FDB0F49416F1283????FFFFFF",
-                            Offset = 872
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "NPCMAP",
-                            Value = "3E000000????????4000000001000000000000000001000000",
-                            Offset = 2716
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ACTORMAP",
-                            Value = "3E000000????????4000000001000000000000000001000000",
-                            Offset = 1316
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYMAP",
-                            Value = "DB0F49416F1283??FFFFFFFF0000000000000000DB0FC93FDB0F49416F1283??00",
-                            Offset = 52
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYCOUNT",
-                            Value = "5F50617274794C69737400",
-                            Offset = 1340
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "MAP",
-                            Value = "F783843E????????????????FFFFFFFFDB0FC93FDB0F49416F12833A",
-                            Offset = 896
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "TARGET",
-                            Value = "DB0FC93FDB0F49416F1283????FFFFFFDB0FC940920A063F",
-                            Offset = 172
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "INVENTORY",
-                            Value = "DB0FC93FDB0F49416F1283??FFFFFFFF0000000000000000000000000000000000000000DB0FC93FDB0F49416F1283??FFFFFFFF",
-                            Offset = 56
-                        });
-                    }
-                    break;
-                default:
-                    if (IsWin64)
-                    {
-                        // can still use old style entry of signatures
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "GAMEMAIN",
-                            Value = "47616D654D61696E000000",
-                            Offset = 1344 // is this even used anymore?
-                        });
-
-                        // or a combination of signature and offset from that signature
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "TARGET",
-                            Value = "0f84a005000048896808488978104c8960184c8968e8488d0d", // 25 digits,
-                            ASMSignature = true,
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT offsets
-                                144L
-                                    // values above are "Target" from ACT. Adjust to what ffxivapp expects:
-                                + 32L
-                            }
-                        });
-
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHATLOG",
-                            Value = "e8********85c0740e488b0d********33D2E8********488b0d",
-                            ASMSignature = true,
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "ChatLogLenStart" offsets
-                                0L,
-                                48L,
-                                1048L
-                                    // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
-                                - 0x24
-                            }
-                        });
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHARMAP",
-                            Value = "48c1e8033dffff0000742b3da80100007324488d0d",
-                            ASMSignature = true,
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "MobArray" offsets
-                                0L
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYMAP",
-                            Value = "85d27508b0014883c4205bc3488d0d",
-                            ASMSignature = true,
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "PartyList" offsets
-                                0L
-                                    // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
-                                + 0x10
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "MAP",
-                            Value = "b83d020000488bac24a00000004883c4705f5e5bc38b0d",
-                            ASMSignature = true,
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "ZoneID" offsets
-                                0L
-                            }
-                        });
-
-                        // or just pure offsets from base address
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PLAYERINFO",
-                            PointerPath = new List<long>
-                            {
-                                0x103F518
-                            }
-                        });
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "AGRO",
-                            PointerPath = new List<long>
-                            {
-                                0x103EBF4
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "AGRO_COUNT",
-                            PointerPath = new List<long>
-                            {
-                                0x103EBF4 + 0x900
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ENMITYMAP",
-                            PointerPath = new List<long>
-                            {
-                                0x103E2EC
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYCOUNT",
-                            PointerPath = new List<long>
-                            {
-                                0x10A5E6C
-                            }
-                        });
-
-
-
-
-                        // TODO: Need to do all 64 bit values still
-                        /*
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "GAMEMAIN",
-                            Value = "47616D654D61696E000000",
-                            Offset = 1672
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHARMAP",
-                            Value = "DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A000000000000000000000000????0000????0000FFFFFFFF",
-                            Offset = 60
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ENMITYMAP",
-                            Value = "FFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000????????????????????????????????????????????DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
-                            Offset = 96 // pre 3.0 2.4
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYMAP",
-                            Value = "FFFFFFFF00000000000000000000000000000000000000000000000000000000000000000000000000000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
-                            Offset = -188764
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYCOUNT",
-                            Value = "5F50617274794C69737400",
-                            Offset = 2416
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "MAP",
-                            Value = "F783843E????????????????????????FFFFFFFFDB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A",
-                            Offset = 3092
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "TARGET",
-                            Value = "DB0F49416F12833AFFFFFFFF0000000000000000000000000000000000000000????????00000000DB0FC940AAAA26416E30763FDB0FC93FDB0F49416F12833A0000000000000000",
-                            Offset = 472
-                        });
-                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
-                        {
-                            0x1679030
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
-                        {
-                            0x1678708 + 8
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
-                        {
-                            0x1679010
-                        };
-                        */
-                    }
-                    else
-                    {
-                        // can still use old style entry of signatures
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "GAMEMAIN",
-                            Value = "47616D654D61696E000000",
-                            Offset = 1344 // is this even used anymore?
-                        });
-
-                        // or a combination of signature and offset from that signature
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "TARGET",
-                            Value = "750e85d2750ab9", // 7 digits
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT offsets
-                                88L
-                                    // values above are "Target" from ACT. Adjust to what ffxivapp expects:
-                                + 16L
-                            }
-                        });
-
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHATLOG",
-                            Value = "8b55fc83e2f983ca098b4d08a1********515250E8********a1",
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "ChatLogLenStart" offsets
-                                0L,
-                                24L,
-                                736L
-                                    // values above are "ChatLogLenStart" from ACT. Adjust to what ffxivapp expects:
-                                - 0x24
-                            }
-                        });
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHARMAP",
-                            Value = "81feffff0000743581fe58010000732d8b3cb5",
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "MobArray" offsets
-                                0L
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYMAP",
-                            Value = "85c074178b407450b9",
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "PartyList" offsets
-                                0L
-                                    // values above are "PartyList" from ACT. Adjust to what ffxivapp expects:
-                                + 0x10
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "MAP",
-                            Value = "8b0d********85c975068b0d",
-                            PointerPath = new List<long>
-                            {
-                                0L, // ACT assumes the first entry after the signature is the pointer. Manually do a zero offset to replicate.
-                                // Start ACT "ZoneID" offsets
-                                0L
-                            }
-                        });
-
-                        // or just pure offsets from base address
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PLAYERINFO",
-                            PointerPath = new List<long>
-                            {
-                                0x103F518
-                            }
-                        });
-
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "AGRO",
-                            PointerPath = new List<long>
-                            {
-                                0x103EBF4
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "AGRO_COUNT",
-                            PointerPath = new List<long>
-                            {
-                                0x103EBF4 + 0x900
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ENMITYMAP",
-                            PointerPath = new List<long>
-                            {
-                                0x103E2EC
-                            }
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYCOUNT",
-                            PointerPath = new List<long>
-                            {
-                                0x10A5E6C
-                            }
-                        });
-
-
-                        // TODO: Update the following for patch 3.1
-                        /*
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "INVENTORY",
-                            Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
-                            Offset = 106
-                        });
-                         
-                         */
-
-
-                        //
-                        // These have already been implemented in the new style. Old info here for reference only.
-                        //
-                        /*
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "GAMEMAIN",
-                            Value = "47616D654D61696E000000",
-                            Offset = 1344 // pre 3.0 = 1260
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "CHARMAP",
-                            Value = "DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A????0000????0000FFFFFFFF",
-                            Offset = 40
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "ENMITYMAP",
-                            Value = "FFFFFFFF0000????????????????????????????????????????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF",
-                            Offset = 14964 // pre 3.0 2.4
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYMAP",
-                            Value = "00000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFFDB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A00000000",
-                            Offset = 80
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "PARTYCOUNT",
-                            Value = "5F50617274794C69737400",
-                            Offset = 1340
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "MAP",
-                            Value = "F783843E????????????????FFFFFFFFDB0FC940AAAA26416D30763FDB0FC93F",
-                            Offset = 2052
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "TARGET",
-                            Value = "DB0F49416F12833AFFFFFFFF00000000000000000000000000000000????????DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833A",
-                            Offset = 372
-                        });
-                        AppViewModel.Instance.Signatures.Add(new Signature
-                        {
-                            Key = "INVENTORY",
-                            Value = "0000??00000000000000DB0FC940AAAA26416D30763FDB0FC93FDB0F49416F12833AFFFFFFFF00000000??00??00??00??00??????00??00????0000????????????",
-                            Offset = 106
-                        });
-                        MemoryHandler.Instance.PointerPaths["PLAYERINFO"] = new List<long>()
-                        {
-                            0x01D77D60
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO"] = new List<long>()
-                        {
-                            0x1038D3C - 0x900
-                        };
-                        MemoryHandler.Instance.PointerPaths["AGRO_COUNT"] = new List<long>()
-                        {
-                            0x1038D3C
-                        };
-                        */
-                    }
-                    break;
-            }
+                return true;
+            };
+            updateCheck.BeginInvoke(null, null);
         }
 
         /// <summary>
@@ -1144,9 +685,7 @@ namespace FFXIVAPP.Client
                 Constants.IsOpen = false;
                 return;
             }
-            SetSignatures(Constants.ProcessModel.IsWin64);
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel);
-            MemoryHandler.Instance.SigScanner.LoadOffsets(AppViewModel.Instance.Signatures);
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
             _actorWorker = new ActorWorker();
@@ -1200,7 +739,6 @@ namespace FFXIVAPP.Client
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
             }
-            MemoryHandler.Instance.SigScanner.Locations.Clear();
         }
 
         public static void StartNetworkWorker()

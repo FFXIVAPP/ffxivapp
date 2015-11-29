@@ -28,7 +28,6 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -36,9 +35,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Memory.Enums;
-using Newtonsoft.Json;
+using FFXIVAPP.Memory;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -67,9 +64,6 @@ namespace FFXIVAPP.Client.Memory
         #endregion
 
         #region Property Bindings
-
-        public long InventoryPointerMap { get; set; }
-        public List<InventoryEntity> LastInventoryEntities { get; set; }
 
         #endregion
 
@@ -120,151 +114,18 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("INVENTORY"))
-                {
-                    try
-                    {
-                        InventoryPointerMap = MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["INVENTORY"]);
+                var readResult = Reader.GetInventoryItems();
 
-                        var inventoryEntities = new List<InventoryEntity>
-                        {
-                            GetItems(InventoryPointerMap, Inventory.Container.INVENTORY_1),
-                            GetItems(InventoryPointerMap, Inventory.Container.INVENTORY_2),
-                            GetItems(InventoryPointerMap, Inventory.Container.INVENTORY_3),
-                            GetItems(InventoryPointerMap, Inventory.Container.INVENTORY_4),
-                            GetItems(InventoryPointerMap, Inventory.Container.CURRENT_EQ),
-                            GetItems(InventoryPointerMap, Inventory.Container.EXTRA_EQ),
-                            GetItems(InventoryPointerMap, Inventory.Container.CRYSTALS),
-                            GetItems(InventoryPointerMap, Inventory.Container.QUESTS_KI),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_1),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_2),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_3),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_4),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_5),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_6),
-                            GetItems(InventoryPointerMap, Inventory.Container.HIRE_7),
-                            GetItems(InventoryPointerMap, Inventory.Container.COMPANY_1),
-                            GetItems(InventoryPointerMap, Inventory.Container.COMPANY_2),
-                            GetItems(InventoryPointerMap, Inventory.Container.COMPANY_3),
-                            GetItems(InventoryPointerMap, Inventory.Container.COMPANY_CRYSTALS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_MH),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_OH),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_HEAD),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_BODY),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_HANDS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_BELT),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_LEGS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_FEET),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_EARRINGS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_NECK),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_WRISTS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_RINGS),
-                            GetItems(InventoryPointerMap, Inventory.Container.AC_SOULS)
-                        };
-                        var notify = false;
-                        if (LastInventoryEntities == null)
-                        {
-                            LastInventoryEntities = inventoryEntities;
-                            notify = true;
-                        }
-                        else
-                        {
-                            var hash1 = JsonConvert.SerializeObject(LastInventoryEntities)
-                                                   .GetHashCode();
-                            var hash2 = JsonConvert.SerializeObject(inventoryEntities)
-                                                   .GetHashCode();
-                            if (!hash1.Equals(hash2))
-                            {
-                                LastInventoryEntities = inventoryEntities;
-                                notify = true;
-                            }
-                            // Get Latest Character Name
-                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                            {
-                                try
-                                {
-                                    var charMapAddress = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"];
-                                    var characterAddressMap = MemoryHandler.Instance.GetByteArray(charMapAddress, 4);
-                                    var characterAddress = BitConverter.ToUInt32(characterAddressMap, 0);
-                                    var name = MemoryHandler.Instance.GetString(characterAddress, 48);
-                                    if (Settings.Default.CharacterName != name || String.IsNullOrWhiteSpace(Settings.Default.CharacterName))
-                                    {
-                                        Settings.Default.CharacterName = name;
-                                        notify = true;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Settings.Default.CharacterName = "";
-                                }
-                            }
-                            else
-                            {
-                                Settings.Default.CharacterName = "";
-                            }
-                        }
-                        if (notify)
-                        {
-                            AppContextHelper.Instance.RaiseNewInventoryEntries(inventoryEntities);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
+                #region Notifications
+
+                AppContextHelper.Instance.RaiseNewInventoryEntries(readResult.InventoryEntities);
+
+                #endregion
 
                 _isScanning = false;
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
-        }
-
-        private InventoryEntity GetItems(long address, Inventory.Container type)
-        {
-            var offset = (uint) ((int) type * 24);
-            var containerAddress = MemoryHandler.Instance.GetPlatformUInt(address, offset);
-
-            var container = new InventoryEntity
-            {
-                Amount = MemoryHandler.Instance.GetByte(address, offset + 0x8),
-                Items = new List<ItemInfo>(),
-                Type = type
-            };
-            // The number of item is 50 in COMPANY's locker
-            int limit;
-            switch (type)
-            {
-                case Inventory.Container.COMPANY_1:
-                case Inventory.Container.COMPANY_2:
-                case Inventory.Container.COMPANY_3:
-                    limit = 3200;
-                    break;
-                default:
-                    limit = 1600;
-                    break;
-            }
-
-            for (var ci = 0; ci < limit; ci += 64)
-            {
-                var itemOffset = (uint) (containerAddress + ci);
-                var id = MemoryHandler.Instance.GetPlatformUInt(itemOffset, 0x8);
-                if (id > 0)
-                {
-                    container.Items.Add(new ItemInfo
-                    {
-                        ID = (uint) id,
-                        Slot = MemoryHandler.Instance.GetByte(itemOffset, 0x4),
-                        Amount = MemoryHandler.Instance.GetByte(itemOffset, 0xC),
-                        SB = MemoryHandler.Instance.GetUInt16(itemOffset, 0x10),
-                        Durability = MemoryHandler.Instance.GetUInt16(itemOffset, 0x12),
-                        GlamourID = (uint) MemoryHandler.Instance.GetPlatformUInt(itemOffset, 0x30),
-                        //get the flag that show if the item is hq or not
-                        IsHQ = (MemoryHandler.Instance.GetByte(itemOffset, 0x14) == 0x01)
-                    });
-                }
-            }
-
-            return container;
         }
 
         #endregion

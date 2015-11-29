@@ -28,15 +28,13 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
+using FFXIVAPP.Memory;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -57,7 +55,7 @@ namespace FFXIVAPP.Client.Memory
 
         #region Property Bindings
 
-        private long ChatPointerMap { get; set; }
+        private IntPtr ChatPointerMap { get; set; }
 
         #endregion
 
@@ -66,40 +64,6 @@ namespace FFXIVAPP.Client.Memory
         public void Dispose()
         {
             _scanTimer.Elapsed -= ScanTimerElapsed;
-        }
-
-        #endregion
-
-        #region Declarations
-
-        private static readonly Logger Tracer = Logger;
-        private readonly List<int> _indexes = new List<int>();
-        private readonly Timer _scanTimer;
-        private readonly BackgroundWorker _scanner = new BackgroundWorker();
-        public bool FirstRun = true;
-        private int _chatLimit = 1000;
-
-        private ChatLogPointers _chatLogPointers;
-        private bool _isScanning;
-        private int _previousArrayIndex;
-        private int _previousOffset;
-
-        #endregion
-
-        #region Timer Controls
-
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
         }
 
         #endregion
@@ -124,135 +88,55 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
+                var readResult = Reader.GetChatLog(_previousArrayIndex, _previousOffset);
+
+                _previousArrayIndex = readResult.PreviousArrayIndex;
+                _previousOffset = readResult.PreviousOffset;
+
+                #region Notifications
+
+                foreach (var chatLogEntry in readResult.ChatLogEntries)
                 {
-                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHATLOG"))
-                    {
-                        ChatPointerMap = MemoryHandler.Instance.SigScanner.Locations["CHATLOG"];
-                        if (ChatPointerMap <= 20)
-                        {
-                            return false;
-                        }
-                        var buffered = new List<List<byte>>();
-                        try
-                        {
-                            _indexes.Clear();
-
-                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
-                            {
-                                _chatLogPointers = new ChatLogPointers
-                                {
-                                    LineCount = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
-                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C),
-                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x44),
-                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x4C),
-                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x5C),
-                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x64),
-                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x6C)
-                                };
-                            }
-                            else
-                            {
-                                _chatLogPointers = new ChatLogPointers
-                                {
-                                    LineCount = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap),
-                                    OffsetArrayStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x24),
-                                    OffsetArrayPos = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x28),
-                                    OffsetArrayEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x2C),
-                                    LogStart = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x34),
-                                    LogNext = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x38),
-                                    LogEnd = (uint) MemoryHandler.Instance.GetPlatformUInt(ChatPointerMap, 0x3C)
-                                };
-                            }
-
-                            EnsureArrayIndexes();
-
-                            var currentArrayIndex = (_chatLogPointers.OffsetArrayPos - _chatLogPointers.OffsetArrayStart) / 4;
-
-                            if (FirstRun)
-                            {
-                                FirstRun = false;
-                                _previousOffset = _indexes[(int) currentArrayIndex - 1];
-                                _previousArrayIndex = (int) currentArrayIndex - 1;
-                            }
-                            else
-                            {
-                                if (currentArrayIndex < _previousArrayIndex)
-                                {
-                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, _chatLimit));
-                                    _previousOffset = 0;
-                                    _previousArrayIndex = 0;
-                                }
-                                if (_previousArrayIndex < currentArrayIndex)
-                                {
-                                    buffered.AddRange(ResolveEntries(_previousArrayIndex, (int) currentArrayIndex));
-                                }
-                                _previousArrayIndex = (int) currentArrayIndex;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                        foreach (var bytes in buffered.Where(b => b.Count > 0))
-                        {
-                            try
-                            {
-                                var chatLogEntry = ChatEntry.Process(bytes.ToArray());
-                                if (Regex.IsMatch(chatLogEntry.Combined, @"[\w\d]{4}::?.+"))
-                                {
-                                    AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                    }
-                    /*
-                    else
-                    {
-                        try
-                        {
-                            ChatPointerMap = MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["GAMEMAIN"]) + 20;
-                            MemoryHandler.Instance.SigScanner.Locations.Add("CHATLOG", ChatPointerMap);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                    */
+                    AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
                 }
+
+                #endregion
+
                 _isScanning = false;
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
         }
 
-        private void EnsureArrayIndexes()
+        #endregion
+
+        #region Declarations
+
+        private static readonly Logger Tracer = Logger;
+        private readonly Timer _scanTimer;
+        private readonly BackgroundWorker _scanner = new BackgroundWorker();
+
+        private bool _isScanning;
+
+        private int _previousArrayIndex;
+        private int _previousOffset;
+
+        #endregion
+
+        #region Timer Controls
+
+        /// <summary>
+        /// </summary>
+        public void StartScanning()
         {
-            _indexes.Clear();
-            for (var i = 0; i < _chatLimit; i++)
-            {
-                _indexes.Add((int) MemoryHandler.Instance.GetPlatformUInt((uint) (_chatLogPointers.OffsetArrayStart + (i * 4))));
-            }
+            _scanTimer.Enabled = true;
         }
 
-        private IEnumerable<List<byte>> ResolveEntries(int offset, int length)
+        /// <summary>
+        /// </summary>
+        public void StopScanning()
         {
-            var entries = new List<List<byte>>();
-            for (var i = offset; i < length; i++)
-            {
-                EnsureArrayIndexes();
-                var currentOffset = _indexes[i];
-                entries.Add(ResolveEntry(_previousOffset, currentOffset));
-                _previousOffset = currentOffset;
-            }
-            return entries;
-        }
-
-        private List<byte> ResolveEntry(int offset, int length)
-        {
-            return new List<byte>(MemoryHandler.Instance.GetByteArray((uint) (_chatLogPointers.LogStart + offset), length - offset));
+            _scanTimer.Enabled = false;
         }
 
         #endregion

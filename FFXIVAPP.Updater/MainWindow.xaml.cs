@@ -49,10 +49,6 @@ namespace FFXIVAPP.Updater
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
-        #region Auto Properties
-
-        #endregion
-
         #region Declarations
 
         private readonly WebClient _webClient = new WebClient();
@@ -220,6 +216,10 @@ namespace FFXIVAPP.Updater
         {
             Application.Current.Shutdown(0);
         }
+
+        #region Auto Properties
+
+        #endregion
 
         #region Implementation of INotifyPropertyChanged
 

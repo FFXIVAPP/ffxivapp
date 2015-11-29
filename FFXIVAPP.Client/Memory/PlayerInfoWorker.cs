@@ -28,15 +28,13 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
-using Newtonsoft.Json;
+using FFXIVAPP.Memory;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -84,106 +82,14 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                {
-                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("PLAYERINFO"))
-                    {
-                        PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["PLAYERINFO"];
-                        if (PlayerInfoMap <= 6496)
-                        {
-                            return false;
-                        }
-                        try
-                        {
-                            short enmityCount;
-                            long enmityStructure;
-                            switch (Settings.Default.GameLanguage)
-                            {
-                                case "Chinese":
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5688);
-                                    enmityStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 3384;
-                                    break;
-                                default:
-                                    enmityCount = MemoryHandler.Instance.GetInt16(MemoryHandler.Instance.SigScanner.Locations["AGRO_COUNT"]);
-                                    enmityStructure = MemoryHandler.Instance.SigScanner.Locations["AGRO"];
-                                    break;
-                            }
-                            var enmityEntries = new List<EnmityEntry>();
-                            if (enmityCount > 0 && enmityCount < 32 && enmityStructure > 0)
-                            {
-                                for (uint i = 0; i < enmityCount; i++)
-                                {
-                                    var address = enmityStructure + (i * 72);
-                                    var enmityEntry = new EnmityEntry
-                                    {
-                                        Name = MemoryHandler.Instance.GetString(address),
-                                        ID = (uint) MemoryHandler.Instance.GetPlatformInt(address + 64),
-                                        Enmity = (uint) MemoryHandler.Instance.GetInt16(address + 68)
-                                    };
-                                    if (enmityEntry.ID > 0)
-                                    {
-                                        enmityEntries.Add(enmityEntry);
-                                    }
-                                }
-                            }
-                            var source = MemoryHandler.Instance.GetByteArray(PlayerInfoMap, 0x256);
-                            try
-                            {
-                                var entry = PlayerEntityHelper.ResolvePlayerFromBytes(source);
-                                entry.EnmityEntries = enmityEntries;
-                                var notify = false;
-                                if (LastPlayerEntity == null)
-                                {
-                                    LastPlayerEntity = entry;
-                                    notify = true;
-                                }
-                                else
-                                {
-                                    var hash1 = JsonConvert.SerializeObject(LastPlayerEntity)
-                                                           .GetHashCode();
-                                    var hash2 = JsonConvert.SerializeObject(entry)
-                                                           .GetHashCode();
-                                    if (!hash1.Equals(hash2))
-                                    {
-                                        LastPlayerEntity = entry;
-                                        notify = true;
-                                    }
-                                }
-                                if (notify)
-                                {
-                                    AppContextHelper.Instance.RaiseNewPlayerEntity(entry);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                    /*
-                    else
-                    {
-                        try
-                        {
-                            switch (Settings.Default.GameLanguage)
-                            {
-                                case "Chinese":
-                                    PlayerInfoMap = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 5724;
-                                    break;
-                                default:
-                                    PlayerInfoMap = MemoryHandler.ResolvePointerPath("PLAYERINFO");
-                                    break;
-                            }
-                            MemoryHandler.Instance.SigScanner.Locations.Add("PLAYERINFO", PlayerInfoMap);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-                    */
-                }
+                var readResult = Reader.GetPlayerInfo();
+
+                #region Notifications
+
+                AppContextHelper.Instance.RaiseNewPlayerEntity(readResult.PlayerEntity);
+
+                #endregion
+
                 _isScanning = false;
                 return true;
             };
@@ -193,10 +99,6 @@ namespace FFXIVAPP.Client.Memory
         #endregion
 
         #region Property Bindings
-
-        private long PlayerInfoMap { get; set; }
-
-        private PlayerEntity LastPlayerEntity { get; set; }
 
         #endregion
 

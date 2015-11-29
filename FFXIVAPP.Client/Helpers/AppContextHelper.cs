@@ -33,8 +33,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Network;
+using FFXIVAPP.Memory.Core;
 using NLog;
 
 namespace FFXIVAPP.Client.Helpers

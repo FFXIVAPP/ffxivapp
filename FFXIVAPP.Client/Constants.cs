@@ -33,9 +33,9 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Memory.Models;
 
 namespace FFXIVAPP.Client
 {

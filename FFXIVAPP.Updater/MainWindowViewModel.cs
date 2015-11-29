@@ -84,10 +84,6 @@ namespace FFXIVAPP.Updater
 
         #endregion
 
-        public MainWindowViewModel()
-        {
-        }
-
         #region Loading Functions
 
         #endregion

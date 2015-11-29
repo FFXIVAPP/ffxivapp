@@ -29,7 +29,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Memory.Core;
 
 namespace FFXIVAPP.Client.Delegates
 {

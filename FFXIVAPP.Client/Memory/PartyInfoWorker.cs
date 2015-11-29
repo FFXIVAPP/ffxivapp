@@ -28,7 +28,6 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -37,7 +36,7 @@ using System.Timers;
 using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Memory;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -55,6 +54,12 @@ namespace FFXIVAPP.Client.Memory
             _scanTimer = new Timer(1000);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
+
+        #region Property Bindings
+
+        public bool ReferencesSet { get; set; }
+
+        #endregion
 
         #region Implementation of IDisposable
 
@@ -85,139 +90,33 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
+                var readResult = Reader.GetPartyMembers();
+
+                #region Notifications
+
+                if (!ReferencesSet)
                 {
-                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("PARTYMAP"))
-                    {
-                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("PARTYCOUNT"))
-                        {
-                            PartyInfoMap = MemoryHandler.Instance.SigScanner.Locations["PARTYMAP"];
-                            PartyCountMap = MemoryHandler.Instance.SigScanner.Locations["PARTYCOUNT"];
-                            try
-                            {
-                                var partyCount = MemoryHandler.Instance.GetByte(PartyCountMap);
-
-                                var currentPartyEntries = PartyInfoWorkerDelegate.NPCEntities.Keys.ToDictionary(key => key);
-
-                                var newPartyEntries = new List<UInt32>();
-
-                                if (partyCount > 1 && partyCount < 9)
-                                {
-                                    for (uint i = 0; i < partyCount; i++)
-                                    {
-                                        UInt32 ID;
-                                        uint size;
-                                        switch (Settings.Default.GameLanguage)
-                                        {
-                                            case "Chinese":
-                                                size = 594;
-                                                break;
-                                            default:
-                                                size = 544;
-                                                break;
-                                        }
-                                        var address = PartyInfoMap + (i * size);
-                                        var source = MemoryHandler.Instance.GetByteArray(address, (int) size);
-                                        switch (Settings.Default.GameLanguage)
-                                        {
-                                            case "Chinese":
-                                                ID = BitConverter.ToUInt32(source, 0x10);
-                                                break;
-                                            default:
-                                                ID = BitConverter.ToUInt32(source, 0x10);
-                                                break;
-                                        }
-                                        ActorEntity existing = null;
-                                        if (currentPartyEntries.ContainsKey(ID))
-                                        {
-                                            currentPartyEntries.Remove(ID);
-                                            if (MonsterWorkerDelegate.MonsterEntities.ContainsKey(ID))
-                                            {
-                                                existing = MonsterWorkerDelegate.GetMonsterEntity(ID);
-                                            }
-                                            if (PCWorkerDelegate.PCEntities.ContainsKey(ID))
-                                            {
-                                                existing = PCWorkerDelegate.GetPCEntity(ID);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            newPartyEntries.Add(ID);
-                                        }
-                                        var entry = PartyEntityHelper.ResolvePartyMemberFromBytes(source, existing);
-                                        if (!entry.IsValid)
-                                        {
-                                            continue;
-                                        }
-                                        if (existing != null)
-                                        {
-                                            continue;
-                                        }
-                                        PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
-                                    }
-                                }
-                                else if (partyCount == 0 || partyCount == 1)
-                                {
-                                    var entry = PartyEntityHelper.ResolvePartyMemberFromBytes(new byte[0], PCWorkerDelegate.CurrentUser);
-                                    if (entry.IsValid)
-                                    {
-                                        var exists = false;
-                                        if (currentPartyEntries.ContainsKey(entry.ID))
-                                        {
-                                            currentPartyEntries.Remove(entry.ID);
-                                            exists = true;
-                                        }
-                                        else
-                                        {
-                                            newPartyEntries.Add(entry.ID);
-                                        }
-                                        if (!exists)
-                                        {
-                                            PartyInfoWorkerDelegate.EnsureNPCEntity(entry.ID, entry);
-                                        }
-                                    }
-                                }
-
-                                if (!ReferencesSet)
-                                {
-                                    ReferencesSet = true;
-                                    AppContextHelper.Instance.RaiseNewPartyEntries(PartyInfoWorkerDelegate.NPCEntities);
-                                }
-
-                                if (newPartyEntries.Any())
-                                {
-                                    AppContextHelper.Instance.RaiseNewPartyAddedEntries(newPartyEntries);
-                                }
-
-                                if (currentPartyEntries.Any())
-                                {
-                                    AppContextHelper.Instance.RaiseNewPartyRemovedEntries(currentPartyEntries.Keys.ToList());
-                                    foreach (var key in currentPartyEntries.Keys)
-                                    {
-                                        PartyInfoWorkerDelegate.RemoveNPCEntity(key);
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                    }
+                    ReferencesSet = true;
+                    AppContextHelper.Instance.RaiseNewPartyEntries(PartyInfoWorkerDelegate.PartyEntities);
                 }
+
+                if (readResult.NewParty.Any())
+                {
+                    AppContextHelper.Instance.RaiseNewPartyAddedEntries(readResult.NewParty);
+                }
+
+                if (readResult.PreviousParty.Any())
+                {
+                    AppContextHelper.Instance.RaiseNewPartyRemovedEntries(readResult.PreviousParty.Keys.ToList());
+                }
+
+                #endregion
+
                 _isScanning = false;
                 return true;
             };
             scannerWorker.BeginInvoke(delegate { }, scannerWorker);
         }
-
-        #endregion
-
-        #region Property Bindings
-
-        private long PartyInfoMap { get; set; }
-        private long PartyCountMap { get; set; }
-
-        public bool ReferencesSet { get; set; }
 
         #endregion
 

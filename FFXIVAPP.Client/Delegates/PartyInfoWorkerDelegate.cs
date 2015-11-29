@@ -29,7 +29,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Memory.Core;
 
 namespace FFXIVAPP.Client.Delegates
 {
@@ -37,34 +37,34 @@ namespace FFXIVAPP.Client.Delegates
     {
         #region Collection Access & Modification
 
-        public static void EnsureNPCEntity(UInt32 key, PartyEntity entity)
+        public static void EnsurePartyEntity(UInt32 key, PartyEntity entity)
         {
-            NPCEntities.AddOrUpdate(key, entity, (k, v) => entity);
+            PartyEntities.AddOrUpdate(key, entity, (k, v) => entity);
         }
 
-        public static PartyEntity GetNPCEntity(UInt32 key)
+        public static PartyEntity GetPartyEntity(UInt32 key)
         {
-            PartyEntity npc;
-            NPCEntities.TryGetValue(key, out npc);
-            return npc;
+            PartyEntity party;
+            PartyEntities.TryGetValue(key, out party);
+            return party;
         }
 
-        public static bool RemoveNPCEntity(UInt32 key)
+        public static bool RemovePartyEntity(UInt32 key)
         {
             PartyEntity removed;
-            return NPCEntities.TryRemove(key, out removed);
+            return PartyEntities.TryRemove(key, out removed);
         }
 
         #endregion
 
         #region Declarations
 
-        private static ConcurrentDictionary<UInt32, PartyEntity> _npcEntities;
+        private static ConcurrentDictionary<UInt32, PartyEntity> _partyEntities;
 
-        public static ConcurrentDictionary<UInt32, PartyEntity> NPCEntities
+        public static ConcurrentDictionary<UInt32, PartyEntity> PartyEntities
         {
-            get { return _npcEntities ?? (_npcEntities = new ConcurrentDictionary<UInt32, PartyEntity>()); }
-            private set { _npcEntities = value; }
+            get { return _partyEntities ?? (_partyEntities = new ConcurrentDictionary<UInt32, PartyEntity>()); }
+            private set { _partyEntities = value; }
         }
 
         #endregion

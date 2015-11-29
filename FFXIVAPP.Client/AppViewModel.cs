@@ -40,11 +40,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Memory.Core;
+using FFXIVAPP.Memory.Models;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 
 namespace FFXIVAPP.Client

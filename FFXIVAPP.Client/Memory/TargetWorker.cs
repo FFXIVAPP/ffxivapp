@@ -28,15 +28,14 @@
 // POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Timers;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Memory;
+using FFXIVAPP.Memory.Core;
 using NLog;
 
 namespace FFXIVAPP.Client.Memory
@@ -90,222 +89,17 @@ namespace FFXIVAPP.Client.Memory
             }
             Func<bool> scannerWorker = delegate
             {
-                if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("GAMEMAIN"))
+                var readResult = Reader.GetTargetInfo();
+
+                #region Notifications
+
+                if (readResult.TargetsFound || !ReferencesSet)
                 {
-                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("CHARMAP"))
-                    {
-                        try
-                        {
-                            long targetHateStructure = 0;
-                            switch (Settings.Default.GameLanguage)
-                            {
-                                case "Chinese":
-                                    targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["CHARMAP"] + 1136;
-                                    break;
-                                default:
-                                    if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("ENMITYMAP"))
-                                    {
-                                        targetHateStructure = MemoryHandler.Instance.SigScanner.Locations["ENMITYMAP"];
-                                    }
-                                    break;
-                            }
-                            var enmityEntries = new List<EnmityEntry>();
-                            var targetEntity = new TargetEntity();
-                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("TARGET"))
-                            {
-                                var targetAddress = MemoryHandler.Instance.SigScanner.Locations["TARGET"];
-                                var somethingFound = false;
-                                if (targetAddress > 0)
-                                {
-                                    //var targetInfo = MemoryHandler.Instance.GetStructure<Structures.Target>(targetAddress);
-                                    uint currentTarget = 0;
-                                    uint mouseOverTarget = 0;
-                                    uint focusTarget = 0;
-                                    uint previousTarget = 0;
-                                    uint currentTargetID = 0;
-                                    var targetInfoSource = MemoryHandler.Instance.GetByteArray(targetAddress, 192);
-                                    switch (Settings.Default.GameLanguage)
-                                    {
-                                        case "Chinese":
-                                            currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
-                                            mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0xC);
-                                            focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x3C);
-                                            previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x48);
-                                            currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x5C);
-                                            break;
-                                        default:
-                                            currentTarget = BitConverter.ToUInt32(targetInfoSource, 0x0);
-                                            if (MemoryHandler.Instance.ProcessModel.IsWin64)
-                                            {
-                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0x10);
-                                                focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x50);
-                                                previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x68);
-                                                currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x80);
-                                            }
-                                            else
-                                            {
-                                                mouseOverTarget = BitConverter.ToUInt32(targetInfoSource, 0xC);
-                                                focusTarget = BitConverter.ToUInt32(targetInfoSource, 0x38);
-                                                previousTarget = BitConverter.ToUInt32(targetInfoSource, 0x44);
-                                                currentTargetID = BitConverter.ToUInt32(targetInfoSource, 0x58);
-                                            }
-                                            break;
-                                    }
-                                    if (currentTarget > 0)
-                                    {
-                                        try
-                                        {
-                                            var source = MemoryHandler.Instance.GetByteArray(currentTarget, 0x23F0); // old size: 0x3F40
-                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                            currentTargetID = entry.ID;
-                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                                            {
-                                                try
-                                                {
-                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                }
-                                            }
-                                            if (entry.IsValid)
-                                            {
-                                                somethingFound = true;
-                                                targetEntity.CurrentTarget = entry;
-                                            }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                        }
-                                    }
-                                    if (mouseOverTarget > 0)
-                                    {
-                                        try
-                                        {
-                                            var source = MemoryHandler.Instance.GetByteArray(mouseOverTarget, 0x23F0); // old size: 0x3F40
-                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                                            {
-                                                try
-                                                {
-                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                }
-                                            }
-                                            if (entry.IsValid)
-                                            {
-                                                somethingFound = true;
-                                                targetEntity.MouseOverTarget = entry;
-                                            }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                        }
-                                    }
-                                    if (focusTarget > 0)
-                                    {
-                                        var source = MemoryHandler.Instance.GetByteArray(focusTarget, 0x23F0); // old size: 0x3F40
-                                        var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                        if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                                        {
-                                            try
-                                            {
-                                                entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                            }
-                                        }
-                                        if (entry.IsValid)
-                                        {
-                                            somethingFound = true;
-                                            targetEntity.FocusTarget = entry;
-                                        }
-                                    }
-                                    if (previousTarget > 0)
-                                    {
-                                        try
-                                        {
-                                            var source = MemoryHandler.Instance.GetByteArray(previousTarget, 0x23F0); // old size: 0x3F40
-                                            var entry = ActorEntityHelper.ResolveActorFromBytes(source);
-                                            if (MemoryHandler.Instance.SigScanner.Locations.ContainsKey("MAP"))
-                                            {
-                                                try
-                                                {
-                                                    entry.MapIndex = (uint) MemoryHandler.Instance.GetPlatformUInt(MemoryHandler.Instance.SigScanner.Locations["MAP"]);
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                }
-                                            }
-                                            if (entry.IsValid)
-                                            {
-                                                somethingFound = true;
-                                                targetEntity.PreviousTarget = entry;
-                                            }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                        }
-                                    }
-                                    if (currentTargetID > 0)
-                                    {
-                                        somethingFound = true;
-                                        targetEntity.CurrentTargetID = currentTargetID;
-                                    }
-                                }
-                                if (targetEntity.CurrentTargetID > 0 && targetHateStructure > 0)
-                                {
-                                    for (uint i = 0; i < 16; i++)
-                                    {
-                                        try
-                                        {
-                                            var address = targetHateStructure + (i * 72);
-                                            var enmityEntry = new EnmityEntry
-                                            {
-                                                Name = MemoryHandler.Instance.GetString(address),
-                                                ID = (uint) MemoryHandler.Instance.GetPlatformInt(address, 64),
-                                                Enmity = (uint) MemoryHandler.Instance.GetPlatformInt(address, 68)
-                                            };
-                                            if (enmityEntry.ID <= 0)
-                                            {
-                                                continue;
-                                            }
-                                            if (String.IsNullOrWhiteSpace(enmityEntry.Name))
-                                            {
-                                                var pc = PCWorkerDelegate.GetPCEntity(enmityEntry.ID);
-                                                var npc = NPCWorkerDelegate.GetNPCEntity(enmityEntry.ID);
-                                                var monster = MonsterWorkerDelegate.GetMonsterEntity(enmityEntry.ID);
-                                                try
-                                                {
-                                                    enmityEntry.Name = (pc ?? npc).Name ?? monster.Name;
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                }
-                                            }
-                                            enmityEntries.Add(enmityEntry);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                        }
-                                    }
-                                }
-                                targetEntity.EnmityEntries = enmityEntries;
-                                if (somethingFound || !ReferencesSet)
-                                {
-                                    ReferencesSet = true;
-                                    AppContextHelper.Instance.RaiseNewTargetEntity(targetEntity);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
+                    AppContextHelper.Instance.RaiseNewTargetEntity(readResult.TargetEntity);
                 }
+
+                #endregion
+
                 _isScanning = false;
                 return true;
             };

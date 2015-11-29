@@ -39,12 +39,12 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Reflection;
 using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Core.Network;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.IPluginInterface.Events;
+using FFXIVAPP.Memory.Core;
 using NLog;
 
 namespace FFXIVAPP.Client

@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -93,6 +93,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ffxivapp-resources\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
+    <Reference Include="FFXIVAPP.Memory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ffxivapp-resources\FFXIVAPP.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ffxivapp-aio\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -147,13 +151,11 @@
       <DependentUpon>PluginInfoBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NameMultiValueConverter.cs" />
-    <Compile Include="Delegates\PartyInfoWorkerDelegate.cs" />
+    <Compile Include="Delegates\ChatLogWorkerDelegate.cs" />
     <Compile Include="Delegates\MonsterWorkerDelegate.cs" />
     <Compile Include="Delegates\NPCWorkerDelegate.cs" />
+    <Compile Include="Delegates\PartyInfoWorkerDelegate.cs" />
     <Compile Include="Delegates\PCWorkerDelegate.cs" />
-    <Compile Include="Helpers\PartyEntityHelper.cs" />
-    <Compile Include="Helpers\PlayerEntityHelper.cs" />
-    <Compile Include="Helpers\ActorEntityHelper.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Application.cs" />
@@ -163,8 +165,6 @@
     <Compile Include="Localization\German.cs" />
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Localization\Russian.cs" />
-    <Compile Include="Memory\ChatEntry.cs" />
-    <Compile Include="Memory\ChatLogPointers.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
@@ -173,11 +173,9 @@
     <Compile Include="Models\PluginDownloadItem.cs" />
     <Compile Include="Models\PluginFile.cs" />
     <Compile Include="Models\PluginInfo.cs" />
-    <Compile Include="Delegates\ChatLogWorkerDelegate.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="AppException.cs" />
     <Compile Include="Helpers\ConstantsHelper.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.Client.cs" />
     <Compile Include="Helpers\SavedlLogsHelper.cs" />
@@ -185,16 +183,10 @@
     <Compile Include="Helpers\PluginCollectionHelper.cs" />
     <Compile Include="Helpers\TabItemHelper.cs" />
     <Compile Include="Initializer.cs" />
-    <Compile Include="Memory\ChatCleaner.cs" />
     <Compile Include="Memory\ActorWorker.cs" />
-    <Compile Include="Memory\MemoryHandler.cs" />
-    <Compile Include="Memory\SigScanner.cs" />
-    <Compile Include="Memory\Signature.cs" />
-    <Compile Include="Memory\UnsafeNativeMethods.cs" />
     <Compile Include="Memory\ChatLogWorker.cs" />
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
-    <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\UILanguage.cs" />
     <Compile Include="Models\WindowsMessageEvents.cs" />
     <Compile Include="Network\IPHelper.cs" />
