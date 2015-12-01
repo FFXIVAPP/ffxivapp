@@ -151,6 +151,7 @@
   &lt;string&gt;French&lt;/string&gt;
   &lt;string&gt;German&lt;/string&gt;
   &lt;string&gt;Chinese&lt;/string&gt;
+  &lt;string&gt;Korean&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="GameLanguage" Type="System.String" Scope="User">

@@ -189,6 +189,7 @@ namespace FFXIVAPP.Client.Properties {
   <string>French</string>
   <string>German</string>
   <string>Chinese</string>
+  <string>Korean</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection GameLanguageList {
             get {
