@@ -164,6 +164,7 @@
     <Compile Include="Localization\French.cs" />
     <Compile Include="Localization\German.cs" />
     <Compile Include="Localization\Japanese.cs" />
+    <Compile Include="Localization\Korean.cs" />
     <Compile Include="Localization\Russian.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
