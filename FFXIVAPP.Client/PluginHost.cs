@@ -55,6 +55,7 @@ namespace FFXIVAPP.Client
         {
             "FFXIVAPP.Common",
             "FFXIVAPP.IPluginInterface",
+            "FFXIVAPP.Memory",
             "MahApps.Metro",
             "HtmlAgilityPack",
             "NAudio",
