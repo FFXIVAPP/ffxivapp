@@ -504,7 +504,7 @@ namespace FFXIVAPP.Client
                                       .GetName()
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/releases.atom");
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://api.github.com/repos/Icehunter/ffxivapp/releases");
                 httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                 httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
@@ -530,22 +530,11 @@ namespace FFXIVAPP.Client
                         }
                         else
                         {
-                            var releases = XDocument.Parse(responseText);
-                            var latest = releases.Descendants()
-                                                 .Elements()
-                                                 .FirstOrDefault(e => e.Name.LocalName == "entry")
-                                ?.Elements()
-                                                 .FirstOrDefault(e => e.Name.LocalName == "title")
-                                ?.Value ?? "Unknown";
+                            var releases = JArray.Parse(responseText);
+                            var release = releases.FirstOrDefault(r => r?["target_commitish"].ToString() == "3.0-stable");
+                            var latest = release?["name"].ToString() ?? "Unknown";
                             latest = latest.Split(' ')[0];
                             AppViewModel.Instance.LatestVersion = latest;
-                            var HTMLFormat = "<!DOCTYPE html><html><head><link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'></head><body>{0}</body></html>";
-                            AppViewModel.Instance.UpdateNotes = String.Format(HTMLFormat, releases.Descendants()
-                                                                                                  .Elements()
-                                                                                                  .FirstOrDefault(e => e.Name.LocalName == "entry")
-                                ?.Elements()
-                                                                                                  .FirstOrDefault(e => e.Name.LocalName == "content")
-                                ?.Value ?? "<h1>Notes Not Available</h1>");
                             switch (latest)
                             {
                                 case "Unknown":
