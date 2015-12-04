@@ -1,5 +1,5 @@
-﻿// FFXIVAPP.Updater
-// FFXIVAPP & Related Plugins/Modules
+﻿// FFXIVAPP.Updater ~ MainWindow.xaml.cs
+// 
 // Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
