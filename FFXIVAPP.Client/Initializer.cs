@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ Initializer.cs
 // 
-// Copyright © 2007 - 2015 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -505,7 +505,7 @@ namespace FFXIVAPP.Client
                                       .Version.ToString();
                 AppViewModel.Instance.CurrentVersion = current;
                 var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://api.github.com/repos/Icehunter/ffxivapp/releases");
-                httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
+                httpWebRequest.UserAgent = "Icehunter-FFXIVAPP";
                 httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                 httpWebRequest.ContentType = "application/json; charset=utf-8";
                 httpWebRequest.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
