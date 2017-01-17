@@ -46,6 +46,9 @@ namespace FFXIVAPP.Client.Memory
         #region Property Bindings
 
         public bool ReferencesSet { get; set; }
+        public bool PCReferencesSet { get; set; }
+        public bool NPCReferencesSet { get; set; }
+        public bool MonsterReferencesSet { get; set; }
 
         #endregion
 
@@ -109,12 +112,25 @@ namespace FFXIVAPP.Client.Memory
 
                 #region Notifications
 
-                if (!ReferencesSet)
+                if (!MonsterReferencesSet && readResult.MonsterEntities.Any())
+                {
+                    MonsterReferencesSet = true;
+                    AppContextHelper.Instance.RaiseNewMonsterEntries(readResult.MonsterEntities);
+                }
+                if (!NPCReferencesSet && readResult.NPCEntities.Any())
+                {
+                    NPCReferencesSet = true;
+                    AppContextHelper.Instance.RaiseNewNPCEntries(readResult.NPCEntities);
+                }
+                if (!PCReferencesSet && readResult.PCEntities.Any())
+                {
+                    PCReferencesSet = true;
+                    AppContextHelper.Instance.RaiseNewPCEntries(readResult.PCEntities);
+                }
+
+                if (MonsterReferencesSet && NPCReferencesSet && PCReferencesSet)
                 {
                     ReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewMonsterEntries(readResult.MonsterEntities);
-                    AppContextHelper.Instance.RaiseNewNPCEntries(readResult.NPCEntities);
-                    AppContextHelper.Instance.RaiseNewPCEntries(readResult.PCEntities);
                 }
 
                 if (readResult.NewMonster.Any())
