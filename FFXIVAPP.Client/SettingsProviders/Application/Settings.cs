@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ Settings.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -83,8 +83,9 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
         {
             try
             {
-                var type = Default[key].GetType()
-                                       .Name;
+                var type = Default[key]
+                    .GetType()
+                    .Name;
                 switch (type)
                 {
                     case "Boolean":
@@ -150,7 +151,8 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                 if (element == null)
                 {
                     var xKey = setting;
-                    var xValue = Default[xKey].ToString();
+                    var xValue = Default[xKey]
+                        .ToString();
                     var keyPairList = new List<XValuePair>
                     {
                         new XValuePair
@@ -166,7 +168,8 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
                     var xElement = element.Element("Value");
                     if (xElement != null)
                     {
-                        xElement.Value = Default[setting].ToString();
+                        xElement.Value = Default[setting]
+                            .ToString();
                     }
                 }
             }

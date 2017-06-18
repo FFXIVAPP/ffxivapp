@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ MicroTimerEventArgs.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,10 +31,13 @@ namespace FFXIVAPP.Client.Utilities
         }
 
         public int TimerCount { get; private set; }
+
         // Time when timed event was called since timer started
         public long ElapsedMicroseconds { get; private set; }
+
         // How late the timer was compared to when it should have been called
         public long TimerLateBy { get; private set; }
+
         // Time it took to execute previous call to callback function (OnTimedEvent)
         public long CallbackFunctionExecutionTime { get; private set; }
     }

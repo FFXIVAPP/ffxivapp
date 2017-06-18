@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ IPHeader.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -83,12 +83,9 @@ namespace FFXIVAPP.Client.Network
             {
                 switch ((_versionAndHeaderLength >> 4))
                 {
-                    case 4:
-                        return "IP v4";
-                    case 6:
-                        return "IP v6";
-                    default:
-                        return "Unknown";
+                    case 4: return "IP v4";
+                    case 6: return "IP v6";
+                    default: return "Unknown";
                 }
             }
         }
@@ -115,12 +112,9 @@ namespace FFXIVAPP.Client.Network
                 var newFlags = _flags >> 13;
                 switch (newFlags)
                 {
-                    case 2:
-                        return "Don't fragment";
-                    case 1:
-                        return "More fragments to come";
-                    default:
-                        return newFlags.ToString(CultureInfo.InvariantCulture);
+                    case 2: return "Don't fragment";
+                    case 1: return "More fragments to come";
+                    default: return newFlags.ToString(CultureInfo.InvariantCulture);
                 }
             }
         }
@@ -146,12 +140,9 @@ namespace FFXIVAPP.Client.Network
             {
                 switch (_protocol)
                 {
-                    case 6:
-                        return Protocol.TCP;
-                    case 17:
-                        return Protocol.UDP;
-                    default:
-                        return Protocol.Unknown;
+                    case 6: return Protocol.TCP;
+                    case 17: return Protocol.UDP;
+                    default: return Protocol.Unknown;
                 }
             }
         }

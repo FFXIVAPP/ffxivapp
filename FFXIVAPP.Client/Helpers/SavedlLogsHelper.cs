@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ SavedlLogsHelper.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
@@ -38,7 +37,6 @@ namespace FFXIVAPP.Client.Helpers
 
         public static bool SaveCurrentLog(bool isTemporary = true)
         {
-            ChatLogWorkerDelegate.IsPaused = true;
             if (!isTemporary)
             {
             }
@@ -257,7 +255,6 @@ namespace FFXIVAPP.Client.Helpers
                 return true;
             }
             AppViewModel.Instance.ChatHistory.Clear();
-            ChatLogWorkerDelegate.IsPaused = false;
             return true;
         }
     }

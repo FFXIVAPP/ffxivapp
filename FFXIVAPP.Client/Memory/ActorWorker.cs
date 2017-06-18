@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ ActorWorker.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -43,21 +43,21 @@ namespace FFXIVAPP.Client.Memory
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
 
-        #region Property Bindings
-
-        public bool ReferencesSet { get; set; }
-        public bool PCReferencesSet { get; set; }
-        public bool NPCReferencesSet { get; set; }
-        public bool MonsterReferencesSet { get; set; }
-
-        #endregion
-
         #region Implementation of IDisposable
 
         public void Dispose()
         {
             _scanTimer.Elapsed -= ScanTimerElapsed;
         }
+
+        #endregion
+
+        #region Property Bindings
+
+        public bool ReferencesSet { get; set; }
+        public bool PCReferencesSet { get; set; }
+        public bool NPCReferencesSet { get; set; }
+        public bool MonsterReferencesSet { get; set; }
 
         #endregion
 
@@ -146,17 +146,17 @@ namespace FFXIVAPP.Client.Memory
                     AppContextHelper.Instance.RaiseNewPCAddedEntries(readResult.NewPC);
                 }
 
-                if (readResult.PreviousMonster.Any())
+                if (readResult.RemovedMonster.Any())
                 {
-                    AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(readResult.PreviousMonster.Keys.ToList());
+                    AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(readResult.RemovedMonster.Keys.ToList());
                 }
-                if (readResult.PreviousNPC.Any())
+                if (readResult.RemovedNPC.Any())
                 {
-                    AppContextHelper.Instance.RaiseNewNPCRemovedEntries(readResult.PreviousNPC.Keys.ToList());
+                    AppContextHelper.Instance.RaiseNewNPCRemovedEntries(readResult.RemovedNPC.Keys.ToList());
                 }
-                if (readResult.PreviousPC.Any())
+                if (readResult.RemovedPC.Any())
                 {
-                    AppContextHelper.Instance.RaiseNewPCRemovedEntries(readResult.PreviousPC.Keys.ToList());
+                    AppContextHelper.Instance.RaiseNewPCRemovedEntries(readResult.RemovedPC.Keys.ToList());
                 }
 
                 #endregion

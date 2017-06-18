@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ SettingsViewModel.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ using NLog;
 
 namespace FFXIVAPP.Client.ViewModels
 {
-    [Export(typeof (SettingsViewModel))]
+    [Export(typeof(SettingsViewModel))]
     internal sealed class SettingsViewModel : INotifyPropertyChanged
     {
         #region Logger
@@ -235,7 +235,8 @@ namespace FFXIVAPP.Client.ViewModels
                                                 .OuterHtml;
                             var CICUID = new Regex(@"(?<cicuid>\d+)/"">" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                             cicuid = CICUID.Match(htmlSource)
-                                           .Groups["cicuid"].Value;
+                                           .Groups["cicuid"]
+                                           .Value;
                         }
                         catch (Exception ex)
                         {
@@ -274,8 +275,9 @@ namespace FFXIVAPP.Client.ViewModels
             }
             var split = SettingsView.View.Colors.SelectedItem.ToString()
                                     .Split(',');
-            _key = split[0].Trim()
-                           .Replace("[", "");
+            _key = split[0]
+                .Trim()
+                .Replace("[", "");
             _value = Constants.Colors[_key][0];
             SettingsView.View.TCode.Text = _key;
             SettingsView.View.TColor.Text = _value;

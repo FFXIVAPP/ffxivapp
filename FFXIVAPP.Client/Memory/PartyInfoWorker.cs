@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ PartyInfoWorker.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
-using FFXIVAPP.Client.Delegates;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Memory;
@@ -85,7 +84,7 @@ namespace FFXIVAPP.Client.Memory
                 if (!ReferencesSet)
                 {
                     ReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewPartyEntries(PartyInfoWorkerDelegate.PartyEntities);
+                    AppContextHelper.Instance.RaiseNewPartyEntries(readResult.PartyEntities);
                 }
 
                 if (readResult.NewParty.Any())
@@ -93,9 +92,9 @@ namespace FFXIVAPP.Client.Memory
                     AppContextHelper.Instance.RaiseNewPartyAddedEntries(readResult.NewParty);
                 }
 
-                if (readResult.PreviousParty.Any())
+                if (readResult.RemovedParty.Any())
                 {
-                    AppContextHelper.Instance.RaiseNewPartyRemovedEntries(readResult.PreviousParty.Keys.ToList());
+                    AppContextHelper.Instance.RaiseNewPartyRemovedEntries(readResult.RemovedParty.Keys.ToList());
                 }
 
                 #endregion

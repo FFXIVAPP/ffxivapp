@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ NetworkWorker.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -711,7 +711,7 @@ namespace FFXIVAPP.Client.Network
                 var num4 = IntPtr.Add(num1, 4);
                 for (var index = 0; index <= num3 - 1; ++index)
                 {
-                    var mibTcprowEx = (UnsafeNativeMethods.MIB_TCPROW_EX) Marshal.PtrToStructure(num4, typeof (UnsafeNativeMethods.MIB_TCPROW_EX));
+                    var mibTcprowEx = (UnsafeNativeMethods.MIB_TCPROW_EX) Marshal.PtrToStructure(num4, typeof(UnsafeNativeMethods.MIB_TCPROW_EX));
                     if (mibTcprowEx.dwProcessId == id)
                     {
                         var list2 = list1;
@@ -722,7 +722,7 @@ namespace FFXIVAPP.Client.Network
                         ffxivConnection1.DestinationPort = (ushort) mibTcprowEx.dwLocalPort;
                         list2.Add(ffxivConnection1);
                     }
-                    num4 = IntPtr.Add(num4, Marshal.SizeOf(typeof (UnsafeNativeMethods.MIB_TCPROW_EX)));
+                    num4 = IntPtr.Add(num4, Marshal.SizeOf(typeof(UnsafeNativeMethods.MIB_TCPROW_EX)));
                 }
             }
             catch
@@ -879,7 +879,7 @@ namespace FFXIVAPP.Client.Network
                 pcap_if pcapIf;
                 for (var ptr1 = alldevsp; ptr1 != IntPtr.Zero; ptr1 = pcapIf.next)
                 {
-                    pcapIf = (pcap_if) Marshal.PtrToStructure(ptr1, typeof (pcap_if));
+                    pcapIf = (pcap_if) Marshal.PtrToStructure(ptr1, typeof(pcap_if));
                     var device = new Device();
                     device.Name = pcapIf.name;
                     device.Description = pcapIf.description;
@@ -887,10 +887,10 @@ namespace FFXIVAPP.Client.Network
                     pcap_addr pcapAddr;
                     for (var ptr2 = pcapIf.addresses; ptr2 != IntPtr.Zero; ptr2 = pcapAddr.next)
                     {
-                        pcapAddr = (pcap_addr) Marshal.PtrToStructure(ptr2, typeof (pcap_addr));
+                        pcapAddr = (pcap_addr) Marshal.PtrToStructure(ptr2, typeof(pcap_addr));
                         if (pcapAddr.addr != IntPtr.Zero)
                         {
-                            var sockaddrIn = (sockaddr_in) Marshal.PtrToStructure(pcapAddr.addr, typeof (sockaddr_in));
+                            var sockaddrIn = (sockaddr_in) Marshal.PtrToStructure(pcapAddr.addr, typeof(sockaddr_in));
                             if (sockaddrIn.sin_family == 2)
                             {
                                 device.Addresses.Add(sockaddrIn.sin_addr[0] + "." + sockaddrIn.sin_addr[1] + "." + sockaddrIn.sin_addr[2] + "." + sockaddrIn.sin_addr[3]);
@@ -1026,7 +1026,7 @@ namespace FFXIVAPP.Client.Network
                 }
                 else
                 {
-                    var pcapPkthdr = (pcap_pkthdr) Marshal.PtrToStructure(pkt_header, typeof (pcap_pkthdr));
+                    var pcapPkthdr = (pcap_pkthdr) Marshal.PtrToStructure(pkt_header, typeof(pcap_pkthdr));
                     if (pcapPkthdr.caplen > offset)
                     {
                         var destination = new byte[pcapPkthdr.caplen - offset];

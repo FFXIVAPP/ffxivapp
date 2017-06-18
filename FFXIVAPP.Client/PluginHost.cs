@@ -1,6 +1,6 @@
 // FFXIVAPP.Client ~ PluginHost.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -188,7 +188,7 @@ namespace FFXIVAPP.Client
                 }
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
-                var implementsIPlugin = typeof (IPlugin).IsAssignableFrom(pType);
+                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
                     Logging.Log(Logger, String.Format("*IPlugin Not Implemented* :: {0}", pAssembly.GetName()

@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Updater ~ MainWindowViewModel.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Updater
 {
-    [Export(typeof (MainWindowViewModel))]
+    [Export(typeof(MainWindowViewModel))]
     internal sealed class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Property Bindings

@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ Initializer.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -316,9 +316,12 @@ namespace FFXIVAPP.Client
                             {
                                 var jsonResult = JArray.Parse(responseText);
                                 pluginSourceList.AddRange(from item in jsonResult
-                                                          let name = item["Name"].ToString()
-                                                          let enabled = Boolean.Parse(item["Enabled"].ToString())
-                                                          let sourceURI = item["SourceURI"].ToString()
+                                                          let name = item["Name"]
+                                                              .ToString()
+                                                          let enabled = Boolean.Parse(item["Enabled"]
+                                                              .ToString())
+                                                          let sourceURI = item["SourceURI"]
+                                                              .ToString()
                                                           where enabled
                                                           select new PluginSourceItem
                                                           {
@@ -368,20 +371,30 @@ namespace FFXIVAPP.Client
                                     {
                                         var jsonResult = JObject.Parse(responseText);
                                         var pluginInfo = jsonResult["PluginInfo"];
-                                        var pluginFiles = pluginInfo["Files"].ToArray();
+                                        var pluginFiles = pluginInfo["Files"]
+                                            .ToArray();
                                         var pluginDownload = new PluginDownloadItem
                                         {
                                             Files = new List<PluginFile>(pluginFiles.Select(pluginFile => new PluginFile
                                             {
-                                                Location = pluginFile["Location"].ToString(),
-                                                Name = pluginFile["Name"].ToString(),
-                                                Checksum = pluginFile["Checksum"] == null ? "" : pluginFile["Checksum"].ToString()
+                                                Location = pluginFile["Location"]
+                                                    .ToString(),
+                                                Name = pluginFile["Name"]
+                                                    .ToString(),
+                                                Checksum = pluginFile["Checksum"] == null ? "" : pluginFile["Checksum"]
+                                                    .ToString()
                                             })),
-                                            Name = pluginInfo["Name"].ToString(),
-                                            FriendlyName = pluginInfo["FriendlyName"] == null ? pluginInfo["Name"].ToString() : pluginInfo["FriendlyName"].ToString(),
-                                            Description = pluginInfo["Description"] == null ? "" : pluginInfo["Description"].ToString(),
-                                            SourceURI = pluginInfo["SourceURI"].ToString(),
-                                            LatestVersion = pluginInfo["Version"].ToString()
+                                            Name = pluginInfo["Name"]
+                                                .ToString(),
+                                            FriendlyName = pluginInfo["FriendlyName"] == null ? pluginInfo["Name"]
+                                                .ToString() : pluginInfo["FriendlyName"]
+                                                .ToString(),
+                                            Description = pluginInfo["Description"] == null ? "" : pluginInfo["Description"]
+                                                .ToString(),
+                                            SourceURI = pluginInfo["SourceURI"]
+                                                .ToString(),
+                                            LatestVersion = pluginInfo["Version"]
+                                                .ToString()
                                         };
                                         var found = App.Plugins.Loaded.Find(pluginDownload.Name);
                                         if (found != null)
@@ -445,8 +458,7 @@ namespace FFXIVAPP.Client
             var homePlugin = Settings.Default.HomePlugin;
             switch (homePlugin)
             {
-                case "None":
-                    break;
+                case "None": break;
                 default:
                     try
                     {
@@ -531,8 +543,10 @@ namespace FFXIVAPP.Client
                         else
                         {
                             var releases = JArray.Parse(responseText);
-                            var release = releases.FirstOrDefault(r => r?["target_commitish"].ToString() == "3.0-stable");
-                            var latest = release?["name"].ToString() ?? "Unknown";
+                            var release = releases.FirstOrDefault(r => r?["target_commitish"]
+                                                                           .ToString() == "3.0-stable");
+                            var latest = release?["name"]
+                                             .ToString() ?? "Unknown";
                             latest = latest.Split(' ')[0];
                             AppViewModel.Instance.LatestVersion = latest;
                             switch (latest)
@@ -670,7 +684,8 @@ namespace FFXIVAPP.Client
                 Constants.IsOpen = false;
                 return;
             }
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage);
+
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", true);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
             _actorWorker = new ActorWorker();

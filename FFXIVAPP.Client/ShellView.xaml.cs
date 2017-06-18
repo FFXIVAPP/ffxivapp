@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ ShellView.xaml.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -67,7 +67,8 @@ namespace FFXIVAPP.Client
             ThemeHelper.ChangeTheme(Settings.Default.Theme, null);
 
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
-            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+            AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0]
+                        .Enabled = false;
 
             AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
         }
@@ -126,12 +127,14 @@ namespace FFXIVAPP.Client
                 case WindowState.Minimized:
                     ShowInTaskbar = false;
                     AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP - Minimized";
-                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = true;
+                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0]
+                                .Enabled = true;
                     break;
                 case WindowState.Normal:
                     ShowInTaskbar = true;
                     AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
-                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0].Enabled = false;
+                    AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0]
+                                .Enabled = false;
                     break;
             }
         }

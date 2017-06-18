@@ -1,0 +1,14 @@
+[
+  {
+    "Key": "CHARMAP",
+    "Value": "48c1e8033dffff0000742b3da80100007324488d0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "PointerPath": [
+      0,
+	  0
+    ]
+  }
+]

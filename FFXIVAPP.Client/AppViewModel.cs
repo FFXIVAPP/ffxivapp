@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ AppViewModel.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ using ContextMenu = System.Windows.Forms.ContextMenu;
 
 namespace FFXIVAPP.Client
 {
-    [Export(typeof (AppViewModel))]
+    [Export(typeof(AppViewModel))]
     internal sealed class AppViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
@@ -117,8 +117,10 @@ namespace FFXIVAPP.Client
                         contextMenu.MenuItems.Add("&Restore Application")
                                    .Enabled = false;
                         contextMenu.MenuItems.Add("&Exit");
-                        contextMenu.MenuItems[0].Click += NotifyIconOnRestoreClick;
-                        contextMenu.MenuItems[1].Click += NotifyIconOnExitClick;
+                        contextMenu.MenuItems[0]
+                                   .Click += NotifyIconOnRestoreClick;
+                        contextMenu.MenuItems[1]
+                                   .Click += NotifyIconOnExitClick;
                         _notifyIcon.ContextMenu = contextMenu;
                         _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
                     }
@@ -364,7 +366,7 @@ namespace FFXIVAPP.Client
             get
             {
                 var att = Assembly.GetExecutingAssembly()
-                                  .GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false);
+                                  .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
             }
         }

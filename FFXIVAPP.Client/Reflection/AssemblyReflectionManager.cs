@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ AssemblyReflectionManager.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ namespace FFXIVAPP.Client.Reflection
             // load the assembly in the specified app domain
             try
             {
-                var proxyType = typeof (AssemblyReflectionProxy);
+                var proxyType = typeof(AssemblyReflectionProxy);
                 if (proxyType.Assembly != null)
                 {
                     var proxy = (AssemblyReflectionProxy) appDomain.CreateInstanceFrom(proxyType.Assembly.Location, proxyType.FullName)
@@ -158,7 +158,8 @@ namespace FFXIVAPP.Client.Reflection
             // check if the assembly is found in the internal dictionaries
             if (_loadedAssemblies.ContainsKey(assemblyPath) && _proxies.ContainsKey(assemblyPath))
             {
-                return _proxies[assemblyPath].Reflect(func);
+                return _proxies[assemblyPath]
+                    .Reflect(func);
             }
             return default(TResult);
         }

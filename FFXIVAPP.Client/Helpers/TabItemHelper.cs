@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ TabItemHelper.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -47,9 +47,9 @@ namespace FFXIVAPP.Client.Helpers
         public static DataTemplate ImageHeader(BitmapImage image, string name)
         {
             var dataTemplate = new DataTemplate();
-            var stackPanelFactory = new FrameworkElementFactory(typeof (StackPanel));
-            var imageFactory = new FrameworkElementFactory(typeof (Image));
-            var labelFactory = new FrameworkElementFactory(typeof (Label));
+            var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
+            var imageFactory = new FrameworkElementFactory(typeof(Image));
+            var labelFactory = new FrameworkElementFactory(typeof(Label));
             imageFactory.SetValue(FrameworkElement.HeightProperty, (double) 24);
             imageFactory.SetValue(FrameworkElement.WidthProperty, (double) 24);
             imageFactory.SetValue(FrameworkElement.ToolTipProperty, name);

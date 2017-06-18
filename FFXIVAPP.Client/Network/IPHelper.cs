@@ -1,6 +1,6 @@
 ﻿// FFXIVAPP.Client ~ IPHelper.cs
 // 
-// Copyright © 2007 - 2016 Ryan Wilson - All Rights Reserved
+// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -39,12 +39,12 @@ namespace FFXIVAPP.Client.Network
                 tcpTable = Marshal.AllocHGlobal(tcpTableLength);
                 if (UnsafeNativeMethods.GetExtendedTcpTable(tcpTable, ref tcpTableLength, true, 2, UnsafeNativeMethods.TCP_TABLE_CLASS.OWNER_PID_ALL) == 0)
                 {
-                    var table = (UnsafeNativeMethods.TCPTable) Marshal.PtrToStructure(tcpTable, typeof (UnsafeNativeMethods.TCPTable));
+                    var table = (UnsafeNativeMethods.TCPTable) Marshal.PtrToStructure(tcpTable, typeof(UnsafeNativeMethods.TCPTable));
                     var rowPtr = (IntPtr) ((long) tcpTable + Marshal.SizeOf(table.Length));
                     for (var i = 0; i < table.Length; ++i)
                     {
-                        tcpRows.Add(new TCPRow((UnsafeNativeMethods.TCPRow) Marshal.PtrToStructure(rowPtr, typeof (UnsafeNativeMethods.TCPRow))));
-                        rowPtr = (IntPtr) ((long) rowPtr + Marshal.SizeOf(typeof (UnsafeNativeMethods.TCPRow)));
+                        tcpRows.Add(new TCPRow((UnsafeNativeMethods.TCPRow) Marshal.PtrToStructure(rowPtr, typeof(UnsafeNativeMethods.TCPRow))));
+                        rowPtr = (IntPtr) ((long) rowPtr + Marshal.SizeOf(typeof(UnsafeNativeMethods.TCPRow)));
                     }
                 }
             }
