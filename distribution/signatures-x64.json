@@ -1,14 +1,81 @@
 [
   {
-    "Key": "CHARMAP",
-    "Value": "48c1e8033dffff0000742b3da80100007324488d0d",
+    "Key": "TARGET",
+    "Value": "488BD94885FF0F**********48896808488D0D",
     "SigScanAddress": {
       "value": 0
     },
     "ASMSignature": true,
+    "Offset": 19,
     "PointerPath": [
       0,
-	  0
+      144
+    ]
+  },
+  {
+    "Key": "CHATLOG",
+    "Value": "e8********85c0740e488b0d********33D2E8********488b0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 26,
+    "PointerPath": [
+      0,
+      0,
+      48,
+      908
+    ]
+  },
+  {
+    "Key": "CHARMAP",
+    "Value": "488B420848C1E803********00**248BC0488D0D",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 20,
+    "PointerPath": [
+      0,
+      0
+    ]
+  },
+  {
+    "Key": "PARTYMAP",
+    "Value": "85D275**B0014883C4205BC3488BD3488D0D",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 18,
+    "PointerPath": [
+      0,
+      16
+    ]
+  },
+  {
+    "Key": "MAPINFO",
+    "Value": "48897C243833FF89B9C0000000C681CD000000008B0D",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 22,
+    "PointerPath": [
+      0,
+      0
+    ]
+  },
+  {
+    "Key": "PLAYERINFO",
+    "Value": "BA********E8********448BC033D2488BCBE8********BA********488D0D",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 31,
+    "PointerPath": [
+      0
     ]
   }
 ]

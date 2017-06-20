@@ -685,7 +685,7 @@ namespace FFXIVAPP.Client
                 return;
             }
 
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", true);
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", !Settings.Default.CacheMemoryJSONData);
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
             _actorWorker = new ActorWorker();
@@ -739,6 +739,12 @@ namespace FFXIVAPP.Client
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
             }
+        }
+
+        public static void RefreshMemoryWorkers()
+        {
+            StopMemoryWorkers();
+            StartMemoryWorkers();
         }
 
         public static void StartNetworkWorker()

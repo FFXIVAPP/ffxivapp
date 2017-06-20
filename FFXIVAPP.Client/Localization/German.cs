@@ -133,6 +133,8 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_TargEnmMSSLabel", "Targets &amp; Enmity");
             Dictionary.Add("app_InvMSSLabel", "Inventory");
             Dictionary.Add("app_NetworkUseWinPCapLabel", "Use WinPCap For Network Reading");
+            Dictionary.Add("app_CacheMemoryJSONDataHeader", "Cache Memory JSON Data Locally");
+            Dictionary.Add("app_RefreshMemoryWorkersButtonText", "Refresh Memory Workers");
             return Dictionary;
         }
     }

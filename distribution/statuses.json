@@ -1251,10 +1251,10 @@
   },
   "127": {
     "Name": {
-      "English": "Quelling Strikes",
-      "French": "Frappe Silencieuse",
-      "Japanese": "静者の撃",
-      "German": "Heimliche Attacke",
+      "English": "Diversion",
+      "French": "Diversion",
+      "Japanese": "ディヴァージョン",
+      "German": "Ablenkung",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -1395,6 +1395,16 @@
       "French": "Voix De Combat",
       "Japanese": "バトルボイス",
       "German": "Ode An Die Seele",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "142": {
+    "Name": {
+      "English": "Stun",
+      "French": "Étourdissement",
+      "Japanese": "スタン",
+      "German": "Betäubung",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -3783,7 +3793,7 @@
     "Name": {
       "English": "Testudo",
       "French": "Testudo",
-      "Japanese": "テストゥド",
+      "Japanese": "",
       "German": "Testudo",
       "Chinese": ""
     },
@@ -3793,7 +3803,7 @@
     "Name": {
       "English": "Thrill Of War",
       "French": "Frisson De La Guerre",
-      "Japanese": "スリル・オブ・ウォー",
+      "Japanese": "",
       "German": "Schlachtrausch",
       "Chinese": ""
     },
@@ -3803,7 +3813,7 @@
     "Name": {
       "English": "Full Swing",
       "French": "Plein élan",
-      "Japanese": "フルスイング",
+      "Japanese": "",
       "German": "Voller Schwinger",
       "Chinese": ""
     },
@@ -3813,7 +3823,7 @@
     "Name": {
       "English": "Somersault",
       "French": "Saut Périlleux",
-      "Japanese": "サマーソルト",
+      "Japanese": "",
       "German": "Salto",
       "Chinese": ""
     },
@@ -3823,7 +3833,7 @@
     "Name": {
       "English": "Fetter Ward",
       "French": "Émancipation",
-      "Japanese": "フェターウォード",
+      "Japanese": "",
       "German": "Obhut",
       "Chinese": ""
     },
@@ -3833,7 +3843,7 @@
     "Name": {
       "English": "Impulse Rush",
       "French": "Impulsion Subite",
-      "Japanese": "インパルスラッシュ",
+      "Japanese": "",
       "German": "Impuls-Ansturm",
       "Chinese": ""
     },
@@ -3853,7 +3863,7 @@
     "Name": {
       "English": "Sacred Prism",
       "French": "Prisme Sacré",
-      "Japanese": "女神の慈悲",
+      "Japanese": "",
       "German": "Barmherzigkeit",
       "Chinese": ""
     },
@@ -3863,7 +3873,7 @@
     "Name": {
       "English": "Phantom Dart",
       "French": "Projectile Fantôme",
-      "Japanese": "ファントムダート",
+      "Japanese": "",
       "German": "Phantompfeil",
       "Chinese": ""
     },
@@ -3873,7 +3883,7 @@
     "Name": {
       "English": "Misty Veil",
       "French": "Voile De Brume",
-      "Japanese": "ミスティヴェール",
+      "Japanese": "",
       "German": "Nebelschleier",
       "Chinese": ""
     },
@@ -3883,7 +3893,7 @@
     "Name": {
       "English": "Wither",
       "French": "Flétrissure",
-      "Japanese": "ウィザー",
+      "Japanese": "",
       "German": "Entkräften",
       "Chinese": ""
     },
@@ -3893,7 +3903,7 @@
     "Name": {
       "English": "Focalization",
       "French": "Traité De La Focalisation",
-      "Japanese": "精神統一の策",
+      "Japanese": "",
       "German": "Lege Artis",
       "Chinese": ""
     },
@@ -3903,7 +3913,7 @@
     "Name": {
       "English": "Aetheric Burst",
       "French": "Explosion éthérée",
-      "Japanese": "エーテルバースト",
+      "Japanese": "",
       "German": "Ätherschub",
       "Chinese": ""
     },
@@ -3911,9 +3921,9 @@
   },
   "396": {
     "Name": {
-      "English": "Equanimity",
-      "French": "Équanimité",
-      "Japanese": "専心",
+      "English": "Concentration",
+      "French": "Concentration",
+      "Japanese": "集中",
       "German": "Gleichmut",
       "Chinese": ""
     },
@@ -3921,9 +3931,9 @@
   },
   "397": {
     "Name": {
-      "English": "Attunement",
-      "French": "Harmonie",
-      "Japanese": "調和",
+      "English": "Safeguard",
+      "French": "Sauvegarde",
+      "Japanese": "堅守",
       "German": "Einstimmung",
       "Chinese": ""
     },
@@ -4133,7 +4143,7 @@
     "Name": {
       "English": "Physical Vulnerability Down",
       "French": "Vulnérabilité Physique Diminuée",
-      "Japanese": "被物理ダメージ軽減",
+      "Japanese": "",
       "German": "Verringerte Physische Verwundbarkeit",
       "Chinese": ""
     },
@@ -4262,7 +4272,7 @@
   "431": {
     "Name": {
       "English": "Water Resistance Down",
-      "French": "Résistance à L'eau Diminuée",
+      "French": "Résistance à L'eau Réduite",
       "Japanese": "水属性耐性低下",
       "German": "Wasserresistenz -",
       "Chinese": ""
@@ -5611,10 +5621,10 @@
   },
   "567": {
     "Name": {
-      "English": "Shifting Sands",
-      "French": "Sable Mouvant",
-      "Japanese": "流砂",
-      "German": "Treibsand",
+      "English": "6 Fulms Under",
+      "French": "Enfoncement",
+      "Japanese": "沈下",
+      "German": "Radieschen Von Unten",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -6152,7 +6162,7 @@
   "621": {
     "Name": {
       "English": "Fire Resistance Down",
-      "French": "Résistance Au Feu Diminuée",
+      "French": "Résistance Au Feu Réduite",
       "Japanese": "火属性耐性低下",
       "German": "Feuerresistenz -",
       "Chinese": ""
@@ -6205,26 +6215,6 @@
       "French": "Actions Bloquées",
       "Japanese": "アクション実行不可",
       "German": "Außer Gefecht",
-      "Chinese": ""
-    },
-    "CompanyAction": false
-  },
-  "627": {
-    "Name": {
-      "English": "Regen",
-      "French": "Récup",
-      "Japanese": "リジェネ",
-      "German": "Regena",
-      "Chinese": ""
-    },
-    "CompanyAction": false
-  },
-  "628": {
-    "Name": {
-      "English": "Medica II",
-      "French": "Extra Médica",
-      "Japanese": "メディカラ",
-      "German": "Resedra",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -6642,7 +6632,7 @@
   "670": {
     "Name": {
       "English": "Fire Resistance Down",
-      "French": "Résistance Au Feu Diminuée",
+      "French": "Résistance Au Feu Réduite",
       "Japanese": "火属性耐性低下",
       "German": "Feuerresistenz -",
       "Chinese": ""
@@ -6782,7 +6772,7 @@
   "685": {
     "Name": {
       "English": "Wind Resistance Down",
-      "French": "Résistance Au Vent Diminuée",
+      "French": "Résistance Au Vent Réduite",
       "Japanese": "風属性耐性低下",
       "German": "Windresistenz -",
       "Chinese": ""
@@ -7519,16 +7509,6 @@
     },
     "CompanyAction": false
   },
-  "759": {
-    "Name": {
-      "English": "Deep Breath",
-      "French": "Respiration Profonde",
-      "Japanese": "ディープブレス",
-      "German": "Tiefes Durchatmen",
-      "Chinese": ""
-    },
-    "CompanyAction": false
-  },
   "760": {
     "Name": {
       "English": "Single Mind",
@@ -7675,6 +7655,66 @@
       "French": "Invulnérable",
       "Japanese": "無敵",
       "German": "Unverwundbar",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "777": {
+    "Name": {
+      "English": "Blessing Of The Void",
+      "French": "Bénédiction Du Néant",
+      "Japanese": "ヴォイドの加護",
+      "German": "Nichtssegen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "778": {
+    "Name": {
+      "English": "Earthen Accord",
+      "French": "Accord Terrestre",
+      "Japanese": "土の契り",
+      "German": "Irdischer Pakt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "779": {
+    "Name": {
+      "English": "Out Of Body",
+      "French": "Détachement Corporel",
+      "Japanese": "幽体離脱",
+      "German": "Außerkörperlichkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "780": {
+    "Name": {
+      "English": "Resonant",
+      "French": "Résonnant",
+      "Japanese": "超越者",
+      "German": "Übernatürliche Kraft",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "781": {
+    "Name": {
+      "English": "Aether Sickness",
+      "French": "Ivresse éthérée",
+      "Japanese": "エーテル酔い",
+      "German": "Ätherüberreizung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "782": {
+    "Name": {
+      "English": "Unbridled",
+      "French": "Pouvoir Déchaîné",
+      "Japanese": "妖刀解放",
+      "German": "Entfesselte Klinge",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -8035,6 +8075,36 @@
       "French": "Voie Royale Doublée",
       "Japanese": "ロイヤルロード：効果時間増加",
       "German": "Königsweg Der Geduld",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "819": {
+    "Name": {
+      "English": "Slashing Resistance Down",
+      "French": "Résistance Au Tranchant Réduite",
+      "Japanese": "斬属性耐性低下",
+      "German": "Hiebresistenz -",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "820": {
+    "Name": {
+      "English": "Piercing Resistance Down",
+      "French": "Résistance Au Perforant Réduite",
+      "Japanese": "突属性耐性低下",
+      "German": "Stichresistenz -",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "821": {
+    "Name": {
+      "English": "Blunt Resistance Down",
+      "French": "Résistance Au Contondant Réduite",
+      "Japanese": "打属性耐性低下",
+      "German": "Schlagresistenz -",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -8722,7 +8792,7 @@
   "894": {
     "Name": {
       "English": "Wind Resistance Down",
-      "French": "Résistance Au Vent Diminuée",
+      "French": "Résistance Au Vent Réduite",
       "Japanese": "風属性耐性低下",
       "German": "Windresistenz -",
       "Chinese": ""
@@ -8735,16 +8805,6 @@
       "French": "Invulnérable",
       "Japanese": "無敵",
       "German": "Unverwundbar",
-      "Chinese": ""
-    },
-    "CompanyAction": false
-  },
-  "896": {
-    "Name": {
-      "English": "Last Ditch",
-      "French": "Ultime Effort",
-      "Japanese": "ラストディッチ",
-      "German": "Letzter Graben",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -10012,7 +10072,7 @@
   "1025": {
     "Name": {
       "English": "Water Resistance Down II",
-      "French": "Résistance à L'eau Diminuée+",
+      "French": "Résistance à L'eau Réduite+",
       "Japanese": "水属性耐性低下［強］",
       "German": "Wasserresistenz - (stark)",
       "Chinese": ""
@@ -10282,7 +10342,7 @@
   "1052": {
     "Name": {
       "English": "Wind Resistance Down II",
-      "French": "Résistance Au Vent Diminuée+",
+      "French": "Résistance Au Vent Réduite+",
       "Japanese": "風属性耐性低下［強］",
       "German": "Windresistenz - (stark)",
       "Chinese": ""
@@ -11129,6 +11189,16 @@
     },
     "CompanyAction": false
   },
+  "1137": {
+    "Name": {
+      "English": "Fire Resistance Down II",
+      "French": "Résistance Au Feu Réduite+",
+      "Japanese": "火属性耐性低下[強]",
+      "German": "Feuerresistenz - (stark)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
   "1138": {
     "Name": {
       "English": "Magic Vulnerability Up",
@@ -11175,6 +11245,2416 @@
       "French": "Transmission D'éther",
       "Japanese": "エーテル放射",
       "German": "Ätherwelle",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1143": {
+    "Name": {
+      "English": "Infinite Fire",
+      "French": "Feu Infini",
+      "Japanese": "炎の刻印",
+      "German": "Ewiges Feuer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1144": {
+    "Name": {
+      "English": "Infinite Ice",
+      "French": "Glace Infinie",
+      "Japanese": "氷の刻印",
+      "German": "Ewiges Eis",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1145": {
+    "Name": {
+      "English": "Keen Edge",
+      "French": "Double Tranchant",
+      "Japanese": "諸刃の剣",
+      "German": "Zweischneidig",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1146": {
+    "Name": {
+      "English": "Riled",
+      "French": "Combativité",
+      "Japanese": "闘志",
+      "German": "Kämpferisch",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1147": {
+    "Name": {
+      "English": "Shadow Links",
+      "French": "Chaînes D'ombre",
+      "Japanese": "影の足枷",
+      "German": "Schattenfessel",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1148": {
+    "Name": {
+      "English": "Shadow Limb",
+      "French": "Mains D'ombre",
+      "Japanese": "影の手",
+      "German": "Schattenhand",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1149": {
+    "Name": {
+      "English": "Wolf's Heart Kit",
+      "French": "Stimulant Cœur-de-loup",
+      "Japanese": "ウルフハートキット",
+      "German": "Wolfsherz-Set",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1150": {
+    "Name": {
+      "English": "Deep Freeze",
+      "French": "Congélation",
+      "Japanese": "氷結",
+      "German": "Nullpunkt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1151": {
+    "Name": {
+      "English": "●大型魚用の銛先装着",
+      "French": "●大型魚用の銛先装着",
+      "Japanese": "●大型魚用の銛先装着",
+      "German": "●大型魚用の銛先装着",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1152": {
+    "Name": {
+      "English": "●中型魚用の銛先装着",
+      "French": "●中型魚用の銛先装着",
+      "Japanese": "●中型魚用の銛先装着",
+      "German": "●中型魚用の銛先装着",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1153": {
+    "Name": {
+      "English": "●小型魚用の銛先装着",
+      "French": "●小型魚用の銛先装着",
+      "Japanese": "●小型魚用の銛先装着",
+      "German": "●小型魚用の銛先装着",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1154": {
+    "Name": {
+      "English": "Beastking's Boon",
+      "French": "Bénédiction Du Roi Bestial",
+      "Japanese": "獣王の加護",
+      "German": "Schutz Des Königs",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1155": {
+    "Name": {
+      "English": "Aetherial Enhancement",
+      "French": "Renforcement éthéréen",
+      "Japanese": "エーテル強化",
+      "German": "Ätherverstärkung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1156": {
+    "Name": {
+      "English": "Magic Damage Up",
+      "French": "Bonus De Dégâts Magiques",
+      "Japanese": "魔法ダメージ上昇",
+      "German": "Magieschaden +",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1157": {
+    "Name": {
+      "English": "Water Resistance Down II",
+      "French": "Résistance à L'eau Réduite+",
+      "Japanese": "水属性耐性低下［強］",
+      "German": "Wasserresistenz - (stark)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1158": {
+    "Name": {
+      "English": "Nose For Battle",
+      "French": "Flair Du Combat",
+      "Japanese": "戦いの気配",
+      "German": "Lust Auf Zoff",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1159": {
+    "Name": {
+      "English": "Infinite Anguish",
+      "French": "Agonie Infinie",
+      "Japanese": "苦悶の刻印",
+      "German": "Siegel Der Qual",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1160": {
+    "Name": {
+      "English": "Enfeebled",
+      "French": "Anémie",
+      "Japanese": "弱化の試薬",
+      "German": "Debilitans",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1161": {
+    "Name": {
+      "English": "Damage Up",
+      "French": "ダメージ上昇",
+      "Japanese": "ダメージ上昇",
+      "German": "ダメージ上昇",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1162": {
+    "Name": {
+      "English": "Infinite Anguish",
+      "French": "Agonie Infinie",
+      "Japanese": "苦悶の刻印",
+      "German": "Siegel Der Qual",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1163": {
+    "Name": {
+      "English": "Stroke Of Genius",
+      "French": "Coup De Génie",
+      "Japanese": "魔匠の閃き",
+      "German": "Genialer Funke",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1164": {
+    "Name": {
+      "English": "Manipulation II",
+      "French": "Manipulation II",
+      "Japanese": "マニピュレーションII",
+      "German": "Manipulation II",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1165": {
+    "Name": {
+      "English": "Initial Preparations",
+      "French": "Préparatifs Initiaux",
+      "Japanese": "初手仕込",
+      "German": "Fulminanter Start",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1166": {
+    "Name": {
+      "English": "Fathom",
+      "French": "Sondage",
+      "Japanese": "ファゾム",
+      "German": "Ausloten",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1167": {
+    "Name": {
+      "English": "Shark Eye",
+      "French": "Œil De Requin",
+      "Japanese": "シャークアイ",
+      "German": "Hai-Auge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1168": {
+    "Name": {
+      "English": "Shark Eye II",
+      "French": "Œil De Requin II",
+      "Japanese": "シャークアイII",
+      "German": "Hai-Auge II",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1169": {
+    "Name": {
+      "English": "Veteran Trade",
+      "French": "Métier De Vétéran",
+      "Japanese": "ベテラントレード",
+      "German": "Artenvielfalt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1170": {
+    "Name": {
+      "English": "Bountiful Catch",
+      "French": "Prise Abondante",
+      "Japanese": "バウンティフルキャッチ",
+      "German": "Reicher Fang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1171": {
+    "Name": {
+      "English": "Nature's Bounty",
+      "French": "Trésor De La Nature",
+      "Japanese": "ネイチャーバウンティ",
+      "German": "Großes Füllhorn",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1172": {
+    "Name": {
+      "English": "Salvage",
+      "French": "Ramassage Sous-marin",
+      "Japanese": "サルベージ",
+      "German": "Flaschenpost",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1173": {
+    "Name": {
+      "English": "Truth Of Oceans",
+      "French": "Science Des Océans",
+      "Japanese": "トゥルー・オブ・オーシャン",
+      "German": "Jungfräuliches Meer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1174": {
+    "Name": {
+      "English": "Intervention",
+      "French": "Intervention",
+      "Japanese": "インターベンション",
+      "German": "Intervention",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1175": {
+    "Name": {
+      "English": "Passage Of Arms",
+      "French": "Passe D'armes",
+      "Japanese": "パッセージ・オブ・アームズ",
+      "German": "Waffengang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1176": {
+    "Name": {
+      "English": "Arms Up",
+      "French": "Armes Dressées",
+      "Japanese": "パッセージ・オブ・アームズ：効果",
+      "German": "Waffengang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1177": {
+    "Name": {
+      "English": "Inner Release",
+      "French": "Relâchement Intérieur",
+      "Japanese": "原初の解放",
+      "German": "Urbefreiung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1178": {
+    "Name": {
+      "English": "Blackest Night",
+      "French": "Nuit Noirissime",
+      "Japanese": "ブラックナイト",
+      "German": "Schwärzeste Nacht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1179": {
+    "Name": {
+      "English": "Riddle Of Earth",
+      "French": "Énigme De La Terre",
+      "Japanese": "金剛の極意",
+      "German": "Steinernes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1180": {
+    "Name": {
+      "English": "Earth's Reply",
+      "French": "Réaction De La Terre",
+      "Japanese": "金剛の決意",
+      "German": "Steinerne Klarheit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1181": {
+    "Name": {
+      "English": "Riddle Of Fire",
+      "French": "Énigme Du Feu",
+      "Japanese": "紅蓮の極意",
+      "German": "Flammendes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1182": {
+    "Name": {
+      "English": "Brotherhood",
+      "French": "Fraternité",
+      "Japanese": "桃園結義",
+      "German": "Bruderschaft",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1183": {
+    "Name": {
+      "English": "Right Eye",
+      "French": "Œil Droit",
+      "Japanese": "竜の右眼",
+      "German": "Rechtes Drachenauge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1184": {
+    "Name": {
+      "English": "Left Eye",
+      "French": "Œil Gauche",
+      "Japanese": "竜の左眼",
+      "German": "Linkes Drachenauge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1186": {
+    "Name": {
+      "English": "Ten Chi Jin",
+      "French": "Ten Chi Jin",
+      "Japanese": "天地人",
+      "German": "Ten Chi Jin",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1187": {
+    "Name": {
+      "English": "Troubador's Ballad",
+      "French": "Ballade Du Troubadour",
+      "Japanese": "トルバドゥール：バラード",
+      "German": "Ballade Des Troubadours",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1188": {
+    "Name": {
+      "English": "Critical Up",
+      "French": "Critiques Augmentés",
+      "Japanese": "クリティカル上昇",
+      "German": "Kritische Treffer +",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1189": {
+    "Name": {
+      "English": "Troubador's Paean",
+      "French": "Péan Du Troubadour",
+      "Japanese": "トルバドゥール：パイオン",
+      "German": "Päan Des Troubadours",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1190": {
+    "Name": {
+      "English": "Troubador's Minuet",
+      "French": "Menuet Du Troubadour",
+      "Japanese": "トルバドゥール：メヌエット",
+      "German": "Menuett Des Troubadours",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1191": {
+    "Name": {
+      "English": "Rampart",
+      "French": "Rempart",
+      "Japanese": "ランパート",
+      "German": "Schutzwall",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1192": {
+    "Name": {
+      "English": "Convalescence",
+      "French": "Convalescence",
+      "Japanese": "コンバレセンス",
+      "German": "Konvaleszenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1193": {
+    "Name": {
+      "English": "Reprisal",
+      "French": "Rétorsion",
+      "Japanese": "リプライザル",
+      "German": "Reflexion",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1194": {
+    "Name": {
+      "English": "Anticipation",
+      "French": "Anticipation",
+      "Japanese": "見切り",
+      "German": "Vorausahnung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1195": {
+    "Name": {
+      "English": "Feint",
+      "French": "Restreinte",
+      "Japanese": "牽制",
+      "German": "Zermürben",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1196": {
+    "Name": {
+      "English": "Palisade",
+      "French": "Palissade",
+      "Japanese": "パリセード",
+      "German": "Palisade",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1197": {
+    "Name": {
+      "English": "Tactician",
+      "French": "Tacticien",
+      "Japanese": "タクティシャン",
+      "German": "Taktiker",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1198": {
+    "Name": {
+      "English": "Refresh",
+      "French": "Revigoration",
+      "Japanese": "リフレッシュ",
+      "German": "Erfrischung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1199": {
+    "Name": {
+      "English": "Peloton",
+      "French": "Peloton",
+      "Japanese": "プロトン",
+      "German": "Peloton",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1200": {
+    "Name": {
+      "English": "Caustic Bite",
+      "French": "Morsure Caustique",
+      "Japanese": "コースティックバイト",
+      "German": "Kaustischer Biss",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1201": {
+    "Name": {
+      "English": "Storm Bite",
+      "French": "Morsure De La Tempête",
+      "Japanese": "ストームバイト",
+      "German": "Sturmbiss",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1202": {
+    "Name": {
+      "English": "Nature's Minne",
+      "French": "Minne De La Nature",
+      "Japanese": "地神のミンネ",
+      "German": "Nophicas Minne",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1203": {
+    "Name": {
+      "English": "Addle",
+      "French": "Embrouillement",
+      "Japanese": "アドル",
+      "German": "Stumpfsinn",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1204": {
+    "Name": {
+      "English": "Lucid Dreaming",
+      "French": "Rêve Lucide",
+      "Japanese": "ルーシッドドリーム",
+      "German": "Klartraum",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1205": {
+    "Name": {
+      "English": "Flamethrower",
+      "French": "Lance-flammes",
+      "Japanese": "フレイムスロアー",
+      "German": "Flammenwerfer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1207": {
+    "Name": {
+      "English": "Largesse",
+      "French": "Largesse",
+      "Japanese": "慈愛",
+      "German": "Huld",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1208": {
+    "Name": {
+      "English": "Vulnerability Up",
+      "French": "Vulnérabilité Augmentée",
+      "Japanese": "被ダメージ上昇",
+      "German": "Erhöhte Verwundbarkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1209": {
+    "Name": {
+      "English": "Arm's Length",
+      "French": "Portée De Bras",
+      "Japanese": "アームズレングス",
+      "German": "Abtausch",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1210": {
+    "Name": {
+      "English": "Thunder IV",
+      "French": "Giga Foudre",
+      "Japanese": "サンダジャ",
+      "German": "Blitzka",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1211": {
+    "Name": {
+      "English": "Triplecast",
+      "French": "Triple Sort",
+      "Japanese": "三連魔",
+      "German": "Tripelzauber",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1212": {
+    "Name": {
+      "English": "Further Ruin",
+      "French": "Ruine Renforcée",
+      "Japanese": "ルイン強化",
+      "German": "Verstärkter Ruin",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1213": {
+    "Name": {
+      "English": "Devotion",
+      "French": "Dévouement",
+      "Japanese": "エギの加護",
+      "German": "Hingabe",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1214": {
+    "Name": {
+      "English": "Bio III",
+      "French": "Méga Bactérie",
+      "Japanese": "バイオガ",
+      "German": "Bioga",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1215": {
+    "Name": {
+      "English": "Miasma III",
+      "French": "Méga Miasmes",
+      "Japanese": "ミアズガ",
+      "German": "Miasga",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1217": {
+    "Name": {
+      "English": "Thin Air",
+      "French": "Sponte",
+      "Japanese": "シンエアー",
+      "German": "Ex Machina",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1218": {
+    "Name": {
+      "English": "Divine Benison",
+      "French": "Faveur Divine",
+      "Japanese": "ディヴァインベニゾン",
+      "German": "Göttlicher Segen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1219": {
+    "Name": {
+      "English": "Confession",
+      "French": "Confession",
+      "Japanese": "インドゥルゲンティア",
+      "German": "Bekenntnis",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1220": {
+    "Name": {
+      "English": "Excogitation",
+      "French": "Traité De L'excogitation",
+      "Japanese": "深謀遠慮の策",
+      "German": "Weise Voraussicht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1221": {
+    "Name": {
+      "English": "Chain Stratagem",
+      "French": "Stratagèmes Entrelacés",
+      "Japanese": "連環計",
+      "German": "Kritische Strategie",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1222": {
+    "Name": {
+      "English": "Fey Union",
+      "French": "Union Féérique",
+      "Japanese": "フェイユニオン",
+      "German": "Feenbund",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1223": {
+    "Name": {
+      "English": "Fey Union",
+      "French": "Union Féérique",
+      "Japanese": "フェイユニオン［被］",
+      "German": "Feenbund",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1224": {
+    "Name": {
+      "English": "Earthly Dominance",
+      "French": "Domination Terrestre",
+      "Japanese": "星の支配者",
+      "German": "Irdische Herrschaft",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1227": {
+    "Name": {
+      "English": "Yukikaze",
+      "French": "Yukikaze",
+      "Japanese": "雪風",
+      "German": "Yukikaze",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1228": {
+    "Name": {
+      "English": "Higanbana",
+      "French": "Higanbana",
+      "Japanese": "彼岸花",
+      "German": "Higanbana",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1229": {
+    "Name": {
+      "English": "Kaiten",
+      "French": "Kaiten",
+      "Japanese": "必殺剣・回天",
+      "German": "Klinge: Kaiten",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1231": {
+    "Name": {
+      "English": "Meditate",
+      "French": "Mokusô",
+      "Japanese": "黙想",
+      "German": "Meditieren",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1232": {
+    "Name": {
+      "English": "Third Eye",
+      "French": "Troisième œil",
+      "Japanese": "心眼",
+      "German": "Drittes Auge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1233": {
+    "Name": {
+      "English": "Meikyo Shisui",
+      "French": "Meikyô Shisui",
+      "Japanese": "明鏡止水",
+      "German": "Meikyo Shisui",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1234": {
+    "Name": {
+      "English": "Verfire Ready",
+      "French": "VerFeu Préparé",
+      "Japanese": "ヴァルファイア効果アップ",
+      "German": "Erzfeuer-bereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1235": {
+    "Name": {
+      "English": "Verstone Ready",
+      "French": "VerTerre Préparée",
+      "Japanese": "ヴァルストーン効果アップ",
+      "German": "Erzstein-bereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1236": {
+    "Name": {
+      "English": "Enhanced Enpi",
+      "French": "Enpi Amélioré",
+      "Japanese": "燕飛効果アップ",
+      "German": "Verbessertes Enpi",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1237": {
+    "Name": {
+      "English": "Enhanced Scatter",
+      "French": "Éparpillement Amélioré",
+      "Japanese": "スキャッター効果アップ",
+      "German": "Verbessertes Zerstreuen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1238": {
+    "Name": {
+      "English": "Acceleration",
+      "French": "Accélération",
+      "Japanese": "アクセラレーション",
+      "German": "Präparation",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1239": {
+    "Name": {
+      "English": "Embolden",
+      "French": "Enhardissement",
+      "Japanese": "エンボルデン",
+      "German": "Ermutigen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1240": {
+    "Name": {
+      "English": "Chiten",
+      "French": "Hissatsu: Chiten",
+      "Japanese": "必殺剣・地天",
+      "German": "Hissatsu: Chiten",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1241": {
+    "Name": {
+      "English": "Monomachy",
+      "French": "Monomachie",
+      "Japanese": "モノマキー",
+      "German": "Duell",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1242": {
+    "Name": {
+      "English": "Monomachy",
+      "French": "Monomachie",
+      "Japanese": "モノマキー［被］",
+      "German": "Duellant",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1243": {
+    "Name": {
+      "English": "Dive Ready",
+      "French": "Piqué Mirage Préparé",
+      "Japanese": "ミラージュダイブ実行可",
+      "German": "Sprungbereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1244": {
+    "Name": {
+      "English": "Riddle Of Wind",
+      "French": "Énigme Du Vent",
+      "Japanese": "疾風の極意",
+      "German": "Stürmendes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1248": {
+    "Name": {
+      "English": "Giant Dominance",
+      "French": "Domination Stellaire",
+      "Japanese": "巨星の支配者",
+      "German": "Planetare Herrschaft",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1249": {
+    "Name": {
+      "English": "Dualcast",
+      "French": "Chaîne De Sorts",
+      "Japanese": "連続魔",
+      "German": "Doppelzauber",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1250": {
+    "Name": {
+      "English": "True North",
+      "French": "Vrai Nord",
+      "Japanese": "トゥルーノース",
+      "German": "Neuausrichtung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1251": {
+    "Name": {
+      "English": "Turret Reset",
+      "French": "Réinitialisation D'auto-tourelle",
+      "Japanese": "タレット再起動中",
+      "German": "Gyrocopter-Kalibrierung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1252": {
+    "Name": {
+      "English": "Eyes Open",
+      "French": "Yeux Ouverts",
+      "Japanese": "開眼",
+      "German": "Offene Augen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1253": {
+    "Name": {
+      "English": "Prey",
+      "French": "Marquage",
+      "Japanese": "マーキング",
+      "German": "Markiert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1254": {
+    "Name": {
+      "English": "Deep Freeze",
+      "French": "Congélation",
+      "Japanese": "氷結",
+      "German": "Tiefkühlung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1255": {
+    "Name": {
+      "English": "Fire Resistance Down II",
+      "French": "Résistance Au Feu Réduite+",
+      "Japanese": "火属性耐性低下[強]",
+      "German": "Feuerresistenz - (stark)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1256": {
+    "Name": {
+      "English": "Wounded",
+      "French": "Blessures",
+      "Japanese": "負傷",
+      "German": "Verwundet",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1257": {
+    "Name": {
+      "English": "Forced March",
+      "French": "Marche Forcée",
+      "Japanese": "強制移動",
+      "German": "Zwangsmarsch",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1258": {
+    "Name": {
+      "English": "Fetters",
+      "French": "Attache",
+      "Japanese": "拘束",
+      "German": "Gefesselt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1259": {
+    "Name": {
+      "English": "Old",
+      "French": "Vieillissement",
+      "Japanese": "オールド",
+      "German": "Alt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1260": {
+    "Name": {
+      "English": "Lightning Resistance Down II",
+      "French": "Résistance à La Foudre Réduite+",
+      "Japanese": "雷属性耐性低下［強］",
+      "German": "Blitzresistenz - (stark)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1262": {
+    "Name": {
+      "English": "Gathering Fortune Up II (Limited)",
+      "French": "Récolte De Qualité II (limitée)",
+      "Japanese": "採集HQ獲得率アップ：限定II",
+      "German": "Sammelglück Erhöht II (Limit)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1263": {
+    "Name": {
+      "English": "Rehabilitation",
+      "French": "Recouvrement",
+      "Japanese": "徐々にＨＰ回復",
+      "German": "Rehabilitation",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1264": {
+    "Name": {
+      "English": "Brilliant Conviction",
+      "French": "Conviction De La Lumière",
+      "Japanese": "光の決意",
+      "German": "Wille Des Lichts",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1265": {
+    "Name": {
+      "English": "Brilliant Conviction",
+      "French": "Conviction De La Lumière",
+      "Japanese": "光の決意",
+      "German": "Wille Des Lichts",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1266": {
+    "Name": {
+      "English": "Transparent II",
+      "French": "Transparence+",
+      "Japanese": "透明［強］",
+      "German": "Supertransparenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1267": {
+    "Name": {
+      "English": "Affixed",
+      "French": "Étreinte",
+      "Japanese": "しがみつき",
+      "German": "Angekrallt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1268": {
+    "Name": {
+      "English": "In Event",
+      "French": "Événement",
+      "Japanese": "イベント中",
+      "German": "In Ereignis",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1269": {
+    "Name": {
+      "English": "Extreme Caution",
+      "French": "Liberté Réduite",
+      "Japanese": "行動注意",
+      "German": "Auf Bewährung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1270": {
+    "Name": {
+      "English": "Churning",
+      "French": "Agitation",
+      "Japanese": "禍泡",
+      "German": "Schäumend",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1271": {
+    "Name": {
+      "English": "Clashing",
+      "French": "Duel D'armes",
+      "Japanese": "鍔迫り合い",
+      "German": "Gekreuzte Klingen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1272": {
+    "Name": {
+      "English": "Slashing Resistance Down II",
+      "French": "Résistance Au Tranchant Réduite+",
+      "Japanese": "斬属性耐性低下［強］",
+      "German": "Hiebresistenz - (stark)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1273": {
+    "Name": {
+      "English": "Sinking",
+      "French": "Enfoncement",
+      "Japanese": "埋没",
+      "German": "Sinkend",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1274": {
+    "Name": {
+      "English": "Bardam's Price",
+      "French": "Punition De Bardam",
+      "Japanese": "試練の罰",
+      "German": "Bardams Strafe",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1275": {
+    "Name": {
+      "English": "Fire Convergence",
+      "French": "Convergence De Feu",
+      "Japanese": "火炎以外反射",
+      "German": "Feuerkonvergenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1276": {
+    "Name": {
+      "English": "Ice Convergence",
+      "French": "Convergence De Glace",
+      "Japanese": "氷結以外反射",
+      "German": "Eiskonvergenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1277": {
+    "Name": {
+      "English": "Lightning Convergence",
+      "French": "Convergence De Foudre",
+      "Japanese": "雷撃以外反射",
+      "German": "Blitzkonvergenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1278": {
+    "Name": {
+      "English": "Aspected To Fire",
+      "French": "Polarisation De Feu",
+      "Japanese": "火炎属性",
+      "German": "Feueraspektiert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1279": {
+    "Name": {
+      "English": "Aspected To Ice",
+      "French": "Polarisation De Glace",
+      "Japanese": "氷結属性",
+      "German": "Eisaspektiert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1280": {
+    "Name": {
+      "English": "Aspected To Lightning",
+      "French": "Polarisation De Foudre",
+      "Japanese": "雷撃属性",
+      "German": "Blitzaspektiert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1281": {
+    "Name": {
+      "English": "Empowered Rahu",
+      "French": "Rahu Renforcé",
+      "Japanese": "ラフ強化",
+      "German": "Rahu-Kräftigung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1282": {
+    "Name": {
+      "English": "Empowered Ketu",
+      "French": "Ketu Renforcé",
+      "Japanese": "ケトゥ強化",
+      "German": "Ketoh-Kräftigung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1283": {
+    "Name": {
+      "English": "Confused",
+      "French": "Confusion",
+      "Japanese": "混乱",
+      "German": "Konfus",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1284": {
+    "Name": {
+      "English": "Out Of The Action",
+      "French": "Actions Bloquées",
+      "Japanese": "アクション実行不可",
+      "German": "Außer Gefecht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1285": {
+    "Name": {
+      "English": "Gathering Fortune Up II",
+      "French": "Récolte De Qualité II",
+      "Japanese": "採集HQ獲得率アップII",
+      "German": "Sammelglück Erhöht II",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1286": {
+    "Name": {
+      "English": "Gathering Yield Up II",
+      "French": "Récolte Abondante II (limitée)",
+      "Japanese": "採集獲得数アップ：限定II",
+      "German": "Sammelgewinn Erhöht II (Limit)",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1287": {
+    "Name": {
+      "English": "Seized",
+      "French": "Étreinte Mortelle",
+      "Japanese": "捕獲",
+      "German": "Umklammert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1288": {
+    "Name": {
+      "English": "Twist Of Fate",
+      "French": "ALÉA De L'expérience",
+      "Japanese": "F.A.T.E.経験値アップ",
+      "German": "FATE-Routinebonus",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1289": {
+    "Name": {
+      "English": "Twist Of Fate",
+      "French": "ALÉA De L'expérience",
+      "Japanese": "F.A.T.E.経験値アップ",
+      "German": "FATE-Routinebonus",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1290": {
+    "Name": {
+      "English": "Vril",
+      "French": "Vril",
+      "Japanese": "ラクシュミエーテル",
+      "German": "Vril",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1291": {
+    "Name": {
+      "English": "Ruination",
+      "French": "Ruinance",
+      "Japanese": "ルイネーション",
+      "German": "Ruinierung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1292": {
+    "Name": {
+      "English": "Piggy",
+      "French": "Porcelet",
+      "Japanese": "ポーキー",
+      "German": "Schweinchen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1297": {
+    "Name": {
+      "English": "Embolden",
+      "French": "Enhardissement",
+      "Japanese": "エンボルデン",
+      "German": "Ermutigen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1298": {
+    "Name": {
+      "English": "Jinpu",
+      "French": "Jinpû",
+      "Japanese": "陣風",
+      "German": "Jinpu",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1299": {
+    "Name": {
+      "English": "Shifu",
+      "French": "Shifû",
+      "Japanese": "士風",
+      "German": "Shifu",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1300": {
+    "Name": {
+      "English": "Cover",
+      "French": "Couverture",
+      "Japanese": "かばう",
+      "German": "Deckung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1301": {
+    "Name": {
+      "English": "Covered",
+      "French": "Couvert",
+      "Japanese": "かばう［被］",
+      "German": "Gedeckt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1302": {
+    "Name": {
+      "English": "Hallowed Ground",
+      "French": "Invincible",
+      "Japanese": "インビンシブル",
+      "German": "Heiliger Boden",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1303": {
+    "Name": {
+      "English": "Inner Release",
+      "French": "Relâchement Intérieur",
+      "Japanese": "原初の解放",
+      "German": "Urbefreiung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1304": {
+    "Name": {
+      "English": "Holmgang",
+      "French": "Holmgang",
+      "Japanese": "ホルムギャング",
+      "German": "Holmgang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1305": {
+    "Name": {
+      "English": "Holmgang",
+      "French": "Holmgang",
+      "Japanese": "ホルムギャング[被]",
+      "German": "Holmgang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1306": {
+    "Name": {
+      "English": "Soul Survivor",
+      "French": "Seul Survivant",
+      "Japanese": "ソウルサバイバー",
+      "German": "Einziger Überlebender",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1308": {
+    "Name": {
+      "English": "Blackest Night",
+      "French": "Nuit Noirissime",
+      "Japanese": "ブラックナイト",
+      "German": "Schwärzeste Nacht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1309": {
+    "Name": {
+      "English": "Demolish",
+      "French": "Démolition",
+      "Japanese": "破砕拳",
+      "German": "Demolieren",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1310": {
+    "Name": {
+      "English": "Riddle Of Earth",
+      "French": "Énigme De La Terre",
+      "Japanese": "金剛の極意",
+      "German": "Steinernes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1311": {
+    "Name": {
+      "English": "Earth's Reply",
+      "French": "Réaction De La Terre",
+      "Japanese": "金剛の決意",
+      "German": "Steinerne Klarheit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1312": {
+    "Name": {
+      "English": "Chaos Thrust",
+      "French": "Percée Chaotique",
+      "Japanese": "桜華狂咲",
+      "German": "Chaotischer Tjost",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1313": {
+    "Name": {
+      "English": "Shadow Fang",
+      "French": "Croc D'ombre",
+      "Japanese": "影牙",
+      "German": "Schattenfang",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1314": {
+    "Name": {
+      "English": "Assassinated",
+      "French": "Assassinement",
+      "Japanese": "終撃",
+      "German": "Meuchelsprung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1315": {
+    "Name": {
+      "English": "Kakuremi",
+      "French": "Kakuremi",
+      "Japanese": "隠身の術",
+      "German": "Kakuremi",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1316": {
+    "Name": {
+      "English": "Hidden",
+      "French": "Dissimulation",
+      "Japanese": "かくれる",
+      "German": "Versteckt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1317": {
+    "Name": {
+      "English": "Three Mudra",
+      "French": "Trimudrâ",
+      "Japanese": "三印自在",
+      "German": "Tri-Mudra",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1318": {
+    "Name": {
+      "English": "Yukikaze",
+      "French": "Yukikaze",
+      "Japanese": "雪風",
+      "German": "Yukikaze",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1319": {
+    "Name": {
+      "English": "Higanbana",
+      "French": "Higanbana",
+      "Japanese": "彼岸花",
+      "German": "Higanbana",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1320": {
+    "Name": {
+      "English": "Meikyo Shisui",
+      "French": "Meikyô Shisui",
+      "Japanese": "明鏡止水",
+      "German": "Meikyo Shisui",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1321": {
+    "Name": {
+      "English": "Caustic Bite",
+      "French": "Morsure Caustique",
+      "Japanese": "コースティックバイト",
+      "German": "Kaustischer Biss",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1322": {
+    "Name": {
+      "English": "Storm Bite",
+      "French": "Morsure De La Tempête",
+      "Japanese": "ストームバイト",
+      "German": "Sturmbiss",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1323": {
+    "Name": {
+      "English": "Wildfire",
+      "French": "Flambée",
+      "Japanese": "ワイルドファイア",
+      "German": "Wildfeuer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1324": {
+    "Name": {
+      "English": "Thunder",
+      "French": "Foudre",
+      "Japanese": "サンダー",
+      "German": "Blitz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1325": {
+    "Name": {
+      "English": "Swiftcast",
+      "French": "Magie Prompte",
+      "Japanese": "迅速魔",
+      "German": "Spontaneität",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1326": {
+    "Name": {
+      "English": "Bio III",
+      "French": "Méga Bactérie",
+      "Japanese": "バイオガ",
+      "German": "Bioga",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1327": {
+    "Name": {
+      "English": "Miasma III",
+      "French": "Méga Miasmes",
+      "Japanese": "ミアズガ",
+      "German": "Miasga",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1330": {
+    "Name": {
+      "English": "Regen",
+      "French": "Récup",
+      "Japanese": "リジェネ",
+      "German": "Regena",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1331": {
+    "Name": {
+      "English": "Galvanize",
+      "French": "Réconfort",
+      "Japanese": "鼓舞",
+      "German": "Adloquium",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1333": {
+    "Name": {
+      "English": "Eye For An Eye",
+      "French": "Œil Pour œil",
+      "Japanese": "アイ・フォー・アイ",
+      "German": "Auge Um Auge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1334": {
+    "Name": {
+      "English": "Eye For An Eye",
+      "French": "Œil Pour œil",
+      "Japanese": "アイ・フォー・アイ：効果",
+      "German": "Auge Um Auge",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1335": {
+    "Name": {
+      "English": "Abridged",
+      "French": "Incantation Abrégée",
+      "Japanese": "略式詠唱",
+      "German": "Kurzfassung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1336": {
+    "Name": {
+      "English": "Synastry",
+      "French": "Synastrie",
+      "Japanese": "シナストリー",
+      "German": "Synastrie",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1337": {
+    "Name": {
+      "English": "Synastry",
+      "French": "Synastrie",
+      "Japanese": "シナストリー[被]",
+      "German": "Synastrie",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1338": {
+    "Name": {
+      "English": "The Balance",
+      "French": "La Balance",
+      "Japanese": "アーゼマの均衡",
+      "German": "Waage",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1339": {
+    "Name": {
+      "English": "The Bole",
+      "French": "Le Tronc",
+      "Japanese": "世界樹の幹",
+      "German": "Eiche",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1340": {
+    "Name": {
+      "English": "The Ewer",
+      "French": "L'Aiguière",
+      "Japanese": "サリャクの水瓶",
+      "German": "Krug",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1341": {
+    "Name": {
+      "English": "The Spire",
+      "French": "La Tour",
+      "Japanese": "ビエルゴの塔",
+      "German": "Turm",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1343": {
+    "Name": {
+      "English": "Stun",
+      "French": "Étourdissement",
+      "Japanese": "スタン",
+      "German": "Betäubung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1344": {
+    "Name": {
+      "English": "Heavy",
+      "French": "Pesanteur",
+      "Japanese": "ヘヴィ",
+      "German": "Gewicht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1345": {
+    "Name": {
+      "English": "Bind",
+      "French": "Entrave",
+      "Japanese": "バインド",
+      "German": "Fessel",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1346": {
+    "Name": {
+      "English": "Slow",
+      "French": "Lenteur",
+      "Japanese": "スロウ",
+      "German": "Gemach",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1347": {
+    "Name": {
+      "English": "Silence",
+      "French": "Silence",
+      "Japanese": "沈黙",
+      "German": "Stumm",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1348": {
+    "Name": {
+      "English": "Sleep",
+      "French": "Sommeil",
+      "Japanese": "睡眠",
+      "German": "Schlaf",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1349": {
+    "Name": {
+      "English": "Stun Resistance",
+      "French": "Résistance à Étourdissement",
+      "Japanese": "スタン無効",
+      "German": "Betäubungsresistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1350": {
+    "Name": {
+      "English": "Heavy Resistance",
+      "French": "Résistance à Pesanteur",
+      "Japanese": "ヘヴィ無効",
+      "German": "Gewicht-Resistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1351": {
+    "Name": {
+      "English": "Bind Resistance",
+      "French": "Résistance à Entrave",
+      "Japanese": "バインド無効",
+      "German": "Fessel-Resistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1352": {
+    "Name": {
+      "English": "Slow Resistance",
+      "French": "Résistance à Lenteur",
+      "Japanese": "スロウ無効",
+      "German": "Gemach-Resistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1353": {
+    "Name": {
+      "English": "Silence Resistance",
+      "French": "Résistance à Silence",
+      "Japanese": "沈黙無効",
+      "German": "Stumm-Resistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1354": {
+    "Name": {
+      "English": "Sleep Resistance",
+      "French": "Résistance à Sommeil",
+      "Japanese": "睡眠無効",
+      "German": "Schlafresistenz",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1355": {
+    "Name": {
+      "English": "Knockback Penalty",
+      "French": "Résistance Aux Projections/attractions",
+      "Japanese": "ノックバック無効",
+      "German": "Rückstoß Unwirksam",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1356": {
+    "Name": {
+      "English": "Imp",
+      "French": "Kappa",
+      "Japanese": "カッパ",
+      "German": "Flusskobold",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1357": {
+    "Name": {
+      "English": "Gravity Flip",
+      "French": "Inversion De Gravité",
+      "Japanese": "重力反転",
+      "German": "Gravitationsumkehr",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1359": {
+    "Name": {
+      "English": "Gradual Petrification",
+      "French": "Pétrification Graduelle",
+      "Japanese": "徐々に石化",
+      "German": "Steinwerdung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1360": {
+    "Name": {
+      "English": "Unstable Gravity",
+      "French": "Gravité Instable",
+      "Japanese": "グラビティバースト",
+      "German": "Schwerkraftschwankung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1363": {
+    "Name": {
+      "English": "Sleep",
+      "French": "Sommeil",
+      "Japanese": "睡眠",
+      "German": "Schlaf",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1364": {
+    "Name": {
+      "English": "Riddle Of Wind",
+      "French": "Énigme Du Vent",
+      "Japanese": "疾風の極意",
+      "German": "Stürmendes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1365": {
+    "Name": {
+      "English": "Thunder III Ready",
+      "French": "Méga Foudre",
+      "Japanese": "サンダガ詠唱可能",
+      "German": "Blitzga-bereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1367": {
+    "Name": {
+      "English": "Impactful",
+      "French": "Impact Préparé",
+      "Japanese": "インパクト実行可",
+      "German": "Impaktbereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1368": {
+    "Name": {
+      "English": "Requiescat",
+      "French": "Requiescat",
+      "Japanese": "レクイエスカット",
+      "German": "Requiescat",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1369": {
+    "Name": {
+      "English": "Requiescat",
+      "French": "Requiescat",
+      "Japanese": "レクイエスカット",
+      "German": "Requiescat",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1370": {
+    "Name": {
+      "English": "Rage Of Halone",
+      "French": "Rage De Halone",
+      "Japanese": "レイジ・オブ・ハルオーネ",
+      "German": "Halones Groll",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1371": {
+    "Name": {
+      "English": "Butcher's Block",
+      "French": "Billot Du Boucher",
+      "Japanese": "ボーラアクス",
+      "German": "Fleischerbeil",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1372": {
+    "Name": {
+      "English": "Power Slash",
+      "French": "Taillade Puissante",
+      "Japanese": "パワースラッシュ",
+      "German": "Kraftschlitzer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1373": {
+    "Name": {
+      "English": "Immaterialized",
+      "French": "Matérialisation Incomplète",
+      "Japanese": "不完全形態",
+      "German": "Halbmaterialisiert",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1374": {
+    "Name": {
+      "English": "Target Right",
+      "French": "Portée De Main Droite",
+      "Japanese": "ターゲッティング：右",
+      "German": "Zielbereich Rechts",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1375": {
+    "Name": {
+      "English": "Target Left",
+      "French": "Portée De Main Gauche",
+      "Japanese": "ターゲッティング：左",
+      "German": "Zielbereich Links",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1376": {
+    "Name": {
+      "English": "Kyoshin",
+      "French": "Kyoshin",
+      "Japanese": "巨身の術",
+      "German": "Vergrößertes Ich",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1377": {
+    "Name": {
+      "English": "Life Drain",
+      "French": "Absorption Vitale",
+      "Japanese": "生命吸収",
+      "German": "Vitalabsorption",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1383": {
+    "Name": {
+      "English": "HP Penalty",
+      "French": "PV Maximum Réduits",
+      "Japanese": "最大ＨＰダウン",
+      "German": "LP-Malus",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1386": {
+    "Name": {
+      "English": "Sludge",
+      "French": "Emboué",
+      "Japanese": "汚泥",
+      "German": "Schlamm",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1387": {
+    "Name": {
+      "English": "Altered States",
+      "French": "Portée D'action Changée",
+      "Japanese": "アクション効果範囲変更",
+      "German": "Veränderte Reichweite",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1388": {
+    "Name": {
+      "English": "Ashen",
+      "French": "Cendres Stygiennes",
+      "Japanese": "火車の灰",
+      "German": "Stygische Asche",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1389": {
+    "Name": {
+      "English": "Seduced",
+      "French": "Séduction",
+      "Japanese": "誘惑",
+      "German": "Versuchung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1391": {
+    "Name": {
+      "English": "Fetters",
+      "French": "Attache",
+      "Japanese": "拘束",
+      "German": "Gefesselt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1392": {
+    "Name": {
+      "English": "Shining Moonstone",
+      "French": "Hécatolite Scintillante",
+      "Japanese": "ムーンストーンの輝き",
+      "German": "Glanzmondstein",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1393": {
+    "Name": {
+      "English": "Dualcast",
+      "French": "Chaîne De Sorts",
+      "Japanese": "連続魔",
+      "German": "Doppelzauber",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1394": {
+    "Name": {
+      "English": "Limp",
+      "French": "Boitement",
+      "Japanese": "移動速度低下",
+      "German": "Lahm",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1395": {
+    "Name": {
+      "English": "Shield Oath",
+      "French": "Serment Du Bouclier",
+      "Japanese": "忠義の盾",
+      "German": "Schild-Eid",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1396": {
+    "Name": {
+      "English": "Defiance",
+      "French": "Défi",
+      "Japanese": "ディフェンダー",
+      "German": "Verteidiger",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1397": {
+    "Name": {
+      "English": "Grit",
+      "French": "Férocité",
+      "Japanese": "グリットスタンス",
+      "German": "Zähigkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1398": {
+    "Name": {
+      "English": "Inner Beast",
+      "French": "Bête Intérieure",
+      "Japanese": "原初の魂",
+      "German": "Tier In Dir",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1399": {
+    "Name": {
+      "English": "Fetters",
+      "French": "Attache",
+      "Japanese": "拘束",
+      "German": "Gefesselt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1400": {
+    "Name": {
+      "English": "Terror",
+      "French": "Terreur",
+      "Japanese": "恐怖",
+      "German": "Terror",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1401": {
+    "Name": {
+      "English": "Enervation",
+      "French": "Capacité De Combat Réduite",
+      "Japanese": "攻防低下",
+      "German": "Kampftauglichkeit -",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1402": {
+    "Name": {
+      "English": "Vulnerability Up",
+      "French": "Vulnérabilité Augmentée",
+      "Japanese": "被ダメージ上昇",
+      "German": "Erhöhte Verwundbarkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1403": {
+    "Name": {
+      "English": "Lightspeed",
+      "French": "Vitesse De La Lumière",
+      "Japanese": "ライトスピード",
+      "German": "Lichtgeschwindigkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1404": {
+    "Name": {
+      "English": "Divine Benison",
+      "French": "Faveur Divine",
+      "Japanese": "ディヴァインベニゾン",
+      "German": "Göttlicher Segen",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1405": {
+    "Name": {
+      "English": "Disabled",
+      "French": "Invalidation",
+      "Japanese": "ドンアク",
+      "German": "Inakt",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1406": {
+    "Name": {
+      "English": "Chain Stratagem",
+      "French": "Stratagèmes Entrelacés",
+      "Japanese": "連環計",
+      "German": "Kritische Strategie",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1407": {
+    "Name": {
+      "English": "Barrage",
+      "French": "Rafale De Coups",
+      "Japanese": "乱れ撃ち",
+      "German": "Sperrfeuer",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1408": {
+    "Name": {
+      "English": "Vulnerability Up",
+      "French": "Vulnérabilité Augmentée",
+      "Japanese": "被ダメージ上昇",
+      "German": "Erhöhte Verwundbarkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1409": {
+    "Name": {
+      "English": "Infirmity",
+      "French": "Infirmité",
+      "Japanese": "虚弱",
+      "German": "Gebrechlichkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1410": {
+    "Name": {
+      "English": "Chanchala",
+      "French": "Chanchala",
+      "Japanese": "チャンチャラー",
+      "German": "Chanchala",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1411": {
+    "Name": {
+      "English": "The Road To 60",
+      "French": "En Route Vers 60",
+      "Japanese": "Lv60経験値ブースト",
+      "German": "Routine-Bonus",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1413": {
+    "Name": {
+      "English": "Riddle Of Fire",
+      "French": "Énigme Du Feu",
+      "Japanese": "紅蓮の極意",
+      "German": "Flammendes Enigma",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1414": {
+    "Name": {
+      "English": "Battle Litany",
+      "French": "Litanie Combattante",
+      "Japanese": "バトルリタニー",
+      "German": "Litanei Der Schlacht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1415": {
+    "Name": {
+      "English": "Protect",
+      "French": "Bouclier",
+      "Japanese": "プロテス",
+      "German": "Protes",
       "Chinese": ""
     },
     "CompanyAction": false

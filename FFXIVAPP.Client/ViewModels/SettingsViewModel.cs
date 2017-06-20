@@ -50,6 +50,7 @@ namespace FFXIVAPP.Client.ViewModels
         public SettingsViewModel()
         {
             RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
+            RefreshMemoryWorkersCommand = new DelegateCommand(RefreshMemoryWorkers);
             SetProcessCommand = new DelegateCommand(SetProcess);
             RefreshListCommand = new DelegateCommand(RefreshList);
             ChangeThemeCommand = new DelegateCommand(ChangeTheme);
@@ -131,6 +132,7 @@ namespace FFXIVAPP.Client.ViewModels
         private static string _key = "";
         private static string _value = "";
 
+        public ICommand RefreshMemoryWorkersCommand { get; private set; }
         public ICommand RefreshNetworkWorkerCommand { get; private set; }
         public ICommand SetProcessCommand { get; private set; }
         public ICommand RefreshListCommand { get; private set; }
@@ -152,6 +154,11 @@ namespace FFXIVAPP.Client.ViewModels
         #endregion
 
         #region Command Bindings
+
+        private static void RefreshMemoryWorkers()
+        {
+            Initializer.RefreshMemoryWorkers();
+        }
 
         /// <summary>
         /// </summary>

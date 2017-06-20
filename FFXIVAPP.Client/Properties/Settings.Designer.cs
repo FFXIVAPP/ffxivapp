@@ -570,5 +570,17 @@ namespace FFXIVAPP.Client.Properties {
                 this["NetworkUseWinPCap"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CacheMemoryJSONData {
+            get {
+                return ((bool)(this["CacheMemoryJSONData"]));
+            }
+            set {
+                this["CacheMemoryJSONData"] = value;
+            }
+        }
     }
 }

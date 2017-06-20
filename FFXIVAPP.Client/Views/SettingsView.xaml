@@ -82,6 +82,11 @@
                                         Command="{Binding RefreshListCommand}"
                                         Content="{Binding Locale[app_RefreshProcessButtonText],
                                                           Source={StaticResource AppProperties}}" />
+                                <Button x:Name="RefreshMemoryWorkers"
+                                        Margin="5"
+                                        Command="{Binding RefreshMemoryWorkersCommand}"
+                                        Content="{Binding Locale[app_RefreshMemoryWorkersButtonText],
+                                                          Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_ChangeThemeHeader], Source={StaticResource AppProperties}}">
@@ -150,6 +155,11 @@
                                       ItemsSource="{Binding AvailableAudioDevicesList}"
                                       SelectedValue="{Binding DefaultAudioDevice,
                                                               Source={x:Static Properties:Settings.Default}}" />
+                        </GroupBox>
+                        <GroupBox Header="{Binding Locale[app_CacheMemoryJSONDataHeader], Source={StaticResource AppProperties}}">
+                            <StackPanel>
+                                <MetroControls:ToggleSwitch IsChecked="{Binding CacheMemoryJSONData, Source={x:Static Properties:Settings.Default}}" />
+                            </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_MemScanSpeedLabel], Source={StaticResource AppProperties}}">
                             <StackPanel>
