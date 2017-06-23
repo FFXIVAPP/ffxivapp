@@ -1,12 +1,12 @@
 [
   {
     "Key": "TARGET",
-    "Value": "488BD94885FF0F**********48896808488D0D",
+    "Value": "48896c2440488974244881fbf71c00000f85********488d0d",
     "SigScanAddress": {
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 19,
+    "Offset": 0,
     "PointerPath": [
       0,
       144
@@ -19,7 +19,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 26,
+    "Offset": 0,
     "PointerPath": [
       0,
       0,
@@ -34,20 +34,20 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 21,
+    "Offset": 0,
     "PointerPath": [
       0,
-      0
+      16
     ]
   },
   {
     "Key": "PARTYMAP",
-    "Value": "85D275**B0014883C4205BC3488BD3488D0D",
+    "Value": "8bd78020fbf6db1ac980e1040808488d0d",
     "SigScanAddress": {
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 18,
+    "Offset": 0,
     "PointerPath": [
       0,
       16
@@ -60,7 +60,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 22,
+    "Offset": 0,
     "PointerPath": [
       0,
       0
@@ -68,14 +68,66 @@
   },
   {
     "Key": "PLAYERINFO",
-    "Value": "BA********E8********448BC033D2488BCBE8********BA********488D0D",
+    "Value": "83f9ff7412448b048e8bd3488d0d",
     "SigScanAddress": {
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 31,
+    "Offset": 0,
     "PointerPath": [
       0
+    ]
+  },
+  {
+    "Key": "ENMITYMAP",
+    "Value": "83f9ff7412448b048e8bd3488d0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 0,
+    "PointerPath": [
+      0,
+	  -4648
+    ]
+  },
+  {
+    "Key": "ENMITY_COUNT",
+    "Value": "83f9ff7412448b048e8bd3488d0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 0,
+    "PointerPath": [
+      0,
+	  -2344
+    ]
+  },
+  {
+    "Key": "AGROMAP",
+    "Value": "83f9ff7412448b048e8bd3488d0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 0,
+    "PointerPath": [
+      0,
+	  -2336
+    ]
+  },
+  {
+    "Key": "AGRO_COUNT",
+    "Value": "83f9ff7412448b048e8bd3488d0d",
+    "SigScanAddress": {
+      "value": 0
+    },
+    "ASMSignature": true,
+    "Offset": 0,
+    "PointerPath": [
+      0,
+	  -32
     ]
   }
 ]
