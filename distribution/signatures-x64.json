@@ -29,12 +29,12 @@
   },
   {
     "Key": "CHARMAP",
-    "Value": "488B420848C1E803********00**248BC0488D0D",
+    "Value": "488b03488bcbff90a0000000888391000000488d0d",
     "SigScanAddress": {
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 20,
+    "Offset": 21,
     "PointerPath": [
       0,
       0

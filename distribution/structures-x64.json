@@ -14,7 +14,7 @@
     "Y": 168,
     "Heading": 176,
     "HitBoxRadius": 192,
-    "Fate": 244,
+    "Fate": 228,
     "GatheringInvisible": 284,
     "ModelID": 372,
     "ActionStatus": 5824,
@@ -56,8 +56,8 @@
     "LogEnd": 92
   },
   "EnmityEntry": {
-    "ID": 0,
-    "Name": 64,
+    "ID": 64,
+    "Name": 0,
     "Enmity": 68
   },
   "InventoryEntity": {
@@ -190,12 +190,13 @@
     "CasterID": 8
   },
   "TargetInfo": {
-    "HateStructure": 4652,
-    "MouseOver": 16,
-    "Focus": 48,
-    "Previous": 60,
+    "HateStructure": 19000,
+    "MouseOver": 72,
+    "Focus": 120,
+    "Previous": 144,
     "Current": 0,
-    "CurrentID": 100,
-    "Size": 9200
+    "CurrentID": 192,
+    "Size": 9200,
+    "SourceSize": 192
   }
 }
