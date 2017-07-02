@@ -544,7 +544,7 @@ namespace FFXIVAPP.Client
                         {
                             var releases = JArray.Parse(responseText);
                             var release = releases.FirstOrDefault(r => r?["target_commitish"]
-                                                                           .ToString() == "3.0-stable");
+                                                                           .ToString() == "master");
                             var latest = release?["name"]
                                              .ToString() ?? "Unknown";
                             latest = latest.Split(' ')[0];
