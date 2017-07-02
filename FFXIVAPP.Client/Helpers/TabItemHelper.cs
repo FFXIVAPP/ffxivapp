@@ -76,12 +76,12 @@ namespace FFXIVAPP.Client.Helpers
                 if (SettingsViewModel.Instance.HomePluginList.Any(p => p.ToUpperInvariant()
                                                                         .StartsWith(pluginName.ToUpperInvariant())))
                 {
-                    pluginName = String.Format("{0}[{1}]", pluginName, new Random().Next(1000, 9999));
+                    pluginName = $"{pluginName}[{new Random().Next(1000, 9999)}]";
                 }
                 SettingsViewModel.Instance.HomePluginList.Add(pluginName);
                 var tabItem = pluginInstance.Instance.CreateTab();
                 tabItem.Name = Regex.Replace(pluginInstance.Instance.Name, @"[^A-Za-z]", "");
-                var iconfile = String.Format("{0}\\{1}", Path.GetDirectoryName(pluginInstance.AssemblyPath), pluginInstance.Instance.Icon);
+                var iconfile = $"{Path.GetDirectoryName(pluginInstance.AssemblyPath)}\\{pluginInstance.Instance.Icon}";
                 var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
                 icon = File.Exists(iconfile) ? ImageUtilities.LoadImageFromStream(iconfile) : icon;
                 tabItem.HeaderTemplate = ImageHeader(icon, pluginInstance.Instance.FriendlyName);
@@ -89,6 +89,7 @@ namespace FFXIVAPP.Client.Helpers
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
     }

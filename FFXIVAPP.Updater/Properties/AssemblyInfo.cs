@@ -28,7 +28,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SyndicatedLife")]
 [assembly: AssemblyProduct("FFXIVAPP.Updater")]
-[assembly: AssemblyCopyright("Copyright © 2007 - 2016 Ryan Wilson")]
+[assembly: AssemblyCopyright("Copyright © 2007 - 2017 Ryan Wilson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

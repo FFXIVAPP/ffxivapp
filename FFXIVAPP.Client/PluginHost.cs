@@ -119,13 +119,14 @@ namespace FFXIVAPP.Client
                     switch (xKey)
                     {
                         case "FileName":
-                            VerifyPlugin(String.Format(@"{0}\{1}", path, xValue));
+                            VerifyPlugin($@"{path}\{xValue}");
                             break;
                     }
                 }
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
 
@@ -191,8 +192,7 @@ namespace FFXIVAPP.Client
                 var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin)
                 {
-                    Logging.Log(Logger, String.Format("*IPlugin Not Implemented* :: {0}", pAssembly.GetName()
-                                                                                                   .Name));
+                    Logging.Log(Logger, $"*IPlugin Not Implemented* :: {pAssembly.GetName() .Name}");
                     return;
                 }
                 var plugin = new PluginInstance
@@ -206,6 +206,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, ex.Message, ex);
             }
         }
 

@@ -45,14 +45,18 @@ namespace FFXIVAPP.Client
         {
             Startup += ApplicationStartup;
             StartupUri = new Uri("ShellView.xaml", UriKind.Relative);
-            var resourceLocater = new Uri("/FFXIVAPP.Client;component/App.xaml", UriKind.Relative);
-            LoadComponent(this, resourceLocater);
+
             ConfigureNLog();
-            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
-            Dispatcher.UnhandledExceptionFilter += OnUnhandledExceptionFilter;
             Settings.Default.PropertyChanged += SettingsPropertyChanged;
             Settings.Default.SettingChanging += SettingsSettingChanging;
             CheckSettings();
+
+            var resourceLocater = new Uri("/FFXIVAPP.Client;component/App.xaml", UriKind.Relative);
+
+            LoadComponent(this, resourceLocater);
+
+            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            Dispatcher.UnhandledExceptionFilter += OnUnhandledExceptionFilter;
         }
 
         /// <summary>
