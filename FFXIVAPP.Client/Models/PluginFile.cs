@@ -20,7 +20,7 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Client.Models
 {
-    public class PluginFile : INotifyPropertyChanged
+    internal class PluginFile : INotifyPropertyChanged
     {
         private string _checksum;
         private string _location;

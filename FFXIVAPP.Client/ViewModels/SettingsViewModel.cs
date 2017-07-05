@@ -31,6 +31,8 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using HtmlAgilityPack;
 using MahApps.Metro.Controls;
@@ -129,8 +131,8 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Declarations
 
-        private static string _key = "";
-        private static string _value = "";
+        private static string _key = string.Empty;
+        private static string _value = string.Empty;
 
         public ICommand RefreshMemoryWorkersCommand { get; private set; }
         public ICommand RefreshNetworkWorkerCommand { get; private set; }
@@ -212,14 +214,14 @@ namespace FFXIVAPP.Client.ViewModels
         {
             var characterName = Settings.Default.CharacterName;
             var serverName = Settings.Default.ServerName;
-            if (characterName.Replace(" ", "")
+            if (characterName.Replace(" ", string.Empty)
                              .Length < 3 || String.IsNullOrWhiteSpace(serverName))
             {
                 return;
             }
             Func<string> callLodestone = delegate
             {
-                var cicuid = "";
+                var cicuid = string.Empty;
                 try
                 {
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
@@ -240,18 +242,20 @@ namespace FFXIVAPP.Client.ViewModels
                         {
                             var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
                                                 .OuterHtml;
-                            var CICUID = new Regex(@"(?<cicuid>\d+)/"">" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                            var CICUID = new Regex(@"(?<cicuid>\d+)/string.Empty>" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
                             cicuid = CICUID.Match(htmlSource)
                                            .Groups["cicuid"]
                                            .Value;
                         }
                         catch (Exception ex)
                         {
+                            Logging.Log(Logger, new LogItem(ex, true));
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
                 return cicuid;
             };
@@ -284,7 +288,7 @@ namespace FFXIVAPP.Client.ViewModels
                                     .Split(',');
             _key = split[0]
                 .Trim()
-                .Replace("[", "");
+                .Replace("[", string.Empty);
             _value = Constants.Colors[_key][0];
             SettingsView.View.TCode.Text = _key;
             SettingsView.View.TColor.Text = _value;

@@ -20,11 +20,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class IPHeader
+    internal class IPHeader
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private readonly short _checksum;
         private readonly List<byte> _data = new List<byte>();
         private readonly uint _destinationIPAddress;
@@ -54,8 +63,8 @@ namespace FFXIVAPP.Client.Network
                         _TTL = binaryReader.ReadByte();
                         _protocol = binaryReader.ReadByte();
                         _checksum = IPAddress.NetworkToHostOrder(binaryReader.ReadInt16());
-                        _sourceIPAddress = (uint) (binaryReader.ReadInt32());
-                        _destinationIPAddress = (uint) (binaryReader.ReadInt32());
+                        _sourceIPAddress = (uint) binaryReader.ReadInt32();
+                        _destinationIPAddress = (uint) binaryReader.ReadInt32();
                         _headerLength = _versionAndHeaderLength;
                         _headerLength <<= 4;
                         _headerLength >>= 4;
@@ -74,6 +83,7 @@ namespace FFXIVAPP.Client.Network
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -81,7 +91,7 @@ namespace FFXIVAPP.Client.Network
         {
             get
             {
-                switch ((_versionAndHeaderLength >> 4))
+                switch (_versionAndHeaderLength >> 4)
                 {
                     case 4: return "IP v4";
                     case 6: return "IP v6";
@@ -102,7 +112,7 @@ namespace FFXIVAPP.Client.Network
 
         public string DifferentiatedServices
         {
-            get { return String.Format("0x{0:x2} ({1})", _differentiatedServices, _differentiatedServices); }
+            get { return $"0x{_differentiatedServices:x2} ({_differentiatedServices})"; }
         }
 
         public string Flags
@@ -149,7 +159,7 @@ namespace FFXIVAPP.Client.Network
 
         public string Checksum
         {
-            get { return String.Format("0x{0:x2}", _checksum); }
+            get { return $"0x{_checksum:x2}"; }
         }
 
         public IPAddress SourceAddress

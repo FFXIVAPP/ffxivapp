@@ -21,11 +21,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Client.Reflection
 {
-    public class AssemblyReflectionManager : IDisposable
+    internal class AssemblyReflectionManager : IDisposable
     {
         #region Logger
 
@@ -82,6 +84,7 @@ namespace FFXIVAPP.Client.Reflection
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
             return false;
         }
@@ -114,6 +117,7 @@ namespace FFXIVAPP.Client.Reflection
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
             }
             return false;
@@ -148,6 +152,7 @@ namespace FFXIVAPP.Client.Reflection
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
             }
             return false;

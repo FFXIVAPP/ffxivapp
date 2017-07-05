@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class TCPTable : IEnumerable
+    internal class TCPTable : IEnumerable
     {
         #region Private Fields
 

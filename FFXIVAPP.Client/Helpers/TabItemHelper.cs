@@ -26,6 +26,7 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
 
@@ -80,7 +81,7 @@ namespace FFXIVAPP.Client.Helpers
                 }
                 SettingsViewModel.Instance.HomePluginList.Add(pluginName);
                 var tabItem = pluginInstance.Instance.CreateTab();
-                tabItem.Name = Regex.Replace(pluginInstance.Instance.Name, @"[^A-Za-z]", "");
+                tabItem.Name = Regex.Replace(pluginInstance.Instance.Name, @"[^A-Za-z]", string.Empty);
                 var iconfile = $"{Path.GetDirectoryName(pluginInstance.AssemblyPath)}\\{pluginInstance.Instance.Icon}";
                 var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
                 icon = File.Exists(iconfile) ? ImageUtilities.LoadImageFromStream(iconfile) : icon;
@@ -89,7 +90,7 @@ namespace FFXIVAPP.Client.Helpers
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, ex.Message, ex);
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
     }

@@ -37,6 +37,7 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Common.ViewModelBase;
 using NLog;
@@ -46,6 +47,12 @@ namespace FFXIVAPP.Client.ViewModels
     [Export(typeof(UpdateViewModel))]
     internal sealed class UpdateViewModel : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         public UpdateViewModel()
         {
             RefreshAvailableCommand = new DelegateCommand(RefreshAvailable);
@@ -196,7 +203,7 @@ namespace FFXIVAPP.Client.ViewModels
                                 sb.AppendFormat("/{0}", pluginFile.Name.Trim('/'));
                                 var uri = new Uri(sb.ToString());
                                 client.DownloadFileAsync(uri, saveLocation);
-                                client.DownloadProgressChanged += delegate { DispatcherHelper.Invoke(delegate { UpdateView.View.AvailableLoadingProgressMessage.Text = String.Format("{0}/{1}", pluginFile.Location.Trim('/'), pluginFile.Name); }); };
+                                client.DownloadProgressChanged += delegate { DispatcherHelper.Invoke(delegate { UpdateView.View.AvailableLoadingProgressMessage.Text = $"{pluginFile.Location.Trim('/')}/{pluginFile.Name}"; }); };
                                 client.DownloadFileCompleted += delegate
                                 {
                                     updateCount++;
@@ -214,7 +221,7 @@ namespace FFXIVAPP.Client.ViewModels
                                                     DispatcherHelper.Invoke(asyncAction);
                                                 }
                                             }
-                                            UpdateView.View.AvailableLoadingProgressMessage.Text = "";
+                                            UpdateView.View.AvailableLoadingProgressMessage.Text = string.Empty;
                                             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
                                             UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
                                         }, DispatcherPriority.Send);
@@ -223,7 +230,7 @@ namespace FFXIVAPP.Client.ViewModels
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         updateCount++;
                     }
@@ -280,6 +287,7 @@ namespace FFXIVAPP.Client.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
                 return true;
             };
@@ -295,7 +303,7 @@ namespace FFXIVAPP.Client.ViewModels
                     PluginHost.Instance.UnloadPlugin(plugin.Name);
                     for (var i = ShellView.View.PluginsTC.Items.Count - 1; i > 0; i--)
                     {
-                        if (((TabItem) ShellView.View.PluginsTC.Items[i]).Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", ""))
+                        if (((TabItem) ShellView.View.PluginsTC.Items[i]).Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", string.Empty))
                         {
                             AppViewModel.Instance.PluginTabItems.RemoveAt(i);
                         }
@@ -318,9 +326,9 @@ namespace FFXIVAPP.Client.ViewModels
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem(ex, true));
             }
-            if (UpdateView.View.TSource.Text.Trim() == "")
+            if (UpdateView.View.TSource.Text.Trim() == string.Empty)
             {
                 return;
             }
@@ -342,7 +350,7 @@ namespace FFXIVAPP.Client.ViewModels
                 Instance.AvailableSources[index] = pluginSourceItem;
             }
             UpdateView.View.PluginSourceDG.UnselectAll();
-            UpdateView.View.TSource.Text = "";
+            UpdateView.View.TSource.Text = string.Empty;
         }
 
         /// <summary>
@@ -356,7 +364,7 @@ namespace FFXIVAPP.Client.ViewModels
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem(ex, true));
                 return;
             }
             var index = Instance.AvailableSources.TakeWhile(source => source.Key.ToString() != key)
@@ -388,7 +396,7 @@ namespace FFXIVAPP.Client.ViewModels
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem(ex, true));
                 return;
             }
             var plugin = Instance.AvailablePlugins.FirstOrDefault(p => String.Equals(p.Name, key, Constants.InvariantComparer));

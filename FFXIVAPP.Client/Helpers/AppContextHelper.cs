@@ -26,7 +26,7 @@ using NLog;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    public class AppContextHelper
+    internal class AppContextHelper
     {
         #region Logger
 

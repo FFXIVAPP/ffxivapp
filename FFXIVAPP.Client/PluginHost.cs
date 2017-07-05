@@ -86,6 +86,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -101,7 +102,7 @@ namespace FFXIVAPP.Client
             try
             {
                 path = Directory.Exists(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-                var settings = String.Format(@"{0}\PluginInfo.xml", path);
+                var settings = $@"{path}\PluginInfo.xml";
                 if (!File.Exists(settings))
                 {
                     return;
@@ -126,7 +127,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, ex.Message, ex);
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -206,7 +207,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
-                Logging.Log(Logger, ex.Message, ex);
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -253,7 +254,7 @@ namespace FFXIVAPP.Client
             {
                 return;
             }
-            var title = String.Format("[{0}] {1}", pluginName, popupContent.Title);
+            var title = $"[{pluginName}] {popupContent.Title}";
             var message = popupContent.Message;
             Action cancelAction = null;
             if (popupContent.CanCancel)

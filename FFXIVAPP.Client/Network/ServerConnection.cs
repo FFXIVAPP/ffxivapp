@@ -20,7 +20,7 @@ using System.Net;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class ServerConnection
+    internal class ServerConnection
     {
         public uint DestinationAddress;
         public ushort DestinationPort;
@@ -31,7 +31,7 @@ namespace FFXIVAPP.Client.Network
         public override bool Equals(object obj)
         {
             var connection = obj as ServerConnection;
-            if (connection == null || (int) SourceAddress != (int) connection.SourceAddress || ((int) DestinationAddress != (int) connection.DestinationAddress || SourcePort != connection.SourcePort))
+            if (connection == null || (int) SourceAddress != (int) connection.SourceAddress || (int) DestinationAddress != (int) connection.DestinationAddress || SourcePort != connection.SourcePort)
             {
                 return false;
             }
@@ -40,12 +40,12 @@ namespace FFXIVAPP.Client.Network
 
         public override int GetHashCode()
         {
-            return (int) (((SourceAddress ^ DestinationAddress) ^ SourcePort) ^ DestinationPort);
+            return (int) (SourceAddress ^ DestinationAddress ^ SourcePort ^ DestinationPort);
         }
 
         public override string ToString()
         {
-            return (new IPEndPoint(SourceAddress, (ushort) IPAddress.NetworkToHostOrder((short) SourcePort)) + " -> " + new IPEndPoint(DestinationAddress, (ushort) IPAddress.NetworkToHostOrder((short) DestinationPort)));
+            return new IPEndPoint(SourceAddress, (ushort) IPAddress.NetworkToHostOrder((short) SourcePort)) + " -> " + new IPEndPoint(DestinationAddress, (ushort) IPAddress.NetworkToHostOrder((short) DestinationPort));
         }
     }
 }

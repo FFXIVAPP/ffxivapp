@@ -19,7 +19,7 @@ using System.Globalization;
 
 namespace FFXIVAPP.Client.Models
 {
-    public class UILanguage
+    internal class UILanguage
     {
         public string Language { get; set; }
         public string ImageURI { get; set; }

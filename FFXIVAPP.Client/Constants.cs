@@ -27,7 +27,7 @@ using FFXIVAPP.Memory.Models;
 
 namespace FFXIVAPP.Client
 {
-    public static class Constants
+    internal static class Constants
     {
         #region Declarations
 
@@ -54,7 +54,6 @@ namespace FFXIVAPP.Client
         private static Dictionary<string, string> _chatCodes;
         private static Dictionary<string, string[]> _colors;
         private static CultureInfo _cultureInfo;
-        private static string _chatCodesXml;
         private static string _characterName;
         private static string _serverName;
         private static string _gameLanguage;
@@ -78,7 +77,7 @@ namespace FFXIVAPP.Client
                     var found = File.Exists(settingsFile);
                     _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _xSettings = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
                 }
@@ -107,7 +106,7 @@ namespace FFXIVAPP.Client
                     var found = File.Exists(file);
                     _xActions = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _xActions = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
                 }
@@ -130,7 +129,7 @@ namespace FFXIVAPP.Client
                     var found = File.Exists(file);
                     _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _xAutoTranslate = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
@@ -153,7 +152,7 @@ namespace FFXIVAPP.Client
                     var found = File.Exists(file);
                     _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _xChatCodes = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
                 }
@@ -176,7 +175,7 @@ namespace FFXIVAPP.Client
                     var found = File.Exists(file);
                     _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _xColors = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
                 }

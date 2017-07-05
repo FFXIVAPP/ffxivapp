@@ -20,7 +20,7 @@ using System.Diagnostics;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public class MicroStopwatch : Stopwatch
+    internal class MicroStopwatch : Stopwatch
     {
         private readonly double _microSecPerTick = 1000000D / Frequency;
 
@@ -28,7 +28,7 @@ namespace FFXIVAPP.Client.Utilities
         {
             if (!IsHighResolution)
             {
-                throw new Exception("On this system the high-resolution " + "performance counter is not available");
+                throw new Exception("On this system the high-resolution performance counter is not available");
             }
         }
 

@@ -24,6 +24,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -51,7 +52,7 @@ namespace FFXIVAPP.Client.Helpers
                     var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                     var combinedPath = Path.Combine(appDataPath, companyName);
                     var title = AppViewModel.Instance.Locale["app_WarningMessage"];
-                    var message = String.Format("{0} : {1}", AppViewModel.Instance.Locale["app_DeleteMessage"], combinedPath);
+                    var message = $"{AppViewModel.Instance.Locale["app_DeleteMessage"]} : {combinedPath}";
                     MessageBoxHelper.ShowMessageAsync(title, message, delegate
                     {
                         Settings.Default.Reset();
@@ -61,6 +62,7 @@ namespace FFXIVAPP.Client.Helpers
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
             }
 

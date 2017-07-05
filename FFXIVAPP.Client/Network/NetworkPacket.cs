@@ -17,7 +17,7 @@
 
 namespace FFXIVAPP.Client.Network
 {
-    public class NetworkPacket
+    internal class NetworkPacket
     {
         public byte[] Buffer;
         public bool Push;

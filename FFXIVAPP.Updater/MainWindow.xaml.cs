@@ -29,6 +29,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Ionic.Zip;
+using NLog;
 
 namespace FFXIVAPP.Updater
 {
@@ -37,6 +38,12 @@ namespace FFXIVAPP.Updater
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         #region Declarations
 
         private readonly WebClient _webClient = new WebClient();
@@ -63,7 +70,7 @@ namespace FFXIVAPP.Updater
             {
                 MainWindowViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
                 MainWindowViewModel.Instance.Version = properties["Version"] as string;
-                MainWindowViewModel.Instance.ZipFileName = String.Format("FFXIVAPP_{0}.zip", MainWindowViewModel.Instance.Version);
+                MainWindowViewModel.Instance.ZipFileName = $"FFXIVAPP_{MainWindowViewModel.Instance.Version}.zip";
                 var app = Process.GetProcessesByName("FFXIVAPP.Client");
                 foreach (var p in app)
                 {
@@ -71,13 +78,14 @@ namespace FFXIVAPP.Updater
                     {
                         p.Kill();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
+                        // IGNORED
                     }
                 }
                 Func<bool> initializeUpdate = delegate
                 {
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart((DownloadUpdate)));
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(DownloadUpdate));
                     return true;
                 };
                 initializeUpdate.BeginInvoke(null, null);
@@ -97,7 +105,7 @@ namespace FFXIVAPP.Updater
                     _webClient.DownloadProgressChanged += WebClientOnDownloadProgressChanged;
                     _webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Environment.Exit(0);
                 }
@@ -137,6 +145,7 @@ namespace FFXIVAPP.Updater
                     }
                     catch (Exception ex)
                     {
+                        // IGNORED
                     }
                 }
             }
@@ -152,8 +161,9 @@ namespace FFXIVAPP.Updater
                 };
                 m.Start();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // IGNORED
             }
             finally
             {
@@ -187,8 +197,9 @@ namespace FFXIVAPP.Updater
                     fileInfo.Delete();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // IGNORED
             }
         }
 

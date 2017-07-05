@@ -19,7 +19,7 @@ using System.Windows;
 
 namespace FFXIVAPP.Client.Localization
 {
-    public abstract class German
+    internal abstract class German
     {
         private static readonly ResourceDictionary Dictionary = new ResourceDictionary();
 

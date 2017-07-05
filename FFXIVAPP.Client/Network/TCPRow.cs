@@ -20,7 +20,7 @@ using System.Net.NetworkInformation;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class TCPRow
+    internal class TCPRow
     {
         #region Constructors
 
@@ -28,10 +28,10 @@ namespace FFXIVAPP.Client.Network
         {
             state = row.State;
             processId = row.ProcessID;
-            var localPort = (row.LocalPort1 << 8) + (row.LocalPort2) + (row.LocalPort3 << 24) + (row.LocalPort4 << 16);
+            var localPort = (row.LocalPort1 << 8) + row.LocalPort2 + (row.LocalPort3 << 24) + (row.LocalPort4 << 16);
             long localAddress = row.LocalAddress;
             localEndPoint = new IPEndPoint(localAddress, localPort);
-            var remotePort = (row.RemotePort1 << 8) + (row.RemotePort2) + (row.RemotePort3 << 24) + (row.RemotePort4 << 16);
+            var remotePort = (row.RemotePort1 << 8) + row.RemotePort2 + (row.RemotePort3 << 24) + (row.RemotePort4 << 16);
             long remoteAddress = row.RemoteAddress;
             remoteEndPoint = new IPEndPoint(remoteAddress, remotePort);
         }

@@ -19,11 +19,20 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class DNSHeader
+    internal class DNSHeader
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private readonly ushort _flags;
         private readonly ushort _identification;
         private readonly ushort _totalAdditionalRR;
@@ -50,17 +59,18 @@ namespace FFXIVAPP.Client.Network
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
         public string Identification
         {
-            get { return String.Format("0x{0:x2}", _identification); }
+            get { return $"0x{_identification:x2}"; }
         }
 
         public string Flags
         {
-            get { return String.Format("0x{0:x2}", _flags); }
+            get { return $"0x{_flags:x2}"; }
         }
 
         public string TotalQuestions

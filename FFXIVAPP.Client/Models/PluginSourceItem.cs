@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Client.Models
 {
-    public class PluginSourceItem : INotifyPropertyChanged
+    internal class PluginSourceItem : INotifyPropertyChanged
     {
         public PluginSourceItem()
         {

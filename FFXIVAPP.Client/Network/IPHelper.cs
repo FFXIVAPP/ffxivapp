@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 
 namespace FFXIVAPP.Client.Network
 {
-    public static class IPHelper
+    internal static class IPHelper
     {
         #region Public Methods
 

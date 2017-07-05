@@ -22,7 +22,7 @@ using System.Reflection;
 
 namespace FFXIVAPP.Client.Reflection
 {
-    public class AssemblyReflectionProxy : MarshalByRefObject
+    internal class AssemblyReflectionProxy : MarshalByRefObject
     {
         private string _assemblyPath;
 

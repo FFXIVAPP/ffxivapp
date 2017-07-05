@@ -23,11 +23,12 @@ using System.Text;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    public static class SavedlLogsHelper
+    internal static class SavedlLogsHelper
     {
         #region Logger
 
@@ -45,7 +46,7 @@ namespace FFXIVAPP.Client.Helpers
                 try
                 {
                     // setup common save logs info
-                    var savedTextLogName = String.Format("{0}.txt", DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss"));
+                    var savedTextLogName = $"{DateTime.Now:yyyy_MM_dd_HH.mm.ss}.txt";
                     var savedSayBuilder = new StringBuilder();
                     var savedShoutBuilder = new StringBuilder();
                     var savedPartyBuilder = new StringBuilder();
@@ -61,7 +62,7 @@ namespace FFXIVAPP.Client.Helpers
                     var savedFCBuilder = new StringBuilder();
                     var savedYellBuilder = new StringBuilder();
                     // setup full chatlog xml file
-                    var savedLogName = String.Format("{0}_ChatHistory.xml", DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss"));
+                    var savedLogName = $"{DateTime.Now:yyyy_MM_dd_HH.mm.ss}_ChatHistory.xml";
                     var savedLog = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/ChatHistory.xml");
                     foreach (var entry in AppViewModel.Instance.ChatHistory)
                     {
@@ -73,53 +74,54 @@ namespace FFXIVAPP.Client.Helpers
                                 switch (entry.Code)
                                 {
                                     case "000A":
-                                        savedSayBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedSayBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "000B":
-                                        savedShoutBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedShoutBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "000E":
-                                        savedPartyBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedPartyBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "000C":
                                     case "000D":
-                                        savedTellBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedTellBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0010":
-                                        savedLS1Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS1Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0011":
-                                        savedLS2Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS2Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0012":
-                                        savedLS3Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS3Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0013":
-                                        savedLS4Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS4Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0014":
-                                        savedLS5Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS5Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0015":
-                                        savedLS6Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS6Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0016":
-                                        savedLS7Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS7Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0017":
-                                        savedLS8Builder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedLS8Builder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "0018":
-                                        savedFCBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedFCBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                     case "001E":
-                                        savedYellBuilder.AppendLine(string.Format("{0} {1}", entry.TimeStamp, entry.Line));
+                                        savedYellBuilder.AppendLine($"{entry.TimeStamp} {entry.Line}");
                                         break;
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
+                            Logging.Log(Logger, new LogItem(ex, true));
                         }
                         // process xml log
                         try
@@ -155,6 +157,7 @@ namespace FFXIVAPP.Client.Helpers
                         }
                         catch (Exception ex)
                         {
+                            Logging.Log(Logger, new LogItem(ex, true));
                         }
                     }
                     // save text logs
@@ -164,77 +167,78 @@ namespace FFXIVAPP.Client.Helpers
                         {
                             if (savedSayBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}Say\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path =  Path.Combine(AppViewModel.Instance.LogsPath, "Say", savedTextLogName);
                                 File.WriteAllText(path, savedSayBuilder.ToString());
                             }
                             if (savedShoutBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}Shout\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "Shout", savedTextLogName);
                                 File.WriteAllText(path, savedShoutBuilder.ToString());
                             }
                             if (savedPartyBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}Party\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "Party", savedTextLogName);
                                 File.WriteAllText(path, savedPartyBuilder.ToString());
                             }
                             if (savedTellBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}Tell\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "Tell", savedTextLogName);
                                 File.WriteAllText(path, savedTellBuilder.ToString());
                             }
                             if (savedLS1Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS1\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS1", savedTextLogName);
                                 File.WriteAllText(path, savedLS1Builder.ToString());
                             }
                             if (savedLS2Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS2\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS2", savedTextLogName);
                                 File.WriteAllText(path, savedLS2Builder.ToString());
                             }
                             if (savedLS3Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS3\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS3", savedTextLogName);
                                 File.WriteAllText(path, savedLS3Builder.ToString());
                             }
                             if (savedLS4Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS4\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS4", savedTextLogName);
                                 File.WriteAllText(path, savedLS4Builder.ToString());
                             }
                             if (savedLS5Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS5\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS5", savedTextLogName);
                                 File.WriteAllText(path, savedLS5Builder.ToString());
                             }
                             if (savedLS6Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS6\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS6", savedTextLogName);
                                 File.WriteAllText(path, savedLS6Builder.ToString());
                             }
                             if (savedLS7Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS7\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS7", savedTextLogName);
                                 File.WriteAllText(path, savedLS7Builder.ToString());
                             }
                             if (savedLS8Builder.Length > 0)
                             {
-                                var path = String.Format("{0}LS8\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "LS8", savedTextLogName);
                                 File.WriteAllText(path, savedLS8Builder.ToString());
                             }
                             if (savedFCBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}FC\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "FC", savedTextLogName);
                                 File.WriteAllText(path, savedFCBuilder.ToString());
                             }
                             if (savedYellBuilder.Length > 0)
                             {
-                                var path = String.Format("{0}Yell\\{1}", AppViewModel.Instance.LogsPath, savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "Yell", savedTextLogName);
                                 File.WriteAllText(path, savedYellBuilder.ToString());
                             }
                         }
                         catch (Exception ex)
                         {
+                            Logging.Log(Logger, new LogItem(ex, true));
                         }
                     }
                     // save xml log
@@ -244,10 +248,12 @@ namespace FFXIVAPP.Client.Helpers
                     }
                     catch (Exception ex)
                     {
+                        Logging.Log(Logger, new LogItem(ex, true));
                     }
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
             }
             if (!isTemporary)

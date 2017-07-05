@@ -20,11 +20,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class UDPHeader
+    internal class UDPHeader
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private readonly short _checksum;
         private readonly List<byte> _data = new List<byte>();
         private readonly ushort _destinationPort;
@@ -54,6 +63,7 @@ namespace FFXIVAPP.Client.Network
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -74,7 +84,7 @@ namespace FFXIVAPP.Client.Network
 
         public string Checksum
         {
-            get { return String.Format("0x{0:x2}", _checksum); }
+            get { return $"0x{_checksum:x2}"; }
         }
 
         public List<byte> Data

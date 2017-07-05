@@ -25,7 +25,7 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    public static class MessageBoxHelper
+    internal static class MessageBoxHelper
     {
         /// <summary>
         /// </summary>
@@ -96,7 +96,7 @@ namespace FFXIVAPP.Client.Helpers
                 }
                 else
                 {
-                    MessageBox.Show(String.Format("Unable to process MessageBox[{0}]:NotProcessingResult", message), title, MessageBoxButton.OK);
+                    MessageBox.Show($"Unable to process MessageBox[{message}]:NotProcessingResult", title, MessageBoxButton.OK);
                 }
             }, DispatcherPriority.Send);
         }

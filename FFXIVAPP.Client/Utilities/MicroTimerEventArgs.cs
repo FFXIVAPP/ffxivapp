@@ -19,7 +19,7 @@ using System;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public class MicroTimerEventArgs : EventArgs
+    internal class MicroTimerEventArgs : EventArgs
     {
         // Simple counter, number times timed event (callback function) executed
         public MicroTimerEventArgs(int timerCount, long elapsedMicroseconds, long timerLateBy, long callbackFunctionExecutionTime)

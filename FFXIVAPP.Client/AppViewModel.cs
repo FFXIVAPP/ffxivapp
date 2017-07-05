@@ -134,8 +134,8 @@ namespace FFXIVAPP.Client
             get { return _appTitle; }
             set
             {
-                var tempvalue = Constants.IsOpen ? value : String.Format("{0} : OFFLINE", value);
-                _appTitle = String.IsNullOrWhiteSpace(tempvalue) ? "FFXIVAPP" : String.Format("FFXIVAPP ~ {0}", tempvalue);
+                var tempvalue = Constants.IsOpen ? value : $"{value} : OFFLINE";
+                _appTitle = String.IsNullOrWhiteSpace(tempvalue) ? "FFXIVAPP" : $"FFXIVAPP ~ {tempvalue}";
                 RaisePropertyChanged();
             }
         }
@@ -367,7 +367,7 @@ namespace FFXIVAPP.Client
             {
                 var att = Assembly.GetExecutingAssembly()
                                   .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                return att.Length == 0 ? "" : ((AssemblyCopyrightAttribute) att[0]).Copyright;
+                return att.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute) att[0]).Copyright;
             }
         }
 

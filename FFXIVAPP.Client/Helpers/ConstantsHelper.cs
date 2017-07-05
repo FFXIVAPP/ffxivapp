@@ -19,7 +19,7 @@ using FFXIVAPP.Common.Core.Constant;
 
 namespace FFXIVAPP.Client.Helpers
 {
-    public static class ConstantsHelper
+    internal static class ConstantsHelper
     {
         public static void UpdatePluginConstants()
         {

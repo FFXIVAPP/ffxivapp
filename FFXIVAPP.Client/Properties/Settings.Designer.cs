@@ -182,8 +182,8 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=string.Empty1.0string.Empty encoding=string.Emptyutf-16string.Empty?>
+<ArrayOfString xmlns:xsi=string.Emptyhttp://www.w3.org/2001/XMLSchema-instancestring.Empty xmlns:xsd=string.Emptyhttp://www.w3.org/2001/XMLSchemastring.Empty>
   <string>English</string>
   <string>Japanese</string>
   <string>French</string>
@@ -411,8 +411,8 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=string.Empty1.0string.Empty encoding=string.Emptyutf-16string.Empty?>
+<ArrayOfString xmlns:xsi=string.Emptyhttp://www.w3.org/2001/XMLSchema-instancestring.Empty xmlns:xsd=string.Emptyhttp://www.w3.org/2001/XMLSchemastring.Empty>
   <string>0.8</string>
   <string>0.9</string>
   <string>1.0</string>

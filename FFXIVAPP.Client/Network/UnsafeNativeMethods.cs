@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 
 namespace FFXIVAPP.Client.Network
 {
-    public static class UnsafeNativeMethods
+    internal static class UnsafeNativeMethods
     {
         public enum TCP_TABLE_CLASS
         {

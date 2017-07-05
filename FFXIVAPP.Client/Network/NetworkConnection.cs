@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class NetworkConnection : ServerConnection
+    internal class NetworkConnection : ServerConnection
     {
         private const int NetworkBufferMax = 0x19000;
         public DateTime LastGoodNetworkPacketTime = DateTime.MinValue;

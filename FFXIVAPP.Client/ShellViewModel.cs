@@ -132,7 +132,7 @@ namespace FFXIVAPP.Client
             try
             {
                 var date = DateTime.Now.ToString("yyyy_MM_dd_HH.mm.ss_");
-                var fileName = Path.Combine(AppViewModel.Instance.ScreenShotsPath, String.Format("{0}.jpg", date));
+                var fileName = Path.Combine(AppViewModel.Instance.ScreenShotsPath, $"{date}.jpg");
                 var screenShot = ScreenCapture.GetJpgImage(ShellView.View, 1, 100);
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 using (var stream = new BinaryWriter(fileStream))
@@ -151,7 +151,7 @@ namespace FFXIVAPP.Client
         /// </summary>
         private static void UpdateSelectedPlugin()
         {
-            var selectedItem = ((TabItem) ShellView.View.PluginsTC.SelectedItem);
+            var selectedItem = (TabItem) ShellView.View.PluginsTC.SelectedItem;
             try
             {
                 AppViewModel.Instance.Selected = selectedItem.Header.ToString();
@@ -171,7 +171,7 @@ namespace FFXIVAPP.Client
             switch (currentMain)
             {
                 case "PluginsTI":
-                    AppViewModel.Instance.AppTitle = String.Format("{0}", AppViewModel.Instance.Selected);
+                    AppViewModel.Instance.AppTitle = $"{AppViewModel.Instance.Selected}";
                     break;
                 default:
                     AppViewModel.Instance.AppTitle = currentMain.Substring(0, currentMain.Length - 2);

@@ -83,6 +83,7 @@ namespace FFXIVAPP.Client.Memory
 
                 if (readResult.TargetsFound || !ReferencesSet)
                 {
+                    ReferencesSet = true;
                     AppContextHelper.Instance.RaiseNewTargetEntity(readResult.TargetEntity);
                 }
 

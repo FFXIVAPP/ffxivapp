@@ -21,7 +21,7 @@ using System.Runtime.Serialization;
 namespace FFXIVAPP.Client
 {
     [Serializable]
-    public class AppException : Exception
+    internal class AppException : Exception
     {
         public AppException()
         {

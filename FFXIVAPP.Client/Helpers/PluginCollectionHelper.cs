@@ -49,9 +49,9 @@ namespace FFXIVAPP.Client.Helpers
             try
             {
                 return List.Cast<PluginInstance>()
-                           .FirstOrDefault(pluginInstance => (pluginInstance.Instance.Name.Equals(plugin, Constants.InvariantComparer)) || pluginInstance.AssemblyPath.Equals(plugin, Constants.InvariantComparer));
+                           .FirstOrDefault(pluginInstance => pluginInstance.Instance.Name.Equals(plugin, Constants.InvariantComparer) || pluginInstance.AssemblyPath.Equals(plugin, Constants.InvariantComparer));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

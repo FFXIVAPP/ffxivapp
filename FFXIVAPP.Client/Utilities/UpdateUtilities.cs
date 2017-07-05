@@ -22,7 +22,7 @@ using System.Text;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public static class UpdateUtilities
+    internal static class UpdateUtilities
     {
         /// <summary>
         ///     Compares a file against an expected checksum.
@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client.Utilities
         /// <returns>MD5 checksum for the file, or an empty string if the file doesn't exist.</returns>
         public static string GetFileHash(string filePath)
         {
-            var FileHash = "";
+            var FileHash = string.Empty;
 
             if (!File.Exists(filePath))
             {

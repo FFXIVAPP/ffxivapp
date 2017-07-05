@@ -20,7 +20,7 @@ using FFXIVAPP.Client.Models;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public static class BuildUtilities
+    internal static class BuildUtilities
     {
         public static bool NeedsUpdate(string latest, string current, ref BuildNumber latestBuildNumber, ref BuildNumber currentBuildNumber)
         {
@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.Utilities
                 currentBuildNumber.Build = Int32.Parse(currentSplit[2]);
                 currentBuildNumber.Revision = Int32.Parse(currentSplit[3]);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

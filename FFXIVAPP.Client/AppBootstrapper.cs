@@ -24,6 +24,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Memory.Models;
 using NLog;
@@ -53,7 +54,7 @@ namespace FFXIVAPP.Client
             {
                 foreach (var argument in App.MArgs)
                 {
-                    Logging.Log(Logger, String.Format("ArgumentProvided : {0}", argument));
+                    Logging.Log(Logger, $"ArgumentProvided : {argument}");
                 }
             }
             Constants.IsOpen = false;
@@ -164,9 +165,9 @@ namespace FFXIVAPP.Client
                     case true:
                         try
                         {
-                            var CurrentFFXIV = Process.GetProcessById(Constants.ProcessModel.ProcessID);
+                            Process.GetProcessById(Constants.ProcessModel.ProcessID);
                         }
-                        catch (ArgumentException ex)
+                        catch (ArgumentException)
                         {
                             Constants.IsOpen = false;
                         }
@@ -181,6 +182,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 

@@ -39,7 +39,7 @@ using NLog.Config;
 
 namespace FFXIVAPP.Client
 {
-    public partial class App
+    internal partial class App
     {
         private App()
         {
@@ -98,7 +98,7 @@ namespace FFXIVAPP.Client
                 Settings.Default.Reload();
                 Settings.Default.Application_UpgradeRequired = false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 SettingsHelper.Default();
             }
@@ -144,7 +144,7 @@ namespace FFXIVAPP.Client
         {
             e.Handled = true;
             var ex = e.Exception;
-            Logging.Log(Logger, new LogItem("", ex, LogLevel.Error));
+            Logging.Log(Logger, new LogItem(ex, true));
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace FFXIVAPP.Client
         {
             e.RequestCatch = true;
             var ex = e.Exception;
-            Logging.Log(Logger, new LogItem("", ex, LogLevel.Error));
+            Logging.Log(Logger, new LogItem(ex, true));
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private static void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Logging.Log(Logger, String.Format("PropertyChanged : {0}", e.PropertyName));
+            Logging.Log(Logger, $"PropertyChanged : {e.PropertyName}");
             try
             {
                 switch (e.PropertyName)
@@ -244,6 +244,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -253,7 +254,7 @@ namespace FFXIVAPP.Client
         /// <param name="e"> </param>
         private static void SettingsSettingChanging(object sender, SettingChangingEventArgs e)
         {
-            Logging.Log(Logger, String.Format("SettingChanging : [{0},{1}]", e.SettingKey, e.NewValue));
+            Logging.Log(Logger, $"SettingChanging : [{e.SettingKey},{e.NewValue}]");
         }
 
         #region Logger

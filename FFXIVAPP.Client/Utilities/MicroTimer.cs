@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace FFXIVAPP.Client.Utilities
 {
-    public class MicroTimer
+    internal class MicroTimer
     {
         public delegate void MicroTimerElapsedEventHandler(object sender, MicroTimerEventArgs timerEventArgs);
 
@@ -62,7 +62,7 @@ namespace FFXIVAPP.Client.Utilities
                     Stop();
                 }
             }
-            get { return (_threadTimer != null && _threadTimer.IsAlive); }
+            get { return _threadTimer != null && _threadTimer.IsAlive; }
         }
 
         public event MicroTimerElapsedEventHandler MicroTimerElapsed;

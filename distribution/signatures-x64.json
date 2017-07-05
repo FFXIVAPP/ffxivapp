@@ -6,7 +6,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 25,
     "PointerPath": [
       0,
       144
@@ -19,7 +19,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 26,
     "PointerPath": [
       0,
       0,
@@ -34,7 +34,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 21,
     "PointerPath": [
       0,
       16
@@ -47,7 +47,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 17,
     "PointerPath": [
       0,
       16
@@ -60,7 +60,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 22,
     "PointerPath": [
       0,
       0
@@ -73,7 +73,7 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 14,
     "PointerPath": [
       0
     ]
@@ -85,10 +85,10 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 14,
     "PointerPath": [
       0,
-	  -4648
+      -4648
     ]
   },
   {
@@ -98,10 +98,10 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 14,
     "PointerPath": [
       0,
-	  -2344
+      -2344
     ]
   },
   {
@@ -111,10 +111,10 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 14,
     "PointerPath": [
       0,
-	  -2336
+      -2336
     ]
   },
   {
@@ -124,10 +124,10 @@
       "value": 0
     },
     "ASMSignature": true,
-    "Offset": 0,
+    "Offset": 14,
     "PointerPath": [
       0,
-	  -32
+      -32
     ]
   }
 ]

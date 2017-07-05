@@ -17,7 +17,7 @@
 
 namespace FFXIVAPP.Client.Models
 {
-    public class BuildNumber
+    internal class BuildNumber
     {
         public BuildNumber()
         {

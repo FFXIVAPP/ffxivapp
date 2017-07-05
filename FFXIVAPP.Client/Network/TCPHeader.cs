@@ -20,11 +20,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
+using NLog;
 
 namespace FFXIVAPP.Client.Network
 {
-    public class TCPHeader
+    internal class TCPHeader
     {
+        #region Logger
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
         private readonly uint _acknowledgementNumber = 555;
         private readonly short _checksum = 555;
         private readonly List<byte> _data = new List<byte>();
@@ -70,6 +79,7 @@ namespace FFXIVAPP.Client.Network
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
@@ -90,7 +100,7 @@ namespace FFXIVAPP.Client.Network
 
         public string AcknowledgementNumber
         {
-            get { return (_flags & 0x10) != 0 ? _acknowledgementNumber.ToString(CultureInfo.InvariantCulture) : ""; }
+            get { return (_flags & 0x10) != 0 ? _acknowledgementNumber.ToString(CultureInfo.InvariantCulture) : string.Empty; }
         }
 
         public string HeaderLength
@@ -105,7 +115,7 @@ namespace FFXIVAPP.Client.Network
 
         public string UrgentPointer
         {
-            get { return (_flags & 0x20) != 0 ? _urgentPointer.ToString(CultureInfo.InvariantCulture) : ""; }
+            get { return (_flags & 0x20) != 0 ? _urgentPointer.ToString(CultureInfo.InvariantCulture) : string.Empty; }
         }
 
         public string Flags
@@ -113,7 +123,7 @@ namespace FFXIVAPP.Client.Network
             get
             {
                 var newFlags = _flags & 0x3F;
-                var stringFlags = String.Format("0x{0:x2} (", newFlags);
+                var stringFlags = $"0x{newFlags:x2} (";
                 if ((newFlags & 0x01) != 0)
                 {
                     stringFlags += "FIN, ";
@@ -153,7 +163,7 @@ namespace FFXIVAPP.Client.Network
 
         public string Checksum
         {
-            get { return String.Format("0x{0:x2}", _checksum); }
+            get { return $"0x{_checksum:x2}"; }
         }
 
         public List<byte> Data

@@ -26,6 +26,8 @@ using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
+using FFXIVAPP.Common.Utilities;
 using NLog;
 
 namespace FFXIVAPP.Client
@@ -188,8 +190,9 @@ namespace FFXIVAPP.Client
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
-                Process.Start("FFXIVAPP.Updater.Backup.exe", String.Format("{0} {1}", AppViewModel.Instance.DownloadUri, AppViewModel.Instance.LatestVersion));
+                Process.Start("FFXIVAPP.Updater.Backup.exe", $"{AppViewModel.Instance.DownloadUri} {AppViewModel.Instance.LatestVersion}");
             }
             Environment.Exit(0);
         }

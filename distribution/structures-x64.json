@@ -179,10 +179,6 @@
     "Gathering": 0,
     "Perception": 0
   },
-  "PlayerInfo": {
-    "EnmityCount": 36,
-    "EnmityStructure": 2340
-  },
   "StatusEntry": {
     "StatusID": 0,
     "Stacks": 2,
@@ -190,7 +186,6 @@
     "CasterID": 8
   },
   "TargetInfo": {
-    "HateStructure": 19000,
     "MouseOver": 72,
     "Focus": 120,
     "Previous": 144,

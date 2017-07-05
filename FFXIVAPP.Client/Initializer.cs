@@ -39,7 +39,9 @@ using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.Memory;
 using FFXIVAPP.Memory.Models;
 using Newtonsoft.Json.Linq;
@@ -255,15 +257,17 @@ namespace FFXIVAPP.Client
                     {
                         xEnabled = (bool) xElement.Element("Enabled");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Logging.Log(Logger, new LogItem(ex, true));
                     }
                     try
                     {
                         xKey = (Guid) xElement.Attribute("Key");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Logging.Log(Logger, new LogItem(ex, true));
                     }
                     if (String.IsNullOrWhiteSpace(xSourceURI))
                     {
@@ -304,7 +308,7 @@ namespace FFXIVAPP.Client
                     {
                         using (var response = httpResponse.GetResponseStream())
                         {
-                            var responseText = "";
+                            var responseText = string.Empty;
                             if (response != null)
                             {
                                 using (var streamReader = new StreamReader(response))
@@ -335,6 +339,7 @@ namespace FFXIVAPP.Client
                 }
                 catch (Exception ex)
                 {
+                    Logging.Log(Logger, new LogItem(ex, true));
                 }
                 foreach (var pluginSourceItem in UpdateViewModel.Instance.AvailableSources)
                 {
@@ -359,7 +364,7 @@ namespace FFXIVAPP.Client
                             {
                                 using (var response = httpResponse.GetResponseStream())
                                 {
-                                    var responseText = "";
+                                    var responseText = string.Empty;
                                     if (response != null)
                                     {
                                         using (var streamReader = new StreamReader(response))
@@ -381,7 +386,7 @@ namespace FFXIVAPP.Client
                                                     .ToString(),
                                                 Name = pluginFile["Name"]
                                                     .ToString(),
-                                                Checksum = pluginFile["Checksum"] == null ? "" : pluginFile["Checksum"]
+                                                Checksum = pluginFile["Checksum"] == null ? string.Empty : pluginFile["Checksum"]
                                                     .ToString()
                                             })),
                                             Name = pluginInfo["Name"]
@@ -389,7 +394,7 @@ namespace FFXIVAPP.Client
                                             FriendlyName = pluginInfo["FriendlyName"] == null ? pluginInfo["Name"]
                                                 .ToString() : pluginInfo["FriendlyName"]
                                                 .ToString(),
-                                            Description = pluginInfo["Description"] == null ? "" : pluginInfo["Description"]
+                                            Description = pluginInfo["Description"] == null ? string.Empty : pluginInfo["Description"]
                                                 .ToString(),
                                             SourceURI = pluginInfo["SourceURI"]
                                                 .ToString(),
@@ -425,6 +430,7 @@ namespace FFXIVAPP.Client
                         }
                         catch (Exception ex)
                         {
+                            Logging.Log(Logger, new LogItem(ex, true));
                         }
                         DispatcherHelper.Invoke(delegate
                         {
@@ -470,6 +476,7 @@ namespace FFXIVAPP.Client
                     }
                     catch (Exception ex)
                     {
+                        Logging.Log(Logger, new LogItem(ex, true));
                     }
                     break;
             }
@@ -509,6 +516,7 @@ namespace FFXIVAPP.Client
             }
             catch (Exception ex)
             {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
             Func<bool> updateCheck = delegate
             {
@@ -525,7 +533,7 @@ namespace FFXIVAPP.Client
                 {
                     using (var response = httpResponse.GetResponseStream())
                     {
-                        var responseText = "";
+                        var responseText = string.Empty;
                         if (response != null)
                         {
                             using (var streamReader = new StreamReader(response))
@@ -562,7 +570,7 @@ namespace FFXIVAPP.Client
 
                             if (AppViewModel.Instance.HasNewVersion)
                             {
-                                var title = String.Format("{0} {1}", AppViewModel.Instance.Locale["app_DownloadNoticeHeader"], AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]);
+                                var title = $"{AppViewModel.Instance.Locale["app_DownloadNoticeHeader"]} {AppViewModel.Instance.Locale["app_DownloadNoticeMessage"]}";
                                 var message = new StringBuilder();
                                 try
                                 {
@@ -576,6 +584,7 @@ namespace FFXIVAPP.Client
                                 }
                                 catch (Exception ex)
                                 {
+                                    Logging.Log(Logger, new LogItem(ex, true));
                                 }
                                 finally
                                 {
@@ -605,7 +614,7 @@ namespace FFXIVAPP.Client
                     Process.GetProcessById(Constants.ProcessModel.ProcessID);
                     return Constants.ProcessModel.ProcessID;
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
                     Constants.IsOpen = false;
                 }
@@ -631,7 +640,7 @@ namespace FFXIVAPP.Client
                 Constants.IsOpen = true;
                 foreach (var processModel in Constants.ProcessModels)
                 {
-                    SettingsView.View.PIDSelect.Items.Add(String.Format("[{0}] - {1}", processModel.Process.Id, processModel.IsWin64 ? "64-Bit" : "32-Bit"));
+                    SettingsView.View.PIDSelect.Items.Add($"[{processModel.Process.Id}] - {(processModel.IsWin64 ? "64-Bit" : "32-Bit")}");
                 }
                 SettingsView.View.PIDSelect.SelectedIndex = 0;
                 UpdateProcessID(Constants.ProcessModels.First());
@@ -647,7 +656,7 @@ namespace FFXIVAPP.Client
         public static void SetProcessID()
         {
             StopMemoryWorkers();
-            if (SettingsView.View.PIDSelect.Text == "")
+            if (SettingsView.View.PIDSelect.Text == string.Empty)
             {
                 return;
             }
@@ -672,12 +681,17 @@ namespace FFXIVAPP.Client
             Constants.ProcessModel = processModel;
         }
 
+        public static void UpdatePluginConstants()
+        {
+            ConstantsHelper.UpdatePluginConstants();
+        }
+
         /// <summary>
         /// </summary>
         public static void StartMemoryWorkers()
         {
             StopMemoryWorkers();
-            var id = SettingsView.View.PIDSelect.Text == "" ? GetProcessID() : Constants.ProcessModel.ProcessID;
+            var id = SettingsView.View.PIDSelect.Text == string.Empty ? GetProcessID() : Constants.ProcessModel.ProcessID;
             Constants.IsOpen = true;
             if (id < 0)
             {
@@ -686,6 +700,8 @@ namespace FFXIVAPP.Client
             }
 
             MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", !Settings.Default.CacheMemoryJSONData);
+            MemoryHandler.Instance.ExceptionEvent += MemoryHandler_ExceptionEvent;
+
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
             _actorWorker = new ActorWorker();
@@ -700,15 +716,12 @@ namespace FFXIVAPP.Client
             _inventoryWorker.StartScanning();
         }
 
-        public static void UpdatePluginConstants()
-        {
-            ConstantsHelper.UpdatePluginConstants();
-        }
-
         /// <summary>
         /// </summary>
         public static void StopMemoryWorkers()
         {
+            MemoryHandler.Instance.ExceptionEvent -= MemoryHandler_ExceptionEvent;
+
             if (_chatLogWorker != null)
             {
                 _chatLogWorker.StopScanning();
@@ -739,6 +752,11 @@ namespace FFXIVAPP.Client
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
             }
+        }
+        
+        private static void MemoryHandler_ExceptionEvent(object sender, FFXIVAPP.Memory.Events.ExceptionEvent e)
+        {
+            Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
         }
 
         public static void RefreshMemoryWorkers()

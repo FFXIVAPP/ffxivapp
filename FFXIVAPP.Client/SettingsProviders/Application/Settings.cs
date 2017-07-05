@@ -36,7 +36,7 @@ using FontFamily = System.Drawing.FontFamily;
 
 namespace FFXIVAPP.Client.SettingsProviders.Application
 {
-    public class Settings : ApplicationSettingsBase, INotifyPropertyChanged
+    internal class Settings : ApplicationSettingsBase, INotifyPropertyChanged
     {
         #region Logger
 
@@ -48,7 +48,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
 
         public static Settings Default
         {
-            get { return _default ?? (_default = ((Settings) (Synchronized(new Settings())))); }
+            get { return _default ?? (_default = (Settings) Synchronized(new Settings())); }
         }
 
         public override void Save()
@@ -114,7 +114,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application
             }
             catch (Exception ex)
             {
-                Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 

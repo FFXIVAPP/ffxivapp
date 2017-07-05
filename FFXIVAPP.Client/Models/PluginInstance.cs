@@ -23,7 +23,7 @@ namespace FFXIVAPP.Client.Models
     {
         public PluginInstance()
         {
-            AssemblyPath = "";
+            AssemblyPath = string.Empty;
             Loaded = false;
         }
 

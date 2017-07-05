@@ -21,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace FFXIVAPP.Client.Models
 {
-    public class PluginDownloadItem : INotifyPropertyChanged
+    internal class PluginDownloadItem : INotifyPropertyChanged
     {
         private string _currentVersion;
         private string _description;

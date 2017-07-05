@@ -17,7 +17,7 @@
 
 namespace FFXIVAPP.Client.Network
 {
-    public enum Protocol
+    internal enum Protocol
     {
         TCP = 6,
         UDP = 17,
