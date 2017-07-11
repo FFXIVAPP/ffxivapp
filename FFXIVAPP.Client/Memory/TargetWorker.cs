@@ -22,9 +22,8 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Memory;
-using FFXIVAPP.Memory.Core;
 using NLog;
+using Sharlayan;
 
 namespace FFXIVAPP.Client.Memory
 {
@@ -41,12 +40,6 @@ namespace FFXIVAPP.Client.Memory
             _scanTimer = new Timer(100);
             _scanTimer.Elapsed += ScanTimerElapsed;
         }
-
-        #region Property Bindings
-
-        private TargetEntity LastTargetEntity { get; set; }
-
-        #endregion
 
         #region Implementation of IDisposable
 
@@ -81,11 +74,7 @@ namespace FFXIVAPP.Client.Memory
 
                 #region Notifications
 
-                if (readResult.TargetsFound || !ReferencesSet)
-                {
-                    ReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewTargetEntity(readResult.TargetEntity);
-                }
+                AppContextHelper.Instance.RaiseNewTargetEntity(readResult.TargetEntity);
 
                 #endregion
 
@@ -101,7 +90,6 @@ namespace FFXIVAPP.Client.Memory
 
         private readonly Timer _scanTimer;
         private bool _isScanning;
-        private bool ReferencesSet;
 
         #endregion
 

@@ -2748,27 +2748,62 @@
     "IsDungeonInstance": false
   },
   "690": {
-    "Name": {},
+    "Name": {
+      "English": "The Interdimensional Rift",
+      "French": "Fissure Interdimensionnelle",
+      "Japanese": "次元の狭間",
+      "German": "Interdimensionaler Riss",
+      "Chinese": "The Interdimensional Rift",
+      "Korean": "The Interdimensional Rift"
+    },
     "Index": 0,
     "IsDungeonInstance": false
   },
   "691": {
-    "Name": {},
+    "Name": {
+      "English": "Deltascape V1.0",
+      "French": "Deltastice V1.0",
+      "Japanese": "被検世界「デルタ」V1.0",
+      "German": "Deltametrie 1.0",
+      "Chinese": "Deltascape V1.0",
+      "Korean": "Deltascape V1.0"
+    },
     "Index": 0,
     "IsDungeonInstance": false
   },
   "692": {
-    "Name": {},
+    "Name": {
+      "English": "Deltascape V2.0",
+      "French": "Deltastice V2.0",
+      "Japanese": "被検世界「デルタ」V2.0",
+      "German": "Deltametrie 2.0",
+      "Chinese": "Deltascape V2.0",
+      "Korean": "Deltascape V2.0"
+    },
     "Index": 0,
     "IsDungeonInstance": false
   },
   "693": {
-    "Name": {},
+    "Name": {
+      "English": "Deltascape V3.0",
+      "French": "Deltastice V3.0",
+      "Japanese": "被検世界「デルタ」V3.0",
+      "German": "Deltametrie 3.0",
+      "Chinese": "Deltascape V3.0",
+      "Korean": "Deltascape V3.0"
+    },
     "Index": 0,
     "IsDungeonInstance": false
   },
   "694": {
-    "Name": {},
+    "Name": {
+      "English": "Deltascape V4.0",
+      "French": "Deltastice V4.0",
+      "Japanese": "被検世界「デルタ」V4.0",
+      "German": "Deltametrie 4.0",
+      "Chinese": "Deltascape V4.0",
+      "Korean": "Deltascape V4.0"
+    },
     "Index": 0,
     "IsDungeonInstance": false
   },

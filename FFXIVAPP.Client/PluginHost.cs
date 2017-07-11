@@ -32,8 +32,8 @@ using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.IPluginInterface.Events;
-using FFXIVAPP.Memory.Core;
 using NLog;
+using Sharlayan.Core;
 
 namespace FFXIVAPP.Client
 {
@@ -55,7 +55,8 @@ namespace FFXIVAPP.Client
         {
             "FFXIVAPP.Common",
             "FFXIVAPP.IPluginInterface",
-            "FFXIVAPP.Memory",
+            "Sharlayan",
+            "Machina",
             "MahApps.Metro",
             "HtmlAgilityPack",
             "NAudio",
@@ -300,6 +301,8 @@ namespace FFXIVAPP.Client
 
         public event EventHandler<NetworkPacketEvent> NewNetworkPacket = delegate { };
 
+        public event EventHandler<ActionEntityEvent> NewActionEntity = delegate { };
+
         public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
         {
             var constantsEntityEvent = new ConstantsEntityEvent(this, e);
@@ -477,6 +480,16 @@ namespace FFXIVAPP.Client
             if (handler != null)
             {
                 handler(this, networkPacketEvent);
+            }
+        }
+
+        public virtual void RaiseNewActionEntities(List<ActionEntity> e)
+        {
+            var actionEntityEvent = new ActionEntityEvent(this, e);
+            var handler = NewActionEntity;
+            if (handler != null)
+            {
+                handler(this, actionEntityEvent);
             }
         }
 

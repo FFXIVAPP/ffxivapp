@@ -167,7 +167,7 @@ namespace FFXIVAPP.Client.Helpers
                         {
                             if (savedSayBuilder.Length > 0)
                             {
-                                var path =  Path.Combine(AppViewModel.Instance.LogsPath, "Say", savedTextLogName);
+                                var path = Path.Combine(AppViewModel.Instance.LogsPath, "Say", savedTextLogName);
                                 File.WriteAllText(path, savedSayBuilder.ToString());
                             }
                             if (savedShoutBuilder.Length > 0)

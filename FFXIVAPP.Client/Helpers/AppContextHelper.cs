@@ -21,8 +21,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Core.Network;
-using FFXIVAPP.Memory.Core;
 using NLog;
+using Sharlayan.Core;
 
 namespace FFXIVAPP.Client.Helpers
 {
@@ -77,6 +77,12 @@ namespace FFXIVAPP.Client.Helpers
         {
             // THIRD PARTY
             PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
+        }
+
+        public void RaiseNewActionEntities(List<ActionEntity> actionEntities)
+        {
+            // THIRD PARTY
+            PluginHost.Instance.RaiseNewActionEntities(actionEntities);
         }
 
         #region Property Backings

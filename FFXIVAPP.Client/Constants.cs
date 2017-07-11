@@ -23,7 +23,7 @@ using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Common.Core.Constant;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Memory.Models;
+using Sharlayan.Models;
 
 namespace FFXIVAPP.Client
 {

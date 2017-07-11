@@ -26,26 +26,30 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Xml.Linq;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Memory;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Network;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
+using FFXIVAPP.Common.Core.Network;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
-using FFXIVAPP.Memory;
-using FFXIVAPP.Memory.Models;
+using Machina;
+using Machina.Models;
 using Newtonsoft.Json.Linq;
 using NLog;
+using Sharlayan;
+using Sharlayan.Events;
+using Sharlayan.Models;
+using Application = System.Windows.Forms.Application;
+using NetworkPacket = FFXIVAPP.Common.Core.Network.NetworkPacket;
 
 namespace FFXIVAPP.Client
 {
@@ -59,7 +63,7 @@ namespace FFXIVAPP.Client
 
         public static bool NetworkWorking
         {
-            get { return _networkWorker != null; }
+            get { return NetworkHandler.Instance.IsRunning; }
         }
 
         /// <summary>
@@ -675,7 +679,7 @@ namespace FFXIVAPP.Client
 
         /// <summary>
         /// </summary>
-        /// <param name="pid"> </param>
+        /// <param name="processModel"> </param>
         private static void UpdateProcessID(ProcessModel processModel)
         {
             Constants.ProcessModel = processModel;
@@ -699,8 +703,10 @@ namespace FFXIVAPP.Client
                 return;
             }
 
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", !Settings.Default.CacheMemoryJSONData);
             MemoryHandler.Instance.ExceptionEvent += MemoryHandler_ExceptionEvent;
+            MemoryHandler.Instance.SignaturesFoundEvent += MemoryHandler_SignaturesFoundEvent;
+
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", !Settings.Default.CacheMemoryJSONData);
 
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();
@@ -714,6 +720,8 @@ namespace FFXIVAPP.Client
             _partyInfoWorker.StartScanning();
             _inventoryWorker = new InventoryWorker();
             _inventoryWorker.StartScanning();
+            _hotBarRecastWorker = new HotBarRecastWorker();
+            _hotBarRecastWorker.StartScanning();
         }
 
         /// <summary>
@@ -721,6 +729,7 @@ namespace FFXIVAPP.Client
         public static void StopMemoryWorkers()
         {
             MemoryHandler.Instance.ExceptionEvent -= MemoryHandler_ExceptionEvent;
+            MemoryHandler.Instance.SignaturesFoundEvent -= MemoryHandler_SignaturesFoundEvent;
 
             if (_chatLogWorker != null)
             {
@@ -752,11 +761,24 @@ namespace FFXIVAPP.Client
                 _inventoryWorker.StopScanning();
                 _inventoryWorker.Dispose();
             }
+            if (_hotBarRecastWorker != null)
+            {
+                _hotBarRecastWorker.StopScanning();
+                _hotBarRecastWorker.Dispose();
+            }
         }
-        
-        private static void MemoryHandler_ExceptionEvent(object sender, FFXIVAPP.Memory.Events.ExceptionEvent e)
+
+        private static void MemoryHandler_ExceptionEvent(object sender, ExceptionEvent e)
         {
             Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
+        }
+
+        private static void MemoryHandler_SignaturesFoundEvent(object sender, SignaturesFoundEvent e)
+        {
+            foreach (var kvp in e.Signatures)
+            {
+                Logging.Log(e.Logger, new LogItem($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
+            }
         }
 
         public static void RefreshMemoryWorkers()
@@ -767,32 +789,56 @@ namespace FFXIVAPP.Client
 
         public static void StartNetworkWorker()
         {
-            RefreshNetworkWorker();
+            StopNetworkWorker();
+            
+            NetworkHandler.Instance.ExceptionEvent += NetworkHandler_ExceptionEvent;
+            NetworkHandler.Instance.NewNetworkPacketEvent += NetworkHandler_NewPacketEvent;
+
+            var config = new NetworkConfig();
+            config.ApplicationName = AssemblyHelper.Name;
+            config.CurrentProcessID = Constants.ProcessModel.ProcessID;
+            config.ExecutablePath = Application.ExecutablePath;
+            config.UserSelectedInterface = Settings.Default.DefaultNetworkInterface;
+            config.UseWinPCap = Settings.Default.NetworkUseWinPCap;
+
+            NetworkHandler.Instance.SetProcess(config);
+
+            NetworkHandler.Instance.StartDecrypting();
         }
 
         public static void StopNetworkWorker()
         {
-            if (NetworkWorking)
+            NetworkHandler.Instance.ExceptionEvent -= NetworkHandler_ExceptionEvent;
+            NetworkHandler.Instance.NewNetworkPacketEvent -= NetworkHandler_NewPacketEvent;
+
+            NetworkHandler.Instance.StopDecrypting();
+        }
+
+        private static void NetworkHandler_ExceptionEvent(object sender, Machina.Events.ExceptionEvent e)
+        {
+            Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
+        }
+
+        private static void NetworkHandler_NewPacketEvent(object sender, Machina.Events.NewNetworkPacketEvent e)
+        {
+            var packet = e.NetworkPacket;
+
+            AppContextHelper.Instance.RaiseNewPacket(new NetworkPacket
             {
-                _networkWorker.StopScanning();
-                _networkWorker.Dispose();
-                _networkWorker = null;
-            }
+                Buffer = packet.Buffer,
+                CurrentPosition = packet.CurrentPosition,
+                Key =  packet.Key,
+                MessageSize = packet.MessageSize,
+                PacketDate = packet.PacketDate
+            });
         }
 
         public static void RefreshNetworkWorker()
         {
-            var thread = new Thread(StartNetworkingThread);
-            thread.Start();
-        }
-
-        private static void StartNetworkingThread()
-        {
             StopNetworkWorker();
-            _networkWorker = new NetworkWorker();
-            _networkWorker.StartScanning();
+            StartNetworkWorker();
         }
-
+        
         #region Declarations
 
         private static ActorWorker _actorWorker;
@@ -801,7 +847,7 @@ namespace FFXIVAPP.Client
         private static TargetWorker _targetWorker;
         private static PartyInfoWorker _partyInfoWorker;
         private static InventoryWorker _inventoryWorker;
-        private static NetworkWorker _networkWorker;
+        private static HotBarRecastWorker _hotBarRecastWorker;
 
         #endregion
     }

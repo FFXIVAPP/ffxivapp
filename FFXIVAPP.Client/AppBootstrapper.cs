@@ -26,8 +26,8 @@ using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
-using FFXIVAPP.Memory.Models;
 using NLog;
+using Sharlayan.Models;
 
 namespace FFXIVAPP.Client
 {

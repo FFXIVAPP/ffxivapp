@@ -193,7 +193,7 @@ namespace FFXIVAPP.Client
                         Common.Constants.EnableNetworkReading = Constants.EnableNetworkReading = Settings.Default.EnableNetworkReading;
                         if (Settings.Default.EnableNetworkReading)
                         {
-                            if (!Initializer.NetworkWorking)
+                            if (!Initializer.NetworkWorking && Constants.IsOpen)
                             {
                                 Initializer.StartNetworkWorker();
                             }

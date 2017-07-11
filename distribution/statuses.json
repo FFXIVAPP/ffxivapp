@@ -5624,7 +5624,7 @@
       "English": "6 Fulms Under",
       "French": "Enfoncement",
       "Japanese": "沈下",
-      "German": "Radieschen Von Unten",
+      "German": "Versinkend",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -11592,7 +11592,7 @@
   "1177": {
     "Name": {
       "English": "Inner Release",
-      "French": "Relâchement Intérieur",
+      "French": "Relâchement Bestial",
       "Japanese": "原初の解放",
       "German": "Urbefreiung",
       "Chinese": ""
@@ -12712,7 +12712,7 @@
   "1303": {
     "Name": {
       "English": "Inner Release",
-      "French": "Relâchement Intérieur",
+      "French": "Relâchement Bestial",
       "Japanese": "原初の解放",
       "German": "Urbefreiung",
       "Chinese": ""
@@ -13209,6 +13209,16 @@
     },
     "CompanyAction": false
   },
+  "1358": {
+    "Name": {
+      "English": "Elevated",
+      "French": "Élévation",
+      "Japanese": "高度固定：高",
+      "German": "Erhöht",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
   "1359": {
     "Name": {
       "English": "Gradual Petrification",
@@ -13225,6 +13235,16 @@
       "French": "Gravité Instable",
       "Japanese": "グラビティバースト",
       "German": "Schwerkraftschwankung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1361": {
+    "Name": {
+      "English": "Magitek Levitation",
+      "French": "魔導レビテト",
+      "Japanese": "魔導レビテト",
+      "German": "Magitek-Levitation",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -13255,6 +13275,16 @@
       "French": "Méga Foudre",
       "Japanese": "サンダガ詠唱可能",
       "German": "Blitzga-bereit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1366": {
+    "Name": {
+      "English": "Levitation",
+      "French": "Lévitation",
+      "Japanese": "レビテト",
+      "German": "Levitation",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -13415,6 +13445,16 @@
       "French": "Séduction",
       "Japanese": "誘惑",
       "German": "Versuchung",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1390": {
+    "Name": {
+      "English": "Levitation",
+      "French": "Lévitation",
+      "Japanese": "レビテト",
+      "German": "Levitation",
       "Chinese": ""
     },
     "CompanyAction": false
@@ -13629,6 +13669,16 @@
     },
     "CompanyAction": false
   },
+  "1412": {
+    "Name": {
+      "English": "Vulnerability Up",
+      "French": "Vulnérabilité Augmentée",
+      "Japanese": "被ダメージ上昇",
+      "German": "Erhöhte Verwundbarkeit",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
   "1413": {
     "Name": {
       "English": "Riddle Of Fire",
@@ -13655,6 +13705,16 @@
       "French": "Bouclier",
       "Japanese": "プロテス",
       "German": "Protes",
+      "Chinese": ""
+    },
+    "CompanyAction": false
+  },
+  "1416": {
+    "Name": {
+      "English": "Grounded",
+      "French": "Abaissement",
+      "Japanese": "高度固定：低",
+      "German": "Erniedrigt",
       "Chinese": ""
     },
     "CompanyAction": false

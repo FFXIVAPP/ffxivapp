@@ -22,8 +22,8 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Helpers;
 using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Memory;
 using NLog;
+using Sharlayan;
 
 namespace FFXIVAPP.Client.Memory
 {

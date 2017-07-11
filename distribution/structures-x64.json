@@ -20,7 +20,7 @@
     "ActionStatus": 5824,
     "IsGM": 396,
     "Icon": 5830,
-    "Status": 434,
+    "Status": 5836,
     "ClaimedByID": 440,
     "TargetID": 472,
     "Job": 5826,
@@ -193,5 +193,22 @@
     "CurrentID": 192,
     "Size": 9200,
     "SourceSize": 192
+  },
+  "HotBarEntity": {
+    "Name": 0,
+    "KeyBinds": 103,
+    "ID": 150
+  },
+  "RecastEntity": {
+    "Category": 0,
+    "Type": 8,
+    "ID": 12,
+    "Icon": 16,
+    "CoolDownPercent": 20,
+    "ActionProc": 21,
+    "IsAvailable": 24,
+    "RemainingCost": 28,
+    "Amount": 32,
+    "InRange": 36
   }
 }

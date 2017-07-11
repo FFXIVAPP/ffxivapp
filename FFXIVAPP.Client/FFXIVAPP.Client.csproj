@@ -88,6 +88,9 @@
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\ffxivapp-aio\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Machina, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\Machina.1.0.1\lib\NET461\Machina.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\..\ffxivapp-aio\packages\MahApps.Metro.1.2.0.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -99,6 +102,9 @@
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\ffxivapp-aio\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharlayan, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\Sharlayan.3.0.0\lib\NET461\Sharlayan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -143,6 +149,7 @@
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Localization\Korean.cs" />
     <Compile Include="Localization\Russian.cs" />
+    <Compile Include="Memory\HotBarRecastWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
@@ -164,21 +171,6 @@
     <Compile Include="Models\PluginSourceItem.cs" />
     <Compile Include="Models\PluginStatus.cs" />
     <Compile Include="Models\UILanguage.cs" />
-    <Compile Include="Network\IPHelper.cs" />
-    <Compile Include="Network\NetworkWorker.cs" />
-    <Compile Include="Network\DNSHeader.cs" />
-    <Compile Include="Network\TCPRow.cs" />
-    <Compile Include="Network\TCPTable.cs" />
-    <Compile Include="Network\ServerConnection.cs" />
-    <Compile Include="Network\SocketObject.cs" />
-    <Compile Include="Network\IPHeader.cs" />
-    <Compile Include="Network\NetworkConnection.cs" />
-    <Compile Include="Network\NetworkPacket.cs" />
-    <Compile Include="Network\Protocol.cs" />
-    <Compile Include="Network\TCPHeader.cs" />
-    <Compile Include="Network\UDPHeader.cs" />
-    <Compile Include="Network\UnsafeNativeMethods.cs" />
-    <Compile Include="Network\WinPcapWrapper.cs" />
     <Compile Include="PluginHost.cs" />
     <Compile Include="Models\PluginInstance.cs" />
     <Compile Include="PluginInitializer.cs" />
@@ -419,10 +411,6 @@
     <ProjectReference Include="..\..\ffxivapp-iplugininterface\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj">
       <Project>{56e3fd21-17c4-4306-ba2c-adaf6aaea330}</Project>
       <Name>FFXIVAPP.IPluginInterface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ffxivapp-memory\FFXIVAPP.Memory\FFXIVAPP.Memory.csproj">
-      <Project>{9510d5ef-208a-4897-a582-8eae5c6e9406}</Project>
-      <Name>FFXIVAPP.Memory</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,8 +31,8 @@ using System.Windows.Threading;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Properties;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Memory.Core;
-using FFXIVAPP.Memory.Models;
+using Sharlayan.Core;
+using Sharlayan.Models;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 
 namespace FFXIVAPP.Client
