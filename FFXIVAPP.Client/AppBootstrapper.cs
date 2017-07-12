@@ -24,6 +24,7 @@ using System.Runtime.CompilerServices;
 using System.Timers;
 using FFXIVAPP.Client.Models;
 using FFXIVAPP.Client.Views;
+using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
 using NLog;
@@ -45,8 +46,6 @@ namespace FFXIVAPP.Client
          *  configuring collections
          *  setting up dependencies
          */
-
-        public Timer ProcessDetachCheckTimer = new Timer(30000);
 
         private AppBootstrapper()
         {
@@ -152,38 +151,6 @@ namespace FFXIVAPP.Client
             Initializer.LoadPlugins();
 
             #endregion
-
-            ProcessDetachCheckTimer.Elapsed += ProcessDetachCheckTimerOnElapsed;
-        }
-
-        private void ProcessDetachCheckTimerOnElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            try
-            {
-                switch (Constants.IsOpen)
-                {
-                    case true:
-                        try
-                        {
-                            Process.GetProcessById(Constants.ProcessModel.ProcessID);
-                        }
-                        catch (ArgumentException)
-                        {
-                            Constants.IsOpen = false;
-                        }
-                        break;
-                    case false:
-                        SettingsView.View.PIDSelect.Items.Clear();
-                        Initializer.StopMemoryWorkers();
-                        Initializer.ResetProcessID();
-                        Initializer.StartMemoryWorkers();
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logging.Log(Logger, new LogItem(ex, true));
-            }
         }
 
         #region Property Bindings

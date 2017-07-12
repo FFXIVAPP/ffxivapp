@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="..\..\ffxivapp-props\FFXIVAPP.Common.props" />
-  <Import Project="..\..\ffxivapp-props\FFXIVAPP.IPluginInterface.props" />
-  <Import Project="..\..\ffxivapp-props\Machina.props" />
-  <Import Project="..\..\ffxivapp-props\Sharlayan.props" />
-  <Import Project="..\..\ffxivapp-props\Fody.props" Condition="Exists('..\ffxivapp-props\Fody.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -72,12 +67,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="FFXIVAPP.Common, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\FFXIVAPP.Common.3.0.2\lib\net461\FFXIVAPP.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="FFXIVAPP.IPluginInterface, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\FFXIVAPP.IPluginInterface.3.0.2\lib\net461\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Machina, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\Machina.1.0.2\lib\net461\Machina.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.0.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -90,6 +90,9 @@
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharlayan, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\ffxivapp-aio\packages\Sharlayan.3.0.1\lib\net461\Sharlayan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -271,7 +274,7 @@
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
     <Resource Include="Defaults\Settings.xml" />
-    <Resource Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml" />
     <Content Include="Licenses\License.NAudio.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -366,16 +369,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ffxivapp-common\FFXIVAPP.Common\FFXIVAPP.Common.csproj">
-      <Project>{8d6cda64-78be-4bf0-b613-0c9afa225df5}</Project>
-      <Name>FFXIVAPP.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ffxivapp-iplugininterface\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj">
-      <Project>{56e3fd21-17c4-4306-ba2c-adaf6aaea330}</Project>
-      <Name>FFXIVAPP.IPluginInterface</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

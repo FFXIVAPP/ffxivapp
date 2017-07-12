@@ -71,8 +71,6 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.NotifyIcon.Text = "FFXIVAPP";
             AppViewModel.Instance.NotifyIcon.ContextMenu.MenuItems[0]
                         .Enabled = false;
-
-            AppBootstrapper.Instance.ProcessDetachCheckTimer.Enabled = true;
         }
 
         /// <summary>
