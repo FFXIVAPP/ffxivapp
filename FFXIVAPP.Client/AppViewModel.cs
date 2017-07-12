@@ -41,8 +41,7 @@ namespace FFXIVAPP.Client
     internal sealed class AppViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
-
-        private static AppViewModel _instance;
+        
         private static bool _hasPlugins;
         private string _appTitle;
         private List<ChatLogEntry> _chatHistory;
@@ -82,9 +81,11 @@ namespace FFXIVAPP.Client
 
         #endregion
 
+        private static Lazy<AppViewModel> _instance = new Lazy<AppViewModel>(() => new AppViewModel());
+
         public static AppViewModel Instance
         {
-            get { return _instance ?? (_instance = new AppViewModel()); }
+            get { return _instance.Value; }
         }
 
         public Dictionary<string, string> Locale

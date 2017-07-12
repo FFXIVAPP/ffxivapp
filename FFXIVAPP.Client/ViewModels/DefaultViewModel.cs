@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
@@ -34,11 +35,11 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Property Bindings
 
-        private static DefaultViewModel _instance;
+        private static Lazy<DefaultViewModel> _instance = new Lazy<DefaultViewModel>(() => new DefaultViewModel());
 
         public static DefaultViewModel Instance
         {
-            get { return _instance ?? (_instance = new DefaultViewModel()); }
+            get { return _instance.Value; }
         }
 
         #endregion

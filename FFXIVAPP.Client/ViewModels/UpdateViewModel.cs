@@ -66,13 +66,13 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Property Bindings
 
-        private static UpdateViewModel _instance;
+        private static Lazy<UpdateViewModel> _instance = new Lazy<UpdateViewModel>(() => new UpdateViewModel());
         private ObservableCollection<PluginDownloadItem> _availablePlugins;
         private ObservableCollection<PluginSourceItem> _availableSources;
 
         public static UpdateViewModel Instance
         {
-            get { return _instance ?? (_instance = new UpdateViewModel()); }
+            get { return _instance.Value; }
         }
 
         public ObservableCollection<PluginDownloadItem> AvailablePlugins

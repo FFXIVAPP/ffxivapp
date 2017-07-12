@@ -65,14 +65,14 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Property Bindings
 
-        private static SettingsViewModel _instance;
+        private static Lazy<SettingsViewModel> _instance = new Lazy<SettingsViewModel>(() => new SettingsViewModel());
         private List<string> _availableAudioDevicesList;
         private List<string> _availableNetworkInterfacesList;
         private List<string> _homePluginList;
 
         public static SettingsViewModel Instance
         {
-            get { return _instance ?? (_instance = new SettingsViewModel()); }
+            get { return _instance.Value; }
         }
 
         public List<string> HomePluginList

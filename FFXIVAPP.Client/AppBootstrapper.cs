@@ -188,11 +188,11 @@ namespace FFXIVAPP.Client
 
         #region Property Bindings
 
-        private static AppBootstrapper _instance;
+        private static Lazy<AppBootstrapper> _instance = new Lazy<AppBootstrapper>(() => new AppBootstrapper());
 
         public static AppBootstrapper Instance
         {
-            get { return _instance ?? (_instance = new AppBootstrapper()); }
+            get { return _instance.Value; }
         }
 
         #endregion

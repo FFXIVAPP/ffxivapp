@@ -57,13 +57,13 @@ namespace FFXIVAPP.Client.ViewModels
 
         #region Property Bindings
 
-        private static MainViewModel _instance;
+        private static Lazy<MainViewModel> _instance = new Lazy<MainViewModel>(() => new MainViewModel());
 
         public static MainViewModel Instance
         {
-            get { return _instance ?? (_instance = new MainViewModel()); }
+            get { return _instance.Value; }
         }
-
+        
         #endregion
 
         #region Loading Functions

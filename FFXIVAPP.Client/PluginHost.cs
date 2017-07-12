@@ -175,8 +175,7 @@ namespace FFXIVAPP.Client
         }
 
         #region Property Bindings
-
-        private static PluginHost _instance;
+        
         private PluginCollectionHelper _loaded;
 
         public PluginCollectionHelper Loaded
@@ -192,10 +191,11 @@ namespace FFXIVAPP.Client
             }
         }
 
+        private static Lazy<PluginHost> _instance = new Lazy<PluginHost>(() => new PluginHost());
+
         public static PluginHost Instance
         {
-            get { return _instance ?? (_instance = new PluginHost()); }
-            set { _instance = value; }
+            get { return _instance.Value; }
         }
 
         #endregion

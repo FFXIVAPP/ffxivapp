@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
@@ -26,14 +27,14 @@ namespace FFXIVAPP.Updater
     {
         #region Property Bindings
 
-        private static MainWindowViewModel _instance;
+        private static Lazy<MainWindowViewModel> _instance = new Lazy<MainWindowViewModel>(() => new MainWindowViewModel());
         private string _downloadUri;
         private string _version;
         private string _zipFileName;
 
         public static MainWindowViewModel Instance
         {
-            get { return _instance ?? (_instance = new MainWindowViewModel()); }
+            get { return _instance.Value; }
         }
 
         public string DownloadURI
