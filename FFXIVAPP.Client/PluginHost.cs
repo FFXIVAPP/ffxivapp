@@ -51,20 +51,6 @@ namespace FFXIVAPP.Client
 
         #endregion
 
-        private List<string> DependencyUpgrades = new List<string>
-        {
-            "FFXIVAPP.Common",
-            "FFXIVAPP.IPluginInterface",
-            "Sharlayan",
-            "Machina",
-            "MahApps.Metro",
-            "HtmlAgilityPack",
-            "NAudio",
-            "Newtonsoft.Json",
-            "NLog",
-            "System.Windows.Interactivity"
-        };
-
         /// <summary>
         /// </summary>
         /// <param name="path"></param>
@@ -156,21 +142,6 @@ namespace FFXIVAPP.Client
             }
         }
 
-        private bool HostAssemblyValidation(string name, Version version)
-        {
-            var assemblies = Assembly.GetExecutingAssembly()
-                                     .GetReferencedAssemblies();
-
-            foreach (var reference in assemblies)
-            {
-                if (reference.Name == name && version.CompareTo(reference.Version) == 0)
-                {
-                    return true;
-                }
-            }
-            return true;
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="assemblyPath"></param>
@@ -180,15 +151,6 @@ namespace FFXIVAPP.Client
             {
                 var bytes = File.ReadAllBytes(assemblyPath);
                 var pAssembly = Assembly.Load(bytes);
-                var references = pAssembly.GetReferencedAssemblies();
-                var load = true;
-                foreach (var assembly in references.Where(a => DependencyUpgrades.Contains(a.Name)))
-                {
-                    if (!HostAssemblyValidation(assembly.Name, assembly.Version))
-                    {
-                        load = false;
-                    }
-                }
                 var pType = pAssembly.GetType(pAssembly.GetName()
                                                        .Name + ".Plugin");
                 var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
@@ -203,7 +165,7 @@ namespace FFXIVAPP.Client
                     AssemblyPath = assemblyPath
                 };
                 plugin.Instance.Initialize(Instance);
-                plugin.Loaded = load;
+                plugin.Loaded = true;
                 Loaded.Add(plugin);
             }
             catch (Exception ex)
