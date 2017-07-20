@@ -63,7 +63,7 @@ namespace FFXIVAPP.Client.Helpers
                     var savedYellBuilder = new StringBuilder();
                     // setup full chatlog xml file
                     var savedLogName = $"{DateTime.Now:yyyy_MM_dd_HH.mm.ss}_ChatHistory.xml";
-                    var savedLog = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/ChatHistory.xml");
+                    var savedLog = ResourceHelper.XDocResource(Constants.AppPack + "Defaults/ChatHistory.xml");
                     foreach (var entry in AppViewModel.Instance.ChatHistory)
                     {
                         // process text logging

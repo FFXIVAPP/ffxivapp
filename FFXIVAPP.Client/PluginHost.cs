@@ -1,6 +1,6 @@
 // FFXIVAPP.Client ~ PluginHost.cs
 // 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
+// Copyright Â© 2007 - 2017 Ryan Wilson - All Rights Reserved
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -175,7 +175,7 @@ namespace FFXIVAPP.Client
         }
 
         #region Property Bindings
-        
+
         private PluginCollectionHelper _loaded;
 
         public PluginCollectionHelper Loaded

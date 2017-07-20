@@ -9,7 +9,6 @@
              xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:controls="clr-namespace:FFXIVAPP.Client.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
@@ -34,10 +33,8 @@
                                 <ComboBox x:Name="UIScaleSelect"
                                           Margin="5"
                                           IsReadOnly="False"
-                                          ItemsSource="{Binding UIScaleList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding UIScale,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                          ItemsSource="{Binding UIScaleList, Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding UIScale, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_GameLanguageLabel], Source={StaticResource AppProperties}}">
@@ -45,10 +42,8 @@
                                 <ComboBox x:Name="GameLanguageSelect"
                                           Margin="5"
                                           IsReadOnly="False"
-                                          ItemsSource="{Binding GameLanguageList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding GameLanguage,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                          ItemsSource="{Binding GameLanguageList, Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding GameLanguage, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_HomePluginLabel], Source={StaticResource AppProperties}}">
@@ -57,48 +52,39 @@
                                           Margin="5"
                                           IsReadOnly="False"
                                           ItemsSource="{Binding HomePluginList}"
-                                          SelectedValue="{Binding HomePlugin,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                          SelectedValue="{Binding HomePlugin, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_ProcessIDHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <TextBlock HorizontalAlignment="Center"
                                            Foreground="{DynamicResource BlackColorBrush}"
-                                           Text="{Binding Locale[app_ProcessSelectedInfo],
-                                                          Source={StaticResource AppProperties}}"
+                                           Text="{Binding Locale[app_ProcessSelectedInfo], Source={StaticResource AppProperties}}"
                                            TextWrapping="WrapWithOverflow"
-                                           Visibility="{Binding EnableHelpLabels,
-                                                                Source={x:Static Properties:Settings.Default},
-                                                                Converter={StaticResource VisibilityConverter}}" />
+                                           Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
                                 <ComboBox x:Name="PIDSelect" Margin="5" />
                                 <Button x:Name="SetProcess"
                                         Margin="5"
                                         Command="{Binding SetProcessCommand}"
-                                        Content="{Binding Locale[app_AttachProcessButtonText],
-                                                          Source={StaticResource AppProperties}}" />
+                                        Content="{Binding Locale[app_AttachProcessButtonText], Source={StaticResource AppProperties}}" />
                                 <Button x:Name="RefreshList"
                                         Margin="5"
                                         Command="{Binding RefreshListCommand}"
-                                        Content="{Binding Locale[app_RefreshProcessButtonText],
-                                                          Source={StaticResource AppProperties}}" />
+                                        Content="{Binding Locale[app_RefreshProcessButtonText], Source={StaticResource AppProperties}}" />
                                 <Button x:Name="RefreshMemoryWorkers"
                                         Margin="5"
                                         Command="{Binding RefreshMemoryWorkersCommand}"
-                                        Content="{Binding Locale[app_RefreshMemoryWorkersButtonText],
-                                                          Source={StaticResource AppProperties}}" />
+                                        Content="{Binding Locale[app_RefreshMemoryWorkersButtonText], Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_ChangeThemeHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
                                 <ComboBox x:Name="ThemeSelect"
                                           Margin="5"
+                                          Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}"
                                           IsReadOnly="False"
-                                          ItemsSource="{Binding ThemeList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding Theme,
-                                                                  Source={x:Static Properties:Settings.Default}}"
-                                          Utilities:SelectionBehavior.SelectionChanged="{Binding ChangeThemeCommand}" />
+                                          ItemsSource="{Binding ThemeList, Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding Theme, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_TopMostHeader], Source={StaticResource AppProperties}}">
@@ -118,8 +104,7 @@
                         </GroupBox>
                         <Button Margin="5"
                                 Command="{Binding DefaultSettingsCommand}"
-                                Content="{Binding Locale[app_DefaultSettingsButtonText],
-                                                  Source={StaticResource AppProperties}}" />
+                                Content="{Binding Locale[app_DefaultSettingsButtonText], Source={StaticResource AppProperties}}" />
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -131,8 +116,7 @@
                                       Margin="5"
                                       IsReadOnly="False"
                                       ItemsSource="{Binding AvailableNetworkInterfacesList}"
-                                      SelectedValue="{Binding DefaultNetworkInterface,
-                                                              Source={x:Static Properties:Settings.Default}}" />
+                                      SelectedValue="{Binding DefaultNetworkInterface, Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_EnableNetReadingLabel], Source={StaticResource AppProperties}}">
                             <StackPanel>
@@ -146,15 +130,13 @@
                         </GroupBox>
                         <Button Margin="5"
                                 Command="{Binding RefreshNetworkWorkerCommand}"
-                                Content="{Binding Locale[app_BTNResNetWorker],
-                                                  Source={StaticResource AppProperties}}" />
+                                Content="{Binding Locale[app_BTNResNetWorker], Source={StaticResource AppProperties}}" />
                         <GroupBox Header="{Binding Locale[app_DefAudioDeviceLabel], Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="AudioDeviceSelect"
                                       Margin="5"
                                       IsReadOnly="False"
                                       ItemsSource="{Binding AvailableAudioDevicesList}"
-                                      SelectedValue="{Binding DefaultAudioDevice,
-                                                              Source={x:Static Properties:Settings.Default}}" />
+                                      SelectedValue="{Binding DefaultAudioDevice, Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_CacheMemoryJSONDataHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
@@ -166,33 +148,27 @@
                                 <TextBlock Text="{Binding Locale[app_ChatLogMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding ChatLogWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding ChatLogWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_ActorsPCMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding ActorWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding ActorWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_PartyInfMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding PartyInfoWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding PartyInfoWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_PlayerInfMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding PlayerInfoWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding PlayerInfoWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_TargEnmMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding TargetWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding TargetWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_InvMSSLabel], Source={StaticResource AppProperties}}" />
                                 <TextBox Margin="5"
                                          AutoWordSelection="True"
-                                         Text="{Binding InventoryWorkerRefresh,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding InventoryWorkerRefresh, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_EnableNLogHeader], Source={StaticResource AppProperties}}">
@@ -212,12 +188,10 @@
                                          Margin="5"
                                          AutoWordSelection="True"
                                          IsReadOnly="True"
-                                         Text="{Binding CICUID,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding CICUID, Source={x:Static Properties:Settings.Default}}" />
                                 <Button Margin="5"
                                         Command="{Binding GetCICUIDCommand}"
-                                        Content="{Binding Locale[app_ImportLodestoneIDButtonText],
-                                                          Source={StaticResource AppProperties}}" />
+                                        Content="{Binding Locale[app_ImportLodestoneIDButtonText], Source={StaticResource AppProperties}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_CharacterInformationHeader], Source={StaticResource AppProperties}}">
@@ -227,16 +201,13 @@
                                          Margin="5"
                                          AutoWordSelection="True"
                                          MaxLength="60"
-                                         Text="{Binding CharacterName,
-                                                        Source={x:Static Properties:Settings.Default}}" />
+                                         Text="{Binding CharacterName, Source={x:Static Properties:Settings.Default}}" />
                                 <TextBlock Text="{Binding Locale[app_ServerLabel], Source={StaticResource AppProperties}}" />
                                 <ComboBox x:Name="ServerList"
                                           Margin="5"
                                           IsReadOnly="False"
-                                          ItemsSource="{Binding ServerList,
-                                                                Source={x:Static Properties:Settings.Default}}"
-                                          SelectedValue="{Binding ServerName,
-                                                                  Source={x:Static Properties:Settings.Default}}" />
+                                          ItemsSource="{Binding ServerList, Source={x:Static Properties:Settings.Default}}"
+                                          SelectedValue="{Binding ServerName, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -247,7 +218,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="33" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="33" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0"
                                Margin="3"
@@ -262,33 +233,29 @@
                     </DockPanel>
                     <DockPanel Grid.Row="1" Margin="3">
                         <DataGrid x:Name="Colors"
+                                  Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}"
                                   AutoGenerateColumns="False"
                                   BorderBrush="{DynamicResource AccentColorBrush}"
                                   BorderThickness="1"
                                   ItemsSource="{Binding Source={x:Static Client:Constants.Colors}}"
-                                  SelectionMode="Single"
-                                  Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}">
+                                  SelectionMode="Single">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Key}"
-                                                    Header="{Binding Locale[app_CodeHeader],
-                                                                     Source={StaticResource AppProperties}}"
-                                                    Utilities:GridViewSort.PropertyName="Key" />
-                                <DataGridTextColumn Binding="{Binding Value[0]}"
-                                                    Header="{Binding Locale[app_ColorHeader],
-                                                                     Source={StaticResource AppProperties}}"
-                                                    Utilities:GridViewSort.PropertyName="Value[0]" />
-                                <DataGridTextColumn Binding="{Binding Value[1]}"
-                                                    Header="{Binding Locale[app_DescriptionHeader],
-                                                                     Source={StaticResource AppProperties}}"
-                                                    Utilities:GridViewSort.PropertyName="Value[1]" />
+                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Key"
+                                                    Binding="{Binding Key}"
+                                                    Header="{Binding Locale[app_CodeHeader], Source={StaticResource AppProperties}}" />
+                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Value[0]"
+                                                    Binding="{Binding Value[0]}"
+                                                    Header="{Binding Locale[app_ColorHeader], Source={StaticResource AppProperties}}" />
+                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Value[1]"
+                                                    Binding="{Binding Value[1]}"
+                                                    Header="{Binding Locale[app_DescriptionHeader], Source={StaticResource AppProperties}}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </DockPanel>
                     <DockPanel Grid.Row="2" LastChildFill="True">
                         <Button Margin="3"
                                 Command="{Binding UpdateColorCommand}"
-                                Content="{Binding Locale[app_UpdateColorButtonText],
-                                                  Source={StaticResource AppProperties}}" />
+                                Content="{Binding Locale[app_UpdateColorButtonText], Source={StaticResource AppProperties}}" />
                     </DockPanel>
                 </Grid>
             </TabItem>

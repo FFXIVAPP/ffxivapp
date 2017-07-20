@@ -5,7 +5,7 @@
         Height="75"
         AllowsTransparency="True"
         Background="Transparent"
-        Icon="/Resources/FFXIVAPP.ico"
+        Icon="/FFXIVAPP.ico"
         Loaded="WindowLoaded"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
@@ -14,8 +14,7 @@
         <Style x:Key="StatLabelStyle">
             <Setter Property="Control.Padding" Value="0" />
         </Style>
-        <Style x:Key="PercentStyle"
-               BasedOn="{StaticResource StatLabelStyle}">
+        <Style x:Key="PercentStyle" BasedOn="{StaticResource StatLabelStyle}">
             <Setter Property="ContentControl.ContentStringFormat" Value="{}{0:P}" />
         </Style>
         <LinearGradientBrush x:Key="ProgressBarBackground" StartPoint="0,0" EndPoint="1,0">
@@ -67,8 +66,7 @@
             <GradientStop Offset="0.5385" Color="#90FFFFFF" />
             <GradientStop Offset="0.5385" Color="#00FFFFFF" />
         </LinearGradientBrush>
-        <Style x:Key="ProgressBarStyleStopAnimation"
-               TargetType="{x:Type ProgressBar}">
+        <Style x:Key="ProgressBarStyleStopAnimation" TargetType="{x:Type ProgressBar}">
             <Setter Property="Foreground" Value="#01D328" />
             <Setter Property="Background" Value="{StaticResource ProgressBarBackground}" />
             <Setter Property="BorderBrush" Value="{StaticResource ProgressBarBorderBrush}" />
@@ -76,8 +74,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
-                        <Grid x:Name="TemplateRoot"
-                              SnapsToDevicePixels="true">
+                        <Grid x:Name="TemplateRoot" SnapsToDevicePixels="true">
                             <Rectangle Fill="{TemplateBinding Background}"
                                        RadiusX="2"
                                        RadiusY="2" />
@@ -88,16 +85,13 @@
                                     Background="{StaticResource ProgressBarTopHighlight}"
                                     BorderBrush="#80FFFFFF"
                                     BorderThickness="1,0,1,1" />
-                            <Rectangle x:Name="PART_Track"
-                                       Margin="1" />
+                            <Rectangle x:Name="PART_Track" Margin="1" />
                             <Decorator x:Name="PART_Indicator"
                                        Margin="1"
                                        HorizontalAlignment="Left">
                                 <Grid x:Name="Foreground">
-                                    <Rectangle x:Name="Indicator"
-                                               Fill="{TemplateBinding Foreground}" />
-                                    <Grid x:Name="Animation"
-                                          ClipToBounds="true">
+                                    <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}" />
+                                    <Grid x:Name="Animation" ClipToBounds="true">
                                         <Rectangle x:Name="PART_GlowRect"
                                                    Width="100"
                                                    Margin="-100,0,0,0"
@@ -188,7 +182,7 @@
     <Grid>
         <StackPanel>
             <DockPanel LastChildFill="True">
-                <Border Margin="5 0"
+                <Border Margin="5,0"
                         Background="WhiteSmoke"
                         BorderBrush="Black"
                         BorderThickness="1"
@@ -198,10 +192,10 @@
                                 Width="15"
                                 Height="15"
                                 Margin="2"
+                                Padding="0"
                                 Click="CloseUpdater_OnClick"
                                 DockPanel.Dock="Right"
                                 IsEnabled="True"
-                                Padding="0"
                                 ToolTip="Close">
                             <Path Data="M0,0 L5,5 M0,5 L5,0"
                                   Stretch="None"
@@ -210,27 +204,27 @@
                         <DockPanel PreviewMouseDown="UIElement_OnPreviewMouseDown">
                             <Grid>
                                 <TextBlock Grid.Row="0"
-                                           Margin="5 -1"
+                                           Margin="5,-1"
+                                           Padding="0"
                                            HorizontalAlignment="Right"
                                            FontSize="14"
                                            FontWeight="Bold"
                                            Foreground="Black"
-                                           Padding="0"
                                            Text="[UPDATER]" />
                                 <TextBlock Grid.Row="0"
-                                           Margin="5 2"
+                                           Margin="5,2"
+                                           Padding="0"
                                            HorizontalAlignment="Left"
                                            FontSize="10"
                                            FontWeight="Bold"
                                            Foreground="Black"
-                                           Padding="0"
                                            Text="FFXIV-APP" />
                             </Grid>
                         </DockPanel>
                     </DockPanel>
                 </Border>
             </DockPanel>
-            <Grid Margin="5 2">
+            <Grid Margin="5,2">
                 <ProgressBar x:Name="ProgressBarSingle"
                              Grid.Row="0"
                              Height="30"
@@ -245,16 +239,13 @@
                 </ProgressBar>
                 <TextBlock Grid.Row="0"
                            Margin="6"
+                           Padding="0"
                            HorizontalAlignment="Center"
                            Foreground="Black"
-                           Padding="0"
                            Style="{StaticResource PercentStyle}"
-                           Text="{Binding Value,
-                                          ElementName=ProgressBarSingle,
-                                          StringFormat={}{0:P2}}" />
+                           Text="{Binding Value, ElementName=ProgressBarSingle, StringFormat={}{0:P2}}" />
             </Grid>
-            <WebBrowser x:Name="GoogleAnalytics"
-                        Visibility="Collapsed" />
+            <WebBrowser x:Name="GoogleAnalytics" Visibility="Collapsed" />
         </StackPanel>
     </Grid>
 </Window>

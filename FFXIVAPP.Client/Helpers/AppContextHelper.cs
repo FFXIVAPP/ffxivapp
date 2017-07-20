@@ -86,7 +86,7 @@ namespace FFXIVAPP.Client.Helpers
         }
 
         #region Property Backings
-        
+
         private List<uint> _pets;
 
         private static Lazy<AppContextHelper> _instance = new Lazy<AppContextHelper>(() => new AppContextHelper());

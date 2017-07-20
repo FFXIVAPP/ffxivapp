@@ -45,7 +45,7 @@ namespace FFXIVAPP.Client.ViewModels
         {
             try
             {
-                Process.Start("http://ffxiv-app.com");
+                Process.Start("https://ffxiv-app.com");
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace FFXIVAPP.Client.ViewModels
         {
             get { return _instance.Value; }
         }
-        
+
         #endregion
 
         #region Loading Functions

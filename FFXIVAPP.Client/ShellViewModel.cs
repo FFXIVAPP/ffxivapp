@@ -85,7 +85,7 @@ namespace FFXIVAPP.Client
 
         private static void SetLocale()
         {
-            var uiLanguage = ShellView.View.LanguageSelect.SelectedValue.ToString();
+            var uiLanguage = ShellView.View?.LanguageSelect.SelectedValue.ToString();
             if (String.IsNullOrWhiteSpace(uiLanguage))
             {
                 return;

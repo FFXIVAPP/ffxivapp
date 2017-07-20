@@ -36,12 +36,12 @@ using FFXIVAPP.Client.Utilities;
 using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Client.Views;
 using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Network;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.RegularExpressions;
 using FFXIVAPP.Common.Utilities;
 using Machina;
+using Machina.Events;
 using Machina.Models;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -49,6 +49,7 @@ using Sharlayan;
 using Sharlayan.Events;
 using Sharlayan.Models;
 using Application = System.Windows.Forms.Application;
+using ExceptionEvent = Sharlayan.Events.ExceptionEvent;
 using NetworkPacket = FFXIVAPP.Common.Core.Network.NetworkPacket;
 
 namespace FFXIVAPP.Client
@@ -92,51 +93,6 @@ namespace FFXIVAPP.Client
                         continue;
                     }
                     Constants.ChatCodes.Add(xKey, xDescription);
-                }
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        public static void LoadActions()
-        {
-            if (Constants.XActions != null)
-            {
-                foreach (var xElement in Constants.XActions.Descendants()
-                                                  .Elements("Action"))
-                {
-                    var xKey = (string) xElement.Attribute("Key");
-                    var xJA = (string) xElement.Element("JA");
-                    var xEN = (string) xElement.Element("EN");
-                    var xFR = (string) xElement.Element("FR");
-                    var xDE = (string) xElement.Element("DE");
-                    var xZH = (string) xElement.Element("ZH");
-                    var xKO = (string) xElement.Element("KO");
-                    var xJA_HelpLabel = (string) xElement.Element("JA_HelpLabel");
-                    var xEN_HelpLabel = (string) xElement.Element("EN_HelpLabel");
-                    var xFR_HelpLabel = (string) xElement.Element("FR_HelpLabel");
-                    var xDE_HelpLabel = (string) xElement.Element("DE_HelpLabel");
-                    var xZH_HelpLabel = (string) xElement.Element("ZH_HelpLabel");
-                    var xKO_HelpLabel = (string) xElement.Element("KO_HelpLabel");
-                    if (String.IsNullOrWhiteSpace(xKey) || Constants.Actions.ContainsKey(xKey))
-                    {
-                        continue;
-                    }
-                    Constants.Actions.Add(xKey, new ActionInfo
-                    {
-                        JA = xJA,
-                        EN = xEN,
-                        FR = xFR,
-                        DE = xDE,
-                        ZH = xZH,
-                        KO = xKO,
-                        JA_HelpLabel = xJA_HelpLabel,
-                        EN_HelpLabel = xEN_HelpLabel,
-                        FR_HelpLabel = xFR_HelpLabel,
-                        DE_HelpLabel = xDE_HelpLabel,
-                        ZH_HelpLabel = xZH_HelpLabel,
-                        KO_HelpLabel = xKO_HelpLabel
-                    });
                 }
             }
         }
@@ -418,6 +374,8 @@ namespace FFXIVAPP.Client
                                             {
                                                 pluginDownload.Status = PluginStatus.UpdateAvailable;
                                                 AppViewModel.Instance.HasNewPluginUpdate = true;
+
+                                                DispatcherHelper.Invoke(() => UpdateViewModel.Instance.AvailablePluginUpdates++);
                                             }
                                             else
                                             {
@@ -596,7 +554,7 @@ namespace FFXIVAPP.Client
                                 }
                                 MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                             }
-                            var uri = "http://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
+                            var uri = "https://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
                             DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                         }
                     }
@@ -790,7 +748,7 @@ namespace FFXIVAPP.Client
         public static void StartNetworkWorker()
         {
             StopNetworkWorker();
-            
+
             NetworkHandler.Instance.ExceptionEvent += NetworkHandler_ExceptionEvent;
             NetworkHandler.Instance.NewNetworkPacketEvent += NetworkHandler_NewPacketEvent;
 
@@ -819,7 +777,7 @@ namespace FFXIVAPP.Client
             Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
         }
 
-        private static void NetworkHandler_NewPacketEvent(object sender, Machina.Events.NewNetworkPacketEvent e)
+        private static void NetworkHandler_NewPacketEvent(object sender, NewNetworkPacketEvent e)
         {
             var packet = e.NetworkPacket;
 
@@ -827,7 +785,7 @@ namespace FFXIVAPP.Client
             {
                 Buffer = packet.Buffer,
                 CurrentPosition = packet.CurrentPosition,
-                Key =  packet.Key,
+                Key = packet.Key,
                 MessageSize = packet.MessageSize,
                 PacketDate = packet.PacketDate
             });
@@ -838,7 +796,7 @@ namespace FFXIVAPP.Client
             StopNetworkWorker();
             StartNetworkWorker();
         }
-        
+
         #region Declarations
 
         private static ActorWorker _actorWorker;

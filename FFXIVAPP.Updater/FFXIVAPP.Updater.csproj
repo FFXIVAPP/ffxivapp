@@ -42,7 +42,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\FFXIVAPP.ico</ApplicationIcon>
+    <ApplicationIcon>FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>FFXIVAPP.Updater.App</StartupObject>
@@ -137,7 +137,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Resources\FFXIVAPP.ico" />
+    <Resource Include="FFXIVAPP.ico" />
     <None Include="app.config" />
     <None Include="FodyWeavers.xml" />
     <Content Include="NLog.config">

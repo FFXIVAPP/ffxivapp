@@ -28,6 +28,7 @@ using FFXIVAPP.Client.ViewModels;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using FFXIVAPP.ResourceFiles;
 using NLog;
 
 namespace FFXIVAPP.Client.Helpers
@@ -83,7 +84,7 @@ namespace FFXIVAPP.Client.Helpers
                 var tabItem = pluginInstance.Instance.CreateTab();
                 tabItem.Name = Regex.Replace(pluginInstance.Instance.Name, @"[^A-Za-z]", string.Empty);
                 var iconfile = $"{Path.GetDirectoryName(pluginInstance.AssemblyPath)}\\{pluginInstance.Instance.Icon}";
-                var icon = new BitmapImage(new Uri(Common.Constants.DefaultIcon));
+                var icon = Theme.DefaultPluginLogo;
                 icon = File.Exists(iconfile) ? ImageUtilities.LoadImageFromStream(iconfile) : icon;
                 tabItem.HeaderTemplate = ImageHeader(icon, pluginInstance.Instance.FriendlyName);
                 AppViewModel.Instance.PluginTabItems.Add(tabItem);

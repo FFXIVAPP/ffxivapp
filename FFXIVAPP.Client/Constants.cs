@@ -31,6 +31,8 @@ namespace FFXIVAPP.Client
     {
         #region Declarations
 
+        public const string AppPack = "pack://application:,,,/FFXIVAPP.Client;component/";
+
         public static readonly string[] Supported =
         {
             "ja", "fr", "en", "de", "zh", "ru", "ko"
@@ -45,11 +47,9 @@ namespace FFXIVAPP.Client
 
         private static XDocument _xSettings;
         private static List<string> _settings;
-        private static XDocument _xActions;
         private static XDocument _xAutoTranslate;
         private static XDocument _xChatCodes;
         private static XDocument _xColors;
-        private static Dictionary<string, ActionInfo> _actions;
         private static Dictionary<string, string> _autoTranslate;
         private static Dictionary<string, string> _chatCodes;
         private static Dictionary<string, string[]> _colors;
@@ -75,11 +75,11 @@ namespace FFXIVAPP.Client
                 try
                 {
                     var found = File.Exists(settingsFile);
-                    _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                    _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Constants.AppPack + "/Defaults/Settings.xml");
                 }
                 catch (Exception)
                 {
-                    _xSettings = ResourceHelper.XDocResource(Common.Constants.AppPack + "/Defaults/Settings.xml");
+                    _xSettings = ResourceHelper.XDocResource(Constants.AppPack + "/Defaults/Settings.xml");
                 }
                 return _xSettings;
             }
@@ -90,29 +90,6 @@ namespace FFXIVAPP.Client
         {
             get { return _settings ?? (_settings = new List<string>()); }
             set { _settings = value; }
-        }
-
-        public static XDocument XActions
-        {
-            get
-            {
-                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Actions.xml");
-                if (_xActions != null)
-                {
-                    return _xActions;
-                }
-                try
-                {
-                    var found = File.Exists(file);
-                    _xActions = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
-                }
-                catch (Exception)
-                {
-                    _xActions = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/Actions.xml");
-                }
-                return _xActions;
-            }
-            set { _xActions = value; }
         }
 
         public static XDocument XAutoTranslate
@@ -127,11 +104,11 @@ namespace FFXIVAPP.Client
                 try
                 {
                     var found = File.Exists(file);
-                    _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
+                    _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
                 catch (Exception)
                 {
-                    _xAutoTranslate = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/AutoTranslate.xml");
+                    _xAutoTranslate = ResourceHelper.XDocResource(Constants.AppPack + "Defaults/AutoTranslate.xml");
                 }
                 return _xAutoTranslate;
             }
@@ -150,11 +127,11 @@ namespace FFXIVAPP.Client
                 try
                 {
                     var found = File.Exists(file);
-                    _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                    _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Resources/ChatCodes.xml");
                 }
                 catch (Exception)
                 {
-                    _xChatCodes = ResourceHelper.XDocResource(Common.Constants.AppPack + "Resources/ChatCodes.xml");
+                    _xChatCodes = ResourceHelper.XDocResource(Constants.AppPack + "Resources/ChatCodes.xml");
                 }
                 return _xChatCodes;
             }
@@ -173,25 +150,15 @@ namespace FFXIVAPP.Client
                 try
                 {
                     var found = File.Exists(file);
-                    _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
+                    _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Defaults/Colors.xml");
                 }
                 catch (Exception)
                 {
-                    _xColors = ResourceHelper.XDocResource(Common.Constants.AppPack + "Defaults/Colors.xml");
+                    _xColors = ResourceHelper.XDocResource(Constants.AppPack + "Defaults/Colors.xml");
                 }
                 return _xColors;
             }
             set { _xColors = value; }
-        }
-
-        public static Dictionary<string, ActionInfo> Actions
-        {
-            get { return _actions ?? (_actions = new Dictionary<string, ActionInfo>()); }
-            set
-            {
-                _actions = value;
-                ConstantsHelper.UpdatePluginConstants();
-            }
         }
 
         public static Dictionary<string, string> AutoTranslate
@@ -214,7 +181,7 @@ namespace FFXIVAPP.Client
             }
         }
 
-        public static string ChatCodesXml
+        public static string ChatCodesXML
         {
             get { return XChatCodes.ToString(); }
         }

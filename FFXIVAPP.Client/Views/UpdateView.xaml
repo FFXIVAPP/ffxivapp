@@ -8,20 +8,20 @@
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
              xmlns:converters="clr-namespace:FFXIVAPP.Client.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
 
     <UserControl.Resources>
-        <x:Static x:Key="UpdateViewModel"
-                  Member="ViewModels:UpdateViewModel.Instance" />
+        <x:Static x:Key="UpdateViewModel" Member="ViewModels:UpdateViewModel.Instance" />
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
         <converters:NameMultiValueConverter x:Key="NameMultiValueConverter" />
         <Custom:ToUpperConverter x:Key="ToUpperConverter" />
         <DataTemplate x:Key="PluginHeaderTemplate">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5 0"
+                <TextBlock Margin="5,0"
                            VerticalAlignment="Center"
                            Foreground="{DynamicResource WhiteColorBrush}"
                            Text="{Binding}" />
@@ -35,14 +35,13 @@
 
     <Grid x:Name="LayoutRoot">
         <TabControl x:Name="UpdateTC">
-            <TabItem Header="{Binding Locale[app_AvailablePluginsTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_AvailablePluginsTabHeader], Source={StaticResource AppProperties}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"
                             Height="33"
@@ -55,12 +54,10 @@
                                    VerticalAlignment="Center"
                                    FontWeight="Bold"
                                    Foreground="Black"
-                                   Text="{Binding Locale[app_ChangesOnRestartMessage],
-                                                  Source={StaticResource AppProperties}}"
+                                   Text="{Binding Locale[app_ChangesOnRestartMessage], Source={StaticResource AppProperties}}"
                                    TextWrapping="WrapWithOverflow" />
                     </Border>
-                    <Grid x:Name="AvailableLoadingInformation"
-                          Grid.Row="1">
+                    <Grid x:Name="AvailableLoadingInformation" Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -89,8 +86,7 @@
                               Style="{DynamicResource MetroDataGrid}"
                               VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <DataGrid.InputBindings>
-                            <MouseBinding Command="{Binding AvailableDGDoubleClickCommand}"
-                                          MouseAction="LeftDoubleClick" />
+                            <MouseBinding Command="{Binding AvailableDGDoubleClickCommand}" MouseAction="LeftDoubleClick" />
                         </DataGrid.InputBindings>
                         <DataGrid.GroupStyle>
                             <!--  Style for groups at top level.  -->
@@ -100,8 +96,7 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                    <Expander Header="{Binding ElementName=StatusInfo,
-                                                                               Path=Text}"
+                                                    <Expander Header="{Binding ElementName=StatusInfo, Path=Text}"
                                                               HeaderTemplate="{StaticResource PluginHeaderTemplate}"
                                                               IsExpanded="True">
                                                         <Expander.Content>
@@ -128,90 +123,73 @@
                             </GroupStyle>
                         </DataGrid.GroupStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding FriendlyName}"
-                                                Header="{Binding Locale[app_NameHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="FriendlyName" />
-                            <DataGridTextColumn Binding="{Binding CurrentVersion}"
-                                                Header="{Binding Locale[app_CurrentVersionHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="CurrentVersion" />
-                            <DataGridTextColumn Binding="{Binding LatestVersion}"
-                                                Header="{Binding Locale[app_LatestVersionHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="LatestVersion" />
-                            <DataGridTextColumn Binding="{Binding Files.Count}"
-                                                Header="{Binding Locale[app_FilesHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="Files.Count" />
-                            <DataGridTextColumn Binding="{Binding Status}"
-                                                Header="{Binding Locale[app_StatusHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="Status" />
-                            <DataGridTextColumn Binding="{Binding Description}"
-                                                Header="{Binding Locale[app_DescriptionHeader],
-                                                                 Source={StaticResource AppProperties}}"
-                                                IsReadOnly="True"
-                                                Utilities:GridViewSort.PropertyName="Description" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="FriendlyName"
+                                                Binding="{Binding FriendlyName}"
+                                                Header="{Binding Locale[app_NameHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="CurrentVersion"
+                                                Binding="{Binding CurrentVersion}"
+                                                Header="{Binding Locale[app_CurrentVersionHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="LatestVersion"
+                                                Binding="{Binding LatestVersion}"
+                                                Header="{Binding Locale[app_LatestVersionHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="Files.Count"
+                                                Binding="{Binding Files.Count}"
+                                                Header="{Binding Locale[app_FilesHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="Status"
+                                                Binding="{Binding Status}"
+                                                Header="{Binding Locale[app_StatusHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Utilities:GridViewSort.PropertyName="Description"
+                                                Binding="{Binding Description}"
+                                                Header="{Binding Locale[app_DescriptionHeader], Source={StaticResource AppProperties}}"
+                                                IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <DockPanel Grid.Row="3"
                                Margin="3"
                                LastChildFill="True">
-                        <Button MinWidth="28"
+                        <Button MinWidth="35"
                                 Command="{Binding RefreshAvailableCommand}"
-                                ToolTip="{Binding Locale[app_RefreshPluginsButtonText],
-                                                  Source={StaticResource AppProperties}}">
+                                ToolTip="{Binding Locale[app_RefreshPluginsButtonText], Source={StaticResource AppProperties}}">
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="16"
-                                       Height="16"
-                                       RenderOptions.BitmapScalingMode="HighQuality"
-                                       Source="/FFXIVAPP.Client;component/Resources/Media/Images/Refresh.png" />
+                                <iconPacks:PackIconFontAwesome Kind="Refresh" Spin="True" />
                                 <TextBlock Padding="3,0,3,0"
                                            Text="{Binding Locale[app_RefreshPluginsButtonText], Converter={StaticResource ToUpperConverter}, Source={StaticResource AppProperties}}"
                                            Visibility="{Binding EnableHelpLabels, Converter={StaticResource VisibilityConverter}, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </Button>
-                        <Button Height="28"
-                                Margin="3 0 0 0"
-                                Command="{Binding UnInstallCommand,
-                                                  Source={StaticResource UpdateViewModel}}"
-                                Content="{Binding Locale[app_UnInstallButtonText],
-                                                  Source={StaticResource AppProperties}}" />
-                        <Button Height="28"
-                                Margin="3 0 0 0"
-                                Command="{Binding InstallCommand,
-                                                  Source={StaticResource UpdateViewModel}}"
-                                Content="{Binding Locale[app_InstallButtonText],
-                                                  Source={StaticResource AppProperties}}" />
+                        <Button MinWidth="35"
+                                Margin="3,0,0,0"
+                                Command="{Binding UnInstallCommand, Source={StaticResource UpdateViewModel}}"
+                                Content="{iconPacks:PackIconFontAwesome Kind=Times}" />
+                        <Button Margin="3,0,0,0"
+                                Command="{Binding InstallCommand, Source={StaticResource UpdateViewModel}}"
+                                Content="{Binding Locale[app_InstallButtonText], Source={StaticResource AppProperties}}" />
                     </DockPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Locale[app_PluginSourcesTabHeader],
-                                      Source={StaticResource AppProperties}}">
+            <TabItem Header="{Binding Locale[app_PluginSourcesTabHeader], Source={StaticResource AppProperties}}">
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="33" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="33" />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
                         <DockPanel Grid.Row="0"
                                    Margin="3"
                                    LastChildFill="True">
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_SourceLabel],
-                                                      Source={StaticResource AppProperties}}" />
+                            <TextBlock Padding="5" Text="{Binding Locale[app_SourceLabel], Source={StaticResource AppProperties}}" />
                             <TextBox x:Name="TSource" />
                         </DockPanel>
                         <DataGrid x:Name="PluginSourceDG"
                                   Grid.Row="1"
                                   Margin="5"
+                                  Utilities:SelectionBehavior.SelectionChanged="{Binding SourceSelectionCommand}"
                                   AutoGenerateColumns="False"
                                   BorderBrush="{DynamicResource AccentColorBrush}"
                                   BorderThickness="1"
@@ -220,32 +198,28 @@
                                   ItemsSource="{Binding AvailableSources}"
                                   SelectionMode="Single"
                                   Style="{DynamicResource MetroDataGrid}"
-                                  Utilities:SelectionBehavior.SelectionChanged="{Binding SourceSelectionCommand}"
                                   VirtualizingStackPanel.VirtualizationMode="Recycling">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Binding="{Binding Enabled}"
-                                                        Header="{Binding Locale[app_EnabledHeader],
-                                                                         Source={StaticResource AppProperties}}"
-                                                        Utilities:GridViewSort.PropertyName="Enabled"
+                                <DataGridCheckBoxColumn Utilities:GridViewSort.PropertyName="Enabled"
+                                                        Binding="{Binding Enabled}"
+                                                        Header="{Binding Locale[app_EnabledHeader], Source={StaticResource AppProperties}}"
                                                         Visibility="Collapsed" />
-                                <DataGridTextColumn Binding="{Binding SourceURI}"
-                                                    Header="{Binding Locale[app_SourceURIHeader],
-                                                                     Source={StaticResource AppProperties}}"
-                                                    IsReadOnly="True"
-                                                    Utilities:GridViewSort.PropertyName="SourceURI" />
+                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="SourceURI"
+                                                    Binding="{Binding SourceURI}"
+                                                    Header="{Binding Locale[app_SourceURIHeader], Source={StaticResource AppProperties}}"
+                                                    IsReadOnly="True" />
                             </DataGrid.Columns>
                         </DataGrid>
                         <DockPanel Grid.Row="2"
                                    Margin="3"
                                    LastChildFill="True">
-                            <Button Width="27"
-                                    Margin="3 0 0 0"
+                            <Button Width="35"
+                                    Margin="3,0,0,0"
                                     Command="{Binding DeleteSourceCommand}"
-                                    Content="-" />
-                            <Button Margin="3 0 0 0"
+                                    Content="{iconPacks:PackIconFontAwesome Kind=Times}" />
+                            <Button Margin="3,0,0,0"
                                     Command="{Binding AddOrUpdateSourceCommand}"
-                                    Content="{Binding Locale[app_AddOrUpdateSourceButtonText],
-                                                      Source={StaticResource AppProperties}}" />
+                                    Content="{Binding Locale[app_AddOrUpdateSourceButtonText], Source={StaticResource AppProperties}}" />
                         </DockPanel>
                     </Grid>
                 </ScrollViewer>

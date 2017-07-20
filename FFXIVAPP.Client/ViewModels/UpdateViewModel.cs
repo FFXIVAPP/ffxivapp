@@ -68,6 +68,7 @@ namespace FFXIVAPP.Client.ViewModels
 
         private static Lazy<UpdateViewModel> _instance = new Lazy<UpdateViewModel>(() => new UpdateViewModel());
         private ObservableCollection<PluginDownloadItem> _availablePlugins;
+        private int _availablePluginUpdates;
         private ObservableCollection<PluginSourceItem> _availableSources;
 
         public static UpdateViewModel Instance
@@ -81,6 +82,16 @@ namespace FFXIVAPP.Client.ViewModels
             set
             {
                 _availablePlugins = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int AvailablePluginUpdates
+        {
+            get { return _availablePluginUpdates; }
+            set
+            {
+                _availablePluginUpdates = value;
                 RaisePropertyChanged();
             }
         }

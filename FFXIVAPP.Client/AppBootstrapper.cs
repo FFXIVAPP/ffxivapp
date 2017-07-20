@@ -18,15 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Timers;
 using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Views;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
+using FFXIVAPP.ResourceFiles;
 using NLog;
 using Sharlayan.Models;
 
@@ -88,49 +84,49 @@ namespace FFXIVAPP.Client
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "English",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/en.png",
+                ImageURI = Theme.GetImagePackURI("en"),
                 Title = "English",
                 CultureInfo = new CultureInfo("en")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "Japanese",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ja.png",
+                ImageURI = Theme.GetImagePackURI("ja"),
                 Title = "日本語",
                 CultureInfo = new CultureInfo("ja")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "French",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/fr.png",
+                ImageURI = Theme.GetImagePackURI("fr"),
                 Title = "Français",
                 CultureInfo = new CultureInfo("fr")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "German",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/de.png",
+                ImageURI = Theme.GetImagePackURI("de"),
                 Title = "Deutsch",
                 CultureInfo = new CultureInfo("de")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "Chinese",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/cn.png",
+                ImageURI = Theme.GetImagePackURI("cn"),
                 Title = "中國",
                 CultureInfo = new CultureInfo("zh")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "Korean",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ko.png",
+                ImageURI = Theme.GetImagePackURI("ko"),
                 Title = "한국어",
                 CultureInfo = new CultureInfo("ko")
             });
             AppViewModel.Instance.UILanguages.Add(new UILanguage
             {
                 Language = "Russian",
-                ImageURI = "/FFXIVAPP.Client;component/Resources/Media/Icons/ru.png",
+                ImageURI = Theme.GetImagePackURI("ru"),
                 Title = "Русский",
                 CultureInfo = new CultureInfo("ru")
             });
@@ -142,7 +138,6 @@ namespace FFXIVAPP.Client
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();
-            Initializer.LoadActions();
             Initializer.LoadColors();
             Initializer.LoadApplicationSettings();
             Initializer.LoadAvailableAudioDevices();

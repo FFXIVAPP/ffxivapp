@@ -61,26 +61,32 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Media\Icons\FFXIVAPP.ico</ApplicationIcon>
+    <ApplicationIcon>FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FFXIVAPP.Common, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ffxivapp-aio\packages\FFXIVAPP.Common.3.0.2\lib\net461\FFXIVAPP.Common.dll</HintPath>
+    <Reference Include="FFXIVAPP.Common, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.Common.4.0.2\lib\net461\FFXIVAPP.Common.dll</HintPath>
     </Reference>
-    <Reference Include="FFXIVAPP.IPluginInterface, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ffxivapp-aio\packages\FFXIVAPP.IPluginInterface.3.0.2\lib\net461\FFXIVAPP.IPluginInterface.dll</HintPath>
+    <Reference Include="FFXIVAPP.IPluginInterface, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.IPluginInterface.4.0.2\lib\net461\FFXIVAPP.IPluginInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="FFXIVAPP.ResourceFiles, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.1\lib\net461\FFXIVAPP.ResourceFiles.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Machina, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ffxivapp-aio\packages\Machina.1.0.2\lib\net461\Machina.dll</HintPath>
+      <HintPath>..\packages\Machina.1.0.2\lib\net461\Machina.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.2.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.0.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.8.0\lib\net35\NAudio.dll</HintPath>
@@ -92,7 +98,7 @@
       <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Sharlayan, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ffxivapp-aio\packages\Sharlayan.3.0.1\lib\net461\Sharlayan.dll</HintPath>
+      <HintPath>..\packages\Sharlayan.3.0.1\lib\net461\Sharlayan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -101,7 +107,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -123,9 +129,6 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="AppViewModel.cs" />
-    <Compile Include="Controls\PluginInfoBox.xaml.cs">
-      <DependentUpon>PluginInfoBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\NameMultiValueConverter.cs" />
     <Compile Include="Helpers\AppContextHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
@@ -211,10 +214,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\PluginInfoBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Styles\TabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -256,19 +255,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Resource Include="Resources\Media\Icons\ko.png" />
-    <Resource Include="Resources\Media\Icons\ru.png" />
-    <Resource Include="Resources\Media\Icons\cn.png" />
-    <Resource Include="Resources\Media\Icons\fr.png" />
-    <Resource Include="Resources\Media\Icons\ja.png" />
-    <Resource Include="Resources\Media\Icons\de.png" />
-    <Resource Include="Resources\Media\Icons\en.png" />
-    <Resource Include="Resources\Actions.xml">
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Resources\Media\Images\Donations.png" />
-    <Resource Include="Resources\Media\Images\Save.png" />
-    <Resource Include="Resources\Media\Images\Header.png" />
     <Resource Include="Resources\ChatCodes.xml">
       <SubType>Designer</SubType>
     </Resource>
@@ -293,12 +279,10 @@
     <Content Include="Licenses\License.NLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Media\Images\History.png" />
     <None Include="app.config" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="NLog.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -315,43 +299,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Media\Icons\FFXIVAPP.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\FFXIVAPP.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\ScreenShot.png" />
+    <Resource Include="FFXIVAPP.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Defaults\AutoTranslate.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Media\Images\DefaultAvatar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\Plugins.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\DefaultIcon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\About.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\Main.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Defaults\Colors.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\Refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Media\Images\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -370,6 +324,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

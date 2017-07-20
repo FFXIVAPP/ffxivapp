@@ -28,8 +28,7 @@ namespace FFXIVAPP.Client.Helpers
                 AutoTranslate = Constants.AutoTranslate,
                 CharacterName = Constants.CharacterName,
                 ChatCodes = Constants.ChatCodes,
-                Actions = Constants.Actions,
-                ChatCodesXml = Constants.ChatCodesXml,
+                ChatCodesXML = Constants.ChatCodesXML,
                 Colors = Constants.Colors,
                 CultureInfo = Constants.CultureInfo,
                 EnableHelpLabels = Constants.EnableHelpLabels,
@@ -41,85 +40,5 @@ namespace FFXIVAPP.Client.Helpers
                 EnableNetworkReading = Constants.EnableNetworkReading
             });
         }
-
-        #region Action Helpers
-
-        //public static string GetActionNameByID(int key)
-        //{
-        //    var skillKey = key.ToString(CultureInfo.InvariantCulture);
-        //    try
-        //    {
-        //        if (Constants.Actions.ContainsKey(skillKey))
-        //        {
-        //            switch (Settings.Default.GameLanguage)
-        //            {
-        //                case "French":
-        //                    return Constants.Actions[skillKey].FR;
-        //                case "Japanese":
-        //                    return Constants.Actions[skillKey].JA;
-        //                case "German":
-        //                    return Constants.Actions[skillKey].DE;
-        //                case "Chinese":
-        //                    return Constants.Actions[skillKey].ZH;
-        //                default:
-        //                    return Constants.Actions[skillKey].EN;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //    return "???";
-        //}
-
-        //public static ActionInfo GetActionInfoByName(string name)
-        //{
-        //    try
-        //    {
-        //        foreach (var actionInfo in Constants.Actions)
-        //        {
-        //            var info = actionInfo.Value;
-        //            switch (Settings.Default.GameLanguage)
-        //            {
-        //                case "French":
-        //                    if (String.Equals(info.FR, name, Constants.InvariantComparer))
-        //                    {
-        //                        return info;
-        //                    }
-        //                    break;
-        //                case "Japanese":
-        //                    if (String.Equals(info.JA, name, Constants.InvariantComparer))
-        //                    {
-        //                        return info;
-        //                    }
-        //                    break;
-        //                case "German":
-        //                    if (String.Equals(info.DE, name, Constants.InvariantComparer))
-        //                    {
-        //                        return info;
-        //                    }
-        //                    break;
-        //                case "Chinese":
-        //                    if (String.Equals(info.EN, name, Constants.InvariantComparer))
-        //                    {
-        //                        return info;
-        //                    }
-        //                    break;
-        //                default:
-        //                    if (String.Equals(info.EN, name, Constants.InvariantComparer))
-        //                    {
-        //                        return info;
-        //                    }
-        //                    break;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //    return null;
-        //}
-
-        #endregion
     }
 }

@@ -114,7 +114,7 @@ namespace FFXIVAPP.Client
             {
                 hasLocal = true;
             }
-            var resource = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/FFXIVAPP.Client.exe.nlog");
+            var resource = ResourceHelper.StreamResource(Constants.AppPack + "Resources/FFXIVAPP.Client.exe.nlog");
             if (resource == null)
             {
                 return;

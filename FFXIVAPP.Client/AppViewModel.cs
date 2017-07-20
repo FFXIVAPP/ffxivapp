@@ -41,7 +41,7 @@ namespace FFXIVAPP.Client
     internal sealed class AppViewModel : INotifyPropertyChanged
     {
         #region Property Bindings
-        
+
         private static bool _hasPlugins;
         private string _appTitle;
         private List<ChatLogEntry> _chatHistory;
@@ -104,7 +104,7 @@ namespace FFXIVAPP.Client
             {
                 if (_notifyIcon == null)
                 {
-                    using (var iconStream = ResourceHelper.StreamResource(Common.Constants.AppPack + "Resources/Media/Icons/FFXIVAPP.ico")
+                    using (var iconStream = ResourceHelper.StreamResource(Constants.AppPack + "FFXIVAPP.ico")
                                                           .Stream)
                     {
                         _notifyIcon = new NotifyIcon

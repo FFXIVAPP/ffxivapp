@@ -96,7 +96,7 @@ namespace FFXIVAPP.Updater
         /// </summary>
         private void DownloadUpdate()
         {
-            GoogleAnalytics.Navigate("http://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
+            GoogleAnalytics.Navigate("https://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
             GoogleAnalytics.LoadCompleted += delegate
             {
                 try
