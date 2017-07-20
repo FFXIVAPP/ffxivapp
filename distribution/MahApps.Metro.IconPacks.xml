@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MahApps.Metro.IconPacks</name>
+    </assembly>
+    <members>
+        <member name="T:ControlzEx.PackIconBase`1">
+            <summary>
+            Base class for creating an icon control for icon packs.
+            </summary>
+            <typeparam name="TKind"></typeparam>
+        </member>
+        <member name="M:ControlzEx.PackIconBase`1.#ctor(System.Func{System.Collections.Generic.IDictionary{`0,System.String}})">
+            <param name="dataIndexFactory">
+            Inheritors should provide a factory for setting up the path data index (per icon kind).
+            The factory will only be utilised once, across all closed instances (first instantiation wins).
+            </param>
+        </member>
+        <member name="P:ControlzEx.PackIconBase`1.Kind">
+            <summary>
+            Gets or sets the icon to display.
+            </summary>
+        </member>
+        <member name="P:ControlzEx.PackIconBase`1.Data">
+            <summary>
+            Gets the icon path data for the current <see cref="P:ControlzEx.PackIconBase`1.Kind"/>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.Converter.FlipToScaleXValueConverter">
+            <summary>
+            ValueConverter which converts the PackIconFlipOrientation enumeration value to ScaleX value of a ScaleTransformation.
+            </summary>
+            <seealso cref="T:MahApps.Metro.IconPacks.Converter.MarkupConverter" />
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.Converter.FlipToScaleYValueConverter">
+            <summary>
+            ValueConverter which converts the PackIconFlipOrientation enumeration value to ScaleY value of a ScaleTransformation.
+            </summary>
+            <seealso cref="T:MahApps.Metro.IconPacks.Converter.MarkupConverter" />
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.Converter.MarkupConverter">
+            <summary>
+            MarkupConverter is a MarkupExtension which can be used for ValueConverter.
+            </summary>
+            <seealso cref="T:System.Windows.Markup.MarkupExtension" />
+            <seealso cref="T:System.Windows.Data.IValueConverter" />
+        </member>
+        <member name="M:MahApps.Metro.IconPacks.Converter.MarkupConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        </member>
+        <member name="M:MahApps.Metro.IconPacks.Converter.MarkupConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a value.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconFlipOrientation">
+            <summary>
+            Enum PackIconFlipOrientation for the Flip property of the PackIcon
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIconFlipOrientation.Normal">
+            <summary>
+            No flip
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIconFlipOrientation.Horizontal">
+            <summary>
+            Flip the icon horizontal
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIconFlipOrientation.Vertical">
+            <summary>
+            Flip the icon vertical
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIconFlipOrientation.Both">
+            <summary>
+            Flip the icon vertical and horizontal
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIcon`1">
+            <summary>
+            Class PackIcon which is the custom base class of MahApps.Metro.IconPacks.
+            </summary>
+            <typeparam name="TKind">The type of the enum kind.</typeparam>
+            <seealso cref="T:ControlzEx.PackIconBase`1" />
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.FlipProperty">
+            <summary>
+            Identifies the Flip dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.Flip">
+            <summary>
+            Gets or sets the flip orientation.
+            </summary>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.RotationProperty">
+            <summary>
+            Identifies the Rotation dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.Rotation">
+            <summary>
+            Gets or sets the rotation (angle).
+            </summary>
+            <value>The rotation.</value>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.SpinProperty">
+            <summary>
+            Identifies the Spin dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.Spin">
+            <summary>
+            Gets or sets a value indicating whether the inner icon is spinning.
+            </summary>
+            <value><c>true</c> if spin; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.SpinDurationProperty">
+            <summary>
+            Identifies the SpinDuration dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.SpinDuration">
+            <summary>
+            Gets or sets the duration of the spinning animation (in seconds). This will also restart the spin animation.
+            </summary>
+            <value>The duration of the spin in seconds.</value>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.SpinEasingFunctionProperty">
+            <summary>
+            Identifies the SpinEasingFunction dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.SpinEasingFunction">
+            <summary>
+            Gets or sets the EasingFunction of the spinning animation. This will also restart the spin animation.
+            </summary>
+            <value>The spin easing function.</value>
+        </member>
+        <member name="F:MahApps.Metro.IconPacks.PackIcon`1.SpinAutoReverseProperty">
+            <summary>
+            Identifies the SpinAutoReverse dependency property.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.PackIcon`1.SpinAutoReverse">
+            <summary>
+            Gets or sets the AutoReverse of the spinning animation. This will also restart the spin animation.
+            </summary>
+            <value><c>true</c> if [spin automatic reverse]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconEntypo">
+            <summary>
+            Icons from Entypo+ Icons Font - <see><cref>http://www.entypo.com</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconEntypoDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconEntypoKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconEntypo" />.
+            </summary>
+            <remarks>
+            All icons sourced from Entypo+ Icons Font - <see><cref>http://www.entypo.com</cref></see> - 
+            <see><cref>http://creativecommons.org/licenses/by-sa/4.0/</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconFontAwesome">
+            <summary>
+            Icons from the FontAwesome Icons project, <see><cref>http://fontawesome.io</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconFontAwesomeDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconFontAwesomeKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconFontAwesome" />.
+            </summary>
+            <remarks>
+            All icons sourced from FontAwesome Icons Font v4.6.3 - <see><cref>http://fontawesome.io</cref></see> - 
+            <see><cref>https://github.com/FortAwesome/Font-Awesome</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterial">
+            <summary>
+            Icons from the Material Design Icons project, <see><cref>https://materialdesignicons.com/</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterialDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterialKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconMaterial" />.
+            </summary>
+            <remarks>
+            All icons sourced from Material Design Icons Font v1.6.50 - <see><cref>https://materialdesignicons.com</cref></see> - in accordance of
+            <see><cref>https://github.com/Templarian/MaterialDesign/blob/master/license.txt</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterialLight">
+            <summary>
+            Icons from the Material Design Icons project, <see><cref>https://materialdesignicons.com/</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterialLightDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconMaterialLightKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconMaterialLight" />.
+            </summary>
+            <remarks>
+            All icons sourced from Material Design Light Icons - <see><cref>https://github.com/Templarian/MaterialDesignLight</cref></see> - in accordance of
+            <see><cref>https://github.com/Templarian/MaterialDesignLight/blob/master/LICENSE.md</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconModern">
+            <summary>
+            Icons from the Modern UI Icons project, <see><cref>http://modernuiicons.com</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconModernDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconModernKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconModern" />.
+            </summary>
+            <remarks>
+            All icons sourced from Modern UI Icons Font - <see><cref>http://modernuiicons.com</cref></see> - in accordance of
+            <see><cref>https://github.com/Templarian/WindowsIcons/blob/master/WindowsPhone/license.txt</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconOcticons">
+            <summary>
+            Icons from GitHub Octicons - <see><cref>https://octicons.github.com</cref></see>
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconOcticonsDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconOcticonsKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconOcticons" />.
+            </summary>
+            <remarks>
+            All icons sourced from GitHub Octicons - <see><cref>https://octicons.github.com</cref></see> - 
+            <see><cref>https://github.com/primer/octicons/blob/master/LICENSE</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconSimpleIcons">
+            <summary>
+            All SVG icons for popular brands, maintained by Dan Leech <see><cref>https://twitter.com/bathtype</cref></see>.
+            Contributions, corrections and requests can be made on GitHub <see><cref>https://github.com/danleech/simple-icons</cref></see>.
+            </summary>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconSimpleIconsDataFactory">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.PackIconSimpleIconsKind">
+            ******************************************
+            This code is auto generated. Do not amend.
+            ******************************************
+            <summary>
+            List of available icons for use with <see cref="T:MahApps.Metro.IconPacks.PackIconSimpleIcons" />.
+            </summary>
+            <remarks>
+            All SVG icons for popular brands, maintained by Dan Leech <see><cref>https://twitter.com/bathtype</cref></see>.
+            Contributions, corrections and requests can be made on GitHub <see><cref>https://github.com/danleech/simple-icons</cref></see>.
+            </remarks>
+        </member>
+        <member name="T:MahApps.Metro.IconPacks.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MahApps.Metro.IconPacks.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
