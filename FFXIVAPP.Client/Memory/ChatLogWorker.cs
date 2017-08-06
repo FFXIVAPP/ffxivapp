@@ -69,31 +69,34 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+
             double refresh = 250;
             if (Double.TryParse(Settings.Default.ChatLogWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
             {
                 _scanTimer.Interval = refresh;
-            }
-            Func<bool> scannerWorker = delegate
-            {
-                var readResult = Reader.GetChatLog(_previousArrayIndex, _previousOffset);
 
-                _previousArrayIndex = readResult.PreviousArrayIndex;
-                _previousOffset = readResult.PreviousOffset;
 
-                #region Notifications
-
-                foreach (var chatLogEntry in readResult.ChatLogEntries)
+                Func<bool> scanner = delegate
                 {
-                    AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
-                }
+                    var readResult = Reader.GetChatLog(_previousArrayIndex, _previousOffset);
 
-                #endregion
+                    _previousArrayIndex = readResult.PreviousArrayIndex;
+                    _previousOffset = readResult.PreviousOffset;
 
-                _isScanning = false;
-                return true;
-            };
-            scannerWorker.BeginInvoke(delegate { }, scannerWorker);
+                    #region Notifications
+
+                    foreach (var chatLogEntry in readResult.ChatLogEntries)
+                    {
+                        AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
+                    }
+
+                    #endregion
+
+                    _isScanning = false;
+                    return true;
+                };
+                scanner.BeginInvoke(delegate { }, scanner);
+            }
         }
 
         #endregion

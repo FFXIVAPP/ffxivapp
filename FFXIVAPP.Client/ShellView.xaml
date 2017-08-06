@@ -200,8 +200,8 @@
                                         BorderBrush="#FF000000"
                                         BorderThickness="1,1,1,1"
                                         CornerRadius="15">
-                                    <iconPacks:PackIconFontAwesome Kind="Refresh"
-                                                                   Spin="True"
+                                    <iconPacks:PackIconFontAwesome x:Name="PluginUpdateSpinner"
+                                                                   Kind="Refresh"
                                                                    ToolTip="{Binding Locale[app_UpdateToolTip], Source={StaticResource AppProperties}}" />
                                 </Border>
                             </MetroControls:Badged>

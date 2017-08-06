@@ -70,12 +70,14 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+
             double refresh = 1000;
             if (Double.TryParse(Settings.Default.PartyInfoWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
             {
                 _scanTimer.Interval = refresh;
             }
-            Func<bool> scannerWorker = delegate
+
+            Func<bool> scanner = delegate
             {
                 var readResult = Reader.GetPartyMembers();
 
@@ -102,7 +104,7 @@ namespace FFXIVAPP.Client.Memory
                 _isScanning = false;
                 return true;
             };
-            scannerWorker.BeginInvoke(delegate { }, scannerWorker);
+            scanner.BeginInvoke(delegate { }, scanner);
         }
 
         #endregion

@@ -156,7 +156,7 @@
                                 Command="{Binding RefreshAvailableCommand}"
                                 ToolTip="{Binding Locale[app_RefreshPluginsButtonText], Source={StaticResource AppProperties}}">
                             <StackPanel Orientation="Horizontal">
-                                <iconPacks:PackIconFontAwesome Kind="Refresh" Spin="True" />
+                                <iconPacks:PackIconFontAwesome x:Name="PluginUpdateSpinner" Kind="Refresh" />
                                 <TextBlock Padding="3,0,3,0"
                                            Text="{Binding Locale[app_RefreshPluginsButtonText], Converter={StaticResource ToUpperConverter}, Source={StaticResource AppProperties}}"
                                            Visibility="{Binding EnableHelpLabels, Converter={StaticResource VisibilityConverter}, Source={x:Static Properties:Settings.Default}}" />

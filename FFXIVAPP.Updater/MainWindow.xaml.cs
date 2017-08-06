@@ -83,12 +83,12 @@ namespace FFXIVAPP.Updater
                         // IGNORED
                     }
                 }
-                Func<bool> initializeUpdate = delegate
+                Func<bool> update = delegate
                 {
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(DownloadUpdate));
                     return true;
                 };
-                initializeUpdate.BeginInvoke(null, null);
+                update.BeginInvoke(delegate { }, update);
             }
         }
 
@@ -118,12 +118,12 @@ namespace FFXIVAPP.Updater
         /// <param name="asyncCompletedEventArgs"></param>
         private void WebClientOnDownloadFileCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs)
         {
-            Func<bool> func = delegate
+            Func<bool> download = delegate
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(ExtractAndClean));
                 return true;
             };
-            func.BeginInvoke(null, null);
+            download.BeginInvoke(delegate { }, download);
         }
 
         private void ExtractAndClean()

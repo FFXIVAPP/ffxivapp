@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\..\ffxivapp-props\FFXIVAPP.Common.props" />
+  <Import Project="..\..\ffxivapp-props\FFXIVAPP.IPluginInterface.props" />
+  <Import Project="..\..\ffxivapp-props\FFXIVAPP.ResourceFiles.props" />
+  <Import Project="..\..\ffxivapp-props\Machina.props" />
+  <Import Project="..\..\ffxivapp-props\Sharlayan.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -67,20 +72,24 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FFXIVAPP.Common, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.Common.4.0.2\lib\net461\FFXIVAPP.Common.dll</HintPath>
+    <Reference Include="FFXIVAPP.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.Common.4.0.3\lib\NET461\FFXIVAPP.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FFXIVAPP.IPluginInterface, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.IPluginInterface.4.0.2\lib\net461\FFXIVAPP.IPluginInterface.dll</HintPath>
+    <Reference Include="FFXIVAPP.IPluginInterface, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.IPluginInterface.4.0.3\lib\NET461\FFXIVAPP.IPluginInterface.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FFXIVAPP.ResourceFiles, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.1\lib\net461\FFXIVAPP.ResourceFiles.dll</HintPath>
+    <Reference Include="FFXIVAPP.ResourceFiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.2\lib\NET461\FFXIVAPP.ResourceFiles.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Machina, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Machina.1.0.3\lib\NET461\Machina.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="Machina, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Machina.1.0.2\lib\net461\Machina.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -97,13 +106,14 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Sharlayan, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sharlayan.3.0.1\lib\net461\Sharlayan.dll</HintPath>
+    <Reference Include="Sharlayan, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sharlayan.4.0.0\lib\net461\Sharlayan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -260,7 +270,7 @@
     </Resource>
     <Resource Include="Defaults\ChatHistory.xml" />
     <Resource Include="Defaults\Settings.xml" />
-    <None Include="FodyWeavers.xml" />
+    <Resource Include="FodyWeavers.xml" />
     <Content Include="Licenses\License.NAudio.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -283,6 +293,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NLog.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

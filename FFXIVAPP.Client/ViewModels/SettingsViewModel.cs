@@ -219,13 +219,14 @@ namespace FFXIVAPP.Client.ViewModels
             {
                 return;
             }
-            Func<string> callLodestone = delegate
+
+            Func<string> lodestoneRender = delegate
             {
                 var cicuid = string.Empty;
                 try
                 {
                     var url = "http://na.finalfantasyxiv.com/lodestone/character/?q={0}&worldname={1}";
-                    var request = (HttpWebRequest) WebRequest.Create(String.Format(url, HttpUtility.UrlEncode(Constants.CharacterName), serverName));
+                    var request = (HttpWebRequest) WebRequest.Create(string.Format(url, HttpUtility.UrlEncode(Constants.CharacterName), serverName));
                     request.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     request.Headers.Add("Accept-Language", "en;q=0.8");
                     request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
@@ -259,7 +260,7 @@ namespace FFXIVAPP.Client.ViewModels
                 }
                 return cicuid;
             };
-            callLodestone.BeginInvoke(LodestoneCallBack, callLodestone);
+            lodestoneRender.BeginInvoke(LodestoneCallBack, lodestoneRender);
         }
 
         /// <summary>

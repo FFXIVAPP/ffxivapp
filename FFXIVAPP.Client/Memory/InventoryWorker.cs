@@ -95,12 +95,14 @@ namespace FFXIVAPP.Client.Memory
                 return;
             }
             _isScanning = true;
+
             double refresh = 100;
             if (Double.TryParse(Settings.Default.InventoryWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
             {
                 _scanTimer.Interval = refresh;
             }
-            Func<bool> scannerWorker = delegate
+
+            Func<bool> scanner = delegate
             {
                 var readResult = Reader.GetInventoryItems();
 
@@ -113,7 +115,7 @@ namespace FFXIVAPP.Client.Memory
                 _isScanning = false;
                 return true;
             };
-            scannerWorker.BeginInvoke(delegate { }, scannerWorker);
+            scanner.BeginInvoke(delegate { }, scanner);
         }
 
         #endregion

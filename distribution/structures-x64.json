@@ -1,4 +1,7 @@
 ﻿{
+  "ActorInfo": {
+	"Size": 474
+  },
   "ActorEntity": {
     "Name": 48,
     "ID": 116,
@@ -37,6 +40,8 @@
     "GPMax": 5792,
     "CPCurrent": 5794,
     "CPMax": 5796,
+	"DifficultyRank": 5849,
+	"CombatFlags": 5863, 
     "IsCasting1": 6320,
     "IsCasting2": 6321,
     "CastingID": 6336,

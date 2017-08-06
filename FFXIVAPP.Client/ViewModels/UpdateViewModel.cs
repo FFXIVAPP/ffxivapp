@@ -177,7 +177,7 @@ namespace FFXIVAPP.Client.ViewModels
             }
             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
             UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Visible;
-            Func<bool> checkAvailable = delegate
+            Func<bool> install = delegate
             {
                 var updateCount = 0;
                 var updateLimit = plugin.Files.Count;
@@ -268,7 +268,7 @@ namespace FFXIVAPP.Client.ViewModels
 
                 return true;
             };
-            checkAvailable.BeginInvoke(null, null);
+            install.BeginInvoke(delegate { }, install);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace FFXIVAPP.Client.ViewModels
             {
                 return;
             }
-            Func<bool> checkAvailable = delegate
+            Func<bool> uninstall = delegate
             {
                 try
                 {
@@ -302,7 +302,7 @@ namespace FFXIVAPP.Client.ViewModels
                 }
                 return true;
             };
-            checkAvailable.BeginInvoke(delegate
+            uninstall.BeginInvoke(delegate
             {
                 DispatcherHelper.Invoke(delegate
                 {
@@ -320,7 +320,7 @@ namespace FFXIVAPP.Client.ViewModels
                         }
                     }
                 }, DispatcherPriority.Send);
-            }, checkAvailable);
+            }, uninstall);
         }
 
         /// <summary>

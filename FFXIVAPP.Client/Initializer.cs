@@ -254,7 +254,10 @@ namespace FFXIVAPP.Client
             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
             UpdateViewModel.Instance.AvailablePlugins.Clear();
 
-            Func<bool> updateCheck = delegate
+            UpdateView.View.PluginUpdateSpinner.Spin = true;
+            ShellView.View.PluginUpdateSpinner.Spin = true;
+
+            Func<bool> update = delegate
             {
                 var pluginSourceList = new List<PluginSourceItem>();
                 try
@@ -279,20 +282,24 @@ namespace FFXIVAPP.Client
                             if (httpResponse.StatusCode == HttpStatusCode.OK || !String.IsNullOrWhiteSpace(responseText))
                             {
                                 var jsonResult = JArray.Parse(responseText);
-                                pluginSourceList.AddRange(from item in jsonResult
-                                                          let name = item["Name"]
-                                                              .ToString()
-                                                          let enabled = Boolean.Parse(item["Enabled"]
-                                                              .ToString())
-                                                          let sourceURI = item["SourceURI"]
-                                                              .ToString()
-                                                          where enabled
-                                                          select new PluginSourceItem
-                                                          {
-                                                              Enabled = enabled,
-                                                              Key = Guid.NewGuid(),
-                                                              SourceURI = sourceURI
-                                                          });
+                                foreach (var jToken in jsonResult)
+                                {
+                                    bool enabled;
+                                    bool.TryParse(jToken["Enabled"]
+                                        .ToString(), out enabled);
+                                    var sourceURI = jToken["SourceURI"]
+                                        .ToString();
+
+                                    if (enabled)
+                                    {
+                                        pluginSourceList.Add(new PluginSourceItem
+                                        {
+                                            Enabled = true,
+                                            Key = Guid.NewGuid(),
+                                            SourceURI = sourceURI
+                                        });
+                                    }
+                                }
                             }
                         }
                     }
@@ -394,20 +401,26 @@ namespace FFXIVAPP.Client
                         {
                             Logging.Log(Logger, new LogItem(ex, true));
                         }
-                        DispatcherHelper.Invoke(delegate
-                        {
-                            if (UpdateView.View.AvailableDG.Items.Count == UpdateViewModel.Instance.AvailablePlugins.Count)
-                            {
-                                UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
-                            }
-                            UpdateView.View.AvailableDG.Items.Refresh();
-                            UpdateViewModel.Instance.SetupGrouping();
-                        });
                     }
                 }
+
+                DispatcherHelper.Invoke(delegate
+                {
+                    if (UpdateView.View.AvailableDG.Items.Count == UpdateViewModel.Instance.AvailablePlugins.Count)
+                    {
+                        UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
+                    }
+                    UpdateView.View.AvailableDG.Items.Refresh();
+
+                    UpdateViewModel.Instance.SetupGrouping();
+
+                    UpdateView.View.PluginUpdateSpinner.Spin = false;
+                    ShellView.View.PluginUpdateSpinner.Spin = false;
+                });
+
                 return true;
             };
-            updateCheck.BeginInvoke(null, null);
+            update.BeginInvoke(delegate { }, update);
         }
 
         /// <summary>
@@ -480,7 +493,8 @@ namespace FFXIVAPP.Client
             {
                 Logging.Log(Logger, new LogItem(ex, true));
             }
-            Func<bool> updateCheck = delegate
+
+            Func<bool> update = delegate
             {
                 var current = Assembly.GetExecutingAssembly()
                                       .GetName()
@@ -561,7 +575,7 @@ namespace FFXIVAPP.Client
                 }
                 return true;
             };
-            updateCheck.BeginInvoke(null, null);
+            update.BeginInvoke(delegate { }, update);
         }
 
         /// <summary>
