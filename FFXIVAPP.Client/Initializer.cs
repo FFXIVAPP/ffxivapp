@@ -678,7 +678,7 @@ namespace FFXIVAPP.Client
             MemoryHandler.Instance.ExceptionEvent += MemoryHandler_ExceptionEvent;
             MemoryHandler.Instance.SignaturesFoundEvent += MemoryHandler_SignaturesFoundEvent;
 
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", !Settings.Default.CacheMemoryJSONData);
+            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", Settings.Default.UseLocalMemoryJSONDataCache);
 
             _chatLogWorker = new ChatLogWorker();
             _chatLogWorker.StartScanning();

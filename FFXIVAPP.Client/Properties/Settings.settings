@@ -263,7 +263,7 @@
     <Setting Name="NetworkUseWinPCap" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CacheMemoryJSONData" Type="System.Boolean" Scope="User">
+    <Setting Name="UseLocalMemoryJSONDataCache" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="HotBarRecastWorkerRefresh" Type="System.String" Scope="User">

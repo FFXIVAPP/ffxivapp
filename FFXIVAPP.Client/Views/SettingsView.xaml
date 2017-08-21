@@ -138,9 +138,9 @@
                                       ItemsSource="{Binding AvailableAudioDevicesList}"
                                       SelectedValue="{Binding DefaultAudioDevice, Source={x:Static Properties:Settings.Default}}" />
                         </GroupBox>
-                        <GroupBox Header="{Binding Locale[app_CacheMemoryJSONDataHeader], Source={StaticResource AppProperties}}">
+                        <GroupBox Header="{Binding Locale[app_UseLocalMemoryJSONDataCacheHeader], Source={StaticResource AppProperties}}">
                             <StackPanel>
-                                <MetroControls:ToggleSwitch IsChecked="{Binding CacheMemoryJSONData, Source={x:Static Properties:Settings.Default}}" />
+                                <MetroControls:ToggleSwitch IsChecked="{Binding UseLocalMemoryJSONDataCache, Source={x:Static Properties:Settings.Default}}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="{Binding Locale[app_MemScanSpeedLabel], Source={StaticResource AppProperties}}">

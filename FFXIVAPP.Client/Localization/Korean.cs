@@ -135,7 +135,7 @@ namespace FFXIVAPP.Client.Localization
             Dictionary.Add("app_TargEnmMSSLabel", "대상 &amp; 적개심");
             Dictionary.Add("app_InvMSSLabel", "소지품");
             Dictionary.Add("app_NetworkUseWinPCapLabel", "네트워크 읽을 때 WinPCap 사용하기");
-            Dictionary.Add("app_CacheMemoryJSONDataHeader", "Cache Memory JSON Data Locally");
+            Dictionary.Add("app_UseLocalMemoryJSONDataCacheHeader", "Cache Memory JSON Data Locally");
             Dictionary.Add("app_RefreshMemoryWorkersButtonText", "Refresh Memory Workers");
             return Dictionary;
         }

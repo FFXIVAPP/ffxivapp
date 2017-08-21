@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\..\ffxivapp-props\Common.props" />
   <Import Project="..\..\ffxivapp-props\FFXIVAPP.Common.props" />
   <Import Project="..\..\ffxivapp-props\FFXIVAPP.IPluginInterface.props" />
   <Import Project="..\..\ffxivapp-props\FFXIVAPP.ResourceFiles.props" />
@@ -39,32 +39,6 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\build\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\distribution\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>FFXIVAPP.ico</ApplicationIcon>
   </PropertyGroup>
@@ -73,7 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FFXIVAPP.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.Common.4.0.3\lib\NET461\FFXIVAPP.Common.dll</HintPath>
+      <HintPath>..\packages\FFXIVAPP.Common.4.0.4\lib\NET461\FFXIVAPP.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FFXIVAPP.IPluginInterface, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,7 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FFXIVAPP.ResourceFiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.2\lib\NET461\FFXIVAPP.ResourceFiles.dll</HintPath>
+      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.3\lib\NET461\FFXIVAPP.ResourceFiles.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Machina, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -107,7 +81,7 @@
       <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Sharlayan, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sharlayan.4.0.0\lib\net461\Sharlayan.dll</HintPath>
+      <HintPath>..\packages\Sharlayan.4.0.1\lib\net461\Sharlayan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -337,6 +311,9 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>%25SYSTEMROOT%25\System32\WindowsPowerShell\v1.0\powershell.exe –NonInteractive –ExecutionPolicy Unrestricted –command "&amp; { &amp;'$(SolutionDir)RestorePackages.ps1' '$(SolutionDir).nuget/nuget.exe' }"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
