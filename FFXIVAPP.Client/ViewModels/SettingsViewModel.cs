@@ -241,12 +241,18 @@ namespace FFXIVAPP.Client.ViewModels
                         doc.Load(stream);
                         try
                         {
-                            var htmlSource = doc.DocumentNode.SelectSingleNode("//html")
-                                                .OuterHtml;
-                            var CICUID = new Regex(@"(?<cicuid>\d+)/string.Empty>" + HttpUtility.HtmlEncode(characterName), RegexOptions.ExplicitCapture | RegexOptions.Multiline | RegexOptions.IgnoreCase);
-                            cicuid = CICUID.Match(htmlSource)
-                                           .Groups["cicuid"]
-                                           .Value;
+                            // A tag which has two child elements, one with the character name and one with the world name (case sensitive)
+                            var xpathMatch = doc.DocumentNode
+                                .SelectSingleNode($"//a[@href and descendant::*[text() = '{characterName}'] and descendant::*[text() = '{serverName}']]");
+
+                            if (xpathMatch != null)
+                            {
+                                var profileUrl = xpathMatch.GetAttributeValue("href", "");
+                                var regexMatch = Regex.Match(profileUrl, @"/(?<uid>\d+)/");
+
+                                if (regexMatch.Success)
+                                    cicuid = regexMatch.Groups["uid"].Value;
+                            }
                         }
                         catch (Exception ex)
                         {

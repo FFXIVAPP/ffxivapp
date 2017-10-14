@@ -47,23 +47,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FFXIVAPP.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.Common.4.0.4\lib\NET461\FFXIVAPP.Common.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FFXIVAPP.Common.4.0.4\lib\net461\FFXIVAPP.Common.dll</HintPath>
     </Reference>
     <Reference Include="FFXIVAPP.IPluginInterface, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.IPluginInterface.4.0.3\lib\NET461\FFXIVAPP.IPluginInterface.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FFXIVAPP.IPluginInterface.4.0.4\lib\net461\FFXIVAPP.IPluginInterface.dll</HintPath>
     </Reference>
     <Reference Include="FFXIVAPP.ResourceFiles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.3\lib\NET461\FFXIVAPP.ResourceFiles.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\FFXIVAPP.ResourceFiles.1.0.3\lib\net461\FFXIVAPP.ResourceFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Machina, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Machina.1.0.3\lib\NET461\Machina.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -92,6 +89,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -267,7 +265,9 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="NLog.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
