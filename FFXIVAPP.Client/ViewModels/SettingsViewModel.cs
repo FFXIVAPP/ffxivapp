@@ -241,7 +241,7 @@ namespace FFXIVAPP.Client.ViewModels
                         doc.Load(stream);
                         try
                         {
-                            // A tag which has two child elements, one with the character name and one with the world name (case sensitive)
+                            // a tag which has two child elements, one with the character name and one with the world name (case sensitive)
                             var xpathMatch = doc.DocumentNode
                                 .SelectSingleNode($"//a[@href and descendant::*[text() = '{characterName}'] and descendant::*[text() = '{serverName}']]");
 
