@@ -1,234 +1,180 @@
-﻿// FFXIVAPP.Updater ~ MainWindow.xaml.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   MainWindow.xaml.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
-using Ionic.Zip;
-using NLog;
+namespace FFXIVAPP.Updater {
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Threading;
 
-namespace FFXIVAPP.Updater
-{
+    using Ionic.Zip;
+
+    using NLog;
+
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : INotifyPropertyChanged
-    {
-        #region Logger
-
+    public partial class MainWindow : INotifyPropertyChanged {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
-
-        #region Declarations
 
         private readonly WebClient _webClient = new WebClient();
 
-        #endregion
+        public MainWindow() {
+            this.InitializeComponent();
+        }
 
-        public MainWindow()
-        {
-            InitializeComponent();
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        /// <summary>
+        /// </summary>
+        private void CleanupTemporary(string path) {
+            try {
+                FileInfo[] fileInfos = new DirectoryInfo(path).GetFiles();
+                foreach (FileInfo fileInfo in fileInfos.Where(t => t.Extension == ".tmp" || t.Extension == ".PendingOverwrite")) {
+                    fileInfo.Delete();
+                }
+            }
+            catch (Exception) {
+                // IGNORED
+            }
+        }
+
+        private void CloseUpdater_OnClick(object sender, RoutedEventArgs e) {
+            Application.Current.Shutdown(0);
         }
 
         /// <summary>
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            var properties = Application.Current.Properties;
-            if (properties["DownloadUri"] == null || properties["Version"] == null)
-            {
-                Application.Current.Shutdown();
-            }
-            else
-            {
-                MainWindowViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
-                MainWindowViewModel.Instance.Version = properties["Version"] as string;
-                MainWindowViewModel.Instance.ZipFileName = $"FFXIVAPP_{MainWindowViewModel.Instance.Version}.zip";
-                var app = Process.GetProcessesByName("FFXIVAPP.Client");
-                foreach (var p in app)
-                {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch (Exception)
-                    {
-                        // IGNORED
-                    }
+        private void DownloadUpdate() {
+            this.GoogleAnalytics.Navigate("https://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
+            this.GoogleAnalytics.LoadCompleted += delegate {
+                try {
+                    this._webClient.DownloadFileCompleted += this.WebClientOnDownloadFileCompleted;
+                    this._webClient.DownloadProgressChanged += this.WebClientOnDownloadProgressChanged;
+                    this._webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
                 }
-                Func<bool> update = delegate
-                {
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(DownloadUpdate));
-                    return true;
-                };
-                update.BeginInvoke(delegate { }, update);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        private void DownloadUpdate()
-        {
-            GoogleAnalytics.Navigate("https://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
-            GoogleAnalytics.LoadCompleted += delegate
-            {
-                try
-                {
-                    _webClient.DownloadFileCompleted += WebClientOnDownloadFileCompleted;
-                    _webClient.DownloadProgressChanged += WebClientOnDownloadProgressChanged;
-                    _webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
-                }
-                catch (Exception)
-                {
+                catch (Exception) {
                     Environment.Exit(0);
                 }
             };
+        }
+
+        private void ExtractAndClean() {
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            this.CleanupTemporary(path);
+            using (ZipFile zip = ZipFile.Read(MainWindowViewModel.Instance.ZipFileName)) {
+                foreach (ZipEntry zipEntry in zip) {
+                    try {
+                        if (File.Exists("FFXIVAPP.Client.exe.nlog") && zipEntry.FileName.Contains("FFXIVAPP.Client.exe.nlog")) {
+                            continue;
+                        }
+
+                        zipEntry.Extract(path, ExtractExistingFileAction.OverwriteSilently);
+                    }
+                    catch (Exception ex) {
+                        // IGNORED
+                    }
+                }
+            }
+
+            this._webClient.Dispose();
+            try {
+                var m = new Process {
+                    StartInfo = {
+                        FileName = "FFXIVAPP.Client.exe"
+                    }
+                };
+                m.Start();
+            }
+            catch (Exception) {
+                // IGNORED
+            }
+            finally {
+                this._webClient.DownloadFileCompleted -= this.WebClientOnDownloadFileCompleted;
+                this._webClient.DownloadProgressChanged -= this.WebClientOnDownloadProgressChanged;
+                this.CleanupTemporary(path);
+                Environment.Exit(0);
+            }
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
+
+        private void UIElement_OnPreviewMouseDown(object sender, MouseButtonEventArgs e) {
+            if (Mouse.LeftButton == MouseButtonState.Pressed) {
+                this.DragMove();
+            }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="asyncCompletedEventArgs"></param>
-        private void WebClientOnDownloadFileCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs)
-        {
-            Func<bool> download = delegate
-            {
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(ExtractAndClean));
+        private void WebClientOnDownloadFileCompleted(object sender, AsyncCompletedEventArgs asyncCompletedEventArgs) {
+            Func<bool> download = delegate {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(this.ExtractAndClean));
                 return true;
             };
             download.BeginInvoke(delegate { }, download);
-        }
-
-        private void ExtractAndClean()
-        {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-                                                     .Location);
-            CleanupTemporary(path);
-            using (var zip = ZipFile.Read(MainWindowViewModel.Instance.ZipFileName))
-            {
-                foreach (var zipEntry in zip)
-                {
-                    try
-                    {
-                        if (File.Exists("FFXIVAPP.Client.exe.nlog") && zipEntry.FileName.Contains("FFXIVAPP.Client.exe.nlog"))
-                        {
-                            continue;
-                        }
-                        zipEntry.Extract(path, ExtractExistingFileAction.OverwriteSilently);
-                    }
-                    catch (Exception ex)
-                    {
-                        // IGNORED
-                    }
-                }
-            }
-            _webClient.Dispose();
-            try
-            {
-                var m = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = "FFXIVAPP.Client.exe"
-                    }
-                };
-                m.Start();
-            }
-            catch (Exception)
-            {
-                // IGNORED
-            }
-            finally
-            {
-                _webClient.DownloadFileCompleted -= WebClientOnDownloadFileCompleted;
-                _webClient.DownloadProgressChanged -= WebClientOnDownloadProgressChanged;
-                CleanupTemporary(path);
-                Environment.Exit(0);
-            }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="downloadProgressChangedEventArgs"></param>
-        private void WebClientOnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs downloadProgressChangedEventArgs)
-        {
+        private void WebClientOnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs downloadProgressChangedEventArgs) {
             var bytesIn = double.Parse(downloadProgressChangedEventArgs.BytesReceived.ToString(CultureInfo.InvariantCulture));
             var totalBytes = double.Parse(downloadProgressChangedEventArgs.TotalBytesToReceive.ToString(CultureInfo.InvariantCulture));
-            ProgressBarSingle.Value = bytesIn / totalBytes;
+            this.ProgressBarSingle.Value = bytesIn / totalBytes;
         }
 
         /// <summary>
         /// </summary>
-        private void CleanupTemporary(string path)
-        {
-            try
-            {
-                var fileInfos = new DirectoryInfo(path).GetFiles();
-                foreach (var fileInfo in fileInfos.Where(t => t.Extension == ".tmp" || t.Extension == ".PendingOverwrite"))
-                {
-                    fileInfo.Delete();
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WindowLoaded(object sender, RoutedEventArgs e) {
+            IDictionary properties = Application.Current.Properties;
+            if (properties["DownloadUri"] == null || properties["Version"] == null) {
+                Application.Current.Shutdown();
+            }
+            else {
+                MainWindowViewModel.Instance.DownloadURI = properties["DownloadUri"] as string;
+                MainWindowViewModel.Instance.Version = properties["Version"] as string;
+                MainWindowViewModel.Instance.ZipFileName = $"FFXIVAPP_{MainWindowViewModel.Instance.Version}.zip";
+                Process[] app = Process.GetProcessesByName("FFXIVAPP.Client");
+                foreach (Process p in app) {
+                    try {
+                        p.Kill();
+                    }
+                    catch (Exception) {
+                        // IGNORED
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                // IGNORED
-            }
-        }
 
-        private void UIElement_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
+                Func<bool> update = delegate {
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(this.DownloadUpdate));
+                    return true;
+                };
+                update.BeginInvoke(delegate { }, update);
             }
         }
-
-        private void CloseUpdater_OnClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown(0);
-        }
-
-        #region Auto Properties
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }

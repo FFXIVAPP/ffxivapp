@@ -1,88 +1,52 @@
-﻿// FFXIVAPP.Client ~ MainViewModel.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainViewModel.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   MainViewModel.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.ViewModelBase;
+namespace FFXIVAPP.Client.ViewModels {
+    using System;
+    using System.ComponentModel;
+    using System.ComponentModel.Composition;
+    using System.Diagnostics;
+    using System.Runtime.CompilerServices;
 
-namespace FFXIVAPP.Client.ViewModels
-{
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Common.ViewModelBase;
+
     [Export(typeof(MainViewModel))]
-    internal sealed class MainViewModel : INotifyPropertyChanged
-    {
-        public MainViewModel()
-        {
-            OpenWebSiteCommand = new DelegateCommand(OpenWebSite);
+    internal sealed class MainViewModel : INotifyPropertyChanged {
+        private static Lazy<MainViewModel> _instance = new Lazy<MainViewModel>(() => new MainViewModel());
+
+        public MainViewModel() {
+            this.OpenWebSiteCommand = new DelegateCommand(this.OpenWebSite);
         }
 
-        #region Declarations
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public static MainViewModel Instance {
+            get {
+                return _instance.Value;
+            }
+        }
 
         public DelegateCommand OpenWebSiteCommand { get; private set; }
 
-        #endregion
-
-        #region Command Bindings
-
-        public void OpenWebSite()
-        {
-            try
-            {
+        public void OpenWebSite() {
+            try {
                 Process.Start("https://ffxiv-app.com");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
             }
         }
 
-        #endregion
-
-        #region Property Bindings
-
-        private static Lazy<MainViewModel> _instance = new Lazy<MainViewModel>(() => new MainViewModel());
-
-        public static MainViewModel Instance
-        {
-            get { return _instance.Value; }
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        #region Utility Functions
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }

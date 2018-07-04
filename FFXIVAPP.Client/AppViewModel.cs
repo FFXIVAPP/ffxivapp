@@ -1,412 +1,417 @@
-﻿// FFXIVAPP.Client ~ AppViewModel.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppViewModel.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   AppViewModel.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Drawing;
-using System.IO;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Threading;
-using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Helpers;
-using Sharlayan.Core;
-using Sharlayan.Models;
-using ContextMenu = System.Windows.Forms.ContextMenu;
+namespace FFXIVAPP.Client {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.ComponentModel.Composition;
+    using System.Drawing;
+    using System.IO;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Forms;
+    using System.Windows.Threading;
 
-namespace FFXIVAPP.Client
-{
+    using FFXIVAPP.Client.Models;
+    using FFXIVAPP.Client.Properties;
+    using FFXIVAPP.Common.Helpers;
+
+    using Sharlayan.Core;
+    using Sharlayan.Models;
+
+    using ContextMenu = System.Windows.Forms.ContextMenu;
+
     [Export(typeof(AppViewModel))]
-    internal sealed class AppViewModel : INotifyPropertyChanged
-    {
-        #region Property Bindings
-
+    internal sealed class AppViewModel : INotifyPropertyChanged {
         private static bool _hasPlugins;
-        private string _appTitle;
-        private List<ChatLogEntry> _chatHistory;
-        private string _configurationsPath;
-        private string _currentVersion;
-        private string _downloadUri;
-        private bool _hasNewPluginUpdate;
-        private bool _hasNewVersion;
-        private string _latestVersion;
-        private Dictionary<string, string> _locale;
-        private string _logsPath;
-        private NotifyIcon _notifyIcon;
-        private ObservableCollection<TabItem> _pluginTabItems;
-        private string _pluginsSettingsPath;
-        private List<string> _savedLogsDirectoryList;
-        private string _screenShotsPath;
-        private string _selected;
-        private string _settingsPath;
-        private List<Signature> _signatures;
-        private string _soundsPath;
-        private Style _tabControlCollapsedHeader;
-        private string _updateNotes;
-
-        #region UILanguages
-
-        private ObservableCollection<UILanguage> _uiLanguages;
-
-        public ObservableCollection<UILanguage> UILanguages
-        {
-            get { return _uiLanguages ?? (_uiLanguages = new ObservableCollection<UILanguage>()); }
-            set
-            {
-                _uiLanguages = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
 
         private static Lazy<AppViewModel> _instance = new Lazy<AppViewModel>(() => new AppViewModel());
 
-        public static AppViewModel Instance
-        {
-            get { return _instance.Value; }
-        }
+        private string _appTitle;
 
-        public Dictionary<string, string> Locale
-        {
-            get { return _locale ?? (_locale = new Dictionary<string, string>()); }
-            set
-            {
-                _locale = value;
-                RaisePropertyChanged();
+        private List<ChatLogItem> _chatHistory;
+
+        private string _configurationsPath;
+
+        private string _currentVersion;
+
+        private string _downloadUri;
+
+        private bool _hasNewPluginUpdate;
+
+        private bool _hasNewVersion;
+
+        private string _latestVersion;
+
+        private Dictionary<string, string> _locale;
+
+        private string _logsPath;
+
+        private NotifyIcon _notifyIcon;
+
+        private string _pluginsSettingsPath;
+
+        private ObservableCollection<TabItem> _pluginTabItems;
+
+        private List<string> _savedLogsDirectoryList;
+
+        private string _screenShotsPath;
+
+        private string _selected;
+
+        private string _settingsPath;
+
+        private List<Signature> _signatures;
+
+        private string _soundsPath;
+
+        private Style _tabControlCollapsedHeader;
+
+        private ObservableCollection<UILanguage> _uiLanguages;
+
+        private string _updateNotes;
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        public static AppViewModel Instance {
+            get {
+                return _instance.Value;
             }
         }
 
-        public NotifyIcon NotifyIcon
-        {
-            get
-            {
-                if (_notifyIcon == null)
-                {
-                    using (var iconStream = ResourceHelper.StreamResource(Constants.AppPack + "FFXIVAPP.ico")
-                                                          .Stream)
-                    {
-                        _notifyIcon = new NotifyIcon
-                        {
+        public string AppTitle {
+            get {
+                return this._appTitle;
+            }
+
+            set {
+                var tempvalue = Constants.IsOpen
+                                    ? value
+                                    : $"{value} : OFFLINE";
+                this._appTitle = string.IsNullOrWhiteSpace(tempvalue)
+                                     ? "FFXIVAPP"
+                                     : $"FFXIVAPP ~ {tempvalue}";
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public List<ChatLogItem> ChatHistory {
+            get {
+                return this._chatHistory ?? (this._chatHistory = new List<ChatLogItem>());
+            }
+
+            set {
+                this._chatHistory = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string ConfigurationsPath {
+            get {
+                return this._configurationsPath;
+            }
+
+            set {
+                this._configurationsPath = value;
+                if (!Directory.Exists(this._configurationsPath)) {
+                    Directory.CreateDirectory(this._configurationsPath);
+                }
+
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string Copyright {
+            get {
+                object[] att = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                return att.Length == 0
+                           ? string.Empty
+                           : ((AssemblyCopyrightAttribute) att[0]).Copyright;
+            }
+        }
+
+        public string CurrentVersion {
+            get {
+                return this._currentVersion;
+            }
+
+            set {
+                this._currentVersion = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string DownloadUri {
+            get {
+                return this._downloadUri;
+            }
+
+            set {
+                this._downloadUri = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public bool HasNewPluginUpdate {
+            get {
+                return this._hasNewPluginUpdate;
+            }
+
+            set {
+                this._hasNewPluginUpdate = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public bool HasNewVersion {
+            get {
+                return this._hasNewVersion;
+            }
+
+            set {
+                this._hasNewVersion = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public bool HasPlugins {
+            get {
+                return _hasPlugins;
+            }
+
+            set {
+                _hasPlugins = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string LatestVersion {
+            get {
+                return this._latestVersion;
+            }
+
+            set {
+                this._latestVersion = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public Dictionary<string, string> Locale {
+            get {
+                return this._locale ?? (this._locale = new Dictionary<string, string>());
+            }
+
+            set {
+                this._locale = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string LogsPath {
+            get {
+                return this._logsPath;
+            }
+
+            set {
+                this._logsPath = value;
+                if (!Directory.Exists(this._logsPath)) {
+                    Directory.CreateDirectory(this._logsPath);
+                }
+
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public NotifyIcon NotifyIcon {
+            get {
+                if (this._notifyIcon == null) {
+                    using (Stream iconStream = ResourceHelper.StreamResource(Constants.AppPack + "FFXIVAPP.ico").Stream) {
+                        this._notifyIcon = new NotifyIcon {
                             Icon = new Icon(iconStream),
                             Visible = true
                         };
                         iconStream.Dispose();
-                        _notifyIcon.Text = "FFXIVAPP";
+                        this._notifyIcon.Text = "FFXIVAPP";
                         var contextMenu = new ContextMenu();
-                        contextMenu.MenuItems.Add("&Restore Application")
-                                   .Enabled = false;
+                        contextMenu.MenuItems.Add("&Restore Application").Enabled = false;
                         contextMenu.MenuItems.Add("&Exit");
-                        contextMenu.MenuItems[0]
-                                   .Click += NotifyIconOnRestoreClick;
-                        contextMenu.MenuItems[1]
-                                   .Click += NotifyIconOnExitClick;
-                        _notifyIcon.ContextMenu = contextMenu;
-                        _notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
+                        contextMenu.MenuItems[0].Click += NotifyIconOnRestoreClick;
+                        contextMenu.MenuItems[1].Click += NotifyIconOnExitClick;
+                        this._notifyIcon.ContextMenu = contextMenu;
+                        this._notifyIcon.MouseDoubleClick += NotifyIconOnMouseDoubleClick;
                     }
                 }
-                return _notifyIcon;
+
+                return this._notifyIcon;
             }
         }
 
-        public string AppTitle
-        {
-            get { return _appTitle; }
-            set
-            {
-                var tempvalue = Constants.IsOpen ? value : $"{value} : OFFLINE";
-                _appTitle = String.IsNullOrWhiteSpace(tempvalue) ? "FFXIVAPP" : $"FFXIVAPP ~ {tempvalue}";
-                RaisePropertyChanged();
+        public string PluginsSettingsPath {
+            get {
+                return this._pluginsSettingsPath;
             }
-        }
 
-        public ObservableCollection<TabItem> PluginTabItems
-        {
-            get { return _pluginTabItems ?? (_pluginTabItems = new ObservableCollection<TabItem>()); }
-            set
-            {
-                _pluginTabItems = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool HasPlugins
-        {
-            get { return _hasPlugins; }
-            set
-            {
-                _hasPlugins = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Selected
-        {
-            get { return _selected; }
-            set
-            {
-                _selected = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public Style TabControlCollapsedHeader
-        {
-            get
-            {
-                if (_tabControlCollapsedHeader == null)
-                {
-                    var s = new Style();
-                    s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
-                    _tabControlCollapsedHeader = s;
+            set {
+                this._pluginsSettingsPath = value;
+                if (!Directory.Exists(this._pluginsSettingsPath)) {
+                    Directory.CreateDirectory(this._pluginsSettingsPath);
                 }
-                return _tabControlCollapsedHeader;
-            }
-            set
-            {
-                _tabControlCollapsedHeader = value;
-                RaisePropertyChanged();
+
+                this.RaisePropertyChanged();
             }
         }
 
-        public string ConfigurationsPath
-        {
-            get { return _configurationsPath; }
-            set
-            {
-                _configurationsPath = value;
-                if (!Directory.Exists(_configurationsPath))
-                {
-                    Directory.CreateDirectory(_configurationsPath);
-                }
-                RaisePropertyChanged();
+        public ObservableCollection<TabItem> PluginTabItems {
+            get {
+                return this._pluginTabItems ?? (this._pluginTabItems = new ObservableCollection<TabItem>());
+            }
+
+            set {
+                this._pluginTabItems = value;
+                this.RaisePropertyChanged();
             }
         }
 
-        public string LogsPath
-        {
-            get { return _logsPath; }
-            set
-            {
-                _logsPath = value;
-                if (!Directory.Exists(_logsPath))
-                {
-                    Directory.CreateDirectory(_logsPath);
-                }
-                RaisePropertyChanged();
+        public List<string> SavedLogsDirectoryList {
+            get {
+                return this._savedLogsDirectoryList ?? (this._savedLogsDirectoryList = new List<string>());
             }
-        }
 
-        public List<string> SavedLogsDirectoryList
-        {
-            get { return _savedLogsDirectoryList ?? (_savedLogsDirectoryList = new List<string>()); }
-            set
-            {
-                foreach (var directoryPath in value)
-                {
-                    var path = Path.Combine(LogsPath, directoryPath);
-                    if (!Directory.Exists(path))
-                    {
+            set {
+                foreach (var directoryPath in value) {
+                    var path = Path.Combine(this.LogsPath, directoryPath);
+                    if (!Directory.Exists(path)) {
                         Directory.CreateDirectory(path);
                     }
                 }
-                _savedLogsDirectoryList = value;
-                RaisePropertyChanged();
+
+                this._savedLogsDirectoryList = value;
+                this.RaisePropertyChanged();
             }
         }
 
-        public string ScreenShotsPath
-        {
-            get { return _screenShotsPath; }
-            set
-            {
-                _screenShotsPath = value;
-                if (!Directory.Exists(_screenShotsPath))
-                {
-                    Directory.CreateDirectory(_screenShotsPath);
+        public string ScreenShotsPath {
+            get {
+                return this._screenShotsPath;
+            }
+
+            set {
+                this._screenShotsPath = value;
+                if (!Directory.Exists(this._screenShotsPath)) {
+                    Directory.CreateDirectory(this._screenShotsPath);
                 }
-                RaisePropertyChanged();
+
+                this.RaisePropertyChanged();
             }
         }
 
-        public string SoundsPath
-        {
-            get { return _soundsPath; }
-            set
-            {
-                _soundsPath = value;
-                if (!Directory.Exists(_soundsPath))
-                {
-                    Directory.CreateDirectory(_soundsPath);
+        public string Selected {
+            get {
+                return this._selected;
+            }
+
+            set {
+                this._selected = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string SettingsPath {
+            get {
+                return this._settingsPath;
+            }
+
+            set {
+                this._settingsPath = value;
+                if (!Directory.Exists(this._settingsPath)) {
+                    Directory.CreateDirectory(this._settingsPath);
                 }
-                RaisePropertyChanged();
+
+                this.RaisePropertyChanged();
             }
         }
 
-        public string SettingsPath
-        {
-            get { return _settingsPath; }
-            set
-            {
-                _settingsPath = value;
-                if (!Directory.Exists(_settingsPath))
-                {
-                    Directory.CreateDirectory(_settingsPath);
+        public List<Signature> Signatures {
+            get {
+                return this._signatures ?? (this._signatures = new List<Signature>());
+            }
+
+            set {
+                this._signatures = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string SoundsPath {
+            get {
+                return this._soundsPath;
+            }
+
+            set {
+                this._soundsPath = value;
+                if (!Directory.Exists(this._soundsPath)) {
+                    Directory.CreateDirectory(this._soundsPath);
                 }
-                RaisePropertyChanged();
+
+                this.RaisePropertyChanged();
             }
         }
 
-        public string PluginsSettingsPath
-        {
-            get { return _pluginsSettingsPath; }
-            set
-            {
-                _pluginsSettingsPath = value;
-                if (!Directory.Exists(_pluginsSettingsPath))
-                {
-                    Directory.CreateDirectory(_pluginsSettingsPath);
+        public Style TabControlCollapsedHeader {
+            get {
+                if (this._tabControlCollapsedHeader == null) {
+                    var s = new Style();
+                    s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
+                    this._tabControlCollapsedHeader = s;
                 }
-                RaisePropertyChanged();
+
+                return this._tabControlCollapsedHeader;
+            }
+
+            set {
+                this._tabControlCollapsedHeader = value;
+                this.RaisePropertyChanged();
             }
         }
 
-        public List<ChatLogEntry> ChatHistory
-        {
-            get { return _chatHistory ?? (_chatHistory = new List<ChatLogEntry>()); }
-            set
-            {
-                _chatHistory = value;
-                RaisePropertyChanged();
+        public ObservableCollection<UILanguage> UILanguages {
+            get {
+                return this._uiLanguages ?? (this._uiLanguages = new ObservableCollection<UILanguage>());
+            }
+
+            set {
+                this._uiLanguages = value;
+                this.RaisePropertyChanged();
             }
         }
 
-        public bool HasNewVersion
-        {
-            get { return _hasNewVersion; }
-            set
-            {
-                _hasNewVersion = value;
-                RaisePropertyChanged();
+        public string UpdateNotes {
+            get {
+                return this._updateNotes;
             }
-        }
 
-        public bool HasNewPluginUpdate
-        {
-            get { return _hasNewPluginUpdate; }
-            set
-            {
-                _hasNewPluginUpdate = value;
-                RaisePropertyChanged();
+            set {
+                this._updateNotes = value;
+                this.RaisePropertyChanged();
             }
-        }
-
-        public string DownloadUri
-        {
-            get { return _downloadUri; }
-            set
-            {
-                _downloadUri = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string LatestVersion
-        {
-            get { return _latestVersion; }
-            set
-            {
-                _latestVersion = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string UpdateNotes
-        {
-            get { return _updateNotes; }
-            set
-            {
-                _updateNotes = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string CurrentVersion
-        {
-            get { return _currentVersion; }
-            set
-            {
-                _currentVersion = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Copyright
-        {
-            get
-            {
-                var att = Assembly.GetExecutingAssembly()
-                                  .GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                return att.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute) att[0]).Copyright;
-            }
-        }
-
-        public List<Signature> Signatures
-        {
-            get { return _signatures ?? (_signatures = new List<Signature>()); }
-            set
-            {
-                _signatures = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        #region Private Functions
-
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="eventArgs"></param>
-        private static void NotifyIconOnRestoreClick(object sender, EventArgs eventArgs)
-        {
-            ShellView.View.WindowState = WindowState.Normal;
-            ShellView.View.Topmost = true;
-            ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs)
-        {
+        private static void NotifyIconOnExitClick(object sender, EventArgs eventArgs) {
             DispatcherHelper.Invoke(() => ShellView.CloseApplication(), DispatcherPriority.Send);
         }
 
@@ -414,24 +419,24 @@ namespace FFXIVAPP.Client
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="mouseEventArgs"></param>
-        private static void NotifyIconOnMouseDoubleClick(object sender, MouseEventArgs mouseEventArgs)
-        {
+        private static void NotifyIconOnMouseDoubleClick(object sender, MouseEventArgs mouseEventArgs) {
             ShellView.View.WindowState = WindowState.Normal;
             ShellView.View.Topmost = true;
             ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private static void NotifyIconOnRestoreClick(object sender, EventArgs eventArgs) {
+            ShellView.View.WindowState = WindowState.Normal;
+            ShellView.View.Topmost = true;
+            ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
-        #endregion
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
     }
 }

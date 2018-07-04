@@ -17,10 +17,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </MetroControls:MetroWindow.Resources>
@@ -32,9 +35,10 @@
     <MetroControls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
             <Grid.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding UIScale,
+                <ScaleTransform
+                    ScaleX="{Binding UIScale,
                                                  Source={x:Static Properties:Settings.Default}}"
-                                ScaleY="{Binding UIScale,
+                    ScaleY="{Binding UIScale,
                                                  Source={x:Static Properties:Settings.Default}}" />
             </Grid.LayoutTransform>
             <DataGrid x:Name="xMetroWindowDG"

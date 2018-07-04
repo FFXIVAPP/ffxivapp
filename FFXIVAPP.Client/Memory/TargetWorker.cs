@@ -1,127 +1,87 @@
-﻿// FFXIVAPP.Client ~ TargetWorker.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TargetWorker.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   TargetWorker.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Timers;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Properties;
-using NLog;
-using Sharlayan;
+namespace FFXIVAPP.Client.Memory {
+    using System;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.Runtime.CompilerServices;
+    using System.Timers;
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class TargetWorker : INotifyPropertyChanged, IDisposable
-    {
-        #region Logger
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Properties;
 
+    using NLog;
+
+    using Sharlayan;
+    using Sharlayan.Models.ReadResults;
+
+    internal class TargetWorker : INotifyPropertyChanged, IDisposable {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        #endregion
+        private readonly Timer _scanTimer;
 
-        public TargetWorker()
-        {
-            _scanTimer = new Timer(100);
-            _scanTimer.Elapsed += ScanTimerElapsed;
+        private bool _isScanning;
+
+        public TargetWorker() {
+            this._scanTimer = new Timer(100);
+            this._scanTimer.Elapsed += this.ScanTimerElapsed;
         }
 
-        #region Implementation of IDisposable
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
+        public void Dispose() {
+            this._scanTimer.Elapsed -= this.ScanTimerElapsed;
         }
 
-        #endregion
+        /// <summary>
+        /// </summary>
+        public void StartScanning() {
+            this._scanTimer.Enabled = true;
+        }
 
-        #region Threads
+        /// <summary>
+        /// </summary>
+        public void StopScanning() {
+            this._scanTimer.Enabled = false;
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (this._isScanning) {
                 return;
             }
-            _isScanning = true;
+
+            this._isScanning = true;
 
             double refresh = 100;
-            if (Double.TryParse(Settings.Default.TargetWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
-            {
-                _scanTimer.Interval = refresh;
+            if (double.TryParse(Settings.Default.TargetWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh)) {
+                this._scanTimer.Interval = refresh;
             }
 
-            Func<bool> scanner = delegate
-            {
-                var readResult = Reader.GetTargetInfo();
+            Func<bool> scanner = delegate {
+                TargetResult readResult = Reader.GetTargetInfo();
 
-                #region Notifications
+                AppContextHelper.Instance.RaiseTargetInfoUpdated(readResult.TargetInfo);
 
-                AppContextHelper.Instance.RaiseNewTargetEntity(readResult.TargetEntity);
-
-                #endregion
-
-                _isScanning = false;
+                this._isScanning = false;
                 return true;
             };
             scanner.BeginInvoke(delegate { }, scanner);
         }
-
-        #endregion
-
-        #region Declarations
-
-        private readonly Timer _scanTimer;
-        private bool _isScanning;
-
-        #endregion
-
-        #region Timer Controls
-
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
-        }
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }

@@ -1,303 +1,330 @@
-﻿// FFXIVAPP.Client ~ Constants.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Constants.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   Constants.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Xml.Linq;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Helpers;
-using Sharlayan.Models;
+namespace FFXIVAPP.Client {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Xml.Linq;
 
-namespace FFXIVAPP.Client
-{
-    internal static class Constants
-    {
-        #region Declarations
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Common.Helpers;
 
+    using Sharlayan.Models;
+
+    internal static class Constants {
         public const string AppPack = "pack://application:,,,/FFXIVAPP.Client;component/";
 
-        public static readonly string[] Supported =
-        {
-            "ja", "fr", "en", "de", "zh", "ru", "ko"
+        public static readonly string[] Supported = {
+            "ja",
+            "fr",
+            "en",
+            "de",
+            "zh",
+            "ru",
+            "ko"
         };
 
-        public static StringComparison InvariantComparer = StringComparison.InvariantCultureIgnoreCase;
         public static StringComparison CultureComparer = StringComparison.CurrentCultureIgnoreCase;
 
-        #endregion
+        public static StringComparison InvariantComparer = StringComparison.InvariantCultureIgnoreCase;
 
-        #region Property Bindings
-
-        private static XDocument _xSettings;
-        private static List<string> _settings;
-        private static XDocument _xAutoTranslate;
-        private static XDocument _xChatCodes;
-        private static XDocument _xColors;
         private static Dictionary<string, string> _autoTranslate;
-        private static Dictionary<string, string> _chatCodes;
-        private static Dictionary<string, string[]> _colors;
-        private static CultureInfo _cultureInfo;
+
         private static string _characterName;
-        private static string _serverName;
-        private static string _gameLanguage;
-        private static bool _enableNLog;
-        private static bool _enableNetworkReading;
+
+        private static Dictionary<string, string> _chatCodes;
+
+        private static Dictionary<string, string[]> _colors;
+
+        private static CultureInfo _cultureInfo;
+
         private static bool _enableHelpLabels;
+
+        private static bool _enableNetworkReading;
+
+        private static bool _enableNLog;
+
+        private static string _gameLanguage;
+
+        private static string _serverName;
+
+        private static List<string> _settings;
+
         private static string _theme;
+
         private static string _uiScale;
 
-        public static XDocument XSettings
-        {
-            get
-            {
-                var settingsFile = Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml");
-                if (_xSettings != null)
-                {
-                    return _xSettings;
-                }
-                try
-                {
-                    var found = File.Exists(settingsFile);
-                    _xSettings = found ? XDocument.Load(settingsFile) : ResourceHelper.XDocResource(Constants.AppPack + "/Defaults/Settings.xml");
-                }
-                catch (Exception)
-                {
-                    _xSettings = ResourceHelper.XDocResource(Constants.AppPack + "/Defaults/Settings.xml");
-                }
-                return _xSettings;
+        private static XDocument _xAutoTranslate;
+
+        private static XDocument _xChatCodes;
+
+        private static XDocument _xColors;
+
+        private static XDocument _xSettings;
+
+        public static Dictionary<string, string> AutoTranslate {
+            get {
+                return _autoTranslate ?? (_autoTranslate = new Dictionary<string, string>());
             }
-            set { _xSettings = value; }
-        }
 
-        public static List<string> Settings
-        {
-            get { return _settings ?? (_settings = new List<string>()); }
-            set { _settings = value; }
-        }
-
-        public static XDocument XAutoTranslate
-        {
-            get
-            {
-                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "AutoTranslate.xml");
-                if (_xAutoTranslate != null)
-                {
-                    return _xAutoTranslate;
-                }
-                try
-                {
-                    var found = File.Exists(file);
-                    _xAutoTranslate = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Defaults/AutoTranslate.xml");
-                }
-                catch (Exception)
-                {
-                    _xAutoTranslate = ResourceHelper.XDocResource(Constants.AppPack + "Defaults/AutoTranslate.xml");
-                }
-                return _xAutoTranslate;
-            }
-            set { _xAutoTranslate = value; }
-        }
-
-        public static XDocument XChatCodes
-        {
-            get
-            {
-                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "ChatCodes.xml");
-                if (_xChatCodes != null)
-                {
-                    return _xChatCodes;
-                }
-                try
-                {
-                    var found = File.Exists(file);
-                    _xChatCodes = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Resources/ChatCodes.xml");
-                }
-                catch (Exception)
-                {
-                    _xChatCodes = ResourceHelper.XDocResource(Constants.AppPack + "Resources/ChatCodes.xml");
-                }
-                return _xChatCodes;
-            }
-            set { _xChatCodes = value; }
-        }
-
-        public static XDocument XColors
-        {
-            get
-            {
-                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Colors.xml");
-                if (_xColors != null)
-                {
-                    return _xColors;
-                }
-                try
-                {
-                    var found = File.Exists(file);
-                    _xColors = found ? XDocument.Load(file) : ResourceHelper.XDocResource(Constants.AppPack + "Defaults/Colors.xml");
-                }
-                catch (Exception)
-                {
-                    _xColors = ResourceHelper.XDocResource(Constants.AppPack + "Defaults/Colors.xml");
-                }
-                return _xColors;
-            }
-            set { _xColors = value; }
-        }
-
-        public static Dictionary<string, string> AutoTranslate
-        {
-            get { return _autoTranslate ?? (_autoTranslate = new Dictionary<string, string>()); }
-            set
-            {
+            set {
                 _autoTranslate = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static Dictionary<string, string> ChatCodes
-        {
-            get { return _chatCodes ?? (_chatCodes = new Dictionary<string, string>()); }
-            set
-            {
-                _chatCodes = value;
-                ConstantsHelper.UpdatePluginConstants();
+        public static string CharacterName {
+            get {
+                return _characterName;
             }
-        }
 
-        public static string ChatCodesXML
-        {
-            get { return XChatCodes.ToString(); }
-        }
-
-        public static Dictionary<string, string[]> Colors
-        {
-            get { return _colors ?? (_colors = new Dictionary<string, string[]>()); }
-            set
-            {
-                _colors = value;
-                ConstantsHelper.UpdatePluginConstants();
-            }
-        }
-
-        public static CultureInfo CultureInfo
-        {
-            get { return _cultureInfo ?? (_cultureInfo = new CultureInfo("en")); }
-            set
-            {
-                _cultureInfo = value;
-                ConstantsHelper.UpdatePluginConstants();
-            }
-        }
-
-        public static string CharacterName
-        {
-            get { return _characterName; }
-            set
-            {
+            set {
                 _characterName = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static string ServerName
-        {
-            get { return _serverName; }
-            set
-            {
-                _serverName = value;
+        public static Dictionary<string, string> ChatCodes {
+            get {
+                return _chatCodes ?? (_chatCodes = new Dictionary<string, string>());
+            }
+
+            set {
+                _chatCodes = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static string GameLanguage
-        {
-            get { return _gameLanguage; }
-            set
-            {
-                _gameLanguage = value;
+        public static string ChatCodesXML {
+            get {
+                return XChatCodes.ToString();
+            }
+        }
+
+        public static Dictionary<string, string[]> Colors {
+            get {
+                return _colors ?? (_colors = new Dictionary<string, string[]>());
+            }
+
+            set {
+                _colors = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static bool EnableNLog
-        {
-            get { return _enableNLog; }
-            set
-            {
-                _enableNLog = value;
+        public static CultureInfo CultureInfo {
+            get {
+                return _cultureInfo ?? (_cultureInfo = new CultureInfo("en"));
+            }
+
+            set {
+                _cultureInfo = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static bool EnableNetworkReading
-        {
-            get { return _enableNetworkReading; }
-            set
-            {
-                _enableNetworkReading = value;
-                ConstantsHelper.UpdatePluginConstants();
+        public static bool EnableHelpLabels {
+            get {
+                return _enableHelpLabels;
             }
-        }
 
-        public static bool EnableHelpLabels
-        {
-            get { return _enableHelpLabels; }
-            set
-            {
+            set {
                 _enableHelpLabels = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static string Theme
-        {
-            get { return _theme; }
-            set
-            {
-                _theme = value;
+        public static bool EnableNetworkReading {
+            get {
+                return _enableNetworkReading;
+            }
+
+            set {
+                _enableNetworkReading = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        public static string UIScale
-        {
-            get { return _uiScale; }
-            set
-            {
-                _uiScale = value;
+        public static bool EnableNLog {
+            get {
+                return _enableNLog;
+            }
+
+            set {
+                _enableNLog = value;
                 ConstantsHelper.UpdatePluginConstants();
             }
         }
 
-        #endregion
+        public static string GameLanguage {
+            get {
+                return _gameLanguage;
+            }
 
-        #region Auto-Properties
+            set {
+                _gameLanguage = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static bool IsOpen { get; set; }
 
         public static IntPtr ProcessHandle { get; set; }
 
         public static ProcessModel ProcessModel { get; set; }
 
-        public static bool IsOpen { get; set; }
-
         public static List<ProcessModel> ProcessModels { get; set; }
 
-        #endregion
+        public static string ServerName {
+            get {
+                return _serverName;
+            }
+
+            set {
+                _serverName = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static List<string> Settings {
+            get {
+                return _settings ?? (_settings = new List<string>());
+            }
+
+            set {
+                _settings = value;
+            }
+        }
+
+        public static string Theme {
+            get {
+                return _theme;
+            }
+
+            set {
+                _theme = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static string UIScale {
+            get {
+                return _uiScale;
+            }
+
+            set {
+                _uiScale = value;
+                ConstantsHelper.UpdatePluginConstants();
+            }
+        }
+
+        public static XDocument XAutoTranslate {
+            get {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "AutoTranslate.xml");
+                if (_xAutoTranslate != null) {
+                    return _xAutoTranslate;
+                }
+
+                try {
+                    var found = File.Exists(file);
+                    _xAutoTranslate = found
+                                          ? XDocument.Load(file)
+                                          : ResourceHelper.XDocResource(AppPack + "Defaults/AutoTranslate.xml");
+                }
+                catch (Exception) {
+                    _xAutoTranslate = ResourceHelper.XDocResource(AppPack + "Defaults/AutoTranslate.xml");
+                }
+
+                return _xAutoTranslate;
+            }
+
+            set {
+                _xAutoTranslate = value;
+            }
+        }
+
+        public static XDocument XChatCodes {
+            get {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "ChatCodes.xml");
+                if (_xChatCodes != null) {
+                    return _xChatCodes;
+                }
+
+                try {
+                    var found = File.Exists(file);
+                    _xChatCodes = found
+                                      ? XDocument.Load(file)
+                                      : ResourceHelper.XDocResource(AppPack + "Resources/ChatCodes.xml");
+                }
+                catch (Exception) {
+                    _xChatCodes = ResourceHelper.XDocResource(AppPack + "Resources/ChatCodes.xml");
+                }
+
+                return _xChatCodes;
+            }
+
+            set {
+                _xChatCodes = value;
+            }
+        }
+
+        public static XDocument XColors {
+            get {
+                var file = Path.Combine(Common.Constants.CachePath, "Configurations", "Colors.xml");
+                if (_xColors != null) {
+                    return _xColors;
+                }
+
+                try {
+                    var found = File.Exists(file);
+                    _xColors = found
+                                   ? XDocument.Load(file)
+                                   : ResourceHelper.XDocResource(AppPack + "Defaults/Colors.xml");
+                }
+                catch (Exception) {
+                    _xColors = ResourceHelper.XDocResource(AppPack + "Defaults/Colors.xml");
+                }
+
+                return _xColors;
+            }
+
+            set {
+                _xColors = value;
+            }
+        }
+
+        public static XDocument XSettings {
+            get {
+                var settingsFile = Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml");
+                if (_xSettings != null) {
+                    return _xSettings;
+                }
+
+                try {
+                    var found = File.Exists(settingsFile);
+                    _xSettings = found
+                                     ? XDocument.Load(settingsFile)
+                                     : ResourceHelper.XDocResource(AppPack + "/Defaults/Settings.xml");
+                }
+                catch (Exception) {
+                    _xSettings = ResourceHelper.XDocResource(AppPack + "/Defaults/Settings.xml");
+                }
+
+                return _xSettings;
+            }
+
+            set {
+                _xSettings = value;
+            }
+        }
     }
 }

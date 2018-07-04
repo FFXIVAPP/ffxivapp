@@ -1,146 +1,103 @@
-﻿// FFXIVAPP.Client ~ ChatLogWorker.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ChatLogWorker.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   ChatLogWorker.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Timers;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Properties;
-using NLog;
-using Sharlayan;
+namespace FFXIVAPP.Client.Memory {
+    using System;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.Runtime.CompilerServices;
+    using System.Timers;
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class ChatLogWorker : INotifyPropertyChanged, IDisposable
-    {
-        #region Logger
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Properties;
 
+    using NLog;
+
+    using Sharlayan;
+    using Sharlayan.Core;
+    using Sharlayan.Models.ReadResults;
+
+    internal class ChatLogWorker : INotifyPropertyChanged, IDisposable {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        #endregion
+        private static readonly Logger Tracer = Logger;
 
-        public ChatLogWorker()
-        {
-            _scanTimer = new Timer(250);
-            _scanTimer.Elapsed += ScanTimerElapsed;
+        private readonly BackgroundWorker _scanner = new BackgroundWorker();
+
+        private readonly Timer _scanTimer;
+
+        private bool _isScanning;
+
+        private int _previousArrayIndex;
+
+        private int _previousOffset;
+
+        public ChatLogWorker() {
+            this._scanTimer = new Timer(250);
+            this._scanTimer.Elapsed += this.ScanTimerElapsed;
         }
 
-        #region Property Bindings
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private IntPtr ChatPointerMap { get; set; }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
+        public void Dispose() {
+            this._scanTimer.Elapsed -= this.ScanTimerElapsed;
         }
 
-        #endregion
+        /// <summary>
+        /// </summary>
+        public void StartScanning() {
+            this._scanTimer.Enabled = true;
+        }
 
-        #region Threads
+        /// <summary>
+        /// </summary>
+        public void StopScanning() {
+            this._scanTimer.Enabled = false;
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (this._isScanning) {
                 return;
             }
-            _isScanning = true;
+
+            this._isScanning = true;
 
             double refresh = 250;
-            if (Double.TryParse(Settings.Default.ChatLogWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
-            {
-                _scanTimer.Interval = refresh;
+            if (double.TryParse(Settings.Default.ChatLogWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh)) {
+                this._scanTimer.Interval = refresh;
 
+                Func<bool> scanner = delegate {
+                    ChatLogResult readResult = Reader.GetChatLog(this._previousArrayIndex, this._previousOffset);
 
-                Func<bool> scanner = delegate
-                {
-                    var readResult = Reader.GetChatLog(_previousArrayIndex, _previousOffset);
+                    this._previousArrayIndex = readResult.PreviousArrayIndex;
+                    this._previousOffset = readResult.PreviousOffset;
 
-                    _previousArrayIndex = readResult.PreviousArrayIndex;
-                    _previousOffset = readResult.PreviousOffset;
-
-                    #region Notifications
-
-                    foreach (var chatLogEntry in readResult.ChatLogEntries)
-                    {
-                        AppContextHelper.Instance.RaiseNewChatLogEntry(chatLogEntry);
+                    foreach (ChatLogItem chatLogEntry in readResult.ChatLogItems) {
+                        AppContextHelper.Instance.RaiseChatLogItemReceived(chatLogEntry);
                     }
 
-                    #endregion
-
-                    _isScanning = false;
+                    this._isScanning = false;
                     return true;
                 };
                 scanner.BeginInvoke(delegate { }, scanner);
             }
         }
-
-        #endregion
-
-        #region Declarations
-
-        private static readonly Logger Tracer = Logger;
-        private readonly Timer _scanTimer;
-        private readonly BackgroundWorker _scanner = new BackgroundWorker();
-
-        private bool _isScanning;
-
-        private int _previousArrayIndex;
-        private int _previousOffset;
-
-        #endregion
-
-        #region Timer Controls
-
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
-        }
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }

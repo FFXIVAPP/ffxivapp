@@ -1,99 +1,72 @@
-﻿// FFXIVAPP.Updater ~ MainWindowViewModel.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainWindowViewModel.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   MainWindowViewModel.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Runtime.CompilerServices;
+namespace FFXIVAPP.Updater {
+    using System;
+    using System.ComponentModel;
+    using System.ComponentModel.Composition;
+    using System.Runtime.CompilerServices;
 
-namespace FFXIVAPP.Updater
-{
     [Export(typeof(MainWindowViewModel))]
-    internal sealed class MainWindowViewModel : INotifyPropertyChanged
-    {
-        #region Property Bindings
-
+    internal sealed class MainWindowViewModel : INotifyPropertyChanged {
         private static Lazy<MainWindowViewModel> _instance = new Lazy<MainWindowViewModel>(() => new MainWindowViewModel());
+
         private string _downloadUri;
+
         private string _version;
+
         private string _zipFileName;
-
-        public static MainWindowViewModel Instance
-        {
-            get { return _instance.Value; }
-        }
-
-        public string DownloadURI
-        {
-            get { return _downloadUri; }
-            set
-            {
-                _downloadUri = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Version
-        {
-            get { return _version; }
-            set
-            {
-                _version = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string ZipFileName
-        {
-            get { return _zipFileName; }
-            set
-            {
-                _zipFileName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        #endregion
-
-        #region Declarations
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        #region Utility Functions
-
-        #endregion
-
-        #region Command Bindings
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        public static MainWindowViewModel Instance {
+            get {
+                return _instance.Value;
+            }
         }
 
-        #endregion
+        public string DownloadURI {
+            get {
+                return this._downloadUri;
+            }
+
+            set {
+                this._downloadUri = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string Version {
+            get {
+                return this._version;
+            }
+
+            set {
+                this._version = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string ZipFileName {
+            get {
+                return this._zipFileName;
+            }
+
+            set {
+                this._zipFileName = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
     }
 }

@@ -1,48 +1,32 @@
-﻿// FFXIVAPP.Client ~ SettingsHelper.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SettingsHelper.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   SettingsHelper.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using NLog;
+namespace FFXIVAPP.Client.Helpers {
+    using NLog;
 
-namespace FFXIVAPP.Client.Helpers
-{
-    internal static partial class SettingsHelper
-    {
-        #region Logger
-
+    internal static partial class SettingsHelper {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
 
         /// <summary>
         /// </summary>
-        public static void Save(bool isUpdating)
-        {
-            if (isUpdating)
-            {
-            }
-            Client.Save();
-            Application.Save();
+        public static void Default() {
+            Client.Default();
         }
 
         /// <summary>
         /// </summary>
-        public static void Default()
-        {
-            Client.Default();
+        public static void Save(bool isUpdating) {
+            if (isUpdating) { }
+
+            Client.Save();
+            Application.Save();
         }
     }
 }

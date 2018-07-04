@@ -1,84 +1,50 @@
-﻿// FFXIVAPP.Client ~ AboutViewModel.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AboutViewModel.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   AboutViewModel.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using System.Windows.Threading;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.ViewModelBase;
+namespace FFXIVAPP.Client.ViewModels {
+    using System;
+    using System.ComponentModel;
+    using System.ComponentModel.Composition;
+    using System.Runtime.CompilerServices;
+    using System.Windows.Input;
+    using System.Windows.Threading;
 
-namespace FFXIVAPP.Client.ViewModels
-{
+    using FFXIVAPP.Common.Helpers;
+    using FFXIVAPP.Common.ViewModelBase;
+
     [Export(typeof(AboutViewModel))]
-    internal sealed class AboutViewModel : INotifyPropertyChanged
-    {
-        public AboutViewModel()
-        {
-            ManualUpdateCommand = new DelegateCommand(ManualUpdate);
-        }
-
-        #region Declarations
-
-        public ICommand ManualUpdateCommand { get; private set; }
-
-        #endregion
-
-        #region Command Bindings
-
-        /// <summary>
-        /// </summary>
-        private void ManualUpdate()
-        {
-            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
-        }
-
-        #endregion
-
-        #region Property Bindings
-
+    internal sealed class AboutViewModel : INotifyPropertyChanged {
         private static Lazy<AboutViewModel> _instance = new Lazy<AboutViewModel>(() => new AboutViewModel());
 
-        public static AboutViewModel Instance
-        {
-            get { return _instance.Value; }
+        public AboutViewModel() {
+            this.ManualUpdateCommand = new DelegateCommand(this.ManualUpdate);
         }
-
-        #endregion
-
-        #region Loading Functions
-
-        #endregion
-
-        #region Utility Functions
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        public static AboutViewModel Instance {
+            get {
+                return _instance.Value;
+            }
         }
 
-        #endregion
+        public ICommand ManualUpdateCommand { get; private set; }
+
+        /// <summary>
+        /// </summary>
+        private void ManualUpdate() {
+            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
+        }
+
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
     }
 }

@@ -1,185 +1,140 @@
-﻿// FFXIVAPP.Client ~ ActorWorker.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ActorWorker.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   ActorWorker.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Timers;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Properties;
-using NLog;
-using Sharlayan;
+namespace FFXIVAPP.Client.Memory {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Timers;
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class ActorWorker : INotifyPropertyChanged, IDisposable
-    {
-        #region Logger
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Properties;
 
+    using NLog;
+
+    using Sharlayan;
+    using Sharlayan.Models.ReadResults;
+
+    internal class ActorWorker : INotifyPropertyChanged, IDisposable {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        #endregion
-
-        public ActorWorker()
-        {
-            _scanTimer = new Timer(100);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
-        }
-
-        #endregion
-
-        #region Property Bindings
-
-        public bool ReferencesSet { get; set; }
-        public bool PCReferencesSet { get; set; }
-        public bool NPCReferencesSet { get; set; }
-        public bool MonsterReferencesSet { get; set; }
-
-        #endregion
-
-        #region Declarations
+        public Stopwatch Stopwatch = new Stopwatch();
 
         private readonly Timer _scanTimer;
+
         private bool _isScanning;
 
-        #endregion
+        public ActorWorker() {
+            this._scanTimer = new Timer(100);
+            this._scanTimer.Elapsed += this.ScanTimerElapsed;
+        }
 
-        #region Timer Controls
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
+        public bool MonsterReferencesSet { get; set; }
+
+        public bool NPCReferencesSet { get; set; }
+
+        public bool PCReferencesSet { get; set; }
+
+        public bool ReferencesSet { get; set; }
+
+        public void Dispose() {
+            this._scanTimer.Elapsed -= this.ScanTimerElapsed;
         }
 
         /// <summary>
         /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
+        public void StartScanning() {
+            this._scanTimer.Enabled = true;
         }
 
-        #endregion
+        /// <summary>
+        /// </summary>
+        public void StopScanning() {
+            this._scanTimer.Enabled = false;
+        }
 
-        #region Threads
-
-        public Stopwatch Stopwatch = new Stopwatch();
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (this._isScanning) {
                 return;
             }
-            _isScanning = true;
+
+            this._isScanning = true;
 
             double refresh = 100;
-            if (Double.TryParse(Settings.Default.ActorWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
-            {
-                _scanTimer.Interval = refresh;
+            if (double.TryParse(Settings.Default.ActorWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh)) {
+                this._scanTimer.Interval = refresh;
             }
 
-            Func<bool> scanner = delegate
-            {
-                var readResult = Reader.GetActors();
+            Func<bool> scanner = delegate {
+                ActorResult readResult = Reader.GetActors();
 
-                #region Notifications
-
-                if (!MonsterReferencesSet && readResult.MonsterEntities.Any())
-                {
-                    MonsterReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewMonsterEntries(readResult.MonsterEntities);
-                }
-                if (!NPCReferencesSet && readResult.NPCEntities.Any())
-                {
-                    NPCReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewNPCEntries(readResult.NPCEntities);
-                }
-                if (!PCReferencesSet && readResult.PCEntities.Any())
-                {
-                    PCReferencesSet = true;
-                    AppContextHelper.Instance.RaiseNewPCEntries(readResult.PCEntities);
+                if (!this.MonsterReferencesSet && readResult.CurrentMonsters.Any()) {
+                    this.MonsterReferencesSet = true;
+                    AppContextHelper.Instance.RaiseMonsterItemsUpdated(readResult.CurrentMonsters);
                 }
 
-                if (MonsterReferencesSet && NPCReferencesSet && PCReferencesSet)
-                {
-                    ReferencesSet = true;
+                if (!this.NPCReferencesSet && readResult.CurrentNPCs.Any()) {
+                    this.NPCReferencesSet = true;
+                    AppContextHelper.Instance.RaiseNPCItemsUpdated(readResult.CurrentNPCs);
                 }
 
-                if (readResult.NewMonster.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewMonsterAddedEntries(readResult.NewMonster);
-                }
-                if (readResult.NewNPC.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewNPCAddedEntries(readResult.NewNPC);
-                }
-                if (readResult.NewPC.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewPCAddedEntries(readResult.NewPC);
+                if (!this.PCReferencesSet && readResult.CurrentPCs.Any()) {
+                    this.PCReferencesSet = true;
+                    AppContextHelper.Instance.RaisePCItemsUpdated(readResult.CurrentPCs);
                 }
 
-                if (readResult.RemovedMonster.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewMonsterRemovedEntries(readResult.RemovedMonster.Keys.ToList());
-                }
-                if (readResult.RemovedNPC.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewNPCRemovedEntries(readResult.RemovedNPC.Keys.ToList());
-                }
-                if (readResult.RemovedPC.Any())
-                {
-                    AppContextHelper.Instance.RaiseNewPCRemovedEntries(readResult.RemovedPC.Keys.ToList());
+                if (this.MonsterReferencesSet && this.NPCReferencesSet && this.PCReferencesSet) {
+                    this.ReferencesSet = true;
                 }
 
-                #endregion
+                if (readResult.NewMonsters.Any()) {
+                    AppContextHelper.Instance.RaiseMonsterItemsAdded(readResult.NewMonsters);
+                }
 
-                _isScanning = false;
+                if (readResult.NewNPCs.Any()) {
+                    AppContextHelper.Instance.RaiseNPCItemsAdded(readResult.NewNPCs);
+                }
+
+                if (readResult.NewPCs.Any()) {
+                    AppContextHelper.Instance.RaisePCItemsAdded(readResult.NewPCs);
+                }
+
+                if (readResult.RemovedMonsters.Any()) {
+                    AppContextHelper.Instance.RaiseMonsterItemsRemoved(readResult.RemovedMonsters);
+                }
+
+                if (readResult.RemovedNPCs.Any()) {
+                    AppContextHelper.Instance.RaiseNPCItemsRemoved(readResult.RemovedNPCs);
+                }
+
+                if (readResult.RemovedPCs.Any()) {
+                    AppContextHelper.Instance.RaisePCItemsRemoved(readResult.RemovedPCs);
+                }
+
+                this._isScanning = false;
                 return true;
             };
             scanner.BeginInvoke(delegate { }, scanner);
         }
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }

@@ -36,10 +36,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/FFXIVAPP.Client;component/Resources/Styles/TabItem.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Converters:VisibilityConverter x:Key="VisibilityConverter" />
             <Converters:TabStripBorderConverter x:Key="TabStripBorderConverter" />
@@ -79,7 +82,8 @@
             </ComboBox>
             <Button x:Name="save" Command="{Binding SaveAndClearHistoryCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome Kind="FloppyOutline" ToolTip="{Binding Locale[app_SaveAndClearHistoryToolTip], Source={StaticResource AppProperties}}" />
+                    <iconPacks:PackIconFontAwesome Kind="FloppyOutline"
+                                                   ToolTip="{Binding Locale[app_SaveAndClearHistoryToolTip], Source={StaticResource AppProperties}}" />
                     <TextBlock Padding="5"
                                Foreground="White"
                                Text="{Binding Locale[app_SaveAndClearHistoryToolTip], Source={StaticResource AppProperties}}"
@@ -88,7 +92,8 @@
             </Button>
             <Button x:Name="screenshot" Command="{Binding ScreenShotCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome Kind="Camera" ToolTip="{Binding Locale[app_ScreenShotToolTip], Source={StaticResource AppProperties}}" />
+                    <iconPacks:PackIconFontAwesome Kind="Camera"
+                                                   ToolTip="{Binding Locale[app_ScreenShotToolTip], Source={StaticResource AppProperties}}" />
                     <TextBlock Padding="5"
                                Foreground="White"
                                Text="{Binding Locale[app_ScreenShotToolTip], Source={StaticResource AppProperties}}"
@@ -101,7 +106,8 @@
     <MetroControls:MetroContentControl>
         <Grid x:Name="LayoutRoot">
             <Grid.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding UIScale, Source={x:Static Properties:Settings.Default}}" ScaleY="{Binding UIScale, Source={x:Static Properties:Settings.Default}}" />
+                <ScaleTransform ScaleX="{Binding UIScale, Source={x:Static Properties:Settings.Default}}"
+                                ScaleY="{Binding UIScale, Source={x:Static Properties:Settings.Default}}" />
             </Grid.LayoutTransform>
             <TabControl x:Name="ShellViewTC"
                         Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}"
@@ -118,7 +124,8 @@
                                     BorderBrush="#FF000000"
                                     BorderThickness="1,1,1,1"
                                     CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Home" ToolTip="{Binding Locale[app_MainToolTip], Source={StaticResource AppProperties}}" />
+                                <iconPacks:PackIconFontAwesome Kind="Home"
+                                                               ToolTip="{Binding Locale[app_MainToolTip], Source={StaticResource AppProperties}}" />
                             </Border>
                             <TextBlock Padding="5"
                                        Text="{Binding Locale[app_MainToolTip], Source={StaticResource AppProperties}}"
@@ -135,7 +142,8 @@
                                     BorderBrush="#FF000000"
                                     BorderThickness="1,1,1,1"
                                     CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Star" ToolTip="{Binding Locale[app_PluginsToolTip], Source={StaticResource AppProperties}}" />
+                                <iconPacks:PackIconFontAwesome Kind="Star"
+                                                               ToolTip="{Binding Locale[app_PluginsToolTip], Source={StaticResource AppProperties}}" />
                             </Border>
                             <TextBlock Padding="5"
                                        Text="{Binding Locale[app_PluginsToolTip], Source={StaticResource AppProperties}}"
@@ -182,7 +190,8 @@
                                     BorderBrush="#FF000000"
                                     BorderThickness="1,1,1,1"
                                     CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Cog" ToolTip="{Binding Locale[app_SettingsToolTip], Source={StaticResource AppProperties}}" />
+                                <iconPacks:PackIconFontAwesome Kind="Cog"
+                                                               ToolTip="{Binding Locale[app_SettingsToolTip], Source={StaticResource AppProperties}}" />
                             </Border>
                             <TextBlock Padding="5"
                                        Text="{Binding Locale[app_SettingsToolTip], Source={StaticResource AppProperties}}"
@@ -194,7 +203,8 @@
                 <TabItem x:Name="UpdateTI">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <MetroControls:Badged Badge="{Binding Source={StaticResource UpdateViewModel}, Path=AvailablePluginUpdates}">
+                            <MetroControls:Badged
+                                Badge="{Binding Source={StaticResource UpdateViewModel}, Path=AvailablePluginUpdates}">
                                 <Border Padding="4"
                                         Background="White"
                                         BorderBrush="#FF000000"
@@ -220,7 +230,8 @@
                                     BorderBrush="#FF000000"
                                     BorderThickness="1,1,1,1"
                                     CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Info" ToolTip="{Binding Locale[app_AboutToolTip], Source={StaticResource AppProperties}}" />
+                                <iconPacks:PackIconFontAwesome Kind="Info"
+                                                               ToolTip="{Binding Locale[app_AboutToolTip], Source={StaticResource AppProperties}}" />
                             </Border>
                             <TextBlock Padding="5"
                                        Text="{Binding Locale[app_AboutToolTip], Source={StaticResource AppProperties}}"
