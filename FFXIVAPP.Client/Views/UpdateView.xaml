@@ -86,7 +86,8 @@
                               Style="{DynamicResource MetroDataGrid}"
                               VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <DataGrid.InputBindings>
-                            <MouseBinding Command="{Binding AvailableDGDoubleClickCommand}" MouseAction="LeftDoubleClick" />
+                            <MouseBinding Command="{Binding AvailableDGDoubleClickCommand}"
+                                          MouseAction="LeftDoubleClick" />
                         </DataGrid.InputBindings>
                         <DataGrid.GroupStyle>
                             <!--  Style for groups at top level.  -->
@@ -105,7 +106,8 @@
                                                                            Padding="5"
                                                                            Visibility="Collapsed">
                                                                     <TextBlock.Text>
-                                                                        <MultiBinding Converter="{StaticResource NameMultiValueConverter}">
+                                                                        <MultiBinding
+                                                                            Converter="{StaticResource NameMultiValueConverter}">
                                                                             <Binding Path="Name" />
                                                                             <Binding Path="ItemCount" />
                                                                         </MultiBinding>
@@ -183,7 +185,8 @@
                         <DockPanel Grid.Row="0"
                                    Margin="3"
                                    LastChildFill="True">
-                            <TextBlock Padding="5" Text="{Binding Locale[app_SourceLabel], Source={StaticResource AppProperties}}" />
+                            <TextBlock Padding="5"
+                                       Text="{Binding Locale[app_SourceLabel], Source={StaticResource AppProperties}}" />
                             <TextBox x:Name="TSource" />
                         </DockPanel>
                         <DataGrid x:Name="PluginSourceDG"

@@ -1,460 +1,353 @@
-// FFXIVAPP.Client ~ PluginHost.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PluginHost.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   PluginHost.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Xml.Linq;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Models;
-using FFXIVAPP.Client.Reflection;
-using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Network;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
-using FFXIVAPP.IPluginInterface;
-using FFXIVAPP.IPluginInterface.Events;
-using NLog;
-using Sharlayan.Core;
+namespace FFXIVAPP.Client {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Windows;
+    using System.Xml.Linq;
 
-namespace FFXIVAPP.Client
-{
-    internal class PluginHost : MarshalByRefObject, IPluginHost
-    {
-        #region Logger
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Models;
+    using FFXIVAPP.Client.Reflection;
+    using FFXIVAPP.Common.Core.Constant;
+    using FFXIVAPP.Common.Core.Network;
+    using FFXIVAPP.Common.Models;
+    using FFXIVAPP.Common.Utilities;
+    using FFXIVAPP.IPluginInterface;
+    using FFXIVAPP.IPluginInterface.Events;
 
+    using NLog;
+
+    using Sharlayan.Core;
+
+    internal class PluginHost : MarshalByRefObject, IPluginHost {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        #endregion
-
-        #region Declarations
+        private static Lazy<PluginHost> _instance = new Lazy<PluginHost>(() => new PluginHost());
 
         public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
 
-        #endregion
+        private PluginCollectionHelper _loaded;
 
-        /// <summary>
-        /// </summary>
-        /// <param name="path"></param>
-        public void LoadPlugins(string path)
-        {
-            if (String.IsNullOrWhiteSpace(path))
-            {
-                return;
+        public event EventHandler<ActionContainersEvent> ActionContainersUpdated = delegate { };
+
+        public event EventHandler<ChatLogItemEvent> ChatLogItemReceived = delegate { };
+
+        public event EventHandler<ConstantsEntityEvent> ConstantsUpdated = delegate { };
+
+        public event EventHandler<CurrentPlayerEvent> CurrentPlayerUpdated = delegate { };
+
+        public event EventHandler<InventoryContainersEvent> InventoryContainersUpdated = delegate { };
+
+        public event EventHandler<ActorItemsAddedEvent> MonsterItemsAdded = delegate { };
+
+        public event EventHandler<ActorItemsRemovedEvent> MonsterItemsRemoved = delegate { };
+
+        public event EventHandler<ActorItemsEvent> MonsterItemsUpdated = delegate { };
+
+        public event EventHandler<NetworkPacketEvent> NetworkPacketReceived = delegate { };
+
+        public event EventHandler<ActorItemsAddedEvent> NPCItemsAdded = delegate { };
+
+        public event EventHandler<ActorItemsRemovedEvent> NPCItemsRemoved = delegate { };
+
+        public event EventHandler<ActorItemsEvent> NPCItemsUpdated = delegate { };
+
+        public event EventHandler<PartyMembersAddedEvent> PartyMembersAdded = delegate { };
+
+        public event EventHandler<PartyMembersRemovedEvent> PartyMembersRemoved = delegate { };
+
+        public event EventHandler<PartyMembersEvent> PartyMembersUpdated = delegate { };
+
+        public event EventHandler<ActorItemsAddedEvent> PCItemsAdded = delegate { };
+
+        public event EventHandler<ActorItemsRemovedEvent> PCItemsRemoved = delegate { };
+
+        public event EventHandler<ActorItemsEvent> PCItemsUpdated = delegate { };
+
+        public event EventHandler<TargetInfoEvent> TargetInfoUpdated = delegate { };
+
+        public static PluginHost Instance {
+            get {
+                return _instance.Value;
             }
-            try
-            {
-                if (Directory.Exists(path))
-                {
-                    var directories = Directory.GetDirectories(path);
-                    foreach (var directory in directories)
-                    {
-                        LoadPlugin(directory);
-                    }
+        }
+
+        public PluginCollectionHelper Loaded {
+            get {
+                return this._loaded ?? (this._loaded = new PluginCollectionHelper());
+            }
+
+            set {
+                if (this._loaded == null) {
+                    this._loaded = new PluginCollectionHelper();
                 }
-            }
-            catch (Exception ex)
-            {
-                Logging.Log(Logger, new LogItem(ex, true));
+
+                this._loaded = value;
             }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="path"></param>
-        public void LoadPlugin(string path)
-        {
-            if (String.IsNullOrWhiteSpace(path))
-            {
+        public void LoadPlugin(string path) {
+            if (string.IsNullOrWhiteSpace(path)) {
                 return;
             }
-            try
-            {
-                path = Directory.Exists(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+
+            try {
+                path = Directory.Exists(path)
+                           ? path
+                           : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
                 var settings = $@"{path}\PluginInfo.xml";
-                if (!File.Exists(settings))
-                {
+                if (!File.Exists(settings)) {
                     return;
                 }
-                var xDoc = XDocument.Load(settings);
-                foreach (var xElement in xDoc.Descendants()
-                                             .Elements("Main"))
-                {
+
+                XDocument xDoc = XDocument.Load(settings);
+                foreach (XElement xElement in xDoc.Descendants().Elements("Main")) {
                     var xKey = (string) xElement.Attribute("Key");
                     var xValue = (string) xElement.Element("Value");
-                    if (String.IsNullOrWhiteSpace(xKey) || String.IsNullOrWhiteSpace(xValue))
-                    {
+                    if (string.IsNullOrWhiteSpace(xKey) || string.IsNullOrWhiteSpace(xValue)) {
                         return;
                     }
-                    switch (xKey)
-                    {
+
+                    switch (xKey) {
                         case "FileName":
-                            VerifyPlugin($@"{path}\{xValue}");
+                            this.VerifyPlugin($@"{path}\{xValue}");
                             break;
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logging.Log(Logger, new LogItem(ex, true));
             }
         }
 
         /// <summary>
         /// </summary>
-        public void UnloadPlugins()
-        {
-            foreach (var pluginInstance in Loaded.Cast<PluginInstance>()
-                                                 .Where(pluginInstance => pluginInstance.Instance != null))
-            {
-                pluginInstance.Instance.Dispose();
+        /// <param name="path"></param>
+        public void LoadPlugins(string path) {
+            if (string.IsNullOrWhiteSpace(path)) {
+                return;
             }
-            Loaded.Clear();
-        }
 
-        /// <summary>
-        /// </summary>
-        public void UnloadPlugin(string name)
-        {
-            var plugin = Loaded.Find(name);
-            if (plugin != null)
-            {
-                plugin.Instance.Dispose();
-                Loaded.Remove(plugin);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="assemblyPath"></param>
-        private void VerifyPlugin(string assemblyPath)
-        {
-            try
-            {
-                var bytes = File.ReadAllBytes(assemblyPath);
-                var pAssembly = Assembly.Load(bytes);
-                var pType = pAssembly.GetType(pAssembly.GetName()
-                                                       .Name + ".Plugin");
-                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
-                if (!implementsIPlugin)
-                {
-                    Logging.Log(Logger, $"*IPlugin Not Implemented* :: {pAssembly.GetName() .Name}");
-                    return;
+            try {
+                if (Directory.Exists(path)) {
+                    string[] directories = Directory.GetDirectories(path);
+                    foreach (var directory in directories) {
+                        this.LoadPlugin(directory);
+                    }
                 }
-                var plugin = new PluginInstance
-                {
-                    Instance = (IPlugin) Activator.CreateInstance(pType),
-                    AssemblyPath = assemblyPath
-                };
-                plugin.Instance.Initialize(Instance);
-                plugin.Loaded = true;
-                Loaded.Add(plugin);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logging.Log(Logger, new LogItem(ex, true));
             }
         }
-
-        #region Property Bindings
-
-        private PluginCollectionHelper _loaded;
-
-        public PluginCollectionHelper Loaded
-        {
-            get { return _loaded ?? (_loaded = new PluginCollectionHelper()); }
-            set
-            {
-                if (_loaded == null)
-                {
-                    _loaded = new PluginCollectionHelper();
-                }
-                _loaded = value;
-            }
-        }
-
-        private static Lazy<PluginHost> _instance = new Lazy<PluginHost>(() => new PluginHost());
-
-        public static PluginHost Instance
-        {
-            get { return _instance.Value; }
-        }
-
-        #endregion
-
-        #region Implementaion of IPluginHost
 
         /// <summary>
         /// </summary>
         /// <param name="pluginName"></param>
         /// <param name="popupContent"></param>
-        public void PopupMessage(string pluginName, PopupContent popupContent)
-        {
-            if (popupContent == null)
-            {
+        public void PopupMessage(string pluginName, PopupContent popupContent) {
+            if (popupContent == null) {
                 return;
             }
-            var pluginInstance = App.Plugins.Loaded.Find(popupContent.PluginName);
-            if (pluginInstance == null)
-            {
+
+            PluginInstance pluginInstance = App.Plugins.Loaded.Find(popupContent.PluginName);
+            if (pluginInstance == null) {
                 return;
             }
+
             var title = $"[{pluginName}] {popupContent.Title}";
             var message = popupContent.Message;
             Action cancelAction = null;
-            if (popupContent.CanCancel)
-            {
-                cancelAction = delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel; };
+            if (popupContent.CanCancel) {
+                cancelAction = delegate {
+                    pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel;
+                };
             }
-            MessageBoxHelper.ShowMessageAsync(title, message, delegate { pluginInstance.Instance.PopupResult = MessageBoxResult.OK; }, cancelAction);
+
+            MessageBoxHelper.ShowMessageAsync(
+                title,
+                message,
+                delegate {
+                    pluginInstance.Instance.PopupResult = MessageBoxResult.OK;
+                },
+                cancelAction);
         }
 
-        public event EventHandler<ConstantsEntityEvent> NewConstantsEntity = delegate { };
-
-        public event EventHandler<ChatLogEntryEvent> NewChatLogEntry = delegate { };
-
-        public event EventHandler<ActorEntitiesAddedEvent> NewMonsterEntriesAdded = delegate { };
-
-        public event EventHandler<ActorEntitiesEvent> NewMonsterEntries = delegate { };
-
-        public event EventHandler<ActorEntitiesRemovedEvent> NewNPCEntriesRemoved = delegate { };
-
-        public event EventHandler<ActorEntitiesAddedEvent> NewNPCEntriesAdded = delegate { };
-
-        public event EventHandler<ActorEntitiesEvent> NewNPCEntries = delegate { };
-
-        public event EventHandler<ActorEntitiesRemovedEvent> NewMonsterEntriesRemoved = delegate { };
-
-        public event EventHandler<ActorEntitiesAddedEvent> NewPCEntriesAdded = delegate { };
-
-        public event EventHandler<ActorEntitiesEvent> NewPCEntries = delegate { };
-
-        public event EventHandler<ActorEntitiesRemovedEvent> NewPCEntriesRemoved = delegate { };
-
-        public event EventHandler<PlayerEntityEvent> NewPlayerEntity = delegate { };
-
-        public event EventHandler<TargetEntityEvent> NewTargetEntity = delegate { };
-
-        public event EventHandler<PartyEntitiesAddedEvent> NewPartyEntriesAdded = delegate { };
-
-        public event EventHandler<PartyEntitiesEvent> NewPartyEntries = delegate { };
-
-        public event EventHandler<PartyEntitiesRemovedEvent> NewPartyEntriesRemoved = delegate { };
-
-        public event EventHandler<InventoryEntitiesEvent> NewInventoryEntries = delegate { };
-
-        public event EventHandler<NetworkPacketEvent> NewNetworkPacket = delegate { };
-
-        public event EventHandler<ActionEntityEvent> NewActionEntity = delegate { };
-
-        public virtual void RaiseNewConstantsEntity(ConstantsEntity e)
-        {
-            var constantsEntityEvent = new ConstantsEntityEvent(this, e);
-            var handler = NewConstantsEntity;
-            if (handler != null)
-            {
-                handler(this, constantsEntityEvent);
-            }
+        public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
+            var raised = new ActionContainersEvent(this, actionContainers);
+            EventHandler<ActionContainersEvent> handler = this.ActionContainersUpdated;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewChatLogEntry(ChatLogEntry e)
-        {
-            var chatLogEntryEvent = new ChatLogEntryEvent(this, e);
-            var handler = NewChatLogEntry;
-            if (handler != null)
-            {
-                handler(this, chatLogEntryEvent);
-            }
+        public virtual void RaiseChatLogItemReceived(ChatLogItem chatLogItem) {
+            var raised = new ChatLogItemEvent(this, chatLogItem);
+            EventHandler<ChatLogItemEvent> handler = this.ChatLogItemReceived;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewMonsterAddedEntries(List<UInt32> e)
-        {
-            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
-            var handler = NewMonsterEntriesAdded;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesAddedEvent);
-            }
+        public virtual void RaiseConstantsUpdated(ConstantsEntity constantsEntity) {
+            var raised = new ConstantsEntityEvent(this, constantsEntity);
+            EventHandler<ConstantsEntityEvent> handler = this.ConstantsUpdated;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
-        {
-            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
-            var handler = NewMonsterEntries;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesEvent);
-            }
+        public virtual void RaiseCurrentPlayerUpdated(CurrentPlayer currentPlayer) {
+            var raised = new CurrentPlayerEvent(this, currentPlayer);
+            EventHandler<CurrentPlayerEvent> handler = this.CurrentPlayerUpdated;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewMonsterRemovedEntries(List<UInt32> e)
-        {
-            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
-            var handler = NewMonsterEntriesRemoved;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesRemovedEvent);
-            }
+        public virtual void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
+            var raised = new InventoryContainersEvent(this, inventoryContainers);
+            EventHandler<InventoryContainersEvent> handler = this.InventoryContainersUpdated;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewNPCAddedEntries(List<UInt32> e)
-        {
-            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
-            var handler = NewNPCEntriesAdded;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesAddedEvent);
-            }
+        public virtual void RaiseMonsterItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsAddedEvent(this, actorItems);
+            EventHandler<ActorItemsAddedEvent> handler = this.MonsterItemsAdded;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
-        {
-            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
-            var handler = NewNPCEntries;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesEvent);
-            }
+        public virtual void RaiseMonsterItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
+            EventHandler<ActorItemsRemovedEvent> handler = this.MonsterItemsRemoved;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewNPCRemovedEntries(List<UInt32> e)
-        {
-            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
-            var handler = NewNPCEntriesRemoved;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesRemovedEvent);
-            }
+        public virtual void RaiseMonsterItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsEvent(this, actorItems);
+            EventHandler<ActorItemsEvent> handler = this.MonsterItemsUpdated;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewPCAddedEntries(List<UInt32> e)
-        {
-            var actorEntitiesAddedEvent = new ActorEntitiesAddedEvent(this, e);
-            var handler = NewPCEntriesAdded;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesAddedEvent);
-            }
+        public virtual void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
+            var raised = new NetworkPacketEvent(this, networkPacket);
+            EventHandler<NetworkPacketEvent> handler = this.NetworkPacketReceived;
+            handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> e)
-        {
-            var actorEntitiesEvent = new ActorEntitiesEvent(this, e);
-            var handler = NewPCEntries;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesEvent);
+        public virtual void RaiseNPCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsAddedEvent(this, actorItems);
+            EventHandler<ActorItemsAddedEvent> handler = this.NPCItemsAdded;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaiseNPCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
+            EventHandler<ActorItemsRemovedEvent> handler = this.NPCItemsRemoved;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaiseNPCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsEvent(this, actorItems);
+            EventHandler<ActorItemsEvent> handler = this.NPCItemsUpdated;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePartyMembersAdded(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            var raised = new PartyMembersAddedEvent(this, partyMembers);
+            EventHandler<PartyMembersAddedEvent> handler = this.PartyMembersAdded;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePartyMembersRemoved(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            var raised = new PartyMembersRemovedEvent(this, partyMembers);
+            EventHandler<PartyMembersRemovedEvent> handler = this.PartyMembersRemoved;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePartyMembersUpdated(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            var raised = new PartyMembersEvent(this, partyMembers);
+            EventHandler<PartyMembersEvent> handler = this.PartyMembersUpdated;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsAddedEvent(this, actorItems);
+            EventHandler<ActorItemsAddedEvent> handler = this.PCItemsAdded;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
+            EventHandler<ActorItemsRemovedEvent> handler = this.PCItemsRemoved;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            var raised = new ActorItemsEvent(this, actorItems);
+            EventHandler<ActorItemsEvent> handler = this.PCItemsUpdated;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaiseTargetInfoUpdated(TargetInfo targetInfo) {
+            var raised = new TargetInfoEvent(this, targetInfo);
+            EventHandler<TargetInfoEvent> handler = this.TargetInfoUpdated;
+            handler?.Invoke(this, raised);
+        }
+
+        /// <summary>
+        /// </summary>
+        public void UnloadPlugin(string name) {
+            PluginInstance plugin = this.Loaded.Find(name);
+            if (plugin != null) {
+                plugin.Instance.Dispose();
+                this.Loaded.Remove(plugin);
             }
         }
 
-        public virtual void RaiseNewPCRemovedEntries(List<UInt32> e)
-        {
-            var actorEntitiesRemovedEvent = new ActorEntitiesRemovedEvent(this, e);
-            var handler = NewPCEntriesRemoved;
-            if (handler != null)
-            {
-                handler(this, actorEntitiesRemovedEvent);
+        /// <summary>
+        /// </summary>
+        public void UnloadPlugins() {
+            foreach (PluginInstance pluginInstance in this.Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Instance != null)) {
+                pluginInstance.Instance.Dispose();
             }
+
+            this.Loaded.Clear();
         }
 
-        public virtual void RaiseNewPlayerEntity(PlayerEntity e)
-        {
-            var playerEntityEvent = new PlayerEntityEvent(this, e);
-            var handler = NewPlayerEntity;
-            if (handler != null)
-            {
-                handler(this, playerEntityEvent);
+        /// <summary>
+        /// </summary>
+        /// <param name="assemblyPath"></param>
+        private void VerifyPlugin(string assemblyPath) {
+            try {
+                byte[] bytes = File.ReadAllBytes(assemblyPath);
+                Assembly pAssembly = Assembly.Load(bytes);
+                Type pType = pAssembly.GetType(pAssembly.GetName().Name + ".Plugin");
+                var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
+                if (!implementsIPlugin) {
+                    Logging.Log(Logger, $"*IPlugin Not Implemented* :: {pAssembly.GetName().Name}");
+                    return;
+                }
+
+                var plugin = new PluginInstance {
+                    Instance = (IPlugin) Activator.CreateInstance(pType),
+                    AssemblyPath = assemblyPath
+                };
+                plugin.Instance.Initialize(Instance);
+                plugin.Loaded = true;
+                this.Loaded.Add(plugin);
+            }
+            catch (Exception ex) {
+                Logging.Log(Logger, new LogItem(ex, true));
             }
         }
-
-        public virtual void RaiseNewTargetEntity(TargetEntity e)
-        {
-            var targetEntityEvent = new TargetEntityEvent(this, e);
-            var handler = NewTargetEntity;
-            if (handler != null)
-            {
-                handler(this, targetEntityEvent);
-            }
-        }
-
-        public virtual void RaiseNewPartyAddedEntries(List<UInt32> e)
-        {
-            var partyEntitiesAddedEvent = new PartyEntitiesAddedEvent(this, e);
-            var handler = NewPartyEntriesAdded;
-            if (handler != null)
-            {
-                handler(this, partyEntitiesAddedEvent);
-            }
-        }
-
-        public virtual void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> e)
-        {
-            var partyEntitiesEvent = new PartyEntitiesEvent(this, e);
-            var handler = NewPartyEntries;
-            if (handler != null)
-            {
-                handler(this, partyEntitiesEvent);
-            }
-        }
-
-        public virtual void RaiseNewPartyRemovedEntries(List<UInt32> e)
-        {
-            var partyEntitiesRemovedEvent = new PartyEntitiesRemovedEvent(this, e);
-            var handler = NewPartyEntriesRemoved;
-            if (handler != null)
-            {
-                handler(this, partyEntitiesRemovedEvent);
-            }
-        }
-
-        public virtual void RaiseNewInventoryEntries(List<InventoryEntity> e)
-        {
-            var inventoryEntitiesEvent = new InventoryEntitiesEvent(this, e);
-            var handler = NewInventoryEntries;
-            if (handler != null)
-            {
-                handler(this, inventoryEntitiesEvent);
-            }
-        }
-
-        public virtual void RaiseNewNetworkPacket(NetworkPacket e)
-        {
-            var networkPacketEvent = new NetworkPacketEvent(this, e);
-            var handler = NewNetworkPacket;
-            if (handler != null)
-            {
-                handler(this, networkPacketEvent);
-            }
-        }
-
-        public virtual void RaiseNewActionEntities(List<ActionEntity> e)
-        {
-            var actionEntityEvent = new ActionEntityEvent(this, e);
-            var handler = NewActionEntity;
-            if (handler != null)
-            {
-                handler(this, actionEntityEvent);
-            }
-        }
-
-        #endregion
     }
 }

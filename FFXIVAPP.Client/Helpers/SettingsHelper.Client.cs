@@ -1,122 +1,101 @@
-﻿// FFXIVAPP.Client ~ SettingsHelper.Client.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SettingsHelper.Client.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   SettingsHelper.Client.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
-using FFXIVAPP.Client.Properties;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Models;
-using FFXIVAPP.Common.Utilities;
+namespace FFXIVAPP.Client.Helpers {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Xml.Linq;
 
-namespace FFXIVAPP.Client.Helpers
-{
-    internal static partial class SettingsHelper
-    {
-        public static class Client
-        {
+    using FFXIVAPP.Client.Properties;
+    using FFXIVAPP.Common.Helpers;
+    using FFXIVAPP.Common.Models;
+    using FFXIVAPP.Common.Utilities;
+
+    internal static partial class SettingsHelper {
+        public static class Client {
             /// <summary>
             /// </summary>
-            public static void Save()
-            {
-                SaveColorsNode();
-                Settings.Default.Save();
-            }
-
-            /// <summary>
-            /// </summary>
-            public static void Default()
-            {
-                try
-                {
-                    var att = Assembly.GetCallingAssembly()
-                                      .GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+            public static void Default() {
+                try {
+                    object[] att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                     var companyName = ((AssemblyCompanyAttribute) att[0]).Company;
                     var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                     var combinedPath = Path.Combine(appDataPath, companyName);
                     var title = AppViewModel.Instance.Locale["app_WarningMessage"];
                     var message = $"{AppViewModel.Instance.Locale["app_DeleteMessage"]} : {combinedPath}";
-                    MessageBoxHelper.ShowMessageAsync(title, message, delegate
-                    {
-                        Settings.Default.Reset();
-                        Directory.Delete(combinedPath, true);
-                        Settings.Default.Reload();
-                    }, delegate { });
+                    MessageBoxHelper.ShowMessageAsync(
+                        title,
+                        message,
+                        delegate {
+                            Settings.Default.Reset();
+                            Directory.Delete(combinedPath, true);
+                            Settings.Default.Reload();
+                        },
+                        delegate { });
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Logging.Log(Logger, new LogItem(ex, true));
                 }
             }
 
-            #region Iterative Settings Saving
+            /// <summary>
+            /// </summary>
+            public static void Save() {
+                SaveColorsNode();
+                Settings.Default.Save();
+            }
 
-            private static void SaveColorsNode()
-            {
-                if (Constants.XColors == null)
-                {
+            private static void SaveColorsNode() {
+                if (Constants.XColors == null) {
                     return;
                 }
-                var xElements = Constants.XColors.Descendants()
-                                         .Elements("Color");
-                var enumerable = xElements as XElement[] ?? xElements.ToArray();
-                foreach (var color in Constants.Colors)
-                {
-                    var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
-                                                                  .Value == color.Key);
+
+                IEnumerable<XElement> xElements = Constants.XColors.Descendants().Elements("Color");
+                XElement[] enumerable = xElements as XElement[] ?? xElements.ToArray();
+                foreach (KeyValuePair<string, string[]> color in Constants.Colors) {
+                    XElement element = enumerable.FirstOrDefault(e => e.Attribute("Key").Value == color.Key);
                     var xKey = color.Key;
                     var xValue = color.Value[0];
                     var xDescription = color.Value[1];
-                    var keyPairList = new List<XValuePair>();
-                    keyPairList.Add(new XValuePair
-                    {
-                        Key = "Value",
-                        Value = xValue
-                    });
-                    keyPairList.Add(new XValuePair
-                    {
-                        Key = "Description",
-                        Value = xDescription
-                    });
-                    if (element == null)
-                    {
+                    List<XValuePair> keyPairList = new List<XValuePair>();
+                    keyPairList.Add(
+                        new XValuePair {
+                            Key = "Value",
+                            Value = xValue
+                        });
+                    keyPairList.Add(
+                        new XValuePair {
+                            Key = "Description",
+                            Value = xDescription
+                        });
+                    if (element == null) {
                         XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);
                     }
-                    else
-                    {
-                        var xValueElement = element.Element("Value");
-                        if (xValueElement != null)
-                        {
+                    else {
+                        XElement xValueElement = element.Element("Value");
+                        if (xValueElement != null) {
                             xValueElement.Value = xValue;
                         }
-                        var xDescriptionElement = element.Element("Description");
-                        if (xDescriptionElement != null)
-                        {
+
+                        XElement xDescriptionElement = element.Element("Description");
+                        if (xDescriptionElement != null) {
                             xDescriptionElement.Value = xDescription;
                         }
                     }
                 }
+
                 Constants.XColors.Save(Path.Combine(AppViewModel.Instance.ConfigurationsPath, "Colors.xml"));
             }
-
-            #endregion
         }
     }
 }

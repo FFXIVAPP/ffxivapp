@@ -1,107 +1,39 @@
-﻿// FFXIVAPP.Client ~ AppContextHelper.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppContextHelper.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   AppContextHelper.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Network;
-using NLog;
-using Sharlayan.Core;
+namespace FFXIVAPP.Client.Helpers {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
 
-namespace FFXIVAPP.Client.Helpers
-{
-    internal class AppContextHelper
-    {
-        #region Logger
+    using FFXIVAPP.Common.Core.Constant;
+    using FFXIVAPP.Common.Core.Network;
 
+    using NLog;
+
+    using Sharlayan.Core;
+
+    internal class AppContextHelper {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        #endregion
-
-        public void RaiseNewPlayerEntity(PlayerEntity playerEntity)
-        {
-            CurrentUserStats = playerEntity;
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPlayerEntity(playerEntity);
-        }
-
-        public void RaiseNewTargetEntity(TargetEntity targetEntity)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewTargetEntity(targetEntity);
-        }
-
-        public void RaiseNewPartyAddedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyAddedEntries(keys);
-        }
-
-        public void RaiseNewPartyEntries(ConcurrentDictionary<UInt32, PartyEntity> partyEntries)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyEntries(partyEntries);
-        }
-
-        public void RaiseNewPartyRemovedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPartyRemovedEntries(keys);
-        }
-
-        public void RaiseNewInventoryEntries(List<InventoryEntity> inventoryEntities)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewInventoryEntries(inventoryEntities);
-        }
-
-        public void RaiseNewActionEntities(List<ActionEntity> actionEntities)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewActionEntities(actionEntities);
-        }
-
-        #region Property Backings
-
-        private List<uint> _pets;
 
         private static Lazy<AppContextHelper> _instance = new Lazy<AppContextHelper>(() => new AppContextHelper());
 
-        public static AppContextHelper Instance
-        {
-            get { return _instance.Value; }
-        }
+        private List<uint> _pets;
 
-        public List<uint> Pets
-        {
-            get
-            {
-                return _pets ?? (_pets = new List<uint>
-                {
+        public static AppContextHelper Instance => _instance.Value;
+
+        public CurrentPlayer CurrentUserStats { get; set; }
+
+        public List<uint> Pets {
+            get {
+                return this._pets ?? (this._pets = new List<uint> {
                     1398,
                     1399,
                     1400,
@@ -114,124 +46,81 @@ namespace FFXIVAPP.Client.Helpers
             }
         }
 
-        public PlayerEntity CurrentUserStats { get; set; }
-
-        #endregion
-
-        #region SEND EVERYTIME
-
-        public void RaiseNewConstants(ConstantsEntity constantsEntity)
-        {
-            PluginHost.Instance.RaiseNewConstantsEntity(constantsEntity);
+        public void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
+            PluginHost.Instance.RaiseActionContainersUpdated(actionContainers);
         }
 
-        public void RaiseNewChatLogEntry(ChatLogEntry chatLogEntry)
-        {
-            AppViewModel.Instance.ChatHistory.Add(chatLogEntry);
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewChatLogEntry(chatLogEntry);
+        public void RaiseChatLogItemReceived(ChatLogItem chatLogItem) {
+            PluginHost.Instance.RaiseChatLogItemReceived(chatLogItem);
         }
 
-        public void RaiseNewPacket(NetworkPacket networkPacket)
-        {
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNetworkPacket(networkPacket);
+        public void RaiseConstantsUpdated(ConstantsEntity constantsEntity) {
+            PluginHost.Instance.RaiseConstantsUpdated(constantsEntity);
         }
 
-        #endregion
-
-        #region SEND ONCE VIA REFERENCE
-
-        public void RaiseNewMonsterAddedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewMonsterAddedEntries(keys);
+        public void RaiseCurrentPlayerUpdated(CurrentPlayer currentPlayer) {
+            this.CurrentUserStats = currentPlayer;
+            PluginHost.Instance.RaiseCurrentPlayerUpdated(currentPlayer);
         }
 
-        public void RaiseNewMonsterEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
-        {
-            if (!actorEntities.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewMonsterEntries(actorEntities);
+        public void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
+            PluginHost.Instance.RaiseInventoryContainersUpdated(inventoryContainers);
         }
 
-        public void RaiseNewMonsterRemovedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewMonsterRemovedEntries(keys);
+        public void RaiseMonsterItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseMonsterItemsAdded(actorItems);
         }
 
-        public void RaiseNewNPCAddedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNPCAddedEntries(keys);
+        public void RaiseMonsterItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseMonsterItemsRemoved(actorItems);
         }
 
-        public void RaiseNewNPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
-        {
-            if (!actorEntities.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNPCEntries(actorEntities);
+        public void RaiseMonsterItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseMonsterItemsUpdated(actorItems);
         }
 
-        public void RaiseNewNPCRemovedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewNPCRemovedEntries(keys);
+        public void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
+            PluginHost.Instance.RaiseNetworkPacketReceived(networkPacket);
         }
 
-        public void RaiseNewPCAddedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPCAddedEntries(keys);
+        public void RaiseNPCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseNPCItemsAdded(actorItems);
         }
 
-        public void RaiseNewPCEntries(ConcurrentDictionary<UInt32, ActorEntity> actorEntities)
-        {
-            if (!actorEntities.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPCEntries(actorEntities);
+        public void RaiseNPCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseNPCItemsRemoved(actorItems);
         }
 
-        public void RaiseNewPCRemovedEntries(List<UInt32> keys)
-        {
-            if (!keys.Any())
-            {
-                return;
-            }
-            // THIRD PARTY
-            PluginHost.Instance.RaiseNewPCRemovedEntries(keys);
+        public void RaiseNPCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaiseNPCItemsUpdated(actorItems);
         }
 
-        #endregion
+        public void RaisePartyMembersAdded(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            PluginHost.Instance.RaisePartyMembersAdded(partyMembers);
+        }
+
+        public void RaisePartyMembersRemoved(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            PluginHost.Instance.RaisePartyMembersRemoved(partyMembers);
+        }
+
+        public void RaisePartyMembersUpdated(ConcurrentDictionary<uint, PartyMember> partyMembers) {
+            PluginHost.Instance.RaisePartyMembersUpdated(partyMembers);
+        }
+
+        public void RaisePCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaisePCItemsAdded(actorItems);
+        }
+
+        public void RaisePCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaisePCItemsRemoved(actorItems);
+        }
+
+        public void RaisePCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
+            PluginHost.Instance.RaisePCItemsUpdated(actorItems);
+        }
+
+        public void RaiseTargetInfoUpdated(TargetInfo targetInfo) {
+            PluginHost.Instance.RaiseTargetInfoUpdated(targetInfo);
+        }
     }
 }

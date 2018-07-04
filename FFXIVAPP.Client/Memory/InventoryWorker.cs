@@ -1,134 +1,90 @@
-﻿// FFXIVAPP.Client ~ InventoryWorker.cs
-// 
-// Copyright © 2007 - 2017 Ryan Wilson - All Rights Reserved
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="InventoryWorker.cs" company="SyndicatedLife">
+//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
+// </copyright>
+// <summary>
+//   InventoryWorker.cs Implementation
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Timers;
-using FFXIVAPP.Client.Helpers;
-using FFXIVAPP.Client.Properties;
-using NLog;
-using Sharlayan;
+namespace FFXIVAPP.Client.Memory {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Runtime.CompilerServices;
+    using System.Timers;
 
-namespace FFXIVAPP.Client.Memory
-{
-    internal class InventoryWorker : INotifyPropertyChanged, IDisposable
-    {
-        #region Logger
+    using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Properties;
 
+    using NLog;
+
+    using Sharlayan;
+    using Sharlayan.Models.ReadResults;
+
+    internal class InventoryWorker : INotifyPropertyChanged, IDisposable {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        #endregion
-
-        public InventoryWorker()
-        {
-            _scanTimer = new Timer(1000);
-            _scanTimer.Elapsed += ScanTimerElapsed;
-        }
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            _scanTimer.Elapsed -= ScanTimerElapsed;
-        }
-
-        #endregion
-
-        #region Property Bindings
-
-        #endregion
-
-        #region Declarations
+        public Stopwatch Stopwatch = new Stopwatch();
 
         private readonly Timer _scanTimer;
+
         private bool _isScanning;
 
-        #endregion
+        public InventoryWorker() {
+            this._scanTimer = new Timer(1000);
+            this._scanTimer.Elapsed += this.ScanTimerElapsed;
+        }
 
-        #region Timer Controls
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        /// <summary>
-        /// </summary>
-        public void StartScanning()
-        {
-            _scanTimer.Enabled = true;
+        public void Dispose() {
+            this._scanTimer.Elapsed -= this.ScanTimerElapsed;
         }
 
         /// <summary>
         /// </summary>
-        public void StopScanning()
-        {
-            _scanTimer.Enabled = false;
+        public void StartScanning() {
+            this._scanTimer.Enabled = true;
         }
 
-        #endregion
+        /// <summary>
+        /// </summary>
+        public void StopScanning() {
+            this._scanTimer.Enabled = false;
+        }
 
-        #region Threads
-
-        public Stopwatch Stopwatch = new Stopwatch();
+        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"> </param>
         /// <param name="e"> </param>
-        private void ScanTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            if (_isScanning)
-            {
+        private void ScanTimerElapsed(object sender, ElapsedEventArgs e) {
+            if (this._isScanning) {
                 return;
             }
-            _isScanning = true;
+
+            this._isScanning = true;
 
             double refresh = 100;
-            if (Double.TryParse(Settings.Default.InventoryWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh))
-            {
-                _scanTimer.Interval = refresh;
+            if (double.TryParse(Settings.Default.InventoryWorkerRefresh.ToString(CultureInfo.InvariantCulture), out refresh)) {
+                this._scanTimer.Interval = refresh;
             }
 
-            Func<bool> scanner = delegate
-            {
-                var readResult = Reader.GetInventoryItems();
+            Func<bool> scanner = delegate {
+                InventoryResult readResult = Reader.GetInventory();
 
-                #region Notifications
+                AppContextHelper.Instance.RaiseInventoryContainersUpdated(readResult.InventoryContainers);
 
-                AppContextHelper.Instance.RaiseNewInventoryEntries(readResult.InventoryEntities);
-
-                #endregion
-
-                _isScanning = false;
+                this._isScanning = false;
                 return true;
             };
             scanner.BeginInvoke(delegate { }, scanner);
         }
-
-        #endregion
-
-        #region Implementation of INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
     }
 }
