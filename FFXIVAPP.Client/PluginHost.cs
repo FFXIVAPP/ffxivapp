@@ -190,115 +190,115 @@ namespace FFXIVAPP.Client {
         }
 
         public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
-            var raised = new ActionContainersEvent(this, in actionContainers);
+            var raised = new ActionContainersEvent(this, actionContainers);
             EventHandler<ActionContainersEvent> handler = this.ActionContainersUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseChatLogItemReceived(ChatLogItem chatLogItem) {
-            var raised = new ChatLogItemEvent(this, in chatLogItem);
+            var raised = new ChatLogItemEvent(this, chatLogItem);
             EventHandler<ChatLogItemEvent> handler = this.ChatLogItemReceived;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseConstantsUpdated(ConstantsEntity constantsEntity) {
-            var raised = new ConstantsEntityEvent(this, in constantsEntity);
+            var raised = new ConstantsEntityEvent(this, constantsEntity);
             EventHandler<ConstantsEntityEvent> handler = this.ConstantsUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseCurrentPlayerUpdated(CurrentPlayer currentPlayer) {
-            var raised = new CurrentPlayerEvent(this, in currentPlayer);
+            var raised = new CurrentPlayerEvent(this, currentPlayer);
             EventHandler<CurrentPlayerEvent> handler = this.CurrentPlayerUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
-            var raised = new InventoryContainersEvent(this, in inventoryContainers);
+            var raised = new InventoryContainersEvent(this, inventoryContainers);
             EventHandler<InventoryContainersEvent> handler = this.InventoryContainersUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseMonsterItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsAddedEvent(this, in actorItems);
+            var raised = new ActorItemsAddedEvent(this, actorItems);
             EventHandler<ActorItemsAddedEvent> handler = this.MonsterItemsAdded;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseMonsterItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsRemovedEvent(this, in actorItems);
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
             EventHandler<ActorItemsRemovedEvent> handler = this.MonsterItemsRemoved;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseMonsterItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsEvent(this, in actorItems);
+            var raised = new ActorItemsEvent(this, actorItems);
             EventHandler<ActorItemsEvent> handler = this.MonsterItemsUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
-            var raised = new NetworkPacketEvent(this, in networkPacket);
+            var raised = new NetworkPacketEvent(this, networkPacket);
             EventHandler<NetworkPacketEvent> handler = this.NetworkPacketReceived;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseNPCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsAddedEvent(this, in actorItems);
+            var raised = new ActorItemsAddedEvent(this, actorItems);
             EventHandler<ActorItemsAddedEvent> handler = this.NPCItemsAdded;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseNPCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsRemovedEvent(this, in actorItems);
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
             EventHandler<ActorItemsRemovedEvent> handler = this.NPCItemsRemoved;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseNPCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsEvent(this, in actorItems);
+            var raised = new ActorItemsEvent(this, actorItems);
             EventHandler<ActorItemsEvent> handler = this.NPCItemsUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePartyMembersAdded(ConcurrentDictionary<uint, PartyMember> partyMembers) {
-            var raised = new PartyMembersAddedEvent(this, in partyMembers);
+            var raised = new PartyMembersAddedEvent(this, partyMembers);
             EventHandler<PartyMembersAddedEvent> handler = this.PartyMembersAdded;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePartyMembersRemoved(ConcurrentDictionary<uint, PartyMember> partyMembers) {
-            var raised = new PartyMembersRemovedEvent(this, in partyMembers);
+            var raised = new PartyMembersRemovedEvent(this, partyMembers);
             EventHandler<PartyMembersRemovedEvent> handler = this.PartyMembersRemoved;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePartyMembersUpdated(ConcurrentDictionary<uint, PartyMember> partyMembers) {
-            var raised = new PartyMembersEvent(this, in partyMembers);
+            var raised = new PartyMembersEvent(this, partyMembers);
             EventHandler<PartyMembersEvent> handler = this.PartyMembersUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsAddedEvent(this, in actorItems);
+            var raised = new ActorItemsAddedEvent(this, actorItems);
             EventHandler<ActorItemsAddedEvent> handler = this.PCItemsAdded;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePCItemsRemoved(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsRemovedEvent(this, in actorItems);
+            var raised = new ActorItemsRemovedEvent(this, actorItems);
             EventHandler<ActorItemsRemovedEvent> handler = this.PCItemsRemoved;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaisePCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
-            var raised = new ActorItemsEvent(this, in actorItems);
+            var raised = new ActorItemsEvent(this, actorItems);
             EventHandler<ActorItemsEvent> handler = this.PCItemsUpdated;
             handler?.Invoke(this, raised);
         }
 
         public virtual void RaiseTargetInfoUpdated(TargetInfo targetInfo) {
-            var raised = new TargetInfoEvent(this, in targetInfo);
+            var raised = new TargetInfoEvent(this, targetInfo);
             EventHandler<TargetInfoEvent> handler = this.TargetInfoUpdated;
             handler?.Invoke(this, raised);
         }
