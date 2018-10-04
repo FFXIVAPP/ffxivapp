@@ -11,9 +11,11 @@
 namespace FFXIVAPP.Client {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
     using Avalonia.Controls;
     using FFXIVAPP.Client.Helpers;
@@ -44,7 +46,7 @@ namespace FFXIVAPP.Client {
 
         private static Dictionary<string, string> _chatCodes;
 
-        private static Dictionary<string, string[]> _colors;
+        private static ObservableCollection<object> _colors;
 
         private static CultureInfo _cultureInfo;
 
@@ -109,9 +111,12 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        public static Dictionary<string, string[]> Colors {
+        public static IEnumerable<KeyValuePair<string, string[]>> ColorsToKeyValue => Colors.Cast<KeyValuePair<string, string[]>>();
+        public static Dictionary<string, string[]> ColorsToDictionary => ColorsToKeyValue.ToDictionary(k => k.Key, k => k.Value);
+
+        public static ObservableCollection<object> Colors {
             get {
-                return _colors ?? (_colors = new Dictionary<string, string[]>());
+                return _colors ?? (_colors = new ObservableCollection<object>());
             }
 
             set {

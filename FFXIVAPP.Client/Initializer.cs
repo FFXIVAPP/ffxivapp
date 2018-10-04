@@ -413,21 +413,21 @@ namespace FFXIVAPP.Client {
                         }
                     }
 
-                    Constants.Colors.Add(
+                    Constants.Colors.Add(KeyValuePair.Create(
                         xKey,
                         new[] {
                             xValue,
                             xDescription
-                        });
+                        }));
                 }
 
-                foreach (KeyValuePair<string, string> chatCode in Constants.ChatCodes.Where(chatCode => !Constants.Colors.ContainsKey(chatCode.Key))) {
-                    Constants.Colors.Add(
+                foreach (KeyValuePair<string, string> chatCode in Constants.ChatCodes.Where(chatCode => !Constants.ColorsToKeyValue.Any(k => k.Key == chatCode.Key))) {
+                    Constants.Colors.Add(KeyValuePair.Create(
                         chatCode.Key,
                         new[] {
                             "FFFFFF",
                             chatCode.Value
-                        });
+                        }));
                 }
             }
         }

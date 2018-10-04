@@ -5,6 +5,7 @@
             xmlns:Properties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Application"
              xmlns:local="clr-namespace:FFXIVAPP.Client"
              xmlns:groupbox="clr-namespace:Teast.Controls;assembly=Teast.Controls.GroupBox"
+             xmlns:datagrid="clr-namespace:Teast.Controls;assembly=Teast.Controls.DataGrid"
              xmlns:Views="crl-namespace:FFXIVAPP.Client.Views">
     <UserControl.Resources>
         <Converters:ProcessModelToStringConverter x:Key="ProcessModelToStringConverter" />
@@ -268,27 +269,25 @@
                         <TextBox x:Name="TColor" Text="" />
                     </DockPanel>
                     <DockPanel Grid.Row="1" Margin="3">
-                        <!-- TODO: DataGrid
-                        <DataGrid x:Name="Colors"
-                                  Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}"
+                    <!-- TODO: DataGrid Selection Changed Utilities:SelectionBehavior.SelectionChanged="{Binding ColorSelectionCommand}" -->
+                        <datagrid:DataGrid x:Name="Colors"
                                   AutoGenerateColumns="False"
                                   BorderBrush="{DynamicResource AccentColorBrush}"
                                   BorderThickness="1"
-                                  ItemsSource="{Binding Source={x:Static Client:Constants.Colors}}"
+                                  Items="{Binding Source={x:Static local:Constants.Colors}}"
                                   SelectionMode="Single">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Key"
+                            <datagrid:DataGrid.Columns>
+                                <datagrid:DataGridTextColumn
                                                     Binding="{Binding Key}"
                                                     Header="{Binding Locale[app_CodeHeader], Source={x:Static local:AppViewModel.Instance}}" />
-                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Value[0]"
+                                <datagrid:DataGridTextColumn
                                                     Binding="{Binding Value[0]}"
                                                     Header="{Binding Locale[app_ColorHeader], Source={x:Static local:AppViewModel.Instance}}" />
-                                <DataGridTextColumn Utilities:GridViewSort.PropertyName="Value[1]"
+                                <datagrid:DataGridTextColumn
                                                     Binding="{Binding Value[1]}"
                                                     Header="{Binding Locale[app_DescriptionHeader], Source={x:Static local:AppViewModel.Instance}}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        -->
+                            </datagrid:DataGrid.Columns>
+                        </datagrid:DataGrid>
                     </DockPanel>
                     <DockPanel Grid.Row="2" LastChildFill="True">
                         <Button Margin="3"

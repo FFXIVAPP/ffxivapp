@@ -37,7 +37,7 @@
 
     <PackageReference Include="HtmlAgilityPack" Version="1.8.7"/>
     <PackageReference Include="Teast.Controls.GroupBox" Version="1.0.6"/>
-    <PackageReference Include="Teast.Controls.DataGrid" Version="1.0.3"/>
+    <PackageReference Include="Teast.Controls.DataGrid" Version="1.0.4"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ffxivapp-resourcefiles\FFXIVAPP.ResourceFiles\FFXIVAPP.ResourceFiles.csproj"/>

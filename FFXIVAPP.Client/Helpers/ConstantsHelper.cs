@@ -9,6 +9,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace FFXIVAPP.Client.Helpers {
+    using System.Collections.Generic;
+    using System.Linq;
     using FFXIVAPP.Common.Core.Constant;
 
     internal static class ConstantsHelper {
@@ -19,7 +21,7 @@ namespace FFXIVAPP.Client.Helpers {
                     CharacterName = Constants.CharacterName,
                     ChatCodes = Constants.ChatCodes,
                     ChatCodesXML = Constants.ChatCodesXML,
-                    Colors = Constants.Colors,
+                    Colors = Constants.Colors.Cast<KeyValuePair<string, string[]>>().ToDictionary(k => k.Key, v => v.Value),
                     CultureInfo = Constants.CultureInfo,
                     EnableHelpLabels = Constants.EnableHelpLabels,
                     GameLanguage = Constants.GameLanguage,
