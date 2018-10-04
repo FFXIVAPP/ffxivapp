@@ -12,12 +12,8 @@ namespace FFXIVAPP.Client.Helpers {
     using System;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Threading;
-
+    using Avalonia.Threading;
     using FFXIVAPP.Common.Helpers;
-
-    using MahApps.Metro.Controls;
-    using MahApps.Metro.Controls.Dialogs;
 
     internal static class MessageBoxHelper {
         /// <summary>
@@ -47,6 +43,7 @@ namespace FFXIVAPP.Client.Helpers {
         private static void HandleMessage(string title, string message, Action okAction = null, Action cancelAction = null) {
             DispatcherHelper.Invoke(
                 delegate {
+                    /* TODO: HandleMessage
                     MetroWindow mw = Application.Current.Windows.OfType<MetroWindow>().FirstOrDefault();
                     if (mw != null) {
                         mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
@@ -79,6 +76,7 @@ namespace FFXIVAPP.Client.Helpers {
                     else {
                         MessageBox.Show($"Unable to process MessageBox[{message}]:NotProcessingResult", title, MessageBoxButton.OK);
                     }
+                    */
                 },
                 DispatcherPriority.Send);
         }

@@ -21,13 +21,14 @@ namespace FFXIVAPP.Client {
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Xml.Linq;
-
+    using Avalonia.Controls;
     using FFXIVAPP.Client.Helpers;
     using FFXIVAPP.Client.Memory;
     using FFXIVAPP.Client.Models;
-    using FFXIVAPP.Client.Properties;
+    using FFXIVAPP.Client.SettingsProviders.Application;
     using FFXIVAPP.Client.Utilities;
     using FFXIVAPP.Client.ViewModels;
     using FFXIVAPP.Client.Views;
@@ -35,12 +36,6 @@ namespace FFXIVAPP.Client {
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.RegularExpressions;
     using FFXIVAPP.Common.Utilities;
-
-    using Machina;
-    using Machina.Events;
-    using Machina.Models;
-
-    using NAudio.Wave;
 
     using Newtonsoft.Json.Linq;
 
@@ -50,7 +45,6 @@ namespace FFXIVAPP.Client {
     using Sharlayan.Events;
     using Sharlayan.Models;
 
-    using Application = System.Windows.Forms.Application;
     using ExceptionEvent = Sharlayan.Events.ExceptionEvent;
 
     internal static class Initializer {
@@ -70,11 +64,13 @@ namespace FFXIVAPP.Client {
 
         private static TargetWorker _targetWorker;
 
+        /* TODO: Network
         public static bool NetworkWorking {
             get {
                 return NetworkHandler.Instance.IsRunning;
             }
         }
+        */
 
         /// <summary>
         /// </summary>
@@ -145,7 +141,7 @@ namespace FFXIVAPP.Client {
                                     DateTime currentBuildDateTime = new DateTime(2000, 1, 1).Add(new TimeSpan(TimeSpan.TicksPerDay * currentBuild.Build + TimeSpan.TicksPerSecond * 2 * currentBuild.Revision));
                                     TimeSpan timeSpan = latestBuildDateTime - currentBuildDateTime;
                                     if (timeSpan.TotalSeconds > 0) {
-                                        message.AppendLine(string.Format("Missing {0} days, {1} hours and {2} seconds of updates.{3}", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
+                                        message.AppendLine(string.Format("Missing {0} days, {1} hours and {2} seconds of updates.", timeSpan.Days, timeSpan.Hours, timeSpan.Seconds));
                                     }
                                 }
                                 catch (Exception ex) {
@@ -155,24 +151,26 @@ namespace FFXIVAPP.Client {
                                     message.AppendLine(AppViewModel.Instance.Locale["app_AlwaysReadUpdatesMessage"]);
                                 }
 
-                                MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
+                                MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => App.CloseApplication(true), delegate { });
                             }
 
                             var uri = "https://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
-                            DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
+                            // TODO: DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                         }
                     }
                 }
 
                 return true;
             };
-            update.BeginInvoke(delegate { }, update);
+            
+            Task.Run(() => update());
         }
 
         /// <summary>
         /// </summary>
         public static void GetHomePlugin() {
             var homePlugin = Settings.Default.HomePlugin;
+            var called = false;
             switch (homePlugin) {
                 case "None":
                     break;
@@ -181,6 +179,7 @@ namespace FFXIVAPP.Client {
                         var index = SettingsViewModel.Instance.HomePluginList.IndexOf(homePlugin);
                         if (index > 0) {
                             SetHomePlugin(--index);
+                            called = true;
                         }
                     }
                     catch (Exception ex) {
@@ -189,12 +188,20 @@ namespace FFXIVAPP.Client {
 
                     break;
             }
+
+            if (called == false) {
+                if (AppViewModel.Instance.PluginTabSelected == null && AppViewModel.Instance.PluginTabItems?.Count > 0) {
+                    SetHomePlugin(0);
+                }
+
+                AppViewModel.Instance.TabSelected = ShellView.View.ShellViewTC.Items.Cast<TabItem>().First();
+            }
         }
 
         /// <summary>
         /// </summary>
         public static void LoadApplicationSettings() {
-            if (Constants.XSettings != null) { }
+            if (Settings.Default != null) { }
         }
 
         /// <summary>
@@ -213,6 +220,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: Audio
         /// <summary>
         /// </summary>
         public static void LoadAvailableAudioDevices() {
@@ -220,24 +228,24 @@ namespace FFXIVAPP.Client {
                 SettingsViewModel.Instance.AvailableAudioDevicesList.Add(device.Description);
             }
         }
-
+        */
+        /* TODO: Network
         public static void LoadAvailableNetworkDevices() {
             foreach (NetworkInterface networkInterface in App.AvailableNetworkInterfaces) {
                 SettingsViewModel.Instance.AvailableNetworkInterfacesList.Add(networkInterface.Name);
             }
         }
-
+        */
+        
         public static void LoadAvailablePlugins() {
-            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
+            UpdateViewModel.Instance.UpdatingAvailablePlugins = true;
             UpdateViewModel.Instance.AvailablePlugins.Clear();
-
-            UpdateView.View.PluginUpdateSpinner.Spin = true;
-            ShellView.View.PluginUpdateSpinner.Spin = true;
 
             Func<bool> update = delegate {
                 List<PluginSourceItem> pluginSourceList = new List<PluginSourceItem>();
                 try {
-                    var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
+                    //var httpWebRequest = (HttpWebRequest) WebRequest.Create("https://github.com/Icehunter/ffxivapp/raw/master/PACKAGES.json");
+                    var httpWebRequest = (HttpWebRequest) WebRequest.Create("http://localhost/teast/ffxivapp/PACKAGES.json");
                     httpWebRequest.UserAgent = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-US) AppleWebKit/533.4 (KHTML, like Gecko) Chrome/5.0.375.70 Safari/533.4";
                     httpWebRequest.Headers.Add("Accept-Language", "en;q=0.8");
                     httpWebRequest.ContentType = "application/text; charset=utf-8";
@@ -356,63 +364,19 @@ namespace FFXIVAPP.Client {
                     }
                 }
 
+                /* TODO: Can implement when we got DataGrid for installed plugins (or changed current datagrid so it can group)
                 DispatcherHelper.Invoke(
                     delegate {
-                        if (UpdateView.View.AvailableDG.Items.Count == UpdateViewModel.Instance.AvailablePlugins.Count) {
-                            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
+                        if (UpdateViewModel.Instance.AvailableDG.Count == UpdateViewModel.Instance.AvailablePlugins.Count){ 
+                            // TODO: Hide/Collapse available plugins because they are all installed
                         }
-
-                        UpdateView.View.AvailableDG.Items.Refresh();
-
-                        UpdateViewModel.Instance.SetupGrouping();
-
-                        UpdateView.View.PluginUpdateSpinner.Spin = false;
-                        ShellView.View.PluginUpdateSpinner.Spin = false;
                     });
+                */
 
+                UpdateViewModel.Instance.UpdatingAvailablePlugins = false;
                 return true;
             };
-            update.BeginInvoke(delegate { }, update);
-        }
-
-        public static void LoadAvailableSources() {
-            if (Constants.XSettings != null) {
-                foreach (XElement xElement in Constants.XSettings.Descendants().Elements("PluginSource")) {
-                    Guid xKey = Guid.Empty;
-                    var xSourceURI = (string) xElement.Element("SourceURI");
-                    var xEnabled = true;
-                    try {
-                        xEnabled = (bool) xElement.Element("Enabled");
-                    }
-                    catch (Exception ex) {
-                        Logging.Log(Logger, new LogItem(ex, true));
-                    }
-
-                    try {
-                        xKey = (Guid) xElement.Attribute("Key");
-                    }
-                    catch (Exception ex) {
-                        Logging.Log(Logger, new LogItem(ex, true));
-                    }
-
-                    if (string.IsNullOrWhiteSpace(xSourceURI)) {
-                        continue;
-                    }
-
-                    xKey = xKey != Guid.Empty
-                               ? xKey
-                               : Guid.NewGuid();
-                    var pluginSourceItem = new PluginSourceItem {
-                        Key = xKey,
-                        SourceURI = xSourceURI,
-                        Enabled = xEnabled
-                    };
-                    var found = UpdateViewModel.Instance.AvailableSources.Any(source => source.Key == pluginSourceItem.Key);
-                    if (!found) {
-                        UpdateViewModel.Instance.AvailableSources.Add(pluginSourceItem);
-                    }
-                }
-            }
+            Task.Run(() => update());
         }
 
         /// <summary>
@@ -471,30 +435,36 @@ namespace FFXIVAPP.Client {
         /// <summary>
         /// </summary>
         public static void LoadPlugins() {
-            var pluginsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Plugins");
+            var pluginsDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Plugins");
             App.Plugins.LoadPlugins(pluginsDirectory);
-            foreach (PluginInstance pluginInstance in App.Plugins.Loaded) {
-                TabItemHelper.LoadPluginTabItem(pluginInstance);
-            }
-
             AppViewModel.Instance.HasPlugins = App.Plugins.Loaded.Count > 0;
         }
 
+        public static void LoadPluginTabs() {
+            foreach (PluginInstance pluginInstance in App.Plugins.Loaded) {
+                TabItemHelper.LoadPluginTabItem(pluginInstance);
+                pluginInstance.Instance.Locale = AppViewModel.Instance.Locale;
+            }
+        }
+
+        /* TODO: Audio
         /// <summary>
         /// </summary>
         public static void LoadSoundsIntoCache() {
             SoundPlayerHelper.CacheSoundFiles();
         }
-
+        */
         public static void RefreshMemoryWorkers() {
             StopMemoryWorkers();
             StartMemoryWorkers();
         }
 
+        /* TODO: Network
         public static void RefreshNetworkWorker() {
             StopNetworkWorker();
             StartNetworkWorker();
         }
+        */
 
         /// <summary>
         /// </summary>
@@ -514,12 +484,12 @@ namespace FFXIVAPP.Client {
         /// </summary>
         public static void SetProcessID() {
             StopMemoryWorkers();
-            if (SettingsView.View.PIDSelect.Text == string.Empty) {
+            if (SettingsViewModel.Instance.PIDSelect == null) {
                 return;
             }
 
-            Group ID = Regex.Match(SettingsView.View.PIDSelect.Text, @"\[(?<id>\d+)\]", SharedRegEx.DefaultOptions).Groups["id"];
-            UpdateProcessID(Constants.ProcessModels.FirstOrDefault(pm => pm.ProcessID == Convert.ToInt32(ID)));
+            var ID = SettingsViewModel.Instance.PIDSelect.ProcessID;
+            UpdateProcessID(Constants.ProcessModels.FirstOrDefault(pm => pm.ProcessID == ID));
             StartMemoryWorkers();
         }
 
@@ -538,7 +508,7 @@ namespace FFXIVAPP.Client {
         /// </summary>
         public static void StartMemoryWorkers() {
             StopMemoryWorkers();
-            var id = SettingsView.View.PIDSelect.Text == string.Empty
+            var id = SettingsViewModel.Instance.PIDSelect == null
                          ? GetProcessID()
                          : Constants.ProcessModel.ProcessID;
             Constants.IsOpen = true;
@@ -568,6 +538,7 @@ namespace FFXIVAPP.Client {
             _hotBarRecastWorker.StartScanning();
         }
 
+        /* TODO: Network
         public static void StartNetworkWorker() {
             StopNetworkWorker();
 
@@ -585,6 +556,7 @@ namespace FFXIVAPP.Client {
 
             NetworkHandler.Instance.StartDecrypting();
         }
+        */
 
         /// <summary>
         /// </summary>
@@ -628,13 +600,14 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: Network
         public static void StopNetworkWorker() {
             NetworkHandler.Instance.ExceptionEvent -= NetworkHandler_ExceptionEvent;
             NetworkHandler.Instance.NewNetworkPacketEvent -= NetworkHandler_NewPacketEvent;
 
             NetworkHandler.Instance.StopDecrypting();
         }
-
+        */
         public static void UpdatePluginConstants() {
             ConstantsHelper.UpdatePluginConstants();
         }
@@ -669,16 +642,29 @@ namespace FFXIVAPP.Client {
                     });
             }
 
+            // Linux wine has .exe at the end of the process name
+            foreach (Process process in Process.GetProcessesByName("ffxiv.exe")) {
+                Constants.ProcessModels.Add(
+                    new ProcessModel {
+                        Process = process
+                    });
+            }
+
+            foreach (Process process in Process.GetProcessesByName("ffxiv_dx11.exe")) {
+                Constants.ProcessModels.Add(
+                    new ProcessModel {
+                        Process = process,
+                        IsWin64 = true
+                    });
+            }
+
             if (Constants.ProcessModels.Any()) {
                 Constants.IsOpen = true;
                 foreach (ProcessModel processModel in Constants.ProcessModels) {
-                    var platform = processModel.IsWin64
-                                       ? "64-Bit"
-                                       : "32-Bit";
-                    SettingsView.View.PIDSelect.Items.Add($"[{processModel.Process.Id}] - {platform}");
+                    SettingsViewModel.Instance.PIDSelectItems.Add(processModel);
                 }
 
-                SettingsView.View.PIDSelect.SelectedIndex = 0;
+                SettingsViewModel.Instance.PIDSelect = SettingsViewModel.Instance.PIDSelectItems.First();
                 UpdateProcessID(Constants.ProcessModels.First());
                 return Constants.ProcessModels.First().Process.Id;
             }
@@ -694,9 +680,12 @@ namespace FFXIVAPP.Client {
         private static void MemoryHandler_SignaturesFoundEvent(object sender, SignaturesFoundEvent e) {
             foreach (KeyValuePair<string, Signature> kvp in e.Signatures) {
                 Logging.Log(e.Logger, new LogItem($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
+                // TODO: Remove when we do not want to output to console...
+                Console.WriteLine($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]");
             }
         }
 
+        /* TODO: Network
         private static void NetworkHandler_ExceptionEvent(object sender, Machina.Events.ExceptionEvent e) {
             Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
         }
@@ -713,12 +702,13 @@ namespace FFXIVAPP.Client {
                     PacketDate = packet.PacketDate
                 });
         }
+        */
 
         /// <summary>
         /// </summary>
         /// <param name="pluginIndex"></param>
         private static void SetHomePlugin(int pluginIndex) {
-            ShellView.View.ShellViewTC.SelectedIndex = 1;
+            AppViewModel.Instance.TabSelected = ShellView.View.ShellViewTC.Items.Cast<TabItem>().Skip(1).First();
             ShellView.View.PluginsTC.SelectedIndex = pluginIndex;
         }
 

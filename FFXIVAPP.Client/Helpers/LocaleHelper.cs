@@ -13,8 +13,8 @@ namespace FFXIVAPP.Client.Helpers {
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Windows;
 
+    using FFXIVAPP.Client;
     using FFXIVAPP.Client.Localization;
     using FFXIVAPP.Client.Models;
 
@@ -24,7 +24,7 @@ namespace FFXIVAPP.Client.Helpers {
         /// <param name="cultureInfo"> </param>
         public static void Update(CultureInfo cultureInfo) {
             var culture = cultureInfo.TwoLetterISOLanguageName;
-            ResourceDictionary dictionary;
+            Dictionary<string, string> dictionary;
             if (Constants.Supported.Contains(culture)) {
                 switch (culture) {
                     case "fr":
@@ -54,10 +54,9 @@ namespace FFXIVAPP.Client.Helpers {
                 dictionary = English.Context();
             }
 
-            Dictionary<string, string> locale = dictionary.Cast<DictionaryEntry>().ToDictionary(item => (string) item.Key, item => (string) item.Value);
-            AppViewModel.Instance.Locale = locale;
+            AppViewModel.Instance.Locale = dictionary;
             foreach (PluginInstance pluginInstance in App.Plugins.Loaded.Cast<PluginInstance>().Where(pluginInstance => pluginInstance.Loaded)) {
-                pluginInstance.Instance.Locale = locale;
+                pluginInstance.Instance.Locale = dictionary;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Constants.cs" company="SyndicatedLife">
 //   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
@@ -11,17 +11,18 @@
 namespace FFXIVAPP.Client {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Globalization;
     using System.IO;
     using System.Xml.Linq;
-
+    using Avalonia.Controls;
     using FFXIVAPP.Client.Helpers;
+    using FFXIVAPP.Client.Models;
     using FFXIVAPP.Common.Helpers;
-
     using Sharlayan.Models;
 
     internal static class Constants {
-        public const string AppPack = "pack://application:,,,/FFXIVAPP.Client;component/";
+        public const string AppPack = "FFXIVAPP.Client.";
 
         public static readonly string[] Supported = {
             "ja",
@@ -56,8 +57,6 @@ namespace FFXIVAPP.Client {
         private static string _gameLanguage;
 
         private static string _serverName;
-
-        private static List<string> _settings;
 
         private static string _theme;
 
@@ -195,16 +194,6 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        public static List<string> Settings {
-            get {
-                return _settings ?? (_settings = new List<string>());
-            }
-
-            set {
-                _settings = value;
-            }
-        }
-
         public static string Theme {
             get {
                 return _theme;
@@ -238,10 +227,10 @@ namespace FFXIVAPP.Client {
                     var found = File.Exists(file);
                     _xAutoTranslate = found
                                           ? XDocument.Load(file)
-                                          : ResourceHelper.XDocResource(AppPack + "Defaults/AutoTranslate.xml");
+                                          : ResourceHelper.XDocResource(AppPack + "Defaults.AutoTranslate.xml");
                 }
                 catch (Exception) {
-                    _xAutoTranslate = ResourceHelper.XDocResource(AppPack + "Defaults/AutoTranslate.xml");
+                    _xAutoTranslate = ResourceHelper.XDocResource(AppPack + "Defaults.AutoTranslate.xml");
                 }
 
                 return _xAutoTranslate;
@@ -263,10 +252,10 @@ namespace FFXIVAPP.Client {
                     var found = File.Exists(file);
                     _xChatCodes = found
                                       ? XDocument.Load(file)
-                                      : ResourceHelper.XDocResource(AppPack + "Resources/ChatCodes.xml");
+                                      : ResourceHelper.XDocResource(AppPack + "Resources.ChatCodes.xml");
                 }
                 catch (Exception) {
-                    _xChatCodes = ResourceHelper.XDocResource(AppPack + "Resources/ChatCodes.xml");
+                    _xChatCodes = ResourceHelper.XDocResource(AppPack + "Resources.ChatCodes.xml");
                 }
 
                 return _xChatCodes;
@@ -288,10 +277,10 @@ namespace FFXIVAPP.Client {
                     var found = File.Exists(file);
                     _xColors = found
                                    ? XDocument.Load(file)
-                                   : ResourceHelper.XDocResource(AppPack + "Defaults/Colors.xml");
+                                   : ResourceHelper.XDocResource(AppPack + "Defaults.Colors.xml");
                 }
                 catch (Exception) {
-                    _xColors = ResourceHelper.XDocResource(AppPack + "Defaults/Colors.xml");
+                    _xColors = ResourceHelper.XDocResource(AppPack + "Defaults.Colors.xml");
                 }
 
                 return _xColors;
@@ -302,6 +291,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: Time to get rid of xml settings, or?
         public static XDocument XSettings {
             get {
                 var settingsFile = Path.Combine(AppViewModel.Instance.SettingsPath, "ApplicationSettings.xml");
@@ -313,10 +303,10 @@ namespace FFXIVAPP.Client {
                     var found = File.Exists(settingsFile);
                     _xSettings = found
                                      ? XDocument.Load(settingsFile)
-                                     : ResourceHelper.XDocResource(AppPack + "/Defaults/Settings.xml");
+                                     : ResourceHelper.XDocResource(AppPack + "Defaults.Settings.xml");
                 }
                 catch (Exception) {
-                    _xSettings = ResourceHelper.XDocResource(AppPack + "/Defaults/Settings.xml");
+                    _xSettings = ResourceHelper.XDocResource(AppPack + "Defaults.Settings.xml");
                 }
 
                 return _xSettings;
@@ -326,5 +316,6 @@ namespace FFXIVAPP.Client {
                 _xSettings = value;
             }
         }
+        */
     }
 }

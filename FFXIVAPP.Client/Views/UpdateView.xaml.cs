@@ -1,23 +1,55 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UpdateView.xaml.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
-//   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
-// </copyright>
-// <summary>
-//   UpdateView.xaml.cs Implementation
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+using System;
+using System.Timers;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using FFXIVAPP.Client.ViewModels;
 
-namespace FFXIVAPP.Client.Views {
-    /// <summary>
-    ///     Interaction logic for UpdateView.xaml
-    /// </summary>
-    public partial class UpdateView {
-        public static UpdateView View;
+namespace FFXIVAPP.Client.Views
+{
+    public class UpdateView : UserControlBase
+    {
+        private Timer _spinner;
+        private RotateTransform _rotate;
 
-        public UpdateView() {
-            this.InitializeComponent();
-            View = this;
+        public UpdateView()
+        {
+            InitializeComponent();
+            var spinner = this.FindControl<Image>("PluginUpdateSpinner");
+            _rotate = (RotateTransform)spinner.RenderTransform;
+            _spinner = new Timer(25);
+            _spinner.Elapsed += SpinnerRotatingTimer;
+
+            UpdateViewModel.Instance.PropertyChanged += (o, e) => 
+            {
+                if (e.PropertyName == nameof(UpdateViewModel.UpdatingAvailablePlugins))
+                {
+                    if (UpdateViewModel.Instance.UpdatingAvailablePlugins)
+                    {
+                        _spinner.Start();
+                    }
+                    else
+                    {
+                        _spinner.Stop();
+                        Avalonia.Threading.DispatcherTimer.RunOnce(() => {
+                            _rotate.Angle = 0;
+                        }, new TimeSpan(0));
+                    }
+                }
+            };
+        }
+
+        private void SpinnerRotatingTimer(object sender, ElapsedEventArgs e)
+        {
+            Avalonia.Threading.DispatcherTimer.RunOnce(() => {
+                _rotate.Angle = _rotate.Angle + 10;
+            }, new TimeSpan(0));
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
     }
 }

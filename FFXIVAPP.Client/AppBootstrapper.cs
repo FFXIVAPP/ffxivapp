@@ -23,10 +23,8 @@ namespace FFXIVAPP.Client {
 
     using Sharlayan.Models;
 
-    internal class AppBootstrapper : INotifyPropertyChanged {
+    internal class AppBootstrapper {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        private static Lazy<AppBootstrapper> _instance = new Lazy<AppBootstrapper>(() => new AppBootstrapper());
 
         /*main entry to app
          * used for:
@@ -34,7 +32,7 @@ namespace FFXIVAPP.Client {
          *  configuring collections
          *  setting up dependencies
          */
-        private AppBootstrapper() {
+        public static void Initialize() {
             if (App.MArgs != null) {
                 foreach (var argument in App.MArgs) {
                     Logging.Log(Logger, $"ArgumentProvided : {argument}");
@@ -118,31 +116,16 @@ namespace FFXIVAPP.Client {
                     CultureInfo = new CultureInfo("ru")
                 });
 
-            
-
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
             Initializer.LoadAutoTranslate();
             Initializer.LoadColors();
             Initializer.LoadApplicationSettings();
-            Initializer.LoadAvailableAudioDevices();
-            Initializer.LoadAvailableNetworkDevices();
-            Initializer.LoadSoundsIntoCache();
+            // TODO: Initializer.LoadAvailableAudioDevices();
+            // TODO: Initializer.LoadAvailableNetworkDevices();
+            // TODO: Initializer.LoadSoundsIntoCache();
             Initializer.LoadPlugins();
-
-            
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        public static AppBootstrapper Instance {
-            get {
-                return _instance.Value;
-            }
-        }
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+            Initializer.LoadPluginTabs();
         }
     }
 }

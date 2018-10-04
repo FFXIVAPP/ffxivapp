@@ -11,15 +11,12 @@
 namespace FFXIVAPP.Client.ViewModels {
     using System;
     using System.ComponentModel;
-    using System.ComponentModel.Composition;
     using System.Runtime.CompilerServices;
     using System.Windows.Input;
-    using System.Windows.Threading;
 
     using FFXIVAPP.Common.Helpers;
     using FFXIVAPP.Common.ViewModelBase;
 
-    [Export(typeof(AboutViewModel))]
     internal sealed class AboutViewModel : INotifyPropertyChanged {
         private static Lazy<AboutViewModel> _instance = new Lazy<AboutViewModel>(() => new AboutViewModel());
 
@@ -40,7 +37,7 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         private void ManualUpdate() {
-            DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
+            // TODO: CloseApplication DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
         }
 
         private void RaisePropertyChanged([CallerMemberName] string caller = "") {

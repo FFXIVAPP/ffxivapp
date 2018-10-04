@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="UpdateViewModel.cs" company="SyndicatedLife">
 //   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
@@ -10,45 +10,37 @@
 
 namespace FFXIVAPP.Client.ViewModels {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.ComponentModel.Composition;
     using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Cache;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Data;
+    using System.Threading.Tasks;
     using System.Windows.Input;
-    using System.Windows.Threading;
-
+    using Avalonia.Controls;
+    using Avalonia.Threading;
     using FFXIVAPP.Client.Models;
     using FFXIVAPP.Client.Utilities;
-    using FFXIVAPP.Client.Views;
     using FFXIVAPP.Common.Helpers;
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.Utilities;
     using FFXIVAPP.Common.ViewModelBase;
-
     using NLog;
 
-    [Export(typeof(UpdateViewModel))]
-    internal sealed class UpdateViewModel : INotifyPropertyChanged {
+    public class UpdateViewModel : ViewModelBase {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private static Lazy<UpdateViewModel> _instance = new Lazy<UpdateViewModel>(() => new UpdateViewModel());
 
-        private ObservableCollection<PluginDownloadItem> _availablePlugins;
+        private ObservableCollection<object> _availablePlugins;
 
         private int _availablePluginUpdates;
 
-        private ObservableCollection<PluginSourceItem> _availableSources;
+        private ObservableCollection<object> _availableSources;
 
         public UpdateViewModel() {
             this.RefreshAvailableCommand = new DelegateCommand(RefreshAvailable);
@@ -60,8 +52,6 @@ namespace FFXIVAPP.Client.ViewModels {
             this.AvailableDGDoubleClickCommand = new DelegateCommand(AvailableDGDoubleClick);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
         public static UpdateViewModel Instance {
             get {
                 return _instance.Value;
@@ -72,9 +62,9 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public ICommand AvailableDGDoubleClickCommand { get; private set; }
 
-        public ObservableCollection<PluginDownloadItem> AvailablePlugins {
+        public ObservableCollection<object> AvailablePlugins {
             get {
-                return this._availablePlugins ?? (this._availablePlugins = new ObservableCollection<PluginDownloadItem>());
+                return this._availablePlugins ?? (this._availablePlugins = new ObservableCollection<object>());
             }
 
             set {
@@ -83,6 +73,9 @@ namespace FFXIVAPP.Client.ViewModels {
             }
         }
 
+        public bool UpdatingAvailablePlugins { get; set; }
+        public bool AvailableLoadingProgressMessageVisible { get; set; }
+        public string AvailableLoadingProgressMessageText { get; set; }
         public int AvailablePluginUpdates {
             get {
                 return this._availablePluginUpdates;
@@ -94,9 +87,9 @@ namespace FFXIVAPP.Client.ViewModels {
             }
         }
 
-        public ObservableCollection<PluginSourceItem> AvailableSources {
+        public ObservableCollection<object> AvailableSources {
             get {
-                return this._availableSources ?? (this._availableSources = new ObservableCollection<PluginSourceItem>());
+                return this._availableSources ?? (this._availableSources = new ObservableCollection<object>());
             }
 
             set {
@@ -115,6 +108,14 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public ICommand UnInstallCommand { get; private set; }
 
+        public object SelectedAvailableDGObject { get; set; }
+
+        public PluginDownloadItem SelectedAvailableDG => SelectedAvailableDGObject == null ? null : (PluginDownloadItem)SelectedAvailableDGObject;
+
+        public ObservableCollection<GridItem> PluginSourceDG { get; set; }
+        public GridItem SelectedPluginSourceDG { get; set; }
+
+        /* TODO: WPF Stuff (DataGrid grouping)
         public void SetupGrouping() {
             ICollectionView cvEvents = CollectionViewSource.GetDefaultView(UpdateView.View.AvailableDG.ItemsSource);
             if (cvEvents != null && cvEvents.CanGroup) {
@@ -122,10 +123,12 @@ namespace FFXIVAPP.Client.ViewModels {
                 cvEvents.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
             }
         }
+        */
 
         /// <summary>
         /// </summary>
         private static void AddOrUpdateSource() {
+        /* TODO: Direct access to view
             Guid selectedId = Guid.Empty;
             try {
                 if (UpdateView.View.PluginSourceDG.SelectedItems.Count == 1) {
@@ -156,19 +159,11 @@ namespace FFXIVAPP.Client.ViewModels {
 
             UpdateView.View.PluginSourceDG.UnselectAll();
             UpdateView.View.TSource.Text = string.Empty;
+        */
         }
-
-        private static void AvailableDGDoubleClick() {
-            string key;
-            try {
-                key = GetValueBySelectedItem(UpdateView.View.AvailableDG, "Name");
-            }
-            catch (Exception ex) {
-                Logging.Log(Logger, new LogItem(ex, true));
-                return;
-            }
-
-            PluginDownloadItem plugin = Instance.AvailablePlugins.FirstOrDefault(p => string.Equals(p.Name, key, Constants.InvariantComparer));
+        
+        private void AvailableDGDoubleClick() {
+            PluginDownloadItem plugin = Instance.AvailablePlugins.Cast<PluginDownloadItem>().FirstOrDefault(p => string.Equals(p.Name, this.SelectedAvailableDG?.Name, Constants.InvariantComparer));
             if (plugin == null) {
                 return;
             }
@@ -186,20 +181,12 @@ namespace FFXIVAPP.Client.ViewModels {
 
         /// <summary>
         /// </summary>
-        private static void DeleteSource() {
-            string key;
-            try {
-                key = GetValueBySelectedItem(UpdateView.View.PluginSourceDG, "Key");
-            }
-            catch (Exception ex) {
-                Logging.Log(Logger, new LogItem(ex, true));
-                return;
-            }
-
-            var index = Instance.AvailableSources.TakeWhile(source => source.Key.ToString() != key).Count();
+        private void DeleteSource() {
+            var index = Instance.AvailableSources.Cast<PluginSourceItem>().TakeWhile(source => source.Key.ToString() != this.SelectedPluginSourceDG?.Name).Count();
             Instance.AvailableSources.RemoveAt(index);
         }
 
+        /* TODO: Fix WPF Selector component
         /// <summary>
         /// </summary>
         /// <param name="listView"> </param>
@@ -209,23 +196,24 @@ namespace FFXIVAPP.Client.ViewModels {
             PropertyInfo property = type.GetProperty(key);
             return property.GetValue(listView.SelectedItem, null).ToString();
         }
+        */
 
         /// <summary>
         /// </summary>
-        private static void Install() {
-            foreach (object selectedItem in UpdateView.View.AvailableDG.SelectedItems) {
-                InstallByKey(((PluginDownloadItem) selectedItem).Name);
+        private void Install() {
+            if (this.SelectedAvailableDG != null) {
+                InstallByKey(this.SelectedAvailableDG.Name);
             }
         }
 
         private static void InstallByKey(string key, Action asyncAction = null) {
-            PluginDownloadItem plugin = Instance.AvailablePlugins.FirstOrDefault(p => string.Equals(p.Name, key, Constants.InvariantComparer));
+            PluginDownloadItem plugin = Instance.AvailablePlugins.Cast<PluginDownloadItem>().FirstOrDefault(p => string.Equals(p.Name, key, Constants.InvariantComparer));
             if (plugin == null) {
                 return;
             }
 
-            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Visible;
-            UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Visible;
+            UpdateViewModel.Instance.AvailableLoadingProgressMessageText = "";
+            UpdateViewModel.Instance.AvailableLoadingProgressMessageVisible = true;
             Func<bool> install = delegate {
                 var updateCount = 0;
                 var updateLimit = plugin.Files.Count;
@@ -257,7 +245,7 @@ namespace FFXIVAPP.Client.ViewModels {
                                 client.DownloadProgressChanged += delegate {
                                     DispatcherHelper.Invoke(
                                         delegate {
-                                            UpdateView.View.AvailableLoadingProgressMessage.Text = $"{pluginFile.Location.Trim('/')}/{pluginFile.Name}";
+                                            UpdateViewModel.Instance.AvailableLoadingProgressMessageText = $"{pluginFile.Location.Trim('/')}/{pluginFile.Name}";
                                         });
                                 };
                                 client.DownloadFileCompleted += delegate {
@@ -268,15 +256,14 @@ namespace FFXIVAPP.Client.ViewModels {
                                             delegate {
                                                 if (plugin.Status != PluginStatus.Installed) {
                                                     plugin.Status = PluginStatus.Installed;
-                                                    Instance.SetupGrouping();
+                                                    // TODO: Instance.SetupGrouping();
                                                     if (asyncAction != null) {
                                                         DispatcherHelper.Invoke(asyncAction);
                                                     }
                                                 }
 
-                                                UpdateView.View.AvailableLoadingProgressMessage.Text = string.Empty;
-                                                UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
-                                                UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
+                                                UpdateViewModel.Instance.AvailableLoadingProgressMessageText = string.Empty;
+                                                UpdateViewModel.Instance.AvailableLoadingProgressMessageVisible = false;
                                             },
                                             DispatcherPriority.Send);
                                     }
@@ -293,7 +280,7 @@ namespace FFXIVAPP.Client.ViewModels {
                 if (updateCount >= updateLimit) {
                     if (plugin.Status != PluginStatus.Installed) {
                         plugin.Status = PluginStatus.Installed;
-                        Instance.SetupGrouping();
+                        // TODO: Instance.SetupGrouping();
                         if (asyncAction != null) {
                             DispatcherHelper.Invoke(asyncAction);
                         }
@@ -301,15 +288,15 @@ namespace FFXIVAPP.Client.ViewModels {
 
                     DispatcherHelper.Invoke(
                         delegate {
-                            UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
-                            UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
+                            UpdateViewModel.Instance.AvailableLoadingProgressMessageVisible = false;
                         },
                         DispatcherPriority.Send);
                 }
 
                 return true;
             };
-            install.BeginInvoke(delegate { }, install);
+
+            Task.Run(() => install());
         }
 
         private static void RefreshAvailable() {
@@ -320,6 +307,7 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         private static void SourceSelection() {
+            /* TODO: Direct access to view
             if (UpdateView.View.PluginSourceDG.SelectedItems.Count != 1) {
                 return;
             }
@@ -329,23 +317,24 @@ namespace FFXIVAPP.Client.ViewModels {
             }
 
             UpdateView.View.TSource.Text = GetValueBySelectedItem(UpdateView.View.PluginSourceDG, "SourceURI");
+            */
         }
 
         /// <summary>
         /// </summary>
         private static void UnInstall() {
-            foreach (object selectedItem in UpdateView.View.AvailableDG.SelectedItems) {
-                UnInstallByKey(((PluginDownloadItem) selectedItem).Name);
+            if (UpdateViewModel.Instance.SelectedAvailableDG != null) {
+                UnInstallByKey(UpdateViewModel.Instance.SelectedAvailableDG.Name);
             }
         }
 
         private static void UnInstallByKey(string key, Action asyncAction = null) {
-            PluginDownloadItem plugin = Instance.AvailablePlugins.FirstOrDefault(p => string.Equals(p.Name, key, Constants.InvariantComparer));
+            PluginDownloadItem plugin = Instance.AvailablePlugins.Cast<PluginDownloadItem>().FirstOrDefault(p => string.Equals(p.Name, key, Constants.InvariantComparer));
             if (plugin == null) {
                 return;
             }
 
-            Func<bool> uninstall = delegate {
+            Task.Run(() => {
                 try {
                     var saveLocation = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Plugins", plugin.Name);
                     Directory.Delete(saveLocation, true);
@@ -354,31 +343,22 @@ namespace FFXIVAPP.Client.ViewModels {
                     Logging.Log(Logger, new LogItem(ex, true));
                 }
 
-                return true;
-            };
-            uninstall.BeginInvoke(
-                delegate {
-                    DispatcherHelper.Invoke(
-                        delegate {
-                            foreach (PluginDownloadItem pluginDownloadItem in Instance.AvailablePlugins.Where(pluginDownloadItem => string.Equals(pluginDownloadItem.Name, plugin.Name))) {
-                                pluginDownloadItem.Status = PluginStatus.NotInstalled;
-                            }
+                DispatcherHelper.Invoke(
+                    delegate {
+                        foreach (PluginDownloadItem pluginDownloadItem in Instance.AvailablePlugins.Cast<PluginDownloadItem>().Where(pluginDownloadItem => string.Equals(pluginDownloadItem.Name, plugin.Name))) {
+                            pluginDownloadItem.Status = PluginStatus.NotInstalled;
+                        }
 
-                            Instance.SetupGrouping();
-                            PluginHost.Instance.UnloadPlugin(plugin.Name);
-                            for (var i = ShellView.View.PluginsTC.Items.Count - 1; i > 0; i--) {
-                                if (((TabItem) ShellView.View.PluginsTC.Items[i]).Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", string.Empty)) {
-                                    AppViewModel.Instance.PluginTabItems.RemoveAt(i);
-                                }
+                        // TODO: Instance.SetupGrouping();
+                        PluginHost.Instance.UnloadPlugin(plugin.Name);
+                        for (var i = 0; i < AppViewModel.Instance.PluginTabItems.Count; i++) {
+                            if (AppViewModel.Instance.PluginTabItems[i].Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", string.Empty)) {
+                                AppViewModel.Instance.PluginTabItems.RemoveAt(i);
                             }
-                        },
-                        DispatcherPriority.Send);
-                },
-                uninstall);
-        }
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+                        }
+                    },
+                    DispatcherPriority.Send);
+            });
         }
     }
 }

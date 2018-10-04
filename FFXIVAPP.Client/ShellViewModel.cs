@@ -7,7 +7,7 @@
 //   ShellViewModel.cs Implementation
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
+/* TODO: Where have I put this logics? >.>
 namespace FFXIVAPP.Client {
     using System;
     using System.Collections.Generic;
@@ -153,3 +153,4 @@ namespace FFXIVAPP.Client {
         }
     }
 }
+*/

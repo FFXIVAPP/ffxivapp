@@ -12,9 +12,10 @@ namespace FFXIVAPP.Client.Helpers {
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-
     using FFXIVAPP.Common.Core.Constant;
-    using FFXIVAPP.Common.Core.Network;
+
+    //using FFXIVAPP.Common.Core.Constant;
+    //using FFXIVAPP.Common.Core.Network;
 
     using NLog;
 
@@ -79,8 +80,8 @@ namespace FFXIVAPP.Client.Helpers {
             PluginHost.Instance.RaiseMonsterItemsUpdated(actorItems);
         }
 
-        public void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
-            PluginHost.Instance.RaiseNetworkPacketReceived(networkPacket);
+        public void RaiseNetworkPacketReceived(/*NetworkPacket networkPacket*/) {
+            // TODO: PluginHost.Instance.RaiseNetworkPacketReceived(networkPacket);
         }
 
         public void RaiseNPCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {

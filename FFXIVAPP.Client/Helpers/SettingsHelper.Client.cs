@@ -15,8 +15,8 @@ namespace FFXIVAPP.Client.Helpers {
     using System.Linq;
     using System.Reflection;
     using System.Xml.Linq;
-
-    using FFXIVAPP.Client.Properties;
+    
+    using FFXIVAPP.Client.SettingsProviders.Application;
     using FFXIVAPP.Common.Helpers;
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.Utilities;
@@ -37,9 +37,9 @@ namespace FFXIVAPP.Client.Helpers {
                         title,
                         message,
                         delegate {
-                            Settings.Default.Reset();
+                            Settings.Reset();
                             Directory.Delete(combinedPath, true);
-                            Settings.Default.Reload();
+                            Settings.Reload();
                         },
                         delegate { });
                 }
@@ -52,7 +52,7 @@ namespace FFXIVAPP.Client.Helpers {
             /// </summary>
             public static void Save() {
                 SaveColorsNode();
-                Settings.Default.Save();
+                Settings.Save();
             }
 
             private static void SaveColorsNode() {

@@ -1,35 +1,15 @@
-﻿<MetroControls:MetroWindow x:Class="FFXIVAPP.Client.ShellView"
-                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                           xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-                           xmlns:MetroControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                           xmlns:Properties="clr-namespace:FFXIVAPP.Client.Properties"
-                           xmlns:Utilities="clr-namespace:FFXIVAPP.Common.Utilities;assembly=FFXIVAPP.Common"
-                           xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels"
-                           xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
-                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                           xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                           xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                           Title="{Binding AppTitle, Source={StaticResource AppProperties}}"
-                           Width="{Binding Width, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                           Height="{Binding Height, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                           d:DesignHeight="720"
-                           d:DesignWidth="480"
-                           Closing="MetroWindowClosing"
-                           ContentRendered="MetroWindowContentRendered"
-                           Icon="FFXIVAPP.ico"
-                           Left="{Binding Left, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                           Loaded="MetroWindowLoaded"
-                           ResizeMode="CanResizeWithGrip"
-                           ShowIconOnTitleBar="False"
-                           StateChanged="MetroWindowStateChanged"
-                           Top="{Binding Top, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                           Topmost="{Binding TopMost, Source={x:Static Properties:Settings.Default}}"
-                           UseLayoutRounding="True"
-                           WindowStyle="None"
-                           mc:Ignorable="d">
-
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:FFXIVAPP.Client.ViewModels;assembly=FFXIVAPP.Client"
+        xmlns:Properties="clr-namespace:FFXIVAPP.Client.SettingsProviders.Application"
+        xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
+        xmlns:local="clr-namespace:FFXIVAPP.Client"
+        xmlns:rs="clr-namespace:FFXIVAPP.ResourceFiles;assembly=FFXIVAPP.ResourceFiles"
+        Width="600"
+        Height="400"
+        Icon="resm:FFXIVAPP.Client.FFXIVAPP.ico"
+        Title="{Binding AppTitle, Source={x:Static local:AppViewModel.Instance}}">
+<!-- TODO: Resources        
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -49,7 +29,8 @@
             <x:Static x:Key="UpdateViewModel" Member="ViewModels:UpdateViewModel.Instance" />
         </ResourceDictionary>
     </Window.Resources>
-
+-->
+<!-- TODO: Do something about the sexy metrocontrols top
     <MetroControls:MetroWindow.GlowBrush>
         <SolidColorBrush Color="{DynamicResource AccentColor}" />
     </MetroControls:MetroWindow.GlowBrush>
@@ -109,47 +90,41 @@
                 <ScaleTransform ScaleX="{Binding UIScale, Source={x:Static Properties:Settings.Default}}"
                                 ScaleY="{Binding UIScale, Source={x:Static Properties:Settings.Default}}" />
             </Grid.LayoutTransform>
-            <TabControl x:Name="ShellViewTC"
-                        Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateTitleCommand}"
-                        BorderThickness="{Binding TabStripPlacement, Converter={StaticResource TabStripBorderConverter}, RelativeSource={RelativeSource Self}}"
-                        TabStripPlacement="Left">
-                <TabControl.BorderBrush>
-                    <SolidColorBrush Color="{DynamicResource AccentColor}" />
-                </TabControl.BorderBrush>
-                <TabItem x:Name="MainTI">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Padding="4"
-                                    Background="White"
-                                    BorderBrush="#FF000000"
-                                    BorderThickness="1,1,1,1"
-                                    CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Home"
-                                                               ToolTip="{Binding Locale[app_MainToolTip], Source={StaticResource AppProperties}}" />
-                            </Border>
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_MainToolTip], Source={StaticResource AppProperties}}"
-                                       Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Views:MainView x:Name="MainV" Margin="10,0,10,10" />
-                </TabItem>
-                <TabItem x:Name="PluginsTI">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Padding="4"
-                                    Background="White"
-                                    BorderBrush="#FF000000"
-                                    BorderThickness="1,1,1,1"
-                                    CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Star"
-                                                               ToolTip="{Binding Locale[app_PluginsToolTip], Source={StaticResource AppProperties}}" />
-                            </Border>
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_PluginsToolTip], Source={StaticResource AppProperties}}"
-                                       Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
-                        </StackPanel>
-                    </TabItem.Header>
+-->
+  <TabControl x:Name="ShellViewTC" TabStripPlacement="Left" SelectedItem="{Binding TabSelected, Source={x:Static local:AppViewModel.Instance}}">
+    <TabItem x:Name="MainTI">
+        <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+                <Border Padding="4"
+                        Background="White"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <Image Source="{x:Static rs:Theme.HomeIcon20}" />
+                </Border>
+                <TextBlock Height="15" Margin="4,0,0,0"
+                            Text="{Binding Locale[app_MainToolTip], Source={x:Static local:AppViewModel.Instance}}"
+                            IsVisible="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
+            </StackPanel>
+        </TabItem.Header>
+        <Views:MainView Margin="10,0,10,10" />
+    </TabItem>
+    <TabItem x:Name="PluginsTI">
+        <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+                <Border Padding="4"
+                        Background="White"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <Image Source="{x:Static rs:Theme.StarIcon20}" />
+                </Border>
+                <TextBlock Height="15" Margin="4,0,0,0"
+                            Text="{Binding Locale[app_PluginsToolTip], Source={x:Static local:AppViewModel.Instance}}"
+                            IsVisible="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
+            </StackPanel>
+        </TabItem.Header>
+<!-- TODO: Readd grid here?
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -170,77 +145,81 @@
                                        Text="{Binding Locale[app_pluginUpdateMessageText], Source={StaticResource AppProperties}}"
                                        TextWrapping="WrapWithOverflow" />
                         </Border>
-                        <TabControl x:Name="PluginsTC"
-                                    Grid.Row="1"
-                                    Margin="10,0,10,10"
-                                    Utilities:SelectionBehavior.SelectionChanged="{Binding UpdateSelectedPluginCommand}"
-                                    BorderThickness="{Binding TabStripPlacement, Converter={StaticResource TabStripBorderConverter}, RelativeSource={RelativeSource Self}}"
-                                    ItemsSource="{Binding PluginTabItems, Source={StaticResource AppProperties}}">
+-->
+            <TabControl x:Name="PluginsTC"
+                        Margin="10,0,10,10"
+                        Items="{Binding PluginTabItems, Source={x:Static local:AppViewModel.Instance}}"
+                        SelectedItem="{Binding PluginTabSelected, Source={x:Static local:AppViewModel.Instance}}" />
+                    <!-- TODO: TabControl BorderBrush
                             <TabControl.BorderBrush>
                                 <SolidColorBrush Color="{DynamicResource AccentColor}" />
                             </TabControl.BorderBrush>
-                        </TabControl>
+                        -->
+                    <!-- TODO: Implement grid?
                     </Grid>
-                </TabItem>
-                <TabItem x:Name="SettingsTI">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Padding="4"
-                                    Background="White"
-                                    BorderBrush="#FF000000"
-                                    BorderThickness="1,1,1,1"
-                                    CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Cog"
-                                                               ToolTip="{Binding Locale[app_SettingsToolTip], Source={StaticResource AppProperties}}" />
-                            </Border>
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_SettingsToolTip], Source={StaticResource AppProperties}}"
-                                       Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Views:SettingsView x:Name="SettingsV" Margin="10,0,10,10" />
-                </TabItem>
-                <TabItem x:Name="UpdateTI">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
+                    -->
+    </TabItem>
+    <TabItem x:Name="SettingsTI">
+        <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+                <Border Padding="4"
+                        Background="White"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <Image Source="{x:Static rs:Theme.CogIcon20}" />
+                </Border>
+                <TextBlock Height="15" Margin="4,0,0,0"
+                            Text="{Binding Locale[app_SettingsToolTip], Source={x:Static local:AppViewModel.Instance}}"
+                            IsVisible="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
+            </StackPanel>
+        </TabItem.Header>
+        <Views:SettingsView Margin="10,0,10,10" />
+    </TabItem>
+    <TabItem x:Name="UpdateTI">
+        <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+<!-- TODO: MetroControls Badge, what is?
                             <MetroControls:Badged
                                 Badge="{Binding Source={StaticResource UpdateViewModel}, Path=AvailablePluginUpdates}">
-                                <Border Padding="4"
-                                        Background="White"
-                                        BorderBrush="#FF000000"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="15">
-                                    <iconPacks:PackIconFontAwesome x:Name="PluginUpdateSpinner"
-                                                                   Kind="Refresh"
-                                                                   ToolTip="{Binding Locale[app_UpdateToolTip], Source={StaticResource AppProperties}}" />
-                                </Border>
-                            </MetroControls:Badged>
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_UpdateToolTip], Source={StaticResource AppProperties}}"
-                                       Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Views:UpdateView x:Name="UpdateV" Margin="10,0,10,10" />
-                </TabItem>
-                <TabItem x:Name="AboutTI">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Padding="4"
-                                    Background="White"
-                                    BorderBrush="#FF000000"
-                                    BorderThickness="1,1,1,1"
-                                    CornerRadius="15">
-                                <iconPacks:PackIconFontAwesome Kind="Info"
-                                                               ToolTip="{Binding Locale[app_AboutToolTip], Source={StaticResource AppProperties}}" />
-                            </Border>
-                            <TextBlock Padding="5"
-                                       Text="{Binding Locale[app_AboutToolTip], Source={StaticResource AppProperties}}"
-                                       Visibility="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}, Converter={StaticResource VisibilityConverter}}" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Views:AboutView x:Name="AboutV" Margin="10,0,10,10" />
-                </TabItem>
-            </TabControl>
-        </Grid>
-    </MetroControls:MetroContentControl>
-</MetroControls:MetroWindow>
+-->
+                <Border Padding="4"
+                        Background="White"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <Image x:Name="PluginUpdateSpinner" Source="{x:Static rs:Theme.RefreshIcon20}">
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="0" />
+                        </Image.RenderTransform>
+                    </Image>
+                </Border>
+<!-- TODO: MetroControls Badged, what is?
+                </MetroControls:Badged>
+-->
+                <TextBlock Height="15" Margin="4,0,0,0"
+                            Text="{Binding Locale[app_UpdateToolTip], Source={x:Static local:AppViewModel.Instance}}"
+                            IsVisible="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
+            </StackPanel>
+        </TabItem.Header>
+        <Views:UpdateView Margin="10,0,10,10" />
+    </TabItem>
+    <TabItem x:Name="AboutTI">
+        <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+                <Border Padding="4"
+                        Background="White"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <Image Source="{x:Static rs:Theme.InfoIcon20}" />
+                </Border>
+                <TextBlock Height="15" Margin="4,0,0,0"
+                            Text="{Binding Locale[app_AboutToolTip], Source={x:Static local:AppViewModel.Instance}}"
+                            IsVisible="{Binding EnableHelpLabels, Source={x:Static Properties:Settings.Default}}" />
+            </StackPanel>
+        </TabItem.Header>
+        <Views:AboutView Margin="10,0,10,10" />
+    </TabItem>
+  </TabControl>
+</Window>

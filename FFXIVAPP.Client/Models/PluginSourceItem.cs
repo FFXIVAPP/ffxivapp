@@ -13,7 +13,7 @@ namespace FFXIVAPP.Client.Models {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    internal class PluginSourceItem : INotifyPropertyChanged {
+    public class PluginSourceItem : INotifyPropertyChanged {
         private bool _enabled;
 
         private Guid _key;

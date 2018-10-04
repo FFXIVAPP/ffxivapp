@@ -11,7 +11,7 @@
 namespace FFXIVAPP.Client.Models {
     using System.Globalization;
 
-    internal class UILanguage {
+    public class UILanguage {
         public CultureInfo CultureInfo { get; set; }
 
         public string ImageURI { get; set; }

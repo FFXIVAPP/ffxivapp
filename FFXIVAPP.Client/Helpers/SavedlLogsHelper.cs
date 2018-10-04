@@ -16,7 +16,7 @@ namespace FFXIVAPP.Client.Helpers {
     using System.Text;
     using System.Xml.Linq;
 
-    using FFXIVAPP.Client.Properties;
+    using FFXIVAPP.Client.SettingsProviders.Application;
     using FFXIVAPP.Common.Helpers;
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.Utilities;

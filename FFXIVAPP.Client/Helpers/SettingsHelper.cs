@@ -26,7 +26,6 @@ namespace FFXIVAPP.Client.Helpers {
             if (isUpdating) { }
 
             Client.Save();
-            Application.Save();
         }
     }
 }

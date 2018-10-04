@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client {
 
         private static Lazy<PluginHost> _instance = new Lazy<PluginHost>(() => new PluginHost());
 
-        public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
+        // TODO: Do we need AssemblyReflectionManager? public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
 
         private PluginCollectionHelper _loaded;
 
@@ -111,7 +111,7 @@ namespace FFXIVAPP.Client {
                 path = Directory.Exists(path)
                            ? path
                            : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-                var settings = $@"{path}\PluginInfo.xml";
+                var settings = Path.Combine(path, "PluginInfo.xml");
                 if (!File.Exists(settings)) {
                     return;
                 }
@@ -126,7 +126,7 @@ namespace FFXIVAPP.Client {
 
                     switch (xKey) {
                         case "FileName":
-                            this.VerifyPlugin($@"{path}\{xValue}");
+                            this.VerifyPlugin(Path.Combine(path, xValue));
                             break;
                     }
                 }
@@ -176,10 +176,11 @@ namespace FFXIVAPP.Client {
             Action cancelAction = null;
             if (popupContent.CanCancel) {
                 cancelAction = delegate {
-                    pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel;
+                    // TODO: pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel;
                 };
             }
 
+            /* TODO: MessageboxHelper
             MessageBoxHelper.ShowMessageAsync(
                 title,
                 message,
@@ -187,6 +188,7 @@ namespace FFXIVAPP.Client {
                     pluginInstance.Instance.PopupResult = MessageBoxResult.OK;
                 },
                 cancelAction);
+            */
         }
 
         public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
@@ -329,7 +331,18 @@ namespace FFXIVAPP.Client {
         private void VerifyPlugin(string assemblyPath) {
             try {
                 byte[] bytes = File.ReadAllBytes(assemblyPath);
-                Assembly pAssembly = Assembly.Load(bytes);
+                Assembly pAssembly = null;
+                
+                if (File.Exists(Path.ChangeExtension(assemblyPath, ".pdb"))) {
+                    byte[] pdbbytes = File.ReadAllBytes(Path.ChangeExtension(assemblyPath, ".pdb"));
+                    
+                    pAssembly = AppDomain.CurrentDomain.Load(bytes, pdbbytes);
+                }
+                else {
+                    pAssembly = AppDomain.CurrentDomain.Load(bytes);
+                }
+                
+
                 Type pType = pAssembly.GetType(pAssembly.GetName().Name + ".Plugin");
                 var implementsIPlugin = typeof(IPlugin).IsAssignableFrom(pType);
                 if (!implementsIPlugin) {

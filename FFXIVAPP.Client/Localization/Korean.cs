@@ -9,15 +9,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace FFXIVAPP.Client.Localization {
-    using System.Windows;
+    using System.Collections.Generic;
 
     internal abstract class Korean {
-        private static readonly ResourceDictionary Dictionary = new ResourceDictionary();
+        private static readonly Dictionary<string, string> Dictionary = new Dictionary<string, string>();
 
         /// <summary>
         /// </summary>
         /// <returns> </returns>
-        public static ResourceDictionary Context() {
+        public static Dictionary<string, string> Context() {
             Dictionary.Clear();
             Dictionary.Add("app_", "*PH*");
             Dictionary.Add("app_AllowPluginCommandsHeader", "플러그인이 게임에 간섭할 수 있도록 허용");

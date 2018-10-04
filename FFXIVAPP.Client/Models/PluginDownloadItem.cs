@@ -13,7 +13,7 @@ namespace FFXIVAPP.Client.Models {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    internal class PluginDownloadItem : INotifyPropertyChanged {
+    public class PluginDownloadItem : INotifyPropertyChanged {
         private string _currentVersion;
 
         private string _description;

@@ -16,8 +16,7 @@ namespace FFXIVAPP.Client.Memory {
     using System.Timers;
 
     using FFXIVAPP.Client.Helpers;
-    using FFXIVAPP.Client.Properties;
-
+    using FFXIVAPP.Client.SettingsProviders.Application;
     using NLog;
 
     using Sharlayan;
@@ -81,7 +80,7 @@ namespace FFXIVAPP.Client.Memory {
                 this._isScanning = false;
                 return true;
             };
-            scanner.BeginInvoke(delegate { }, scanner);
+            System.Threading.Tasks.Task.Run(() => scanner());
         }
     }
 }

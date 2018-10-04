@@ -12,7 +12,7 @@ namespace FFXIVAPP.Client.Models {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    internal class PluginFile : INotifyPropertyChanged {
+    public class PluginFile : INotifyPropertyChanged {
         private string _checksum;
 
         private string _location;

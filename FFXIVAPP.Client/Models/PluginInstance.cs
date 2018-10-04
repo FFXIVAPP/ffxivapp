@@ -11,7 +11,7 @@
 namespace FFXIVAPP.Client.Models {
     using FFXIVAPP.IPluginInterface;
 
-    internal class PluginInstance {
+    public class PluginInstance {
         public PluginInstance() {
             this.AssemblyPath = string.Empty;
             this.Loaded = false;

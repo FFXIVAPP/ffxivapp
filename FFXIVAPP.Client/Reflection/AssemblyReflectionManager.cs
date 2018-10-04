@@ -7,7 +7,7 @@
 //   AssemblyReflectionManager.cs Implementation
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
+/* TODO: Do we need AssemblyReflectionManager?
 namespace FFXIVAPP.Client.Reflection {
     using System;
     using System.Collections.Generic;
@@ -64,7 +64,10 @@ namespace FFXIVAPP.Client.Reflection {
             try {
                 Type proxyType = typeof(AssemblyReflectionProxy);
                 if (proxyType.Assembly != null) {
-                    var proxy = (AssemblyReflectionProxy) appDomain.CreateInstanceFrom(proxyType.Assembly.Location, proxyType.FullName).Unwrap();
+                    // TODO: var proxy = (AssemblyReflectionProxy) appDomain.CreateInstanceFrom(proxyType.Assembly.Location, proxyType.FullName).Unwrap();
+                    // Maybe use: appDomain.Load()?
+                    // Or try this: https://stackoverflow.com/questions/40565508/c-net-core-using-reflection-to-instantiate-a-class-from-an-external-assembly
+                    var proxy = (AssemblyReflectionProxy) null;
                     proxy.LoadAssembly(assemblyPath);
                     this._loadedAssemblies[assemblyPath] = appDomain;
                     this._proxies[assemblyPath] = proxy;
@@ -171,9 +174,11 @@ namespace FFXIVAPP.Client.Reflection {
         }
 
         private AppDomain CreateChildDomain(AppDomain parentDomain, string domainName) {
-            var evidence = new Evidence(parentDomain.Evidence);
-            AppDomainSetup setup = parentDomain.SetupInformation;
-            return AppDomain.CreateDomain(domainName, evidence, setup);
+            // TODO: how to handle evidence in .net core?
+            //var evidence = new Evidence(parentDomain.Evidence);
+            //AppDomainSetup setup = parentDomain.SetupInformation;
+            return AppDomain.CreateDomain(domainName); //, evidence, setup);
         }
     }
 }
+*/

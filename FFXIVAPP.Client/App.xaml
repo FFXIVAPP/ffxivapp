@@ -1,21 +1,124 @@
-﻿<Application x:Class="FFXIVAPP.Client.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Client="clr-namespace:FFXIVAPP.Client"
-             xmlns:ViewModels="clr-namespace:FFXIVAPP.Client.ViewModels" x:ClassModifier="internal">
+             xmlns:local="clr-namespace:FFXIVAPP.Client"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:datagrid="clr-namespace:Teast.Controls;Assembly=Teast.Controls.DataGrid">
+  <Application.DataTemplates>
+    <local:ViewLocator/>
+  </Application.DataTemplates>
+  <Application.Styles>
+    <StyleInclude Source="resm:Avalonia.Themes.Default.DefaultTheme.xaml?assembly=Avalonia.Themes.Default"/>
+    <!--
+    <StyleInclude Source="resm:Avalonia.Themes.Default.Accents.BaseLight.xaml?assembly=Avalonia.Themes.Default"/>
+    -->
+    <Style>
+      <Style.Resources>
+      <!-- e2e2e2 for selected TabItem -->
+      <!-- 41b1e1 highlight tabitem -->
+        <Color x:Key="BlackColor">#FF000000</Color>
+        <Color x:Key="WhiteColor">#FFFFFFFF</Color>
+        <Color x:Key="HighlightColor">#FF41b1e1</Color>
+        <Color x:Key="AccentBaseColor">#FF70C5E9</Color>
+        <!--  80%  -->
+        <Color x:Key="AccentColor">#CC70C5E9</Color>
+        <!--  60%  -->
+        <Color x:Key="AccentColor2">#9970C5E9</Color>
+        <!--  40%  -->
+        <Color x:Key="AccentColor3">#6670C5E9</Color>
+        <!--  20%  -->
+        <Color x:Key="AccentColor4">#3370C5E9</Color>
 
-    <Application.Resources>
-        <x:Static x:Key="Bootstrapper"
-                  Member="Client:AppBootstrapper.Instance" />
-        <x:Static x:Key="AppProperties"
-                  Member="Client:AppViewModel.Instance" />
-        <x:Static x:Key="ShellViewModel"
-                  Member="Client:ShellViewModel.Instance" />
-        <x:Static x:Key="MainViewModel"
-                  Member="ViewModels:MainViewModel.Instance" />
-        <x:Static x:Key="SettingsViewModel"
-                  Member="ViewModels:SettingsViewModel.Instance" />
-        <x:Static x:Key="AboutViewModel"
-                  Member="ViewModels:AboutViewModel.Instance" />
-    </Application.Resources>
+        <Color x:Key="ErrorColor">#FFEE0000</Color>
+        <Color x:Key="ErrorLightColor">#FFFF4444</Color>
+
+        <Color x:Key="ButtonBorderColor">#FFCCCCCC</Color>
+        <Color x:Key="ButtonBackgroundColor">#FFF7F7F7</Color>
+        <Color x:Key="ButtonForegroundColor">#FF000000</Color>
+        <Color x:Key="ButtonBorderHighlightColor">#FFCCCCCC</Color>
+        <Color x:Key="ButtonBackgroundHighlightColor">#FFE0E0E0</Color>
+        <Color x:Key="ButtonBorderClickColor">#FFCCCCCC</Color>
+        <Color x:Key="ButtonBackgroundClickColor">#FFD7D7D7</Color>
+
+        <!-- FFXIVAPP colors.. need to merge this with the above... -->
+        <Color x:Key="FFXIVAPPBorderColor">#FF70C5E9</Color>
+        <Color x:Key="FFXIVAPPHighlightColor">#FFA0D8F0</Color>
+        <SolidColorBrush x:Key="FFXIVAPPBorderBrush" Color="{StaticResource FFXIVAPPBorderColor}" />
+        <SolidColorBrush x:Key="FFXIVAPPHightlightBrush" Color="{StaticResource FFXIVAPPHighlightColor}" />
+        <!-- Found in AboutView.xaml -->
+        <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
+
+        <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource ButtonBorderColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonBackgroundColor}" />
+        <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource ButtonForegroundColor}" />
+        <SolidColorBrush x:Key="ButtonBorderHighlightBrush" Color="{StaticResource ButtonBorderHighlightColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundHighlightBrush" Color="{StaticResource ButtonBackgroundHighlightColor}" />
+        <SolidColorBrush x:Key="ButtonBorderClickBrush" Color="{StaticResource ButtonBorderClickColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundClickBrush" Color="{StaticResource ButtonBackgroundClickColor}" />
+
+        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource WhiteColor}" />
+        <SolidColorBrush x:Key="ThemeWhiteBrush" Color="{StaticResource WhiteColor}" />
+        <SolidColorBrush x:Key="ThemeBorderLightBrush" Color="{StaticResource AccentColor}" />
+        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{StaticResource AccentColor2}" />
+        <SolidColorBrush x:Key="ThemeBorderDarkBrush" Color="{StaticResource AccentColor3}" />
+        <SolidColorBrush x:Key="ThemeControlLightBrush" Color="{StaticResource AccentColor2}" />
+        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{StaticResource AccentColor3}" />
+        <SolidColorBrush x:Key="ThemeControlDarkBrush" Color="{StaticResource AccentColor4}" />
+        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{StaticResource BlackColor}" />
+        <SolidColorBrush x:Key="ThemeForegroundLightBrush" Color="{StaticResource BlackColor}" />
+
+        <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource AccentColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{StaticResource AccentColor2}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{StaticResource AccentColor3}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{StaticResource AccentColor4}" />
+        <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
+        <SolidColorBrush x:Key="ErrorBrushLight" Color="{StaticResource ErrorLightColor}" />
+
+        <Thickness x:Key="ThemeBorderThickness">2</Thickness>
+        <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
+
+        <sys:Double x:Key="FontSizeSmall">10</sys:Double>
+        <sys:Double x:Key="FontSizeNormal">12</sys:Double>
+        <sys:Double x:Key="FontSizeLarge">16</sys:Double>
+
+      </Style.Resources>
+
+    </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+    </Style>
+    <Style Selector="Window">
+      <Setter Property="FontFamily" Value="Arial"/>
+    </Style>
+    <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.TabItem.xaml" />
+    <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.Button.xaml" />
+    <StyleInclude Source="resm:Teast.Controls.GroupBox.Theme.xaml?assembly=Teast.Controls.GroupBox" />
+    <StyleInclude Source="resm:Teast.Controls.DataGrid.Theme.xaml?assembly=Teast.Controls.DataGrid" />
+
+    <Style Selector="datagrid|DataGrid">
+      <Setter Property="HeaderBackground" Value="{DynamicResource ThemeBackgroundBrush}"/>
+      <Setter Property="HeaderForeground" Value="{DynamicResource ThemeForegroundBrush}"/>
+      <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+      <Setter Property="HeaderFontFamily" Value="Arial"/>
+      <Setter Property="HeaderBorderThickness" Value="0,0,1,2"/>
+      <Setter Property="HeaderBorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+      <Setter Property="HeaderPadding" Value="5"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource FFXIVAPPBorderBrush}"/>
+      <Setter Property="BorderThickness" Value="2"/>
+      <Setter Property="Margin" Value="5"/>
+      <Setter Property="GridBorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="datagrid|DataGridCell">
+      <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}"/>
+      <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+      <Setter Property="Padding" Value="2"/>
+    </Style>
+    <Style Selector="datagrid|DataGridCell:selected">
+      <Setter Property="Background" Value="{DynamicResource FFXIVAPPBorderBrush}" /><!--#FF70C5E9" />-->
+    </Style>
+    <Style Selector="datagrid|DataGridCell:hover">
+      <Setter Property="Background" Value="{DynamicResource FFXIVAPPHightlightBrush}" /><!--#FFA0D8F0" />-->
+    </Style>
+
+  </Application.Styles>
 </Application>

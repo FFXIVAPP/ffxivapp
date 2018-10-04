@@ -10,7 +10,6 @@
 
 namespace FFXIVAPP.Client.Helpers {
     using System;
-    using System.Windows.Forms;
 
     internal static class NotifyIconHelper {
         /// <summary>
@@ -19,11 +18,13 @@ namespace FFXIVAPP.Client.Helpers {
         /// <param name="message"> </param>
         /// <param name="eventHandler"></param>
         public static void ShowBalloonMessage(string title = "Information!", string message = "Unassigned Message", EventHandler eventHandler = null) {
+            /* TODO: NotifyIcon ShowBalloonMessage
             if (eventHandler != null) {
                 AppViewModel.Instance.NotifyIcon.BalloonTipClicked += eventHandler;
             }
 
             AppViewModel.Instance.NotifyIcon.ShowBalloonTip(3000, title, message, ToolTipIcon.Info);
+            */
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AppViewModel.cs" company="SyndicatedLife">
 //   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
@@ -12,28 +12,19 @@ namespace FFXIVAPP.Client {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
-    using System.ComponentModel.Composition;
-    using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Forms;
-    using System.Windows.Threading;
-
+    using Avalonia.Controls;
+    using Avalonia.Styling;
+    using Avalonia.Threading;
     using FFXIVAPP.Client.Models;
-    using FFXIVAPP.Client.Properties;
+    using FFXIVAPP.Client.ViewModels;
     using FFXIVAPP.Common.Helpers;
-
     using Sharlayan.Core;
     using Sharlayan.Models;
 
-    using ContextMenu = System.Windows.Forms.ContextMenu;
-
-    [Export(typeof(AppViewModel))]
-    internal sealed class AppViewModel : INotifyPropertyChanged {
+    public sealed class AppViewModel: ViewModelBase {
         private static bool _hasPlugins;
 
         private static Lazy<AppViewModel> _instance = new Lazy<AppViewModel>(() => new AppViewModel());
@@ -58,7 +49,7 @@ namespace FFXIVAPP.Client {
 
         private string _logsPath;
 
-        private NotifyIcon _notifyIcon;
+        // TODO: private NotifyIcon _notifyIcon;
 
         private string _pluginsSettingsPath;
 
@@ -81,8 +72,6 @@ namespace FFXIVAPP.Client {
         private ObservableCollection<UILanguage> _uiLanguages;
 
         private string _updateNotes;
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public static AppViewModel Instance {
             get {
@@ -233,6 +222,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: NotifyIcon
         public NotifyIcon NotifyIcon {
             get {
                 if (this._notifyIcon == null) {
@@ -256,6 +246,7 @@ namespace FFXIVAPP.Client {
                 return this._notifyIcon;
             }
         }
+        */
 
         public string PluginsSettingsPath {
             get {
@@ -368,6 +359,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: TabControlCollapsedHeader
         public Style TabControlCollapsedHeader {
             get {
                 if (this._tabControlCollapsedHeader == null) {
@@ -384,6 +376,7 @@ namespace FFXIVAPP.Client {
                 this.RaisePropertyChanged();
             }
         }
+        */
 
         public ObservableCollection<UILanguage> UILanguages {
             get {
@@ -407,6 +400,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
+        /* TODO: NotifyIcon events
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
@@ -434,9 +428,94 @@ namespace FFXIVAPP.Client {
             ShellView.View.Topmost = true;
             ShellView.View.Topmost = Settings.Default.TopMost;
         }
+        */
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        private static void SetLocale() {
+            /* TODO: SetLocale (from ShellView.xaml.cs)
+            var uiLanguage = ShellView.View?.LanguageSelect.SelectedValue.ToString();
+            if (string.IsNullOrWhiteSpace(uiLanguage)) {
+                return;
+            }
+
+            if (uiLanguage == Settings.Default.GameLanguage) {
+                return;
+            }
+
+            if (SupportedGameLanguages.Contains(uiLanguage)) {
+                if (uiLanguage == Settings.Default.GameLanguage) {
+                    return;
+                }
+
+                Action ok = () => {
+                    Settings.Default.GameLanguage = uiLanguage;
+                };
+                Action cancel = () => { };
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                var message = AppViewModel.Instance.Locale["app_UILanguageChangeWarningGeneral"];
+                if (uiLanguage == "Chinese" || Settings.Default.GameLanguage == "Chinese") {
+                    message = message + AppViewModel.Instance.Locale["app_UILanguageChangeWarningChinese"];
+                }
+
+                MessageBoxHelper.ShowMessageAsync(title, message, ok, cancel);
+            }
+            else {
+                var title = AppViewModel.Instance.Locale["app_WarningMessage"];
+                var message = AppViewModel.Instance.Locale["app_UILanguageChangeWarningNoGameLanguage"];
+                MessageBoxHelper.ShowMessageAsync(title, message);
+            }
+            */
+        }
+
+        private TabItem _tabSelected;
+        public TabItem TabSelected {
+            get{
+                return _tabSelected;
+            } 
+            set{
+                _tabSelected = value;
+                AppViewModel.UpdateTitle();
+            } 
+        }
+
+        private TabItem _pluginTabSelected;
+        public TabItem PluginTabSelected {
+            get{
+                return _pluginTabSelected;
+            } 
+            set{
+                _pluginTabSelected = value;
+                AppViewModel.UpdateSelectedPlugin();
+            } 
+        }
+
+        /// <summary>
+        /// </summary>
+        private static void UpdateSelectedPlugin() {
+            //var selectedItem = (TabItem) ShellView.View.PluginsTC.SelectedItem;
+            try {
+                var stack = (StackPanel)AppViewModel.Instance.PluginTabSelected.Header;
+                var txt = (TextBlock)stack.Children.Single(c => c.Name == "TheLabel");
+                AppViewModel.Instance.Selected = txt.Text;
+            }
+            catch (Exception) {
+                AppViewModel.Instance.Selected = "(NONE)";
+            }
+
+            UpdateTitle();
+        }
+
+        /// <summary>
+        /// </summary>
+        public static void UpdateTitle() {
+            var currentMain = AppViewModel.Instance.TabSelected?.Name ?? "PluginsTI";
+            switch (currentMain) {
+                case "PluginsTI":
+                    AppViewModel.Instance.AppTitle = $"{AppViewModel.Instance.Selected}";
+                    break;
+                default:
+                    AppViewModel.Instance.AppTitle = currentMain.Substring(0, currentMain.Length - 2);
+                    break;
+            }
         }
     }
 }

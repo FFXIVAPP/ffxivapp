@@ -9,7 +9,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace FFXIVAPP.Client.Models {
-    internal enum PluginStatus {
+    public enum PluginStatus {
         NotInstalled,
 
         Installed,

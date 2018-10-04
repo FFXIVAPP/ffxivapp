@@ -1,0 +1,3293 @@
+﻿{
+  "557": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Hullbreaker Isle (Hard)",
+      "English": "Hullbreaker Isle (Hard)",
+      "French": "Île De Crèvecarène (brutal)",
+      "German": "Schiffbrecher-Insel (schwer)",
+      "Japanese": "ハルブレーカー・アイル (Hard)",
+      "Korean": "Hullbreaker Isle (Hard)"
+    }
+  },
+  "0": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "???",
+      "English": "???",
+      "French": "???",
+      "German": "???",
+      "Japanese": "？？？？",
+      "Korean": "???"
+    }
+  },
+  "558": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Aquapolis",
+      "English": "The Aquapolis",
+      "French": "Aquapole",
+      "German": "Aquapolis",
+      "Japanese": "アクアポリス",
+      "Korean": "The Aquapolis"
+    }
+  },
+  "1": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eorzea",
+      "English": "Eorzea",
+      "French": "Éorzéa",
+      "German": "Eorzea",
+      "Japanese": "エオルゼア",
+      "Korean": "Eorzea"
+    }
+  },
+  "567": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Parrock",
+      "English": "The Parrock",
+      "French": "Le Paddock",
+      "German": "Krähennest",
+      "Japanese": "パロック繋留基地",
+      "Korean": "The Parrock"
+    }
+  },
+  "568": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Leofard's Chambers",
+      "English": "Leofard's Chambers",
+      "French": "Cabine De Leofard",
+      "German": "Leofards Zimmer",
+      "Japanese": "レオファードの私室",
+      "Korean": "Leofard's Chambers"
+    }
+  },
+  "570": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Palace Of The Dead",
+      "English": "The Palace Of The Dead",
+      "French": "Palais Des Morts",
+      "German": "Palast Der Toten",
+      "Japanese": "死者の宮殿",
+      "Korean": "The Palace Of The Dead"
+    }
+  },
+  "571": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Haunted Manor",
+      "English": "Haunted Manor",
+      "French": "Manoir Hanté",
+      "German": "Geisterschloss",
+      "Japanese": "亡霊屋敷 ホーンテッドマナー",
+      "Korean": "Haunted Manor"
+    }
+  },
+  "572": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Xelphatol",
+      "English": "Xelphatol",
+      "French": "Xelphatol",
+      "German": "Xelphatol",
+      "Japanese": "ゼルファトル",
+      "Korean": "Xelphatol"
+    }
+  },
+  "573": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Topmast Apartment Lobby",
+      "English": "Topmast Apartment Lobby",
+      "French": "Le Mât De Hune (hall)",
+      "German": "Fockmast (Eingangshalle)",
+      "Japanese": "トップマスト：ロビー",
+      "Korean": "Topmast Apartment Lobby"
+    }
+  },
+  "574": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lily Hills Apartment Lobby",
+      "English": "Lily Hills Apartment Lobby",
+      "French": "Plaine-aux-Lys (hall)",
+      "German": "Lilienhügel (Eingangshalle)",
+      "Japanese": "リリーヒルズ：ロビー",
+      "Korean": "Lily Hills Apartment Lobby"
+    }
+  },
+  "575": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sultana's Breath Apartment Lobby",
+      "English": "Sultana's Breath Apartment Lobby",
+      "French": "Le Souffle De La Sultane (hall)",
+      "German": "Nanamo-Windrad (Eingangshalle)",
+      "Japanese": "ナナモ大風車：ロビー",
+      "Korean": "Sultana's Breath Apartment Lobby"
+    }
+  },
+  "576": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Containment Bay P1T6",
+      "English": "Containment Bay P1T6",
+      "French": "Unité De Contention P1P6",
+      "German": "Arretur P1T6",
+      "Japanese": "コンテイメントベイP1T6",
+      "Korean": "Containment Bay P1T6"
+    }
+  },
+  "578": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Great Gubal Library (Hard)",
+      "English": "The Great Gubal Library (Hard)",
+      "French": "Grande Bibliothèque De Gubal (brutal)",
+      "German": "Große Gubal-Bibliothek (schwer)",
+      "Japanese": "グブラ幻想図書館 (Hard)",
+      "Korean": "The Great Gubal Library (Hard)"
+    }
+  },
+  "579": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Battlehall",
+      "English": "The Battlehall",
+      "French": "Arène Triple Triade",
+      "German": "Weltensalon",
+      "Japanese": "カードバトルルーム",
+      "Korean": "The Battlehall"
+    }
+  },
+  "580": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eyes Of The Creator",
+      "English": "Eyes Of The Creator",
+      "French": "Les Yeux Du Créateur",
+      "German": "Augen Des Schöpfers",
+      "Japanese": "アイズ・オブ・アレキサンダー",
+      "Korean": "Eyes Of The Creator"
+    }
+  },
+  "581": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Breath Of The Creator",
+      "English": "Breath Of The Creator",
+      "French": "Le Souffle Du Créateur",
+      "German": "Atem Des Schöpfers",
+      "Japanese": "ブレス・オブ・アレキサンダー",
+      "Korean": "Breath Of The Creator"
+    }
+  },
+  "582": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Heart Of The Creator",
+      "English": "Heart Of The Creator",
+      "French": "Le Cœur Du Créateur",
+      "German": "Herz Des Schöpfers",
+      "Japanese": "ハート・オブ・アレキサンダー",
+      "Korean": "Heart Of The Creator"
+    }
+  },
+  "583": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Soul Of The Creator",
+      "English": "Soul Of The Creator",
+      "French": "L'Âme Du Créateur",
+      "German": "Seele Des Schöpfers",
+      "Japanese": "ソウル・オブ・アレキサンダー",
+      "Korean": "Soul Of The Creator"
+    }
+  },
+  "588": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Heart Of The Creator",
+      "English": "Heart Of The Creator",
+      "French": "Le Cœur Du Créateur",
+      "German": "Herz Des Schöpfers",
+      "Japanese": "ハート・オブ・アレキサンダー",
+      "Korean": "Heart Of The Creator"
+    }
+  },
+  "608": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Topmast Apartment",
+      "English": "Topmast Apartment",
+      "French": "Le Mât De Hune (appartement)",
+      "German": "Fockmast (Wohnung)",
+      "Japanese": "トップマスト：部屋",
+      "Korean": "Topmast Apartment"
+    }
+  },
+  "609": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lily Hills Apartment",
+      "English": "Lily Hills Apartment",
+      "French": "Plaine-aux-Lys (appartement)",
+      "German": "Lilienhügel (Wohnung)",
+      "Japanese": "リリーヒルズ：部屋",
+      "Korean": "Lily Hills Apartment"
+    }
+  },
+  "610": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sultana's Breath Apartment",
+      "English": "Sultana's Breath Apartment",
+      "French": "Le Souffle De La Sultane (appartement)",
+      "German": "Nanamo-Windrad (Wohnung)",
+      "Japanese": "ナナモ大風車：部屋",
+      "Korean": "Sultana's Breath Apartment"
+    }
+  },
+  "611": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Frondale's Ward For Friendless Foundlings",
+      "English": "Frondale's Ward For Friendless Foundlings",
+      "French": "Clinique Pédiatrique De L'Académie Médicale De Frondale",
+      "German": "Frondales Physiatrische Akademie",
+      "Japanese": "フロンデール薬学院小児病棟",
+      "Korean": "Frondale's Ward For Friendless Foundlings"
+    }
+  },
+  "612": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fringes",
+      "English": "The Fringes",
+      "French": "Les Marges",
+      "German": "Abanisches Grenzland",
+      "Japanese": "ギラバニア辺境地帯",
+      "Korean": "The Fringes"
+    }
+  },
+  "613": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Ruby Sea",
+      "English": "The Ruby Sea",
+      "French": "Mer De Rubis",
+      "German": "Rubinsee",
+      "Japanese": "紅玉海",
+      "Korean": "The Ruby Sea"
+    }
+  },
+  "614": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Yanxia",
+      "English": "Yanxia",
+      "French": "Yanxia",
+      "German": "Yanxia",
+      "Japanese": "ヤンサ",
+      "Korean": "Yanxia"
+    }
+  },
+  "615": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Baelsar's Wall",
+      "English": "Baelsar's Wall",
+      "French": "Muraille De Baelsar",
+      "German": "Baelsar-Wall",
+      "Japanese": "バエサルの長城",
+      "Korean": "Baelsar's Wall"
+    }
+  },
+  "616": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Shisui Of The Violet Tides",
+      "English": "Shisui Of The Violet Tides",
+      "French": "Palais Aux Marées Violettes",
+      "German": "Shisui-Palast",
+      "Japanese": "紫水宮",
+      "Korean": "Shisui Of The Violet Tides"
+    }
+  },
+  "617": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sohm Al (Hard)",
+      "English": "Sohm Al (Hard)",
+      "French": "Sohm Al (brutal)",
+      "German": "Sohm Al (schwer)",
+      "Japanese": "ソーム・アル山麓 (Hard)",
+      "Korean": "Sohm Al (Hard)"
+    }
+  },
+  "620": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Peaks",
+      "English": "The Peaks",
+      "French": "Les Pics",
+      "German": "Die Zinnen",
+      "Japanese": "ギラバニア山岳地帯",
+      "Korean": "The Peaks"
+    }
+  },
+  "621": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lochs",
+      "English": "The Lochs",
+      "French": "Les Lacs",
+      "German": "Das Fenn",
+      "Japanese": "ギラバニア湖畔地帯",
+      "Korean": "The Lochs"
+    }
+  },
+  "622": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Azim Steppe",
+      "English": "The Azim Steppe",
+      "French": "Steppe D'Azim",
+      "German": "Azim-Steppe",
+      "Japanese": "アジムステップ",
+      "Korean": "The Azim Steppe"
+    }
+  },
+  "623": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Bardam's Mettle",
+      "English": "Bardam's Mettle",
+      "French": "Force De Bardam",
+      "German": "Bardams Probe",
+      "Japanese": "バルダム覇道",
+      "Korean": "Bardam's Mettle"
+    }
+  },
+  "626": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Sirensong Sea",
+      "English": "The Sirensong Sea",
+      "French": "Mer Du Chant Des Sirènes",
+      "German": "Sirenen-See",
+      "Japanese": "セイレーン海",
+      "Korean": "The Sirensong Sea"
+    }
+  },
+  "627": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Dun Scaith",
+      "English": "Dun Scaith",
+      "French": "Dun Scaith",
+      "German": "Dun Scaith",
+      "Japanese": "影の国ダン・スカー",
+      "Korean": "Dun Scaith"
+    }
+  },
+  "628": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Kugane",
+      "English": "Kugane",
+      "French": "Kugane",
+      "German": "Kugane",
+      "Japanese": "クガネ",
+      "Korean": "Kugane"
+    }
+  },
+  "629": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Bokairo Inn",
+      "English": "Bokairo Inn",
+      "French": "Auberge Du Bokairo",
+      "German": "Badehaus Bokairo",
+      "Japanese": "望海楼",
+      "Korean": "Bokairo Inn"
+    }
+  },
+  "631": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lichenweed",
+      "English": "Lichenweed",
+      "French": "Pré-de-lichen",
+      "German": "Flechtenhain",
+      "Japanese": "ライケンウィード演習場",
+      "Korean": "Lichenweed"
+    }
+  },
+  "635": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Rhalgr's Reach",
+      "English": "Rhalgr's Reach",
+      "French": "L'Étendue De Rhalgr",
+      "German": "Rhalgrs Wacht",
+      "Japanese": "ラールガーズリーチ",
+      "Korean": "Rhalgr's Reach"
+    }
+  },
+  "636": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Omega Control",
+      "English": "Omega Control",
+      "French": "Salle De Contrôle D'Oméga",
+      "German": "Omega-Kontrollraum",
+      "Japanese": "オメガ管制室",
+      "Korean": "Omega Control"
+    }
+  },
+  "637": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Containment Bay Z1T9",
+      "English": "Containment Bay Z1T9",
+      "French": "Unité De Contention Z1P9",
+      "German": "Arretur Z1T9",
+      "Japanese": "コンテイメントベイZ1T9",
+      "Korean": "Containment Bay Z1T9"
+    }
+  },
+  "639": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ruby Bazaar Offices",
+      "English": "Ruby Bazaar Offices",
+      "French": "Salle D'accueil Du Bazar De Rubis",
+      "German": "Handelshaus-Sitzungsraum",
+      "Japanese": "ウルダハ商館応接室",
+      "Korean": "Ruby Bazaar Offices"
+    }
+  },
+  "641": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Shirogane",
+      "English": "Shirogane",
+      "French": "Shirogane",
+      "German": "Shirogane",
+      "Japanese": "シロガネ",
+      "Korean": "Shirogane"
+    }
+  },
+  "649": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Cottage - Shirogane",
+      "English": "Private Cottage - Shirogane",
+      "French": "Maisonnette - Shirogane",
+      "German": "Privathütte (Shirogane)",
+      "Japanese": "シロガネ：コテージ",
+      "Korean": "Private Cottage - Shirogane"
+    }
+  },
+  "650": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private House - Shirogane",
+      "English": "Private House - Shirogane",
+      "French": "Pavillon - Shirogane",
+      "German": "Privathaus (Shirogane)",
+      "Japanese": "シロガネ：ハウス",
+      "Korean": "Private House - Shirogane"
+    }
+  },
+  "651": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Mansion - Shirogane",
+      "English": "Private Mansion - Shirogane",
+      "French": "Villa - Shirogane",
+      "German": "Privatresidenz (Shirogane)",
+      "Japanese": "シロガネ：レジデンス",
+      "Korean": "Private Mansion - Shirogane"
+    }
+  },
+  "652": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Company Workshop - Shirogane",
+      "English": "Company Workshop - Shirogane",
+      "French": "Atelier De Compagnie - Shirogane",
+      "German": "Gesellschaftswerkstätte: Shirogane",
+      "Japanese": "シロガネ：地下工房",
+      "Korean": "Company Workshop - Shirogane"
+    }
+  },
+  "653": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Chambers - Shirogane",
+      "English": "Private Chambers - Shirogane",
+      "French": "Chambre Individuelle - Shirogane",
+      "German": "Shirogane - Zimmer",
+      "Japanese": "シロガネ：プライベートルーム",
+      "Korean": "Private Chambers - Shirogane"
+    }
+  },
+  "654": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Kobai Goten Apartment Lobby",
+      "English": "Kobai Goten Apartment Lobby",
+      "French": "Kobai Goten (hall)",
+      "German": "Kobai Goten (Eingangshalle)",
+      "Japanese": "紅梅御殿：ロビー",
+      "Korean": "Kobai Goten Apartment Lobby"
+    }
+  },
+  "655": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Kobai Goten Apartment",
+      "English": "Kobai Goten Apartment",
+      "French": "Kobai Goten (appartement)",
+      "German": "Kobai Goten (Wohnung)",
+      "Japanese": "紅梅御殿：部屋",
+      "Korean": "Kobai Goten Apartment"
+    }
+  },
+  "660": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Doma Castle",
+      "English": "Doma Castle",
+      "French": "Château De Doma",
+      "German": "Burg Doma",
+      "Japanese": "ドマ城",
+      "Korean": "Doma Castle"
+    }
+  },
+  "661": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Castrum Abania",
+      "English": "Castrum Abania",
+      "French": "Castrum Abania",
+      "German": "Castrum Abania",
+      "Japanese": "カストルム・アバニア",
+      "Korean": "Castrum Abania"
+    }
+  },
+  "662": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Kugane Castle",
+      "English": "Kugane Castle",
+      "French": "Château De Kugane",
+      "German": "Schloss Kugane",
+      "Japanese": "クガネ城",
+      "Korean": "Kugane Castle"
+    }
+  },
+  "663": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Temple Of The Fist",
+      "English": "The Temple Of The Fist",
+      "French": "Temple Du Poing",
+      "German": "Tempel Der Faust",
+      "Japanese": "星導山寺院",
+      "Korean": "The Temple Of The Fist"
+    }
+  },
+  "674": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Blessed Treasury",
+      "English": "The Blessed Treasury",
+      "French": "Crique Aux Tributs",
+      "German": "Schatzkammer",
+      "Japanese": "宝物殿",
+      "Korean": "The Blessed Treasury"
+    }
+  },
+  "679": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Transparency",
+      "English": "Transparency",
+      "French": "Transparence",
+      "German": "Raum Der Transparenz",
+      "Japanese": "結晶化空間",
+      "Korean": "Transparency"
+    }
+  },
+  "680": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Misery",
+      "English": "The Misery",
+      "French": "Le Misère",
+      "German": "Die Misery",
+      "Japanese": "ミゼリー号",
+      "Korean": "The Misery"
+    }
+  },
+  "681": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The House Of The Fierce",
+      "English": "The House Of The Fierce",
+      "French": "Cercle Des Intrépides",
+      "German": "Klause Der Grimmigen",
+      "Japanese": "烈士庵",
+      "Korean": "The House Of The Fierce"
+    }
+  },
+  "682": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Doman Enclave",
+      "English": "Doman Enclave",
+      "French": "Quartier Enclavé De Doma",
+      "German": "Domanische Enklave",
+      "Japanese": "ドマ町人地",
+      "Korean": "Doman Enclave"
+    }
+  },
+  "683": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The First Altar Of Djanan Qhat",
+      "English": "The First Altar Of Djanan Qhat",
+      "French": "Grand Autel De Djanan Qhat",
+      "German": "Altar Von Djanan Qhat",
+      "Japanese": "ジャナン・カット地下祭壇",
+      "Korean": "The First Altar Of Djanan Qhat"
+    }
+  },
+  "684": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Resonatorium",
+      "English": "The Resonatorium",
+      "French": "Laboratoire Impérial D'étude Sur Les Résonnants",
+      "German": "Transzendenz-Laboratorium",
+      "Japanese": "超越技術研究所",
+      "Korean": "The Resonatorium"
+    }
+  },
+  "128": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Limsa Lominsa Upper Decks",
+      "English": "Limsa Lominsa Upper Decks",
+      "French": "Limsa Lominsa - Le Tillac",
+      "German": "Obere Decks",
+      "Japanese": "リムサ・ロミンサ：上甲板層",
+      "Korean": "Limsa Lominsa Upper Decks"
+    }
+  },
+  "129": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Limsa Lominsa Lower Decks",
+      "English": "Limsa Lominsa Lower Decks",
+      "French": "Limsa Lominsa - L'Entrepont",
+      "German": "Untere Decks",
+      "Japanese": "リムサ・ロミンサ：下甲板層",
+      "Korean": "Limsa Lominsa Lower Decks"
+    }
+  },
+  "130": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ul'dah - Steps Of Nald",
+      "English": "Ul'dah - Steps Of Nald",
+      "French": "Ul'dah - Faubourg De Nald",
+      "German": "Nald-Kreuzgang",
+      "Japanese": "ウルダハ：ナル回廊",
+      "Korean": "Ul'dah - Steps Of Nald"
+    }
+  },
+  "131": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ul'dah - Steps Of Thal",
+      "English": "Ul'dah - Steps Of Thal",
+      "French": "Ul'dah - Faubourg De Thal",
+      "German": "Thal-Kreuzgang",
+      "Japanese": "ウルダハ：ザル回廊",
+      "Korean": "Ul'dah - Steps Of Thal"
+    }
+  },
+  "689": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ala Mhigo",
+      "English": "Ala Mhigo",
+      "French": "Ala Mhigo",
+      "German": "Ala Mhigo",
+      "Japanese": "アラミゴ",
+      "Korean": "Ala Mhigo"
+    }
+  },
+  "132": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "New Gridania",
+      "English": "New Gridania",
+      "French": "Nouvelle Gridania",
+      "German": "Neu-Gridania",
+      "Japanese": "グリダニア：新市街",
+      "Korean": "New Gridania"
+    }
+  },
+  "690": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Interdimensional Rift",
+      "English": "The Interdimensional Rift",
+      "French": "Fissure Interdimensionnelle",
+      "German": "Interdimensionaler Riss",
+      "Japanese": "次元の狭間",
+      "Korean": "The Interdimensional Rift"
+    }
+  },
+  "133": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Old Gridania",
+      "English": "Old Gridania",
+      "French": "Vieille Gridania",
+      "German": "Alt-Gridania",
+      "Japanese": "グリダニア：旧市街",
+      "Korean": "Old Gridania"
+    }
+  },
+  "691": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Deltascape V1.0",
+      "English": "Deltascape V1.0",
+      "French": "Deltastice V1.0",
+      "German": "Deltametrie 1.0",
+      "Japanese": "被検世界「デルタ」V1.0",
+      "Korean": "Deltascape V1.0"
+    }
+  },
+  "134": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Middle La Noscea",
+      "English": "Middle La Noscea",
+      "French": "Noscea Centrale",
+      "German": "Zentrales La Noscea",
+      "Japanese": "中央ラノシア",
+      "Korean": "Middle La Noscea"
+    }
+  },
+  "692": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Deltascape V2.0",
+      "English": "Deltascape V2.0",
+      "French": "Deltastice V2.0",
+      "German": "Deltametrie 2.0",
+      "Japanese": "被検世界「デルタ」V2.0",
+      "Korean": "Deltascape V2.0"
+    }
+  },
+  "135": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lower La Noscea",
+      "English": "Lower La Noscea",
+      "French": "Basse-Noscea",
+      "German": "Unteres La Noscea",
+      "Japanese": "低地ラノシア",
+      "Korean": "Lower La Noscea"
+    }
+  },
+  "693": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Deltascape V3.0",
+      "English": "Deltascape V3.0",
+      "French": "Deltastice V3.0",
+      "German": "Deltametrie 3.0",
+      "Japanese": "被検世界「デルタ」V3.0",
+      "Korean": "Deltascape V3.0"
+    }
+  },
+  "694": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Deltascape V4.0",
+      "English": "Deltascape V4.0",
+      "French": "Deltastice V4.0",
+      "German": "Deltametrie 4.0",
+      "Japanese": "被検世界「デルタ」V4.0",
+      "Korean": "Deltascape V4.0"
+    }
+  },
+  "137": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eastern La Noscea",
+      "English": "Eastern La Noscea",
+      "French": "Noscea Orientale",
+      "German": "Östliches La Noscea",
+      "Japanese": "東ラノシア",
+      "Korean": "Eastern La Noscea"
+    }
+  },
+  "138": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Western La Noscea",
+      "English": "Western La Noscea",
+      "French": "Noscea Occidentale",
+      "German": "Westliches La Noscea",
+      "Japanese": "西ラノシア",
+      "Korean": "Western La Noscea"
+    }
+  },
+  "139": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Upper La Noscea",
+      "English": "Upper La Noscea",
+      "French": "Haute-Noscea",
+      "German": "Oberes La Noscea",
+      "Japanese": "高地ラノシア",
+      "Korean": "Upper La Noscea"
+    }
+  },
+  "140": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Western Thanalan",
+      "English": "Western Thanalan",
+      "French": "Thanalan Occidental",
+      "German": "Westliches Thanalan",
+      "Japanese": "西ザナラーン",
+      "Korean": "Western Thanalan"
+    }
+  },
+  "141": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Central Thanalan",
+      "English": "Central Thanalan",
+      "French": "Thanalan Central",
+      "German": "Zentrales Thanalan",
+      "Japanese": "中央ザナラーン",
+      "Korean": "Central Thanalan"
+    }
+  },
+  "143": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Steps Of Faith",
+      "English": "Steps Of Faith",
+      "French": "Avancée De La Foi",
+      "German": "Schicksalsweg",
+      "Japanese": "雲廊",
+      "Korean": "Steps Of Faith"
+    }
+  },
+  "144": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Gold Saucer",
+      "English": "The Gold Saucer",
+      "French": "Gold Saucer",
+      "German": "Gold Saucer",
+      "Japanese": "ゴールドソーサー",
+      "Korean": "The Gold Saucer"
+    }
+  },
+  "145": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eastern Thanalan",
+      "English": "Eastern Thanalan",
+      "French": "Thanalan Oriental",
+      "German": "Östliches Thanalan",
+      "Japanese": "東ザナラーン",
+      "Korean": "Eastern Thanalan"
+    }
+  },
+  "146": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Southern Thanalan",
+      "English": "Southern Thanalan",
+      "French": "Thanalan Méridional",
+      "German": "Südliches Thanalan",
+      "Japanese": "南ザナラーン",
+      "Korean": "Southern Thanalan"
+    }
+  },
+  "147": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Northern Thanalan",
+      "English": "Northern Thanalan",
+      "French": "Thanalan Septentrional",
+      "German": "Nördliches Thanalan",
+      "Japanese": "北ザナラーン",
+      "Korean": "Northern Thanalan"
+    }
+  },
+  "148": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Central Shroud",
+      "English": "Central Shroud",
+      "French": "Forêt Centrale",
+      "German": "Tiefer Wald",
+      "Japanese": "黒衣森：中央森林",
+      "Korean": "Central Shroud"
+    }
+  },
+  "150": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Keeper Of The Lake",
+      "English": "The Keeper Of The Lake",
+      "French": "Gardien Du Lac",
+      "German": "Der Hüter Des Sees",
+      "Japanese": "黙約の塔",
+      "Korean": "The Keeper Of The Lake"
+    }
+  },
+  "151": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Belly Of The Beast",
+      "English": "The Belly Of The Beast",
+      "French": "Ventre De La Bête",
+      "German": "Bauch Der Bestie",
+      "Japanese": "ケルベロスの胃袋",
+      "Korean": "The Belly Of The Beast"
+    }
+  },
+  "152": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sanctum Of The Twelve",
+      "English": "Sanctum Of The Twelve",
+      "French": "Sanctuaire Des Douze",
+      "German": "Dom Der Einkehr",
+      "Japanese": "十二神大聖堂",
+      "Korean": "Sanctum Of The Twelve"
+    }
+  },
+  "153": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "South Shroud",
+      "English": "South Shroud",
+      "French": "Forêt Du Sud",
+      "German": "Südwald",
+      "Japanese": "黒衣森：南部森林",
+      "Korean": "South Shroud"
+    }
+  },
+  "154": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "North Shroud",
+      "English": "North Shroud",
+      "French": "Forêt Du Nord",
+      "German": "Nordwald",
+      "Japanese": "黒衣森：北部森林",
+      "Korean": "North Shroud"
+    }
+  },
+  "712": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lost Canals Of Uznair",
+      "English": "The Lost Canals Of Uznair",
+      "French": "Canaux Perdus D'Uznair",
+      "German": "Kanäle Von Uznair",
+      "Japanese": "ウズネアカナル",
+      "Korean": "The Lost Canals Of Uznair"
+    }
+  },
+  "155": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Coerthas Central Highlands",
+      "English": "Coerthas Central Highlands",
+      "French": "Hautes Terres Du Coerthas Central",
+      "German": "Zentrales Hochland Von Coerthas",
+      "Japanese": "クルザス中央高地",
+      "Korean": "Coerthas Central Highlands"
+    }
+  },
+  "156": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Mor Dhona",
+      "English": "Mor Dhona",
+      "French": "Mor Dhona",
+      "German": "Mor Dhona",
+      "Japanese": "モードゥナ",
+      "Korean": "Mor Dhona"
+    }
+  },
+  "157": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sastasha",
+      "English": "Sastasha",
+      "French": "Sastasha",
+      "German": "Sastasha-Höhle",
+      "Japanese": "サスタシャ浸食洞",
+      "Korean": "Sastasha"
+    }
+  },
+  "158": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Brayflox's Longstop",
+      "English": "Brayflox's Longstop",
+      "French": "Bivouac De Brayflox",
+      "German": "Brüllvolx' Langrast",
+      "Japanese": "ブレイフロクスの野営地",
+      "Korean": "Brayflox's Longstop"
+    }
+  },
+  "159": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Wanderer's Palace",
+      "English": "The Wanderer's Palace",
+      "French": "Palais Du Vagabond",
+      "German": "Palast Des Wanderers",
+      "Japanese": "ワンダラーパレス",
+      "Korean": "The Wanderer's Palace"
+    }
+  },
+  "160": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Pharos Sirius",
+      "English": "Pharos Sirius",
+      "French": "Phare De Sirius",
+      "German": "Pharos Sirius",
+      "Japanese": "シリウス大灯台",
+      "Korean": "Pharos Sirius"
+    }
+  },
+  "161": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Copperbell Mines",
+      "English": "Copperbell Mines",
+      "French": "Mines De Clochecuivre",
+      "German": "Kupferglocken-Mine",
+      "Japanese": "カッパーベル銅山",
+      "Korean": "Copperbell Mines"
+    }
+  },
+  "719": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Emanation",
+      "English": "Emanation",
+      "French": "Émanation",
+      "German": "Heiligtum Der Qalyana",
+      "Japanese": "美神の地下神殿",
+      "Korean": "Emanation"
+    }
+  },
+  "162": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Halatali",
+      "English": "Halatali",
+      "French": "Halatali",
+      "German": "Halatali",
+      "Japanese": "ハラタリ修練所",
+      "Korean": "Halatali"
+    }
+  },
+  "163": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Sunken Temple Of Qarn",
+      "English": "The Sunken Temple Of Qarn",
+      "French": "Temple Enseveli De Qarn",
+      "German": "Versunkener Tempel Von Qarn",
+      "Japanese": "カルン埋没寺院",
+      "Korean": "The Sunken Temple Of Qarn"
+    }
+  },
+  "164": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Tam-Tara Deepcroft",
+      "English": "The Tam-Tara Deepcroft",
+      "French": "Hypogée De Tam-Tara",
+      "German": "Totenacker Tam-Tara",
+      "Japanese": "タムタラの墓所",
+      "Korean": "The Tam-Tara Deepcroft"
+    }
+  },
+  "166": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Haukke Manor",
+      "English": "Haukke Manor",
+      "French": "Manoir Des Haukke",
+      "German": "Haukke-Herrenhaus",
+      "Japanese": "ハウケタ御用邸",
+      "Korean": "Haukke Manor"
+    }
+  },
+  "167": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Amdapor Keep",
+      "English": "Amdapor Keep",
+      "French": "Château D'Amdapor",
+      "German": "Ruinen Von Amdapor",
+      "Japanese": "古城アムダプール",
+      "Korean": "Amdapor Keep"
+    }
+  },
+  "168": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Stone Vigil",
+      "English": "Stone Vigil",
+      "French": "Vigile De Pierre",
+      "German": "Steinerne Wacht",
+      "Japanese": "ストーンヴィジル",
+      "Korean": "Stone Vigil"
+    }
+  },
+  "169": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Thousand Maws Of Toto-Rak",
+      "English": "The Thousand Maws Of Toto-Rak",
+      "French": "Mille Gueules De Toto-Rak",
+      "German": "Tausend Löcher Von Toto-Rak",
+      "Japanese": "トトラクの千獄",
+      "Korean": "The Thousand Maws Of Toto-Rak"
+    }
+  },
+  "727": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Royal Menagerie",
+      "English": "The Royal Menagerie",
+      "French": "Ménagerie Royale",
+      "German": "Königliche Menagerie",
+      "Japanese": "アラミゴ王宮屋上庭園",
+      "Korean": "The Royal Menagerie"
+    }
+  },
+  "170": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Cutter's Cry",
+      "English": "Cutter's Cry",
+      "French": "Gouffre Hurlant",
+      "German": "Sägerschrei",
+      "Japanese": "カッターズクライ",
+      "Korean": "Cutter's Cry"
+    }
+  },
+  "728": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Mordion Gaol",
+      "English": "Mordion Gaol",
+      "French": "Geôle De Mordion",
+      "German": "Mordion-Kerker",
+      "Japanese": "モルディオン監獄",
+      "Korean": "Mordion Gaol"
+    }
+  },
+  "171": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Dzemael Darkhold",
+      "English": "Dzemael Darkhold",
+      "French": "Forteresse De Dzemael",
+      "German": "Feste Dzemael",
+      "Japanese": "ゼーメル要塞",
+      "Korean": "Dzemael Darkhold"
+    }
+  },
+  "729": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Astragalos",
+      "English": "Astragalos",
+      "French": "Astragalos",
+      "German": "Astragalos",
+      "Japanese": "アストラガロス",
+      "Korean": "Astragalos"
+    }
+  },
+  "172": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Aurum Vale",
+      "English": "Aurum Vale",
+      "French": "Val D'Aurum",
+      "German": "Goldklamm",
+      "Japanese": "オーラムヴェイル",
+      "Korean": "Aurum Vale"
+    }
+  },
+  "730": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Myth",
+      "English": "Myth",
+      "French": "Mythe",
+      "German": "Mythos",
+      "Japanese": "神話空間",
+      "Korean": "Myth"
+    }
+  },
+  "731": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Drowned City Of Skalla",
+      "English": "The Drowned City Of Skalla",
+      "French": "Cité Engloutie De Skalla",
+      "German": "Die Versunkene Stadt Skalla",
+      "Japanese": "水没遺構 スカラ",
+      "Korean": "The Drowned City Of Skalla"
+    }
+  },
+  "174": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Labyrinth Of The Ancients",
+      "English": "Labyrinth Of The Ancients",
+      "French": "Dédale Antique",
+      "German": "Labyrinth Der Alten",
+      "Japanese": "古代の民の迷宮",
+      "Korean": "Labyrinth Of The Ancients"
+    }
+  },
+  "732": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eureka Anemos",
+      "English": "Eureka Anemos",
+      "French": "Eurêka Anemos",
+      "German": "Eureka Anemos",
+      "Japanese": "エウレカ：アネモス帯",
+      "Korean": "Eureka Anemos"
+    }
+  },
+  "175": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fold",
+      "English": "The Fold",
+      "French": "La Louverie (The Fold)",
+      "German": "Wolfspferch (The Fold)",
+      "Japanese": "ザ・フォールド",
+      "Korean": "The Fold"
+    }
+  },
+  "733": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Binding Coil Of Bahamut",
+      "English": "The Binding Coil Of Bahamut",
+      "French": "Abîme Infini De Bahamut",
+      "German": "Die Verschlungenen Schatten Von Bahamut",
+      "Japanese": "大迷宮バハムート",
+      "Korean": "The Binding Coil Of Bahamut"
+    }
+  },
+  "734": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Royal City Of Rabanastre",
+      "English": "The Royal City Of Rabanastre",
+      "French": "Cité Royale De Rabanastre",
+      "German": "Die Königliche Stadt Rabanastre",
+      "Japanese": "失われた都 ラバナスタ",
+      "Korean": "The Royal City Of Rabanastre"
+    }
+  },
+  "177": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Mizzenmast Inn",
+      "English": "Mizzenmast Inn",
+      "French": "Auberge De L'Artimon",
+      "German": "Gasthaus Gaffelschoner",
+      "Japanese": "宿屋「ミズンマスト」",
+      "Korean": "Mizzenmast Inn"
+    }
+  },
+  "735": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Prima Vista Tiring Room",
+      "English": "The Prima Vista Tiring Room",
+      "French": "Salle De Répétition Du Prima Vista",
+      "German": "Theaterwerkstatt",
+      "Japanese": "劇場艇プリマビスタ・大道具部屋",
+      "Korean": "The Prima Vista Tiring Room"
+    }
+  },
+  "178": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Hourglass",
+      "English": "The Hourglass",
+      "French": "Le Sablier",
+      "German": "Die Sanduhr",
+      "Japanese": "宿屋「砂時計亭」",
+      "Korean": "The Hourglass"
+    }
+  },
+  "736": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Prima Vista Bridge",
+      "English": "The Prima Vista Bridge",
+      "French": "Pont Du Prima Vista",
+      "German": "Brücke",
+      "Japanese": "劇場艇プリマビスタ・ブリッジ",
+      "Korean": "The Prima Vista Bridge"
+    }
+  },
+  "179": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Roost",
+      "English": "The Roost",
+      "French": "Le Perchoir",
+      "German": "Der Traumbaum",
+      "Japanese": "旅館「とまり木」",
+      "Korean": "The Roost"
+    }
+  },
+  "737": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Hall Of The Griffin",
+      "English": "The Hall Of The Griffin",
+      "French": "Salle Du Griffon",
+      "German": "Halle Des Greifen",
+      "Japanese": "鷲獅子の間",
+      "Korean": "The Hall Of The Griffin"
+    }
+  },
+  "180": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Outer La Noscea",
+      "English": "Outer La Noscea",
+      "French": "Noscea Extérieure",
+      "German": "Äußeres La Noscea",
+      "Japanese": "外地ラノシア",
+      "Korean": "Outer La Noscea"
+    }
+  },
+  "741": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Valentione's Ceremony",
+      "English": "Valentione's Ceremony",
+      "French": "Cérémonie De La Valention",
+      "German": "Valentionzeremonie",
+      "Japanese": "ヴァレンティオンセレモニー",
+      "Korean": "Valentione's Ceremony"
+    }
+  },
+  "742": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Hells' Lid",
+      "English": "Hells' Lid",
+      "French": "Couvercle Des Enfers",
+      "German": "Höllenspund",
+      "Japanese": "獄之蓋",
+      "Korean": "Hells' Lid"
+    }
+  },
+  "743": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fractal Continuum (Hard)",
+      "English": "The Fractal Continuum (Hard)",
+      "French": "Le Continuum Fractal (brutal)",
+      "German": "Fraktal-Kontinuum (schwer)",
+      "Japanese": "フラクタル・コンティニアム (Hard)",
+      "Korean": "The Fractal Continuum (Hard)"
+    }
+  },
+  "744": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Kienkan",
+      "English": "Kienkan",
+      "French": "Kienkan",
+      "German": "Kienkan",
+      "Japanese": "帰燕館",
+      "Korean": "Kienkan"
+    }
+  },
+  "745": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Crystal Tower Training Grounds",
+      "English": "Crystal Tower Training Grounds",
+      "French": "Arène De La Tour De Cristal",
+      "German": "Kristallturm-Arena",
+      "Japanese": "クリスタルタワー演習場",
+      "Korean": "Crystal Tower Training Grounds"
+    }
+  },
+  "188": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Wanderer's Palace (Hard)",
+      "English": "The Wanderer's Palace (Hard)",
+      "French": "Palais Du Vagabond (brutal)",
+      "German": "Palast Des Wanderers (schwer)",
+      "Japanese": "ワンダラーパレス (Hard)",
+      "Korean": "The Wanderer's Palace (Hard)"
+    }
+  },
+  "746": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Jade Stoa",
+      "English": "The Jade Stoa",
+      "French": "Clairière De Jade",
+      "German": "Jadelichtung",
+      "Japanese": "白帝の竹林",
+      "Korean": "The Jade Stoa"
+    }
+  },
+  "189": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Amdapor Keep (Hard)",
+      "English": "Amdapor Keep (Hard)",
+      "French": "Château D'Amdapor (brutal)",
+      "German": "Die Ruinen Von Amdapor (schwer)",
+      "Japanese": "古城アムダプール (Hard)",
+      "Korean": "Amdapor Keep (Hard)"
+    }
+  },
+  "748": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sigmascape V1.0",
+      "English": "Sigmascape V1.0",
+      "French": "Sigmastice V1.0",
+      "German": "Sigmametrie 1.0",
+      "Japanese": "被検世界「シグマ」V1.0",
+      "Korean": "Sigmascape V1.0"
+    }
+  },
+  "749": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sigmascape V2.0",
+      "English": "Sigmascape V2.0",
+      "French": "Sigmastice V2.0",
+      "German": "Sigmametrie 2.0",
+      "Japanese": "被検世界「シグマ」V2.0",
+      "Korean": "Sigmascape V2.0"
+    }
+  },
+  "750": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sigmascape V3.0",
+      "English": "Sigmascape V3.0",
+      "French": "Sigmastice V3.0",
+      "German": "Sigmametrie 3.0",
+      "Japanese": "被検世界「シグマ」V3.0",
+      "Korean": "Sigmascape V3.0"
+    }
+  },
+  "193": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "IC-06 Central Decks",
+      "English": "IC-06 Central Decks",
+      "French": "Secteur Central RCI-06",
+      "German": "Zentrale Decks RVH-06",
+      "Japanese": "ラグナロク級六番艦：艦体中央部",
+      "Korean": "IC-06 Central Decks"
+    }
+  },
+  "751": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sigmascape V4.0",
+      "English": "Sigmascape V4.0",
+      "French": "Sigmastice V4.0",
+      "German": "Sigmametrie 4.0",
+      "Japanese": "被検世界「シグマ」V4.0",
+      "Korean": "Sigmascape V4.0"
+    }
+  },
+  "194": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "IC-06 Regeneration Grid",
+      "English": "IC-06 Regeneration Grid",
+      "French": "Réseau De Régénération RCI-06",
+      "German": "Regenerationssektor RVH-06",
+      "Japanese": "ラグナロク級六番艦：再生制御区",
+      "Korean": "IC-06 Regeneration Grid"
+    }
+  },
+  "195": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "IC-06 Main Bridge",
+      "English": "IC-06 Main Bridge",
+      "French": "Pont Principal RCI-06",
+      "German": "Kommandobrücke RVH-06",
+      "Japanese": "ラグナロク級六番艦：第一艦橋",
+      "Korean": "IC-06 Main Bridge"
+    }
+  },
+  "196": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Burning Heart",
+      "English": "The Burning Heart",
+      "French": "Cœur De Bahamut",
+      "German": "Bahamuts Herz",
+      "Japanese": "バハムートコア",
+      "Korean": "The Burning Heart"
+    }
+  },
+  "198": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Command Room",
+      "English": "Command Room",
+      "French": "Salon De L'Amiral",
+      "German": "Admiralsbrücke",
+      "Japanese": "アドミラルブリッジ：提督室",
+      "Korean": "Command Room"
+    }
+  },
+  "202": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Bowl Of Embers",
+      "English": "Bowl Of Embers",
+      "French": "Cratère Des Tisons",
+      "German": "Das Grab Der Lohe",
+      "Japanese": "炎帝祭跡",
+      "Korean": "Bowl Of Embers"
+    }
+  },
+  "204": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Seat Of The First Bow",
+      "English": "Seat Of The First Bow",
+      "French": "Salle De Commandement Du Carquois",
+      "German": "Kommandozimmer Von Nophicas Schar",
+      "Japanese": "神勇隊司令室",
+      "Korean": "Seat Of The First Bow"
+    }
+  },
+  "761": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {}
+  },
+  "205": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lotus Stand",
+      "English": "Lotus Stand",
+      "French": "Chaire Du Lotus",
+      "German": "Wasserrosentisch",
+      "Japanese": "不語仙の座卓",
+      "Korean": "Lotus Stand"
+    }
+  },
+  "206": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Navel",
+      "English": "The Navel",
+      "French": "Le Nombril",
+      "German": "Der Nabel",
+      "Japanese": "オ・ゴモロ火口神殿",
+      "Korean": "The Navel"
+    }
+  },
+  "763": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {}
+  },
+  "207": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Thornmarch",
+      "English": "Thornmarch",
+      "French": "Lisière De Ronces",
+      "German": "Dornmarsch",
+      "Japanese": "茨の園",
+      "Korean": "Thornmarch"
+    }
+  },
+  "764": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Reisen Temple",
+      "English": "Reisen Temple",
+      "French": "Sanctuaire Reisen",
+      "German": "Reisen-Schrein",
+      "Japanese": "醴泉神社境内",
+      "Korean": "Reisen Temple"
+    }
+  },
+  "208": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Howling Eye",
+      "English": "The Howling Eye",
+      "French": "Hurlœil",
+      "German": "Das Tosende Auge",
+      "Japanese": "ハウリングアイ石塔群",
+      "Korean": "The Howling Eye"
+    }
+  },
+  "210": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Heart Of The Sworn",
+      "English": "Heart Of The Sworn",
+      "French": "Hall D'argent",
+      "German": "Hauptquartier Der Palastwache",
+      "Japanese": "銀冑団総長室",
+      "Korean": "Heart Of The Sworn"
+    }
+  },
+  "768": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Swallow's Compass",
+      "English": "The Swallow's Compass",
+      "French": "Compas De L'Hirondelle",
+      "German": "Kompass Der Schwalbe",
+      "Japanese": "ガンエン廟",
+      "Korean": "The Swallow's Compass"
+    }
+  },
+  "212": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Waking Sands",
+      "English": "The Waking Sands",
+      "French": "Refuge Des Sables",
+      "German": "Sonnenwind",
+      "Japanese": "砂の家",
+      "Korean": "The Waking Sands"
+    }
+  },
+  "769": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Burn",
+      "English": "The Burn",
+      "French": "L'Escarre",
+      "German": "Kargland",
+      "Japanese": "ザ・バーン",
+      "Korean": "The Burn"
+    }
+  },
+  "217": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Castrum Meridianum",
+      "English": "Castrum Meridianum",
+      "French": "Castrum Meridianum",
+      "German": "Castrum Meridianum",
+      "Japanese": "カストルム・メリディアヌム",
+      "Korean": "Castrum Meridianum"
+    }
+  },
+  "776": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Ridorana Lighthouse",
+      "English": "The Ridorana Lighthouse",
+      "French": "Le Phare De Ridorana",
+      "German": "Richtfeuer Von Ridorana",
+      "Japanese": "封じられた聖塔 リドルアナ",
+      "Korean": "The Ridorana Lighthouse"
+    }
+  },
+  "777": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ultimacy",
+      "English": "Ultimacy",
+      "French": "Fantasmagorie D'Ultima",
+      "German": "Endgültigkeit",
+      "Japanese": "禁絶幻想",
+      "Korean": "Ultimacy"
+    }
+  },
+  "778": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Castrum Fluminis",
+      "English": "Castrum Fluminis",
+      "French": "Castrum Fluminis",
+      "German": "Castrum Fluminis",
+      "Japanese": "カストルム・フルーミニス",
+      "Korean": "Castrum Fluminis"
+    }
+  },
+  "780": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Heaven-on-High",
+      "English": "Heaven-on-High",
+      "French": "Pilier Des Cieux",
+      "German": "Himmelssäule",
+      "Japanese": "アメノミハシラ",
+      "Korean": "Heaven-on-High"
+    }
+  },
+  "224": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Praetorium",
+      "English": "The Praetorium",
+      "French": "Praetorium",
+      "German": "Praetorium",
+      "Japanese": "魔導城プラエトリウム",
+      "Korean": "The Praetorium"
+    }
+  },
+  "781": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Reisen Temple Road",
+      "English": "Reisen Temple Road",
+      "French": "Chemin Du Sanctuaire Reisen",
+      "German": "Reisen-Schreinweg",
+      "Japanese": "醴泉神社参道",
+      "Korean": "Reisen Temple Road"
+    }
+  },
+  "786": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Castrum Fluminis",
+      "English": "Castrum Fluminis",
+      "French": "Castrum Fluminis",
+      "German": "Castrum Fluminis",
+      "Japanese": "カストルム・フルーミニス",
+      "Korean": "Castrum Fluminis"
+    }
+  },
+  "787": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Ridorana Cataract",
+      "English": "The Ridorana Cataract",
+      "French": "Cataractes De Ridorana",
+      "German": "Ridorana-Katarakt",
+      "Japanese": "リドルアナ大瀑布",
+      "Korean": "The Ridorana Cataract"
+    }
+  },
+  "788": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {}
+  },
+  "241": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Upper Aetheroacoustic Exploratory Site",
+      "English": "Upper Aetheroacoustic Exploratory Site",
+      "French": "Site Impérial D'exploration Supérieur",
+      "German": "Obere ätheroakustische Grabung",
+      "Japanese": "メテオ探査坑浅部",
+      "Korean": "Upper Aetheroacoustic Exploratory Site"
+    }
+  },
+  "242": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Lower Aetheroacoustic Exploratory Site",
+      "English": "Lower Aetheroacoustic Exploratory Site",
+      "French": "Site Impérial D'exploration Inférieur",
+      "German": "Untere ätheroakustische Grabung",
+      "Japanese": "メテオ探査坑深部",
+      "Korean": "Lower Aetheroacoustic Exploratory Site"
+    }
+  },
+  "243": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Ragnarok",
+      "English": "The Ragnarok",
+      "French": "Le Ragnarok",
+      "German": "Die Ragnarök",
+      "Japanese": "ラグナロク級拘束艦",
+      "Korean": "The Ragnarok"
+    }
+  },
+  "244": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ragnarok Drive Cylinder",
+      "English": "Ragnarok Drive Cylinder",
+      "French": "Cylindre Propulseur Du Ragnarok",
+      "German": "Antriebszylinder Der Ragnarök",
+      "Japanese": "稼働隔壁",
+      "Korean": "Ragnarok Drive Cylinder"
+    }
+  },
+  "245": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ragnarok Central Core",
+      "English": "Ragnarok Central Core",
+      "French": "Noyau Central Du Ragnarok",
+      "German": "Kernsektor Der Ragnarök",
+      "Japanese": "中枢区画",
+      "Korean": "Ragnarok Central Core"
+    }
+  },
+  "247": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ragnarok Main Bridge",
+      "English": "Ragnarok Main Bridge",
+      "French": "Pont Principal Du Ragnarok",
+      "German": "Kommandobrücke Der Ragnarök",
+      "Japanese": "第一艦橋",
+      "Korean": "Ragnarok Main Bridge"
+    }
+  },
+  "250": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Wolves' Den Pier",
+      "English": "Wolves' Den Pier",
+      "French": "Jetée De L'Antre Des Loups",
+      "German": "Wolfshöhlen-Pier",
+      "Japanese": "ウルヴズジェイル係船場",
+      "Korean": "Wolves' Den Pier"
+    }
+  },
+  "281": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Whorleater",
+      "English": "The Whorleater",
+      "French": "Briseur De Marées",
+      "German": "Der Wogenbrecher",
+      "Japanese": "対リヴァイアサン双胴船",
+      "Korean": "The Whorleater"
+    }
+  },
+  "282": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Cottage - Mist",
+      "English": "Private Cottage - Mist",
+      "French": "Maisonnette - Brumée",
+      "German": "Privathütte (Dorf Des Nebels)",
+      "Japanese": "ミスト・ヴィレッジ：コテージ",
+      "Korean": "Private Cottage - Mist"
+    }
+  },
+  "283": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private House - Mist",
+      "English": "Private House - Mist",
+      "French": "Pavillon - Brumée",
+      "German": "Privathaus (Dorf Des Nebels)",
+      "Japanese": "ミスト・ヴィレッジ：ハウス",
+      "Korean": "Private House - Mist"
+    }
+  },
+  "284": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Mansion - Mist",
+      "English": "Private Mansion - Mist",
+      "French": "Villa - Brumée",
+      "German": "Privatresidenz (Dorf Des Nebels)",
+      "Japanese": "ミスト・ヴィレッジ：レジデンス",
+      "Korean": "Private Mansion - Mist"
+    }
+  },
+  "331": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Howling Eye",
+      "English": "The Howling Eye",
+      "French": "Hurlœil (abord)",
+      "German": "Das Tosende Auge",
+      "Japanese": "ハウリングアイ外縁",
+      "Korean": "The Howling Eye"
+    }
+  },
+  "338": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Eorzean Subterrane",
+      "English": "Eorzean Subterrane",
+      "French": "Sous-sol éorzéen",
+      "German": "Tiefstes Inneres",
+      "Japanese": "エオルゼア地下空間",
+      "Korean": "Eorzean Subterrane"
+    }
+  },
+  "339": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Mist",
+      "English": "Mist",
+      "French": "Brumée",
+      "German": "Dorf Des Nebels",
+      "Japanese": "ミスト・ヴィレッジ",
+      "Korean": "Mist"
+    }
+  },
+  "340": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lavender Beds",
+      "English": "The Lavender Beds",
+      "French": "Lavandière",
+      "German": "Lavendelbeete",
+      "Japanese": "ラベンダーベッド",
+      "Korean": "The Lavender Beds"
+    }
+  },
+  "341": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Goblet",
+      "English": "The Goblet",
+      "French": "La Coupe",
+      "German": "Kelchkuppe",
+      "Japanese": "ゴブレットビュート",
+      "Korean": "The Goblet"
+    }
+  },
+  "342": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Cottage - The Lavender Beds",
+      "English": "Private Cottage - The Lavender Beds",
+      "French": "Maisonnette - Lavandière",
+      "German": "Privathütte (Lavendelbeete)",
+      "Japanese": "ラベンダーベッド：コテージ",
+      "Korean": "Private Cottage - The Lavender Beds"
+    }
+  },
+  "343": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private House - The Lavender Beds",
+      "English": "Private House - The Lavender Beds",
+      "French": "Pavillon - Lavandière",
+      "German": "Privathaus (Lavendelbeete)",
+      "Japanese": "ラベンダーベッド：ハウス",
+      "Korean": "Private House - The Lavender Beds"
+    }
+  },
+  "344": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Mansion - The Lavender Beds",
+      "English": "Private Mansion - The Lavender Beds",
+      "French": "Villa - Lavandière",
+      "German": "Privatresidenz (Lavendelbeete)",
+      "Japanese": "ラベンダーベッド：レジデンス",
+      "Korean": "Private Mansion - The Lavender Beds"
+    }
+  },
+  "345": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Cottage - The Goblet",
+      "English": "Private Cottage - The Goblet",
+      "French": "Maisonnette - La Coupe",
+      "German": "Privathütte (Kelchkuppe)",
+      "Japanese": "ゴブレットビュート：コテージ",
+      "Korean": "Private Cottage - The Goblet"
+    }
+  },
+  "346": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private House - The Goblet",
+      "English": "Private House - The Goblet",
+      "French": "Pavillon - La Coupe",
+      "German": "Privathaus (Kelchkuppe)",
+      "Japanese": "ゴブレットビュート：ハウス",
+      "Korean": "Private House - The Goblet"
+    }
+  },
+  "347": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Mansion - The Goblet",
+      "English": "Private Mansion - The Goblet",
+      "French": "Villa - La Coupe",
+      "German": "Privatresidenz (Kelchkuppe)",
+      "Japanese": "ゴブレットビュート：レジデンス",
+      "Korean": "Private Mansion - The Goblet"
+    }
+  },
+  "348": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Porta Decumana",
+      "English": "Porta Decumana",
+      "French": "Porta Decumana",
+      "German": "Porta Decumana",
+      "Japanese": "ポルタ・デクマーナ",
+      "Korean": "Porta Decumana"
+    }
+  },
+  "349": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Copperbell Mines (Hard)",
+      "English": "Copperbell Mines (Hard)",
+      "French": "Mines De Clochecuivre (brutal)",
+      "German": "Kupferglocken-Mine (schwer)",
+      "Japanese": "カッパーベル銅山 (Hard)",
+      "Korean": "Copperbell Mines (Hard)"
+    }
+  },
+  "350": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Haukke Manor (Hard)",
+      "English": "Haukke Manor (Hard)",
+      "French": "Manoir Des Haukke (brutal)",
+      "German": "Haukke-Herrenhaus (schwer)",
+      "Japanese": "ハウケタ御用邸 (Hard)",
+      "Korean": "Haukke Manor (Hard)"
+    }
+  },
+  "351": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Rising Stones",
+      "English": "The Rising Stones",
+      "French": "Refuge Des Roches",
+      "German": "Sonnenstein",
+      "Japanese": "石の家",
+      "Korean": "The Rising Stones"
+    }
+  },
+  "353": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Last Remnant",
+      "English": "Last Remnant",
+      "French": "Dernier Vestige",
+      "German": "Letzte Überreste",
+      "Japanese": "残骸島",
+      "Korean": "Last Remnant"
+    }
+  },
+  "355": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Dalamud's Shadow",
+      "English": "Dalamud's Shadow",
+      "French": "Ombrage Du Météore",
+      "German": "Meteoritenkrater",
+      "Japanese": "メテオの陰地",
+      "Korean": "Dalamud's Shadow"
+    }
+  },
+  "356": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Outer Coil",
+      "English": "The Outer Coil",
+      "French": "L'Écheveau",
+      "German": "Äußere Schächte",
+      "Japanese": "バインディングコイル",
+      "Korean": "The Outer Coil"
+    }
+  },
+  "357": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Central Decks",
+      "English": "Central Decks",
+      "French": "Secteur Central RCI-03",
+      "German": "Zentrale Decks",
+      "Japanese": "ラグナロク級三番艦：艦体中央部",
+      "Korean": "Central Decks"
+    }
+  },
+  "358": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Holocharts",
+      "English": "The Holocharts",
+      "French": "Salle De Contrôle RCI-03",
+      "German": "Holosphäre",
+      "Japanese": "ラグナロク級三番艦：作戦室",
+      "Korean": "The Holocharts"
+    }
+  },
+  "360": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Halatali (Hard)",
+      "English": "Halatali (Hard)",
+      "French": "Halatali (brutal)",
+      "German": "Halatali (schwer)",
+      "Japanese": "ハラタリ修練所 (Hard)",
+      "Korean": "Halatali (Hard)"
+    }
+  },
+  "361": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Hullbreaker Isle",
+      "English": "Hullbreaker Isle",
+      "French": "Île De Crèvecarène",
+      "German": "Schiffbrecher-Insel",
+      "Japanese": "ハルブレーカー・アイル",
+      "Korean": "Hullbreaker Isle"
+    }
+  },
+  "362": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Brayflox's Longstop (Hard)",
+      "English": "Brayflox's Longstop (Hard)",
+      "French": "Bivouac De Brayflox (brutal)",
+      "German": "Brüllvolx' Langrast",
+      "Japanese": "ブレイフロクスの野営地 (Hard)",
+      "Korean": "Brayflox's Longstop (Hard)"
+    }
+  },
+  "363": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lost City Of Amdapor",
+      "English": "The Lost City Of Amdapor",
+      "French": "Vestiges De La Cité D'Amdapor",
+      "German": "Historisches Amdapor",
+      "Japanese": "古アムダプール市街",
+      "Korean": "The Lost City Of Amdapor"
+    }
+  },
+  "365": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Stone Vigil (Hard)",
+      "English": "The Stone Vigil (Hard)",
+      "French": "Vigile De Pierre (brutal)",
+      "German": "Steinerne Wacht (schwer)",
+      "Japanese": "ストーンヴィジル (Hard)",
+      "Korean": "The Stone Vigil (Hard)"
+    }
+  },
+  "366": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Griffin Crossing",
+      "English": "Griffin Crossing",
+      "French": "Traversée Du Griffon",
+      "German": "Greifenbrücke",
+      "Japanese": "グリフィン大橋",
+      "Korean": "Griffin Crossing"
+    }
+  },
+  "367": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Sunken Temple Of Qarn (Hard)",
+      "English": "The Sunken Temple Of Qarn (Hard)",
+      "French": "Temple Enseveli De Qarn (brutal)",
+      "German": "Versunkener Tempel Von Qarn (schwer)",
+      "Japanese": "カルン埋没寺院 (Hard)",
+      "Korean": "The Sunken Temple Of Qarn (Hard)"
+    }
+  },
+  "371": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Snowcloak",
+      "English": "Snowcloak",
+      "French": "Manteneige",
+      "German": "Schneekleid",
+      "Japanese": "スノークローク大氷壁",
+      "Korean": "Snowcloak"
+    }
+  },
+  "372": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Syrcus Tower",
+      "English": "Syrcus Tower",
+      "French": "Tour De Syrcus",
+      "German": "Syrcus-Turm",
+      "Japanese": "シルクスの塔",
+      "Korean": "Syrcus Tower"
+    }
+  },
+  "373": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Tam-Tara Deepcroft (Hard)",
+      "English": "The Tam-Tara Deepcroft (Hard)",
+      "French": "Hypogée De Tam-Tara (brutal)",
+      "German": "Totenacker Tam-Tara (schwer)",
+      "Japanese": "タムタラの墓所 (Hard)",
+      "Korean": "The Tam-Tara Deepcroft (Hard)"
+    }
+  },
+  "374": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Striking Tree",
+      "English": "The Striking Tree",
+      "French": "Arbre Du Jugement",
+      "German": "Baum Des Urteils",
+      "Japanese": "古木の神判地",
+      "Korean": "The Striking Tree"
+    }
+  },
+  "376": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Carteneau Flats: Borderland Ruins",
+      "English": "Carteneau Flats: Borderland Ruins",
+      "French": "Ruines Frontalières",
+      "German": "Äußere Ruinen",
+      "Japanese": "カルテノー平原：外縁遺跡群",
+      "Korean": "Carteneau Flats: Borderland Ruins"
+    }
+  },
+  "377": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Akh Afah Amphitheatre",
+      "English": "Akh Afah Amphitheatre",
+      "French": "Amphithéâtre D'Akh Afah",
+      "German": "Akh Afah",
+      "Japanese": "アク・アファー円形劇場",
+      "Korean": "Akh Afah Amphitheatre"
+    }
+  },
+  "384": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Chambers - Mist",
+      "English": "Private Chambers - Mist",
+      "French": "Chambre Individuelle - Brumée",
+      "German": "Nebeldorf - Zimmer",
+      "Japanese": "ミスト・ヴィレッジ：プライベートルーム",
+      "Korean": "Private Chambers - Mist"
+    }
+  },
+  "385": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Chambers - The Lavender Beds",
+      "English": "Private Chambers - The Lavender Beds",
+      "French": "Chambre Individuelle - Lavandière",
+      "German": "Lavendelbeete - Zimmer",
+      "Japanese": "ラベンダーベッド：プライベートルーム",
+      "Korean": "Private Chambers - The Lavender Beds"
+    }
+  },
+  "386": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Private Chambers - The Goblet",
+      "English": "Private Chambers - The Goblet",
+      "French": "Chambre Individuelle - La Coupe",
+      "German": "Kelchkuppe - Zimmer",
+      "Japanese": "ゴブレットビュート：プライベートルーム",
+      "Korean": "Private Chambers - The Goblet"
+    }
+  },
+  "387": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sastasha (Hard)",
+      "English": "Sastasha (Hard)",
+      "French": "Sastasha (brutal)",
+      "German": "Sastasha-Höhle (schwer)",
+      "Japanese": "サスタシャ浸食洞 (Hard)",
+      "Korean": "Sastasha (Hard)"
+    }
+  },
+  "389": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Chocobo Square",
+      "English": "Chocobo Square",
+      "French": "Square Des Chocobos",
+      "German": "Chocobo-Platz",
+      "Japanese": "チョコボスクウェア",
+      "Korean": "Chocobo Square"
+    }
+  },
+  "395": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Intercessory",
+      "English": "Intercessory",
+      "French": "Salle De Réception",
+      "German": "Empfangszimmer",
+      "Japanese": "応接室",
+      "Korean": "Intercessory"
+    }
+  },
+  "397": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Coerthas Western Highlands",
+      "English": "Coerthas Western Highlands",
+      "French": "Hautes Terres Du Coerthas Occidental",
+      "German": "Westliches Hochland Von Coerthas",
+      "Japanese": "クルザス西部高地",
+      "Korean": "Coerthas Western Highlands"
+    }
+  },
+  "398": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Dravanian Forelands",
+      "English": "The Dravanian Forelands",
+      "French": "Avant-pays Dravanien",
+      "German": "Dravanisches Vorland",
+      "Japanese": "高地ドラヴァニア",
+      "Korean": "The Dravanian Forelands"
+    }
+  },
+  "399": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Dravanian Hinterlands",
+      "English": "The Dravanian Hinterlands",
+      "French": "Arrière-pays Dravanien",
+      "German": "Dravanisches Hinterland",
+      "Japanese": "低地ドラヴァニア",
+      "Korean": "The Dravanian Hinterlands"
+    }
+  },
+  "400": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Churning Mists",
+      "English": "The Churning Mists",
+      "French": "L'Écume Des Cieux De Dravania",
+      "German": "Wallende Nebel",
+      "Japanese": "ドラヴァニア雲海",
+      "Korean": "The Churning Mists"
+    }
+  },
+  "401": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Sea Of Clouds",
+      "English": "The Sea Of Clouds",
+      "French": "L'Écume Des Cieux D'Abalathia",
+      "German": "Abalathisches Wolkenmeer",
+      "Japanese": "アバラシア雲海",
+      "Korean": "The Sea Of Clouds"
+    }
+  },
+  "402": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Azys Lla",
+      "English": "Azys Lla",
+      "French": "Azys Lla",
+      "German": "Azys Lla",
+      "Japanese": "アジス・ラー",
+      "Korean": "Azys Lla"
+    }
+  },
+  "416": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Great Gubal Library",
+      "English": "The Great Gubal Library",
+      "French": "Grande Bibliothèque De Gubal",
+      "German": "Große Gubal-Bibliothek",
+      "Japanese": "グブラ幻想図書館",
+      "Korean": "The Great Gubal Library"
+    }
+  },
+  "418": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Foundation",
+      "English": "Foundation",
+      "French": "Ishgard - L'Assise",
+      "German": "Fundamente",
+      "Japanese": "イシュガルド：下層",
+      "Korean": "Foundation"
+    }
+  },
+  "419": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Pillars",
+      "English": "The Pillars",
+      "French": "Ishgard - Les Contreforts",
+      "German": "Strebewerk",
+      "Japanese": "イシュガルド：上層",
+      "Korean": "The Pillars"
+    }
+  },
+  "420": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Neverreap",
+      "English": "Neverreap",
+      "French": "Nalloncques",
+      "German": "Nimmerreich",
+      "Japanese": "ネバーリープ",
+      "Korean": "Neverreap"
+    }
+  },
+  "421": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Vault",
+      "English": "The Vault",
+      "French": "La Voûte",
+      "German": "Erzbasilika",
+      "Japanese": "イシュガルド教皇庁",
+      "Korean": "The Vault"
+    }
+  },
+  "423": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Company Workshop - Mist",
+      "English": "Company Workshop - Mist",
+      "French": "Atelier De Compagnie - Brumée",
+      "German": "Gesellschaftswerkstätte: Dorf Des Nebels",
+      "Japanese": "ミスト・ヴィレッジ：地下工房",
+      "Korean": "Company Workshop - Mist"
+    }
+  },
+  "424": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Company Workshop - The Goblet",
+      "English": "Company Workshop - The Goblet",
+      "French": "Atelier De Compagnie - La Coupe",
+      "German": "Gesellschaftswerkstätte: Kelchkuppe",
+      "Japanese": "ゴブレットビュート：地下工房",
+      "Korean": "Company Workshop - The Goblet"
+    }
+  },
+  "425": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Company Workshop - The Lavender Beds",
+      "English": "Company Workshop - The Lavender Beds",
+      "French": "Atelier De Compagnie - Lavandière",
+      "German": "Gesellschaftswerkstätte: Lavendelbeete",
+      "Japanese": "ラベンダーベッド：地下工房",
+      "Korean": "Company Workshop - The Lavender Beds"
+    }
+  },
+  "426": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Chrysalis",
+      "English": "The Chrysalis",
+      "French": "La Chrysalide",
+      "German": "Chrysalis",
+      "Japanese": "戒律の殻",
+      "Korean": "The Chrysalis"
+    }
+  },
+  "427": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Saint Endalim's Scholasticate",
+      "English": "Saint Endalim's Scholasticate",
+      "French": "Scolasticat Saint-Endalim",
+      "German": "Sankt Endalim-Theologikum",
+      "Japanese": "聖アンダリム神学院",
+      "Korean": "Saint Endalim's Scholasticate"
+    }
+  },
+  "428": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Seat Of The Lord Commander",
+      "English": "Seat Of The Lord Commander",
+      "French": "Siège Du Capitaine Général",
+      "German": "Kommandantur Des Großmeisters",
+      "Japanese": "神殿騎士団総長室",
+      "Korean": "Seat Of The Lord Commander"
+    }
+  },
+  "429": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Cloud Nine",
+      "English": "Cloud Nine",
+      "French": "Les Neuf-Nuages",
+      "German": "Zum Wolkenschäfchen",
+      "Japanese": "旅籠「九つの雲」",
+      "Korean": "Cloud Nine"
+    }
+  },
+  "430": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fractal Continuum",
+      "English": "The Fractal Continuum",
+      "French": "Le Continuum Fractal",
+      "German": "Die Fraktal-Kontinuum",
+      "Japanese": "フラクタル・コンティニアム",
+      "Korean": "The Fractal Continuum"
+    }
+  },
+  "431": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Seal Rock",
+      "English": "Seal Rock",
+      "French": "Rocher Des Tréfonds",
+      "German": "Robbenholm",
+      "Japanese": "シールロック",
+      "Korean": "Seal Rock"
+    }
+  },
+  "432": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Thok Ast Thok",
+      "English": "Thok Ast Thok",
+      "French": "Thok Ast Thok",
+      "German": "Thok Ast Thok",
+      "Japanese": "武神の闘技場",
+      "Korean": "Thok Ast Thok"
+    }
+  },
+  "433": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Fortemps Manor",
+      "English": "Fortemps Manor",
+      "French": "Manoir Des Fortemps",
+      "German": "Anwesen Der Fortemps",
+      "Japanese": "フォルタン伯爵邸",
+      "Korean": "Fortemps Manor"
+    }
+  },
+  "434": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Dusk Vigil",
+      "English": "Dusk Vigil",
+      "French": "Vigile Du Crépuscule",
+      "German": "Abendrot-Wacht",
+      "Japanese": "ダスクヴィジル",
+      "Korean": "Dusk Vigil"
+    }
+  },
+  "435": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Aery",
+      "English": "The Aery",
+      "French": "L'Aire",
+      "German": "Nest Des Drachen",
+      "Japanese": "ドラゴンズエアリー",
+      "Korean": "The Aery"
+    }
+  },
+  "436": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Limitless Blue",
+      "English": "The Limitless Blue",
+      "French": "L'Immensité Bleue",
+      "German": "Grenzenloses Blau",
+      "Japanese": "群青空域",
+      "Korean": "The Limitless Blue"
+    }
+  },
+  "437": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Singularity Reactor",
+      "English": "Singularity Reactor",
+      "French": "Réacteur De Singularité",
+      "German": "Singularitäts-Reaktor",
+      "Japanese": "シンギュラリティ・リアクター",
+      "Korean": "Singularity Reactor"
+    }
+  },
+  "438": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Aetherochemical Research Facility",
+      "English": "Aetherochemical Research Facility",
+      "French": "Laboratoire De Magismologie",
+      "German": "Ätherochemisches Forschungslabor",
+      "Japanese": "魔科学研究所",
+      "Korean": "Aetherochemical Research Facility"
+    }
+  },
+  "439": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lightfeather Proving Grounds",
+      "English": "The Lightfeather Proving Grounds",
+      "French": "Carrière De Lesteplume",
+      "German": "Leichtfeder-Arena",
+      "Japanese": "ライトフェザー闘技場",
+      "Korean": "The Lightfeather Proving Grounds"
+    }
+  },
+  "440": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Ruling Chamber",
+      "English": "Ruling Chamber",
+      "French": "Salle Des Sentences",
+      "German": "Gerichtssaal",
+      "Japanese": "決闘裁判場",
+      "Korean": "Ruling Chamber"
+    }
+  },
+  "441": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sohm Al Foothills",
+      "English": "Sohm Al Foothills",
+      "French": "Appuis De Sohm Al",
+      "German": "Ausläufer Des Sohm Al",
+      "Japanese": "ソーム・アル山麓",
+      "Korean": "Sohm Al Foothills"
+    }
+  },
+  "442": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fist Of The Father",
+      "English": "The Fist Of The Father",
+      "French": "Le Poing Du Père",
+      "German": "Faust Des Vaters",
+      "Japanese": "フィスト・オブ・ゴルディオス",
+      "Korean": "The Fist Of The Father"
+    }
+  },
+  "443": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Cuff Of The Father",
+      "English": "The Cuff Of The Father",
+      "French": "Le Poignet Du Père",
+      "German": "Elle Des Vaters",
+      "Japanese": "カフ・オブ・ゴルディオス",
+      "Korean": "The Cuff Of The Father"
+    }
+  },
+  "444": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Arm Of The Father",
+      "English": "The Arm Of The Father",
+      "French": "Le Bras Du Père",
+      "German": "Arm Des Vaters",
+      "Japanese": "アーム・オブ・ゴルディオス",
+      "Korean": "The Arm Of The Father"
+    }
+  },
+  "445": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Burden Of The Father",
+      "English": "The Burden Of The Father",
+      "French": "Le Fardeau Du Père",
+      "German": "Last Des Vaters",
+      "Japanese": "バーデン・オブ・ゴルディオス",
+      "Korean": "The Burden Of The Father"
+    }
+  },
+  "462": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sacrificial Chamber",
+      "English": "Sacrificial Chamber",
+      "French": "Salle Des Offrandes",
+      "German": "Opferkammer",
+      "Japanese": "供物穴",
+      "Korean": "Sacrificial Chamber"
+    }
+  },
+  "463": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Matoya's Cave",
+      "English": "Matoya's Cave",
+      "French": "Caverne De Matoya",
+      "German": "Matoyas Höhle",
+      "Japanese": "マトーヤの洞窟",
+      "Korean": "Matoya's Cave"
+    }
+  },
+  "478": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Idyllshire",
+      "English": "Idyllshire",
+      "French": "Idyllée",
+      "German": "Frohehalde",
+      "Japanese": "イディルシャイア",
+      "Korean": "Idyllshire"
+    }
+  },
+  "504": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Eighteenth Floor",
+      "English": "The Eighteenth Floor",
+      "French": "Salle Des Développeurs",
+      "German": "Achtzehnter Stock",
+      "Japanese": "かいはつしつ",
+      "Korean": "The Eighteenth Floor"
+    }
+  },
+  "505": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Midan Knot",
+      "English": "The Midan Knot",
+      "French": "Le Nœud Midin",
+      "German": "Midischer Knoten",
+      "Japanese": "ミダース・ノット",
+      "Korean": "The Midan Knot"
+    }
+  },
+  "507": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Central Azys Lla",
+      "English": "Central Azys Lla",
+      "French": "Cœur D'Azys Lla",
+      "German": "Zentral-Azys Lla",
+      "Japanese": "魔大陸中枢",
+      "Korean": "Central Azys Lla"
+    }
+  },
+  "508": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Void Ark",
+      "English": "Void Ark",
+      "French": "Arche Du Néant",
+      "German": "Nichts-Arche",
+      "Japanese": "魔航船ヴォイドアーク",
+      "Korean": "Void Ark"
+    }
+  },
+  "510": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Pharos Sirius (Hard)",
+      "English": "Pharos Sirius (Hard)",
+      "French": "Phare De Sirius (brutal)",
+      "German": "Pharos Sirius (schwer)",
+      "Japanese": "シリウス大灯台 (Hard)",
+      "Korean": "Pharos Sirius (Hard)"
+    }
+  },
+  "511": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Saint Mocianne's Arboretum",
+      "English": "Saint Mocianne's Arboretum",
+      "French": "Arboretum Sainte-Mocianne",
+      "German": "Sankt Mocianne-Arboretum",
+      "Japanese": "聖モシャーヌ植物園",
+      "Korean": "Saint Mocianne's Arboretum"
+    }
+  },
+  "515": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Diadem",
+      "English": "The Diadem",
+      "French": "Le Diadème",
+      "German": "Das Diadem",
+      "Japanese": "ディアデム諸島",
+      "Korean": "The Diadem"
+    }
+  },
+  "516": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Antitower",
+      "English": "The Antitower",
+      "French": "L'Antitour",
+      "German": "Antiturm",
+      "Japanese": "逆さの塔",
+      "Korean": "The Antitower"
+    }
+  },
+  "517": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Containment Bay S1T7",
+      "English": "Containment Bay S1T7",
+      "French": "Unité De Contention S1P7",
+      "German": "Arretur S1T7",
+      "Japanese": "コンテイメントベイS1T7",
+      "Korean": "Containment Bay S1T7"
+    }
+  },
+  "518": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Feasting Grounds",
+      "English": "The Feasting Grounds",
+      "French": "Festin Des Loups",
+      "German": "Kampfplatz",
+      "Japanese": "ウルヴズジェイル演習場",
+      "Korean": "The Feasting Grounds"
+    }
+  },
+  "519": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Lost City Of Amdapor (Hard)",
+      "English": "The Lost City Of Amdapor (Hard)",
+      "French": "Vestiges De La Cité D'Amdapor (brutal)",
+      "German": "Historisches Amdapor (schwer)",
+      "Japanese": "古アムダプール市街 (Hard)",
+      "Korean": "The Lost City Of Amdapor (Hard)"
+    }
+  },
+  "520": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fist Of The Son",
+      "English": "The Fist Of The Son",
+      "French": "Le Poing Du Fils",
+      "German": "Faust Des Sohnes",
+      "Japanese": "フィスト・オブ・ミダース",
+      "Korean": "The Fist Of The Son"
+    }
+  },
+  "521": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Cuff Of The Son",
+      "English": "The Cuff Of The Son",
+      "French": "Le Poignet Du Fils",
+      "German": "Elle Des Sohnes",
+      "Japanese": "カフ・オブ・ミダース",
+      "Korean": "The Cuff Of The Son"
+    }
+  },
+  "522": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Arm Of The Son",
+      "English": "The Arm Of The Son",
+      "French": "Le Bras Du Fils",
+      "German": "Arm Des Sohnes",
+      "Japanese": "アーム・オブ・ミダース",
+      "Korean": "The Arm Of The Son"
+    }
+  },
+  "523": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Burden Of The Son",
+      "English": "The Burden Of The Son",
+      "French": "Le Fardeau Du Fils",
+      "German": "Last Des Sohnes",
+      "Japanese": "バーデン・オブ・ミダース",
+      "Korean": "The Burden Of The Son"
+    }
+  },
+  "534": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Twin Adder Barracks",
+      "English": "Twin Adder Barracks",
+      "French": "Caserne De L'ordre Des Deux Vipères",
+      "German": "Wachstube Der Bruderschaft",
+      "Japanese": "双蛇党兵舎",
+      "Korean": "Twin Adder Barracks"
+    }
+  },
+  "535": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Flame Barracks",
+      "English": "Flame Barracks",
+      "French": "Caserne Des Immortels",
+      "German": "Wachstube Der Legion",
+      "Japanese": "不滅隊兵舎",
+      "Korean": "Flame Barracks"
+    }
+  },
+  "536": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Maelstrom Barracks",
+      "English": "Maelstrom Barracks",
+      "French": "Caserne Du Maelstrom",
+      "German": "Wachstube Des Mahlstroms",
+      "Japanese": "黒渦団兵舎",
+      "Korean": "Maelstrom Barracks"
+    }
+  },
+  "554": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Fields Of Glory",
+      "English": "The Fields Of Glory",
+      "French": "Champs De La Gloire",
+      "German": "Feld Der Ehre",
+      "Japanese": "フィールド・オブ・グローリー",
+      "Korean": "The Fields Of Glory"
+    }
+  },
+  "555": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "Sohr Khai",
+      "English": "Sohr Khai",
+      "French": "Sohr Khai",
+      "German": "Sohr Khai",
+      "Japanese": "ソール・カイ",
+      "Korean": "Sohr Khai"
+    }
+  },
+  "556": {
+    "Index": 0,
+    "IsDungeonInstance": false,
+    "Name": {
+      "Chinese": "The Weeping City Of Mhach",
+      "English": "The Weeping City Of Mhach",
+      "French": "Cité Défendue De Mhach",
+      "German": "Die Stadt Der Tränen",
+      "Japanese": "禁忌都市マハ",
+      "Korean": "The Weeping City Of Mhach"
+    }
+  }
+}

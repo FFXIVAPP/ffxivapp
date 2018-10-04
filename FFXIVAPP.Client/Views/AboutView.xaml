@@ -1,23 +1,15 @@
-﻿<UserControl x:Class="FFXIVAPP.Client.Views.AboutView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:FFXIVAPP.Client.ViewModels"
+             xmlns:local="clr-namespace:FFXIVAPP.Client"
              xmlns:Converters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             mc:Ignorable="d">
-
+             DataContext="{x:Static vm:AboutViewModel.Instance}">
+<!--
     <UserControl.Resources>
         <Converters:VisibilityConverter x:Key="VisibilityConverter" />
         <Style x:Key="LabelStyle">
             <Setter Property="Control.Padding" Value="0" />
-            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
-        </Style>
-        <Style x:Key="NameHeaderStyle">
-            <Setter Property="Control.FontSize" Value="16" />
-            <Setter Property="Control.Padding" Value="0" />
-            <Setter Property="Control.Foreground" Value="White" />
             <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
         </Style>
         <Style TargetType="Label">
@@ -27,11 +19,7 @@
             <Setter Property="Margin" Value="2" />
         </Style>
     </UserControl.Resources>
-
-    <UserControl.DataContext>
-        <Binding Source="{StaticResource AboutViewModel}" />
-    </UserControl.DataContext>
-
+-->
     <ScrollViewer>
         <StackPanel>
             <Grid x:Name="LayoutRoot" Margin="5">
@@ -63,10 +51,11 @@
                            LastChildFill="True">
                     <DockPanel>
                         <TextBlock Margin="4"
-                                   Padding="0"
+                                   FontSize="16"
+                                   Foreground="White"
+                                   HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
-                                   Style="{StaticResource NameHeaderStyle}"
-                                   Text="{Binding Locale[app_VersionInformationHeader], Source={StaticResource AppProperties}}" />
+                                   Text="{Binding Locale[app_VersionInformationHeader], Source={x:Static local:AppViewModel.Instance}}" />
                     </DockPanel>
                     <DockPanel />
                 </DockPanel>
@@ -81,8 +70,7 @@
                         CornerRadius="50">
                     <Image Width="40"
                            Height="40"
-                           RenderOptions.BitmapScalingMode="HighQuality"
-                           Source="/FFXIVAPP.ResourceFiles;component/Theme/ffxivapp.png" />
+                           Source="resm:FFXIVAPP.ResourceFiles.Theme.ffxivapp.png?assembly=FFXIVAPP.ResourceFiles" />
                 </Border>
                 <Border Grid.Row="3"
                         Grid.Column="0"
@@ -100,23 +88,22 @@
                                         Grid.Column="0"
                                         HorizontalAlignment="Left">
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_LatestLabel], Source={StaticResource AppProperties}}" />
+                                           Text="{Binding Locale[app_LatestLabel], Source={x:Static local:AppViewModel.Instance}}" />
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_CurrentLabel], Source={StaticResource AppProperties}}" />
+                                           Text="{Binding Locale[app_CurrentLabel], Source={x:Static local:AppViewModel.Instance}}" />
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Locale[app_CopyrightLabel], Source={StaticResource AppProperties}}" />
+                                           Text="{Binding Locale[app_CopyrightLabel], Source={x:Static local:AppViewModel.Instance}}" />
                             </StackPanel>
                         </DockPanel>
                         <DockPanel Margin="5,0">
                             <StackPanel Grid.Column="1"
-                                        Height="Auto"
                                         HorizontalAlignment="Left">
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding LatestVersion, Source={StaticResource AppProperties}}" />
+                                           Text="{Binding LatestVersion, Source={x:Static local:AppViewModel.Instance}}" />
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding CurrentVersion, Source={StaticResource AppProperties}}" />
+                                           Text="{Binding CurrentVersion, Source={x:Static local:AppViewModel.Instance}}" />
                                 <TextBlock Foreground="{DynamicResource LabelTextBrush}"
-                                           Text="{Binding Copyright, Source={StaticResource AppProperties}}" />
+                                           Text="{Binding Copyright, Source={x:Static local:AppViewModel.Instance}}" />
                             </StackPanel>
                         </DockPanel>
                     </DockPanel>
@@ -130,7 +117,7 @@
             </Grid>
             <Button Margin="3"
                     Command="{Binding ManualUpdateCommand}"
-                    Content="{Binding Locale[app_ManualUpdateButtonText], Source={StaticResource AppProperties}}" />
+                    Content="{Binding Locale[app_ManualUpdateButtonText], Source={x:Static local:AppViewModel.Instance}}" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

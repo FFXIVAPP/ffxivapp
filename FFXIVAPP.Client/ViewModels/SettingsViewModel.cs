@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingsViewModel.cs" company="SyndicatedLife">
 //   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
@@ -11,8 +11,9 @@
 namespace FFXIVAPP.Client.ViewModels {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.ComponentModel.Composition;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -20,25 +21,18 @@ namespace FFXIVAPP.Client.ViewModels {
     using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
     using System.Web;
-    using System.Windows;
     using System.Windows.Input;
-
+    using Avalonia;
     using FFXIVAPP.Client.Helpers;
-    using FFXIVAPP.Client.Properties;
-    using FFXIVAPP.Client.Views;
-    using FFXIVAPP.Common.Helpers;
+    using FFXIVAPP.Client.SettingsProviders.Application;
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.Utilities;
     using FFXIVAPP.Common.ViewModelBase;
-
     using HtmlAgilityPack;
-
-    using MahApps.Metro.Controls;
-
     using NLog;
+    using Sharlayan.Models;
 
-    [Export(typeof(SettingsViewModel))]
-    internal sealed class SettingsViewModel : INotifyPropertyChanged {
+    public class SettingsViewModel : ViewModelBase {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private static Lazy<SettingsViewModel> _instance = new Lazy<SettingsViewModel>(() => new SettingsViewModel());
@@ -46,27 +40,28 @@ namespace FFXIVAPP.Client.ViewModels {
         private static string _key = string.Empty;
 
         private static string _value = string.Empty;
+        
+        // TODO: private List<string> _availableAudioDevicesList;
 
-        private List<string> _availableAudioDevicesList;
-
-        private List<string> _availableNetworkInterfacesList;
+        // TODO: private List<string> _availableNetworkInterfacesList;
 
         private List<string> _homePluginList;
-
-        public SettingsViewModel() {
-            this.RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
+        
+        public SettingsViewModel()
+        {
+            this.PIDSelectItems = new ObservableCollection<ProcessModel>();
+            this.PIDSelect = null;
+            // TODO: this.RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
             this.RefreshMemoryWorkersCommand = new DelegateCommand(RefreshMemoryWorkers);
             this.SetProcessCommand = new DelegateCommand(SetProcess);
             this.RefreshListCommand = new DelegateCommand(RefreshList);
-            this.ChangeThemeCommand = new DelegateCommand(ChangeTheme);
+            // TODO: this.ChangeThemeCommand = new DelegateCommand(ChangeTheme);
             this.DefaultSettingsCommand = new DelegateCommand(DefaultSettings);
-            this.ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
+            // TODO: this.ChangeAudioModeCommand = new DelegateCommand(ChangeAudioMode);
             this.GetCICUIDCommand = new DelegateCommand(GetCICUID);
-            this.ColorSelectionCommand = new DelegateCommand(ColorSelection);
-            this.UpdateColorCommand = new DelegateCommand(UpdateColor);
+            // TODO: this.ColorSelectionCommand = new DelegateCommand(ColorSelection);
+            // TODO: this.UpdateColorCommand = new DelegateCommand(UpdateColor);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public static SettingsViewModel Instance {
             get {
@@ -74,6 +69,10 @@ namespace FFXIVAPP.Client.ViewModels {
             }
         }
 
+        public ProcessModel PIDSelect { get; set; }
+
+        public ObservableCollection<ProcessModel> PIDSelectItems { get; set; }
+        /* TODO: Audio & Network
         public List<string> AvailableAudioDevicesList {
             get {
                 return this._availableAudioDevicesList ?? (this._availableAudioDevicesList = new List<string>(Settings.Default.DefaultAudioDeviceList.Cast<string>().ToList()));
@@ -103,6 +102,7 @@ namespace FFXIVAPP.Client.ViewModels {
                 this.RaisePropertyChanged();
             }
         }
+        */
 
         public ICommand ChangeAudioModeCommand { get; private set; }
 
@@ -133,18 +133,20 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public ICommand RefreshMemoryWorkersCommand { get; private set; }
 
-        public ICommand RefreshNetworkWorkerCommand { get; private set; }
+        // TODO: public ICommand RefreshNetworkWorkerCommand { get; private set; }
 
         public ICommand SetProcessCommand { get; private set; }
 
         public ICommand UpdateColorCommand { get; private set; }
 
+        /* TODO: Audio
         /// <summary>
         /// </summary>
         public static void ChangeAudioMode() {
             SoundPlayerHelper.CacheSoundFiles();
         }
-
+        */
+        /* TODO: Theme
         /// <summary>
         /// </summary>
         private static void ChangeTheme() {
@@ -152,7 +154,9 @@ namespace FFXIVAPP.Client.ViewModels {
                                          select window as MetroWindow).ToList();
             ThemeHelper.ChangeTheme(Settings.Default.Theme, windows);
         }
+        */
 
+        /* TODO: Color
         /// <summary>
         /// </summary>
         private static void ColorSelection() {
@@ -166,6 +170,7 @@ namespace FFXIVAPP.Client.ViewModels {
             SettingsView.View.TCode.Text = _key;
             SettingsView.View.TColor.Text = _value;
         }
+        */
 
         /// <summary>
         /// </summary>
@@ -231,7 +236,7 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         private static void RefreshList() {
-            SettingsView.View.PIDSelect.Items.Clear();
+            SettingsViewModel.Instance.PIDSelectItems.Clear();
             Initializer.StopMemoryWorkers();
             Initializer.ResetProcessID();
             Initializer.StartMemoryWorkers();
@@ -241,11 +246,13 @@ namespace FFXIVAPP.Client.ViewModels {
             Initializer.RefreshMemoryWorkers();
         }
 
+        /* TODO: Network
         /// <summary>
         /// </summary>
         private static void RefreshNetworkWorker() {
             Initializer.RefreshNetworkWorker();
         }
+        */
 
         /// <summary>
         /// </summary>
@@ -253,6 +260,7 @@ namespace FFXIVAPP.Client.ViewModels {
             Initializer.SetProcessID();
         }
 
+        /* TODO: Color
         /// <summary>
         /// </summary>
         private static void UpdateColor() {
@@ -269,9 +277,6 @@ namespace FFXIVAPP.Client.ViewModels {
             Constants.Colors[_key][0] = _value;
             SettingsView.View.Colors.Items.Refresh();
         }
-
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
-        }
+        */
     }
 }
