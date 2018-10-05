@@ -13,7 +13,6 @@ namespace FFXIVAPP.Client
     {
         static void Main(string[] args)
         {
-            // TODO: Load settings from file
             LocaleHelper.Update(Settings.Default.Culture);
             BuildAvaloniaApp().Start<ShellView>(); //(() => new MainWindowViewModel());
         }
