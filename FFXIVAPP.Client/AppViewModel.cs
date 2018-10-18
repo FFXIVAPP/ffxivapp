@@ -359,25 +359,6 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        /* TODO: TabControlCollapsedHeader
-        public Style TabControlCollapsedHeader {
-            get {
-                if (this._tabControlCollapsedHeader == null) {
-                    var s = new Style();
-                    s.Setters.Add(new Setter(UIElement.VisibilityProperty, Visibility.Collapsed));
-                    this._tabControlCollapsedHeader = s;
-                }
-
-                return this._tabControlCollapsedHeader;
-            }
-
-            set {
-                this._tabControlCollapsedHeader = value;
-                this.RaisePropertyChanged();
-            }
-        }
-        */
-
         public ObservableCollection<UILanguage> UILanguages {
             get {
                 return this._uiLanguages ?? (this._uiLanguages = new ObservableCollection<UILanguage>());

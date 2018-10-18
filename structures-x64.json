@@ -201,7 +201,7 @@
     "ActionProc": 21,
     "Amount": 32,
     "Category": 0,
-    "ContainerSize": 640,
+    "ContainerSize": 704,
     "CoolDownPercent": 20,
     "Icon": 16,
     "ID": 12,
@@ -212,6 +212,7 @@
     "Type": 8
   },
   "StatusItem": {
+    "SourceSize": 12,
     "CasterID": 8,
     "Duration": 4,
     "Stacks": 2,

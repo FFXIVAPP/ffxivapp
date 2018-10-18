@@ -1,4 +1,6 @@
-<UserControl xmlns="https://github.com/avaloniaui">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="clr-namespace:FFXIVAPP.Client.ViewModels">
     <ScrollViewer>
         <StackPanel Margin="10,0,10,10">
             <Image MaxWidth="400"
@@ -6,7 +8,7 @@
                     VerticalAlignment="Top"
                     Source="resm:FFXIVAPP.ResourceFiles.Theme.splash.png?assembly=FFXIVAPP.ResourceFiles" />
             <Button Width="200"
-                    Command="{Binding OpenWebSiteCommand}"
+                    Command="{Binding OpenWebSiteCommand, Source={x:Static vm:MainViewModel.Instance}}"
                     Content="Open https://ffxiv-app.com" />
                 <!-- TODO: GoogleAnalytics
                 <WebBrowser x:Name="GoogleAnalytics" Visibility="Collapsed" />

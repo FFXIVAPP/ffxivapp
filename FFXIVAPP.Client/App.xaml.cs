@@ -33,7 +33,6 @@ namespace FFXIVAPP.Client
         {
             ConfigureNLog();
             Settings.Default.PropertyChanged += SettingsPropertyChanged;
-            // TODO: Settings.Default.SettingChanging += SettingsSettingChanging;
             CheckSettings();
         }
 
@@ -73,7 +72,6 @@ namespace FFXIVAPP.Client
                     return;
                 }
 
-                // TODO: No upgrade handling on json.. Settings.Upgrade();
                 Settings.Reload();
                 Settings.Default.Application_UpgradeRequired = false;
             }
@@ -108,18 +106,6 @@ namespace FFXIVAPP.Client
                 LogManager.Configuration = new XmlLoggingConfiguration(xmlReader, null);
             }
         }
-
-        /* TODO: Dispatcher property from WPF missing...
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="e"> </param>
-        private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
-            e.Handled = true;
-            Exception ex = e.Exception;
-            Logging.Log(Logger, new LogItem(ex, true));
-        }
-        */
 
         /// <summary>
         /// </summary>
@@ -179,11 +165,9 @@ namespace FFXIVAPP.Client
                         Constants.UIScale = Settings.Default.UIScale;
                         break;
                     case "TopMost":
-                        /* TODO: Handle TopMost command
                         if (ShellView.View != null) {
                             ShellView.View.Topmost = Settings.Default.TopMost;
                         }
-                        */
                         break;
                     case "DefaultAudioDevice":
                         /*  TODO: Audio
@@ -206,27 +190,6 @@ namespace FFXIVAPP.Client
             }
         }
 
-        /* TODO: Settings event
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"> </param>
-        /// <param name="e"> </param>
-        private static void SettingsSettingChanging(object sender, SettingChangingEventArgs e) {
-            Logging.Log(Logger, $"SettingChanging : [{e.SettingKey},{e.NewValue}]");
-        }
-        */
-        /* TODO: Dispatcher property from WPF missing...
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnUnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e) {
-            e.RequestCatch = true;
-            Exception ex = e.Exception;
-            Logging.Log(Logger, new LogItem(ex, true));
-        }
-        */
-
         protected override void OnExiting(object sender, System.EventArgs e)
         {
             CloseApplication(false);
@@ -242,6 +205,11 @@ namespace FFXIVAPP.Client
             }
 
             SavedlLogsHelper.SaveCurrentLog(false);
+
+            foreach(var window in Avalonia.Application.Current.Windows.ToList()) {
+                window.Close();
+            }
+
             CloseDelegate(update);
         }
 

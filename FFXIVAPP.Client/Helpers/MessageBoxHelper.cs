@@ -41,44 +41,9 @@ namespace FFXIVAPP.Client.Helpers {
         /// <param name="okAction"></param>
         /// <param name="cancelAction"></param>
         private static void HandleMessage(string title, string message, Action okAction = null, Action cancelAction = null) {
-            DispatcherHelper.Invoke(
-                delegate {
-                    /* TODO: HandleMessage
-                    MetroWindow mw = Application.Current.Windows.OfType<MetroWindow>().FirstOrDefault();
-                    if (mw != null) {
-                        mw.MetroDialogOptions.AffirmativeButtonText = AppViewModel.Instance.Locale["app_OKButtonText"];
-                        mw.MetroDialogOptions.NegativeButtonText = AppViewModel.Instance.Locale["app_CancelButtonText"];
-                        if (okAction == null && cancelAction == null) {
-                            mw.ShowMessageAsync(title, message);
-                        }
-                        else {
-                            if (cancelAction != null) {
-                                mw.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative).ContinueWith(
-                                    x => DispatcherHelper.Invoke(
-                                        delegate {
-                                            if (x.Result == MessageDialogResult.Affirmative) {
-                                                if (okAction != null) {
-                                                    DispatcherHelper.Invoke(okAction, DispatcherPriority.Send);
-                                                }
-                                            }
-
-                                            if (x.Result == MessageDialogResult.Negative) {
-                                                DispatcherHelper.Invoke(cancelAction, DispatcherPriority.Send);
-                                            }
-                                        },
-                                        DispatcherPriority.Send));
-                            }
-                            else {
-                                mw.ShowMessageAsync(title, message).ContinueWith(x => DispatcherHelper.Invoke(() => DispatcherHelper.Invoke(okAction), DispatcherPriority.Send));
-                            }
-                        }
-                    }
-                    else {
-                        MessageBox.Show($"Unable to process MessageBox[{message}]:NotProcessingResult", title, MessageBoxButton.OK);
-                    }
-                    */
-                },
-                DispatcherPriority.Send);
+            DispatcherHelper.Invoke(async () =>{
+                await MessageBox.ShowAsync(title, message, cancelAction != null ? MessageDialogStyle.AffirmativeAndNegative : MessageDialogStyle.Affirmative, okAction, cancelAction);
+            }, DispatcherPriority.Send);
         }
     }
 }

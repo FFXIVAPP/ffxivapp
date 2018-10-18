@@ -13,7 +13,7 @@ namespace FFXIVAPP.Client.ViewModels {
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
-
+    using System.Runtime.InteropServices;
     using FFXIVAPP.Client.Helpers;
     using FFXIVAPP.Common.ViewModelBase;
 
@@ -36,7 +36,17 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public void OpenWebSite() {
             try {
-                Process.Start("https://ffxiv-app.com");
+                var url = "https://ffxiv-app.com";
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
+                    Process.Start("xdg-open", url);
+                }
+                else {
+                    Process.Start(url);
+                }
             }
             catch (Exception ex) {
                 MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
