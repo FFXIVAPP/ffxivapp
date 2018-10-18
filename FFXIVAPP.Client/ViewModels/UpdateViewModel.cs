@@ -115,16 +115,6 @@ namespace FFXIVAPP.Client.ViewModels {
         public ObservableCollection<GridItem> PluginSourceDG { get; set; }
         public GridItem SelectedPluginSourceDG { get; set; }
 
-        /* TODO: WPF Stuff (DataGrid grouping)
-        public void SetupGrouping() {
-            ICollectionView cvEvents = CollectionViewSource.GetDefaultView(UpdateView.View.AvailableDG.ItemsSource);
-            if (cvEvents != null && cvEvents.CanGroup) {
-                cvEvents.GroupDescriptions.Clear();
-                cvEvents.GroupDescriptions.Add(new PropertyGroupDescription("Status"));
-            }
-        }
-        */
-
         /// <summary>
         /// </summary>
         private static void AddOrUpdateSource() {
@@ -256,7 +246,6 @@ namespace FFXIVAPP.Client.ViewModels {
                                             delegate {
                                                 if (plugin.Status != PluginStatus.Installed) {
                                                     plugin.Status = PluginStatus.Installed;
-                                                    // TODO: Instance.SetupGrouping();
                                                     if (asyncAction != null) {
                                                         DispatcherHelper.Invoke(asyncAction);
                                                     }
@@ -280,7 +269,6 @@ namespace FFXIVAPP.Client.ViewModels {
                 if (updateCount >= updateLimit) {
                     if (plugin.Status != PluginStatus.Installed) {
                         plugin.Status = PluginStatus.Installed;
-                        // TODO: Instance.SetupGrouping();
                         if (asyncAction != null) {
                             DispatcherHelper.Invoke(asyncAction);
                         }
@@ -349,7 +337,6 @@ namespace FFXIVAPP.Client.ViewModels {
                             pluginDownloadItem.Status = PluginStatus.NotInstalled;
                         }
 
-                        // TODO: Instance.SetupGrouping();
                         PluginHost.Instance.UnloadPlugin(plugin.Name);
                         for (var i = 0; i < AppViewModel.Instance.PluginTabItems.Count; i++) {
                             if (AppViewModel.Instance.PluginTabItems[i].Name == Regex.Replace(plugin.Name, @"[^A-Za-z]", string.Empty)) {

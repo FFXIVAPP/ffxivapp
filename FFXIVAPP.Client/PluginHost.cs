@@ -37,8 +37,6 @@ namespace FFXIVAPP.Client {
 
         private static Lazy<PluginHost> _instance = new Lazy<PluginHost>(() => new PluginHost());
 
-        // TODO: Do we need AssemblyReflectionManager? public AssemblyReflectionManager AssemblyReflectionManager = new AssemblyReflectionManager();
-
         private PluginCollectionHelper _loaded;
 
         public event EventHandler<ActionContainersEvent> ActionContainersUpdated = delegate { };
@@ -176,19 +174,17 @@ namespace FFXIVAPP.Client {
             Action cancelAction = null;
             if (popupContent.CanCancel) {
                 cancelAction = delegate {
-                    // TODO: pluginInstance.Instance.PopupResult = MessageBoxResult.Cancel;
+                    pluginInstance.Instance.PopupResult = false;
                 };
             }
 
-            /* TODO: MessageboxHelper
             MessageBoxHelper.ShowMessageAsync(
                 title,
                 message,
                 delegate {
-                    pluginInstance.Instance.PopupResult = MessageBoxResult.OK;
+                    pluginInstance.Instance.PopupResult = true;
                 },
                 cancelAction);
-            */
         }
 
         public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {

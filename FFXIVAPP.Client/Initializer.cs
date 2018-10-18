@@ -364,15 +364,6 @@ namespace FFXIVAPP.Client {
                     }
                 }
 
-                /* TODO: Can implement when we got DataGrid for installed plugins (or changed current datagrid so it can group)
-                DispatcherHelper.Invoke(
-                    delegate {
-                        if (UpdateViewModel.Instance.AvailableDG.Count == UpdateViewModel.Instance.AvailablePlugins.Count){ 
-                            // TODO: Hide/Collapse available plugins because they are all installed
-                        }
-                    });
-                */
-
                 UpdateViewModel.Instance.UpdatingAvailablePlugins = false;
                 return true;
             };
@@ -680,8 +671,6 @@ namespace FFXIVAPP.Client {
         private static void MemoryHandler_SignaturesFoundEvent(object sender, SignaturesFoundEvent e) {
             foreach (KeyValuePair<string, Signature> kvp in e.Signatures) {
                 Logging.Log(e.Logger, new LogItem($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
-                // TODO: Remove when we do not want to output to console...
-                Console.WriteLine($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]");
             }
         }
 

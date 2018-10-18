@@ -11,11 +11,6 @@
         <Converters:ProcessModelToStringConverter x:Key="ProcessModelToStringConverter" />
     </UserControl.Resources>
 
-    <!-- TODO: Remove this after a test
-    <UserControl.DataContext>
-        <vm:SettingsViewModel />
-    </UserControl.DataContext>
-    -->
     <Grid x:Name="LayoutRoot">
         <TabControl>
             <TabItem>

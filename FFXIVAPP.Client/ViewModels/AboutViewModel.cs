@@ -13,7 +13,7 @@ namespace FFXIVAPP.Client.ViewModels {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Input;
-
+    using Avalonia.Threading;
     using FFXIVAPP.Common.Helpers;
     using FFXIVAPP.Common.ViewModelBase;
 
@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         private void ManualUpdate() {
-            // TODO: CloseApplication DispatcherHelper.Invoke(() => ShellView.CloseApplication(true), DispatcherPriority.Send);
+            DispatcherHelper.Invoke(() => App.CloseApplication(true), DispatcherPriority.Send);
         }
 
         private void RaisePropertyChanged([CallerMemberName] string caller = "") {
