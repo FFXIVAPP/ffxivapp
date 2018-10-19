@@ -31,21 +31,36 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
 
     internal static class Settings {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        internal static readonly string SettingsPath;
+
+        static Settings() {
+            SettingsPath = Path.Combine(FFXIVAPP.Common.Constants.SettingsPath, "ApplicationSettings.json");            
+        }
+
+        private static void Reload(SettingModel model)
+        {
+            if (File.Exists(SettingsPath)) {
+                var tmp = JsonConvert.DeserializeObject<SettingModel>(File.ReadAllText(SettingsPath));
+                var mt = model.GetType();
+                foreach(var p in tmp.GetType().GetProperties())
+                {
+                    var dp = mt.GetProperty(p.Name);
+                    if (dp?.CanWrite ?? false) {
+                        var d = p.GetValue(tmp);
+                        dp.SetValue(model, d, null);
+                    }
+                }
+            }
+            else {
+                model.DefaultSettings();
+            }
+        }
 
         private static Lazy<SettingModel> _default = new Lazy<SettingModel>(() => {
-            if (string.IsNullOrEmpty(settingsPath)) {
-                settingsPath = Path.Combine(FFXIVAPP.Common.Constants.SettingsPath, "ApplicationSettings.json");
-            }
-
             var config = new SettingModel();
-            if (File.Exists(settingsPath)) {
-                config = JsonConvert.DeserializeObject<SettingModel>(File.ReadAllText(settingsPath));
-            }
-
+            Reload(config);
             return config;
         });
-
-        private static string settingsPath;
 
         public static SettingModel Default {
             get {
@@ -54,7 +69,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
         }
 
         public static void Reload() {
-            Default.DefaultSettings();
+            Reload(_default.Value);
         }
 
         public static void Reset() {
@@ -73,7 +88,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
         }
 
         public static void Save() {
-            File.WriteAllText(settingsPath, JsonConvert.SerializeObject(Default, Formatting.Indented));
+            File.WriteAllText(SettingsPath, JsonConvert.SerializeObject(Default, Formatting.Indented));
         }
 
         private static void DefaultSettings() {

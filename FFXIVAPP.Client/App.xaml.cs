@@ -164,11 +164,6 @@ namespace FFXIVAPP.Client
                     case "UIScale":
                         Constants.UIScale = Settings.Default.UIScale;
                         break;
-                    case "TopMost":
-                        if (ShellView.View != null) {
-                            ShellView.View.Topmost = Settings.Default.TopMost;
-                        }
-                        break;
                     case "DefaultAudioDevice":
                         /*  TODO: Audio
                         if (Settings.Default.DefaultAudioDevice == "System Default") {
@@ -183,6 +178,16 @@ namespace FFXIVAPP.Client
                         }
                         */
                         break;
+                    case nameof(SettingModel.Top):
+                    case nameof(SettingModel.Left):
+                    {
+                        var iX = (int)ShellView.View.Position.X;
+                        var iY = (int)ShellView.View.Position.Y;
+                        if (iX != Settings.Default.Left || iY != Settings.Default.Top) {
+                            ShellView.View.Position = new Avalonia.Point(Settings.Default.Left, Settings.Default.Top);
+                        }
+                        break;
+                    }
                 }
             }
             catch (Exception ex) {

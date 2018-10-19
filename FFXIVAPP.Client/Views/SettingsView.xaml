@@ -109,7 +109,7 @@
                             </StackPanel>
                         </groupbox:GroupBox>
                         <Button Margin="5"
-                                Command="{Binding DefaultSettingsCommand}"
+                                Command="{Binding DefaultSettingsCommand, Source={x:Static vm:SettingsViewModel.Instance}}"
                                 Content="{Binding Locale[app_DefaultSettingsButtonText], Source={x:Static local:AppViewModel.Instance}}" />
                     </StackPanel>
                 </ScrollViewer>

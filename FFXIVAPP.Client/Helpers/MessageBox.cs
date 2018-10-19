@@ -31,13 +31,17 @@ namespace FFXIVAPP.Client.Helpers
             }
         }
 
-        public MessageBox(bool showCancel = false)
+        public MessageBox(WindowBase owner, bool showCancel = false)
         {
             this.Width = 200;
             this.Height = 150;
             this.DataContext = this;
             this.Padding = Thickness.Parse("5");
-
+            this.Owner = owner;
+            if (owner.Topmost) {
+                this.Topmost = true;
+            }
+            
             var grid = new Grid
             {
                 RowDefinitions = RowDefinitions.Parse("*,Auto"),
@@ -113,7 +117,7 @@ namespace FFXIVAPP.Client.Helpers
 
         public static async Task<bool> ShowAsync(WindowBase owner, string title, string message, MessageDialogStyle msgStyle, Action okAction = null , Action cancelAction = null)
         {
-            var msg = new MessageBox(msgStyle == MessageDialogStyle.AffirmativeAndNegative)
+            var msg = new MessageBox(ShellView.View, msgStyle == MessageDialogStyle.AffirmativeAndNegative)
             {
                 Title = title,
                 Message = message

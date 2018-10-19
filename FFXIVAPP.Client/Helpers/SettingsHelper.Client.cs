@@ -28,9 +28,7 @@ namespace FFXIVAPP.Client.Helpers {
             public static void Default() {
                 try {
                     object[] att = Assembly.GetCallingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                    var companyName = ((AssemblyCompanyAttribute) att[0]).Company;
-                    var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                    var combinedPath = Path.Combine(appDataPath, companyName);
+                    var combinedPath = Settings.SettingsPath;
                     var title = AppViewModel.Instance.Locale["app_WarningMessage"];
                     var message = $"{AppViewModel.Instance.Locale["app_DeleteMessage"]} : {combinedPath}";
                     MessageBoxHelper.ShowMessageAsync(
@@ -38,7 +36,7 @@ namespace FFXIVAPP.Client.Helpers {
                         message,
                         delegate {
                             Settings.Reset();
-                            Directory.Delete(combinedPath, true);
+                            File.Delete(combinedPath);
                             Settings.Reload();
                         },
                         delegate { });

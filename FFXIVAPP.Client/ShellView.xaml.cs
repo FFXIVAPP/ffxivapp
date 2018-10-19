@@ -40,6 +40,7 @@ namespace FFXIVAPP.Client {
         public ShellView()
         {
             View = this;
+            View.Position = new Avalonia.Point(Settings.Default.Left, Settings.Default.Top);
             this.Initialized += this.InitDone;
             InitializeComponent();
             var spinner = this.FindControl<Image>("PluginUpdateSpinner");
@@ -62,6 +63,18 @@ namespace FFXIVAPP.Client {
                             _rotate.Angle = 0;
                         }, new TimeSpan(0));
                     }
+                }
+            };
+
+            View.PositionChanged += (o, e) => {
+                var iX = (int)e.Point.X;
+                var iY = (int)e.Point.Y;
+
+                if (iX != Settings.Default.Left) {
+                    Settings.Default.Left = iX;
+                }
+                if (iY != Settings.Default.Top) {
+                    Settings.Default.Top = iY;
                 }
             };
         }

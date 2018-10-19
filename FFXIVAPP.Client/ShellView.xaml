@@ -5,10 +5,12 @@
         xmlns:Views="clr-namespace:FFXIVAPP.Client.Views"
         xmlns:local="clr-namespace:FFXIVAPP.Client"
         xmlns:rs="clr-namespace:FFXIVAPP.ResourceFiles;assembly=FFXIVAPP.ResourceFiles"
-        Width="600"
-        Height="400"
+        Width="{Binding Width, Source={x:Static Properties:Settings.Default}, Mode=TwoWay}"
+        Height="{Binding Height, Source={x:Static Properties:Settings.Default}, Mode=TwoWay}"
         Icon="resm:FFXIVAPP.Client.FFXIVAPP.ico"
-        Title="{Binding AppTitle, Source={x:Static local:AppViewModel.Instance}}">
+        Title="{Binding AppTitle, Source={x:Static local:AppViewModel.Instance}}"
+        Topmost="{Binding TopMost, Source={x:Static Properties:Settings.Default}}"
+        >
 <!-- TODO: Resources        
     <Window.Resources>
         <ResourceDictionary>
