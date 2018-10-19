@@ -1,0 +1,5 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Style Selector="DropDownItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ButtonBackgroundHighlightBrush}"/>
+  </Style>
+</Styles>

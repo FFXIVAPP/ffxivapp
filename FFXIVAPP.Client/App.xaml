@@ -8,71 +8,64 @@
   </Application.DataTemplates>
   <Application.Styles>
     <StyleInclude Source="resm:Avalonia.Themes.Default.DefaultTheme.xaml?assembly=Avalonia.Themes.Default"/>
-    <!--
-    <StyleInclude Source="resm:Avalonia.Themes.Default.Accents.BaseLight.xaml?assembly=Avalonia.Themes.Default"/>
-    -->
     <Style>
       <Style.Resources>
-      <!-- e2e2e2 for selected TabItem -->
-      <!-- 41b1e1 highlight tabitem -->
-        <Color x:Key="BlackColor">#FF000000</Color>
-        <Color x:Key="WhiteColor">#FFFFFFFF</Color>
-        <Color x:Key="HighlightColor">#FF41b1e1</Color>
-        <Color x:Key="AccentBaseColor">#FF70C5E9</Color>
-        <!--  80%  -->
-        <Color x:Key="AccentColor">#CC70C5E9</Color>
-        <!--  60%  -->
-        <Color x:Key="AccentColor2">#9970C5E9</Color>
-        <!--  40%  -->
-        <Color x:Key="AccentColor3">#6670C5E9</Color>
-        <!--  20%  -->
-        <Color x:Key="AccentColor4">#3370C5E9</Color>
-
         <Color x:Key="ErrorColor">#FFEE0000</Color>
         <Color x:Key="ErrorLightColor">#FFFF4444</Color>
 
-        <Color x:Key="ButtonBorderColor">#FFCCCCCC</Color>
-        <Color x:Key="ButtonBackgroundColor">#FFF7F7F7</Color>
-        <Color x:Key="ButtonForegroundColor">#FF000000</Color>
-        <Color x:Key="ButtonBorderHighlightColor">#FFCCCCCC</Color>
-        <Color x:Key="ButtonBackgroundHighlightColor">#FFE0E0E0</Color>
-        <Color x:Key="ButtonBorderClickColor">#FFCCCCCC</Color>
-        <Color x:Key="ButtonBackgroundClickColor">#FFD7D7D7</Color>
+        <Color x:Key="ThemeBackgroundColor">#FFFFFFFF</Color>
+        <Color x:Key="ThemeForegroundColor">#FF41B1E1</Color>
+        <Color x:Key="ThemeTextColor">#FF000000</Color>
+        <Color x:Key="ThemeHighlightColor">#FFA0D8F0</Color>
+        <Color x:Key="ThemeSelectedTextColor">#FFFFFFFF</Color>
+        <Color x:Key="ThemeSelectedColor">#FF41B1E1</Color>
 
-        <!-- FFXIVAPP colors.. need to merge this with the above... -->
-        <Color x:Key="FFXIVAPPBorderColor">#FF70C5E9</Color>
-        <Color x:Key="FFXIVAPPHighlightColor">#FFA0D8F0</Color>
-        <SolidColorBrush x:Key="FFXIVAPPBorderBrush" Color="{StaticResource FFXIVAPPBorderColor}" />
-        <SolidColorBrush x:Key="FFXIVAPPHightlightBrush" Color="{StaticResource FFXIVAPPHighlightColor}" />
+        <Color x:Key="ControlBorderColor">#FFCCCCCC</Color>
+        <Color x:Key="ControlBackgroundColor">#FFF7F7F7</Color>
+        <Color x:Key="ControlForegroundColor">#FF000000</Color>
+        <Color x:Key="ControlHighlightColor">#FFE0E0E0</Color>
+        <Color x:Key="ControlHighlightBorderColor">#FF7F7F7F</Color>
+        <Color x:Key="ControlSelectedColor">#FFD8D8D9</Color>
+        <Color x:Key="ControlSelectedBorderColor">#FF000000</Color>
+        <Color x:Key="ControlScrollbarColor">#FFB9B9B9</Color>
+        <Color x:Key="ControlScrollbarHighlightColor">#FF000000</Color>
+
         <!-- Found in AboutView.xaml -->
-        <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
+        <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource ThemeForegroundColor}" />
 
-        <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource ButtonBorderColor}" />
-        <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonBackgroundColor}" />
-        <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource ButtonForegroundColor}" />
-        <SolidColorBrush x:Key="ButtonBorderHighlightBrush" Color="{StaticResource ButtonBorderHighlightColor}" />
-        <SolidColorBrush x:Key="ButtonBackgroundHighlightBrush" Color="{StaticResource ButtonBackgroundHighlightColor}" />
-        <SolidColorBrush x:Key="ButtonBorderClickBrush" Color="{StaticResource ButtonBorderClickColor}" />
-        <SolidColorBrush x:Key="ButtonBackgroundClickBrush" Color="{StaticResource ButtonBackgroundClickColor}" />
+        <SolidColorBrush x:Key="ButtonBorderBrush" Color="{DynamicResource ControlBorderColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{DynamicResource ControlBackgroundColor}" />
+        <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{DynamicResource ControlForegroundColor}" />
+        <SolidColorBrush x:Key="ButtonBorderHighlightBrush" Color="{DynamicResource ControlBorderColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundHighlightBrush" Color="{DynamicResource ControlHighlightColor}" />
+        <SolidColorBrush x:Key="ButtonBorderClickBrush" Color="{DynamicResource ControlSelectedBorderColor}" />
+        <SolidColorBrush x:Key="ButtonBackgroundClickBrush" Color="{DynamicResource ControlSelectedColor}" />
 
-        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource WhiteColor}" />
-        <SolidColorBrush x:Key="ThemeWhiteBrush" Color="{StaticResource WhiteColor}" />
-        <SolidColorBrush x:Key="ThemeBorderLightBrush" Color="{StaticResource AccentColor}" />
-        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{StaticResource AccentColor2}" />
-        <SolidColorBrush x:Key="ThemeBorderDarkBrush" Color="{StaticResource AccentColor3}" />
-        <SolidColorBrush x:Key="ThemeControlLightBrush" Color="{StaticResource AccentColor2}" />
-        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{StaticResource AccentColor3}" />
-        <SolidColorBrush x:Key="ThemeControlDarkBrush" Color="{StaticResource AccentColor4}" />
-        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{StaticResource BlackColor}" />
-        <SolidColorBrush x:Key="ThemeForegroundLightBrush" Color="{StaticResource BlackColor}" />
+        <SolidColorBrush x:Key="ScrollbarBackgroundBrush" Color="{DynamicResource ThemeBackgroundColor}" />
+        <SolidColorBrush x:Key="ScrollbarForegroundBrush" Color="{DynamicResource ControlScrollbarColor}" />
+        <SolidColorBrush x:Key="ScrollbarHighlightBrush" Color="{DynamicResource ControlScrollbarHighlightColor}" />
 
-        <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" />
-        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource AccentColor}" />
-        <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{StaticResource AccentColor2}" />
-        <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{StaticResource AccentColor3}" />
-        <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{StaticResource AccentColor4}" />
-        <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
-        <SolidColorBrush x:Key="ErrorBrushLight" Color="{StaticResource ErrorLightColor}" />
+        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource ThemeBackgroundColor}" />
+        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource ControlBorderColor}" />
+        <SolidColorBrush x:Key="ThemeBorderDarkBrush" Color="{DynamicResource ControlHighlightBorderColor}" />
+
+        <SolidColorBrush x:Key="ThemeSelectedTextBrush" Color="{DynamicResource ThemeSelectedTextColor}" />
+
+        <SolidColorBrush x:Key="ThemeControlLightBrush" Color="#FF0000FF" />
+        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource ThemeForegroundColor}" />
+        <!-- Used on scrollbar, what else? -->
+        <SolidColorBrush x:Key="ThemeControlDarkBrush" Color="{DynamicResource ControlHighlightColor}" />
+        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource ThemeTextColor}" />
+        <SolidColorBrush x:Key="ThemeForegroundLightBrush" Color="{DynamicResource ThemeTextColor}" />
+
+        <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource ThemeHighlightColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource ThemeForegroundColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush2" Color="#FF00FF00" />
+        <!-- Selected item in a dropdown item -->
+        <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource ThemeSelectedColor}" />
+        <SolidColorBrush x:Key="ThemeAccentBrush4" Color="#FF00FFFF" />
+        <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
+        <SolidColorBrush x:Key="ErrorBrushLight" Color="{DynamicResource ErrorLightColor}" />
 
         <Thickness x:Key="ThemeBorderThickness">2</Thickness>
         <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
@@ -84,6 +77,9 @@
       </Style.Resources>
 
     </Style>
+    <Style Selector="DropDown">
+      <Setter Property="MinHeight" Value="26" />
+    </Style>
     <Style Selector="TextBlock">
       <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
     </Style>
@@ -92,6 +88,8 @@
     </Style>
     <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.TabItem.xaml" />
     <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.Button.xaml" />
+    <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.DropDownItem.xaml" />
+    <StyleInclude Source="resm:FFXIVAPP.Client.Resources.Styles.ScrollBar.xaml" />
     <StyleInclude Source="resm:Teast.Controls.GroupBox.Theme.xaml?assembly=Teast.Controls.GroupBox" />
     <StyleInclude Source="resm:Teast.Controls.DataGrid.Theme.xaml?assembly=Teast.Controls.DataGrid" />
 
@@ -103,7 +101,7 @@
       <Setter Property="HeaderBorderThickness" Value="0,0,1,2"/>
       <Setter Property="HeaderBorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
       <Setter Property="HeaderPadding" Value="5"/>
-      <Setter Property="BorderBrush" Value="{DynamicResource FFXIVAPPBorderBrush}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlMidBrush}"/>
       <Setter Property="BorderThickness" Value="2"/>
       <Setter Property="Margin" Value="5"/>
       <Setter Property="GridBorderThickness" Value="0"/>
@@ -114,10 +112,10 @@
       <Setter Property="Padding" Value="2"/>
     </Style>
     <Style Selector="datagrid|DataGridCell:selected">
-      <Setter Property="Background" Value="{DynamicResource FFXIVAPPBorderBrush}" /><!--#FF70C5E9" />-->
+      <Setter Property="Background" Value="{DynamicResource ThemeControlMidBrush}" /><!--#FF70C5E9" />-->
     </Style>
     <Style Selector="datagrid|DataGridCell:hover">
-      <Setter Property="Background" Value="{DynamicResource FFXIVAPPHightlightBrush}" /><!--#FFA0D8F0" />-->
+      <Setter Property="Background" Value="{DynamicResource HighlightBrush}" /><!--#FFA0D8F0" />-->
     </Style>
 
   </Application.Styles>

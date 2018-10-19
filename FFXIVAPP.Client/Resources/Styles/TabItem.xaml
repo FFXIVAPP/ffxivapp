@@ -19,6 +19,6 @@
   <Style Selector="TabStripItem:pointerover">
     <Setter Property="BorderBrush" Value="{DynamicResource ThemeAccentBrush}" />
     <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource ThemeWhiteBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource ThemeSelectedTextBrush}"/>
   </Style>
 </Styles>

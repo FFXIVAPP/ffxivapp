@@ -2,7 +2,7 @@
   <Style Selector="GroupBox">
     <Setter Property="HeaderBackground" Value="{DynamicResource ThemeAccentBrush}"/>
     <!-- TODO: Better to use a specific brush here I guess... -->
-    <Setter Property="HeaderForeground" Value="{DynamicResource ThemeBackgroundBrush}"/>
+    <Setter Property="HeaderForeground" Value="{DynamicResource ThemeSelectedTextBrush}"/>
     <Setter Property="HeaderMargin" Value="4"/>
     <Setter Property="HeaderUpperCase" Value="True"/>
     <Setter Property="BorderBrush" Value="{DynamicResource ThemeAccentBrush}"/>
