@@ -74,7 +74,7 @@ namespace FFXIVAPP.Client.Localization {
             Dictionary.Add("app_SpecialThanksHeader", "スペシャルサンクス");
             Dictionary.Add("app_DownloadNoticeHeader", "更新が利用可能です！");
             Dictionary.Add("app_DownloadNoticeMessage", "ダウンロードしますか？");
-            Dictionary.Add("app_IntegrationWarningText", "この機能を有効にすることで個人を特定できる情報（ゲーム内の行動やリアルの行動）をサーバーに送信することはありません。あくまでも、ゲーム関連の情報の収集飲みに使います。\n\nここで収集される情報は、モンスターの討伐状況、戦利品、モンスターのスポーン位置、NPCの位置、ギャザリングの位置などです。\n\nこの機能は、完全にオプションで、いつでもオン/オフできます。");
+            Dictionary.Add("app_IntegrationWarningText", "この機能を有効にすることで個人を特定できる情報（ゲーム内やリアルでの行動）をサーバーに送信することはありません。あくまでも、ゲーム関連の情報の収集のみ使います。\n\nここで収集される情報は、モンスターの討伐状況、戦利品、モンスターのスポーン位置、NPCの位置、ギャザリングの位置などです。\n\nこの機能は、完全にオプションで、いつでもオン/オフできます。");
             Dictionary.Add("app_EnableHelpLabelsHeader", "ヘルプラベルを有効化");
             Dictionary.Add("app_OKButtonText", "OK");
             Dictionary.Add("app_TopMostHeader", "常に前面に表示");
