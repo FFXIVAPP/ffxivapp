@@ -67,8 +67,6 @@ namespace FFXIVAPP.Client {
 
         private string _soundsPath;
 
-        private Style _tabControlCollapsedHeader;
-
         private ObservableCollection<UILanguage> _uiLanguages;
 
         private string _updateNotes;

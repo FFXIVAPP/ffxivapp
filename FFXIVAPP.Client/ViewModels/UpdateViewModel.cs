@@ -112,8 +112,9 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public PluginDownloadItem SelectedAvailableDG => SelectedAvailableDGObject == null ? null : (PluginDownloadItem)SelectedAvailableDGObject;
 
-        public ObservableCollection<GridItem> PluginSourceDG { get; set; }
-        public GridItem SelectedPluginSourceDG { get; set; }
+        // TODO: Fix this when we can select sources
+        //public ObservableCollection<GridItem> PluginSourceDG { get; set; }
+        //public object SelectedPluginSourceDGObject { get; set; }
 
         /// <summary>
         /// </summary>
@@ -172,8 +173,9 @@ namespace FFXIVAPP.Client.ViewModels {
         /// <summary>
         /// </summary>
         private void DeleteSource() {
-            var index = Instance.AvailableSources.Cast<PluginSourceItem>().TakeWhile(source => source.Key.ToString() != this.SelectedPluginSourceDG?.Name).Count();
-            Instance.AvailableSources.RemoveAt(index);
+            // TODO: Fix this when we can select source
+            //var index = Instance.AvailableSources.Cast<PluginSourceItem>().TakeWhile(source => source.Key.ToString() != this.SelectedPluginSourceDG?.Name).Count();
+            //Instance.AvailableSources.RemoveAt(index);
         }
 
         /* TODO: Fix WPF Selector component

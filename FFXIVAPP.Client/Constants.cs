@@ -70,8 +70,6 @@ namespace FFXIVAPP.Client {
 
         private static XDocument _xColors;
 
-        private static XDocument _xSettings;
-
         public static Dictionary<string, string> AutoTranslate {
             get {
                 return _autoTranslate ?? (_autoTranslate = new Dictionary<string, string>());

@@ -14,7 +14,7 @@
     "PointerPath": [
       0,
       0,
-      48,
+      64,
       908
     ],
     "Value": "e8********85c0740e488b0d********33D2E8********488b0d"
@@ -42,9 +42,9 @@
     "Key": "PARTYCOUNT",
     "PointerPath": [
       0,
-      -26920
+      1
     ],
-    "Value": "488D7C242066660F1F840000000000488B17488D0D"
+    "Value": "CCCCCCCC803D******0100751D803D"
   },
   {
     "ASMSignature": true,
@@ -60,9 +60,9 @@
     "Key": "ZONEINFO",
     "PointerPath": [
       0,
-      -4
+      -8
     ],
-    "Value": "8B9084000000E8****0000EB**833D******000275**833D******000075**833D******000074**48C705"
+    "Value": "488D0D********E8********488D0D********89842490000000E8********898424940000008B05"
   },
   {
     "ASMSignature": true,
@@ -110,9 +110,10 @@
     "Value": "83f9ff7412448b048e8bd3488d0d"
   },
   {
-    "ASMSignature": false,
+    "ASMSignature": true,
     "Key": "HOTBAR",
     "PointerPath": [
+      0,
       0,
       56,
       48,
@@ -121,12 +122,13 @@
       0,
       0
     ],
-    "Value": "9C640000000000002C2C000000000000"
+    "Value": "488B4708498B5D00498B7728488B3D"
   },
   {
-    "ASMSignature": false,
+    "ASMSignature": true,
     "Key": "RECAST",
     "PointerPath": [
+      0,
       0,
       56,
       24,
@@ -134,7 +136,7 @@
       32,
       60
     ],
-    "Value": "9C640000000000002C2C000000000000"
+    "Value": "488B4708498B5D00498B7728488B3D"
   },
   {
     "ASMSignature": true,
