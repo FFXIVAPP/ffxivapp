@@ -63,17 +63,16 @@ namespace FFXIVAPP.Updater {
         /// <summary>
         /// </summary>
         private void DownloadUpdate() {
-            this.GoogleAnalytics.Navigate("https://ffxiv-app.com/Analytics/Google/?eCategory=Application Update&eAction=Download&eLabel=FFXIVAPP");
-            this.GoogleAnalytics.LoadCompleted += delegate {
-                try {
-                    this._webClient.DownloadFileCompleted += this.WebClientOnDownloadFileCompleted;
-                    this._webClient.DownloadProgressChanged += this.WebClientOnDownloadProgressChanged;
-                    this._webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
-                }
-                catch (Exception) {
-                    Environment.Exit(0);
-                }
-            };
+            try
+            {
+                this._webClient.DownloadFileCompleted += this.WebClientOnDownloadFileCompleted;
+                this._webClient.DownloadProgressChanged += this.WebClientOnDownloadProgressChanged;
+                this._webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
+            }
+            catch (Exception)
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void ExtractAndClean() {

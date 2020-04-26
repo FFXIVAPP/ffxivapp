@@ -82,6 +82,12 @@
             <param name="culture"> </param>
             <returns> </returns>
         </member>
+        <member name="M:FFXIVAPP.Common.Converters.StringToBrushConverter.Convert(System.Object)">
+            <summary>
+            </summary>
+            <param name="value"> </param>
+            <returns> </returns>
+        </member>
         <member name="M:FFXIVAPP.Common.Converters.StringToBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
             <summary>
             </summary>
@@ -89,12 +95,6 @@
             <param name="targetType"> </param>
             <param name="parameter"> </param>
             <param name="culture"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.Converters.StringToBrushConverter.Convert(System.Object)">
-            <summary>
-            </summary>
-            <param name="value"> </param>
             <returns> </returns>
         </member>
         <member name="M:FFXIVAPP.Common.Converters.VisibilityConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
@@ -127,12 +127,6 @@
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:FFXIVAPP.Common.Helpers.FlowDocHelper.BlockLoaded(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            </summary>
-            <param name="sender"> </param>
-            <param name="e"> </param>
-        </member>
         <member name="M:FFXIVAPP.Common.Helpers.FlowDocHelper.AppendFlow(System.String,System.String,System.String,System.String[],System.Windows.Controls.FlowDocumentReader)">
             <summary>
             </summary>
@@ -141,6 +135,18 @@
             <param name="line"> </param>
             <param name="colors"> </param>
             <param name="flow"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.Helpers.FlowDocHelper.BlockLoaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            </summary>
+            <param name="sender"> </param>
+            <param name="e"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.Helpers.ResourceHelper.StreamResource(System.String)">
+            <summary>
+            </summary>
+            <param name="path"> </param>
+            <returns> </returns>
         </member>
         <member name="M:FFXIVAPP.Common.Helpers.ResourceHelper.StringResource(System.String)">
             <summary>
@@ -153,12 +159,6 @@
             </summary>
             <param name="source"> </param>
             <param name="field"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.Helpers.ResourceHelper.StreamResource(System.String)">
-            <summary>
-            </summary>
-            <param name="path"> </param>
             <returns> </returns>
         </member>
         <member name="M:FFXIVAPP.Common.Helpers.ResourceHelper.XDocResource(System.String)">
@@ -189,15 +189,6 @@
             <param name="t"></param>
             <param name="window"></param>
         </member>
-        <member name="M:FFXIVAPP.Common.Helpers.XmlHelper.SaveXmlNode(System.Xml.Linq.XDocument,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{FFXIVAPP.Common.Models.XValuePair})">
-            <summary>
-            </summary>
-            <param name="xDoc"> </param>
-            <param name="xRoot"> </param>
-            <param name="xNode"> </param>
-            <param name="xKey"> </param>
-            <param name="xValuePairs"> </param>
-        </member>
         <member name="M:FFXIVAPP.Common.Helpers.XmlHelper.DeleteXmlNode(System.Xml.Linq.XDocument,System.String)">
             <summary>
             </summary>
@@ -209,6 +200,15 @@
             </summary>
             <param name="xValue"> </param>
             <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Common.Helpers.XmlHelper.SaveXmlNode(System.Xml.Linq.XDocument,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{FFXIVAPP.Common.Models.XValuePair})">
+            <summary>
+            </summary>
+            <param name="xDoc"> </param>
+            <param name="xRoot"> </param>
+            <param name="xNode"> </param>
+            <param name="xKey"> </param>
+            <param name="xValuePairs"> </param>
         </member>
         <member name="M:FFXIVAPP.Common.Helpers.XmlHelper.IsLegalXmlChar(System.Int32)">
             <summary>
@@ -236,15 +236,20 @@
             </summary>
             <returns> </returns>
         </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.ColumnHeaderClick(System.Object,System.Windows.RoutedEventArgs)">
+        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.ApplySort(System.ComponentModel.ICollectionView,System.String,System.Windows.Controls.ListView,System.Windows.Controls.GridViewColumnHeader)">
             <summary>
             </summary>
-            <param name="sender"> </param>
-            <param name="e"> </param>
+            <param name="view"> </param>
+            <param name="propertyName"> </param>
+            <param name="listView"> </param>
+            <param name="sortedColumnHeader"> </param>
         </member>
-        <member name="T:FFXIVAPP.Common.Utilities.GridViewSort.SortGlyphAdorner">
+        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.GetAncestor``1(System.Windows.DependencyObject)">
             <summary>
             </summary>
+            <typeparam name="T"> </typeparam>
+            <param name="dependencyObject"> </param>
+            <returns> </returns>
         </member>
         <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.GetCommand(System.Windows.DependencyObject)">
             <summary>
@@ -258,33 +263,6 @@
             <param name="dependencyObject"> </param>
             <param name="command"> </param>
         </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.GetSortedColumnHeader(System.Windows.DependencyObject)">
-            <summary>
-            </summary>
-            <param name="dependencyObject"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.SetSortedColumnHeader(System.Windows.DependencyObject,System.Windows.Controls.GridViewColumnHeader)">
-            <summary>
-            </summary>
-            <param name="dependencyObject"> </param>
-            <param name="header"> </param>
-        </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.GetAncestor``1(System.Windows.DependencyObject)">
-            <summary>
-            </summary>
-            <typeparam name="T"> </typeparam>
-            <param name="dependencyObject"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.ApplySort(System.ComponentModel.ICollectionView,System.String,System.Windows.Controls.ListView,System.Windows.Controls.GridViewColumnHeader)">
-            <summary>
-            </summary>
-            <param name="view"> </param>
-            <param name="propertyName"> </param>
-            <param name="listView"> </param>
-            <param name="sortedColumnHeader"> </param>
-        </member>
         <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.AddSortGlyph(System.Windows.Controls.GridViewColumnHeader,System.ComponentModel.ListSortDirection,System.Windows.Media.ImageSource)">
             <summary>
             </summary>
@@ -292,10 +270,32 @@
             <param name="direction"> </param>
             <param name="sortGlyph"> </param>
         </member>
+        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.ColumnHeaderClick(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            </summary>
+            <param name="sender"> </param>
+            <param name="e"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.GetSortedColumnHeader(System.Windows.DependencyObject)">
+            <summary>
+            </summary>
+            <param name="dependencyObject"> </param>
+            <returns> </returns>
+        </member>
         <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.RemoveSortGlyph(System.Windows.Controls.GridViewColumnHeader)">
             <summary>
             </summary>
             <param name="columnHeader"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.SetSortedColumnHeader(System.Windows.DependencyObject,System.Windows.Controls.GridViewColumnHeader)">
+            <summary>
+            </summary>
+            <param name="dependencyObject"> </param>
+            <param name="header"> </param>
+        </member>
+        <member name="T:FFXIVAPP.Common.Utilities.GridViewSort.SortGlyphAdorner">
+            <summary>
+            </summary>
         </member>
         <member name="M:FFXIVAPP.Common.Utilities.Logging.Log(NLog.Logger,FFXIVAPP.Common.Models.LogItem)">
             <summary>
@@ -329,17 +329,7 @@
             <param name="sender"> </param>
             <param name="e"> </param>
         </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.CallWeakReferenceHandlers(System.Collections.Generic.List{System.WeakReference})">
-            <summary>
-            </summary>
-            <param name="handlers"> </param>
-        </member>
         <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.AddHandlersToRequerySuggested(System.Collections.Generic.IEnumerable{System.WeakReference})">
-            <summary>
-            </summary>
-            <param name="handlers"> </param>
-        </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.RemoveHandlersFromRequerySuggested(System.Collections.Generic.IEnumerable{System.WeakReference})">
             <summary>
             </summary>
             <param name="handlers"> </param>
@@ -356,6 +346,16 @@
             <param name="handlers"> </param>
             <param name="handler"> </param>
             <param name="defaultListSize"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.CallWeakReferenceHandlers(System.Collections.Generic.List{System.WeakReference})">
+            <summary>
+            </summary>
+            <param name="handlers"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.RemoveHandlersFromRequerySuggested(System.Collections.Generic.IEnumerable{System.WeakReference})">
+            <summary>
+            </summary>
+            <param name="handlers"> </param>
         </member>
         <member name="M:FFXIVAPP.Common.ViewModelBase.CommandManagerHelper.RemoveWeakReferenceHandler(System.Collections.Generic.List{System.WeakReference},System.EventHandler)">
             <summary>
@@ -381,28 +381,15 @@
             <param name="canExecuteMethod"> </param>
             <param name="isAutomaticRequeryDisabled"> </param>
         </member>
+        <member name="E:FFXIVAPP.Common.ViewModelBase.DelegateCommand.CanExecuteChanged">
+            <summary>
+            </summary>
+        </member>
         <member name="P:FFXIVAPP.Common.ViewModelBase.DelegateCommand.IsAutomaticRequeryDisabled">
             <summary>
             </summary>
         </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.CanExecute">
-            <summary>
-            </summary>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.Execute">
-            <summary>
-            </summary>
-        </member>
         <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.RaiseCanExecuteChanged">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.OnCanExecuteChanged">
-            <summary>
-            </summary>
-        </member>
-        <member name="E:FFXIVAPP.Common.ViewModelBase.DelegateCommand.CanExecuteChanged">
             <summary>
             </summary>
         </member>
@@ -417,6 +404,19 @@
             </summary>
             <param name="parameter"> </param>
         </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.CanExecute">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.Execute">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand.OnCanExecuteChanged">
+            <summary>
+            </summary>
+        </member>
         <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.#ctor(System.Action{`0},System.Func{`0,System.Boolean})">
             <summary>
             </summary>
@@ -430,30 +430,15 @@
             <param name="canExecuteMethod"> </param>
             <param name="isAutomaticRequeryDisabled"> </param>
         </member>
+        <member name="E:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.CanExecuteChanged">
+            <summary>
+            </summary>
+        </member>
         <member name="P:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.IsAutomaticRequeryDisabled">
             <summary>
             </summary>
         </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.CanExecute(`0)">
-            <summary>
-            </summary>
-            <param name="parameter"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.Execute(`0)">
-            <summary>
-            </summary>
-            <param name="parameter"> </param>
-        </member>
         <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.RaiseCanExecuteChanged">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.OnCanExecuteChanged">
-            <summary>
-            </summary>
-        </member>
-        <member name="E:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.CanExecuteChanged">
             <summary>
             </summary>
         </member>
@@ -467,6 +452,21 @@
             <summary>
             </summary>
             <param name="parameter"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.CanExecute(`0)">
+            <summary>
+            </summary>
+            <param name="parameter"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.Execute(`0)">
+            <summary>
+            </summary>
+            <param name="parameter"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Common.ViewModelBase.DelegateCommand`1.OnCanExecuteChanged">
+            <summary>
+            </summary>
         </member>
     </members>
 </doc>
