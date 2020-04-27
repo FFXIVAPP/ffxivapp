@@ -18,7 +18,7 @@
                        Source="/FFXIVAPP.ResourceFiles;component/Theme/splash.png" />
                 <Button Width="200"
                         Command="{Binding OpenWebSiteCommand}"
-                        Content="Open https://ffxiv-app.com" />
+                        Content="Open https://xivapp.com" />
                 <WebBrowser x:Name="GoogleAnalytics" Visibility="Collapsed" />
             </StackPanel>
         </ScrollViewer>

@@ -157,9 +157,6 @@ namespace FFXIVAPP.Client {
 
                                 MessageBoxHelper.ShowMessageAsync(title, message.ToString(), () => ShellView.CloseApplication(true), delegate { });
                             }
-
-                            var uri = "https://ffxiv-app.com/Analytics/Google/?eCategory=Application Launch&eAction=Version Check&eLabel=FFXIVAPP";
-                            DispatcherHelper.Invoke(() => MainView.View.GoogleAnalytics.Navigate(uri));
                         }
                     }
                 }

@@ -38,7 +38,7 @@ namespace FFXIVAPP.Client.ViewModels {
 
         public void OpenWebSite() {
             try {
-                Process.Start("https://ffxiv-app.com");
+                Process.Start("https://xivapp.com");
             }
             catch (Exception ex) {
                 MessageBoxHelper.ShowMessage(AppViewModel.Instance.Locale["app_WarningMessage"], ex.Message);
