@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MessageBoxHelper.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -68,8 +68,7 @@ namespace FFXIVAPP.Client.Helpers {
                                             if (x.Result == MessageDialogResult.Negative) {
                                                 DispatcherHelper.Invoke(cancelAction, DispatcherPriority.Send);
                                             }
-                                        },
-                                        DispatcherPriority.Send));
+                                        }, DispatcherPriority.Send));
                             }
                             else {
                                 mw.ShowMessageAsync(title, message).ContinueWith(x => DispatcherHelper.Invoke(() => DispatcherHelper.Invoke(okAction), DispatcherPriority.Send));
@@ -79,8 +78,7 @@ namespace FFXIVAPP.Client.Helpers {
                     else {
                         MessageBox.Show($"Unable to process MessageBox[{message}]:NotProcessingResult", title, MessageBoxButton.OK);
                     }
-                },
-                DispatcherPriority.Send);
+                }, DispatcherPriority.Send);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="UpdateViewModel.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -38,7 +38,7 @@ namespace FFXIVAPP.Client.ViewModels {
 
     using NLog;
 
-    [Export(typeof(UpdateViewModel))]
+    [Export(typeof(UpdateViewModel)),]
     internal sealed class UpdateViewModel : INotifyPropertyChanged {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -142,7 +142,7 @@ namespace FFXIVAPP.Client.ViewModels {
 
             var pluginSourceItem = new PluginSourceItem {
                 Enabled = true,
-                SourceURI = UpdateView.View.TSource.Text
+                SourceURI = UpdateView.View.TSource.Text,
             };
             if (selectedId == Guid.Empty) {
                 pluginSourceItem.Key = Guid.NewGuid();
@@ -234,7 +234,7 @@ namespace FFXIVAPP.Client.ViewModels {
                     sb.Clear();
                     try {
                         using (var client = new WebClient {
-                            CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore)
+                            CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore),
                         }) {
                             var saveLocation = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Plugins", plugin.Name, pluginFile.Location, pluginFile.Name);
                             Directory.CreateDirectory(Path.GetDirectoryName(saveLocation));
@@ -277,8 +277,7 @@ namespace FFXIVAPP.Client.ViewModels {
                                                 UpdateView.View.AvailableLoadingProgressMessage.Text = string.Empty;
                                                 UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
                                                 UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
-                                            },
-                                            DispatcherPriority.Send);
+                                            }, DispatcherPriority.Send);
                                     }
                                 };
                             }
@@ -303,8 +302,7 @@ namespace FFXIVAPP.Client.ViewModels {
                         delegate {
                             UpdateView.View.AvailableLoadingInformation.Visibility = Visibility.Collapsed;
                             UpdateView.View.AvailableLoadingProgressMessage.Visibility = Visibility.Collapsed;
-                        },
-                        DispatcherPriority.Send);
+                        }, DispatcherPriority.Send);
                 }
 
                 return true;
@@ -371,13 +369,11 @@ namespace FFXIVAPP.Client.ViewModels {
                                     AppViewModel.Instance.PluginTabItems.RemoveAt(i);
                                 }
                             }
-                        },
-                        DispatcherPriority.Send);
-                },
-                uninstall);
+                        }, DispatcherPriority.Send);
+                }, uninstall);
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
     }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Settings.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -117,12 +117,12 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
                 List<XValuePair> keyPairList = new List<XValuePair> {
                     new XValuePair {
                         Key = "SourceURI",
-                        Value = xSourceURI
+                        Value = xSourceURI,
                     },
                     new XValuePair {
                         Key = "Enabled",
-                        Value = xEnabled.ToString()
-                    }
+                        Value = xEnabled.ToString(),
+                    },
                 };
                 XElement element = enumerable.FirstOrDefault(e => e.Attribute("Key").Value == xKey.ToString());
                 if (element == null) {
@@ -151,7 +151,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
             Constants.Settings.Clear();
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 
@@ -170,8 +170,8 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
                     List<XValuePair> keyPairList = new List<XValuePair> {
                         new XValuePair {
                             Key = "Value",
-                            Value = xValue
-                        }
+                            Value = xValue,
+                        },
                     };
                     XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
                 }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingsHelper.Client.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -34,14 +34,11 @@ namespace FFXIVAPP.Client.Helpers {
                     var title = AppViewModel.Instance.Locale["app_WarningMessage"];
                     var message = $"{AppViewModel.Instance.Locale["app_DeleteMessage"]} : {combinedPath}";
                     MessageBoxHelper.ShowMessageAsync(
-                        title,
-                        message,
-                        delegate {
+                        title, message, delegate {
                             Settings.Default.Reset();
                             Directory.Delete(combinedPath, true);
                             Settings.Default.Reload();
-                        },
-                        delegate { });
+                        }, delegate { });
                 }
                 catch (Exception ex) {
                     Logging.Log(Logger, new LogItem(ex, true));
@@ -71,12 +68,12 @@ namespace FFXIVAPP.Client.Helpers {
                     keyPairList.Add(
                         new XValuePair {
                             Key = "Value",
-                            Value = xValue
+                            Value = xValue,
                         });
                     keyPairList.Add(
                         new XValuePair {
                             Key = "Description",
-                            Value = xDescription
+                            Value = xDescription,
                         });
                     if (element == null) {
                         XmlHelper.SaveXmlNode(Constants.XColors, "Colors", "Color", xKey, keyPairList);

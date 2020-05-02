@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ShellViewModel.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -23,7 +23,7 @@ namespace FFXIVAPP.Client {
     using FFXIVAPP.Common.Utilities;
     using FFXIVAPP.Common.ViewModelBase;
 
-    [Export(typeof(ShellViewModel))]
+    [Export(typeof(ShellViewModel)),]
     internal sealed class ShellViewModel : INotifyPropertyChanged {
         private static Lazy<ShellViewModel> _instance = new Lazy<ShellViewModel>(() => new ShellViewModel());
 
@@ -33,7 +33,7 @@ namespace FFXIVAPP.Client {
             "French",
             "German",
             "Chinese",
-            "Korean"
+            "Korean",
         };
 
         public ShellViewModel() {
@@ -148,7 +148,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
     }

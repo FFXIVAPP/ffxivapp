@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PluginHost.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -181,12 +181,9 @@ namespace FFXIVAPP.Client {
             }
 
             MessageBoxHelper.ShowMessageAsync(
-                title,
-                message,
-                delegate {
+                title, message, delegate {
                     pluginInstance.Instance.PopupResult = MessageBoxResult.OK;
-                },
-                cancelAction);
+                }, cancelAction);
         }
 
         public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
@@ -339,7 +336,7 @@ namespace FFXIVAPP.Client {
 
                 var plugin = new PluginInstance {
                     Instance = (IPlugin) Activator.CreateInstance(pType),
-                    AssemblyPath = assemblyPath
+                    AssemblyPath = assemblyPath,
                 };
                 plugin.Instance.Initialize(Instance);
                 plugin.Loaded = true;

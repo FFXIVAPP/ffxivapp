@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ChatLogWorker.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Memory {
             this._scanTimer.Enabled = false;
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
 
@@ -89,8 +89,9 @@ namespace FFXIVAPP.Client.Memory {
                     this._previousArrayIndex = readResult.PreviousArrayIndex;
                     this._previousOffset = readResult.PreviousOffset;
 
-                    foreach (ChatLogItem chatLogEntry in readResult.ChatLogItems) {
-                        AppContextHelper.Instance.RaiseChatLogItemReceived(chatLogEntry);
+                    foreach (ChatLogItem chatLogItem in readResult.ChatLogItems) {
+                        AppViewModel.Instance.ChatHistory.Add(chatLogItem);
+                        AppContextHelper.Instance.RaiseChatLogItemReceived(chatLogItem);
                     }
 
                     this._isScanning = false;

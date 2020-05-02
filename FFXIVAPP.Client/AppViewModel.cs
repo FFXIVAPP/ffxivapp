@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AppViewModel.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -32,7 +32,7 @@ namespace FFXIVAPP.Client {
 
     using ContextMenu = System.Windows.Forms.ContextMenu;
 
-    [Export(typeof(AppViewModel))]
+    [Export(typeof(AppViewModel)),]
     internal sealed class AppViewModel : INotifyPropertyChanged {
         private static bool _hasPlugins;
 
@@ -239,7 +239,7 @@ namespace FFXIVAPP.Client {
                     using (Stream iconStream = ResourceHelper.StreamResource(Constants.AppPack + "FFXIVAPP.ico").Stream) {
                         this._notifyIcon = new NotifyIcon {
                             Icon = new Icon(iconStream),
-                            Visible = true
+                            Visible = true,
                         };
                         iconStream.Dispose();
                         this._notifyIcon.Text = "FFXIVAPP";
@@ -435,7 +435,7 @@ namespace FFXIVAPP.Client {
             ShellView.View.Topmost = Settings.Default.TopMost;
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
     }

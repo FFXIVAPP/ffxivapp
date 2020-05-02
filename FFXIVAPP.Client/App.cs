@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="App.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -83,10 +83,10 @@ namespace FFXIVAPP.Client {
         /// <summary>
         ///     Application Entry Point.
         /// </summary>
-        [STAThread]
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
-        [LoaderOptimization(LoaderOptimization.MultiDomainHost)]
+        [STAThread,]
+        [DebuggerNonUserCode,]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0"),]
+        [LoaderOptimization(LoaderOptimization.MultiDomainHost),]
         public static void Main() {
             var app = new App();
             app.Run();

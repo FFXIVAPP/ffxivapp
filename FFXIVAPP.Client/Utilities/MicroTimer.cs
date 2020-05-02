@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MicroTimer.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -52,10 +52,9 @@ namespace FFXIVAPP.Client.Utilities {
 
             set {
                 Interlocked.Exchange(
-                    ref this._ignoreEventIfLateBy,
-                    value <= 0
-                        ? long.MaxValue
-                        : value);
+                    ref this._ignoreEventIfLateBy, value <= 0
+                                                       ? long.MaxValue
+                                                       : value);
             }
         }
 
@@ -87,7 +86,7 @@ namespace FFXIVAPP.Client.Utilities {
             ThreadStart threadStart = () => this.NotificationTimer(ref this._timerIntervalInMicroSec, ref this._ignoreEventIfLateBy, ref this._stopTimer);
 
             this._threadTimer = new Thread(threadStart) {
-                Priority = ThreadPriority.Highest
+                Priority = ThreadPriority.Highest,
             };
             this._threadTimer.Start();
         }

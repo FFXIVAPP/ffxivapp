@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Initializer.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -260,7 +260,7 @@ namespace FFXIVAPP.Client {
                                             new PluginSourceItem {
                                                 Enabled = true,
                                                 Key = Guid.NewGuid(),
-                                                SourceURI = sourceURI
+                                                SourceURI = sourceURI,
                                             });
                                     }
                                 }
@@ -309,7 +309,7 @@ namespace FFXIVAPP.Client {
                                                         Name = pluginFile["Name"].ToString(),
                                                         Checksum = pluginFile["Checksum"] == null
                                                                        ? string.Empty
-                                                                       : pluginFile["Checksum"].ToString()
+                                                                       : pluginFile["Checksum"].ToString(),
                                                     })),
                                             Name = pluginInfo["Name"].ToString(),
                                             FriendlyName = pluginInfo["FriendlyName"] == null
@@ -319,7 +319,7 @@ namespace FFXIVAPP.Client {
                                                               ? string.Empty
                                                               : pluginInfo["Description"].ToString(),
                                             SourceURI = pluginInfo["SourceURI"].ToString(),
-                                            LatestVersion = pluginInfo["Version"].ToString()
+                                            LatestVersion = pluginInfo["Version"].ToString(),
                                         };
                                         PluginInstance found = App.Plugins.Loaded.Find(pluginDownload.Name);
                                         if (found != null) {
@@ -402,7 +402,7 @@ namespace FFXIVAPP.Client {
                     var pluginSourceItem = new PluginSourceItem {
                         Key = xKey,
                         SourceURI = xSourceURI,
-                        Enabled = xEnabled
+                        Enabled = xEnabled,
                     };
                     var found = UpdateViewModel.Instance.AvailableSources.Any(source => source.Key == pluginSourceItem.Key);
                     if (!found) {
@@ -447,19 +447,17 @@ namespace FFXIVAPP.Client {
                     }
 
                     Constants.Colors.Add(
-                        xKey,
-                        new[] {
+                        xKey, new[] {
                             xValue,
-                            xDescription
+                            xDescription,
                         });
                 }
 
                 foreach (KeyValuePair<string, string> chatCode in Constants.ChatCodes.Where(chatCode => !Constants.Colors.ContainsKey(chatCode.Key))) {
                     Constants.Colors.Add(
-                        chatCode.Key,
-                        new[] {
+                        chatCode.Key, new[] {
                             "FFFFFF",
-                            chatCode.Value
+                            chatCode.Value,
                         });
                 }
             }
@@ -654,7 +652,7 @@ namespace FFXIVAPP.Client {
             foreach (Process process in Process.GetProcessesByName("ffxiv")) {
                 Constants.ProcessModels.Add(
                     new ProcessModel {
-                        Process = process
+                        Process = process,
                     });
             }
 
@@ -662,7 +660,7 @@ namespace FFXIVAPP.Client {
                 Constants.ProcessModels.Add(
                     new ProcessModel {
                         Process = process,
-                        IsWin64 = true
+                        IsWin64 = true,
                     });
             }
 
@@ -707,7 +705,7 @@ namespace FFXIVAPP.Client {
                     CurrentPosition = packet.CurrentPosition,
                     Key = packet.Key,
                     MessageSize = packet.MessageSize,
-                    PacketDate = packet.PacketDate
+                    PacketDate = packet.PacketDate,
                 });
         }
 

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SavedlLogsHelper.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -123,7 +123,7 @@ namespace FFXIVAPP.Client.Helpers {
                             keyPairList.Add(
                                 new XValuePair {
                                     Key = "Bytes",
-                                    Value = xBytes
+                                    Value = xBytes,
                                 });
 
                             // keyPairList.Add(new XValuePair {Key = "Combined", Value = xCombined});
@@ -131,14 +131,14 @@ namespace FFXIVAPP.Client.Helpers {
                             keyPairList.Add(
                                 new XValuePair {
                                     Key = "Line",
-                                    Value = xLine
+                                    Value = xLine,
                                 });
 
                             // keyPairList.Add(new XValuePair {Key = "Raw", Value = xRaw});
                             keyPairList.Add(
                                 new XValuePair {
                                     Key = "TimeStamp",
-                                    Value = xTimeStamp
+                                    Value = xTimeStamp,
                                 });
                             XmlHelper.SaveXmlNode(savedLog, "History", "Entry", xCode, keyPairList);
                         }

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AppBootstrapper.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -61,7 +61,7 @@ namespace FFXIVAPP.Client {
                 "LS7",
                 "LS8",
                 "FC",
-                "Yell"
+                "Yell",
             };
             AppViewModel.Instance.ScreenShotsPath = Common.Constants.ScreenShotsPath;
             AppViewModel.Instance.SoundsPath = Common.Constants.SoundsPath;
@@ -73,52 +73,50 @@ namespace FFXIVAPP.Client {
                     Language = "English",
                     ImageURI = Theme.GetImagePackURI("en"),
                     Title = "English",
-                    CultureInfo = new CultureInfo("en")
+                    CultureInfo = new CultureInfo("en"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "Japanese",
                     ImageURI = Theme.GetImagePackURI("ja"),
                     Title = "日本語",
-                    CultureInfo = new CultureInfo("ja")
+                    CultureInfo = new CultureInfo("ja"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "French",
                     ImageURI = Theme.GetImagePackURI("fr"),
                     Title = "Français",
-                    CultureInfo = new CultureInfo("fr")
+                    CultureInfo = new CultureInfo("fr"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "German",
                     ImageURI = Theme.GetImagePackURI("de"),
                     Title = "Deutsch",
-                    CultureInfo = new CultureInfo("de")
+                    CultureInfo = new CultureInfo("de"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "Chinese",
                     ImageURI = Theme.GetImagePackURI("cn"),
                     Title = "中國",
-                    CultureInfo = new CultureInfo("zh")
+                    CultureInfo = new CultureInfo("zh"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "Korean",
                     ImageURI = Theme.GetImagePackURI("ko"),
                     Title = "한국어",
-                    CultureInfo = new CultureInfo("ko")
+                    CultureInfo = new CultureInfo("ko"),
                 });
             AppViewModel.Instance.UILanguages.Add(
                 new UILanguage {
                     Language = "Russian",
                     ImageURI = Theme.GetImagePackURI("ru"),
                     Title = "Русский",
-                    CultureInfo = new CultureInfo("ru")
+                    CultureInfo = new CultureInfo("ru"),
                 });
-
-            
 
             Initializer.SetupCurrentUICulture();
             Initializer.LoadChatCodes();
@@ -129,8 +127,6 @@ namespace FFXIVAPP.Client {
             Initializer.LoadAvailableNetworkDevices();
             Initializer.LoadSoundsIntoCache();
             Initializer.LoadPlugins();
-
-            
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -141,7 +137,7 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string caller = "") {
+        private void RaisePropertyChanged([CallerMemberName,] string caller = "") {
             this.PropertyChanged(this, new PropertyChangedEventArgs(caller));
         }
     }

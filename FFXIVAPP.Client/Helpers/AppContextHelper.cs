@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AppContextHelper.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -34,15 +34,15 @@ namespace FFXIVAPP.Client.Helpers {
         public List<uint> Pets {
             get {
                 return this._pets ?? (this._pets = new List<uint> {
-                    1398,
-                    1399,
-                    1400,
-                    1401,
-                    1402,
-                    1403,
-                    1404,
-                    2095
-                });
+                                             1398,
+                                             1399,
+                                             1400,
+                                             1401,
+                                             1402,
+                                             1403,
+                                             1404,
+                                             2095,
+                                         });
             }
         }
 
