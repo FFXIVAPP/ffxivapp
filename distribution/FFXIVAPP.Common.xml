@@ -222,20 +222,6 @@
             <param name="pattern"> </param>
             <returns> </returns>
         </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GoogleTranslate.Translate(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            </summary>
-            <param name="textToTranslate"> </param>
-            <param name="inLang"> </param>
-            <param name="outLang"> </param>
-            <param name="jpOnly"> </param>
-            <returns> </returns>
-        </member>
-        <member name="M:FFXIVAPP.Common.Utilities.GoogleTranslate.GetLanguage">
-            <summary>
-            </summary>
-            <returns> </returns>
-        </member>
         <member name="M:FFXIVAPP.Common.Utilities.GridViewSort.ApplySort(System.ComponentModel.ICollectionView,System.String,System.Windows.Controls.ListView,System.Windows.Controls.GridViewColumnHeader)">
             <summary>
             </summary>

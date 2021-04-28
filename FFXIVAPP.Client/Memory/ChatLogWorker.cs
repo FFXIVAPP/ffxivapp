@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ChatLogWorker.cs" company="SyndicatedLife">
-//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -12,6 +12,7 @@ namespace FFXIVAPP.Client.Memory {
     using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Timers;
 
@@ -90,7 +91,15 @@ namespace FFXIVAPP.Client.Memory {
                     this._previousOffset = readResult.PreviousOffset;
 
                     foreach (ChatLogItem chatLogItem in readResult.ChatLogItems) {
-                        AppViewModel.Instance.ChatHistory.Add(chatLogItem);
+                        if (Settings.Default.SaveLog) {
+                            AppViewModel.Instance.ChatHistory.Add(chatLogItem);
+                        }
+                        else {
+                            if (AppViewModel.Instance.ChatHistory.Any()) {
+                                AppViewModel.Instance.ChatHistory.Clear();
+                            }
+                        }
+
                         AppContextHelper.Instance.RaiseChatLogItemReceived(chatLogItem);
                     }
 

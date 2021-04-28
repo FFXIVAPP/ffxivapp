@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Settings.cs" company="SyndicatedLife">
-//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -37,7 +37,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
 
         private static Settings _default;
 
-        public new event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         public static Settings Default {
             get {
@@ -78,7 +78,7 @@ namespace FFXIVAPP.Client.SettingsProviders.Application {
             }
         }
 
-        public new void Reset() {
+        public void Reset() {
             this.DefaultSettings();
             foreach (var key in Constants.Settings) {
                 SettingsProperty settingsProperty = Default.Properties[key];

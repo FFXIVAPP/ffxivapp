@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Initializer.cs" company="SyndicatedLife">
-//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -36,10 +36,6 @@ namespace FFXIVAPP.Client {
     using FFXIVAPP.Common.RegularExpressions;
     using FFXIVAPP.Common.Utilities;
 
-    using Machina;
-    using Machina.Events;
-    using Machina.Models;
-
     using NAudio.Wave;
 
     using Newtonsoft.Json.Linq;
@@ -69,12 +65,6 @@ namespace FFXIVAPP.Client {
         private static PlayerInfoWorker _playerInfoWorker;
 
         private static TargetWorker _targetWorker;
-
-        public static bool NetworkWorking {
-            get {
-                return NetworkHandler.Instance.IsRunning;
-            }
-        }
 
         /// <summary>
         /// </summary>
@@ -486,11 +476,6 @@ namespace FFXIVAPP.Client {
             StartMemoryWorkers();
         }
 
-        public static void RefreshNetworkWorker() {
-            StopNetworkWorker();
-            StartNetworkWorker();
-        }
-
         /// <summary>
         /// </summary>
         public static void ResetProcessID() {
@@ -514,7 +499,7 @@ namespace FFXIVAPP.Client {
             }
 
             Group ID = Regex.Match(SettingsView.View.PIDSelect.Text, @"\[(?<id>\d+)\]", SharedRegEx.DefaultOptions).Groups["id"];
-            UpdateProcessID(Constants.ProcessModels.FirstOrDefault(pm => pm.ProcessID == Convert.ToInt32(ID)));
+            UpdateProcessID(Constants.ProcessModels.FirstOrDefault(pm => pm.ProcessID == Convert.ToInt32(ID.Value)));
             StartMemoryWorkers();
         }
 
@@ -563,24 +548,6 @@ namespace FFXIVAPP.Client {
             _hotBarRecastWorker.StartScanning();
         }
 
-        public static void StartNetworkWorker() {
-            StopNetworkWorker();
-
-            NetworkHandler.Instance.ExceptionEvent += NetworkHandler_ExceptionEvent;
-            NetworkHandler.Instance.NewNetworkPacketEvent += NetworkHandler_NewPacketEvent;
-
-            var config = new NetworkConfig();
-            config.ApplicationName = AssemblyHelper.Name;
-            config.CurrentProcessID = Constants.ProcessModel.ProcessID;
-            config.ExecutablePath = Application.ExecutablePath;
-            config.UserSelectedInterface = Settings.Default.DefaultNetworkInterface;
-            config.UseWinPCap = Settings.Default.NetworkUseWinPCap;
-
-            NetworkHandler.Instance.SetProcess(config);
-
-            NetworkHandler.Instance.StartDecrypting();
-        }
-
         /// <summary>
         /// </summary>
         public static void StopMemoryWorkers() {
@@ -621,13 +588,6 @@ namespace FFXIVAPP.Client {
                 _hotBarRecastWorker.StopScanning();
                 _hotBarRecastWorker.Dispose();
             }
-        }
-
-        public static void StopNetworkWorker() {
-            NetworkHandler.Instance.ExceptionEvent -= NetworkHandler_ExceptionEvent;
-            NetworkHandler.Instance.NewNetworkPacketEvent -= NetworkHandler_NewPacketEvent;
-
-            NetworkHandler.Instance.StopDecrypting();
         }
 
         public static void UpdatePluginConstants() {
@@ -690,23 +650,6 @@ namespace FFXIVAPP.Client {
             foreach (KeyValuePair<string, Signature> kvp in e.Signatures) {
                 Logging.Log(e.Logger, new LogItem($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
             }
-        }
-
-        private static void NetworkHandler_ExceptionEvent(object sender, Machina.Events.ExceptionEvent e) {
-            Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
-        }
-
-        private static void NetworkHandler_NewPacketEvent(object sender, NewNetworkPacketEvent e) {
-            NetworkPacket packet = e.NetworkPacket;
-
-            AppContextHelper.Instance.RaiseNetworkPacketReceived(
-                new Common.Core.Network.NetworkPacket {
-                    Buffer = packet.Buffer,
-                    CurrentPosition = packet.CurrentPosition,
-                    Key = packet.Key,
-                    MessageSize = packet.MessageSize,
-                    PacketDate = packet.PacketDate,
-                });
         }
 
         /// <summary>

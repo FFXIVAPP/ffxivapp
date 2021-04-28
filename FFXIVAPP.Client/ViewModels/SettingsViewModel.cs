@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingsViewModel.cs" company="SyndicatedLife">
-//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -54,7 +54,6 @@ namespace FFXIVAPP.Client.ViewModels {
         private List<string> _homePluginList;
 
         public SettingsViewModel() {
-            this.RefreshNetworkWorkerCommand = new DelegateCommand(RefreshNetworkWorker);
             this.RefreshMemoryWorkersCommand = new DelegateCommand(RefreshMemoryWorkers);
             this.SetProcessCommand = new DelegateCommand(SetProcess);
             this.RefreshListCommand = new DelegateCommand(RefreshList);
@@ -132,8 +131,6 @@ namespace FFXIVAPP.Client.ViewModels {
         public ICommand RefreshListCommand { get; private set; }
 
         public ICommand RefreshMemoryWorkersCommand { get; private set; }
-
-        public ICommand RefreshNetworkWorkerCommand { get; private set; }
 
         public ICommand SetProcessCommand { get; private set; }
 
@@ -239,12 +236,6 @@ namespace FFXIVAPP.Client.ViewModels {
 
         private static void RefreshMemoryWorkers() {
             Initializer.RefreshMemoryWorkers();
-        }
-
-        /// <summary>
-        /// </summary>
-        private static void RefreshNetworkWorker() {
-            Initializer.RefreshNetworkWorker();
         }
 
         /// <summary>

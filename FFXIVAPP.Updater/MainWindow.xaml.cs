@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MainWindow.xaml.cs" company="SyndicatedLife">
-//   Copyright(c) 2018 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (http://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -63,14 +63,12 @@ namespace FFXIVAPP.Updater {
         /// <summary>
         /// </summary>
         private void DownloadUpdate() {
-            try
-            {
+            try {
                 this._webClient.DownloadFileCompleted += this.WebClientOnDownloadFileCompleted;
                 this._webClient.DownloadProgressChanged += this.WebClientOnDownloadProgressChanged;
                 this._webClient.DownloadFileAsync(new Uri(MainWindowViewModel.Instance.DownloadURI), MainWindowViewModel.Instance.ZipFileName);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 Environment.Exit(0);
             }
         }
@@ -97,8 +95,8 @@ namespace FFXIVAPP.Updater {
             try {
                 var m = new Process {
                     StartInfo = {
-                        FileName = "FFXIVAPP.Client.exe"
-                    }
+                        FileName = "FFXIVAPP.Client.exe",
+                    },
                 };
                 m.Start();
             }

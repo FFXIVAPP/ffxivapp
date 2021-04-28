@@ -1,1192 +1,1192 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 
 <Colors>
-  <Color Key="000A">
-    <Value>FFFFFF</Value>
-    <Description>Say</Description>
-  </Color>
-  <Color Key="000B">
-    <Value>FFFFFF</Value>
-    <Description>Shout</Description>
-  </Color>
-  <Color Key="000E">
-    <Value>FFFFFF</Value>
-    <Description>Party</Description>
-  </Color>
-  <Color Key="000C">
-    <Value>FFFFFF</Value>
-    <Description>Tell (Out)</Description>
-  </Color>
-  <Color Key="000D">
-    <Value>FFFFFF</Value>
-    <Description>Tell (In)</Description>
-  </Color>
-  <Color Key="0010">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[1]</Description>
-  </Color>
-  <Color Key="0011">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[2]</Description>
-  </Color>
-  <Color Key="0012">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[3]</Description>
-  </Color>
-  <Color Key="0013">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[4]</Description>
-  </Color>
-  <Color Key="0014">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[5]</Description>
-  </Color>
-  <Color Key="0015">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[6]</Description>
-  </Color>
-  <Color Key="0016">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[7]</Description>
-  </Color>
-  <Color Key="0017">
-    <Value>FFFFFF</Value>
-    <Description>Linkshell[8]</Description>
-  </Color>
-  <Color Key="0018">
-    <Value>FFFFFF</Value>
-    <Description>Free Company</Description>
-  </Color>
-  <Color Key="001C">
-    <Value>FFFFFF</Value>
-    <Description>Custom Emotes</Description>
-  </Color>
-  <Color Key="001D">
-    <Value>FFFFFF</Value>
-    <Description>Standard Emotes</Description>
-  </Color>
-  <Color Key="001E">
-    <Value>FFFFFF</Value>
-    <Description>Yell</Description>
-  </Color>
-  <Color Key="0429">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="042A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="042B">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Casted</Description>
-  </Color>
-  <Color Key="042C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="042D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="042E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="042F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04AB">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Begins (Self)</Description>
-  </Color>
-  <Color Key="04AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="04AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0529">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="052A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="052B">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Begins (Party)</Description>
-  </Color>
-  <Color Key="052C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="052D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="052E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="052F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="05AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0629">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="062A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="062B">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Begins (Other)</Description>
-  </Color>
-  <Color Key="062C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="062D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="062E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="062F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06AB">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Begins (Other/E)</Description>
-  </Color>
-  <Color Key="06AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="06AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0729">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="072A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="072B">
-    <Value>FFFFFF</Value>
-    <Description>You -> Did/Begins (Other/UE)</Description>
-  </Color>
-  <Color Key="072C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="072D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="072E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="072F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="07AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0829">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="082A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="082B">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Casted</Description>
-  </Color>
-  <Color Key="082C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="082D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="082E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="082F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08AB">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Begins (You)</Description>
-  </Color>
-  <Color Key="08AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="08AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0929">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="092A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="092B">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Begins (Party)</Description>
-  </Color>
-  <Color Key="092C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="092D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="092E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="092F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="09AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A29">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A2A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A2B">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Begins (Other)</Description>
-  </Color>
-  <Color Key="0A2C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A2D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A2E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0A2F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AA9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AAA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AAB">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Begins (Other/E)</Description>
-  </Color>
-  <Color Key="0AAC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AAD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AAE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0AAF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B29">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B2A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B2B">
-    <Value>FFFFFF</Value>
-    <Description>Party -> Did/Begins (Other/UE)</Description>
-  </Color>
-  <Color Key="0B2C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B2D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B2E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0B2F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BA9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="0BAF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1029">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="102A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="102B">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Casted</Description>
-  </Color>
-  <Color Key="102C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="102D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="102E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="102F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10AB">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Begins (You)</Description>
-  </Color>
-  <Color Key="10AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="10AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1129">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="112A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="112B">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Begins (Party)</Description>
-  </Color>
-  <Color Key="112C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="112D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="112E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="112F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="11AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1229">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="122A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="122B">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Begins (Other)</Description>
-  </Color>
-  <Color Key="122C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="122D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="122E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="122F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12AB">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Begins (Other/E)</Description>
-  </Color>
-  <Color Key="12AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="12AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1329">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="132A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="132B">
-    <Value>FFFFFF</Value>
-    <Description>Other -> Did/Begins (Other/UE)</Description>
-  </Color>
-  <Color Key="132C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="132D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="132E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="132F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="13AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1429">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="142A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="142B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Casted</Description>
-  </Color>
-  <Color Key="142C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="142D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="142E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="142F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14AB">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (You)</Description>
-  </Color>
-  <Color Key="14AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="14AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1529">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="152A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="152B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Party)</Description>
-  </Color>
-  <Color Key="152C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="152D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="152E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="152F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="15AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1629">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="162A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="162B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other)</Description>
-  </Color>
-  <Color Key="162C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="162D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="162E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="162F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16AB">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other/NPC)</Description>
-  </Color>
-  <Color Key="16AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="16AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1729">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="172A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="172B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other/NPC)</Description>
-  </Color>
-  <Color Key="172C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="172D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="172E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="172F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="17AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1829">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="182A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="182B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Casted</Description>
-  </Color>
-  <Color Key="182C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="182D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="182E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="182F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18AB">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (You)</Description>
-  </Color>
-  <Color Key="18AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="18AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1929">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="192A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="192B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Party)</Description>
-  </Color>
-  <Color Key="192C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="192D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="192E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="192F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19A9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="19AF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A29">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A2A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A2B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other)</Description>
-  </Color>
-  <Color Key="1A2C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A2D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A2E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1A2F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AA9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AAA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AAB">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other/NPC)</Description>
-  </Color>
-  <Color Key="1AAC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AAD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AAE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1AAF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B29">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B2A">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B2B">
-    <Value>FFFFFF</Value>
-    <Description>Engaged -> Did/Begins (Other/NPC)</Description>
-  </Color>
-  <Color Key="1B2C">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B2D">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B2E">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1B2F">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BA9">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAA">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAB">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAC">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAD">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAE">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
-  <Color Key="1BAF">
-    <Value>FFFFFF</Value>
-    <Description>Unknown</Description>
-  </Color>
+	<Color Key="000A">
+		<Value>FFFFFF</Value>
+		<Description>Say</Description>
+	</Color>
+	<Color Key="000B">
+		<Value>FFFFFF</Value>
+		<Description>Shout</Description>
+	</Color>
+	<Color Key="000E">
+		<Value>FFFFFF</Value>
+		<Description>Party</Description>
+	</Color>
+	<Color Key="000C">
+		<Value>FFFFFF</Value>
+		<Description>Tell (Out)</Description>
+	</Color>
+	<Color Key="000D">
+		<Value>FFFFFF</Value>
+		<Description>Tell (In)</Description>
+	</Color>
+	<Color Key="0010">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[1]</Description>
+	</Color>
+	<Color Key="0011">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[2]</Description>
+	</Color>
+	<Color Key="0012">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[3]</Description>
+	</Color>
+	<Color Key="0013">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[4]</Description>
+	</Color>
+	<Color Key="0014">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[5]</Description>
+	</Color>
+	<Color Key="0015">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[6]</Description>
+	</Color>
+	<Color Key="0016">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[7]</Description>
+	</Color>
+	<Color Key="0017">
+		<Value>FFFFFF</Value>
+		<Description>Linkshell[8]</Description>
+	</Color>
+	<Color Key="0018">
+		<Value>FFFFFF</Value>
+		<Description>Free Company</Description>
+	</Color>
+	<Color Key="001C">
+		<Value>FFFFFF</Value>
+		<Description>Custom Emotes</Description>
+	</Color>
+	<Color Key="001D">
+		<Value>FFFFFF</Value>
+		<Description>Standard Emotes</Description>
+	</Color>
+	<Color Key="001E">
+		<Value>FFFFFF</Value>
+		<Description>Yell</Description>
+	</Color>
+	<Color Key="0429">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="042A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="042B">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Casted</Description>
+	</Color>
+	<Color Key="042C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="042D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="042E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="042F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04AB">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Begins (Self)</Description>
+	</Color>
+	<Color Key="04AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="04AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0529">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="052A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="052B">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Begins (Party)</Description>
+	</Color>
+	<Color Key="052C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="052D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="052E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="052F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="05AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0629">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="062A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="062B">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Begins (Other)</Description>
+	</Color>
+	<Color Key="062C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="062D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="062E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="062F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06AB">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Begins (Other/E)</Description>
+	</Color>
+	<Color Key="06AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="06AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0729">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="072A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="072B">
+		<Value>FFFFFF</Value>
+		<Description>You -> Did/Begins (Other/UE)</Description>
+	</Color>
+	<Color Key="072C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="072D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="072E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="072F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="07AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0829">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="082A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="082B">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Casted</Description>
+	</Color>
+	<Color Key="082C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="082D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="082E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="082F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08AB">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Begins (You)</Description>
+	</Color>
+	<Color Key="08AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="08AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0929">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="092A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="092B">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Begins (Party)</Description>
+	</Color>
+	<Color Key="092C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="092D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="092E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="092F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="09AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A29">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A2A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A2B">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Begins (Other)</Description>
+	</Color>
+	<Color Key="0A2C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A2D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A2E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0A2F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AA9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AAA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AAB">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Begins (Other/E)</Description>
+	</Color>
+	<Color Key="0AAC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AAD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AAE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0AAF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B29">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B2A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B2B">
+		<Value>FFFFFF</Value>
+		<Description>Party -> Did/Begins (Other/UE)</Description>
+	</Color>
+	<Color Key="0B2C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B2D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B2E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0B2F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BA9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="0BAF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1029">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="102A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="102B">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Casted</Description>
+	</Color>
+	<Color Key="102C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="102D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="102E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="102F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10AB">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Begins (You)</Description>
+	</Color>
+	<Color Key="10AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="10AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1129">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="112A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="112B">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Begins (Party)</Description>
+	</Color>
+	<Color Key="112C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="112D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="112E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="112F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="11AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1229">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="122A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="122B">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Begins (Other)</Description>
+	</Color>
+	<Color Key="122C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="122D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="122E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="122F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12AB">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Begins (Other/E)</Description>
+	</Color>
+	<Color Key="12AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="12AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1329">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="132A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="132B">
+		<Value>FFFFFF</Value>
+		<Description>Other -> Did/Begins (Other/UE)</Description>
+	</Color>
+	<Color Key="132C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="132D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="132E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="132F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="13AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1429">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="142A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="142B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Casted</Description>
+	</Color>
+	<Color Key="142C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="142D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="142E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="142F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14AB">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (You)</Description>
+	</Color>
+	<Color Key="14AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="14AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1529">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="152A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="152B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Party)</Description>
+	</Color>
+	<Color Key="152C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="152D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="152E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="152F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="15AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1629">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="162A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="162B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other)</Description>
+	</Color>
+	<Color Key="162C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="162D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="162E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="162F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16AB">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other/NPC)</Description>
+	</Color>
+	<Color Key="16AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="16AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1729">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="172A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="172B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other/NPC)</Description>
+	</Color>
+	<Color Key="172C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="172D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="172E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="172F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="17AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1829">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="182A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="182B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Casted</Description>
+	</Color>
+	<Color Key="182C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="182D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="182E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="182F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18AB">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (You)</Description>
+	</Color>
+	<Color Key="18AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="18AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1929">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="192A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="192B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Party)</Description>
+	</Color>
+	<Color Key="192C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="192D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="192E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="192F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19A9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="19AF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A29">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A2A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A2B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other)</Description>
+	</Color>
+	<Color Key="1A2C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A2D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A2E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1A2F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AA9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AAA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AAB">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other/NPC)</Description>
+	</Color>
+	<Color Key="1AAC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AAD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AAE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1AAF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B29">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B2A">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B2B">
+		<Value>FFFFFF</Value>
+		<Description>Engaged -> Did/Begins (Other/NPC)</Description>
+	</Color>
+	<Color Key="1B2C">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B2D">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B2E">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1B2F">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BA9">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAA">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAB">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAC">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAD">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAE">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
+	<Color Key="1BAF">
+		<Value>FFFFFF</Value>
+		<Description>Unknown</Description>
+	</Color>
 </Colors>

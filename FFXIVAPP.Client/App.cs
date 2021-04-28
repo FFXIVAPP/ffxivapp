@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="App.cs" company="SyndicatedLife">
-//   Copyright© 2007 - 2020 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
+//   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
@@ -183,24 +183,6 @@ namespace FFXIVAPP.Client {
                         break;
                     case "EnableNLog":
                         Common.Constants.EnableNLog = Constants.EnableNLog = Settings.Default.EnableNLog;
-                        break;
-                    case "EnableNetworkReading":
-                        Common.Constants.EnableNetworkReading = Constants.EnableNetworkReading = Settings.Default.EnableNetworkReading;
-                        if (Settings.Default.EnableNetworkReading) {
-                            if (!Initializer.NetworkWorking && Constants.IsOpen) {
-                                Initializer.StartNetworkWorker();
-                            }
-                        }
-                        else {
-                            Initializer.StopNetworkWorker();
-                        }
-
-                        break;
-                    case "NetworkUseWinPCap":
-                        if (Initializer.NetworkWorking) {
-                            Initializer.RefreshNetworkWorker();
-                        }
-
                         break;
                     case "EnableHelpLabels":
                         Constants.EnableHelpLabels = Settings.Default.EnableHelpLabels;

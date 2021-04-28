@@ -94,6 +94,6 @@ UpgradeLog*.XML
 Thumbs.db
 # Folder config file
 Desktop.ini
-packages/
+# packages/
 distribution/
 published/

@@ -118,31 +118,6 @@
                 <ScrollViewer>
                     <StackPanel>
                         <GroupBox
-                            Header="{Binding Locale[app_DefNetInterfaceLabel], Source={StaticResource AppProperties}}">
-                            <ComboBox x:Name="NetworkInterfaceSelect"
-                                      Margin="5"
-                                      IsReadOnly="False"
-                                      ItemsSource="{Binding AvailableNetworkInterfacesList}"
-                                      SelectedValue="{Binding DefaultNetworkInterface, Source={x:Static Properties:Settings.Default}}" />
-                        </GroupBox>
-                        <GroupBox
-                            Header="{Binding Locale[app_EnableNetReadingLabel], Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch
-                                    IsChecked="{Binding EnableNetworkReading, Source={x:Static Properties:Settings.Default}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox
-                            Header="{Binding Locale[app_NetworkUseWinPCapLabel], Source={StaticResource AppProperties}}">
-                            <StackPanel>
-                                <MetroControls:ToggleSwitch
-                                    IsChecked="{Binding NetworkUseWinPCap, Source={x:Static Properties:Settings.Default}}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <Button Margin="5"
-                                Command="{Binding RefreshNetworkWorkerCommand}"
-                                Content="{Binding Locale[app_BTNResNetWorker], Source={StaticResource AppProperties}}" />
-                        <GroupBox
                             Header="{Binding Locale[app_DefAudioDeviceLabel], Source={StaticResource AppProperties}}">
                             <ComboBox x:Name="AudioDeviceSelect"
                                       Margin="5"
