@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FFXIVAPP.Plugin.Log</name>
+    </assembly>
+    <members>
+        <member name="M:FFXIVAPP.Plugin.Log.Helpers.LocaleHelper.Update(System.Globalization.CultureInfo)">
+            <summary>
+            </summary>
+            <param name="cultureInfo"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Helpers.TabItemHelper.AddTabByName(System.String,System.String,System.String)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Helpers.WidgetTopMostHelper.ToggleTopMost(System.Windows.Window,System.Boolean,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="window"></param>
+            <param name="stayOnTop"></param>
+            <param name="force"></param>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Initializer.ApplyTheming">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Initializer.LoadSettings">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Initializer.LoadTabs">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.Chinese.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.English.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.French.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.German.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.Japanese.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Localization.Russian.Context">
+            <summary>
+            </summary>
+            <returns> </returns>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.ShellView">
+            <summary>
+                Interaction logic for ShellView.xaml
+            </summary>
+            <summary>
+            ShellView
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ShellView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Utilities.Translate.GetAutomaticResult(System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            </summary>
+            <param name="line"></param>
+            <param name="isJP"></param>
+            <param name="resultOnly"></param>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Utilities.Translate.GetManualResult(System.String,System.String,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="line"></param>
+            <param name="outLang"></param>
+            <param name="isJP"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Utilities.Translate.TranslateText(System.String,System.Boolean)">
+            <summary>
+            </summary>
+            <param name="line"></param>
+            <param name="isJP"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Utilities.LogPublisher.CheckMode(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            </summary>
+            <param name="chatMode"> </param>
+            <param name="log"> </param>
+            <returns> </returns>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ViewModels.SettingsViewModel.AddTab">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ViewModels.MainViewModel.DeleteTab">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ViewModels.MainViewModel.ManualTranslate(System.String)">
+            <summary>
+            </summary>
+            <param name="value"> </param>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ViewModels.SampleViewModel.Sample">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.ViewModels.SampleViewModel.SampleT(System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.Views.AboutView">
+            <summary>
+                Interaction logic for AboutView.xaml
+            </summary>
+            <summary>
+            AboutView
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Views.AboutView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.Views.SettingsView">
+            <summary>
+                Interaction logic for SettingsView.xaml
+            </summary>
+            <summary>
+            SettingsView
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Views.SettingsView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.Views.MainView">
+            <summary>
+                Interaction logic for MainView.xaml
+            </summary>
+            <summary>
+            MainView
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Views.MainView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.Views.SampleView">
+            <summary>
+                Interaction logic for SampleView.xaml
+            </summary>
+            <summary>
+            SampleView
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Views.SampleView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:FFXIVAPP.Plugin.Log.Windows.TranslationWidget">
+            <summary>
+                Interaction logic for TranslationWidget.xaml
+            </summary>
+            <summary>
+            TranslationWidget
+            </summary>
+        </member>
+        <member name="M:FFXIVAPP.Plugin.Log.Windows.TranslationWidget.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

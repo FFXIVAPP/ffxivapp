@@ -1,0 +1,21 @@
+﻿{
+  "PluginInfo": {
+    "Name": "FFXIVAPP.Plugin.Log",
+    "Version": "3.0.7788.22062",
+    "Files": [
+      {
+        "Name": "FFXIVAPP.Plugin.Log.dll",
+        "Location": ""
+      },
+      {
+        "Name": "Logo.png",
+        "Location": ""
+      },
+      {
+        "Name": "PluginInfo.xml",
+        "Location": ""
+      }
+    ],
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-log/raw/master/distribution/"
+  }
+}

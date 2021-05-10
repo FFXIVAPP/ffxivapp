@@ -1,0 +1,21 @@
+﻿{
+  "PluginInfo": {
+    "Name": "FFXIVAPP.Plugin.Widgets",
+    "Version": "3.0.7788.22449",
+    "Files": [
+      {
+        "Name": "FFXIVAPP.Plugin.Widgets.dll",
+        "Location": ""
+      },
+      {
+        "Name": "Logo.png",
+        "Location": ""
+      },
+      {
+        "Name": "PluginInfo.xml",
+        "Location": ""
+      }
+    ],
+    "SourceURI": "https://github.com/Icehunter/ffxivapp-plugin-widgets/raw/master/distribution/"
+  }
+}
