@@ -33,9 +33,12 @@ namespace FFXIVAPP.Client.Memory {
 
         private bool _isScanning;
 
-        public HotBarRecastWorker() {
-            this._scanTimer = new Timer(1000);
+        private Reader _reader;
+
+        public HotBarRecastWorker(MemoryHandler memoryHandler) {
+            this._scanTimer = new Timer(100);
             this._scanTimer.Elapsed += this.ScanTimerElapsed;
+            this._reader = memoryHandler.Reader;
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -77,7 +80,7 @@ namespace FFXIVAPP.Client.Memory {
             }
 
             Func<bool> scanner = delegate {
-                ActionResult readResult = Reader.GetActions();
+                ActionResult readResult = this._reader.GetActions();
 
                 AppContextHelper.Instance.RaiseActionContainersUpdated(readResult.ActionContainers);
 

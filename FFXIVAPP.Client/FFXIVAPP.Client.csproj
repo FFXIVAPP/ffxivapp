@@ -5,10 +5,6 @@
   <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.6.1\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.6.1\build\Microsoft.NetCore.Analyzers.props')" />
   <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.6.1\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.6.1\build\Microsoft.CodeQuality.Analyzers.props')" />
   <Import Project="..\..\ffxivapp-props\Common.props" />
-  <Import Project="..\..\ffxivapp-props\FFXIVAPP.Common.props" />
-  <Import Project="..\..\ffxivapp-props\FFXIVAPP.IPluginInterface.props" />
-  <Import Project="..\..\ffxivapp-props\FFXIVAPP.ResourceFiles.props" />
-  <Import Project="..\..\ffxivapp-props\Sharlayan.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -117,11 +113,11 @@
     <Compile Include="Localization\Japanese.cs" />
     <Compile Include="Localization\Korean.cs" />
     <Compile Include="Localization\Russian.cs" />
+    <Compile Include="Memory\CurrentPlayerWorker.cs" />
     <Compile Include="Memory\HotBarRecastWorker.cs" />
     <Compile Include="Memory\InventoryWorker.cs" />
     <Compile Include="Memory\PartyInfoWorker.cs" />
     <Compile Include="Memory\TargetWorker.cs" />
-    <Compile Include="Memory\PlayerInfoWorker.cs" />
     <Compile Include="Models\BuildNumber.cs" />
     <Compile Include="Models\PluginDownloadItem.cs" />
     <Compile Include="Models\PluginFile.cs" />
@@ -315,6 +311,12 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
     <Analyzer Include="..\packages\Text.Analyzers.2.6.1\analyzers\dotnet\cs\Text.Analyzers.dll" />
     <Analyzer Include="..\packages\Text.Analyzers.2.6.1\analyzers\dotnet\cs\Text.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ffxivapp-common\FFXIVAPP.Common\FFXIVAPP.Common.csproj" />
+    <ProjectReference Include="..\..\ffxivapp-iplugininterface\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj" />
+    <ProjectReference Include="..\..\ffxivapp-resourcefiles\FFXIVAPP.ResourceFiles\FFXIVAPP.ResourceFiles.csproj" />
+    <ProjectReference Include="..\..\sharlayan\Sharlayan\Sharlayan.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

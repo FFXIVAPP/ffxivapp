@@ -33,9 +33,12 @@ namespace FFXIVAPP.Client.Memory {
 
         private bool _isScanning;
 
-        public InventoryWorker() {
-            this._scanTimer = new Timer(1000);
+        private Reader _reader;
+
+        public InventoryWorker(MemoryHandler memoryHandler) {
+            this._scanTimer = new Timer(100);
             this._scanTimer.Elapsed += this.ScanTimerElapsed;
+            this._reader = memoryHandler.Reader;
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -77,7 +80,7 @@ namespace FFXIVAPP.Client.Memory {
             }
 
             Func<bool> scanner = delegate {
-                InventoryResult readResult = Reader.GetInventory();
+                InventoryResult readResult = this._reader.GetInventory();
 
                 AppContextHelper.Instance.RaiseInventoryContainersUpdated(readResult.InventoryContainers);
 

@@ -14,7 +14,6 @@ namespace FFXIVAPP.Client.Helpers {
     using System.Collections.Generic;
 
     using FFXIVAPP.Common.Core.Constant;
-    using FFXIVAPP.Common.Core.Network;
 
     using NLog;
 
@@ -29,7 +28,7 @@ namespace FFXIVAPP.Client.Helpers {
 
         public static AppContextHelper Instance => _instance.Value;
 
-        public CurrentPlayer CurrentUserStats { get; set; }
+        public ActorItem CurrentUser { get; set; }
 
         public List<uint> Pets {
             get {
@@ -46,6 +45,8 @@ namespace FFXIVAPP.Client.Helpers {
             }
         }
 
+        public PlayerInfo PlayerInfo { get; set; }
+
         public void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
             PluginHost.Instance.RaiseActionContainersUpdated(actionContainers);
         }
@@ -58,9 +59,9 @@ namespace FFXIVAPP.Client.Helpers {
             PluginHost.Instance.RaiseConstantsUpdated(constantsEntity);
         }
 
-        public void RaiseCurrentPlayerUpdated(CurrentPlayer currentPlayer) {
-            this.CurrentUserStats = currentPlayer;
-            PluginHost.Instance.RaiseCurrentPlayerUpdated(currentPlayer);
+        public void RaiseCurrentUserUpdated(ActorItem currentUser) {
+            this.CurrentUser = currentUser;
+            PluginHost.Instance.RaiseCurrentUserUpdated(currentUser);
         }
 
         public void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
@@ -77,10 +78,6 @@ namespace FFXIVAPP.Client.Helpers {
 
         public void RaiseMonsterItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
             PluginHost.Instance.RaiseMonsterItemsUpdated(actorItems);
-        }
-
-        public void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
-            PluginHost.Instance.RaiseNetworkPacketReceived(networkPacket);
         }
 
         public void RaiseNPCItemsAdded(ConcurrentDictionary<uint, ActorItem> actorItems) {
@@ -117,6 +114,11 @@ namespace FFXIVAPP.Client.Helpers {
 
         public void RaisePCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
             PluginHost.Instance.RaisePCItemsUpdated(actorItems);
+        }
+
+        public void RaisePlayerInfoUpdated(PlayerInfo playerInfo) {
+            this.PlayerInfo = playerInfo;
+            PluginHost.Instance.RaisePlayerInfoUpdated(playerInfo);
         }
 
         public void RaiseTargetInfoUpdated(TargetInfo targetInfo) {

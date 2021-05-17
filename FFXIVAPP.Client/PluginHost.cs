@@ -22,7 +22,6 @@ namespace FFXIVAPP.Client {
     using FFXIVAPP.Client.Models;
     using FFXIVAPP.Client.Reflection;
     using FFXIVAPP.Common.Core.Constant;
-    using FFXIVAPP.Common.Core.Network;
     using FFXIVAPP.Common.Models;
     using FFXIVAPP.Common.Utilities;
     using FFXIVAPP.IPluginInterface;
@@ -46,8 +45,7 @@ namespace FFXIVAPP.Client {
         public event EventHandler<ChatLogItemEvent> ChatLogItemReceived = delegate { };
 
         public event EventHandler<ConstantsEntityEvent> ConstantsUpdated = delegate { };
-
-        public event EventHandler<CurrentPlayerEvent> CurrentPlayerUpdated = delegate { };
+        public event EventHandler<CurrentUserEvent> CurrentUserUpdated = delegate { };
 
         public event EventHandler<InventoryContainersEvent> InventoryContainersUpdated = delegate { };
 
@@ -56,8 +54,6 @@ namespace FFXIVAPP.Client {
         public event EventHandler<ActorItemsRemovedEvent> MonsterItemsRemoved = delegate { };
 
         public event EventHandler<ActorItemsEvent> MonsterItemsUpdated = delegate { };
-
-        public event EventHandler<NetworkPacketEvent> NetworkPacketReceived = delegate { };
 
         public event EventHandler<ActorItemsAddedEvent> NPCItemsAdded = delegate { };
 
@@ -76,6 +72,8 @@ namespace FFXIVAPP.Client {
         public event EventHandler<ActorItemsRemovedEvent> PCItemsRemoved = delegate { };
 
         public event EventHandler<ActorItemsEvent> PCItemsUpdated = delegate { };
+
+        public event EventHandler<PlayerInfoEvent> PlayerInfoUpdated = delegate { };
 
         public event EventHandler<TargetInfoEvent> TargetInfoUpdated = delegate { };
 
@@ -204,9 +202,9 @@ namespace FFXIVAPP.Client {
             handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseCurrentPlayerUpdated(CurrentPlayer currentPlayer) {
-            var raised = new CurrentPlayerEvent(this, currentPlayer);
-            EventHandler<CurrentPlayerEvent> handler = this.CurrentPlayerUpdated;
+        public virtual void RaiseCurrentUserUpdated(ActorItem currentUser) {
+            var raised = new CurrentUserEvent(this, currentUser);
+            EventHandler<CurrentUserEvent> handler = this.CurrentUserUpdated;
             handler?.Invoke(this, raised);
         }
 
@@ -231,12 +229,6 @@ namespace FFXIVAPP.Client {
         public virtual void RaiseMonsterItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
             var raised = new ActorItemsEvent(this, actorItems);
             EventHandler<ActorItemsEvent> handler = this.MonsterItemsUpdated;
-            handler?.Invoke(this, raised);
-        }
-
-        public virtual void RaiseNetworkPacketReceived(NetworkPacket networkPacket) {
-            var raised = new NetworkPacketEvent(this, networkPacket);
-            EventHandler<NetworkPacketEvent> handler = this.NetworkPacketReceived;
             handler?.Invoke(this, raised);
         }
 
@@ -291,6 +283,12 @@ namespace FFXIVAPP.Client {
         public virtual void RaisePCItemsUpdated(ConcurrentDictionary<uint, ActorItem> actorItems) {
             var raised = new ActorItemsEvent(this, actorItems);
             EventHandler<ActorItemsEvent> handler = this.PCItemsUpdated;
+            handler?.Invoke(this, raised);
+        }
+
+        public virtual void RaisePlayerInfoUpdated(PlayerInfo playerInfo) {
+            var raised = new PlayerInfoEvent(this, playerInfo);
+            EventHandler<PlayerInfoEvent> handler = this.PlayerInfoUpdated;
             handler?.Invoke(this, raised);
         }
 

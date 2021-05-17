@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerInfoWorker.cs" company="SyndicatedLife">
+// <copyright file="CurrentPlayerWorker.cs" company="SyndicatedLife">
 //   Copyright© 2007 - 2021 Ryan Wilson &amp;lt;syndicated.life@gmail.com&amp;gt; (https://syndicated.life/)
 //   Licensed under the MIT license. See LICENSE.md in the solution root for full license information.
 // </copyright>
 // <summary>
-//   PlayerInfoWorker.cs Implementation
+//   CurrentPlayerWorker.cs Implementation
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -23,16 +23,19 @@ namespace FFXIVAPP.Client.Memory {
     using Sharlayan;
     using Sharlayan.Models.ReadResults;
 
-    internal class PlayerInfoWorker : INotifyPropertyChanged, IDisposable {
+    internal class CurrentPlayerWorker : INotifyPropertyChanged, IDisposable {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly Timer _scanTimer;
 
         private bool _isScanning;
 
-        public PlayerInfoWorker() {
-            this._scanTimer = new Timer(1000);
+        private Reader _reader;
+
+        public CurrentPlayerWorker(MemoryHandler memoryHandler) {
+            this._scanTimer = new Timer(100);
             this._scanTimer.Elapsed += this.ScanTimerElapsed;
+            this._reader = memoryHandler.Reader;
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -74,9 +77,10 @@ namespace FFXIVAPP.Client.Memory {
             }
 
             Func<bool> scanner = delegate {
-                CurrentPlayerResult readResult = Reader.GetCurrentPlayer();
+                CurrentPlayerResult readResult = this._reader.GetCurrentPlayer();
 
-                AppContextHelper.Instance.RaiseCurrentPlayerUpdated(readResult.CurrentPlayer);
+                AppContextHelper.Instance.RaiseCurrentUserUpdated(readResult.Entity);
+                AppContextHelper.Instance.RaisePlayerInfoUpdated(readResult.PlayerInfo);
 
                 this._isScanning = false;
                 return true;

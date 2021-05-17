@@ -30,9 +30,12 @@ namespace FFXIVAPP.Client.Memory {
 
         private bool _isScanning;
 
-        public TargetWorker() {
+        private Reader _reader;
+
+        public TargetWorker(MemoryHandler memoryHandler) {
             this._scanTimer = new Timer(100);
             this._scanTimer.Elapsed += this.ScanTimerElapsed;
+            this._reader = memoryHandler.Reader;
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -74,7 +77,7 @@ namespace FFXIVAPP.Client.Memory {
             }
 
             Func<bool> scanner = delegate {
-                TargetResult readResult = Reader.GetTargetInfo();
+                TargetResult readResult = this._reader.GetTargetInfo();
 
                 AppContextHelper.Instance.RaiseTargetInfoUpdated(readResult.TargetInfo);
 

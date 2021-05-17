@@ -21,6 +21,7 @@ namespace FFXIVAPP.Client {
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Xml.Linq;
 
@@ -43,6 +44,7 @@ namespace FFXIVAPP.Client {
     using NLog;
 
     using Sharlayan;
+    using Sharlayan.Enums;
     using Sharlayan.Events;
     using Sharlayan.Models;
 
@@ -62,7 +64,7 @@ namespace FFXIVAPP.Client {
 
         private static PartyInfoWorker _partyInfoWorker;
 
-        private static PlayerInfoWorker _playerInfoWorker;
+        private static CurrentPlayerWorker _currentPlayerWorker;
 
         private static TargetWorker _targetWorker;
 
@@ -527,32 +529,47 @@ namespace FFXIVAPP.Client {
                 return;
             }
 
-            MemoryHandler.Instance.ExceptionEvent += MemoryHandler_ExceptionEvent;
-            MemoryHandler.Instance.SignaturesFoundEvent += MemoryHandler_SignaturesFoundEvent;
+            Enum.TryParse(Settings.Default.GameLanguage, out GameLanguage gameLanguage);
+            Enum.TryParse(Settings.Default.GameLanguage, out GameRegion gameRegion);
+            SharlayanConfiguration sharlayanConfiguration = new SharlayanConfiguration
+            {
+                ProcessModel = Constants.ProcessModel,
+                GameLanguage = gameLanguage,
+                GameRegion = gameRegion,
+                PatchVersion = "latest",
+                UseLocalCache = Settings.Default.UseLocalMemoryJSONDataCache
+            };
+            MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.AddHandler(sharlayanConfiguration);
 
-            MemoryHandler.Instance.SetProcess(Constants.ProcessModel, Settings.Default.GameLanguage, "latest", Settings.Default.UseLocalMemoryJSONDataCache);
+            memoryHandler.ExceptionEvent += MemoryHandler_ExceptionEvent;
+            memoryHandler.MemoryLocationsFoundEvent += MemoryHandler_MemoryLocationsFoundEvent;
 
-            _chatLogWorker = new ChatLogWorker();
+            _chatLogWorker = new ChatLogWorker(memoryHandler);
             _chatLogWorker.StartScanning();
-            _actorWorker = new ActorWorker();
+            _actorWorker = new ActorWorker(memoryHandler);
             _actorWorker.StartScanning();
-            _playerInfoWorker = new PlayerInfoWorker();
-            _playerInfoWorker.StartScanning();
-            _targetWorker = new TargetWorker();
+            _currentPlayerWorker = new CurrentPlayerWorker(memoryHandler);
+            _currentPlayerWorker.StartScanning();
+            _targetWorker = new TargetWorker(memoryHandler);
             _targetWorker.StartScanning();
-            _partyInfoWorker = new PartyInfoWorker();
+            _partyInfoWorker = new PartyInfoWorker(memoryHandler);
             _partyInfoWorker.StartScanning();
-            _inventoryWorker = new InventoryWorker();
+            _inventoryWorker = new InventoryWorker(memoryHandler);
             _inventoryWorker.StartScanning();
-            _hotBarRecastWorker = new HotBarRecastWorker();
+            _hotBarRecastWorker = new HotBarRecastWorker(memoryHandler);
             _hotBarRecastWorker.StartScanning();
         }
 
         /// <summary>
         /// </summary>
         public static void StopMemoryWorkers() {
-            MemoryHandler.Instance.ExceptionEvent -= MemoryHandler_ExceptionEvent;
-            MemoryHandler.Instance.SignaturesFoundEvent -= MemoryHandler_SignaturesFoundEvent;
+            MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.GetHandler(Constants.ProcessModel);
+            if (memoryHandler != null) {
+                memoryHandler.ExceptionEvent -= MemoryHandler_ExceptionEvent;
+                memoryHandler.MemoryLocationsFoundEvent -= MemoryHandler_MemoryLocationsFoundEvent;
+            }
+
+            SharlayanMemoryManager.Instance.RemoveHandler(Constants.ProcessModel);
 
             if (_chatLogWorker != null) {
                 _chatLogWorker.StopScanning();
@@ -564,9 +581,9 @@ namespace FFXIVAPP.Client {
                 _actorWorker.Dispose();
             }
 
-            if (_playerInfoWorker != null) {
-                _playerInfoWorker.StopScanning();
-                _playerInfoWorker.Dispose();
+            if (_currentPlayerWorker != null) {
+                _currentPlayerWorker.StopScanning();
+                _currentPlayerWorker.Dispose();
             }
 
             if (_targetWorker != null) {
@@ -619,18 +636,14 @@ namespace FFXIVAPP.Client {
             foreach (Process process in Process.GetProcessesByName("ffxiv_dx11")) {
                 Constants.ProcessModels.Add(
                     new ProcessModel {
-                        Process = process,
-                        IsWin64 = true,
+                        Process = process
                     });
             }
 
             if (Constants.ProcessModels.Any()) {
                 Constants.IsOpen = true;
                 foreach (ProcessModel processModel in Constants.ProcessModels) {
-                    var platform = processModel.IsWin64
-                                       ? "64-Bit"
-                                       : "32-Bit";
-                    SettingsView.View.PIDSelect.Items.Add($"[{processModel.Process.Id}] - {platform}");
+                    SettingsView.View.PIDSelect.Items.Add($"[{processModel.Process.Id}] - 64-Bit");
                 }
 
                 SettingsView.View.PIDSelect.SelectedIndex = 0;
@@ -644,11 +657,22 @@ namespace FFXIVAPP.Client {
 
         private static void MemoryHandler_ExceptionEvent(object sender, ExceptionEvent e) {
             Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
+            if (e.Exception.GetType() == typeof(OverflowException)) {
+                if (e.Exception.StackTrace.Contains("ChatLogReader")) {
+                    _chatLogWorker.StopScanning();
+                    Task.Run(
+                        async () => {
+                            await Task.Delay(1000);
+                            _chatLogWorker.Reset();
+                            _chatLogWorker.StartScanning();
+                        });
+                }
+            }
         }
 
-        private static void MemoryHandler_SignaturesFoundEvent(object sender, SignaturesFoundEvent e) {
-            foreach (KeyValuePair<string, Signature> kvp in e.Signatures) {
-                Logging.Log(e.Logger, new LogItem($"Signature [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
+        private static void MemoryHandler_MemoryLocationsFoundEvent(object sender, MemoryLocationsFoundEvent e) {
+            foreach (KeyValuePair<string, MemoryLocation> kvp in e.MemoryLocations) {
+                Logging.Log(e.Logger, new LogItem($"MemoryLocation [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
             }
         }
 
