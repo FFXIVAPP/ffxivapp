@@ -184,7 +184,7 @@ namespace FFXIVAPP.Client {
                 }, cancelAction);
         }
 
-        public virtual void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
+        public virtual void RaiseActionContainersUpdated(ConcurrentBag<ActionContainer> actionContainers) {
             var raised = new ActionContainersEvent(this, actionContainers);
             EventHandler<ActionContainersEvent> handler = this.ActionContainersUpdated;
             handler?.Invoke(this, raised);
@@ -208,7 +208,7 @@ namespace FFXIVAPP.Client {
             handler?.Invoke(this, raised);
         }
 
-        public virtual void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
+        public virtual void RaiseInventoryContainersUpdated(ConcurrentBag<InventoryContainer> inventoryContainers) {
             var raised = new InventoryContainersEvent(this, inventoryContainers);
             EventHandler<InventoryContainersEvent> handler = this.InventoryContainersUpdated;
             handler?.Invoke(this, raised);

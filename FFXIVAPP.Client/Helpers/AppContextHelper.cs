@@ -47,7 +47,7 @@ namespace FFXIVAPP.Client.Helpers {
 
         public PlayerInfo PlayerInfo { get; set; }
 
-        public void RaiseActionContainersUpdated(List<ActionContainer> actionContainers) {
+        public void RaiseActionContainersUpdated(ConcurrentBag<ActionContainer> actionContainers) {
             PluginHost.Instance.RaiseActionContainersUpdated(actionContainers);
         }
 
@@ -64,7 +64,7 @@ namespace FFXIVAPP.Client.Helpers {
             PluginHost.Instance.RaiseCurrentUserUpdated(currentUser);
         }
 
-        public void RaiseInventoryContainersUpdated(List<InventoryContainer> inventoryContainers) {
+        public void RaiseInventoryContainersUpdated(ConcurrentBag<InventoryContainer> inventoryContainers) {
             PluginHost.Instance.RaiseInventoryContainersUpdated(inventoryContainers);
         }
 

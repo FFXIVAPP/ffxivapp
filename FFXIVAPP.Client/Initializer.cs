@@ -563,13 +563,13 @@ namespace FFXIVAPP.Client {
         /// <summary>
         /// </summary>
         public static void StopMemoryWorkers() {
-            MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.GetHandler(Constants.ProcessModel);
+            MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.GetHandler(Constants.ProcessModel.ProcessID);
             if (memoryHandler != null) {
                 memoryHandler.ExceptionEvent -= MemoryHandler_ExceptionEvent;
                 memoryHandler.MemoryLocationsFoundEvent -= MemoryHandler_MemoryLocationsFoundEvent;
             }
 
-            SharlayanMemoryManager.Instance.RemoveHandler(Constants.ProcessModel);
+            SharlayanMemoryManager.Instance.RemoveHandler(Constants.ProcessModel.ProcessID);
 
             if (_chatLogWorker != null) {
                 _chatLogWorker.StopScanning();
@@ -626,12 +626,6 @@ namespace FFXIVAPP.Client {
             }
 
             Constants.ProcessModels = new List<ProcessModel>();
-            foreach (Process process in Process.GetProcessesByName("ffxiv")) {
-                Constants.ProcessModels.Add(
-                    new ProcessModel {
-                        Process = process,
-                    });
-            }
 
             foreach (Process process in Process.GetProcessesByName("ffxiv_dx11")) {
                 Constants.ProcessModels.Add(
