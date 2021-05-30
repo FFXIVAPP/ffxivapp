@@ -10,6 +10,7 @@
 
 namespace FFXIVAPP.Client {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
@@ -45,11 +46,9 @@ namespace FFXIVAPP.Client {
 
     using Sharlayan;
     using Sharlayan.Enums;
-    using Sharlayan.Events;
     using Sharlayan.Models;
 
     using Application = System.Windows.Forms.Application;
-    using ExceptionEvent = Sharlayan.Events.ExceptionEvent;
 
     internal static class Initializer {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
@@ -541,8 +540,9 @@ namespace FFXIVAPP.Client {
             };
             MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.AddHandler(sharlayanConfiguration);
 
-            memoryHandler.ExceptionEvent += MemoryHandler_ExceptionEvent;
-            memoryHandler.MemoryLocationsFoundEvent += MemoryHandler_MemoryLocationsFoundEvent;
+            memoryHandler.OnException += MemoryHandler_OnExceptionEvent;
+            memoryHandler.OnMemoryHandlerDisposed += MemoryHandler_OnMemoryHandlerDisposedEvent;
+            memoryHandler.OnMemoryLocationsFound += MemoryHandler_OnMemoryLocationsFoundEvent;
 
             _chatLogWorker = new ChatLogWorker(memoryHandler);
             _chatLogWorker.StartScanning();
@@ -565,8 +565,9 @@ namespace FFXIVAPP.Client {
         public static void StopMemoryWorkers() {
             MemoryHandler memoryHandler = SharlayanMemoryManager.Instance.GetHandler(Constants.ProcessModel.ProcessID);
             if (memoryHandler != null) {
-                memoryHandler.ExceptionEvent -= MemoryHandler_ExceptionEvent;
-                memoryHandler.MemoryLocationsFoundEvent -= MemoryHandler_MemoryLocationsFoundEvent;
+                memoryHandler.OnException -= MemoryHandler_OnExceptionEvent;
+                memoryHandler.OnMemoryHandlerDisposed -= MemoryHandler_OnMemoryHandlerDisposedEvent;
+                memoryHandler.OnMemoryLocationsFound -= MemoryHandler_OnMemoryLocationsFoundEvent;
             }
 
             SharlayanMemoryManager.Instance.RemoveHandler(Constants.ProcessModel.ProcessID);
@@ -649,10 +650,10 @@ namespace FFXIVAPP.Client {
             return -1;
         }
 
-        private static void MemoryHandler_ExceptionEvent(object sender, ExceptionEvent e) {
-            Logging.Log(e.Logger, new LogItem(e.Exception, e.LevelIsError));
-            if (e.Exception.GetType() == typeof(OverflowException)) {
-                if (e.Exception.StackTrace.Contains("ChatLogReader")) {
+        private static void MemoryHandler_OnExceptionEvent(object sender, Logger logger, Exception ex) {
+            Logging.Log(Logger, new LogItem(ex, true));
+            if (ex.GetType() == typeof(OverflowException)) {
+                if (ex.StackTrace.Contains("ChatLogReader")) {
                     _chatLogWorker.StopScanning();
                     Task.Run(
                         async () => {
@@ -664,10 +665,19 @@ namespace FFXIVAPP.Client {
             }
         }
 
-        private static void MemoryHandler_MemoryLocationsFoundEvent(object sender, MemoryLocationsFoundEvent e) {
-            foreach (KeyValuePair<string, MemoryLocation> kvp in e.MemoryLocations) {
-                Logging.Log(e.Logger, new LogItem($"MemoryLocation [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
+        private static void MemoryHandler_OnMemoryLocationsFoundEvent(object sender, ConcurrentDictionary<string, MemoryLocation> memoryLocations, long processingTime) {
+            foreach (KeyValuePair<string, MemoryLocation> kvp in memoryLocations) {
+                Logging.Log(Logger, new LogItem($"MemoryLocation [{kvp.Key}] Found At Address: [{((IntPtr) kvp.Value).ToString("X")}]"));
             }
+        }
+
+        private static void MemoryHandler_OnMemoryHandlerDisposedEvent(object sender) {
+            MemoryHandler memoryHandler = sender as MemoryHandler;
+            memoryHandler.OnException -= MemoryHandler_OnExceptionEvent;
+            memoryHandler.OnMemoryHandlerDisposed -= MemoryHandler_OnMemoryHandlerDisposedEvent;
+            memoryHandler.OnMemoryLocationsFound -= MemoryHandler_OnMemoryLocationsFoundEvent;
+
+            StopMemoryWorkers();
         }
 
         /// <summary>

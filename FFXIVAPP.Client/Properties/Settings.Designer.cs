@@ -12,7 +12,7 @@ namespace FFXIVAPP.Client.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -109,26 +109,27 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Red|Light</string>\r\n  <string>Green|Light</string>\r\n  <string>Blue|Light</" +
-            "string>\r\n  <string>Purple|Light</string>\r\n  <string>Orange|Light</string>\r\n  <st" +
-            "ring>Brown|Light</string>\r\n  <string>Cobalt|Light</string>\r\n  <string>Crimson|Li" +
-            "ght</string>\r\n  <string>Cyan|Light</string>\r\n  <string>Emerald|Light</string>\r\n " +
-            " <string>Indigo|Light</string>\r\n  <string>Magenta|Light</string>\r\n  <string>Mauv" +
-            "e|Light</string>\r\n  <string>Olive|Light</string>\r\n  <string>Sienna|Light</string" +
-            ">\r\n  <string>Steel|Light</string>\r\n  <string>Teal|Light</string>\r\n  <string>Viol" +
-            "et|Light</string>\r\n  <string>Amber|Light</string>\r\n  <string>Yellow|Light</strin" +
-            "g>\r\n  <string>Lime|Light</string>\r\n  <string>Pink|Light</string>\r\n  <string>Red|" +
-            "Dark</string>\r\n  <string>Green|Dark</string>\r\n  <string>Blue|Dark</string>\r\n  <s" +
-            "tring>Purple|Dark</string>\r\n  <string>Orange|Dark</string>\r\n  <string>Brown|Dark" +
-            "</string>\r\n  <string>Cobalt|Dark</string>\r\n  <string>Crimson|Dark</string>\r\n  <s" +
-            "tring>Cyan|Dark</string>\r\n  <string>Emerald|Dark</string>\r\n  <string>Indigo|Dark" +
-            "</string>\r\n  <string>Magenta|Dark</string>\r\n  <string>Mauve|Dark</string>\r\n  <st" +
-            "ring>Olive|Dark</string>\r\n  <string>Sienna|Dark</string>\r\n  <string>Steel|Dark</" +
-            "string>\r\n  <string>Teal|Dark</string>\r\n  <string>Violet|Dark</string>\r\n  <string" +
-            ">Amber|Dark</string>\r\n  <string>Yellow|Dark</string>\r\n  <string>Lime|Dark</strin" +
-            "g>\r\n  <string>Pink|Dark</string>\r\n</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n\t\t\t\t<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n\t\t\t\t<ArrayOfString xmlns:xsi=\"http" +
+            "://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSche" +
+            "ma\">\r\n\t\t\t\t<string>Red|Light</string>\r\n\t\t\t\t<string>Green|Light</string>\r\n\t\t\t\t<str" +
+            "ing>Blue|Light</string>\r\n\t\t\t\t<string>Purple|Light</string>\r\n\t\t\t\t<string>Orange|L" +
+            "ight</string>\r\n\t\t\t\t<string>Brown|Light</string>\r\n\t\t\t\t<string>Cobalt|Light</strin" +
+            "g>\r\n\t\t\t\t<string>Crimson|Light</string>\r\n\t\t\t\t<string>Cyan|Light</string>\r\n\t\t\t\t<st" +
+            "ring>Emerald|Light</string>\r\n\t\t\t\t<string>Indigo|Light</string>\r\n\t\t\t\t<string>Mage" +
+            "nta|Light</string>\r\n\t\t\t\t<string>Mauve|Light</string>\r\n\t\t\t\t<string>Olive|Light</s" +
+            "tring>\r\n\t\t\t\t<string>Sienna|Light</string>\r\n\t\t\t\t<string>Steel|Light</string>\r\n\t\t\t" +
+            "\t<string>Teal|Light</string>\r\n\t\t\t\t<string>Violet|Light</string>\r\n\t\t\t\t<string>Amb" +
+            "er|Light</string>\r\n\t\t\t\t<string>Yellow|Light</string>\r\n\t\t\t\t<string>Lime|Light</st" +
+            "ring>\r\n\t\t\t\t<string>Pink|Light</string>\r\n\t\t\t\t<string>Red|Dark</string>\r\n\t\t\t\t<stri" +
+            "ng>Green|Dark</string>\r\n\t\t\t\t<string>Blue|Dark</string>\r\n\t\t\t\t<string>Purple|Dark<" +
+            "/string>\r\n\t\t\t\t<string>Orange|Dark</string>\r\n\t\t\t\t<string>Brown|Dark</string>\r\n\t\t\t" +
+            "\t<string>Cobalt|Dark</string>\r\n\t\t\t\t<string>Crimson|Dark</string>\r\n\t\t\t\t<string>Cy" +
+            "an|Dark</string>\r\n\t\t\t\t<string>Emerald|Dark</string>\r\n\t\t\t\t<string>Indigo|Dark</st" +
+            "ring>\r\n\t\t\t\t<string>Magenta|Dark</string>\r\n\t\t\t\t<string>Mauve|Dark</string>\r\n\t\t\t\t<" +
+            "string>Olive|Dark</string>\r\n\t\t\t\t<string>Sienna|Dark</string>\r\n\t\t\t\t<string>Steel|" +
+            "Dark</string>\r\n\t\t\t\t<string>Teal|Dark</string>\r\n\t\t\t\t<string>Violet|Dark</string>\r" +
+            "\n\t\t\t\t<string>Amber|Dark</string>\r\n\t\t\t\t<string>Yellow|Dark</string>\r\n\t\t\t\t<string>" +
+            "Lime|Dark</string>\r\n\t\t\t\t<string>Pink|Dark</string>\r\n\t\t\t\t</ArrayOfString>\r\n\t\t\t")]
         public global::System.Collections.Specialized.StringCollection ThemeList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ThemeList"]));
@@ -149,31 +150,32 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Adamantoise</string>\r\n  <string>Aegis</string>\r\n  <string>Alexander</strin" +
-            "g>\r\n  <string>Anima</string>\r\n  <string>Asura</string>\r\n  <string>Atomos</string" +
-            ">\r\n  <string>Bahamut</string>\r\n  <string>Balmung</string>\r\n  <string>Behemoth</s" +
-            "tring>\r\n  <string>Belias</string>\r\n  <string>Brynhildr</string>\r\n  <string>Cactu" +
-            "ar</string>\r\n  <string>Carbuncle</string>\r\n  <string>Cerberus</string>\r\n  <strin" +
-            "g>Chocobo</string>\r\n  <string>Coeurl</string>\r\n  <string>Diabolos</string>\r\n  <s" +
-            "tring>Durandal</string>\r\n  <string>Excalibur</string>\r\n  <string>Exodus</string>" +
-            "\r\n  <string>Faerie</string>\r\n  <string>Famfrit</string>\r\n  <string>Fenrir</strin" +
-            "g>\r\n  <string>Garuda</string>\r\n  <string>Gilgamesh</string>\r\n  <string>Goblin</s" +
-            "tring>\r\n  <string>Gungnir</string>\r\n  <string>Hades</string>\r\n  <string>Hyperion" +
-            "</string>\r\n  <string>Ifrit</string>\r\n  <string>Ixion</string>\r\n  <string>Jenova<" +
-            "/string>\r\n  <string>Kujata</string>\r\n  <string>Lamia</string>\r\n  <string>Leviath" +
-            "an</string>\r\n  <string>Lich</string>\r\n  <string>Malboro</string>\r\n  <string>Mand" +
-            "ragora</string>\r\n  <string>Masamune</string>\r\n  <string>Mateus</string>\r\n  <stri" +
-            "ng>Midgardsormr</string>\r\n  <string>Moogle</string>\r\n  <string>Odin</string>\r\n  " +
-            "<string>Pandaemonium</string>\r\n  <string>Phoenix</string>\r\n  <string>Ragnarok</s" +
-            "tring>\r\n  <string>Ramuh</string>\r\n  <string>Ridill</string>\r\n  <string>Sargatana" +
-            "s</string>\r\n  <string>Shinryu</string>\r\n  <string>Shiva</string>\r\n  <string>Sire" +
-            "n</string>\r\n  <string>Tiamat</string>\r\n  <string>Titan</string>\r\n  <string>Tonbe" +
-            "rry</string>\r\n  <string>Typhon</string>\r\n  <string>Ultima</string>\r\n  <string>Ul" +
-            "tros</string>\r\n  <string>Unicorn</string>\r\n  <string>Valefor</string>\r\n  <string" +
-            ">Yojimbo</string>\r\n  <string>Zalera</string>\r\n  <string>Zeromus</string>\r\n</Arra" +
-            "yOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n\t\t\t\t<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n\t\t\t\t<ArrayOfString xmlns:xsi=\"http" +
+            "://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSche" +
+            "ma\">\r\n\t\t\t\t<string>Adamantoise</string>\r\n\t\t\t\t<string>Aegis</string>\r\n\t\t\t\t<string>" +
+            "Alexander</string>\r\n\t\t\t\t<string>Anima</string>\r\n\t\t\t\t<string>Asura</string>\r\n\t\t\t\t" +
+            "<string>Atomos</string>\r\n\t\t\t\t<string>Bahamut</string>\r\n\t\t\t\t<string>Balmung</stri" +
+            "ng>\r\n\t\t\t\t<string>Behemoth</string>\r\n\t\t\t\t<string>Belias</string>\r\n\t\t\t\t<string>Bry" +
+            "nhildr</string>\r\n\t\t\t\t<string>Cactuar</string>\r\n\t\t\t\t<string>Carbuncle</string>\r\n\t" +
+            "\t\t\t<string>Cerberus</string>\r\n\t\t\t\t<string>Chocobo</string>\r\n\t\t\t\t<string>Coeurl</" +
+            "string>\r\n\t\t\t\t<string>Diabolos</string>\r\n\t\t\t\t<string>Durandal</string>\r\n\t\t\t\t<stri" +
+            "ng>Excalibur</string>\r\n\t\t\t\t<string>Exodus</string>\r\n\t\t\t\t<string>Faerie</string>\r" +
+            "\n\t\t\t\t<string>Famfrit</string>\r\n\t\t\t\t<string>Fenrir</string>\r\n\t\t\t\t<string>Garuda</" +
+            "string>\r\n\t\t\t\t<string>Gilgamesh</string>\r\n\t\t\t\t<string>Goblin</string>\r\n\t\t\t\t<strin" +
+            "g>Gungnir</string>\r\n\t\t\t\t<string>Hades</string>\r\n\t\t\t\t<string>Hyperion</string>\r\n\t" +
+            "\t\t\t<string>Ifrit</string>\r\n\t\t\t\t<string>Ixion</string>\r\n\t\t\t\t<string>Jenova</strin" +
+            "g>\r\n\t\t\t\t<string>Kujata</string>\r\n\t\t\t\t<string>Lamia</string>\r\n\t\t\t\t<string>Leviath" +
+            "an</string>\r\n\t\t\t\t<string>Lich</string>\r\n\t\t\t\t<string>Malboro</string>\r\n\t\t\t\t<strin" +
+            "g>Mandragora</string>\r\n\t\t\t\t<string>Masamune</string>\r\n\t\t\t\t<string>Mateus</string" +
+            ">\r\n\t\t\t\t<string>Midgardsormr</string>\r\n\t\t\t\t<string>Moogle</string>\r\n\t\t\t\t<string>O" +
+            "din</string>\r\n\t\t\t\t<string>Pandaemonium</string>\r\n\t\t\t\t<string>Phoenix</string>\r\n\t" +
+            "\t\t\t<string>Ragnarok</string>\r\n\t\t\t\t<string>Ramuh</string>\r\n\t\t\t\t<string>Ridill</st" +
+            "ring>\r\n\t\t\t\t<string>Sargatanas</string>\r\n\t\t\t\t<string>Shinryu</string>\r\n\t\t\t\t<strin" +
+            "g>Shiva</string>\r\n\t\t\t\t<string>Siren</string>\r\n\t\t\t\t<string>Tiamat</string>\r\n\t\t\t\t<" +
+            "string>Titan</string>\r\n\t\t\t\t<string>Tonberry</string>\r\n\t\t\t\t<string>Typhon</string" +
+            ">\r\n\t\t\t\t<string>Ultima</string>\r\n\t\t\t\t<string>Ultros</string>\r\n\t\t\t\t<string>Unicorn" +
+            "</string>\r\n\t\t\t\t<string>Valefor</string>\r\n\t\t\t\t<string>Yojimbo</string>\r\n\t\t\t\t<stri" +
+            "ng>Zalera</string>\r\n\t\t\t\t<string>Zeromus</string>\r\n\t\t\t\t</ArrayOfString>\r\n\t\t\t")]
         public global::System.Collections.Specialized.StringCollection ServerList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ServerList"]));
@@ -182,15 +184,17 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>English</string>
-  <string>Japanese</string>
-  <string>French</string>
-  <string>German</string>
-  <string>Chinese</string>
-  <string>Korean</string>
-</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"
+				<?xml version=""1.0"" encoding=""utf-16""?>
+				<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+				<string>English</string>
+				<string>Japanese</string>
+				<string>French</string>
+				<string>German</string>
+				<string>Chinese</string>
+				<string>Korean</string>
+				</ArrayOfString>
+			")]
         public global::System.Collections.Specialized.StringCollection GameLanguageList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["GameLanguageList"]));
@@ -388,9 +392,9 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>None</string>\r\n</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n\t\t\t\t<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n\t\t\t\t<ArrayOfString xmlns:xsi=\"http" +
+            "://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSche" +
+            "ma\">\r\n\t\t\t\t<string>None</string>\r\n\t\t\t\t</ArrayOfString>\r\n\t\t\t")]
         public global::System.Collections.Specialized.StringCollection HomePluginList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["HomePluginList"]));
@@ -411,17 +415,19 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"
+				<?xml version=""1.0"" encoding=""utf-16""?>
+				<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+				<string>0.8</string>
+				<string>0.9</string>
+				<string>1.0</string>
+				<string>1.1</string>
+				<string>1.2</string>
+				<string>1.3</string>
+				<string>1.4</string>
+				<string>1.5</string>
+				</ArrayOfString>
+			")]
         public global::System.Collections.Specialized.StringCollection UIScaleList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["UIScaleList"]));
@@ -442,9 +448,9 @@ namespace FFXIVAPP.Client.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>System Default</string>\r\n</ArrayOfString>")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n\t\t\t\t<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n\t\t\t\t<ArrayOfString xmlns:xsi=\"http" +
+            "://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSche" +
+            "ma\">\r\n\t\t\t\t<string>System Default</string>\r\n\t\t\t\t</ArrayOfString>\r\n\t\t\t")]
         public global::System.Collections.Specialized.StringCollection DefaultAudioDeviceList {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["DefaultAudioDeviceList"]));
