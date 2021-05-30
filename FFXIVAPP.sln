@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.ResourceFiles", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.IPluginInterface", "..\ffxivapp-iplugininterface\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj", "{391BC459-5E0D-4CC5-8CC6-E01F899E732F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharlayan", "..\..\..\..\..\..\source\repos\FFXIVAPP\sharlayan\Sharlayan\Sharlayan.csproj", "{B81C72BD-0D8C-49F4-862E-B3267195C691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharlayan", "..\sharlayan\Sharlayan\Sharlayan.csproj", "{1A5E7AF0-337C-4988-8A75-31877E17880C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,13 +60,14 @@ Global
 		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|Any CPU.Build.0 = Release|x86
 		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|x86.ActiveCfg = Release|x86
 		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|x86.Build.0 = Release|x86
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Debug|x86.Build.0 = Debug|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Release|x86.ActiveCfg = Release|Any CPU
-		{B81C72BD-0D8C-49F4-862E-B3267195C691}.Release|x86.Build.0 = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

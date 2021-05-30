@@ -1,0 +1,111 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharlayan", "..\sharlayan\Sharlayan\Sharlayan.csproj", "{1A5E7AF0-337C-4988-8A75-31877E17880C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.ResourceFiles", "..\ffxivapp-resourcefiles\FFXIVAPP.ResourceFiles\FFXIVAPP.ResourceFiles.csproj", "{4F8437FC-EE41-4A15-80FC-93BF579A2E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Common", "..\ffxivapp-common\FFXIVAPP.Common\FFXIVAPP.Common.csproj", "{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.IPluginInterface", "..\ffxivapp-iplugininterface\FFXIVAPP.IPluginInterface\FFXIVAPP.IPluginInterface.csproj", "{391BC459-5E0D-4CC5-8CC6-E01F899E732F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Client", "..\ffxivapp\FFXIVAPP.Client\FFXIVAPP.Client.csproj", "{6ECE4D37-06F2-4457-BA57-268430293246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Updater", "..\ffxivapp\FFXIVAPP.Updater\FFXIVAPP.Updater.csproj", "{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Event", "..\ffxivapp-plugin-event\FFXIVAPP.Plugin.Event\FFXIVAPP.Plugin.Event.csproj", "{BDF0777F-306F-464C-A30B-3FAE6CDDF527}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Log", "..\ffxivapp-plugin-log\FFXIVAPP.Plugin.Log\FFXIVAPP.Plugin.Log.csproj", "{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Parse", "..\ffxivapp-plugin-parse\FFXIVAPP.Plugin.Parse\FFXIVAPP.Plugin.Parse.csproj", "{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Radar", "..\ffxivapp-plugin-radar\FFXIVAPP.Plugin.Radar\FFXIVAPP.Plugin.Radar.csproj", "{28499E59-B9C5-44FE-AEE6-447720262A7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAPP.Plugin.Widgets", "..\ffxivapp-plugin-widgets\FFXIVAPP.Plugin.Widgets\FFXIVAPP.Plugin.Widgets.csproj", "{933500D4-756F-4886-9976-9C1F4143708C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A5E7AF0-337C-4988-8A75-31877E17880C}.Release|x86.Build.0 = Release|Any CPU
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Debug|x86.ActiveCfg = Debug|x86
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Debug|x86.Build.0 = Debug|x86
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Release|Any CPU.ActiveCfg = Release|x86
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Release|x86.ActiveCfg = Release|x86
+		{4F8437FC-EE41-4A15-80FC-93BF579A2E28}.Release|x86.Build.0 = Release|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Debug|x86.ActiveCfg = Debug|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Debug|x86.Build.0 = Debug|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Release|Any CPU.ActiveCfg = Release|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Release|x86.ActiveCfg = Release|x86
+		{06DF4BAD-D35B-4D0F-9AF6-2BC28EA3C1CD}.Release|x86.Build.0 = Release|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Debug|x86.ActiveCfg = Debug|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Debug|x86.Build.0 = Debug|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|Any CPU.ActiveCfg = Release|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|x86.ActiveCfg = Release|x86
+		{391BC459-5E0D-4CC5-8CC6-E01F899E732F}.Release|x86.Build.0 = Release|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Debug|x86.ActiveCfg = Debug|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Debug|x86.Build.0 = Debug|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Release|Any CPU.ActiveCfg = Release|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Release|x86.ActiveCfg = Release|x86
+		{6ECE4D37-06F2-4457-BA57-268430293246}.Release|x86.Build.0 = Release|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Debug|x86.ActiveCfg = Debug|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Debug|x86.Build.0 = Debug|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Release|Any CPU.ActiveCfg = Release|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Release|x86.ActiveCfg = Release|x86
+		{66B2024A-9734-4D8E-9EA4-75A20C33A9E1}.Release|x86.Build.0 = Release|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Debug|x86.ActiveCfg = Debug|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Debug|x86.Build.0 = Debug|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Release|Any CPU.ActiveCfg = Release|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Release|x86.ActiveCfg = Release|x86
+		{BDF0777F-306F-464C-A30B-3FAE6CDDF527}.Release|x86.Build.0 = Release|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Debug|x86.ActiveCfg = Debug|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Debug|x86.Build.0 = Debug|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Release|Any CPU.ActiveCfg = Release|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Release|x86.ActiveCfg = Release|x86
+		{5A2FB785-6808-4DA7-92AC-ADDBCC3950BB}.Release|x86.Build.0 = Release|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Debug|x86.ActiveCfg = Debug|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Debug|x86.Build.0 = Debug|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Release|Any CPU.ActiveCfg = Release|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Release|x86.ActiveCfg = Release|x86
+		{A917E7D4-7E17-4FA4-8B96-FDEBE8C9721F}.Release|x86.Build.0 = Release|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Debug|x86.ActiveCfg = Debug|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Debug|x86.Build.0 = Debug|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Release|Any CPU.ActiveCfg = Release|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Release|x86.ActiveCfg = Release|x86
+		{28499E59-B9C5-44FE-AEE6-447720262A7C}.Release|x86.Build.0 = Release|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Debug|x86.ActiveCfg = Debug|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Debug|x86.Build.0 = Debug|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Release|Any CPU.ActiveCfg = Release|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Release|x86.ActiveCfg = Release|x86
+		{933500D4-756F-4886-9976-9C1F4143708C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9715AE20-65D5-412A-A0CA-0012D53798AF}
+	EndGlobalSection
+EndGlobal
